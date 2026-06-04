@@ -1,0 +1,719 @@
+openapi: 3.1.0
+info:
+  title: ESPN Web v3 API (unofficial)
+  version: 1.0.0-rev2026.06
+  description: 'site.web.api.espn.com is the richest source of athlete data: overview, season stats, game
+    logs, splits, and the cross-athlete statistical leaderboard. Stats endpoints use parallel-array shapes
+    (labels[]/names[]/totals[], categories[]) with a glossary[] of {abbreviation, displayName, description}.
+    Schemas are derived from documented representative responses.
+
+    '
+  summary: Reverse-engineered OpenAPI spec for ESPN's Web common v3 host.
+  x-espn-schema-source: documentation
+servers:
+- url: https://site.web.api.espn.com
+  description: ESPN Web common v3 (richest athlete data)
+tags:
+- name: web-v3
+  description: site.web.api.espn.com /apis/common/v3 athlete endpoints + search
+paths:
+  /apis/common/v3/sports/{sport}/{league}/athletes/{athleteId}/overview:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_athletes_athleteId_overview
+      summary: Athlete overview (stats snapshot + next game + news + rotowire)
+      parameters:
+      - &id001
+        name: sport
+        in: path
+        required: true
+        description: ESPN sport slug (e.g. basketball, football, baseball, hockey).
+        schema:
+          type: string
+          enum:
+          - australian-football
+          - baseball
+          - basketball
+          - cricket
+          - field-hockey
+          - football
+          - golf
+          - hockey
+          - lacrosse
+          - mma
+          - racing
+          - rugby
+          - rugby-league
+          - soccer
+          - tennis
+          - volleyball
+          - water-polo
+      - &id002
+        name: league
+        in: path
+        required: true
+        description: ESPN league slug. Valid leagues depend on the sport; see x-espn-slugs for the sport->league
+          mapping.
+        schema:
+          type: string
+          enum:
+          - '164205'
+          - '180659'
+          - '242041'
+          - '244293'
+          - '267979'
+          - '268565'
+          - '270557'
+          - '270559'
+          - '271937'
+          - '289234'
+          - '289262'
+          - '3'
+          - afl
+          - atp
+          - bellator
+          - cage-warriors
+          - campeones.cup
+          - caribbean-series
+          - cfl
+          - champions-tour
+          - college-baseball
+          - college-football
+          - college-softball
+          - concacaf.leagues.cup
+          - dominican-winter-league
+          - eng.1
+          - eng.fa
+          - eng.league_cup
+          - esp.1
+          - esp.copa_del_rey
+          - esp.super_cup
+          - eur
+          - f1
+          - fiba
+          - fifa.shebelieves
+          - fifa.w.champions_cup
+          - fifa.world
+          - fifa.wwc
+          - fra.1
+          - ger.1
+          - ger.dfb_pokal
+          - hockey-world-cup
+          - ifc
+          - irl
+          - ita.1
+          - ita.coppa_italia
+          - ksw
+          - lfa
+          - liv
+          - llb
+          - lls
+          - lpga
+          - mens-college-basketball
+          - mens-college-hockey
+          - mens-college-lacrosse
+          - mens-college-volleyball
+          - mens-college-water-polo
+          - mens-olympics-basketball
+          - mens-olympics-golf
+          - mex.1
+          - mexican-winter-league
+          - mlb
+          - nascar-premier
+          - nascar-secondary
+          - nascar-truck
+          - nba
+          - nba-development
+          - nba-summer-california
+          - nba-summer-golden-state
+          - nba-summer-las-vegas
+          - nba-summer-orlando
+          - nba-summer-sacramento
+          - nba-summer-utah
+          - nbl
+          - nfl
+          - nhl
+          - nll
+          - ntw
+          - olympics-baseball
+          - olympics-mens-ice-hockey
+          - olympics-womens-ice-hockey
+          - pga
+          - pll
+          - puerto-rican-winter-league
+          - tgl
+          - uefa.champions
+          - uefa.europa
+          - uefa.europa.conf
+          - uefa.wchampions
+          - ufl
+          - usa.1
+          - usa.nwsl
+          - usa.nwsl.cup
+          - venezuelan-winter-league
+          - wnba
+          - womens-college-basketball
+          - womens-college-field-hockey
+          - womens-college-hockey
+          - womens-college-lacrosse
+          - womens-college-volleyball
+          - womens-college-water-polo
+          - womens-olympics-basketball
+          - womens-olympics-golf
+          - world-baseball-classic
+          - wta
+          - xfl
+        x-espn-slugs:
+          basketball:
+          - fiba
+          - mens-college-basketball
+          - mens-olympics-basketball
+          - nba
+          - nba-development
+          - nba-summer-california
+          - nba-summer-golden-state
+          - nba-summer-las-vegas
+          - nba-summer-orlando
+          - nba-summer-sacramento
+          - nba-summer-utah
+          - nbl
+          - wnba
+          - womens-college-basketball
+          - womens-olympics-basketball
+          football:
+          - cfl
+          - college-football
+          - nfl
+          - ufl
+          - xfl
+          baseball:
+          - caribbean-series
+          - college-baseball
+          - college-softball
+          - dominican-winter-league
+          - llb
+          - lls
+          - mexican-winter-league
+          - mlb
+          - olympics-baseball
+          - puerto-rican-winter-league
+          - venezuelan-winter-league
+          - world-baseball-classic
+          hockey:
+          - hockey-world-cup
+          - mens-college-hockey
+          - nhl
+          - olympics-mens-ice-hockey
+          - olympics-womens-ice-hockey
+          - womens-college-hockey
+          soccer:
+          - campeones.cup
+          - concacaf.leagues.cup
+          - eng.1
+          - eng.fa
+          - eng.league_cup
+          - esp.1
+          - esp.copa_del_rey
+          - esp.super_cup
+          - fifa.shebelieves
+          - fifa.w.champions_cup
+          - fifa.world
+          - fifa.wwc
+          - fra.1
+          - ger.1
+          - ger.dfb_pokal
+          - ita.1
+          - ita.coppa_italia
+          - mex.1
+          - uefa.champions
+          - uefa.europa
+          - uefa.europa.conf
+          - uefa.wchampions
+          - usa.1
+          - usa.nwsl
+          - usa.nwsl.cup
+          golf:
+          - champions-tour
+          - eur
+          - liv
+          - lpga
+          - mens-olympics-golf
+          - ntw
+          - pga
+          - tgl
+          - womens-olympics-golf
+          racing:
+          - f1
+          - irl
+          - nascar-premier
+          - nascar-secondary
+          - nascar-truck
+          tennis:
+          - atp
+          - wta
+          mma:
+          - bellator
+          - cage-warriors
+          - ifc
+          - ksw
+          - lfa
+          lacrosse:
+          - mens-college-lacrosse
+          - nll
+          - pll
+          - womens-college-lacrosse
+          rugby:
+          - '164205'
+          - '180659'
+          - '242041'
+          - '244293'
+          - '267979'
+          - '268565'
+          - '270557'
+          - '270559'
+          - '271937'
+          - '289234'
+          - '289262'
+          rugby-league:
+          - '3'
+          australian-football:
+          - afl
+          cricket: []
+          volleyball:
+          - mens-college-volleyball
+          - womens-college-volleyball
+          field-hockey:
+          - womens-college-field-hockey
+          water-polo:
+          - mens-college-water-polo
+          - womens-college-water-polo
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statistics:
+                    type: object
+                    properties:
+                      labels:
+                        type: array
+                        items:
+                          type: string
+                      names:
+                        type: array
+                        items:
+                          type: string
+                      values:
+                        type: array
+                        items:
+                          type: number
+                      displayValues:
+                        type: array
+                        items:
+                          type: string
+                  news:
+                    type: object
+                    properties:
+                      articles:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            headline:
+                              type: string
+                            published:
+                              type: string
+                  nextGame:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      date:
+                        type: string
+                      name:
+                        type: string
+                      competitions:
+                        type: array
+                        items: {}
+                  gameLog:
+                    type: object
+                    properties:
+                      events:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            gameResult:
+                              type: string
+                            stats:
+                              type: array
+                              items:
+                                type: string
+                  rotowire:
+                    type: object
+                    properties:
+                      injury: {}
+                      news:
+                        type: string
+  /apis/common/v3/sports/{sport}/{league}/athletes/{athleteId}/stats:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_athletes_athleteId_stats
+      summary: Athlete season stats (parallel-array categories with glossary)
+      parameters:
+      - *id001
+      - *id002
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      - name: season
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Season year.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  filters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        displayName:
+                          type: string
+                        name:
+                          type: string
+                        value:
+                          type: string
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                              displayValue:
+                                type: string
+                  teams:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        uid:
+                          type: string
+                        displayName:
+                          type: string
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        displayName:
+                          type: string
+                        labels:
+                          type: array
+                          items:
+                            type: string
+                        totals:
+                          type: array
+                          items:
+                            type: string
+                  glossary:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        abbreviation:
+                          type: string
+                        displayName:
+                          type: string
+                        description:
+                          type: string
+  /apis/common/v3/sports/{sport}/{league}/athletes/{athleteId}/gamelog:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_athletes_athleteId_gamelog
+      summary: Athlete game-by-game log
+      parameters:
+      - *id001
+      - *id002
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      - name: season
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Season year.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  filters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        displayName:
+                          type: string
+                        name:
+                          type: string
+                        value:
+                          type: string
+                  labels:
+                    type: array
+                    items:
+                      type: string
+                  names:
+                    type: array
+                    items:
+                      type: string
+                  displayNames:
+                    type: array
+                    items:
+                      type: string
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        opponent:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                            abbreviation:
+                              type: string
+                        gameResult:
+                          type: string
+                        stats:
+                          type: array
+                          items:
+                            type: string
+  /apis/common/v3/sports/{sport}/{league}/athletes/{athleteId}/splits:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_athletes_athleteId_splits
+      summary: Athlete statistical splits
+      parameters:
+      - *id001
+      - *id002
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  filters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        displayName:
+                          type: string
+                        name:
+                          type: string
+                  displayName:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        displayName:
+                          type: string
+                        labels:
+                          type: array
+                          items:
+                            type: string
+                        totals:
+                          type: array
+                          items:
+                            type: string
+  /apis/common/v3/sports/{sport}/{league}/statistics/byathlete:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_statistics_byathlete
+      summary: Statistical leaderboard across all athletes
+      parameters:
+      - *id001
+      - *id002
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Stat category (e.g. batting, scoring).
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sort expression e.g. batting.homeRuns:desc.
+      - name: season
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Season year.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      limit:
+                        type: integer
+                      page:
+                        type: integer
+                      pages:
+                        type: integer
+                  league:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  currentSeason:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      type:
+                        type: integer
+                  athletes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        athlete:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                            team:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                abbreviation:
+                                  type: string
+                            position:
+                              type: object
+                              properties:
+                                abbreviation:
+                                  type: string
+                        statistics:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              displayValue:
+                                type: string
+                              rank:
+                                type: integer
+  /apis/common/v3/sports/{sport}/{league}/leaders:
+    get:
+      operationId: get_web_v3_apis_common_v3_sports_sport_league_leaders
+      summary: Stat leaders (web-v3 leaderboard with glossary)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/search/v2:
+    get:
+      operationId: get_web_v3_apis_search_v2
+      summary: Search athletes/teams/events by name
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Search query string.
+      - name: sport
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sport slug filter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+components:
+  schemas:
+    Reference:
+      type: object
+      description: ESPN `$ref` envelope. Core v2 returns these pointers liberally; follow the URL to fetch
+        the inline resource.
+      properties:
+        $ref:
+          type: string
+          format: uri

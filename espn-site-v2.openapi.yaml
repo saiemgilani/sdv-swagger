@@ -1,0 +1,1509 @@
+openapi: 3.1.0
+info:
+  title: ESPN Site v2 API (unofficial)
+  version: 1.0.0-rev2026.06
+  description: 'site.api.espn.com returns user-friendly inline JSON (scoreboard, summary, teams, rosters,
+    standings, groups, rankings, injuries, transactions, news). Endpoint shapes are identical across every
+    sport; only the {sport}/{league} path slugs differ. Full standings live under the alt /apis/v2 path
+    (the /apis/site/v2 standings path returns a stub). Schemas are derived from documented representative
+    responses.
+
+    '
+  summary: Reverse-engineered OpenAPI spec for ESPN's Site v2 host.
+  x-espn-schema-source: documentation
+servers:
+- url: https://site.api.espn.com
+  description: ESPN Site v2 (inline JSON; the user-friendly host)
+tags:
+- name: site-v2
+  description: site.api.espn.com /apis/site/v2 (+ /apis/v2 standings)
+paths:
+  /apis/site/v2/sports/{sport}/{league}/scoreboard:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_scoreboard
+      summary: Live and scheduled events with scores
+      parameters:
+      - &id001
+        name: sport
+        in: path
+        required: true
+        description: ESPN sport slug (e.g. basketball, football, baseball, hockey).
+        schema:
+          type: string
+          enum:
+          - australian-football
+          - baseball
+          - basketball
+          - cricket
+          - field-hockey
+          - football
+          - golf
+          - hockey
+          - lacrosse
+          - mma
+          - racing
+          - rugby
+          - rugby-league
+          - soccer
+          - tennis
+          - volleyball
+          - water-polo
+      - &id002
+        name: league
+        in: path
+        required: true
+        description: ESPN league slug. Valid leagues depend on the sport; see x-espn-slugs for the sport->league
+          mapping.
+        schema:
+          type: string
+          enum:
+          - '164205'
+          - '180659'
+          - '242041'
+          - '244293'
+          - '267979'
+          - '268565'
+          - '270557'
+          - '270559'
+          - '271937'
+          - '289234'
+          - '289262'
+          - '3'
+          - afl
+          - atp
+          - bellator
+          - cage-warriors
+          - campeones.cup
+          - caribbean-series
+          - cfl
+          - champions-tour
+          - college-baseball
+          - college-football
+          - college-softball
+          - concacaf.leagues.cup
+          - dominican-winter-league
+          - eng.1
+          - eng.fa
+          - eng.league_cup
+          - esp.1
+          - esp.copa_del_rey
+          - esp.super_cup
+          - eur
+          - f1
+          - fiba
+          - fifa.shebelieves
+          - fifa.w.champions_cup
+          - fifa.world
+          - fifa.wwc
+          - fra.1
+          - ger.1
+          - ger.dfb_pokal
+          - hockey-world-cup
+          - ifc
+          - irl
+          - ita.1
+          - ita.coppa_italia
+          - ksw
+          - lfa
+          - liv
+          - llb
+          - lls
+          - lpga
+          - mens-college-basketball
+          - mens-college-hockey
+          - mens-college-lacrosse
+          - mens-college-volleyball
+          - mens-college-water-polo
+          - mens-olympics-basketball
+          - mens-olympics-golf
+          - mex.1
+          - mexican-winter-league
+          - mlb
+          - nascar-premier
+          - nascar-secondary
+          - nascar-truck
+          - nba
+          - nba-development
+          - nba-summer-california
+          - nba-summer-golden-state
+          - nba-summer-las-vegas
+          - nba-summer-orlando
+          - nba-summer-sacramento
+          - nba-summer-utah
+          - nbl
+          - nfl
+          - nhl
+          - nll
+          - ntw
+          - olympics-baseball
+          - olympics-mens-ice-hockey
+          - olympics-womens-ice-hockey
+          - pga
+          - pll
+          - puerto-rican-winter-league
+          - tgl
+          - uefa.champions
+          - uefa.europa
+          - uefa.europa.conf
+          - uefa.wchampions
+          - ufl
+          - usa.1
+          - usa.nwsl
+          - usa.nwsl.cup
+          - venezuelan-winter-league
+          - wnba
+          - womens-college-basketball
+          - womens-college-field-hockey
+          - womens-college-hockey
+          - womens-college-lacrosse
+          - womens-college-volleyball
+          - womens-college-water-polo
+          - womens-olympics-basketball
+          - womens-olympics-golf
+          - world-baseball-classic
+          - wta
+          - xfl
+        x-espn-slugs:
+          basketball:
+          - fiba
+          - mens-college-basketball
+          - mens-olympics-basketball
+          - nba
+          - nba-development
+          - nba-summer-california
+          - nba-summer-golden-state
+          - nba-summer-las-vegas
+          - nba-summer-orlando
+          - nba-summer-sacramento
+          - nba-summer-utah
+          - nbl
+          - wnba
+          - womens-college-basketball
+          - womens-olympics-basketball
+          football:
+          - cfl
+          - college-football
+          - nfl
+          - ufl
+          - xfl
+          baseball:
+          - caribbean-series
+          - college-baseball
+          - college-softball
+          - dominican-winter-league
+          - llb
+          - lls
+          - mexican-winter-league
+          - mlb
+          - olympics-baseball
+          - puerto-rican-winter-league
+          - venezuelan-winter-league
+          - world-baseball-classic
+          hockey:
+          - hockey-world-cup
+          - mens-college-hockey
+          - nhl
+          - olympics-mens-ice-hockey
+          - olympics-womens-ice-hockey
+          - womens-college-hockey
+          soccer:
+          - campeones.cup
+          - concacaf.leagues.cup
+          - eng.1
+          - eng.fa
+          - eng.league_cup
+          - esp.1
+          - esp.copa_del_rey
+          - esp.super_cup
+          - fifa.shebelieves
+          - fifa.w.champions_cup
+          - fifa.world
+          - fifa.wwc
+          - fra.1
+          - ger.1
+          - ger.dfb_pokal
+          - ita.1
+          - ita.coppa_italia
+          - mex.1
+          - uefa.champions
+          - uefa.europa
+          - uefa.europa.conf
+          - uefa.wchampions
+          - usa.1
+          - usa.nwsl
+          - usa.nwsl.cup
+          golf:
+          - champions-tour
+          - eur
+          - liv
+          - lpga
+          - mens-olympics-golf
+          - ntw
+          - pga
+          - tgl
+          - womens-olympics-golf
+          racing:
+          - f1
+          - irl
+          - nascar-premier
+          - nascar-secondary
+          - nascar-truck
+          tennis:
+          - atp
+          - wta
+          mma:
+          - bellator
+          - cage-warriors
+          - ifc
+          - ksw
+          - lfa
+          lacrosse:
+          - mens-college-lacrosse
+          - nll
+          - pll
+          - womens-college-lacrosse
+          rugby:
+          - '164205'
+          - '180659'
+          - '242041'
+          - '244293'
+          - '267979'
+          - '268565'
+          - '270557'
+          - '270559'
+          - '271937'
+          - '289234'
+          - '289262'
+          rugby-league:
+          - '3'
+          australian-football:
+          - afl
+          cricket: []
+          volleyball:
+          - mens-college-volleyball
+          - womens-college-volleyball
+          field-hockey:
+          - womens-college-field-hockey
+          water-polo:
+          - mens-college-water-polo
+          - womens-college-water-polo
+      - name: dates
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Date filter YYYYMMDD or YYYYMMDD-YYYYMMDD (compact, no dashes).
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leagues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        abbreviation:
+                          type: string
+                        slug:
+                          type: string
+                        season:
+                          type: object
+                          properties:
+                            year:
+                              type: integer
+                            type:
+                              type: integer
+                            slug:
+                              type: string
+                        logos:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                              width:
+                                type: integer
+                              height:
+                                type: integer
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        uid:
+                          type: string
+                        date:
+                          type: string
+                        name:
+                          type: string
+                        shortName:
+                          type: string
+                        season:
+                          type: object
+                          properties:
+                            year:
+                              type: integer
+                            type:
+                              type: integer
+                            slug:
+                              type: string
+                        week:
+                          type: object
+                          properties:
+                            number:
+                              type: integer
+                        status:
+                          type: object
+                          properties:
+                            clock:
+                              type: string
+                            displayClock:
+                              type: string
+                            period:
+                              type: integer
+                            type:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                state:
+                                  type: string
+                                completed:
+                                  type: boolean
+                                description:
+                                  type: string
+                                detail:
+                                  type: string
+                                shortDetail:
+                                  type: string
+                        competitions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              attendance:
+                                type: integer
+                              venue:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  fullName:
+                                    type: string
+                                  address:
+                                    type: object
+                                    properties:
+                                      city:
+                                        type: string
+                                      state:
+                                        type: string
+                                  capacity:
+                                    type: integer
+                                  indoor:
+                                    type: boolean
+                              broadcasts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    market:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        type:
+                                          type: string
+                                    media:
+                                      type: object
+                                      properties:
+                                        shortName:
+                                          type: string
+                                    type:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        shortName:
+                                          type: string
+                              competitors:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    homeAway:
+                                      type: string
+                                    team:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        uid:
+                                          type: string
+                                        abbreviation:
+                                          type: string
+                                        displayName:
+                                          type: string
+                                        shortDisplayName:
+                                          type: string
+                                        color:
+                                          type: string
+                                        alternateColor:
+                                          type: string
+                                        logo:
+                                          type: string
+                                        score:
+                                          type: string
+                                        winner:
+                                          type: boolean
+                                    score:
+                                      type: string
+                                    winner:
+                                      type: boolean
+                                    records:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          summary:
+                                            type: string
+                                    leaders:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          displayName:
+                                            type: string
+                                          leaders:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                displayValue:
+                                                  type: string
+                                                athlete:
+                                                  type: object
+                                                  properties:
+                                                    id:
+                                                      type: string
+                                                    displayName:
+                                                      type: string
+  /apis/site/v2/sports/{sport}/{league}/summary:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_summary
+      summary: Comprehensive game summary (boxscore + plays + leaders)
+      parameters:
+      - *id001
+      - *id002
+      - name: event
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Event (game) id.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  boxscore:
+                    type: object
+                    properties:
+                      teams:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            team:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                displayName:
+                                  type: string
+                            statistics:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  displayValue:
+                                    type: string
+                                  label:
+                                    type: string
+                            players:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  team:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                  position:
+                                    type: object
+                                    properties:
+                                      displayName:
+                                        type: string
+                                  statistics:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        names:
+                                          type: array
+                                          items:
+                                            type: string
+                                        athletes:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              athlete:
+                                                type: object
+                                                properties:
+                                                  id:
+                                                    type: string
+                                                  displayName:
+                                                    type: string
+                                              didNotPlay:
+                                                type: boolean
+                                              stats:
+                                                type: array
+                                                items:
+                                                  type: string
+                  plays:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        sequenceNumber:
+                          type: string
+                        text:
+                          type: string
+                        clock:
+                          type: object
+                          properties:
+                            displayValue:
+                              type: string
+                        period:
+                          type: object
+                          properties:
+                            number:
+                              type: integer
+                        team:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                        scoreValue:
+                          type: integer
+                        scoringPlay:
+                          type: boolean
+                  leaders:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        displayName:
+                          type: string
+                        leaders:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              displayValue:
+                                type: string
+                              team:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                              athlete:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  displayName:
+                                    type: string
+                  broadcasts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        market:
+                          type: string
+                        names:
+                          type: array
+                          items:
+                            type: string
+                  predictor:
+                    type: object
+                    properties:
+                      header:
+                        type: string
+                      homeTeam:
+                        type: object
+                        properties:
+                          team:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                          gameProjection:
+                            type: string
+                          teamChanceLoss:
+                            type: string
+  /apis/site/v2/sports/{sport}/{league}/teams:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams
+      summary: All teams (paginated)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        leagues:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              teams:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    team:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        uid:
+                                          type: string
+                                        slug:
+                                          type: string
+                                        abbreviation:
+                                          type: string
+                                        displayName:
+                                          type: string
+                                        shortDisplayName:
+                                          type: string
+                                        name:
+                                          type: string
+                                        nickname:
+                                          type: string
+                                        location:
+                                          type: string
+                                        color:
+                                          type: string
+                                        alternateColor:
+                                          type: string
+                                        isActive:
+                                          type: boolean
+                                        isAllStar:
+                                          type: boolean
+                                        logos:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              href:
+                                                type: string
+                                              width:
+                                                type: integer
+                                              height:
+                                                type: integer
+                                              rel:
+                                                type: array
+                                                items:
+                                                  type: string
+                                        links:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              rel:
+                                                type: array
+                                                items:
+                                                  type: string
+                                              href:
+                                                type: string
+                                              text:
+                                                type: string
+                  count:
+                    type: integer
+                  pageIndex:
+                    type: integer
+                  pageSize:
+                    type: integer
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/roster:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_roster
+      summary: Team roster
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      abbreviation:
+                        type: string
+                      displayName:
+                        type: string
+                  athletes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        position:
+                          type: string
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              uid:
+                                type: string
+                              guid:
+                                type: string
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              displayName:
+                                type: string
+                              shortName:
+                                type: string
+                              jersey:
+                                type: string
+                              position:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  displayName:
+                                    type: string
+                                  abbreviation:
+                                    type: string
+                              age:
+                                type: integer
+                              height:
+                                type: integer
+                              weight:
+                                type: integer
+                              birthDate:
+                                type: string
+                              experience:
+                                type: object
+                                properties:
+                                  years:
+                                    type: integer
+                              status:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  type:
+                                    type: string
+                              headshot:
+                                type: object
+                                properties:
+                                  href:
+                                    type: string
+                  coach:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        experience:
+                          type: integer
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/injuries:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_injuries
+      summary: Team injury report
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      abbreviation:
+                        type: string
+                  injuries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        athlete:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                            position:
+                              type: object
+                              properties:
+                                abbreviation:
+                                  type: string
+                            headshot:
+                              type: object
+                              properties:
+                                href:
+                                  type: string
+                        type:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            description:
+                              type: string
+                            abbreviation:
+                              type: string
+                        location:
+                          type: string
+                        detail:
+                          type: string
+                        side:
+                          type: string
+                        fantasy:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                            injuryType:
+                              type: string
+                        status:
+                          type: string
+                        date:
+                          type: string
+  /apis/site/v2/sports/{sport}/{league}/injuries:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_injuries
+      summary: League-wide injuries (HTTP 500 for MMA/tennis/golf)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                  status:
+                    type: string
+                  season:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      type:
+                        type: integer
+                  injuries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        team:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                            abbreviation:
+                              type: string
+                        injuries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              athlete:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  displayName:
+                                    type: string
+                                  position:
+                                    type: object
+                                    properties:
+                                      abbreviation:
+                                        type: string
+                              type:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                              status:
+                                type: string
+                              date:
+                                type: string
+  /apis/site/v2/sports/{sport}/{league}/transactions:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_transactions
+      summary: League transactions (signings, trades, waivers)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                  status:
+                    type: string
+                  season:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      type:
+                        type: integer
+                  requestedYear:
+                    type: integer
+                  count:
+                    type: integer
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        description:
+                          type: string
+                        team:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                        type:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            description:
+                              type: string
+  /apis/site/v2/sports/{sport}/{league}/groups:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_groups
+      summary: Conferences and divisions
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        abbreviation:
+                          type: string
+                        children:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              abbreviation:
+                                type: string
+  /apis/site/v2/sports/{sport}/{league}/rankings:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_rankings
+      summary: Poll rankings (NCAA leagues only)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                  leagues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                  rankings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        shortName:
+                          type: string
+                        type:
+                          type: string
+                        occurrence:
+                          type: object
+                          properties:
+                            number:
+                              type: integer
+                            value:
+                              type: integer
+                            displayValue:
+                              type: string
+                        ranks:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              current:
+                                type: integer
+                              previous:
+                                type: integer
+                              points:
+                                type: integer
+                              firstPlaceVotes:
+                                type: integer
+                              team:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  displayName:
+                                    type: string
+                                  abbreviation:
+                                    type: string
+                                  record:
+                                    type: object
+                                    properties:
+                                      summary:
+                                        type: string
+                  latestWeek:
+                    type: object
+                    properties:
+                      number:
+                        type: integer
+                      startDate:
+                        type: string
+  /apis/v2/sports/{sport}/{league}/standings:
+    get:
+      operationId: get_site_v2_apis_v2_sports_sport_league_standings
+      summary: Full standings (children[].standings.entries[].stats[]) — use this, not the site-v2 stub
+      parameters:
+      - *id001
+      - *id002
+      - name: season
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Season year.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                  season:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      displayName:
+                        type: string
+                  fullViewLink:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                  children:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        abbreviation:
+                          type: string
+                        standings:
+                          type: object
+                          properties:
+                            entries:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  team:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      uid:
+                                        type: string
+                                      displayName:
+                                        type: string
+                                      abbreviation:
+                                        type: string
+                                      logo:
+                                        type: string
+                                  note:
+                                    type: object
+                                    properties:
+                                      color:
+                                        type: string
+                                      description:
+                                        type: string
+                                  stats:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        displayName:
+                                          type: string
+                                        displayValue:
+                                          type: string
+  /apis/site/v2/sports/{sport}/{league}/calendar:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_calendar
+      summary: 'Season calendar (sub-paths: /offseason, /regular-season, /postseason)'
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId
+      summary: Single team detail
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/schedule:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_schedule
+      summary: Team schedule
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/record:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_record
+      summary: Team win/loss record
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/news:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_news
+      summary: Team news feed
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/teams/{teamId}/leaders:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_teams_teamId_leaders
+      summary: Team statistical leaders
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: teamId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/athletes/{athleteId}:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_athletes_athleteId
+      summary: Athlete profile (site-v2 lite variant)
+      parameters:
+      - *id001
+      - *id002
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/athletes/{athleteId}/news:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_athletes_athleteId_news
+      summary: Athlete news feed
+      parameters:
+      - *id001
+      - *id002
+      - name: athleteId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: athleteId path parameter.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/news:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_news
+      summary: Latest league news
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/draft:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_draft
+      summary: Draft board (NBA/WNBA/NFL/MLB/NHL where applicable)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Documented response; schema not yet modeled.
+components:
+  schemas:
+    Reference:
+      type: object
+      description: ESPN `$ref` envelope. Core v2 returns these pointers liberally; follow the URL to fetch
+        the inline resource.
+      properties:
+        $ref:
+          type: string
+          format: uri

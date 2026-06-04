@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: ESPN Now news (unofficial)
+  version: 1.0.0-rev2026.06
+  description: 'now.core.api.espn.com/v1/sports/news returns a paginated feed[] of headlines with category
+    tags (league/team/athlete). Schema derived from a documented representative response.
+
+    '
+  summary: Reverse-engineered OpenAPI spec for ESPN's Now news host.
+  x-espn-schema-source: documentation
+servers:
+- url: https://now.core.api.espn.com
+  description: ESPN Now news feed
+tags:
+- name: now
+  description: now.core.api.espn.com news
+paths:
+  /v1/sports/news:
+    get:
+      operationId: get_now_v1_sports_news
+      summary: Now news feed (cross-league headlines with category tags)
+      parameters:
+      - name: sport
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sport slug filter.
+      - name: league
+        in: query
+        required: false
+        schema:
+          type: string
+        description: League slug filter.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Max results to return.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultsCount:
+                    type: integer
+                  resultsLimit:
+                    type: integer
+                  resultsOffset:
+                    type: integer
+                  feed:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dataSourceIdentifier:
+                          type: string
+                        description:
+                          type: string
+                        nowId:
+                          type: string
+                        premium:
+                          type: boolean
+                        published:
+                          type: string
+                        lastModified:
+                          type: string
+                        type:
+                          type: string
+                        headline:
+                          type: string
+                        links:
+                          type: object
+                          properties:
+                            web:
+                              type: object
+                              properties:
+                                href:
+                                  type: string
+                            api:
+                              type: object
+                              properties:
+                                href:
+                                  type: string
+                        images:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                              height:
+                                type: integer
+                        categories:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              id:
+                                type: integer
+                              description:
+                                type: string
+components:
+  schemas:
+    Reference:
+      type: object
+      description: ESPN `$ref` envelope. Core v2 returns these pointers liberally; follow the URL to fetch
+        the inline resource.
+      properties:
+        $ref:
+          type: string
+          format: uri

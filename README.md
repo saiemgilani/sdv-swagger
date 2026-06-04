@@ -1,7 +1,23 @@
 # sdv-swagger
 
-Collection of OpenAPI 3.0 / Swagger specs for the sports-data APIs used across the
+Collection of OpenAPI 3.0/3.1 / Swagger specs for the sports-data APIs used across the
 SportsDataVerse. Reverse-engineered / community-sourced unless noted.
+
+## ESPN (all sports — by host)
+
+Reverse-engineered OpenAPI 3.1 specs for ESPN's public APIs, organized **by host**.
+Endpoint shapes are identical across every sport — `{sport}`/`{league}` are path
+parameters — so each spec covers all sports. The `x-espn-schema-source` field on each
+spec records whether its schemas are data-backed (captured response bodies) or derived
+from documented representative responses.
+
+| Spec | API host | Source |
+|---|---|---|
+| `espn-core-v2.openapi.yaml` | `sports.core.api.espn.com` — reference data: seasons, events, competitions, athletes, teams, odds, statistics, draft | sdv-internal-refs `espn/` — captured bodies (basketball; sport-agnostic shapes) |
+| `espn-site-v2.openapi.yaml` | `site.api.espn.com` — scoreboard, summary, teams, rosters, standings, groups, rankings, injuries, transactions, news | sdv-internal-refs `espn/` — documented |
+| `espn-web-v3.openapi.yaml` | `site.web.api.espn.com` — athlete overview/stats/gamelog/splits, statistics-by-athlete, search | sdv-internal-refs `espn/` — documented |
+| `espn-cdn.openapi.yaml` | `cdn.espn.com` — rich per-game packages (require `?xhr=1`; league-abbreviation slug) | sdv-internal-refs `espn/` — documented |
+| `espn-now.openapi.yaml` | `now.core.api.espn.com` — cross-league news feed | sdv-internal-refs `espn/` — documented |
 
 ## Hockey (NHL)
 
@@ -42,5 +58,7 @@ SportsDataVerse. Reverse-engineered / community-sourced unless noted.
 | `the_odds_api.json` / `the_odds_api.yaml` | The Odds API (`api.the-odds-api.com`) | — |
 | `cbssports.json` | CBS Sports | — |
 
-> ESPN's site/web/core v2 APIs are reverse-engineered as endpoint **catalogs**
-> (see `sdv-internal-refs/_notes/*_endpoint_catalog.md`), not a single OpenAPI spec.
+> The ESPN specs above are generated from `sdv-internal-refs` (`espn/`) and cover all
+> sports via `{sport}`/`{league}` path parameters. The per-sport endpoint **catalogs**
+> in `sdv-internal-refs/_notes/*_endpoint_catalog.md` remain the breadth reference for
+> league-slug coverage across all sports.

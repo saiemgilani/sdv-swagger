@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: ESPN CDN game packages (unofficial)
+  version: 1.0.0-rev2026.06
+  description: 'cdn.espn.com/core returns a large gamepackageJSON object (header, boxscore, drives, plays,
+    win probability, news, standings) for one game. The path slug is the league ABBREVIATION (nba, wnba,
+    nfl, ...), not the sport/league pair, and the request MUST include ?xhr=1 or ESPN returns HTML. Schema
+    derived from a documented representative response.
+
+    '
+  summary: Reverse-engineered OpenAPI spec for ESPN's CDN game-package host.
+  x-espn-schema-source: documentation
+servers:
+- url: https://cdn.espn.com
+  description: ESPN CDN game packages
+tags:
+- name: cdn
+  description: cdn.espn.com/core game packages (require ?xhr=1; league ABBREVIATION slug)
+paths:
+  /core/{leagueAbbr}/{view}:
+    get:
+      operationId: get_cdn_core_leagueAbbr_view
+      summary: 'Rich game package. Views: game, boxscore, playbyplay, matchup, scoreboard. MUST pass ?xhr=1
+        or ESPN returns HTML.'
+      parameters:
+      - name: leagueAbbr
+        in: path
+        required: true
+        schema:
+          type: string
+        description: League ABBREVIATION (nba, wnba, nfl, mens-college-basketball, ...) — NOT the sport/league
+          pair.
+      - name: view
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - game
+          - boxscore
+          - playbyplay
+          - matchup
+          - scoreboard
+        description: Package view.
+      - name: xhr
+        in: query
+        required: true
+        schema:
+          type: integer
+          enum:
+          - 1
+        description: Must be 1, else ESPN returns an HTML page instead of JSON.
+      - name: gameId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Game (event) id.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId:
+                    type: string
+                  gamepackageJSON:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          season:
+                            type: object
+                            properties:
+                              year:
+                                type: integer
+                              type:
+                                type: integer
+                          competitions:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                competitors:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      homeAway:
+                                        type: string
+                                      score:
+                                        type: string
+                                      winner:
+                                        type: boolean
+                                status:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        state:
+                                          type: string
+                                        completed:
+                                          type: boolean
+                      boxscore:
+                        type: object
+                        properties:
+                          teams:
+                            type: array
+                            items: {}
+                          players:
+                            type: array
+                            items: {}
+                      drives:
+                        type: object
+                        properties:
+                          previous:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                description:
+                                  type: string
+                                team:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                plays:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      type:
+                                        type: object
+                                        properties:
+                                          text:
+                                            type: string
+                                      text:
+                                        type: string
+                                result:
+                                  type: string
+                                yards:
+                                  type: integer
+                      plays:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            text:
+                              type: string
+                            scoringPlay:
+                              type: boolean
+                      winprobability:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            homeWinPercentage:
+                              type: number
+                            playId:
+                              type: string
+                      news:
+                        type: object
+                        properties:
+                          articles:
+                            type: array
+                            items: {}
+                      standings:
+                        type: object
+                        properties: {}
+components:
+  schemas:
+    Reference:
+      type: object
+      description: ESPN `$ref` envelope. Core v2 returns these pointers liberally; follow the URL to fetch
+        the inline resource.
+      properties:
+        $ref:
+          type: string
+          format: uri
