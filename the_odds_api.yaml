@@ -1,426 +1,1042 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: The Odds API
-  description: "To access the API, get a free API key from https://the-odds-api.com"
+  description: >-
+    Sports betting odds, scores and event data from a range of bookmakers across
+    the US, UK, EU and Australia. To access the API, get a free API key from
+    https://the-odds-api.com/#get-access. The API key is passed as the `apiKey`
+    query parameter on every request.
+
+
+    Usage cost is reported on every response via the `x-requests-last`,
+    `x-requests-used` and `x-requests-remaining` headers. The `/v4/sports` and
+    `/v4/sports/{sport}/events` endpoints do not count against the usage quota.
   version: '4'
+  contact:
+    name: The Odds API
+    url: https://the-odds-api.com
+  termsOfService: https://the-odds-api.com/liveapi/guides/v4/
+externalDocs:
+  description: The Odds API v4 documentation
+  url: https://the-odds-api.com/liveapi/guides/v4/
+servers:
+  - url: https://api.the-odds-api.com
+security:
+  - ApiKeyAuth: []
 tags:
   - name: sports
-    description: Get a list of in-season sports.
-
+    description: List in-season (and optionally out-of-season) sports.
     externalDocs:
-      description: Find out more
-      url: 'https://the-odds-api.com/liveapi/guides/v4/#get-sports'
+      description: Get sports
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-sports
   - name: odds
-    description: Recent odds from a range of bookmakers for a given sport. Includes odds for upcoming and live games.
+    description: >-
+      Live and upcoming bookmaker odds for a sport, region and set of markets.
     externalDocs:
-      description: Find out more
-      url: 'https://the-odds-api.com/liveapi/guides/v4/#get-odds'
-      
+      description: Get odds
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-odds
+  - name: scores
+    description: Live, upcoming and recently completed games with scores.
+    externalDocs:
+      description: Get scores
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-scores
+  - name: events
+    description: In-play and pre-match events for a sport, without odds.
+    externalDocs:
+      description: Get events
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-events
+  - name: participants
+    description: Teams or individual participants for a sport.
+    externalDocs:
+      description: Get participants
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-participants
+  - name: historical
+    description: >-
+      Historical snapshots of odds and events at a point in time. Available on
+      paid plans only.
+    externalDocs:
+      description: Historical odds
+      url: https://the-odds-api.com/liveapi/guides/v4/#get-historical-odds
 
-servers:
-  - url: 'https://api.the-odds-api.com'
 paths:
   /v4/sports:
     get:
-      tags:
-        - sports
-      description: A successful response includes a list of available sports and tournaments
-
+      tags: [sports]
+      summary: Get sports
+      operationId: getSports
+      description: >-
+        Returns a list of available sports and tournaments. Use a sport `key`
+        in the odds, scores and events endpoints. This request does not count
+        against the usage quota.
       parameters:
-        - name: apiKey
-          required: true
-          description: 'Get an API key at https://the-odds-api.com/#get-access'
-          in: query
-          schema:
-            type: string
-          example: abcdefg1234567890
-        - name: all
-          required: false
-          description: When excluded, only recently updated (in-season) sports appear. Include this paramter to see all available sports
-          in: query
-          schema:
-            type: boolean
-          example: true
-          allowEmptyValue: true
-
+        - $ref: '#/components/parameters/All'
       responses:
         '200':
-          description: Returns a list of available sports. Use the sport "key" in the /odds request
+          description: A list of available sports.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
           content:
             application/json:
               schema:
                 type: array
-                description: A list of sports
-                items:
-                  type: object
-                  properties:
-                    key:
-                      $ref: '#/components/schemas/SportKey'
-
-                    active:
-                      example: true
-                      type: boolean
-                      description: Indicates if the sport is in season
-                    group:
-                      example: American Football
-                      type: string
-                      description: A broader grouping
-                    description:
-                      example: US Football
-                      type: string
-                      description: A brief description of the sport. Subject to change (for example, if sponsors change)
-                    title:
-                      $ref: '#/components/schemas/SportTitle'
-
-                    has_outrights:
-                      example: false
-                      type: boolean
-                      description: Indicates if the sport has outrights markets.
-          headers:
-            x-requests-remaining:
-              schema:
-                type: integer
-              description: The number of requests remaining until the quota resets
-            x-requests-used:
-              schema:
-                type: integer
-              description: The number of requests used since the last quota reset
-        '401':
-          description: 'Unauthenticated or unauthorized. The API key might be missing or invalid (unauthenticated), or it might at its usage limit (unauthorized). The repsonse body will contain more info'
-        '422':
-          description: 'One or more of the query params are invalid. The repsonse body will contain more info'
-        '429':
-          description: 'The request was throttled because requests are being sent too frequently'
-        '500':
-          description: 'Internal error'
-                      
-      servers:
-        - url: 'https://api.the-odds-api.com'
-    servers:
-      - url: 'https://api.the-odds-api.com'
+                items: { $ref: '#/components/schemas/Sport' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
   /v4/sports/{sport}/odds:
     get:
-      tags:
-        - odds
-      description: Returns list of live and upcoming games for a given sport, showing bookmaker odds for the specified region and markets
-
+      tags: [odds]
+      summary: Get odds
+      operationId: getOdds
+      description: >-
+        Returns a list of live and upcoming games for a sport, with bookmaker
+        odds for the specified regions and markets. Usage cost is 1 per region
+        per market returned.
       parameters:
-
-        - name: sport
-          required: true
-          description: sport key for which to return games and odds. This is obtained from the /sports endpoint
-          in: path
-          schema:
-            type: string
-          example: americanfootball_nfl
-
-        - name: apiKey
-          required: true
-          description: Access key (40 characters). Get an API key at https://the-odds-api.com/#get-access
-          in: query
-          schema:
-            type: string
-          example: abc123ABC456abc123ABC456abc123ABC456abc1
-
-        - name: regions
-          required: true
-          description: Determines which bookmakers appear in the response. Multiple regions can be specified if comma delimited. Each region will count as 1 request against the usage quota for each market. Most use cases will only need to specify one region. For a list of bookmakers by region, see https://the-odds-api.com/sports-odds-data/bookmaker-apis.html
-          
-          in: query
-          schema:
-            type: string
-            enum:
-              - uk
-              - us
-              - eu
-              - au
-          example: us
-
-        - name: markets
-          required: false
-          description: The odds market to return. Multiple markets can be specified if comma delimited. Defaults to h2h (head to head / moneyline). Outrights only avaialable for select sports. Note each market counts as 1 request against the usage quota.
-          in: query
-          schema:
-            type: string
-            enum:
-              - h2h
-              - spreads
-              - totals
-              - outrights
-            default: h2h
-          example: h2h,spreads
-
-        - name: dateFormat
-          required: false
-          description: Format of returned timestamps. Can be iso (ISO8601) or unix timestamp (seconds since epoch)
-          in: query
-          schema:
-            type: string
-            enum:
-              - iso
-              - unix
-            default: iso
-          example: iso
-
-        - name: oddsFormat
-          required: false
-          description: Format of returned odds
-          in: query
-          schema:
-            type: string
-            enum:
-              - decimal
-              - american
-            default: decimal
-          example: decimal
-
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/Regions'
+        - $ref: '#/components/parameters/Markets'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/OddsFormat'
+        - $ref: '#/components/parameters/EventIds'
+        - $ref: '#/components/parameters/Bookmakers'
+        - $ref: '#/components/parameters/CommenceTimeFrom'
+        - $ref: '#/components/parameters/CommenceTimeTo'
+        - $ref: '#/components/parameters/IncludeLinks'
+        - $ref: '#/components/parameters/IncludeSids'
+        - $ref: '#/components/parameters/IncludeBetLimits'
+        - $ref: '#/components/parameters/IncludeRotationNumbers'
       responses:
         '200':
-          description: A list of live and upcoming games for the specified sport, including odds from bookmakers in the specific region for the specified market
+          description: A list of live and upcoming games with bookmaker odds.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
           content:
             application/json:
               schema:
-
                 type: array
-                description: A list of live and upcoming games
-                items:
-                  type: object
-                  properties:
-                    id:
-                      $ref: '#/components/schemas/MatchId'
-                    sport_key:
-                      $ref: '#/components/schemas/SportKey'
-                    sport_title:
-                      $ref: '#/components/schemas/SportTitle'
-                    commence_time:
-                      $ref: '#/components/schemas/CommenceTime'
-                    home_team:
-                      $ref: '#/components/schemas/HomeTeam'
-                    away_team:
-                      $ref: '#/components/schemas/AwayTeam'
-                    bookmakers:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          key:
-                            description: A unique slug (key) of the bookmaker
-                            example: draftkings
-                            type: string
-                          title:
-                            description: A formatted title of the bookmaker
-                            example: DraftKings
-                            type: string
-                          last_update:
-                            description: A timestamp of when the bookmaker's odds were last captured. Will be an integer if dateFormat=unix, otherwise it will be a string
-                            example: "2020-01-01T14:45:13Z"
-                            type: string
-                            format: date-time
-                          markets:
-                            type: array
-                            description: The included market depends on the specified 'markets' GET param. NOTE Allow for the addition of new market types in future.
-                            items:
-                              type: object
-                              properties:
-                                key:
-                                  type: string
-                                  enum:
-                                    - h2h
-                                    - spreads
-                                    - totals
-                                    - outrights
-                        
-                                  description: The name of the odds market
-                                  example: "h2h"
-                                
-                                outcomes:
-                                  type: array
-                                  items:
-                                    $ref: '#/components/schemas/Outcome'
-                                  example:
-                                    - name: "Houston Texans"
-                                      price: 2.23
-                                    - name: "Kansas City Chiefs"
-                                      price: 1.45
-          headers:
-            x-requests-remaining:
-              schema:
-                type: integer
-              description: The number of requests remaining until the quota resets
-            x-requests-used:
-              schema:
-                type: integer
-              description: The number of requests used since the last quota reset
-        '401':
-          description: 'Unauthenticated or unauthorized. The API key might be missing or invalid (unauthenticated), or it might at its usage limit (unauthorized). The repsonse body will contain more info'
-        '422':
-          description: 'One or more of the query params are invalid. The repsonse body will contain more info'
-        '429':
-          description: 'Requests are being sent too frequently - the request was throttled'
-        '500':
-          description: 'Internal error'
+                items: { $ref: '#/components/schemas/EventWithOdds' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
-      servers:
-        - url: 'https://api.the-odds-api.com'
-    servers:
-      - url: 'https://api.the-odds-api.com'
-  
   /v4/sports/{sport}/scores:
     get:
-      tags:
-        - scores
-      description: Returns list of live and upcoming games for a given sport, and optionally recently completed games. Live and completed games will contain scores
+      tags: [scores]
+      summary: Get scores
+      operationId: getScores
+      description: >-
+        Returns a list of live and upcoming games for a sport, and optionally
+        recently completed games. Live and completed games include scores.
+        Usage cost is 1 for live and upcoming games, or 2 when `daysFrom` is set.
       parameters:
-        - name: sport
-          required: true
-          description: sport key for which to return games and odds
-          in: path
-          schema:
-            type: string
-          example: americanfootball_nfl
-
-        - name: apiKey
-          required: true
-          description: Access key (40 characters). Get an API key at https://the-odds-api.com/#get-access
-          in: query
-          schema:
-            type: string
-
-        - name: daysFrom
-          required: false
-          description: "The number of days in the past from which to return completed games. Valid values are integers from `1` to `3`. If this field is missing, only live and upcoming games are returned."
-          in: query
-          schema:
-            type: integer
-          example: 3
-
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/DaysFrom'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/EventIds'
       responses:
         '200':
-          description: A list of live and upcoming games for the specified sport, and optionally recently completed games. Scores will be included for live and recently completed games.
+          description: >-
+            A list of live, upcoming and optionally recently completed games.
+            Scores are included for live and recently completed games.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
           content:
             application/json:
               schema:
                 type: array
-                description: A list of live, upcoming and optionally recently completed games
-                items:
-                  type: object
-                  properties:
-                    id:
-                      $ref: '#/components/schemas/MatchId'
-                    sport_key:
-                      $ref: '#/components/schemas/SportKey'
-                    sport_title:
-                      $ref: '#/components/schemas/SportTitle'
-                    commence_time:
-                      $ref: '#/components/schemas/CommenceTime'
-                    completed:
-                      type: boolean
-                      description: true if the game has finished, otherwise false
-                    home_team:
-                      $ref: '#/components/schemas/HomeTeam'
-                    away_team:
-                      $ref: '#/components/schemas/AwayTeam'
-                    scores:
-                      type: array
-                      description: A list of teams and their scores. List will be empty if game has not started.
-                      items:
-                        $ref: '#/components/schemas/ScoreModel'
-                      example:
-                        - name: "Houston Texans"
-                          score: "20"
-                        - name: "Kansas City Chiefs"
-                          score: "34"
-                    last_update:
-                      type: string
-                      description: ISO8601 datetime of when the scores were last updated. Will be null if game has not started
-                      example: "2020-01-03T01:10:00Z"
-                      nullable: true
+                items: { $ref: '#/components/schemas/EventWithScores' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
+
+  /v4/sports/{sport}/events:
+    get:
+      tags: [events]
+      summary: Get events
+      operationId: getEvents
+      description: >-
+        Returns a list of in-play and pre-match events for a sport, without
+        odds. This request does not count against the usage quota.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/EventIds'
+        - $ref: '#/components/parameters/CommenceTimeFrom'
+        - $ref: '#/components/parameters/CommenceTimeTo'
+      responses:
+        '200':
+          description: A list of in-play and pre-match events.
           headers:
-            x-requests-remaining:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
               schema:
-                type: integer
-              description: The number of requests remaining until the quota resets
-            x-requests-used:
+                type: array
+                items: { $ref: '#/components/schemas/Event' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
+
+  /v4/sports/{sport}/events/{eventId}/odds:
+    get:
+      tags: [odds]
+      summary: Get event odds
+      operationId: getEventOdds
+      description: >-
+        Returns odds for a single event across all available markets, including
+        additional and player-prop markets that are not returned by the featured
+        odds endpoint. Usage cost is 1 per unique market per region.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/EventId'
+        - $ref: '#/components/parameters/Regions'
+        - $ref: '#/components/parameters/MarketsAll'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/OddsFormat'
+        - $ref: '#/components/parameters/Bookmakers'
+        - $ref: '#/components/parameters/IncludeLinks'
+        - $ref: '#/components/parameters/IncludeSids'
+        - $ref: '#/components/parameters/IncludeBetLimits'
+        - $ref: '#/components/parameters/IncludeRotationNumbers'
+        - $ref: '#/components/parameters/IncludeMultipliers'
+      responses:
+        '200':
+          description: Odds for the single event across the requested markets.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EventWithOdds' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
+
+  /v4/sports/{sport}/events/{eventId}/markets:
+    get:
+      tags: [odds]
+      summary: Get event markets
+      operationId: getEventMarkets
+      description: >-
+        Returns the market keys available for each bookmaker for a single event.
+        Useful for discovering which additional and player-prop markets can be
+        requested from the event odds endpoint.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/EventId'
+        - $ref: '#/components/parameters/Regions'
+        - $ref: '#/components/parameters/Bookmakers'
+        - $ref: '#/components/parameters/DateFormat'
+      responses:
+        '200':
+          description: The market keys available per bookmaker for the event.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EventWithMarkets' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
+
+  /v4/sports/{sport}/participants:
+    get:
+      tags: [participants]
+      summary: Get participants
+      operationId: getParticipants
+      description: >-
+        Returns the list of participants (teams or individuals) for a sport.
+        Usage cost is 1.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+      responses:
+        '200':
+          description: A list of participants for the sport.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
               schema:
-                type: integer
-              description: The number of requests used since the last quota reset
-        '401':
-          description: 'Unauthenticated or unauthorized. The API key might be missing or invalid (unauthenticated), or it might at its usage limit (unauthorized). The repsonse body will contain more info'
-        '422':
-          description: 'One or more of the query params are invalid. The repsonse body will contain more info'
-        '429':
-          description: 'Requests are being sent too frequently - the request was throttled'
-        '500':
-          description: 'Internal error'
+                type: array
+                items: { $ref: '#/components/schemas/Participant' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
-      servers:
-        - url: 'https://api.the-odds-api.com'
-    servers:
-      - url: 'https://api.the-odds-api.com'
+  /v4/historical/sports/{sport}/odds:
+    get:
+      tags: [historical]
+      summary: Get historical odds
+      operationId: getHistoricalOdds
+      description: >-
+        Returns a snapshot of games with bookmaker odds for a sport, as they
+        appeared at (or just before) the requested `date`. Paid plans only.
+        Usage cost is 10 per region per market returned.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/Date'
+        - $ref: '#/components/parameters/Regions'
+        - $ref: '#/components/parameters/Markets'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/OddsFormat'
+        - $ref: '#/components/parameters/EventIds'
+        - $ref: '#/components/parameters/Bookmakers'
+        - $ref: '#/components/parameters/CommenceTimeFrom'
+        - $ref: '#/components/parameters/CommenceTimeTo'
+        - $ref: '#/components/parameters/IncludeLinks'
+        - $ref: '#/components/parameters/IncludeSids'
+        - $ref: '#/components/parameters/IncludeBetLimits'
+        - $ref: '#/components/parameters/IncludeRotationNumbers'
+      responses:
+        '200':
+          description: A historical snapshot of games with odds.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HistoricalOddsSnapshot' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
+  /v4/historical/sports/{sport}/events:
+    get:
+      tags: [historical]
+      summary: Get historical events
+      operationId: getHistoricalEvents
+      description: >-
+        Returns a snapshot of events for a sport as they appeared at the
+        requested `date`, without odds. Paid plans only. Usage cost is 1
+        (or 0 when no events are found).
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/Date'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/EventIds'
+        - $ref: '#/components/parameters/CommenceTimeFrom'
+        - $ref: '#/components/parameters/CommenceTimeTo'
+      responses:
+        '200':
+          description: A historical snapshot of events.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HistoricalEventsSnapshot' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
+  /v4/historical/sports/{sport}/events/{eventId}/odds:
+    get:
+      tags: [historical]
+      summary: Get historical event odds
+      operationId: getHistoricalEventOdds
+      description: >-
+        Returns historical odds for a single event across the requested markets,
+        as they appeared at the requested `date`. Additional and player-prop
+        markets are available for snapshots from 2023-05-03T05:30:00Z onward.
+        Paid plans only.
+      parameters:
+        - $ref: '#/components/parameters/Sport'
+        - $ref: '#/components/parameters/EventId'
+        - $ref: '#/components/parameters/Date'
+        - $ref: '#/components/parameters/Regions'
+        - $ref: '#/components/parameters/MarketsAll'
+        - $ref: '#/components/parameters/DateFormat'
+        - $ref: '#/components/parameters/OddsFormat'
+        - $ref: '#/components/parameters/Bookmakers'
+        - $ref: '#/components/parameters/IncludeLinks'
+        - $ref: '#/components/parameters/IncludeSids'
+        - $ref: '#/components/parameters/IncludeBetLimits'
+        - $ref: '#/components/parameters/IncludeRotationNumbers'
+        - $ref: '#/components/parameters/IncludeMultipliers'
+      responses:
+        '200':
+          description: A historical snapshot of odds for the single event.
+          headers:
+            x-requests-remaining: { $ref: '#/components/headers/XRequestsRemaining' }
+            x-requests-used: { $ref: '#/components/headers/XRequestsUsed' }
+            x-requests-last: { $ref: '#/components/headers/XRequestsLast' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HistoricalEventOddsSnapshot' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/InvalidParams' }
+        '429': { $ref: '#/components/responses/Throttled' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: >-
+        API subscription key (~40 characters). Get a free key at
+        https://the-odds-api.com/#get-access.
+
+  parameters:
+    Sport:
+      name: sport
+      in: path
+      required: true
+      description: >-
+        Sport key, obtained from the `/v4/sports` endpoint (e.g.
+        `americanfootball_nfl`). For the odds endpoints, the special value
+        `upcoming` returns the next 8 upcoming games across all sports.
+      schema:
+        type: string
+      example: americanfootball_nfl
+    EventId:
+      name: eventId
+      in: path
+      required: true
+      description: Event id, obtained from the `/events` endpoint.
+      schema:
+        type: string
+      example: e912304de2b2ce35b473ce2ecd3d1502
+    Regions:
+      name: regions
+      in: query
+      required: true
+      description: >-
+        Comma-separated list of regions that determine which bookmakers appear
+        in the response. Allowed values: `us`, `us2`, `uk`, `au`, `eu`. Each
+        region counts as 1 request against the usage quota for each market. See
+        https://the-odds-api.com/sports-odds-data/bookmaker-apis.html for the
+        bookmakers in each region.
+      schema:
+        type: string
+      example: us,uk
+    Markets:
+      name: markets
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of featured odds markets to return. Defaults to
+        `h2h`. Allowed values: `h2h` (head-to-head / moneyline), `spreads`
+        (points handicaps), `totals` (over/under), `outrights` (futures),
+        `h2h_lay`, `outrights_lay`. Each market counts as 1 request against the
+        usage quota. `outrights` is only available for select sports.
+      schema:
+        type: string
+        default: h2h
+      example: h2h,spreads,totals
+    MarketsAll:
+      name: markets
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of market keys. In addition to the featured markets
+        (`h2h`, `spreads`, `totals`, `outrights`), the event endpoints accept
+        additional and player-prop market keys (e.g. `alternate_spreads`,
+        `player_points`, `player_pass_tds`). See
+        https://the-odds-api.com/sports-odds-data/betting-markets.html for the
+        full list. Each market counts as 1 request per region against the quota.
+      schema:
+        type: string
+      example: player_points,player_rebounds
+    DateFormat:
+      name: dateFormat
+      in: query
+      required: false
+      description: Format of returned timestamps.
+      schema:
+        type: string
+        enum: [iso, unix]
+        default: iso
+      example: iso
+    OddsFormat:
+      name: oddsFormat
+      in: query
+      required: false
+      description: Format of returned odds.
+      schema:
+        type: string
+        enum: [decimal, american]
+        default: decimal
+      example: decimal
+    EventIds:
+      name: eventIds
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of game/event ids. Filters the response to the
+        specified events.
+      schema:
+        type: string
+      example: e912304de2b2ce35b473ce2ecd3d1502
+    Bookmakers:
+      name: bookmakers
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of bookmaker keys. Filters the response to the
+        specified bookmakers, overriding `regions`. Each bookmaker counts as 1
+        region against the usage quota.
+      schema:
+        type: string
+      example: draftkings,fanduel
+    CommenceTimeFrom:
+      name: commenceTimeFrom
+      in: query
+      required: false
+      description: >-
+        Filter to games commencing after this ISO 8601 timestamp
+        (e.g. `2023-09-09T00:00:00Z`).
+      schema:
+        type: string
+        format: date-time
+      example: '2023-09-09T00:00:00Z'
+    CommenceTimeTo:
+      name: commenceTimeTo
+      in: query
+      required: false
+      description: >-
+        Filter to games commencing before this ISO 8601 timestamp
+        (e.g. `2023-09-10T23:59:59Z`).
+      schema:
+        type: string
+        format: date-time
+      example: '2023-09-10T23:59:59Z'
+    Date:
+      name: date
+      in: query
+      required: true
+      description: >-
+        ISO 8601 timestamp of the snapshot to return. The API returns the
+        snapshot at or immediately before this time
+        (e.g. `2021-10-18T12:00:00Z`).
+      schema:
+        type: string
+        format: date-time
+      example: '2021-10-18T12:00:00Z'
+    DaysFrom:
+      name: daysFrom
+      in: query
+      required: false
+      description: >-
+        The number of days in the past from which to return completed games.
+        Valid values are 1, 2 or 3. When omitted, only live and upcoming games
+        are returned.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 3
+      example: 3
+    All:
+      name: all
+      in: query
+      required: false
+      description: >-
+        When set to `true`, returns both in-season and out-of-season sports.
+        When omitted, only recently updated (in-season) sports are returned.
+      schema:
+        type: boolean
+      example: true
+    IncludeLinks:
+      name: includeLinks
+      in: query
+      required: false
+      description: >-
+        When `true`, includes bookmaker links (`link`), market links and bet
+        slip links in the response where available.
+      schema:
+        type: boolean
+      example: true
+    IncludeSids:
+      name: includeSids
+      in: query
+      required: false
+      description: >-
+        When `true`, includes source ids (`sid`) for bookmakers, markets and
+        outcomes where available.
+      schema:
+        type: boolean
+      example: true
+    IncludeBetLimits:
+      name: includeBetLimits
+      in: query
+      required: false
+      description: >-
+        When `true`, includes bet limits (`bet_limit`) on outcomes for betting
+        exchanges where available.
+      schema:
+        type: boolean
+      example: true
+    IncludeRotationNumbers:
+      name: includeRotationNumbers
+      in: query
+      required: false
+      description: When `true`, includes rotation numbers on events where available.
+      schema:
+        type: boolean
+      example: true
+    IncludeMultipliers:
+      name: includeMultipliers
+      in: query
+      required: false
+      description: >-
+        When `true`, includes pick multipliers for US daily-fantasy (DFS) sites
+        where available.
+      schema:
+        type: boolean
+      example: true
+
+  headers:
+    XRequestsRemaining:
+      description: The number of usage credits remaining until the quota resets.
+      schema:
+        type: integer
+    XRequestsUsed:
+      description: The number of usage credits used since the last quota reset.
+      schema:
+        type: integer
+    XRequestsLast:
+      description: The usage cost of the most recent request.
+      schema:
+        type: integer
+
+  responses:
+    Unauthorized:
+      description: >-
+        Unauthenticated or unauthorized. The API key may be missing or invalid
+        (unauthenticated), or it may be at its usage limit (unauthorized). The
+        response body contains more detail.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: The requested sport or event was not found.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    InvalidParams:
+      description: One or more query params are invalid. The response body contains more detail.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Throttled:
+      description: The request was throttled because requests are being sent too frequently.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
   schemas:
+    SportKey:
+      type: string
+      description: A unique slug for the sport. Use as the `sport` path param.
+      example: americanfootball_nfl
+    SportTitle:
+      type: string
+      description: >-
+        A presentable title of the sport. Occasionally changes (e.g. on a league
+        name or sponsorship change).
+      example: NFL
+    EventId:
+      type: string
+      description: A unique 32-character identifier for the event.
+      example: e912304de2b2ce35b473ce2ecd3d1502
+    CommenceTime:
+      description: >-
+        The event start time, ISO 8601 formatted. Returned as a unix timestamp
+        integer when `dateFormat=unix`.
+      oneOf:
+        - type: string
+          format: date-time
+        - type: integer
+      example: '2023-09-10T17:00:00Z'
+    LastUpdate:
+      description: >-
+        ISO 8601 timestamp of when the data was last captured. Returned as a
+        unix timestamp integer when `dateFormat=unix`.
+      oneOf:
+        - type: string
+          format: date-time
+        - type: integer
+      example: '2023-09-10T16:45:13Z'
+    HomeTeam:
+      type: string
+      nullable: true
+      description: >-
+        The home team. For sports without home/away (e.g. MMA, tennis) this is
+        one of the participants. Null for outrights (futures) events.
+      example: Houston Texans
+    AwayTeam:
+      type: string
+      nullable: true
+      description: >-
+        The away team. For sports without home/away (e.g. MMA, tennis) this is
+        one of the participants. Null for outrights (futures) events.
+      example: Kansas City Chiefs
+
+    Sport:
+      type: object
+      description: An available sport or tournament.
+      properties:
+        key:
+          $ref: '#/components/schemas/SportKey'
+        group:
+          type: string
+          description: A broader grouping the sport belongs to.
+          example: American Football
+        title:
+          $ref: '#/components/schemas/SportTitle'
+        description:
+          type: string
+          description: A brief description of the sport. Subject to change.
+          example: US Football
+        active:
+          type: boolean
+          description: Indicates whether the sport is currently in season.
+          example: true
+        has_outrights:
+          type: boolean
+          description: Indicates whether the sport has outrights (futures) markets.
+          example: false
+
     Outcome:
       type: object
-      properties:
-        label:
-          type: string
-          example: "Houston Texans"
-          description: "A label of the outcome. For totals markets, this can be 'Over' or 'Under'. For all other markets, this will be the name of the team or participant, or 'Draw'"
-        price:
-          type: number
-          example: 2.23
-          description: The odds of the outcome. The format is determined by the oddsFormat query param. The format is decimal by default.
-        points:
-          type: number
-          example: 20.5
-          nullable: true
-          description: The handicap or points of the outcome, only applicable to spreads and totals markets (this property will be missing for h2h and outrights markets)
-    
-    MatchId:
-      example: "e912304de2b2ce35b473ce2ecd3d1502"
-      type: string
-      description: A unique 32 character identifier for the event.
-    
-    SportKey:
-      example: americanfootball_nfl
-      type: string
-      description: A unique slug for the sport. Use this as the "sport" param in /odds requests
-
-    SportTitle:
-        example: NFL
-        type: string
-        description: A presentable title of the sport. Occassionally this value can change, for example if a league undergoes a name change or change in sponsorship.
-
-    CommenceTime:
-      example: "2020-01-02T23:10:00Z"
-      type: string
-      description:  The match start time (ISO 8601 formatted). This will be unix timestamp integer if the dateFormat query param is set to dateFormat=unix.
-      format: date-time
-
-    HomeTeam:
-      example: Houston Texans
-      type: string
-      description: The home team. If home/away is not applicable for the sport (such as MMA and Tennis), it will be one of the participants. Null for outrights (futures) events.
-      nullable: true
-
-    AwayTeam: 
-      example: Kansas City Chiefs
-      type: string
-      description: The away team. If home/away is not applicable for the sport (such as MMA and Tennis), it will be one of the participants. Null for outrights (futures) events.
-      nullable: true
-
-    ScoreModel:
-      type: object
+      description: A single selectable outcome within a market.
       properties:
         name:
+          type: string
+          description: >-
+            The outcome name. For `totals` markets this is `Over` or `Under`;
+            for other markets it is the team/participant name or `Draw`.
           example: Houston Texans
+        description:
           type: string
-          description: "The participant name"
+          description: >-
+            Additional context for the outcome, e.g. the player name for
+            player-prop markets. Present only on some markets.
+          example: Patrick Mahomes
+        price:
+          type: number
+          description: >-
+            The odds for the outcome. Format is set by `oddsFormat` (decimal by
+            default).
+          example: 2.23
+        point:
+          type: number
+          nullable: true
+          description: >-
+            The handicap or line for the outcome. Applicable to `spreads`,
+            `totals` and many additional/prop markets; absent for `h2h` and
+            `outrights`.
+          example: 20.5
+        link:
+          type: string
+          description: Deep link to the outcome on the bookmaker. Present when `includeLinks=true`.
+        sid:
+          type: string
+          description: Source id of the outcome. Present when `includeSids=true`.
+        bet_limit:
+          type: number
+          nullable: true
+          description: Maximum bet limit (betting exchanges). Present when `includeBetLimits=true`.
+
+    Market:
+      type: object
+      description: A betting market offered by a bookmaker.
+      properties:
+        key:
+          type: string
+          description: >-
+            The market key, e.g. `h2h`, `spreads`, `totals`, `outrights`, or an
+            additional/player-prop key such as `player_points`.
+          example: h2h
+        last_update:
+          $ref: '#/components/schemas/LastUpdate'
+        link:
+          type: string
+          description: Deep link to the market. Present when `includeLinks=true`.
+        sid:
+          type: string
+          description: Source id of the market. Present when `includeSids=true`.
+        outcomes:
+          type: array
+          items: { $ref: '#/components/schemas/Outcome' }
+
+    MarketKey:
+      type: object
+      description: A market key available for a bookmaker (no outcomes).
+      properties:
+        key:
+          type: string
+          example: player_points
+        last_update:
+          $ref: '#/components/schemas/LastUpdate'
+
+    Bookmaker:
+      type: object
+      description: A bookmaker and its markets for an event.
+      properties:
+        key:
+          type: string
+          description: A unique slug (key) for the bookmaker.
+          example: draftkings
+        title:
+          type: string
+          description: A formatted title for the bookmaker.
+          example: DraftKings
+        last_update:
+          $ref: '#/components/schemas/LastUpdate'
+        link:
+          type: string
+          description: Deep link to the bookmaker event page. Present when `includeLinks=true`.
+        sid:
+          type: string
+          description: Source id of the bookmaker event. Present when `includeSids=true`.
+        markets:
+          type: array
+          items: { $ref: '#/components/schemas/Market' }
+
+    BookmakerMarkets:
+      type: object
+      description: A bookmaker and the market keys it offers for an event.
+      properties:
+        key:
+          type: string
+          example: draftkings
+        title:
+          type: string
+          example: DraftKings
+        markets:
+          type: array
+          items: { $ref: '#/components/schemas/MarketKey' }
+
+    Event:
+      type: object
+      description: A game/event without odds.
+      properties:
+        id:
+          $ref: '#/components/schemas/EventId'
+        sport_key:
+          $ref: '#/components/schemas/SportKey'
+        sport_title:
+          $ref: '#/components/schemas/SportTitle'
+        commence_time:
+          $ref: '#/components/schemas/CommenceTime'
+        home_team:
+          $ref: '#/components/schemas/HomeTeam'
+        away_team:
+          $ref: '#/components/schemas/AwayTeam'
+
+    EventWithOdds:
+      type: object
+      description: A game/event with bookmaker odds.
+      properties:
+        id:
+          $ref: '#/components/schemas/EventId'
+        sport_key:
+          $ref: '#/components/schemas/SportKey'
+        sport_title:
+          $ref: '#/components/schemas/SportTitle'
+        commence_time:
+          $ref: '#/components/schemas/CommenceTime'
+        home_team:
+          $ref: '#/components/schemas/HomeTeam'
+        away_team:
+          $ref: '#/components/schemas/AwayTeam'
+        bookmakers:
+          type: array
+          items: { $ref: '#/components/schemas/Bookmaker' }
+
+    EventWithMarkets:
+      type: object
+      description: A game/event with the market keys offered by each bookmaker.
+      properties:
+        id:
+          $ref: '#/components/schemas/EventId'
+        sport_key:
+          $ref: '#/components/schemas/SportKey'
+        sport_title:
+          $ref: '#/components/schemas/SportTitle'
+        commence_time:
+          $ref: '#/components/schemas/CommenceTime'
+        home_team:
+          $ref: '#/components/schemas/HomeTeam'
+        away_team:
+          $ref: '#/components/schemas/AwayTeam'
+        bookmakers:
+          type: array
+          items: { $ref: '#/components/schemas/BookmakerMarkets' }
+
+    Score:
+      type: object
+      description: A participant and their most recent score.
+      properties:
+        name:
+          type: string
+          description: The participant name.
+          example: Houston Texans
         score:
-          example: "20"
           type: string
-          description: "The most recent score for the participant"
+          description: The most recent score for the participant.
+          example: '20'
+
+    EventWithScores:
+      type: object
+      description: A game/event with scores.
+      properties:
+        id:
+          $ref: '#/components/schemas/EventId'
+        sport_key:
+          $ref: '#/components/schemas/SportKey'
+        sport_title:
+          $ref: '#/components/schemas/SportTitle'
+        commence_time:
+          $ref: '#/components/schemas/CommenceTime'
+        completed:
+          type: boolean
+          description: True if the game has finished, otherwise false.
+          example: false
+        home_team:
+          $ref: '#/components/schemas/HomeTeam'
+        away_team:
+          $ref: '#/components/schemas/AwayTeam'
+        scores:
+          type: array
+          nullable: true
+          description: >-
+            A list of teams and their scores. Null (or empty) if the game has
+            not started.
+          items: { $ref: '#/components/schemas/Score' }
+        last_update:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp of when scores were last updated. Null if not started.
+          example: '2023-01-03T01:10:00Z'
+
+    Participant:
+      type: object
+      description: A team or individual participant in a sport.
+      properties:
+        id:
+          type: string
+          description: A unique identifier for the participant.
+          example: par_01hqmkska1f4qbzy0yvy8r2vf3
+        full_name:
+          type: string
+          description: The participant's full name.
+          example: Kansas City Chiefs
+
+    HistoricalOddsSnapshot:
+      type: object
+      description: A historical snapshot of games with odds at a point in time.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the returned snapshot.
+          example: '2021-10-18T11:55:00Z'
+        previous_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the preceding snapshot, or null if none.
+          example: '2021-10-18T11:50:00Z'
+        next_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the following snapshot, or null if none.
+          example: '2021-10-18T12:00:00Z'
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/EventWithOdds' }
+
+    HistoricalEventsSnapshot:
+      type: object
+      description: A historical snapshot of events at a point in time.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: '2021-10-18T11:55:00Z'
+        previous_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        next_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Event' }
+
+    HistoricalEventOddsSnapshot:
+      type: object
+      description: A historical snapshot of odds for a single event at a point in time.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: '2021-10-18T11:55:00Z'
+        previous_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        next_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        data:
+          $ref: '#/components/schemas/EventWithOdds'
+
+    Error:
+      type: object
+      description: An error response.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+          example: The api key is invalid or has been removed.
+        error_code:
+          type: string
+          description: A machine-readable error code.
+          example: INVALID_KEY
+        details_url:
+          type: string
+          nullable: true
+          description: A link to documentation with more detail, where available.
