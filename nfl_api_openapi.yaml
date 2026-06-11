@@ -1,0 +1,338 @@
+openapi: 3.1.0
+info:
+  title: NFL.com API (api.nfl.com) — unofficial
+  version: 0.1.0-rev2026.06
+  summary: Reverse-engineered spec for the modern NFL.com data API (NFL "Shield").
+  description: |
+    Unofficial OpenAPI description of the modern **`api.nfl.com`** ("Shield") data
+    surface used by the NFL.com web app, covering the `/football/v2/*`,
+    `/experience/*`, and `/identity/v3/*` endpoints that `sportsdataverse-py`'s
+    NFL module wraps (`sportsdataverse.nfl.nfl_api` / `nfl_games`).
+
+    **Auth.** Every data endpoint requires a bearer token. The web app mints an
+    anonymous *device token* by POSTing the public `WEB_DESKTOP` client
+    credentials to `/identity/v3/token`; the returned `accessToken` is sent as
+    `Authorization: Bearer <token>` together with `X-Domain-Id: 100`. No personal
+    NFL.com account is involved. This is **not** an official, supported API.
+    Schemas are intentionally shallow (documented wrapper keys + a free-form item
+    shape) since the payloads are large and evolve.
+  x-nfl-schema-source: code+captured-2026-06
+  contact:
+    name: sdv-internal-refs
+  license:
+    name: Reference only
+servers:
+  - url: https://api.nfl.com
+    description: NFL.com Shield data host
+tags:
+  - name: identity
+    description: Token minting (device-token grant).
+  - name: football
+    description: /football/v2 data resources.
+  - name: experience
+    description: /experience game-detail resources.
+security:
+  - bearerAuth: []
+paths:
+  /identity/v3/token:
+    post:
+      operationId: mintToken
+      summary: Mint an anonymous device access token (WEB_DESKTOP grant).
+      tags: [identity]
+      security: []
+      description: |
+        Exchanges the public `WEB_DESKTOP` web-app client credentials for a
+        short-lived bearer `accessToken`. Send `X-Domain-Id: 100`.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [clientKey, clientSecret]
+              properties:
+                clientKey: {type: string, description: Public WEB_DESKTOP client key.}
+                clientSecret: {type: string, description: Public WEB_DESKTOP client secret.}
+                deviceId: {type: string, description: Random UUID identifying the device.}
+                deviceInfo: {type: string, description: base64 device descriptor JSON.}
+                networkType: {type: string, default: other}
+      responses:
+        "200":
+          description: A fresh access token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken: {type: string}
+                  refreshToken: {type: string}
+                  expiresIn: {type: integer}
+  /football/v2/standings:
+    get:
+      operationId: getStandings
+      summary: Team standings snapshot for a season/week (weeks[].standings[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+        - {$ref: "#/components/parameters/limit"}
+      responses:
+        "200": {$ref: "#/components/responses/WeeksWrapper"}
+  /football/v2/rosters:
+    get:
+      operationId: getRosters
+      summary: Team rosters for a season (rosters[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/limit"}
+      responses:
+        "200":
+          description: One entry per team roster under `rosters`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rosters: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/teams/history:
+    get:
+      operationId: getTeamsHistory
+      summary: Teams for a season (teams[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/limit"}
+      responses:
+        "200":
+          description: One entry per team under `teams`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teams: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/teams/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Single-team detail (one object).
+      tags: [football]
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema: {type: string}
+          description: The uuid team id from /football/v2/teams/history.
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/weeks/season/{season}/seasonType/{seasonType}:
+    get:
+      operationId: getWeeks
+      summary: Week calendar for a season (weeks[]).
+      tags: [football]
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema: {type: integer}
+        - name: seasonType
+          in: path
+          required: true
+          schema: {$ref: "#/components/schemas/SeasonTypeStr"}
+      responses:
+        "200": {$ref: "#/components/responses/WeeksWrapper"}
+  /football/v2/weeks/date/{date}:
+    get:
+      operationId: getWeekByDate
+      summary: The week containing a calendar date (one object).
+      tags: [football]
+      parameters:
+        - name: date
+          in: path
+          required: true
+          schema: {type: string, format: date}
+          description: Calendar date in YYYY-MM-DD form.
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/combine/profiles:
+    get:
+      operationId: getCombineProfiles
+      summary: Combine prospect profiles for a year (combineProfiles[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/year"}
+        - {$ref: "#/components/parameters/limit"}
+      responses:
+        "200":
+          description: One entry per combine profile under `combineProfiles`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  combineProfiles: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/draft/picks/report:
+    get:
+      operationId: getDraftPicks
+      summary: Draft pick report for a year (picks[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/year"}
+        - {$ref: "#/components/parameters/limit"}
+      responses:
+        "200":
+          description: Draft state plus `picks` and `days` lists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  picks: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  days: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/injuries:
+    get:
+      operationId: getInjuries
+      summary: Injury report for a season/week (injuries[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200":
+          description: One entry per injured player under `injuries`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  injuries: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/stats/live/game-summaries:
+    get:
+      operationId: getGameSummaries
+      summary: Live game summaries for a season/week (data[]).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200":
+          description: One entry per game under `data`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/experience/weekly-game-details:
+    get:
+      operationId: getWeeklyGameDetails
+      summary: Weekly game details (bare list of game objects).
+      tags: [football]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - name: type
+          in: query
+          schema: {$ref: "#/components/schemas/SeasonTypeStr"}
+          description: Season type (sent as `type`, not `seasonType`).
+        - {$ref: "#/components/parameters/week"}
+        - {name: includeDriveChart, in: query, schema: {type: boolean, default: true}}
+        - {name: includeReplays, in: query, schema: {type: boolean, default: false}}
+        - {name: includeStandings, in: query, schema: {type: boolean, default: false}}
+        - {name: includeTaggedVideos, in: query, schema: {type: boolean, default: false}}
+      responses:
+        "200":
+          description: A bare JSON array of game-detail objects.
+          content:
+            application/json:
+              schema: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /football/v2/games/season/{season}/seasonType/{seasonType}/week/{week}:
+    get:
+      operationId: getGames
+      summary: Games for a season/week slice (games[] + pagination).
+      tags: [football]
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+        - {name: seasonType, in: path, required: true, schema: {$ref: "#/components/schemas/SeasonTypeStr"}}
+        - {name: week, in: path, required: true, schema: {type: integer}}
+      responses:
+        "200":
+          description: Games list under `games` plus `pagination`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  games: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  pagination: {$ref: "#/components/schemas/Item"}
+  /experience/v1/game/{gameId}:
+    get:
+      operationId: getGameDetails
+      summary: Single-game experience detail (drive chart, plays, scoring).
+      tags: [experience]
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          schema: {type: string}
+          description: The uuid game id from the games / weekly-game-details lists.
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer accessToken minted at POST /identity/v3/token (plus X-Domain-Id 100).
+  parameters:
+    season:
+      name: season
+      in: query
+      schema: {type: integer, default: 2024}
+      description: Season year (e.g. 2024).
+    seasonType:
+      name: seasonType
+      in: query
+      schema: {$ref: "#/components/schemas/SeasonTypeStr"}
+      description: Season phase string (PRE / REG / POST).
+    week:
+      name: week
+      in: query
+      schema: {type: integer, default: 1}
+      description: Week number within the season.
+    year:
+      name: year
+      in: query
+      schema: {type: integer, default: 2024}
+      description: Combine / draft year.
+    limit:
+      name: limit
+      in: query
+      schema: {type: integer, default: 40}
+      description: Page size (max items per page).
+  schemas:
+    SeasonTypeStr:
+      type: string
+      enum: [PRE, REG, POST]
+      description: NFL.com season-type code (note PRE/REG/POST, not ESPN's 1/2/3).
+    Item:
+      type: object
+      additionalProperties: true
+      description: A free-form resource object (shape varies by endpoint).
+  responses:
+    Object:
+      description: A single resource object.
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Item"}
+    WeeksWrapper:
+      description: Records nested under weeks[] (each week carrying its own list).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              weeks: {type: array, items: {$ref: "#/components/schemas/Item"}}
