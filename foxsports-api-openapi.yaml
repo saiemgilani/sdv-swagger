@@ -1,0 +1,2779 @@
+openapi: 3.1.0
+info:
+  title: FoxSports Bifrost API (unofficial)
+  version: 0.1.0-rev2026.06
+  summary: Reverse-engineered OpenAPI spec for Fox Sports' Bifrost content API.
+  description: 'api.foxsports.com/bifrost/v1 is a layout-oriented JSON API that powers foxsports.com and
+    the Fox Sports apps. Endpoint shapes are uniform across sports; only the {sport} slug differs. Auth
+    is a public apikey + api-version query pair. Two key tiers exist: a data tier (bifrost sports data)
+    and a feed tier (general/trending, foxpolls, fs). Schemas are inferred from captured representative
+    responses (see fox/captures/). NOT an official API.
+
+    '
+  x-foxsports-schema-source: captured-2026-06-09
+  contact:
+    name: sdv-internal-refs
+  license:
+    name: Reference only
+servers:
+- url: https://api.foxsports.com
+  description: Fox Sports API gateway (Apigee)
+- url: https://test.api.foxsports.com
+  description: Staging mirror
+security:
+- dataKey: []
+  apiVersion: []
+tags:
+- name: scoreboard
+  description: Scoreboards and score chips
+- name: league
+  description: 'League hub: scores, standings, polls, odds, stats, team directory'
+- name: event
+  description: Per-game data, odds, matchup, recap
+- name: team
+  description: Team roster, stats, gamelog, standings
+- name: explore
+  description: Browse/favorite discovery hubs
+- name: search
+  description: Search + typeahead
+- name: trending
+  description: Trending articles/videos (feed tier)
+- name: polls
+  description: Fan polls (feed tier)
+- name: content
+  description: Editorial fs/* service (not reproduced)
+paths:
+  /bifrost/v1/explore/browse/{section}/main:
+    get:
+      operationId: get_bifrost_explore_browse
+      summary: Browse hub (onboarding/discovery)
+      tags:
+      - explore
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/section'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: {}
+                  groups: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (explore_browse_sports_main.json)
+                  externalValue: ./captures/_sample/explore_browse_sports_main.json
+  /bifrost/v1/explore/favorite/{section}/main:
+    get:
+      operationId: get_bifrost_explore_favorite
+      summary: Favorites hub (requires user session)
+      tags:
+      - explore
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/section'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: No user session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      description: Returns 400/401 without an authenticated user session.
+  /bifrost/v1/explore/odds/main:
+    get:
+      operationId: get_bifrost_explore_odds
+      summary: Cross-sport odds landing
+      tags:
+      - explore
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sectionList: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (explore_odds_main.json)
+                  externalValue: ./captures/_sample/explore_odds_main.json
+  /bifrost/v1/general/trending/articles:
+    get:
+      operationId: get_bifrost_trending_articles
+      summary: Trending articles
+      tags:
+      - trending
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/tags'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (trending_articles.json)
+                  externalValue: ./captures/_sample/trending_articles.json
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+  /bifrost/v1/general/trending/videos:
+    get:
+      operationId: get_bifrost_trending_videos
+      summary: Trending videos
+      tags:
+      - trending
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {}
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+  /bifrost/v1/search/content:
+    get:
+      operationId: get_bifrost_search_content
+      summary: Full content search
+      tags:
+      - search
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/text'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (search_content.json)
+                  externalValue: ./captures/_sample/search_content.json
+  /bifrost/v1/search/entities:
+    get:
+      operationId: get_bifrost_search_entities
+      summary: Entity (team/player) typeahead
+      tags:
+      - search
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/text'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (search_entities.json)
+                  externalValue: ./captures/_sample/search_entities.json
+  /bifrost/v1/search/popular:
+    get:
+      operationId: get_bifrost_search_popular
+      summary: Popular search suggestions
+      tags:
+      - search
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (search_popular.json)
+                  externalValue: ./captures/_sample/search_popular.json
+  /bifrost/v1/topevents/scoreboard/segment/{segment}:
+    get:
+      operationId: get_bifrost_topevents_scoreboard_segment
+      summary: Cross-sport top-events board (paginated)
+      tags:
+      - scoreboard
+      parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/segment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopEventsSegment'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (topevents_scoreboard_segment_1.json)
+                  externalValue: ./captures/_sample/topevents_scoreboard_segment_1.json
+  /bifrost/v1/{sport}/event/{eventId}/data:
+    get:
+      operationId: get_bifrost_sport_event_data
+      summary: Full game detail (boxscore, pbp, linescore embedded)
+      tags:
+      - event
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/eventId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventData'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_event_data.json)
+                  externalValue: ./captures/_sample/cfb_event_data.json
+  /bifrost/v1/{sport}/event/{eventId}/matchup:
+    get:
+      operationId: get_bifrost_sport_event_matchup
+      summary: Pre/post matchup (comparisons, win probability)
+      tags:
+      - event
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/eventId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventMatchup'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_event_matchup.json)
+                  externalValue: ./captures/_sample/cfb_event_matchup.json
+  /bifrost/v1/{sport}/event/{eventId}/odds:
+    get:
+      operationId: get_bifrost_sport_event_odds
+      summary: Game betting markets
+      tags:
+      - event
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/eventId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventOdds'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_event_odds.json)
+                  externalValue: ./captures/_sample/cfb_event_odds.json
+  /bifrost/v1/{sport}/event/{eventId}/recap:
+    get:
+      operationId: get_bifrost_sport_event_recap
+      summary: Game recap
+      tags:
+      - event
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/eventId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventInfo: {}
+                  favoriteCta: {}
+                  schedule: {}
+                  template: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_event_recap.json)
+                  externalValue: ./captures/_sample/cfb_event_recap.json
+  /bifrost/v1/{sport}/event/{eventId}/standings:
+    get:
+      operationId: get_bifrost_sport_event_standings
+      summary: Both teams' conference context
+      tags:
+      - event
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/eventId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header: {}
+                  standingsSections: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_event_standings.json)
+                  externalValue: ./captures/_sample/cfb_event_standings.json
+  /bifrost/v1/{sport}/league/conferences:
+    get:
+      operationId: get_bifrost_sport_league_conferences
+      summary: Conference list / groupId catalog
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groups: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_conferences.json)
+                  externalValue: ./captures/_sample/cfb_league_conferences.json
+  /bifrost/v1/{sport}/league/header:
+    get:
+      operationId: get_bifrost_sport_league_header
+      summary: League header (title, logo, season selector)
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_header.json)
+                  externalValue: ./captures/_sample/cfb_league_header.json
+  /bifrost/v1/{sport}/league/odds:
+    get:
+      operationId: get_bifrost_sport_league_odds
+      summary: League odds board
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/groupIdQuery'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueOdds'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_odds.json)
+                  externalValue: ./captures/_sample/cfb_league_odds.json
+      description: '`groupId` accepts conference numeric ids plus `top25`, `bowls`. Soccer variant: `soccer/league/all-odds`.'
+  /bifrost/v1/{sport}/league/playernews:
+    get:
+      operationId: get_bifrost_sport_league_playernews
+      summary: League-wide player news feed
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: {}
+                  items: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_playernews.json)
+                  externalValue: ./captures/_sample/cfb_league_playernews.json
+  /bifrost/v1/{sport}/league/polls:
+    get:
+      operationId: get_bifrost_sport_league_polls
+      summary: Rankings/polls (AP, Coaches, CFP)
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Standings'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_polls.json)
+                  externalValue: ./captures/_sample/cfb_league_polls.json
+  /bifrost/v1/{sport}/league/schedule:
+    get:
+      operationId: get_bifrost_sport_league_schedule
+      summary: Full league schedule
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueScores'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_schedule.json)
+                  externalValue: ./captures/_sample/cfb_league_schedule.json
+  /bifrost/v1/{sport}/league/scores:
+    get:
+      operationId: get_bifrost_sport_league_scores
+      summary: Conference/segment-filtered scores
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueScores'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_scores.json)
+                  externalValue: ./captures/_sample/cfb_league_scores.json
+  /bifrost/v1/{sport}/league/scores-segment/{segmentId}:
+    get:
+      operationId: get_bifrost_sport_league_scores_segment
+      summary: Segmented scores
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/segmentId'
+      - $ref: '#/components/parameters/groupIdQuery'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {}
+                  sectionList: {}
+                  currentSectionId: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (soccer_competition_segment.json)
+                  externalValue: ./captures/_sample/soccer_competition_segment.json
+  /bifrost/v1/{sport}/league/standings:
+    get:
+      operationId: get_bifrost_sport_league_standings
+      summary: Conference standings tables
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Standings'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_standings.json)
+                  externalValue: ./captures/_sample/cfb_league_standings.json
+  /bifrost/v1/{sport}/league/stats:
+    get:
+      operationId: get_bifrost_sport_league_stats
+      summary: League stats landing (leaders)
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leadersSections: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_stats.json)
+                  externalValue: ./captures/_sample/cfb_league_stats.json
+  /bifrost/v1/{sport}/league/stats-con/{who}/{category}/{page}:
+    get:
+      operationId: get_bifrost_sport_league_stats_con
+      summary: Parameterized leaderboard table
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/who'
+      - $ref: '#/components/parameters/category'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/groupIdQuery'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsConTable'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cbk_league_stats-con__player.json)
+                  externalValue: ./captures/_sample/cbk_league_stats-con__player.json
+      description: '`who`=player|team; `category` per STAT_CATEGORIES; `page` 0-based.'
+  /bifrost/v1/{sport}/league/teamnav:
+    get:
+      operationId: get_bifrost_sport_league_teamnav
+      summary: Team navigation directory (all teams)
+      tags:
+      - league
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamNav'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_league_teamnav.json)
+                  externalValue: ./captures/_sample/cfb_league_teamnav.json
+  /bifrost/v1/{sport}/scoreboard/main:
+    get:
+      operationId: get_bifrost_sport_scoreboard_main
+      summary: Per-sport scoreboard (week- or date-based)
+      tags:
+      - scoreboard
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/groupIdQuery'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreboardResponse'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_scoreboard_main.json)
+                  externalValue: ./captures/_sample/cfb_scoreboard_main.json
+      description: Week/conference sports (cfb, nfl, cbk...) return `groupList`; date sports (mlb, nba,
+        nhl, wnba...) return `dailyList`; college hoops return both. `groupId` filters to a conference/week.
+  /bifrost/v1/{sport}/scorechip/{chipId}:
+    get:
+      operationId: get_bifrost_sport_scorechip
+      summary: Compact live single-game score chip
+      tags:
+      - scoreboard
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/chipId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header: {}
+        '400':
+          description: Stale or unknown chip id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      description: Intended for currently-live events; returns 400 for stale/unknown chip ids. Chip id
+        form is `{sport}{eventId}`, e.g. mlb95682.
+  /bifrost/v1/{sport}/team/{teamId}/gamelog:
+    get:
+      operationId: get_bifrost_sport_team_gamelog
+      summary: Game-by-game results
+      tags:
+      - team
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/teamId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamGamelog'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_team_gamelog.json)
+                  externalValue: ./captures/_sample/cfb_team_gamelog.json
+  /bifrost/v1/{sport}/team/{teamId}/header:
+    get:
+      operationId: get_bifrost_sport_team_header
+      summary: Compact team header
+      tags:
+      - team
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/teamId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_team_header.json)
+                  externalValue: ./captures/_sample/cfb_team_header.json
+  /bifrost/v1/{sport}/team/{teamId}/roster:
+    get:
+      operationId: get_bifrost_sport_team_roster
+      summary: Team roster by position group
+      tags:
+      - team
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/teamId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamRoster'
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_team_roster.json)
+                  externalValue: ./captures/_sample/cfb_team_roster.json
+  /bifrost/v1/{sport}/team/{teamId}/standings:
+    get:
+      operationId: get_bifrost_sport_team_standings
+      summary: Team's conference standings
+      tags:
+      - team
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/teamId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  standingsSections: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_team_standings.json)
+                  externalValue: ./captures/_sample/cfb_team_standings.json
+  /bifrost/v1/{sport}/team/{teamId}/stats:
+    get:
+      operationId: get_bifrost_sport_team_stats
+      summary: Team stat leaders
+      tags:
+      - team
+      parameters:
+      - $ref: '#/components/parameters/sport'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/teamId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leadersSections: {}
+              examples:
+                captured:
+                  summary: Captured 2026-06-09 (cfb_team_stats.json)
+                  externalValue: ./captures/_sample/cfb_team_stats.json
+  /foxpolls/v1/polls:
+    get:
+      operationId: get_foxpolls_polls
+      summary: Fan polls for an entity
+      tags:
+      - polls
+      parameters:
+      - $ref: '#/components/parameters/associatedEntityIds'
+      - $ref: '#/components/parameters/includeAnswers'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  values: {}
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+      description: 'Returns {"values": []} when the entity has no active poll.'
+  /fs/feed:
+    get:
+      operationId: get_fs_feed
+      summary: Editorial feed (articles/video) — NOT reproducible anonymously
+      tags:
+      - content
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Apigee ApplicationNotFound (wrong virtualhost)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+      deprecated: true
+      description: The /fs/* proxy is bound to a separate Apigee virtualhost ("secure"); direct anonymous
+        calls return an ApplicationNotFound fault. Documented from the site bundle; shape unverified.
+  /fs/images:
+    get:
+      operationId: get_fs_images
+      summary: Editorial images — NOT reproducible anonymously
+      tags:
+      - content
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Apigee ApplicationNotFound (wrong virtualhost)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+      deprecated: true
+      description: The /fs/* proxy is bound to a separate Apigee virtualhost ("secure"); direct anonymous
+        calls return an ApplicationNotFound fault. Documented from the site bundle; shape unverified.
+  /fs/layouts:
+    get:
+      operationId: get_fs_layouts
+      summary: Page layout definitions — NOT reproducible anonymously
+      tags:
+      - content
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Apigee ApplicationNotFound (wrong virtualhost)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+      deprecated: true
+      description: The /fs/* proxy is bound to a separate Apigee virtualhost ("secure"); direct anonymous
+        calls return an ApplicationNotFound fault. Documented from the site bundle; shape unverified.
+  /fs/videos:
+    get:
+      operationId: get_fs_videos
+      summary: Editorial videos — NOT reproducible anonymously
+      tags:
+      - content
+      parameters:
+      - $ref: '#/components/parameters/apiVersionFeed'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Apigee ApplicationNotFound (wrong virtualhost)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+      x-foxsports-key-tier: feed
+      security:
+      - feedKey: []
+      - apiVersion: []
+      deprecated: true
+      description: The /fs/* proxy is bound to a separate Apigee virtualhost ("secure"); direct anonymous
+        calls return an ApplicationNotFound fault. Documented from the site bundle; shape unverified.
+components:
+  securitySchemes:
+    dataKey:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Bifrost data tier key (e.g. jE7yBJVRNAwdDesMgTzTXUUSx1It41Fq).
+    feedKey:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Feed tier key (e.g. SuNgfBgmTGS2xozZbnV6FcjGGRQrR8cg) for trending/polls/fs.
+    apiVersion:
+      type: apiKey
+      in: query
+      name: api-version
+      description: Required version pin (1.1).
+  parameters:
+    sport:
+      name: sport
+      in: path
+      required: true
+      description: Fox sport slug.
+      schema:
+        type: string
+        enum:
+        - topevents
+        - cfb
+        - nfl
+        - mlb
+        - nba
+        - nhl
+        - wnba
+        - cbk
+        - wcbk
+        - soccer
+        - golf
+        - nascar
+        - ufc
+        - boxing
+        - tennis
+        - ufl
+        - wbc
+    apiVersion:
+      name: api-version
+      in: query
+      required: true
+      description: Bifrost API version.
+      schema:
+        type: string
+        default: '1.1'
+    apiVersionFeed:
+      name: api-version
+      in: query
+      required: false
+      description: Optional for feed-tier endpoints.
+      schema:
+        type: string
+        default: '1.1'
+    groupIdQuery:
+      name: groupId
+      in: query
+      required: false
+      description: Conference/week/group id, or one of top25, bowls, cfp.
+      schema:
+        type: string
+    eventId:
+      name: eventId
+      in: path
+      required: true
+      description: Numeric Bifrost event id (not the scorechip id).
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    teamId:
+      name: teamId
+      in: path
+      required: true
+      description: Numeric team id (from league/teamnav).
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    chipId:
+      name: chipId
+      in: path
+      required: true
+      description: Score-chip id, form {sport}{eventId} e.g. mlb95682.
+      schema:
+        type: string
+    segment:
+      name: segment
+      in: path
+      required: true
+      description: 0-based board segment index.
+      schema:
+        type: integer
+    segmentId:
+      name: segmentId
+      in: path
+      required: true
+      description: Segment id, e.g. 2025-cfp-2.
+      schema:
+        type: string
+    who:
+      name: who
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - player
+        - team
+    category:
+      name: category
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - passing
+        - rushing
+        - receiving
+        - defense
+        - kicking
+        - returning
+        - scoring
+        - yardage
+        - downs
+        - turnovers
+    page:
+      name: page
+      in: path
+      required: true
+      description: 0-based page index.
+      schema:
+        type: integer
+        default: 0
+    section:
+      name: section
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - sports
+        - players
+        - shows
+        - personalities
+        - topics
+    text:
+      name: text
+      in: query
+      required: true
+      description: Search term.
+      schema:
+        type: string
+    duration:
+      name: duration
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 4
+    maxItems:
+      name: maxItems
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 12
+    tags:
+      name: tags
+      in: query
+      required: false
+      description: Entity tag filter, e.g. league:football/cfb/league/1.
+      schema:
+        type: string
+    associatedEntityIds:
+      name: associatedEntityIds
+      in: query
+      required: true
+      description: Entity contentUri, e.g. football/cfb/league/1.
+      schema:
+        type: string
+    includeAnswers:
+      name: includeAnswers
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+  schemas:
+    ScoreboardResponse:
+      title: ScoreboardResponse
+      description: Inferred from a captured `cfb_scoreboard_main.json` body (depth <= 4).
+      type: object
+      properties:
+        title:
+          type: string
+        titleLink:
+          type: object
+          properties:
+            title:
+              type: string
+            webUrl:
+              type: string
+            color:
+              type: string
+            imageUrl:
+              type: string
+            imageType:
+              type: string
+            imageAltText:
+              type: string
+            contentUri:
+              type: string
+            contentType:
+              type: string
+            layout:
+              type: object
+              properties:
+                path:
+                  type: string
+                tokens:
+                  type: object
+                  properties:
+                    contentUri: {}
+            analyticsName:
+              type: string
+            analyticsSport:
+              type: string
+            tab:
+              type: string
+            type:
+              type: string
+        groupList:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              selected:
+                type: boolean
+              webUrl:
+                type: string
+        selectionGroupList:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              selectionList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    date:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    uri:
+                      type: string
+                    webUrl:
+                      type: string
+                    parameters:
+                      type: object
+                      properties:
+                        seasonType: {}
+        currentSelectionId:
+          type: string
+        hideSelections:
+          type: boolean
+        hideRecords:
+          type: boolean
+        hideLeague:
+          type: boolean
+        shortcut:
+          type: object
+          properties:
+            entityLink:
+              type: object
+              properties:
+                title:
+                  type: string
+                webUrl:
+                  type: string
+                color:
+                  type: string
+                imageUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                contentUri:
+                  type: string
+                contentType:
+                  type: string
+                layout:
+                  type: object
+                  properties:
+                    path: {}
+                    tokens: {}
+                analyticsName:
+                  type: string
+                analyticsSport:
+                  type: string
+                tab:
+                  type: string
+                type:
+                  type: string
+            text:
+              type: string
+    TopEventsSegment:
+      title: TopEventsSegment
+      description: Inferred from a captured `topevents_scoreboard_segment_1` body (depth <= 4).
+      type: object
+      properties:
+        id:
+          type: string
+        sectionList:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              template:
+                type: string
+              title:
+                type: string
+              hideLeague:
+                type: boolean
+              image:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  altUrl:
+                    type: string
+                  type:
+                    type: string
+                  altText:
+                    type: string
+              events:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    template:
+                      type: string
+                    id:
+                      type: string
+                    liveStartTime:
+                      type: string
+                    uri:
+                      type: string
+                    contentUri:
+                      type: string
+                    contentType:
+                      type: string
+                    eventStatus:
+                      type: integer
+                    eventTime:
+                      type: string
+                    sortKey:
+                      type: string
+                    altSortKey:
+                      type: string
+                    tvStation:
+                      type: string
+                    favoriteEntities:
+                      type: array
+                      items: {}
+                    isTba:
+                      type: boolean
+                    entityLink:
+                      type: object
+                      properties:
+                        webUrl: {}
+                        contentUri: {}
+                        contentType: {}
+                        layout: {}
+                        analyticsSport: {}
+                        type: {}
+                    league:
+                      type: string
+                    eventHeadline:
+                      type: string
+                    importance:
+                      type: integer
+                    upperTeam:
+                      type: object
+                      properties:
+                        name: {}
+                        uri: {}
+                        longName: {}
+                        stackedNameBottom: {}
+                        logoUrl: {}
+                        imageType: {}
+                        imageAltText: {}
+                        record: {}
+                        isLoser: {}
+                        hasPossession: {}
+                        alternateLogoUrl: {}
+                    lowerTeam:
+                      type: object
+                      properties:
+                        name: {}
+                        uri: {}
+                        longName: {}
+                        stackedNameBottom: {}
+                        logoUrl: {}
+                        imageType: {}
+                        imageAltText: {}
+                        record: {}
+                        isLoser: {}
+                        hasPossession: {}
+                        alternateLogoUrl: {}
+                    oddsLine:
+                      type: string
+                    overUnderLine:
+                      type: string
+                    gameNotes:
+                      type: string
+              uri:
+                type: string
+              titleLink:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  shortTitle:
+                    type: string
+                  webUrl:
+                    type: string
+                  color:
+                    type: string
+                  imageUrl:
+                    type: string
+                  imageType:
+                    type: string
+                  imageAltText:
+                    type: string
+                  contentUri:
+                    type: string
+                  contentType:
+                    type: string
+                  layout:
+                    type: object
+                    properties:
+                      path: {}
+                      tokens: {}
+                  analyticsName:
+                    type: string
+                  analyticsSport:
+                    type: string
+                  tab:
+                    type: string
+                  type:
+                    type: string
+              headerText:
+                type: string
+              headerLink:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  shortTitle:
+                    type: string
+                  webUrl:
+                    type: string
+                  color:
+                    type: string
+                  imageUrl:
+                    type: string
+                  imageType:
+                    type: string
+                  imageAltText:
+                    type: string
+                  contentUri:
+                    type: string
+                  contentType:
+                    type: string
+                  layout:
+                    type: object
+                    properties:
+                      path: {}
+                      tokens: {}
+                  analyticsName:
+                    type: string
+                  analyticsSport:
+                    type: string
+                  tab:
+                    type: string
+                  type:
+                    type: string
+        quickNav:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              uri:
+                type: string
+              date:
+                type: string
+              selected:
+                type: boolean
+    LeagueScores:
+      title: LeagueScores
+      description: Inferred from a captured `cfb_league_scores.json` body (depth <= 5).
+      type: object
+      properties:
+        groupList:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              selected:
+                type: boolean
+              webUrl:
+                type: string
+        selectionGroupList:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              selectionList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    date:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    uri:
+                      type: string
+                    webUrl:
+                      type: string
+                    parameters:
+                      type: object
+                      properties:
+                        seasonType:
+                          type: string
+        currentSelectionId:
+          type: string
+        hideSelections:
+          type: boolean
+        hideRecords:
+          type: boolean
+        hideLeague:
+          type: boolean
+    TeamNav:
+      title: TeamNav
+      description: Inferred from a captured `cfb_league_teamnav.json` body (depth <= 3).
+      type: object
+      properties:
+        navItems:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              logoUrl:
+                type: string
+              imageType:
+                type: string
+              imageAltText:
+                type: string
+              entityLink:
+                type: object
+                properties:
+                  title: {}
+                  webUrl: {}
+                  color: {}
+                  imageUrl: {}
+                  imageType: {}
+                  imageAltText: {}
+                  contentUri: {}
+                  contentType: {}
+                  layout: {}
+                  analyticsName: {}
+                  analyticsSport: {}
+                  type: {}
+              template:
+                type: string
+              alternateLogoUrl:
+                type: string
+        maxItems:
+          type: integer
+    Standings:
+      title: Standings
+      description: Inferred from a captured `cfb_league_standings.json` body (depth <= 6).
+      type: object
+      properties:
+        standingsSections:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              pageTitle:
+                type: string
+              lastUpdated:
+                type: string
+              standings:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    template:
+                      type: string
+                    headers:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          columns:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                index:
+                                  type: integer
+                                text:
+                                  type: string
+                                priority:
+                                  type: integer
+                                template:
+                                  type: string
+                                weight:
+                                  type: number
+                                emphasized:
+                                  type: boolean
+                                sortable:
+                                  type: string
+                          isPrimary:
+                            type: boolean
+                    rows:
+                      type: array
+                      items: {}
+              metadata:
+                type: object
+                properties:
+                  parameters:
+                    type: object
+                    properties:
+                      standingsType:
+                        type: string
+                      leagueName:
+                        type: string
+                      groupName:
+                        type: string
+                      season:
+                        type: string
+    LeagueOdds:
+      title: LeagueOdds
+      description: Inferred from a captured `cfb_league_odds.json` body (depth <= 5).
+      type: object
+      properties:
+        groupList:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              uri:
+                type: string
+              webUrl:
+                type: string
+              parameters:
+                type: object
+                properties:
+                  groupId:
+                    type: string
+              selected:
+                type: boolean
+        sectionList:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              modules:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    model:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+              name:
+                type: string
+        metadata:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                sport:
+                  type: string
+                fairPlaySport:
+                  type: string
+                fairPlayLeague:
+                  type: string
+                group:
+                  type: string
+                news:
+                  type: string
+                odds:
+                  type: string
+                props:
+                  type: string
+                futures:
+                  type: string
+    EventData:
+      title: EventData
+      description: Inferred from a captured `cfb_event_data.json` body (depth <= 4).
+      type: object
+      properties:
+        boxscore:
+          type: object
+          properties:
+            boxscoreSections:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  boxscoreItems:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        boxscoreTable: {}
+                  contentUri:
+                    type: string
+        eventStatsTab:
+          type: object
+          properties:
+            eventDetails:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title: {}
+                        text: {}
+            eventStatsList:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  leftImageUrl:
+                    type: string
+                  leftImageType:
+                    type: string
+                  leftImageAltText:
+                    type: string
+                  leftAlternateImageUrl:
+                    type: string
+                  leftTitle:
+                    type: string
+                  rightColor:
+                    type: string
+                  rightImageUrl:
+                    type: string
+                  rightImageType:
+                    type: string
+                  rightImageAltText:
+                    type: string
+                  rightAlternateImageUrl:
+                    type: string
+                  rightTitle:
+                    type: string
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title: {}
+                        leftStat: {}
+                        rightStat: {}
+                        betterStat: {}
+        fairPlay:
+          type: array
+          items:
+            type: object
+            properties:
+              disclaimerText:
+                type: string
+              id:
+                type: string
+              multiColumn:
+                type: boolean
+              slotId:
+                type: string
+        gameStats:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+                link:
+                  type: object
+                  properties:
+                    entityLink: {}
+                    text: {}
+                    linkType: {}
+            leftName:
+              type: string
+            leftImage:
+              type: object
+              properties:
+                url:
+                  type: string
+                altUrl:
+                  type: string
+                type:
+                  type: string
+                altText:
+                  type: string
+            leftEntityLink:
+              type: object
+              properties:
+                title:
+                  type: string
+                color:
+                  type: string
+                imageUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                contentUri:
+                  type: string
+                contentType:
+                  type: string
+                layout:
+                  type: object
+                  properties:
+                    path: {}
+                    tokens: {}
+                analyticsName:
+                  type: string
+                analyticsSport:
+                  type: string
+                type:
+                  type: string
+            rightName:
+              type: string
+            rightImage:
+              type: object
+              properties:
+                url:
+                  type: string
+                altUrl:
+                  type: string
+                type:
+                  type: string
+                altText:
+                  type: string
+            rightEntityLink:
+              type: object
+              properties:
+                title:
+                  type: string
+                webUrl:
+                  type: string
+                color:
+                  type: string
+                imageUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                contentUri:
+                  type: string
+                contentType:
+                  type: string
+                layout:
+                  type: object
+                  properties:
+                    path: {}
+                    tokens: {}
+                analyticsName:
+                  type: string
+                analyticsSport:
+                  type: string
+                type:
+                  type: string
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  leftItemDetails:
+                    type: object
+                    properties:
+                      title: {}
+                      emphasized: {}
+                  rightItemDetails:
+                    type: object
+                    properties:
+                      title: {}
+                      emphasized: {}
+        header:
+          type: object
+          properties:
+            template:
+              type: string
+            id:
+              type: string
+            uri:
+              type: string
+            eventStatus:
+              type: integer
+            eventTime:
+              type: string
+            isTba:
+              type: boolean
+            statusLine:
+              type: string
+            analyticsSport:
+              type: string
+            analyticsDescription:
+              type: string
+            socialStartTime:
+              type: string
+            socialStopTime:
+              type: string
+            contentType:
+              type: string
+            contentUri:
+              type: string
+            shareText:
+              type: string
+            importance:
+              type: integer
+            leagueUri:
+              type: string
+            leftTeam:
+              type: object
+              properties:
+                name:
+                  type: string
+                uri:
+                  type: string
+                longName:
+                  type: string
+                stackedNameTop:
+                  type: string
+                stackedNameBottom:
+                  type: string
+                logoUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                record:
+                  type: string
+                score:
+                  type: integer
+                isLoser:
+                  type: boolean
+                hasPossession:
+                  type: boolean
+                entityLink:
+                  type: object
+                  properties:
+                    title: {}
+                    color: {}
+                    imageUrl: {}
+                    imageType: {}
+                    imageAltText: {}
+                    contentUri: {}
+                    contentType: {}
+                    layout: {}
+                    analyticsName: {}
+                    analyticsSport: {}
+                    type: {}
+                contentType:
+                  type: string
+                contentUri:
+                  type: string
+                alternateLogoUrl:
+                  type: string
+            rightTeam:
+              type: object
+              properties:
+                name:
+                  type: string
+                uri:
+                  type: string
+                longName:
+                  type: string
+                stackedNameTop:
+                  type: string
+                stackedNameBottom:
+                  type: string
+                logoUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                record:
+                  type: string
+                score:
+                  type: integer
+                isLoser:
+                  type: boolean
+                hasPossession:
+                  type: boolean
+                entityLink:
+                  type: object
+                  properties:
+                    title: {}
+                    webUrl: {}
+                    color: {}
+                    imageUrl: {}
+                    imageType: {}
+                    imageAltText: {}
+                    contentUri: {}
+                    contentType: {}
+                    layout: {}
+                    analyticsName: {}
+                    analyticsSport: {}
+                    type: {}
+                contentType:
+                  type: string
+                contentUri:
+                  type: string
+                alternateLogoUrl:
+                  type: string
+            leftColor:
+              type: string
+            alternateLeftColor:
+              type: string
+            rightColor:
+              type: string
+            alternateRightColor:
+              type: string
+        linescore:
+          type: object
+          properties:
+            template:
+              type: string
+            headers:
+              type: array
+              items:
+                type: object
+                properties:
+                  columns:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index: {}
+                        priority: {}
+                        template: {}
+                        weight: {}
+                        emphasized: {}
+                        sortable: {}
+                        pinColumn: {}
+                        text: {}
+                  isPrimary:
+                    type: boolean
+            rows:
+              type: array
+              items:
+                type: object
+                properties:
+                  columns:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index: {}
+                        text: {}
+                        emphasized: {}
+                  isCutoff:
+                    type: boolean
+                  selected:
+                    type: boolean
+                  isFaded:
+                    type: boolean
+        metadata:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                additionalTitle: {}
+                eventTitle:
+                  type: string
+                canonicalUrl:
+                  type: string
+                eventDate:
+                  type: string
+                eventRights:
+                  type: string
+        topPerformers:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+            topPerformers:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      entityLink: {}
+                      title: {}
+                      subtitle: {}
+                      statLine: {}
+                      imageUrl: {}
+                      imageType: {}
+                      imageAltText: {}
+                      alternateImageUrl: {}
+        trackingData:
+          type: object
+          properties:
+            contentEntityUri:
+              type: string
+    EventOdds:
+      title: EventOdds
+      description: Inferred from a captured `cfb_event_odds.json` body (depth <= 6).
+      type: object
+      properties:
+        sectionList:
+          type: array
+          items: {}
+    EventMatchup:
+      title: EventMatchup
+      description: Inferred from a captured `cfb_event_matchup.json` body (depth <= 5).
+      type: object
+      properties:
+        eventInfo:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+            image:
+              type: object
+              properties:
+                url:
+                  type: string
+                altText:
+                  type: string
+            title:
+              type: string
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  template:
+                    type: string
+                  text:
+                    type: string
+                  image:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      key:
+                        type: string
+                  date:
+                    type: object
+                    properties:
+                      start:
+                        type: string
+                      dateOnly:
+                        type: boolean
+        favoriteCta:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+                link:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                    linkType:
+                      type: string
+            text:
+              type: string
+            entities:
+              type: array
+              items:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  imageUrl:
+                    type: string
+                  imageType:
+                    type: string
+                  imageAltText:
+                    type: string
+                  contentUri:
+                    type: string
+                  contentType:
+                    type: string
+                  name:
+                    type: string
+                  alternateImageUrl:
+                    type: string
+                  analyticsName:
+                    type: string
+            template:
+              type: string
+        featuredPairing:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+            topEntity:
+              type: object
+              properties:
+                entityLink:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    color:
+                      type: string
+                    imageUrl:
+                      type: string
+                    imageType:
+                      type: string
+                    imageAltText:
+                      type: string
+                    contentUri:
+                      type: string
+                    contentType:
+                      type: string
+                    layout:
+                      type: object
+                      properties:
+                        path: {}
+                        tokens: {}
+                    analyticsName:
+                      type: string
+                    analyticsSport:
+                      type: string
+                    type:
+                      type: string
+                backgroundImage:
+                  type: object
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                    altUrl:
+                      type: string
+                    type:
+                      type: string
+                    altText:
+                      type: string
+                name:
+                  type: string
+                imageLabel:
+                  type: string
+                line1:
+                  type: string
+                line2:
+                  type: string
+                featuredEntityStats:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      value:
+                        type: string
+            bottomEntity:
+              type: object
+              properties:
+                entityLink:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    webUrl:
+                      type: string
+                    color:
+                      type: string
+                    imageUrl:
+                      type: string
+                    imageType:
+                      type: string
+                    imageAltText:
+                      type: string
+                    contentUri:
+                      type: string
+                    contentType:
+                      type: string
+                    layout:
+                      type: object
+                      properties:
+                        path: {}
+                        tokens: {}
+                    analyticsName:
+                      type: string
+                    analyticsSport:
+                      type: string
+                    type:
+                      type: string
+                backgroundImage:
+                  type: object
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                    altUrl:
+                      type: string
+                    type:
+                      type: string
+                    altText:
+                      type: string
+                name:
+                  type: string
+                imageLabel:
+                  type: string
+                line1:
+                  type: string
+                line2:
+                  type: string
+                featuredEntityStats:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      value:
+                        type: string
+            template:
+              type: string
+        teamLeadersComparison:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+            tabbedDesktop:
+              type: boolean
+            tabs:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  model:
+                    type: object
+                    properties:
+                      leftName:
+                        type: string
+                      leftImage:
+                        type: object
+                        properties:
+                          url: {}
+                          altUrl: {}
+                          type: {}
+                          altText: {}
+                      leftEntityLink:
+                        type: object
+                        properties:
+                          title: {}
+                          color: {}
+                          imageUrl: {}
+                          imageType: {}
+                          imageAltText: {}
+                          contentUri: {}
+                          contentType: {}
+                          layout: {}
+                          analyticsName: {}
+                          analyticsSport: {}
+                          type: {}
+                      rightName:
+                        type: string
+                      rightImage:
+                        type: object
+                        properties:
+                          url: {}
+                          altUrl: {}
+                          type: {}
+                          altText: {}
+                      rightEntityLink:
+                        type: object
+                        properties:
+                          title: {}
+                          webUrl: {}
+                          color: {}
+                          imageUrl: {}
+                          imageType: {}
+                          imageAltText: {}
+                          contentUri: {}
+                          contentType: {}
+                          layout: {}
+                          analyticsName: {}
+                          analyticsSport: {}
+                          type: {}
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title: {}
+                            leftItemDetails: {}
+                            rightItemDetails: {}
+            template:
+              type: string
+        teamStatsComparison:
+          type: object
+          properties:
+            header:
+              type: object
+              properties:
+                title:
+                  type: string
+            leftName:
+              type: string
+            leftImage:
+              type: object
+              properties:
+                url:
+                  type: string
+                altUrl:
+                  type: string
+                type:
+                  type: string
+                altText:
+                  type: string
+            leftEntityLink:
+              type: object
+              properties:
+                title:
+                  type: string
+                color:
+                  type: string
+                imageUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                contentUri:
+                  type: string
+                contentType:
+                  type: string
+                layout:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    tokens:
+                      type: object
+                      properties:
+                        id: {}
+                        contentUri: {}
+                analyticsName:
+                  type: string
+                analyticsSport:
+                  type: string
+                type:
+                  type: string
+            rightName:
+              type: string
+            rightImage:
+              type: object
+              properties:
+                url:
+                  type: string
+                altUrl:
+                  type: string
+                type:
+                  type: string
+                altText:
+                  type: string
+            rightEntityLink:
+              type: object
+              properties:
+                title:
+                  type: string
+                webUrl:
+                  type: string
+                color:
+                  type: string
+                imageUrl:
+                  type: string
+                imageType:
+                  type: string
+                imageAltText:
+                  type: string
+                contentUri:
+                  type: string
+                contentType:
+                  type: string
+                layout:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    tokens:
+                      type: object
+                      properties:
+                        id: {}
+                        contentUri: {}
+                analyticsName:
+                  type: string
+                analyticsSport:
+                  type: string
+                type:
+                  type: string
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  leftItemDetails:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      emphasized:
+                        type: boolean
+                  rightItemDetails:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      emphasized:
+                        type: boolean
+        template:
+          type: string
+    TeamRoster:
+      title: TeamRoster
+      description: Inferred from a captured `cfb_team_roster.json` body (depth <= 5).
+      type: object
+      properties:
+        title:
+          type: string
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              template:
+                type: string
+              headers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    columns:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type: integer
+                          text:
+                            type: string
+                          priority:
+                            type: integer
+                          template:
+                            type: string
+                          weight:
+                            type: number
+                          emphasized:
+                            type: boolean
+                          sortable:
+                            type: string
+                    isPrimary:
+                      type: boolean
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    columns:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type: integer
+                          text:
+                            type: string
+                          superscript:
+                            type: string
+                          emphasized:
+                            type: boolean
+                    isCutoff:
+                      type: boolean
+                    selected:
+                      type: boolean
+                    entityLink:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        webUrl:
+                          type: string
+                        color:
+                          type: string
+                        imageUrl:
+                          type: string
+                        imageType:
+                          type: string
+                        imageAltText:
+                          type: string
+                        contentUri:
+                          type: string
+                        contentType:
+                          type: string
+                        layout:
+                          type: object
+                          properties:
+                            path: {}
+                            tokens: {}
+                        analyticsName:
+                          type: string
+                        analyticsSport:
+                          type: string
+                        type:
+                          type: string
+                    isFaded:
+                      type: boolean
+    TeamGamelog:
+      title: TeamGamelog
+      description: Inferred from a captured `cfb_team_gamelog.json` body (depth <= 5).
+      type: object
+      properties:
+        sectionList:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              tables:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    template:
+                      type: string
+                    title:
+                      type: string
+                    headers:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          columns:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                index: {}
+                                text: {}
+                                priority: {}
+                                template: {}
+                                weight: {}
+                                emphasized: {}
+                                sortable: {}
+                          isPrimary:
+                            type: boolean
+                    rows:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          columns:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                index: {}
+                                text: {}
+                                emphasized: {}
+                                superscript: {}
+                                imageUrl: {}
+                                imageType: {}
+                                imageAltText: {}
+                                subType: {}
+                                alternateImageUrl: {}
+                          isCutoff:
+                            type: boolean
+                          selected:
+                            type: boolean
+                          entityLink:
+                            type: object
+                            properties:
+                              webUrl: {}
+                              contentUri: {}
+                              contentType: {}
+                              layout: {}
+                              analyticsSport: {}
+                              tab: {}
+                              type: {}
+                          isFaded:
+                            type: boolean
+              legend:
+                type: object
+                properties:
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        text:
+                          type: string
+              moreLink:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  webUrl:
+                    type: string
+        metadata:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                teamName:
+                  type: string
+                year:
+                  type: string
+    SearchResults:
+      title: SearchResults
+      description: Inferred from a captured `search_content` body (depth <= 6).
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              components:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    model:
+                      type: object
+                      properties:
+                        analyticsName:
+                          type: string
+                        contentType:
+                          type: string
+                        contentUri:
+                          type: string
+                        image:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                            altUrl:
+                              type: string
+                            type:
+                              type: string
+                            altText:
+                              type: string
+                        subtitle:
+                          type: string
+                        title:
+                          type: string
+                        webUrl:
+                          type: string
+    Fault:
+      title: Fault
+      type: object
+      description: Apigee gateway error envelope.
+      properties:
+        fault:
+          type: object
+          properties:
+            faultstring:
+              type: string
+            detail:
+              type: object
+              properties:
+                errorcode:
+                  type: string

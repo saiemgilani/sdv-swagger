@@ -19,6 +19,17 @@ from documented representative responses.
 | `espn-cdn.openapi.yaml` | `cdn.espn.com` — rich per-game packages (require `?xhr=1`; league-abbreviation slug) | sdv-internal-refs `espn/` — documented |
 | `espn-now.openapi.yaml` | `now.core.api.espn.com` — cross-league news feed | sdv-internal-refs `espn/` — documented |
 
+## Fox Sports (all sports — bifrost)
+
+Reverse-engineered OpenAPI 3.1 spec for the Fox Sports **Bifrost** API
+(`api.foxsports.com/bifrost/v1`) that powers foxsports.com. Like ESPN, endpoint
+shapes are uniform across sports — `{sport}` is a path parameter — so one spec
+covers all sports. Auth is a public `apikey` + `api-version` query pair (no account).
+
+| Spec | API host | Source |
+|---|---|---|
+| `foxsports-api-openapi.yaml` | `api.foxsports.com/bifrost/v1` — scoreboard, league hub (teamnav / standings / conferences / polls / stats-con / odds), event (data / matchup / recap / odds), team (roster / stats / gamelog / standings / header), search / explore / trending | sdv-internal-refs `fox/` — captured bodies across 11 team sports |
+
 ## Hockey (NHL)
 
 | Spec | API host | Source |
@@ -47,6 +58,7 @@ from documented representative responses.
 
 | Spec | API | Source |
 |---|---|---|
+| `nfl_api_openapi.yaml` | NFL.com "Shield" data API (`api.nfl.com`) | sdv-internal-refs `nfl/` |
 | `cfbd-swagger.json` | CollegeFootballData API (`api.collegefootballdata.com`) | cfbd_starter_pack |
 | `247_swagger.json` | 247Sports recruiting API | recruitR |
 | `espn_fantasy_v3.json` | ESPN Fantasy v3 | — |
@@ -58,7 +70,7 @@ from documented representative responses.
 | `the_odds_api.json` / `the_odds_api.yaml` | The Odds API (`api.the-odds-api.com`) | — |
 | `cbssports.json` | CBS Sports | — |
 
-> The ESPN specs above are generated from `sdv-internal-refs` (`espn/`) and cover all
-> sports via `{sport}`/`{league}` path parameters. The per-sport endpoint **catalogs**
-> in `sdv-internal-refs/_notes/*_endpoint_catalog.md` remain the breadth reference for
-> league-slug coverage across all sports.
+> The ESPN and Fox specs above are generated from `sdv-internal-refs` (`espn/`, `fox/`)
+> and cover all sports via path parameters. The per-sport endpoint **catalogs** in
+> `sdv-internal-refs/espn/catalogs/*_endpoint_catalog.md` remain the breadth reference
+> for league-slug coverage across all sports.
