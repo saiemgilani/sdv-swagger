@@ -60,7 +60,7 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 |---|---|---|
 | `nfl_api_openapi.yaml` | NFL.com "Shield" data API (`api.nfl.com`) | sdv-internal-refs `nfl/` |
 | `cfbd-swagger.json` | CollegeFootballData API (`api.collegefootballdata.com`) | cfbd_starter_pack |
-| `247_swagger.json` | 247Sports recruiting API | recruitR |
+| `247sports-recruit-database.openapi.yaml` | 247Sports Recruit Database (`/rdb/v1/`, internal CBSi microservice) — coaches, recruits, rankings, transfers, predictions | sdv-internal-refs `247sports/` (recruitR) |
 | `espn_fantasy_v3.json` | ESPN Fantasy v3 | — |
 
 ## Cross-sport / odds
@@ -68,7 +68,7 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 | Spec | API | Source |
 |---|---|---|
 | `the_odds_api.json` / `the_odds_api.yaml` | The Odds API (`api.the-odds-api.com`) | — |
-| `cbssports.json` | CBS Sports | — |
+| `cbssports-napi.openapi.yaml` | CBS Sports **NAPI** (`api.cbssports.com/napi`) — auth-free REST; registry-generated OpenAPI 3.1, 82 endpoints (leagues/seasons/teams/rosters/standings/scoring/odds). Live game scoring + recruiting are torq-only / id-gated. | sdv-internal-refs `cbs/` |
 
 > The ESPN and Fox specs above are generated from `sdv-internal-refs` (`espn/`, `fox/`)
 > and cover all sports via path parameters. The per-sport endpoint **catalogs** in

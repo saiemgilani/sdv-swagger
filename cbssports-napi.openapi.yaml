@@ -1,0 +1,4589 @@
+openapi: 3.1.0
+info:
+  title: CBS Sports NAPI (unofficial)
+  version: 1.0.0-rev2026.06
+  description: 'Reverse-engineered OpenAPI 3.1 description of the CBS Sports **NAPI** REST API (`api.cbssports.com/napi`).
+    Generated from the API''s own endpoint registry (`/resource/endpoint/registry`) + captured response
+    bodies. Auth-free for the data-backed resources (leagues, seasons, teams, rosters, standings). Live
+    per-game scoring and recruiting are documented but routed elsewhere (torq realtime feed / recruit-specific
+    ids) and are not anonymously reachable. NOT an official or supported API; subject to change.
+
+    '
+  x-napi-schema-source: endpoint-registry + captured bodies (2026-06)
+servers:
+- url: https://api.cbssports.com/napi
+  description: primary
+- url: https://sdf-api.cbssports.cloud/napi
+  description: cloud mirror
+paths:
+  /resource/player/meta/baseball/{playerId}:
+    get:
+      operationId: baseballPlayerMetaResource
+      summary: Get meta data associated to a particular baseball player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'This resource contains meta data such as handedness.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/game/boxscore/{gameId}:
+    get:
+      operationId: boxscoreResource
+      summary: Get boxscore resource
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get boxscore resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/bulk:
+    get:
+      operationId: bulkResourceController
+      summary: Resolve resources in bulk to save HTTP traffic.
+      tags:
+      - resource
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Resources must be explicitly allowed in the parameters section.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: PlayerResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of player IDs to retrieve.
+      - name: TeamResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of team IDs to retrieve.
+      - name: GameResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of game IDs to retrieve.
+      - name: VenueResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of venue IDs to retrieve
+      - name: EventResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of event IDs to retrieve
+      - name: FeaturedGameResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of game IDs to retrieve.
+      - name: GolfEventMarketsResource
+        in: query
+        required: false
+        schema:
+          type: string
+        description: CSV list of golf event markets IDs to retrieve
+  /resource/client/config/{clientName}:
+    get:
+      operationId: clientConfigurationResource
+      summary: Get configuration for how a client should access our APIs, or any additional settings they
+        want supplied to them.
+      tags:
+      - client
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: Get configuration for how a client should access our APIs, or any additional settings
+        they want supplied to them.
+      parameters:
+      - name: clientName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Client name as it appears in the database
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - league
+          - season
+      - name: leagueId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by leagueId.
+      - name: classifier
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by a certain classifier.
+      - name: keyName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by a custom key name.
+  /resource/coach/rankings/{coachId}:
+    get:
+      operationId: coachRankingsResource
+      summary: Get rankings resource for a coach.
+      tags:
+      - coach
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get rankings resource for a coach.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: coachId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/coach/teamAssociations/{coachId}:
+    get:
+      operationId: coachTeamAssociationsResource
+      summary: Get team associations for a particular coach.
+      tags:
+      - coach
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains all teams for a coach
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: coachId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - team
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/player/depthCharts/{playerId}:
+    get:
+      operationId: depthChartsResource
+      summary: Get depth charts for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains all positions (in order) related to a player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: position
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A csv of positions to filter with
+      - name: pitchPos
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A csv of pitch positions to filter with (baseball only)
+  /resource/endpoint/registry:
+    get:
+      operationId: endpointRegistryResource
+      summary: Get the resource endpoint registry
+      tags:
+      - endpoint
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get the resource endpoint registry
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+  /resource/event/entrants/{eventId}:
+    get:
+      operationId: eventEntrantsResource
+      summary: Get players entered in a particular event.
+      tags:
+      - event
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Data source in Mongo is atlas.event_player_association
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+  /resource/event/leaderboard/{eventId}:
+    get:
+      operationId: eventLeaderboardResource
+      summary: Get a leaderboard data resource for a particular event.
+      tags:
+      - event
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a leaderboard data resource for a particular event.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+  /resource/event/{eventId}:
+    get:
+      operationId: eventResource
+      summary: Get an event resource
+      tags:
+      - event
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an event resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - entrants
+          - venues
+          - leaderboard
+          - weather
+          - markets
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/event/seasons/{eventId}:
+    get:
+      operationId: eventSeasonsResource
+      summary: Get seasons associated to a particular event.
+      tags:
+      - event
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Data source in Mongo is atlas.event_season_association
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+  /resource/event/venues/{eventId}:
+    get:
+      operationId: eventVenuesResource
+      summary: Get venues associated to a particular event.
+      tags:
+      - event
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Data source in Mongo is atlas.event_venue_association
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+  /resource/game/featured/{gameId}:
+    get:
+      operationId: featuredGameResource
+      summary: Get a FeaturedGame resource.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a FeaturedGame resource.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/bettingSplits/{gameId}:
+    get:
+      operationId: gameBettingSplitsResource
+      summary: Get a BettingSplits resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a BettingSplits resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/content/preview/{gameId}:
+    get:
+      operationId: gameContentPreviewResource
+      summary: Get content for game preview
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get content for game preview
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/content/recap/{gameId}:
+    get:
+      operationId: gameContentRecapResource
+      summary: Get content for game recap
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get content for game recap
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/content/story/{gameId}:
+    get:
+      operationId: gameContentStoryResource
+      summary: Get content for game story
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get content for game story
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: gameIdsStoryTags
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The tags used to retrieve stories
+  /resource/game/odds/hq/{gameId}:
+    get:
+      operationId: gameHqOddsResource
+      summary: Get an HQ odds resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an HQ odds resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/lineup/{gameId}:
+    get:
+      operationId: gameLineupResource
+      summary: Get a lineup resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a lineup resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - playerTeamAssociations
+          - injuries
+          - metaData
+          - playerStats
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/game/odds/{gameId}:
+    get:
+      operationId: gameOddsResource
+      summary: Get an odds resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an odds resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: marketIds
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify markets, using the marketIds.
+      - name: bookIds
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify books, using the bookIds.
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify a state.
+      - name: model
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used set the model to be used
+      - name: showHiddenOdds
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: If set to 1, show the odds that has been hidden within the market and/or consensus
+          nodes
+  /resource/game/outcomes/{gameId}:
+    get:
+      operationId: gameOutcomesResource
+      summary: Get an odds outcome for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an odds outcome for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/props/{gameId}:
+    get:
+      operationId: gamePropsResource
+      summary: Get game props for a game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get game props for a game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: marketIds
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify markets, using the marketIds.
+      - name: bookIds
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify books, using the bookIds.
+      - name: propBetTypes
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - player
+          - game
+          - team
+        description: This value can be used to specify prop bet types, using the propBetTypes.
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This value can be used to specify a state.
+      - name: includeInactiveMarkets
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: This value can be used to filter out inactive markets.
+  /resource/game/rtwp/{gameId}:
+    get:
+      operationId: gameRTWPResource
+      summary: Get a rtwp resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a rtwp resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/{gameId}:
+    get:
+      operationId: gameResource
+      summary: Get a game resource
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a game resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - homeTeam
+          - awayTeam
+          - league
+          - lineup
+          - odds
+          - players
+          - standings
+          - conference
+          - division
+          - probablePlayers
+          - player
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+          - metaData
+          - boxscore
+          - venue
+          - scoringLeaders
+          - scoringPlayerStats
+          - scoringScoreboard
+          - scoringScores
+          - scoringYtdPlayerStats
+          - scoringYtdTeamStats
+          - scoringRosters
+          - scoringPlays
+          - scoringTeamStats
+          - scoringBoxscores
+          - gameOdds
+          - gameOutcomes
+          - ticket
+          - scoringDrives
+          - scoringWinProb
+          - gameHqOdds
+          - weather
+          - featured
+          - gameProps
+          - bettingSplits
+          - gameRTWP
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/game/scoring/boxscores/{gameId}:
+    get:
+      operationId: gameScoringBoxscoresResource
+      summary: Get an scoring box scores resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring box scores resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/drives/{gameId}:
+    get:
+      operationId: gameScoringDrivesResource
+      summary: Get a drives resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a drives resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/leaders/{gameId}:
+    get:
+      operationId: gameScoringLeadersResource
+      summary: Get an scoring leaders resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring leaders resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/playerStats/{gameId}:
+    get:
+      operationId: gameScoringPlayerStatsResource
+      summary: Get an scoring player stats resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring player stats resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/plays/{gameId}:
+    get:
+      operationId: gameScoringPlaysResource
+      summary: Get an scoring plays resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring plays resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/rosters/{gameId}:
+    get:
+      operationId: gameScoringRostersResource
+      summary: Get an scoring rosters resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring rosters resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/scoreboard/{gameId}:
+    get:
+      operationId: gameScoringScoreboardResource
+      summary: Get an scoring scoreboard resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring scoreboard resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/scores/{gameId}:
+    get:
+      operationId: gameScoringScoresResource
+      summary: Get an scoring scores resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring scores resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/teamStats/{gameId}:
+    get:
+      operationId: gameScoringTeamStatsResource
+      summary: Get an scoring team stats resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring team stats resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/winprob/{gameId}:
+    get:
+      operationId: gameScoringWinprobResource
+      summary: Get an scoring winprob resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring leaders resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/ytdPlayerStats/{gameId}:
+    get:
+      operationId: gameScoringYtdPlayerStatsResource
+      summary: Get an scoring YTD player stats resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring YTD player stats resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/scoring/ytdTeamStats/{gameId}:
+    get:
+      operationId: gameScoringYtdTeamStatsResource
+      summary: Get an scoring YTD team stats resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an scoring YTD team stats resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/game/ticket/{gameId}:
+    get:
+      operationId: gameTicketResource
+      summary: Get a ticket resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a ticket resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/golf/event/markets/{eventId}:
+    get:
+      operationId: golfEventMarketsResource
+      summary: Get markets for an event.
+      tags:
+      - golf
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get markets for an event.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical event ID
+  /resource/golf/player/markets/{playerId}:
+    get:
+      operationId: golfPlayerMarketsResource
+      summary: Get markets for a golfer.
+      tags:
+      - golf
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get markets for a golfer.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: eventId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by eventId.
+  /resource/golfer/results/{playerId}:
+    get:
+      operationId: golferResultsResource
+      summary: Get golfer tournament results resource for a particular player.
+      tags:
+      - golfer
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get golfer tournament results resource for a particular player
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+  /resource/player/hockey/meta/{playerId}:
+    get:
+      operationId: hockeyPlayerMetaResource
+      summary: Get the hockey meta data resource for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get the hockey meta data resource for a particular player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/league/{leagueId}:
+    get:
+      operationId: leagueResource
+      summary: Get a league resource
+      tags:
+      - league
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leagueId:
+                    type: integer
+                  leagueAbbr:
+                    type: string
+                  leagueName:
+                    type: string
+                  sportId:
+                    type: integer
+                  leagueType:
+                    type: string
+                  teams:
+                    type: array
+                    items: {}
+                  colorPrimary:
+                    type: string
+                  colorSecondary:
+                    type: string
+      description: 'Returns meta data for a league.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: leagueId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical league ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - teams
+          - players
+          - standings
+          - conference
+          - division
+          - polls
+          - teamSeasons
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/league/teams/{leagueId}:
+    get:
+      operationId: leagueTeamsResource
+      summary: Get team resources on a league with optional vendor overlay
+      tags:
+      - league
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get team resources on a league with optional vendor overlay
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: leagueId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical league Id - gets team from team table not teams for season
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - players
+          - standings
+          - conference
+          - division
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+          - polls
+          - teamSeasons
+          - sportsLineStandings
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/odds/{gameId}:
+    get:
+      operationId: oddsResource
+      summary: Get an odds resource for a particular game.
+      tags:
+      - odds
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an odds resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/player/combineData/{playerId}:
+    get:
+      operationId: playerCombineDataResource
+      summary: Get draft related info for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains the draft related info for a player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/player/draftInfo/{playerId}:
+    get:
+      operationId: playerDraftInfoResource
+      summary: Get draft info for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains the draft info for a player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option, filter by seasonYear
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option, filter by seasonType
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option, filter by seasonId
+  /resource/player/encyclopedia/{playerId}:
+    get:
+      operationId: playerEncyclopediaResource
+      summary: Get encyclopedia resource for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get encyclopedia record for a player
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+  /resource/player/futures/{playerId}:
+    get:
+      operationId: playerFuturesResource
+      summary: Get futures for a player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get futures for a player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/player/gameStats/{playerId}:
+    get:
+      operationId: playerGameStatsResource
+      summary: Get game stats for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains stats on games related to a player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: gameId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option, filter by gameId
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - new RegExp(/^\d{4}$/)
+        description: Season Year in YYYY format
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - pre
+          - regular
+          - post
+        description: Csv list of pre, regular, or post
+  /resource/player/meta/golf/{playerId}:
+    get:
+      operationId: playerGolfMetadataResource
+      summary: Get a metadata resource for a particular golf player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a metadata resource for a particular golf player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/player/injuries/{playerId}:
+    get:
+      operationId: playerInjuriesResource
+      summary: Get injuries for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains injuries for a player regarless of roster status.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+  /resource/player/outlook/{playerId}:
+    get:
+      operationId: playerOutlookResource
+      summary: Get outlook for a player (context is now)
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get outlook for a player (context is now)
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional format for dateCreated field. Available options here: http://momentjs.com/docs/#/displaying/format/'
+  /resource/player/rankings/{playerId}:
+    get:
+      operationId: playerRankingsResource
+      summary: Get all rankings for a player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Contains multiple seasons and their associated rankings for the player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: isCurrent
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - '1'
+        description: View option.  Only show stats for seasons where isCurrent is true.
+      - name: categories
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Only return the specified rankings categories.
+  /resource/player/{playerId}:
+    get:
+      operationId: playerResource
+      summary: Get a player resource
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a player resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional for any date field.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: year
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Optional year in YYYY format (for Transactions only)
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+          - metaData
+          - playerStats
+          - standings
+          - rankings
+          - playerOutlook
+          - draftInfo
+          - combineData
+          - positionRankings
+          - gameStats
+          - encyclopedia
+          - golferResults
+          - playerGolfMetadata
+          - playerFutures
+          - golferMarkets
+          - recruitTeamAssociations
+          - coachTeamAssociations
+          - recruitRankings
+          - coachRankings
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/player/standings/{playerId}:
+    get:
+      operationId: playerStandingsResource
+      summary: Get standings for a particular player
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Contains multiple seasons and their associated standings for that player/golfer.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: isCurrent
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - '1'
+        description: View option.  Only show standings for seasons where isCurrent is true.
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - league
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/player/stats/{playerId}:
+    get:
+      operationId: playerStatsResource
+      summary: Get all statistics for a player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Contains multiple seasons and their associated stats for the player.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: isCurrent
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - '1'
+        description: View option.  Only show stats for seasons where isCurrent is true.
+      - name: teamId
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by teamId.
+      - name: teamAbbr
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by a specific team abbreviation.
+      - name: isTotal
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - '1'
+        description: View option.  Filter only the isTotal record for players who played for multiple
+          teams.
+  /resource/player/teamAssociations/{playerId}:
+    get:
+      operationId: playerTeamAssociationsResource
+      summary: Get team associations for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains all teams a user has played for regardless of status.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: assocType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - C
+          - H
+          - S
+          - F
+        description: Filter associations by assoc type
+      - name: rosterStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ACT
+          - NWT
+          - MIN
+          - MNR
+          - RET
+          - DEV
+          - CUT
+          - DIS
+          - DL
+          - IR
+          - UFA
+          - UDF
+          - EXE
+          - TRA
+          - SUS
+          - PUP
+          - FA
+          - RFA
+          - KIA
+          - INA
+        description: Filter associations by roster status
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - team
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/player/transactions/{playerId}:
+    get:
+      operationId: playerTransactionsResource
+      summary: Get transactions resource for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get transactions for a player
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - targetTeam
+          - currentTeam
+          - fromTeam
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/player/positionRankings/{playerId}:
+    get:
+      operationId: positionRankingsResource
+      summary: Get position rankings for a player
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get position rankings for a player
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: position
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by position
+  /resource/game/probablePlayers/{gameId}:
+    get:
+      operationId: probablePlayersResource
+      summary: Get a list of players who are probably playing in a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'This is a sub-resource of game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - player
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+          - metaData
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/recruit/rankings/{playerId}:
+    get:
+      operationId: recruitRankingsResource
+      summary: Get rankings resource for a recruit.
+      tags:
+      - recruit
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get rankings resource for a recruit.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+  /resource/player/recruitAssociations/{playerId}:
+    get:
+      operationId: recruitTeamAssociationsResource
+      summary: Get recruit associations for a particular player.
+      tags:
+      - player
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'The resource contains all teams a user has been recruited for
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical player ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - team
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/game/ruwtHighlights/{gameId}:
+    get:
+      operationId: ruwtHighlightsResource
+      summary: Get the RUWT highlights resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get the RUWT highlights for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
+  /resource/season/{seasonId}:
+    get:
+      operationId: seasonResource
+      summary: Get a season resource from Atlas.
+      tags:
+      - season
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a season resource from Atlas.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: seasonId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical season ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - sport
+          - league
+          - teams
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/season/teams/{seasonId}:
+    get:
+      operationId: seasonTeamsResource
+      summary: Get team resources associated to a season
+      tags:
+      - season
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        teamId:
+                          type: integer
+                        stubHubTeamId: {}
+                        location:
+                          type: string
+                        nickName:
+                          type: string
+                        mediumName:
+                          type: string
+                        shortName:
+                          type: string
+                        abbrev:
+                          type: string
+                        status:
+                          type: string
+                        homeVenueId: {}
+                        conferenceId:
+                          type: integer
+                        leagueId:
+                          type: integer
+                        divisionId: {}
+                        ticketUrl:
+                          type: string
+                        colorHexDex:
+                          type: string
+                        colorPrimaryHex:
+                          type: string
+                        colorSecondaryHex:
+                          type: string
+                        players:
+                          type: array
+                          items: {}
+                        league: {}
+                        standings: {}
+                        conference: {}
+                        division: {}
+                        teamSeasons: {}
+                        polls: {}
+                        homeVenue: {}
+                        sportsLineStandings: {}
+                        teamStats: {}
+                        teamRankings: {}
+                        sportsLineRankings: {}
+                        meta:
+                          type: object
+                          properties:
+                            tsaOverlay:
+                              type: boolean
+                            seasonId:
+                              type: integer
+      description: 'Get team resources associated to a season
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: seasonId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Optional seasonYear for leagues that change teams each year.
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - players
+          - standings
+          - conference
+          - division
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+          - polls
+          - teamSeasons
+          - sportsLineStandings
+          - league
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/sport/leagues/{sportId}:
+    get:
+      operationId: sportLeaguesResource
+      summary: Get league resources for a sport.
+      tags:
+      - sport
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'This resource returns a collection of league resources in a sport.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: sportId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical league ID
+  /resource/sport/{sportId}:
+    get:
+      operationId: sportResource
+      summary: Get a sport resource from Atlas.
+      tags:
+      - sport
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a sport resource from Atlas.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: sportId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical sport ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - leagues
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/team/rankings/sportsline/{teamId}:
+    get:
+      operationId: sportsLineTeamRankingsResource
+      summary: Get sportsline rankings for a team
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get sportsline rankings for a team
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team id
+  /resource/team/standings/sportsline/{teamId}:
+    get:
+      operationId: sportsLineTeamStandingsResource
+      summary: Get SportsLine standings for a particular team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'SportsLine data for the requested team.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+  /resource/division/subdivisions/{divisionId}:
+    get:
+      operationId: subDivisionsResource
+      summary: Get subdivisions for a division from Atlas.
+      tags:
+      - division
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get subdivisions for a division from Atlas.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: divisionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical division ID
+      - name: subDivisionId
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option for rendering only a certain subdivision
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option for a csv of subdivsion names to render
+  /resource/team/futures/{teamId}:
+    get:
+      operationId: teamFuturesResource
+      summary: Get futures for a team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get futures for a team.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+  /resource/team/metadata/{teamId}:
+    get:
+      operationId: teamMetadataResource
+      summary: Get a team metadata resource
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an team metadata resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - team
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/team/players/{teamId}:
+    get:
+      operationId: teamPlayersResource
+      summary: Get player resources on a team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        playerId:
+                          type: integer
+                        firstName:
+                          type: string
+                        fullFirstName: {}
+                        lastName:
+                          type: string
+                        fullLastName: {}
+                        nickName: {}
+                        height:
+                          type: string
+                        weight:
+                          type: integer
+                        experience:
+                          type: integer
+                        school: {}
+                        homeTown: {}
+                        debut: {}
+                        birthDate:
+                          type: string
+                        birthCountry: {}
+                        birthCountryCode: {}
+                        nationalityCountry: {}
+                        nationalityCountryCode: {}
+                        locked:
+                          type: integer
+                        playerTeamAssociations: {}
+                        injuries: {}
+                        transactions: {}
+                        depthCharts: {}
+                        positionRankings: {}
+                        playerStats: {}
+                        standings: {}
+                        rankings: {}
+                        playerOutlook: {}
+                        metaData: {}
+                        draftInfo: {}
+                        gameStats: {}
+                        combineData: {}
+      description: 'This resource returns a collection of player resources on a team.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - playerTeamAssociations
+          - injuries
+          - transactions
+          - depthCharts
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/team/polls/{teamId}:
+    get:
+      operationId: teamPollsResource
+      summary: Retrieve team rankings data from our various polls.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'This will be a sub-resource of Team.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: polls
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - coaches
+          - ap
+          - fcscoachespoll
+          - statstsnfcspoll
+          - rpi
+          - playoffselectioncommitteepoll
+          - net
+        description: View option.  Filter by a certain poll name.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option. Filter by seasonId.
+  /resource/team/rankings/{teamId}:
+    get:
+      operationId: teamRankingsResource
+      summary: Get rankings for a team (by season)
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get rankings for a team (by season)
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team id
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+  /resource/team/seasons/{teamId}:
+    get:
+      operationId: teamSeasonsResource
+      summary: Get a list of Season resources associated to a Team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Teams can play in more than one league, even during the same season.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: dateFormat
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Optional.  Options here: http://momentjs.com/docs/#/displaying/format/'
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - league
+        description: Specify specific sub-resources to resolve.  Defaults to none.
+  /resource/team/standings/{teamId}:
+    get:
+      operationId: teamStandingsResource
+      summary: Get standings for a particular team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '2016':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              season-end:
+                                type: string
+                              place:
+                                type: integer
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                losses: {}
+                                type: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              id:
+                                type: integer
+                              global-id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2017':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2018':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: integer
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2019':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2020':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          goal-differential:
+                            type: object
+                            properties:
+                              differential:
+                                type: integer
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2021':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: integer
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          goal-differential:
+                            type: object
+                            properties:
+                              differential:
+                                type: integer
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2022':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2023':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: string
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          goal-differential:
+                            type: object
+                            properties:
+                              differential:
+                                type: integer
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2024':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          last-results:
+                            type: object
+                            properties:
+                              r2:
+                                type: string
+                              r3:
+                                type: string
+                              r4:
+                                type: string
+                              r5:
+                                type: string
+                              r1:
+                                type: string
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: number
+                              points:
+                                type: integer
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              previous:
+                                type: integer
+                              season-end-id:
+                                type: integer
+                              place:
+                                type: integer
+                              season-end:
+                                type: string
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          goal-differential:
+                            type: object
+                            properties:
+                              differential:
+                                type: integer
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                ties: {}
+                                name: {}
+                                goals-against: {}
+                                type: {}
+                                losses: {}
+                                goals: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+                  '2025':
+                    type: object
+                    properties:
+                      regular:
+                        type: object
+                        properties:
+                          wins:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          goals-for:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          goals-against:
+                            type: object
+                            properties:
+                              goals:
+                                type: integer
+                          goal-differential:
+                            type: object
+                            properties:
+                              differential:
+                                type: integer
+                          winning-percentage:
+                            type: object
+                            properties:
+                              percentage:
+                                type: string
+                          streak:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                kind: {}
+                                games: {}
+                          losses:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          points:
+                            type: object
+                            properties:
+                              points:
+                                type: integer
+                              penalty-points:
+                                type: integer
+                              points-per-game:
+                                type: string
+                          ties:
+                            type: object
+                            properties:
+                              number:
+                                type: integer
+                          games-played:
+                            type: object
+                            properties:
+                              games:
+                                type: integer
+                          place:
+                            type: object
+                            properties:
+                              place:
+                                type: integer
+                          win-loss-record:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                wins: {}
+                                name: {}
+                                goals-against: {}
+                                losses: {}
+                                goals: {}
+                                type: {}
+                                ties: {}
+                          team-info:
+                            type: object
+                            properties:
+                              display-name:
+                                type: string
+                              name:
+                                type: string
+                              alias:
+                                type: string
+                              location:
+                                type: string
+                              global-id:
+                                type: integer
+                              id:
+                                type: integer
+                          clinch-status:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              status:
+                                type: string
+                          seasonId:
+                            type: integer
+                          season:
+                            type: object
+                            properties:
+                              seasonId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              leagueId:
+                                type: integer
+                              league: {}
+                              teams:
+                                type: array
+                                items: {}
+                              seasonYear:
+                                type: integer
+                              isCurrent:
+                                type: integer
+                              seasonType:
+                                type: string
+                              seasonTypeDesc:
+                                type: string
+                              seasonStartDate:
+                                type: string
+                              seasonEndDate:
+                                type: string
+      description: 'This is a resource with long-term cache. Data varies by league - Response model is
+        an example for a college football team
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: year
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Optional year in YYYY format
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType. v3 only!
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId. v3 only!
+  /resource/team/stats/{teamId}:
+    get:
+      operationId: teamStatsResource
+      summary: Get all statistics for a team.
+      tags:
+      - team
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Contains multiple seasons and their associated stats for the team.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical team ID
+      - name: seasonYear
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: View option.  Filter by seasonYear.
+      - name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - regular
+          - pre
+          - post
+        description: View option.  Filter by seasonType.
+      - name: seasonId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: View option.  Filter by seasonId.
+      - name: isCurrent
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - '1'
+        description: View option.  Only show stats for seasons where isCurrent is true.
+  /resource/venue/metadata/{venueId}:
+    get:
+      operationId: venueMetadataResource
+      summary: Get a venues metadata resource
+      tags:
+      - venue
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an venues metadata resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: venueId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical venue ID
+  /resource/venue/{venueId}:
+    get:
+      operationId: venueResource
+      summary: Get a venue resource
+      tags:
+      - venue
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get an venue resource
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: venueId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical venue ID
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - metaData
+        description: Specify specific sub-resources to resolve. Defaults to none.
+  /resource/game/weather/{gameId}:
+    get:
+      operationId: weatherResource
+      summary: Get a Weather resource for a particular game.
+      tags:
+      - game
+      responses:
+        '200':
+          description: NAPI response (data on success; error/warning envelope otherwise).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Free-form NAPI envelope ({data: ...} on success, {error|errors|warnings:
+                  ...} otherwise).'
+      description: 'Get a Weather resource for a particular game.
+
+
+        NAPI is anonymously reachable for the data-backed resources; some resources gate behind a client
+        allow-list.'
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numerical game ID
