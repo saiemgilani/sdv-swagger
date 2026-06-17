@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Yahoo Sports NCP resource layer (unofficial, session-gated)
+  version: 0.1.0-rev2026.06
+  summary: Documents the session-gated sports.yahoo.com/site/api/resource layer.
+  description: 'Matrix-param resource router; resolves only inside an authenticated page context. Unusable
+    headless. Use the editorial scoreboard instead.
+
+    '
+  x-yahoo-schema-source: documented-2026-06
+  contact:
+    name: sdv-internal-refs
+  license:
+    name: Reference only
+servers:
+- url: https://sports.yahoo.com
+  description: Yahoo Sports NCP host
+tags:
+- name: ncp
+  description: Node Content Platform resource layer (session-gated).
+paths:
+  /site/api/resource/sports.league.teams;division={division};league={league}:
+    get:
+      operationId: getNcp_league_teams
+      summary: League teams via NCP resource layer (session-gated)
+      tags:
+      - ncp
+      parameters:
+      - name: division
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: league
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/lang'
+      - $ref: '#/components/parameters/region'
+      - $ref: '#/components/parameters/tz'
+      - name: returnMeta
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teams: {}
+        '401':
+          description: No user session / crumb
+        '404':
+          description: Failsafe HTML page
+      deprecated: true
+      description: Yahoo NCP (Node Content Platform). Returns 404/401 to unauthenticated programmatic
+        requests (needs page consent cookies + crumb). The teams list is available unauthenticated via
+        the editorial scoreboard (service.scoreboard.teams). Documented for completeness; do not depend
+        on it.
+components:
+  parameters:
+    lang:
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en-US
+    region:
+      name: region
+      in: query
+      required: false
+      schema:
+        type: string
+        default: US
+    tz:
+      name: tz
+      in: query
+      required: false
+      schema:
+        type: string
+        default: America/Chicago
+    gameId:
+      name: gameId
+      in: path
+      required: true
+      description: Dotted game id, e.g. ncaaf.g.202509200023.
+      schema:
+        type: string
+  schemas:
+    GraphqlError:
+      type: object
