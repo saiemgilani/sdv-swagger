@@ -1,0 +1,907 @@
+openapi: 3.1.0
+info:
+  title: Statcast / Baseball Savant API (unofficial)
+  version: "1.0.0-rev2026.05"
+  summary: Reverse-engineered spec for baseballsavant.mlb.com
+  description: |
+    Baseball Savant is MLB's public Statcast portal. There is no official API or
+    docs — this spec is derived from the jldbc/pybaseball and BillPetti/baseballr
+    wrappers and from observing the network calls the site itself makes.
+
+    Coverage: ~43 endpoints across the search / leaderboard / gamefeed / player
+    families (3 search CSV routes, 37 leaderboards — 35 CSV + 2 HTML-embedded-JSON,
+    2 gamefeed JSON feeds, 1 HTML player page). Paths + response types were
+    empirically captured (live `fetch` with content-type checks), so each is
+    verified rather than assumed.
+
+    Key constraints to design around:
+      - `/statcast_search/csv` returns at most 25,000 rows. There is no
+        pagination. The wrapper must chunk by date range and detect truncation.
+      - Responses are CSV (text/csv) for `/statcast_search/csv` and HTML/JSON for
+        leaderboards and game feeds. Leaderboard endpoints accept `csv=true` to
+        return CSV instead of an HTML table.
+      - Most filter params are required-but-may-be-empty. Sending `&hfPT=` with
+        nothing after the equals sign is normal and expected. Omitting the param
+        entirely often produces a 500.
+      - Pipe-separated multi-value params usually require a trailing pipe.
+        For example `hfGT=R|PO|` not `hfGT=R|PO`.
+
+    Player IDs are MLBAM IDs, the same ones used by the Stats API.
+
+    Coverage-by-era reminders:
+      - Pitch F/X (2008–2016): velocities only, adjusted to out-of-hand
+      - Statcast Trackman (2015–2019): adds exit velocity, launch angle, spin
+      - Hawk-Eye (2020+): adds skeletal tracking, pose data
+      - Bat tracking (2024+): adds swing speed, attack angle, swing length
+  contact:
+    name: SDV internal — MLB data wrappers
+  license:
+    name: Use of MLB data is subject to http://gdx.mlb.com/components/copyright.txt
+    url: http://gdx.mlb.com/components/copyright.txt
+
+servers:
+  - url: https://baseballsavant.mlb.com
+
+tags:
+  - name: search
+    description: Statcast Search — the pitch-by-pitch endpoint
+  - name: leaderboard
+    description: Pre-aggregated leaderboards (one per metric family)
+  - name: gamefeed
+    description: Per-game Statcast feed used by the live viz
+  - name: player
+    description: Per-player profile pages and embedded data
+
+paths:
+
+  # ───────────────────────── Statcast Search ─────────────────────────
+  /statcast_search/csv:
+    get:
+      tags: [search]
+      summary: Pitch-by-pitch Statcast search (CSV)
+      description: |
+        The workhorse endpoint. Returns one row per pitch (when `type=details`),
+        or grouped aggregates otherwise. Hard cap of 25,000 rows per response —
+        if a query returns exactly 25,000, treat as truncated and re-chunk.
+
+        Most query params accept multiple values pipe-separated with a trailing
+        pipe, e.g. `hfGT=R|PO|`. Empty values are common and expected; do not
+        omit the param.
+      parameters:
+        # Date range — required in practice
+        - { name: game_date_gt, in: query, schema: { type: string, format: date }, description: "Start date (inclusive)." }
+        - { name: game_date_lt, in: query, schema: { type: string, format: date }, description: "End date (inclusive)." }
+
+        # Season / game-type scoping
+        - name: hfSea
+          in: query
+          schema: { type: string }
+          description: "Season(s), pipe-separated with trailing pipe. e.g. `2024|2025|`."
+        - name: hfGT
+          in: query
+          schema: { type: string }
+          description: |
+            Game type(s), pipe-separated with trailing pipe.
+            R=regular season, F=wild card, D=division series, L=league
+            championship, W=world series, S=spring, A=all-star, E=exhibition,
+            PO=postseason. e.g. `R|PO|`.
+
+        # Player / team filters
+        - { name: player_type, in: query, schema: { type: string, enum: [batter, pitcher] }, description: "Which side of the matchup to filter the player_id on." }
+        - name: "batters_lookup[]"
+          in: query
+          schema: { type: array, items: { type: integer } }
+          style: form
+          explode: true
+          description: "Filter to specific batter MLBAM IDs. Param name has a literal `[]` suffix and may repeat."
+        - name: "pitchers_lookup[]"
+          in: query
+          schema: { type: array, items: { type: integer } }
+          style: form
+          explode: true
+          description: "Filter to specific pitcher MLBAM IDs. Param name has a literal `[]` suffix and may repeat."
+        - { name: team, in: query, schema: { type: string }, description: "Three-letter team code (NYY, LAD, BOS). Filters by the player_type team." }
+        - { name: opponent, in: query, schema: { type: string }, description: "Three-letter opponent code." }
+        - { name: home_road, in: query, schema: { type: string, enum: [Home, Road] } }
+        - { name: stadium, in: query, schema: { type: string }, description: "Venue ID (matches Stats API `venueId`)." }
+        - { name: pitcher_throws, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: batter_stands, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: position, in: query, schema: { type: string }, description: "Position code (e.g. 1B, SS, CF). Pipe-separated." }
+
+        # Pitch / count / situation filters
+        - { name: hfPT, in: query, schema: { type: string }, description: "Pitch type code(s), pipe-separated. FF, SL, CU, CH, SI, FC, KC, etc. See `/api/v1/pitchTypes` on the Stats API." }
+        - { name: hfC, in: query, schema: { type: string }, description: "Count, e.g. `00|01|10|`." }
+        - { name: hfAB, in: query, schema: { type: string }, description: "At-bat result (single, double, triple, home_run, walk, strikeout, ...)." }
+        - { name: hfBBT, in: query, schema: { type: string }, description: "Batted ball type (fly_ball, ground_ball, line_drive, popup)." }
+        - { name: hfBBL, in: query, schema: { type: string }, description: "Batted ball location (gameday zone of the resulting ball)." }
+        - { name: hfPR, in: query, schema: { type: string }, description: "Pitch result (called_strike, ball, swinging_strike, foul, hit_into_play, ...)." }
+        - { name: hfZ, in: query, schema: { type: string }, description: "Strike zone location 1–14 (gameday zones)." }
+        - { name: hfNewZones, in: query, schema: { type: string }, description: "Alternate zone scheme (Statcast's newer 25-zone grid)." }
+        - { name: hfSit, in: query, schema: { type: string }, description: "Situation code (e.g. RISP, two_outs, late_close)." }
+        - { name: hfOuts, in: query, schema: { type: string }, description: "Outs in the inning, pipe-separated (`0|1|2|`)." }
+        - { name: hfInn, in: query, schema: { type: string }, description: "Inning filter, pipe-separated." }
+        - { name: hfRO, in: query, schema: { type: string }, description: "Runners on (none, on_first, on_second, on_third, RISP, ...)." }
+        - { name: hfSA, in: query, schema: { type: string }, description: "Swing/attack type (legacy)." }
+        - { name: hfFlag, in: query, schema: { type: string }, description: "Special flags (is_barrel, is_solidcontact, is_putaway, ...)." }
+        - { name: hfPull, in: query, schema: { type: string }, description: "Pull/oppo direction." }
+        - { name: hfInfield, in: query, schema: { type: string } }
+        - { name: hfOutfield, in: query, schema: { type: string } }
+        - { name: metric_1, in: query, schema: { type: string }, description: "Statcast metric for filtering on (combine with metric_1_gt/_lt — not in this spec)." }
+
+        # Aggregation / output controls
+        - { name: group_by, in: query, schema: { type: string, enum: [name, name-event, name-pitcher, name-batter, team, name-pos], default: name } }
+        - { name: sort_col, in: query, schema: { type: string, default: pitches } }
+        - { name: sort_order, in: query, schema: { type: string, enum: [asc, desc], default: desc } }
+        - { name: player_event_sort, in: query, schema: { type: string, default: h_launch_speed } }
+        - { name: min_pitches, in: query, schema: { type: integer, default: 0 } }
+        - { name: min_results, in: query, schema: { type: integer, default: 0 } }
+        - { name: min_abs, in: query, schema: { type: integer, default: 0 } }
+        - name: type
+          in: query
+          schema: { type: string, enum: [details, summary], default: details }
+          description: |
+            `details` returns raw pitch-level rows (the common case). Other values
+            return aggregated tables matching the on-page summary views.
+        - name: all
+          in: query
+          schema: { type: boolean, default: true }
+          description: Must be `true` for an unbounded result set.
+      responses:
+        '200':
+          description: CSV with ~90+ columns. See the "CSV documentation" link in the page footer for the field dictionary.
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: |
+                  Notable columns include:
+                    pitch_type, game_date, release_speed, release_pos_x/y/z,
+                    player_name, batter, pitcher, events, description,
+                    zone, des, game_type, stand, p_throws, home_team, away_team,
+                    type, hit_location, bb_type, balls, strikes, game_year,
+                    pfx_x, pfx_z, plate_x, plate_z, on_3b, on_2b, on_1b,
+                    outs_when_up, inning, inning_topbot, hc_x, hc_y,
+                    vx0, vy0, vz0, ax, ay, az, sz_top, sz_bot, hit_distance_sc,
+                    launch_speed, launch_angle, effective_speed,
+                    release_spin_rate, release_extension, game_pk,
+                    fielder_2..fielder_9, release_pos_y,
+                    estimated_ba_using_speedangle, estimated_woba_using_speedangle,
+                    estimated_slg_using_speedangle, woba_value, woba_denom,
+                    babip_value, iso_value, launch_speed_angle,
+                    at_bat_number, pitch_number, pitch_name,
+                    home_score, away_score, bat_score, fld_score,
+                    post_away_score, post_home_score, post_bat_score, post_fld_score,
+                    if_fielding_alignment, of_fielding_alignment,
+                    spin_axis, delta_home_win_exp, delta_run_exp,
+                    bat_speed, swing_length,
+                    estimated_slg_using_speedangle,
+                    arm_angle, attack_angle, attack_direction, swing_path_tilt,
+                    intercept_ball_minus_batter_pos_x_inches,
+                    intercept_ball_minus_batter_pos_y_inches
+
+  /statcast-search-minors/csv:
+    get:
+      tags: [search]
+      summary: Pitch-by-pitch Statcast search — Minor Leagues (CSV)
+      description: |
+        Distinct MiLB data route. Same query-param family and ~119-column CSV
+        shape as `/statcast_search/csv`, and the same hard cap of 25,000 rows per
+        response with no pagination — chunk by date range and detect truncation
+        (a query returning exactly 25,000 rows is truncated; re-chunk). Scope the
+        minor-league level with `hfLevel` and the season(s) with `hfSea`. See
+        `/statcast_search/csv` for the full parameter documentation.
+      parameters:
+        - { name: game_date_gt, in: query, schema: { type: string, format: date }, description: "Start date (inclusive)." }
+        - { name: game_date_lt, in: query, schema: { type: string, format: date }, description: "End date (inclusive)." }
+        - { name: hfSea, in: query, schema: { type: string }, description: "Season(s), pipe-separated with trailing pipe. e.g. `2024|2025|`." }
+        - { name: hfLevel, in: query, schema: { type: string }, description: "Minor-league level(s), pipe-separated with trailing pipe (AAA, AA, A+, A, etc.)." }
+        - { name: player_type, in: query, schema: { type: string, enum: [batter, pitcher] }, description: "Which side of the matchup to filter the player_id on." }
+        - { name: type, in: query, schema: { type: string, enum: [details, summary], default: details } }
+        - { name: all, in: query, schema: { type: boolean, default: true }, description: Must be `true` for an unbounded result set. }
+      responses:
+        '200':
+          description: CSV (~119 columns), same field dictionary as `/statcast_search/csv`.
+          content:
+            text/csv: {}
+
+  /statcast-search-world-baseball-classic/csv:
+    get:
+      tags: [search]
+      summary: Pitch-by-pitch Statcast search — World Baseball Classic (CSV)
+      description: |
+        Distinct WBC data route. Same query-param family and ~119-column CSV
+        shape as `/statcast_search/csv`, and the same hard cap of 25,000 rows per
+        response with no pagination — chunk by date range and detect truncation
+        (a query returning exactly 25,000 rows is truncated; re-chunk). Scope with
+        the WBC date windows via `game_date_gt` / `game_date_lt` (and `hfSea`).
+        See `/statcast_search/csv` for the full parameter documentation.
+      parameters:
+        - { name: game_date_gt, in: query, schema: { type: string, format: date }, description: "Start date (inclusive)." }
+        - { name: game_date_lt, in: query, schema: { type: string, format: date }, description: "End date (inclusive)." }
+        - { name: hfSea, in: query, schema: { type: string }, description: "Season(s), pipe-separated with trailing pipe. e.g. `2023|2026|`." }
+        - { name: player_type, in: query, schema: { type: string, enum: [batter, pitcher] }, description: "Which side of the matchup to filter the player_id on." }
+        - { name: type, in: query, schema: { type: string, enum: [details, summary], default: details } }
+        - { name: all, in: query, schema: { type: boolean, default: true }, description: Must be `true` for an unbounded result set. }
+      responses:
+        '200':
+          description: CSV (~119 columns), same field dictionary as `/statcast_search/csv`.
+          content:
+            text/csv: {}
+
+  # ───────────────────────── Leaderboards ─────────────────────────
+  /leaderboard/custom:
+    get:
+      tags: [leaderboard]
+      summary: Custom leaderboard
+      description: Set `csv=true` to receive CSV instead of an HTML page.
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: filter, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string, default: q }, description: "Minimum threshold. `q` = qualified." }
+        - { name: selections, in: query, schema: { type: string }, description: "Comma-separated metric IDs to include." }
+        - { name: sort, in: query, schema: { type: string } }
+        - { name: sortDir, in: query, schema: { type: string, enum: [asc, desc] } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/expected_statistics:
+    get:
+      tags: [leaderboard]
+      summary: xBA / xSLG / xwOBA leaderboard
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: position, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/sprint_speed:
+    get:
+      tags: [leaderboard]
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: position, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min_opp, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/outs_above_average:
+    get:
+      tags: [leaderboard]
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: pos, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/catch_probability:
+    get:
+      tags: [leaderboard]
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/arm-strength:
+    get:
+      tags: [leaderboard]
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: pos, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/bat-tracking:
+    get:
+      tags: [leaderboard]
+      summary: Swing speed / attack angle (2024+)
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: attackZone, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/poptime:
+    get:
+      tags: [leaderboard]
+      summary: Catcher pop time
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: min2b, in: query, schema: { type: integer } }
+        - { name: min3b, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/pitch-arsenal-stats:
+    get:
+      tags: [leaderboard]
+      summary: Per-pitch outcome stats by arsenal
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: pitch_hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: HTML or CSV. }
+
+  /leaderboard/percentile-rankings:
+    get:
+      tags: [leaderboard]
+      summary: Statcast percentile rankings (the red/blue sliders)
+      description: Set `csv=true` to receive CSV (xwoba, xba, xslg, xiso, percentile columns) instead of an HTML page.
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/running_splits:
+    get:
+      tags: [leaderboard]
+      summary: 90-ft running splits (per-segment sprint times)
+      description: Set `csv=true` to receive CSV. Splits the 90-ft baseline into segments with per-segment times.
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, runner] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: position, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min_opp, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/bat-tracking/swing-path-attack-angle:
+    get:
+      tags: [leaderboard]
+      summary: Swing path — attack angle / swing tilt (2024+)
+      description: Set `csv=true` to receive CSV (avg_bat_speed, swing_tilt, attack_angle, side columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/bat-tracking/swing-timing-miss-distance:
+    get:
+      tags: [leaderboard]
+      summary: Swing timing / miss distance (2024+)
+      description: Set `csv=true` to receive CSV (bat_side_formatted, miss_distance, timing columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/swing-take:
+    get:
+      tags: [leaderboard]
+      summary: Swing / take run value by zone (heart, shadow, chase, waste)
+      description: Set `csv=true` to receive CSV (pa, run value by attack-zone columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/statcast:
+    get:
+      tags: [leaderboard]
+      summary: Exit velocity & barrels leaderboard
+      description: Set `csv=true` to receive CSV (attempts, avg_hit_angle, barrel/EV columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: position, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/batted-ball:
+    get:
+      tags: [leaderboard]
+      summary: Batted-ball profile (GB / FB / LD / air rates)
+      description: Set `csv=true` to receive CSV (bbe, gb_rate, air_rate, fb_rate, ld columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/home-runs:
+    get:
+      tags: [leaderboard]
+      summary: Home runs — distance, apex, trajectory
+      description: Set `csv=true` to receive CSV (team_abbrev, type, avg_hr_trot/distance columns).
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitch-arsenals:
+    get:
+      tags: [leaderboard]
+      summary: Pitch arsenals — per-pitch velo / spin / movement
+      description: Set `csv=true` to receive CSV (ff_avg_speed, si_avg_speed, per-pitch velo/spin/movement columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: type, in: query, schema: { type: string }, description: "Metric family (avg_speed, n_, spin, etc.)." }
+        - { name: hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitch-movement:
+    get:
+      tags: [leaderboard]
+      summary: Pitch movement (break) by pitch type
+      description: Set `csv=true` to receive CSV (pitcher_id, team_name, horizontal/vertical break columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: pitch_type, in: query, schema: { type: string }, description: "Pitch type code (FF, SL, CU, CH, SI, FC, KC, ...)." }
+        - { name: hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitch-tempo:
+    get:
+      tags: [leaderboard]
+      summary: Pitch tempo (time between pitches)
+      description: Set `csv=true` to receive CSV (entity_id, entity_name, total_pitches, tempo columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: type, in: query, schema: { type: string, enum: [Pit, Bat] }, description: "Pitcher or batter perspective." }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/active-spin:
+    get:
+      tags: [leaderboard]
+      summary: Active spin (spin efficiency) by pitch type
+      description: Set `csv=true` to receive CSV (entity_name, pitch_hand, active_spin_fourseam, per-pitch active-spin columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/spin-direction-pitches:
+    get:
+      tags: [leaderboard]
+      summary: Spin direction (clock face) by pitch type
+      description: Set `csv=true` to receive CSV (pitch_hand, api_spin_direction / observed-vs-inferred clock columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: pitch_type, in: query, schema: { type: string } }
+        - { name: hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitcher-arm-angles:
+    get:
+      tags: [leaderboard]
+      summary: Pitcher arm angles
+      description: Set `csv=true` to receive CSV (pitcher_name, pitch_hand, n_pitches, arm-angle columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: hand, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitcher-running-game:
+    get:
+      tags: [leaderboard]
+      summary: Pitcher running game (controlling the run game)
+      description: Set `csv=true` to receive CSV (team_name, start_year, end_year, run-game-control columns). Supports multi-season ranges via start_year/end_year.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: startYear, in: query, schema: { type: string } }
+        - { name: endYear, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/outfield_directional_outs_above_average:
+    get:
+      tags: [leaderboard]
+      summary: Outfield directional OAA (in / back / left / right)
+      description: Set `csv=true` to receive CSV (attempts, n_outs_above_average split by direction).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/outfield_jump:
+    get:
+      tags: [leaderboard]
+      summary: Outfield jump (reaction, burst, route)
+      description: Set `csv=true` to receive CSV (resp_fielder_id, outs_above_average, reaction/burst/route columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/catcher-framing:
+    get:
+      tags: [leaderboard]
+      summary: Catcher framing (runs / strike rate by zone)
+      description: Set `csv=true` to receive CSV (pitches, rv_tot, pct_tot, per-zone rv/pct columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/catcher-blocking:
+    get:
+      tags: [leaderboard]
+      summary: Catcher blocking (blocks above average)
+      description: Set `csv=true` to receive CSV (team_name, start_year, end_year, blocking-run-value columns). Supports multi-season ranges.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: startYear, in: query, schema: { type: string } }
+        - { name: endYear, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/catcher-throwing:
+    get:
+      tags: [leaderboard]
+      summary: Catcher throwing (caught stealing above average)
+      description: Set `csv=true` to receive CSV (team_name, start_year, end_year, throwing-run-value columns). Supports multi-season ranges.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: startYear, in: query, schema: { type: string } }
+        - { name: endYear, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/catcher-stance:
+    get:
+      tags: [leaderboard]
+      summary: Catcher stance (knee-down / one-knee rates)
+      description: Set `csv=true` to receive CSV (pitches, knee_down_pct, l_down_r_up_pct stance columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/basestealing-run-value:
+    get:
+      tags: [leaderboard]
+      summary: Basestealing run value (runner)
+      description: Set `csv=true` to receive CSV (team_name, start_year, end_year, stolen-base-run-value columns). Supports multi-season ranges.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: startYear, in: query, schema: { type: string } }
+        - { name: endYear, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/baserunning-run-value:
+    get:
+      tags: [leaderboard]
+      summary: Baserunning run value (all baserunning)
+      description: Set `csv=true` to receive CSV (entity_name, team_name, start_year, end_year, baserunning-run-value columns). Supports multi-season ranges.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: startYear, in: query, schema: { type: string } }
+        - { name: endYear, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: integer } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/baserunning:
+    get:
+      tags: [leaderboard]
+      summary: Baserunning — extra bases taken
+      description: Set `csv=true` to receive CSV (runner_runs, fielder_runs, extra-bases-taken columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/statcast-year-to-year:
+    get:
+      tags: [leaderboard]
+      summary: Year-to-year metric comparison (wide year columns)
+      description: |
+        Set `csv=true` to receive CSV. The CSV is wide: one column per season plus
+        `delta_<y1>_<y2>` change columns (e.g. `2015`, `2016`, `delta_2015_2016`).
+      parameters:
+        - { name: type, in: query, schema: { type: string, enum: [batter, pitcher] } }
+        - { name: metric, in: query, schema: { type: string }, description: "Metric to compare across seasons." }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  /leaderboard/pitch-timer-infractions:
+    get:
+      tags: [leaderboard]
+      summary: Pitch-timer infractions (clock violations)
+      description: Set `csv=true` to receive CSV (entity_id, entity_name, pitches, all_violations columns).
+      parameters:
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: type, in: query, schema: { type: string, enum: [Pit, Bat] }, description: "Pitcher or batter perspective." }
+        - { name: csv, in: query, schema: { type: boolean }, description: "`csv=true` returns `text/csv`." }
+      responses:
+        '200':
+          description: HTML by default, CSV when `csv=true`.
+          content:
+            text/html: {}
+            text/csv: {}
+
+  # ── Leaderboards that ship HTML-embedded JSON (no CSV route) ──
+  /leaderboard/fielding-run-value:
+    get:
+      tags: [leaderboard]
+      summary: Fielding run value (HTML-embedded JSON)
+      description: |
+        Unlike the CSV leaderboards, this endpoint returns `text/html` even when
+        `csv=true` is sent. The leaderboard rows are embedded in the page as a
+        `<script> const data = [ ... ]` JSON blob; parse that blob rather than
+        expecting CSV. Covers fielding run value across positions.
+      parameters:
+        - { name: type, in: query, schema: { type: string } }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: team, in: query, schema: { type: string } }
+        - { name: min, in: query, schema: { type: string } }
+      responses:
+        '200':
+          description: HTML page with the leaderboard data embedded in a `<script> const data = [...]` JSON blob (not CSV).
+          content:
+            text/html: {}
+
+  /leaderboard/statcast-park-factors:
+    get:
+      tags: [leaderboard]
+      summary: Statcast park factors (HTML-embedded JSON)
+      description: |
+        Unlike the CSV leaderboards, this endpoint returns `text/html` even when
+        `csv=true` is sent. The park-factor rows are embedded in the page as a
+        `<script> const data = [ ... ]` JSON blob; parse that blob rather than
+        expecting CSV.
+      parameters:
+        - { name: type, in: query, schema: { type: string }, description: "Park-factor flavor (e.g. year, venue, batter-handedness)." }
+        - { name: year, in: query, schema: { type: string } }
+        - { name: batSide, in: query, schema: { type: string, enum: [R, L] } }
+        - { name: stat, in: query, schema: { type: string }, description: "Metric the park factor is computed for." }
+      responses:
+        '200':
+          description: HTML page with park-factor data embedded in a `<script> const data = [...]` JSON blob (not CSV).
+          content:
+            text/html: {}
+
+  # ───────────────────────── Game feed ─────────────────────────
+  /gf:
+    get:
+      tags: [gamefeed]
+      summary: Savant per-game JSON feed
+      description: |
+        JSON payload powering the in-game viz at `baseballsavant.mlb.com/gamefeed`.
+        Includes Statcast tracking events and inning-by-inning structure.
+      parameters:
+        - { name: game_pk, in: query, required: true, schema: { type: integer } }
+        - { name: at_bat_number, in: query, schema: { type: integer } }
+      responses:
+        '200':
+          description: JSON game feed.
+          content:
+            application/json: {}
+
+  /schedule:
+    get:
+      tags: [gamefeed]
+      summary: Savant schedule / win-probability feed
+      description: |
+        JSON payload powering the Savant schedule + scoreboard views. Returns an
+        object with `wpa` (per-game win-probability series) and `schedule` (the
+        day's games). Pass `date` to scope to a single day; omit it for the
+        default (today).
+      parameters:
+        - { name: date, in: query, schema: { type: string, format: date }, description: "Schedule date (YYYY-MM-DD). Defaults to today when omitted." }
+      responses:
+        '200':
+          description: JSON object with `wpa` and `schedule` keys.
+          content:
+            application/json: {}
+
+  # ───────────────────────── Player pages ─────────────────────────
+  /savant-player/{playerId}:
+    get:
+      tags: [player]
+      summary: Savant player profile page (HTML, with embedded JSON)
+      description: |
+        Returns an HTML page. The page embeds a large JSON blob in a `<script>`
+        tag — easiest scrape target for per-player Statcast summaries. Pass
+        `?stats=statcast-r-hitting-mlb` (or similar) to control the default tab.
+      parameters:
+        - { name: playerId, in: path, required: true, schema: { type: integer }, description: MLBAM ID }
+        - { name: stats, in: query, schema: { type: string } }
+      responses:
+        '200':
+          description: HTML.
+          content:
+            text/html: {}

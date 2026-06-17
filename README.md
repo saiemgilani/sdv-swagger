@@ -47,7 +47,7 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 | Spec | API host | Source |
 |---|---|---|
 | `mlb-stats-api.openapi.yaml` | `statsapi.mlb.com` — MLB Stats API | toddrob99/pseudo-r consolidated |
-| `statcast-api.openapi.yaml` | `baseballsavant.mlb.com` — Statcast / Baseball Savant | pybaseball/baseballr derived |
+| `mlb-statcast-api.openapi.yaml` | `baseballsavant.mlb.com` — Statcast / Baseball Savant (43 paths: search/leaderboard/gamefeed/player) | reverse-engineered from live capture |
 | `mlb_game_api.yml` | `statsapi.mlb.com` — MLB Stats API (legacy community-sourced comprehensive spec, 103 paths; predates the sdv-built `mlb-stats-api.openapi.yaml`) | community / legacy |
 
 ## Basketball
