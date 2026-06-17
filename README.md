@@ -9,7 +9,10 @@ Reverse-engineered OpenAPI 3.1 specs for ESPN's public APIs, organized **by host
 Endpoint shapes are identical across every sport — `{sport}`/`{league}` are path
 parameters — so each spec covers all sports. The `x-espn-schema-source` field on each
 spec records whether its schemas are data-backed (captured response bodies) or derived
-from documented representative responses.
+from documented representative responses. The `{sport}`/`{league}` slug set now covers
+the expanded league catalog wrapped in sportsdataverse-py v0.0.59, including soccer
+(100+ leagues), cricket, and the NCAA/UFL/XFL/CFL families; the per-league slug list
+lives in `sdv-internal-refs/espn/catalogs/`.
 
 | Spec | API host | Source |
 |---|---|---|
@@ -45,14 +48,14 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 |---|---|---|
 | `mlb-stats-api.openapi.yaml` | `statsapi.mlb.com` — MLB Stats API | toddrob99/pseudo-r consolidated |
 | `statcast-api.openapi.yaml` | `baseballsavant.mlb.com` — Statcast / Baseball Savant | pybaseball/baseballr derived |
-| `mlb_game_api.yml` | MLB game API (legacy) | — |
+| `mlb_game_api.yml` | `statsapi.mlb.com` — MLB Stats API (legacy community-sourced comprehensive spec, 103 paths; predates the sdv-built `mlb-stats-api.openapi.yaml`) | community / legacy |
 
 ## Basketball
 
 | Spec | API host | Source |
 |---|---|---|
-| `nba-openapi.json` | `stats.nba.com` | — |
-| `pbpstats.json` | `pbpstats.com` | — |
+| `nba-openapi.json` | `data.nba.com` — NBA Mobile Stats Feed v2022 (live box scores, play-by-play, schedules, rosters; covers NBA / WNBA / G-League) | community / NBA Data Services |
+| `pbpstats.json` | `api.pbpstats.com` — PBP Stats API (player/team/lineup totals, on/off splits, possessions; NBA/WNBA/G-League/NCAA) | community / pbpstats.com |
 
 ## Football
 
@@ -61,13 +64,13 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 | `nfl_api_openapi.yaml` | NFL.com "Shield" data API (`api.nfl.com`) | sdv-internal-refs `nfl/` |
 | `cfbd-swagger.json` | CollegeFootballData API (`api.collegefootballdata.com`) | cfbd_starter_pack |
 | `247sports-recruit-database.openapi.yaml` | 247Sports Recruit Database (`/rdb/v1/`, internal CBSi microservice) — coaches, recruits, rankings, transfers, predictions | sdv-internal-refs `247sports/` (recruitR) |
-| `espn_fantasy_v3.json` | ESPN Fantasy v3 | — |
+| `espn_fantasy_v3.json` | ESPN Fantasy League Manager Platform (`/apis/v3`) — cross-sport fantasy leagues, draft, rosters, transactions (Swagger 2.0) | community / ESPN Fantasy Platform Engineering |
 
 ## Cross-sport / odds
 
 | Spec | API | Source |
 |---|---|---|
-| `the_odds_api.json` / `the_odds_api.yaml` | The Odds API (`api.the-odds-api.com`) | — |
+| `the_odds_api.openapi.yaml` | The Odds API (`api.the-odds-api.com`) — sports, current/historical odds, scores across bookmakers (v4) | the-odds-api/odds-api official spec |
 | `cbssports-napi.openapi.yaml` | CBS Sports **NAPI** (`api.cbssports.com/napi`) — auth-free REST; registry-generated OpenAPI 3.1, 82 endpoints (leagues/seasons/teams/rosters/standings/scoring/odds). Live game scoring + recruiting are torq-only / id-gated. | sdv-internal-refs `cbs/` |
 
 > The ESPN and Fox specs above are generated from `sdv-internal-refs` (`espn/`, `fox/`)
