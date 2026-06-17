@@ -33,6 +33,21 @@ covers all sports. Auth is a public `apikey` + `api-version` query pair (no acco
 |---|---|---|
 | `foxsports-api-openapi.yaml` | `api.foxsports.com/bifrost/v1` — scoreboard, league hub (teamnav / standings / conferences / polls / stats-con / odds), event (data / matchup / recap / odds), team (roster / stats / gamelog / standings / header), search / explore / trending | sdv-internal-refs `fox/` — captured bodies across 11 team sports |
 
+## Yahoo Sports (all sports — by host)
+
+Reverse-engineered OpenAPI 3.1 specs for the JSON APIs behind `sports.yahoo.com`,
+organized **by host**. Endpoint shapes are uniform across sports — sport/league are
+path or query parameters — so each spec covers all sports. No auth for the editorial
+and shangrila hosts (send `Origin: https://sports.yahoo.com` + `Referer:
+https://sports.yahoo.com/`); the NCP resource layer is session-gated (page consent
+cookies + crumb) and documented-but-unusable headless. NOT official APIs.
+
+| Spec | API host | Source |
+|---|---|---|
+| `yahoo-sports-editorial.openapi.yaml` | `api-secure.sports.yahoo.com` — editorial scoreboard + boxscore (game/event feed) | sdv-internal-refs `yahoo/` |
+| `yahoo-sports-shangrila.openapi.yaml` | `graphite-secure.sports.yahoo.com` — stats graph: modern generic queries + 90+ registry resources + legacy football queries (105 paths) | sdv-internal-refs `yahoo/` |
+| `yahoo-sports-ncp.openapi.yaml` | `sports.yahoo.com` — NCP matrix-param resource layer (session-gated; documented, unusable headless) | sdv-internal-refs `yahoo/` |
+
 ## Hockey (NHL)
 
 | Spec | API host | Source |
