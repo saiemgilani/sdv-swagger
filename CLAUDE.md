@@ -23,7 +23,10 @@ Coverage by provider:
   `nhl_api.yaml` (deprecated statsapi, retired Sep 2023).
 - **MLB** — `mlb-stats-api`, `mlb-statcast-api` (Baseball Savant, 43 paths),
   `mlb_game_api.yml` (legacy community spec, 103 paths).
-- **Basketball** — `nba-openapi.json` (data.nba.com), `pbpstats.json` (api.pbpstats.com).
+- **Basketball** — `nba-stats.openapi.yaml` (unified `stats.nba.com`/`stats.wnba.com`, 4 league
+  projections: `nba-stats-nba`, `nba-stats-wnba`, `nba-stats-gleague`, `nba-stats-summer`);
+  `nba-live-cdn.openapi.yaml` (concrete CDN file-level URLs, `cdn.nba.com`/`cdn.wnba.com`);
+  `nba-openapi.json` (data.nba.com), `pbpstats.json` (api.pbpstats.com).
 - **Football** — `nfl_api_openapi.yaml` (NFL.com Shield), `cfbd-swagger.json` (CFBD),
   `247sports-recruit-database.openapi.yaml`, `espn_fantasy_v3.json` (**Swagger 2.0**).
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
