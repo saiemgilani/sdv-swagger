@@ -2750,7 +2750,7 @@ paths:
                 x-result-set-example:
                   properties:
                     season_id:
-                      type: integer
+                      type: string
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/commonplayerinfo
@@ -2951,7 +2951,7 @@ paths:
                     abbreviation:
                       type: string
                     league_id:
-                      type: integer
+                      type: string
                     max_year:
                       type: string
                     min_year:
@@ -4375,8 +4375,10 @@ paths:
                     overall_pick:
                       type: string
                     person_id:
-                      type: integer
+                      type: string
                     player_name:
+                      type: string
+                    player_profile_flag:
                       type: string
                     round_number:
                       type: string
@@ -4389,7 +4391,7 @@ paths:
                     team_city:
                       type: string
                     team_id:
-                      type: integer
+                      type: string
                     team_name:
                       type: string
                   type: object
@@ -4679,21 +4681,21 @@ paths:
                 x-result-set-example:
                   properties:
                     conf_titles:
-                      type: string
+                      type: integer
                     div_titles:
-                      type: string
+                      type: integer
                     end_year:
                       type: string
                     games:
-                      type: string
-                    league_id:
                       type: integer
+                    league_id:
+                      type: string
                     league_titles:
-                      type: string
+                      type: integer
                     losses:
-                      type: string
+                      type: integer
                     po_appearances:
-                      type: string
+                      type: integer
                     start_year:
                       type: string
                     team_city:
@@ -4705,9 +4707,9 @@ paths:
                     win_pct:
                       type: number
                     wins:
-                      type: string
+                      type: integer
                     years:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/franchisehistory
@@ -6594,7 +6596,7 @@ paths:
                     age:
                       type: number
                     ast:
-                      type: string
+                      type: number
                     ast_pct:
                       type: number
                     college:
@@ -6612,13 +6614,13 @@ paths:
                     gp:
                       type: integer
                     net_rating:
-                      type: string
+                      type: number
                     oreb_pct:
                       type: number
                     player_height:
                       type: string
                     player_height_inches:
-                      type: string
+                      type: integer
                     player_id:
                       type: integer
                     player_name:
@@ -6626,9 +6628,9 @@ paths:
                     player_weight:
                       type: string
                     pts:
-                      type: string
+                      type: number
                     reb:
-                      type: string
+                      type: number
                     team_abbreviation:
                       type: string
                     team_id:
@@ -7955,133 +7957,137 @@ paths:
                     age:
                       type: number
                     ast:
-                      type: string
+                      type: number
                     ast_rank:
-                      type: string
+                      type: integer
                     blk:
-                      type: string
+                      type: number
                     blk_rank:
-                      type: string
+                      type: integer
                     blka:
-                      type: string
+                      type: number
                     blka_rank:
-                      type: string
-                    cfid:
-                      type: string
-                    cfparams:
-                      type: string
+                      type: integer
                     dd2:
-                      type: string
+                      type: integer
                     dd2_rank:
-                      type: string
+                      type: integer
                     dreb:
-                      type: string
+                      type: number
                     dreb_rank:
-                      type: string
+                      type: integer
                     fg3_pct:
                       type: number
                     fg3_pct_rank:
-                      type: number
+                      type: integer
                     fg3a:
-                      type: string
+                      type: number
                     fg3a_rank:
-                      type: string
+                      type: integer
                     fg3m:
-                      type: string
+                      type: number
                     fg3m_rank:
-                      type: string
+                      type: integer
                     fg_pct:
                       type: number
                     fg_pct_rank:
-                      type: number
+                      type: integer
                     fga:
-                      type: string
+                      type: number
                     fga_rank:
-                      type: string
+                      type: integer
                     fgm:
-                      type: string
+                      type: number
                     fgm_rank:
-                      type: string
+                      type: integer
                     ft_pct:
                       type: number
                     ft_pct_rank:
-                      type: number
+                      type: integer
                     fta:
-                      type: string
+                      type: number
                     fta_rank:
-                      type: string
+                      type: integer
                     ftm:
-                      type: string
+                      type: number
                     ftm_rank:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l:
+                      type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     nba_fantasy_pts:
-                      type: string
+                      type: number
                     nba_fantasy_pts_rank:
+                      type: integer
+                    nickname:
                       type: string
                     oreb:
-                      type: string
+                      type: number
                     oreb_rank:
-                      type: string
+                      type: integer
                     pf:
-                      type: string
+                      type: number
                     pf_rank:
-                      type: string
+                      type: integer
                     pfd:
-                      type: string
+                      type: number
                     pfd_rank:
-                      type: string
+                      type: integer
                     player_id:
                       type: integer
                     player_name:
                       type: string
                     plus_minus:
-                      type: string
+                      type: number
                     plus_minus_rank:
-                      type: string
+                      type: integer
                     pts:
-                      type: string
+                      type: number
                     pts_rank:
-                      type: string
+                      type: integer
                     reb:
-                      type: string
+                      type: number
                     reb_rank:
-                      type: string
+                      type: integer
                     stl:
-                      type: string
+                      type: number
                     stl_rank:
-                      type: string
+                      type: integer
                     td3:
-                      type: string
+                      type: integer
                     td3_rank:
-                      type: string
+                      type: integer
                     team_abbreviation:
                       type: string
+                    team_count:
+                      type: integer
                     team_id:
                       type: integer
                     tov:
-                      type: string
+                      type: number
                     tov_rank:
-                      type: string
+                      type: integer
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
+                    wnba_fantasy_pts:
+                      type: number
+                    wnba_fantasy_pts_rank:
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguedashplayerstats
@@ -9943,117 +9949,113 @@ paths:
                 x-result-set-example:
                   properties:
                     ast:
-                      type: string
+                      type: number
                     ast_rank:
-                      type: string
+                      type: integer
                     blk:
-                      type: string
+                      type: number
                     blk_rank:
-                      type: string
+                      type: integer
                     blka:
-                      type: string
+                      type: number
                     blka_rank:
-                      type: string
-                    cfid:
-                      type: string
-                    cfparams:
-                      type: string
+                      type: integer
                     dreb:
-                      type: string
+                      type: number
                     dreb_rank:
-                      type: string
+                      type: integer
                     fg3_pct:
                       type: number
                     fg3_pct_rank:
-                      type: number
+                      type: integer
                     fg3a:
-                      type: string
+                      type: number
                     fg3a_rank:
-                      type: string
+                      type: integer
                     fg3m:
-                      type: string
+                      type: number
                     fg3m_rank:
-                      type: string
+                      type: integer
                     fg_pct:
                       type: number
                     fg_pct_rank:
-                      type: number
+                      type: integer
                     fga:
-                      type: string
+                      type: number
                     fga_rank:
-                      type: string
+                      type: integer
                     fgm:
-                      type: string
+                      type: number
                     fgm_rank:
-                      type: string
+                      type: integer
                     ft_pct:
                       type: number
                     ft_pct_rank:
-                      type: number
+                      type: integer
                     fta:
-                      type: string
+                      type: number
                     fta_rank:
-                      type: string
+                      type: integer
                     ftm:
-                      type: string
+                      type: number
                     ftm_rank:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l:
+                      type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     oreb:
-                      type: string
+                      type: number
                     oreb_rank:
-                      type: string
+                      type: integer
                     pf:
-                      type: string
+                      type: number
                     pf_rank:
-                      type: string
+                      type: integer
                     pfd:
-                      type: string
+                      type: number
                     pfd_rank:
-                      type: string
+                      type: integer
                     plus_minus:
-                      type: string
+                      type: number
                     plus_minus_rank:
-                      type: string
+                      type: integer
                     pts:
-                      type: string
+                      type: number
                     pts_rank:
-                      type: string
+                      type: integer
                     reb:
-                      type: string
+                      type: number
                     reb_rank:
-                      type: string
+                      type: integer
                     stl:
-                      type: string
+                      type: number
                     stl_rank:
-                      type: string
+                      type: integer
                     team_id:
                       type: integer
                     team_name:
                       type: string
                     tov:
-                      type: string
+                      type: number
                     tov_rank:
-                      type: string
+                      type: integer
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguedashteamstats
@@ -12552,41 +12554,47 @@ paths:
                     behindatthird:
                       type: string
                     clinchedconferencetitle:
-                      type: string
+                      type: integer
                     clincheddivisiontitle:
-                      type: string
+                      type: integer
+                    clinchedplayin:
+                      type: integer
                     clinchedplayoffbirth:
-                      type: string
+                      type: integer
+                    clinchedpostseason:
+                      type: integer
                     clinchindicator:
                       type: string
                     conference:
                       type: string
                     conferencegamesback:
-                      type: string
+                      type: number
                     conferencerecord:
                       type: string
                     currenthomestreak:
-                      type: string
+                      type: integer
                     currentroadstreak:
-                      type: string
+                      type: integer
                     currentstreak:
-                      type: string
+                      type: integer
                     dec:
                       type: string
                     diffpointspg:
-                      type: string
+                      type: number
+                    difftotalpoints:
+                      type: integer
                     division:
                       type: string
                     divisiongamesback:
-                      type: string
+                      type: number
                     divisionrank:
-                      type: string
+                      type: integer
                     divisionrecord:
                       type: string
                     eliminatedconference:
-                      type: string
+                      type: integer
                     eliminateddivision:
-                      type: string
+                      type: integer
                     feb:
                       type: string
                     fewerturnovers:
@@ -12606,120 +12614,66 @@ paths:
                     last10road:
                       type: string
                     leadinfgpct:
-                      type: number
+                      type: string
                     leadinreb:
                       type: string
+                    leaguegamesback:
+                      type: number
                     leagueid:
                       type: string
                     leaguerank:
-                      type: string
+                      type: integer
                     longhomestreak:
-                      type: string
+                      type: integer
                     longlossstreak:
-                      type: string
+                      type: integer
                     longroadstreak:
-                      type: string
+                      type: integer
                     longwinstreak:
-                      type: string
+                      type: integer
                     losses:
-                      type: string
+                      type: integer
                     mar:
                       type: string
                     may:
+                      type: string
+                    neutral:
                       type: string
                     nov:
                       type: string
                     oct:
                       type: string
+                    opp_score_80_plus:
+                      type: string
+                    opp_score_below_80:
+                      type: string
                     oppover500:
                       type: string
                     opppointspg:
-                      type: string
+                      type: number
                     oppscore100pts:
                       type: string
+                    opptotalpoints:
+                      type: integer
                     ot:
                       type: string
                     playoffrank:
-                      type: string
+                      type: integer
+                    playoffseeding:
+                      type: integer
                     pointspg:
-                      type: string
+                      type: number
                     record:
-                      type: string
-                    returntoplay_already_eliminated:
-                      type: string
-                    returntoplay_east_pi_flag:
-                      type: string
-                    returntoplay_west_pi_flag:
                       type: string
                     road:
                       type: string
                     score100pts:
                       type: string
+                    score_80_plus:
+                      type: string
+                    score_below_80:
+                      type: string
                     seasonid:
-                      type: string
-                    seeding_game_1_id:
-                      type: integer
-                    seeding_game_1_label:
-                      type: string
-                    seeding_game_1_opponent:
-                      type: string
-                    seeding_game_1_outcome:
-                      type: string
-                    seeding_game_2_id:
-                      type: integer
-                    seeding_game_2_label:
-                      type: string
-                    seeding_game_2_opponent:
-                      type: string
-                    seeding_game_2_outcome:
-                      type: string
-                    seeding_game_3_id:
-                      type: integer
-                    seeding_game_3_label:
-                      type: string
-                    seeding_game_3_opponent:
-                      type: string
-                    seeding_game_3_outcome:
-                      type: string
-                    seeding_game_4_id:
-                      type: integer
-                    seeding_game_4_label:
-                      type: string
-                    seeding_game_4_opponent:
-                      type: string
-                    seeding_game_4_outcome:
-                      type: string
-                    seeding_game_5_id:
-                      type: integer
-                    seeding_game_5_label:
-                      type: string
-                    seeding_game_5_opponent:
-                      type: string
-                    seeding_game_5_outcome:
-                      type: string
-                    seeding_game_6_id:
-                      type: integer
-                    seeding_game_6_label:
-                      type: string
-                    seeding_game_6_opponent:
-                      type: string
-                    seeding_game_6_outcome:
-                      type: string
-                    seeding_game_7_id:
-                      type: integer
-                    seeding_game_7_label:
-                      type: string
-                    seeding_game_7_opponent:
-                      type: string
-                    seeding_game_7_outcome:
-                      type: string
-                    seeding_game_8_id:
-                      type: integer
-                    seeding_game_8_label:
-                      type: string
-                    seeding_game_8_opponent:
-                      type: string
-                    seeding_game_8_outcome:
                       type: string
                     sep:
                       type: string
@@ -12736,7 +12690,7 @@ paths:
                     teamcity:
                       type: string
                     teamid:
-                      type: string
+                      type: integer
                     teamname:
                       type: string
                     teamslug:
@@ -12749,6 +12703,8 @@ paths:
                       type: string
                     tiedatthird:
                       type: string
+                    totalpoints:
+                      type: integer
                     vsatlantic:
                       type: string
                     vscentral:
@@ -12768,7 +12724,7 @@ paths:
                     winpct:
                       type: number
                     wins:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguestandingsv3
@@ -13439,53 +13395,25 @@ paths:
                 type: object
                 x-result-set-example:
                   properties:
-                    ast:
+                    date_est:
                       type: string
-                    blk:
-                      type: string
-                    dreb:
-                      type: string
-                    fg3_pct:
-                      type: number
-                    fg3a:
-                      type: string
-                    fg3m:
-                      type: string
-                    fg_pct:
-                      type: number
-                    fga:
-                      type: string
-                    fgm:
-                      type: string
-                    ft_pct:
-                      type: number
-                    fta:
-                      type: string
-                    ftm:
-                      type: string
-                    gp:
-                      type: integer
-                    gs:
-                      type: integer
-                    league_id:
-                      type: integer
-                    min:
-                      type: integer
-                    oreb:
-                      type: string
-                    pf:
+                    game_date:
                       type: string
                     player_id:
                       type: integer
-                    pts:
+                    stat:
                       type: string
-                    reb:
-                      type: string
-                    stl:
-                      type: string
-                    team_id:
+                    stat_order:
                       type: integer
-                    tov:
+                    stats_value:
+                      type: integer
+                    vs_team_abbreviation:
+                      type: string
+                    vs_team_city:
+                      type: string
+                    vs_team_id:
+                      type: integer
+                    vs_team_name:
                       type: string
                   type: object
           description: stats.nba.com resultSets envelope.
@@ -16760,69 +16688,69 @@ paths:
                 x-result-set-example:
                   properties:
                     e_ast_ratio:
-                      type: string
+                      type: number
                     e_ast_ratio_rank:
-                      type: string
+                      type: integer
                     e_def_rating:
-                      type: string
+                      type: number
                     e_def_rating_rank:
-                      type: string
+                      type: integer
                     e_dreb_pct:
                       type: number
                     e_dreb_pct_rank:
-                      type: number
+                      type: integer
                     e_net_rating:
-                      type: string
+                      type: number
                     e_net_rating_rank:
-                      type: string
+                      type: integer
                     e_off_rating:
-                      type: string
+                      type: number
                     e_off_rating_rank:
-                      type: string
+                      type: integer
                     e_oreb_pct:
                       type: number
                     e_oreb_pct_rank:
-                      type: number
+                      type: integer
                     e_pace:
-                      type: string
+                      type: number
                     e_pace_rank:
-                      type: string
+                      type: integer
                     e_reb_pct:
                       type: number
                     e_reb_pct_rank:
-                      type: number
+                      type: integer
                     e_tov_pct:
                       type: number
                     e_tov_pct_rank:
-                      type: number
+                      type: integer
                     e_usg_pct:
                       type: number
                     e_usg_pct_rank:
-                      type: number
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l:
+                      type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     player_id:
                       type: integer
                     player_name:
                       type: string
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/playerestimatedmetrics
@@ -18097,48 +18025,24 @@ paths:
                 type: object
                 x-result-set-example:
                   properties:
-                    allstar:
-                      type: string
                     ast:
-                      type: string
+                      type: number
                     college:
                       type: string
                     country:
                       type: string
                     draft_number:
-                      type: string
+                      type: integer
                     draft_round:
-                      type: string
+                      type: integer
                     draft_year:
-                      type: string
-                    draftpick:
-                      type: string
-                    draftround:
-                      type: string
-                    draftyear:
-                      type: string
-                    'endpoint": "playerindex':
-                      type: string
+                      type: integer
                     from_year:
                       type: string
                     height:
                       type: string
-                    historical:
-                      type: string
-                    is_defunct:
-                      type: string
                     jersey_number:
                       type: string
-                    'last_validated_date": "2023-03-10':
-                      type: string
-                    leagueid:
-                      type: string
-                    ? "nullable_parameters\": [\n        \"active"
-                    : type: string
-                    ? "parameter_patterns\": {\n        \"leagueid\": \"^\\\\d{2}$"
-                    : type: string
-                    ? "parameters\": [\n        \"active"
-                    : type: string
                     person_id:
                       type: integer
                     player_first_name:
@@ -18150,17 +18054,11 @@ paths:
                     position:
                       type: string
                     pts:
-                      type: string
+                      type: number
                     reb:
-                      type: string
-                    ? "required_parameters\": [\n        \"leagueid"
-                    : type: string
+                      type: number
                     roster_status:
-                      type: string
-                    season:
-                      type: string
-                    ? "season\": \"^(\\d{4}-\\d{2})$\"\n    }"
-                    : type: string
+                      type: number
                     stats_timeframe:
                       type: string
                     team_abbreviation:
@@ -18173,17 +18071,10 @@ paths:
                       type: string
                     team_slug:
                       type: string
-                    teamid:
+                    to_year:
                       type: string
-                    ? "to_year\"\n        ]\n    }"
-                    : type: string
-                    ? "to_year\"]```\n\n\n## json\n```json\n{\n    \"data_sets\":\
-                      \ {\n        \"playerindex\": [\n            \"person_id"
-                    : type: integer
                     weight:
                       type: string
-                    ? "weight\"\n    ]"
-                    : type: string
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/playerindex
@@ -21956,65 +21847,65 @@ paths:
                 x-result-set-example:
                   properties:
                     e_ast_ratio:
-                      type: string
+                      type: number
                     e_ast_ratio_rank:
-                      type: string
+                      type: integer
                     e_def_rating:
-                      type: string
+                      type: number
                     e_def_rating_rank:
-                      type: string
+                      type: integer
                     e_dreb_pct:
                       type: number
                     e_dreb_pct_rank:
-                      type: number
+                      type: integer
                     e_net_rating:
-                      type: string
+                      type: number
                     e_net_rating_rank:
-                      type: string
+                      type: integer
                     e_off_rating:
-                      type: string
+                      type: number
                     e_off_rating_rank:
-                      type: string
+                      type: integer
                     e_oreb_pct:
                       type: number
                     e_oreb_pct_rank:
-                      type: number
+                      type: integer
                     e_pace:
-                      type: string
+                      type: number
                     e_pace_rank:
-                      type: string
+                      type: integer
                     e_reb_pct:
                       type: number
                     e_reb_pct_rank:
-                      type: number
+                      type: integer
                     e_tm_tov_pct:
                       type: number
                     e_tm_tov_pct_rank:
-                      type: number
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l:
+                      type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     team_id:
                       type: integer
                     team_name:
                       type: string
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/teamestimatedmetrics
