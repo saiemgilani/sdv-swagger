@@ -4373,17 +4373,17 @@ paths:
                     organization_type:
                       type: string
                     overall_pick:
-                      type: string
+                      type: integer
                     person_id:
-                      type: string
+                      type: integer
                     player_name:
                       type: string
                     player_profile_flag:
-                      type: string
+                      type: integer
                     round_number:
-                      type: string
+                      type: integer
                     round_pick:
-                      type: string
+                      type: integer
                     season:
                       type: string
                     team_abbreviation:
@@ -4391,7 +4391,7 @@ paths:
                     team_city:
                       type: string
                     team_id:
-                      type: string
+                      type: integer
                     team_name:
                       type: string
                   type: object
@@ -4765,31 +4765,31 @@ paths:
                 x-result-set-example:
                   properties:
                     ast:
-                      type: string
+                      type: integer
                     ast_person_id:
                       type: integer
                     ast_player:
                       type: string
                     blk:
-                      type: string
+                      type: integer
                     blk_person_id:
                       type: integer
                     blk_player:
                       type: string
                     pts:
-                      type: string
+                      type: integer
                     pts_person_id:
                       type: integer
                     pts_player:
                       type: string
                     reb:
-                      type: string
+                      type: integer
                     reb_person_id:
                       type: integer
                     reb_player:
                       type: string
                     stl:
-                      type: string
+                      type: integer
                     stl_person_id:
                       type: integer
                     stl_player:
@@ -5991,119 +5991,121 @@ paths:
                 x-result-set-example:
                   properties:
                     ast:
-                      type: string
+                      type: number
                     ast_rank:
-                      type: string
+                      type: integer
                     blk:
-                      type: string
+                      type: number
                     blk_rank:
-                      type: string
+                      type: integer
                     blka:
-                      type: string
+                      type: number
                     blka_rank:
-                      type: string
+                      type: integer
                     dreb:
-                      type: string
+                      type: number
                     dreb_rank:
-                      type: string
+                      type: integer
                     fg3_pct:
                       type: number
                     fg3_pct_rank:
-                      type: number
+                      type: integer
                     fg3a:
-                      type: string
+                      type: number
                     fg3a_rank:
-                      type: string
+                      type: integer
                     fg3m:
-                      type: string
+                      type: number
                     fg3m_rank:
-                      type: string
+                      type: integer
                     fg_pct:
                       type: number
                     fg_pct_rank:
-                      type: number
+                      type: integer
                     fga:
-                      type: string
+                      type: number
                     fga_rank:
-                      type: string
+                      type: integer
                     fgm:
-                      type: string
+                      type: number
                     fgm_rank:
-                      type: string
+                      type: integer
                     ft_pct:
                       type: number
                     ft_pct_rank:
-                      type: number
+                      type: integer
                     fta:
-                      type: string
+                      type: number
                     fta_rank:
-                      type: string
+                      type: integer
                     ftm:
-                      type: string
+                      type: number
                     ftm_rank:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    group_id:
                       type: integer
+                    group_id:
+                      type: string
                     group_name:
                       type: string
                     group_set:
                       type: string
                     l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     oreb:
-                      type: string
+                      type: number
                     oreb_rank:
-                      type: string
+                      type: integer
                     pf:
-                      type: string
+                      type: number
                     pf_rank:
-                      type: string
+                      type: integer
                     pfd:
-                      type: string
+                      type: number
                     pfd_rank:
-                      type: string
+                      type: integer
                     plus_minus:
-                      type: string
+                      type: number
                     plus_minus_rank:
-                      type: string
+                      type: integer
                     pts:
-                      type: string
+                      type: number
                     pts_rank:
-                      type: string
+                      type: integer
                     reb:
-                      type: string
+                      type: number
                     reb_rank:
-                      type: string
+                      type: integer
                     stl:
-                      type: string
+                      type: number
                     stl_rank:
-                      type: string
+                      type: integer
+                    sum_time_played:
+                      type: integer
                     team_abbreviation:
                       type: string
                     team_id:
                       type: integer
                     tov:
-                      type: string
+                      type: number
                     tov_rank:
-                      type: string
+                      type: integer
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguedashlineups
@@ -6318,29 +6320,29 @@ paths:
                     fg2_pct:
                       type: number
                     fg2a:
-                      type: string
+                      type: number
                     fg2a_frequency:
-                      type: string
+                      type: number
                     fg2m:
-                      type: string
+                      type: number
                     fg3_pct:
                       type: number
                     fg3a:
-                      type: string
+                      type: number
                     fg3a_frequency:
-                      type: string
+                      type: number
                     fg3m:
-                      type: string
+                      type: number
                     fg_pct:
                       type: number
                     fga:
-                      type: string
+                      type: number
                     fga_frequency:
-                      type: string
+                      type: number
                     fgm:
-                      type: string
+                      type: number
                     g:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     team_abbreviation:
@@ -8336,13 +8338,13 @@ paths:
                     d_fg_pct:
                       type: number
                     d_fga:
-                      type: string
+                      type: number
                     d_fgm:
-                      type: string
+                      type: number
                     freq:
-                      type: string
+                      type: number
                     g:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     normal_fg_pct:
@@ -8806,13 +8808,13 @@ paths:
                     d_fg_pct:
                       type: number
                     d_fga:
-                      type: string
+                      type: number
                     d_fgm:
-                      type: string
+                      type: number
                     freq:
-                      type: string
+                      type: number
                     g:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     normal_fg_pct:
@@ -11038,35 +11040,35 @@ paths:
                     age:
                       type: number
                     box_out_player_rebs:
-                      type: string
+                      type: number
                     box_out_player_team_rebs:
-                      type: string
+                      type: number
                     box_outs:
-                      type: string
+                      type: number
                     charges_drawn:
-                      type: string
+                      type: number
                     contested_shots:
-                      type: string
+                      type: number
                     contested_shots_2pt:
-                      type: string
+                      type: number
                     contested_shots_3pt:
-                      type: string
+                      type: number
                     def_boxouts:
-                      type: string
+                      type: number
                     def_loose_balls_recovered:
-                      type: string
+                      type: number
                     deflections:
-                      type: string
+                      type: number
                     g:
-                      type: string
-                    loose_balls_recovered:
-                      type: string
-                    min:
                       type: integer
+                    loose_balls_recovered:
+                      type: number
+                    min:
+                      type: number
                     off_boxouts:
-                      type: string
+                      type: number
                     off_loose_balls_recovered:
-                      type: string
+                      type: number
                     pct_box_outs_def:
                       type: number
                     pct_box_outs_off:
@@ -11084,9 +11086,9 @@ paths:
                     player_name:
                       type: string
                     screen_assists:
-                      type: string
+                      type: number
                     screen_ast_pts:
-                      type: string
+                      type: number
                     team_abbreviation:
                       type: string
                     team_id:
@@ -11318,29 +11320,29 @@ paths:
                 x-result-set-example:
                   properties:
                     box_outs:
-                      type: string
+                      type: number
                     charges_drawn:
-                      type: string
+                      type: number
                     contested_shots:
-                      type: string
+                      type: number
                     contested_shots_2pt:
-                      type: string
+                      type: number
                     contested_shots_3pt:
-                      type: string
+                      type: number
                     def_boxouts:
-                      type: string
+                      type: number
                     def_loose_balls_recovered:
-                      type: string
+                      type: number
                     deflections:
-                      type: string
+                      type: number
                     loose_balls_recovered:
-                      type: string
+                      type: number
                     min:
-                      type: integer
+                      type: number
                     off_boxouts:
-                      type: string
+                      type: number
                     off_loose_balls_recovered:
-                      type: string
+                      type: number
                     pct_box_outs_def:
                       type: number
                     pct_box_outs_off:
@@ -11350,9 +11352,9 @@ paths:
                     pct_loose_balls_recovered_off:
                       type: number
                     screen_assists:
-                      type: string
+                      type: number
                     screen_ast_pts:
-                      type: string
+                      type: number
                     team_id:
                       type: integer
                     team_name:
@@ -12324,41 +12326,41 @@ paths:
                     behindatthird:
                       type: string
                     clinchedconferencetitle:
-                      type: string
+                      type: integer
                     clincheddivisiontitle:
-                      type: string
+                      type: integer
                     clinchedplayoffbirth:
-                      type: string
+                      type: integer
                     clinchindicator:
                       type: string
                     conference:
                       type: string
                     conferencegamesback:
-                      type: string
+                      type: number
                     conferencerecord:
                       type: string
                     currenthomestreak:
-                      type: string
+                      type: integer
                     currentroadstreak:
-                      type: string
+                      type: integer
                     currentstreak:
-                      type: string
+                      type: integer
                     dec:
                       type: string
                     diffpointspg:
-                      type: string
+                      type: number
                     division:
                       type: string
                     divisiongamesback:
-                      type: string
+                      type: number
                     divisionrank:
-                      type: string
+                      type: integer
                     divisionrecord:
                       type: string
                     eliminatedconference:
-                      type: string
+                      type: integer
                     eliminateddivision:
-                      type: string
+                      type: integer
                     feb:
                       type: string
                     fewerturnovers:
@@ -12378,23 +12380,23 @@ paths:
                     last10road:
                       type: string
                     leadinfgpct:
-                      type: number
+                      type: string
                     leadinreb:
                       type: string
                     leagueid:
                       type: string
                     leaguerank:
-                      type: string
+                      type: integer
                     longhomestreak:
-                      type: string
+                      type: integer
                     longlossstreak:
-                      type: string
+                      type: integer
                     longroadstreak:
-                      type: string
+                      type: integer
                     longwinstreak:
-                      type: string
+                      type: integer
                     losses:
-                      type: string
+                      type: integer
                     mar:
                       type: string
                     may:
@@ -12406,15 +12408,15 @@ paths:
                     oppover500:
                       type: string
                     opppointspg:
-                      type: string
+                      type: number
                     oppscore100pts:
                       type: string
                     ot:
                       type: string
                     playoffrank:
-                      type: string
+                      type: integer
                     pointspg:
-                      type: string
+                      type: number
                     postas:
                       type: string
                     preas:
@@ -12442,7 +12444,7 @@ paths:
                     teamcity:
                       type: string
                     teamid:
-                      type: string
+                      type: integer
                     teamname:
                       type: string
                     tenptsormore:
@@ -12472,7 +12474,7 @@ paths:
                     winpct:
                       type: number
                     wins:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguestandings
@@ -13399,11 +13401,15 @@ paths:
                       type: string
                     game_date:
                       type: string
+                    game_id:
+                      type: string
                     player_id:
                       type: integer
                     stat:
                       type: string
                     stat_order:
+                      type: integer
+                    stat_value:
                       type: integer
                     stats_value:
                       type: integer
@@ -18041,6 +18047,8 @@ paths:
                       type: string
                     height:
                       type: string
+                    is_defunct:
+                      type: integer
                     jersey_number:
                       type: string
                     person_id:
@@ -24976,25 +24984,25 @@ paths:
                     dreb:
                       type: string
                     fg3_pct:
-                      type: number
+                      type: string
                     fg3a:
                       type: string
                     fg3m:
                       type: string
                     fg_pct:
-                      type: number
+                      type: string
                     fga:
                       type: string
                     fgm:
                       type: string
                     ft_pct:
-                      type: number
+                      type: string
                     fta:
                       type: string
                     ftm:
                       type: string
                     gp:
-                      type: integer
+                      type: string
                     losses:
                       type: string
                     nba_finals_appearance:
@@ -25018,13 +25026,13 @@ paths:
                     team_city:
                       type: string
                     team_id:
-                      type: integer
+                      type: string
                     team_name:
                       type: string
                     tov:
                       type: string
                     win_pct:
-                      type: number
+                      type: string
                     wins:
                       type: string
                     year:

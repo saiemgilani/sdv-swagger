@@ -4043,17 +4043,17 @@ paths:
                     organization_type:
                       type: string
                     overall_pick:
-                      type: string
+                      type: integer
                     person_id:
-                      type: string
+                      type: integer
                     player_name:
                       type: string
                     player_profile_flag:
-                      type: string
+                      type: integer
                     round_number:
-                      type: string
+                      type: integer
                     round_pick:
-                      type: string
+                      type: integer
                     season:
                       type: string
                     team_abbreviation:
@@ -4061,7 +4061,7 @@ paths:
                     team_city:
                       type: string
                     team_id:
-                      type: string
+                      type: integer
                     team_name:
                       type: string
                   type: object
@@ -4403,31 +4403,31 @@ paths:
                 x-result-set-example:
                   properties:
                     ast:
-                      type: string
+                      type: integer
                     ast_person_id:
                       type: integer
                     ast_player:
                       type: string
                     blk:
-                      type: string
+                      type: integer
                     blk_person_id:
                       type: integer
                     blk_player:
                       type: string
                     pts:
-                      type: string
+                      type: integer
                     pts_person_id:
                       type: integer
                     pts_player:
                       type: string
                     reb:
-                      type: string
+                      type: integer
                     reb_person_id:
                       type: integer
                     reb_player:
                       type: string
                     stl:
-                      type: string
+                      type: integer
                     stl_person_id:
                       type: integer
                     stl_player:
@@ -5301,122 +5301,369 @@ paths:
                 x-result-set-example:
                   properties:
                     ast:
-                      type: string
+                      type: number
                     ast_rank:
-                      type: string
+                      type: integer
                     blk:
-                      type: string
+                      type: number
                     blk_rank:
-                      type: string
+                      type: integer
                     blka:
-                      type: string
+                      type: number
                     blka_rank:
-                      type: string
+                      type: integer
                     dreb:
-                      type: string
+                      type: number
                     dreb_rank:
-                      type: string
+                      type: integer
                     fg3_pct:
                       type: number
                     fg3_pct_rank:
-                      type: number
+                      type: integer
                     fg3a:
-                      type: string
+                      type: number
                     fg3a_rank:
-                      type: string
+                      type: integer
                     fg3m:
-                      type: string
+                      type: number
                     fg3m_rank:
-                      type: string
+                      type: integer
                     fg_pct:
                       type: number
                     fg_pct_rank:
-                      type: number
+                      type: integer
                     fga:
-                      type: string
+                      type: number
                     fga_rank:
-                      type: string
+                      type: integer
                     fgm:
-                      type: string
+                      type: number
                     fgm_rank:
-                      type: string
+                      type: integer
                     ft_pct:
                       type: number
                     ft_pct_rank:
-                      type: number
+                      type: integer
                     fta:
-                      type: string
+                      type: number
                     fta_rank:
-                      type: string
+                      type: integer
                     ftm:
-                      type: string
+                      type: number
                     ftm_rank:
-                      type: string
+                      type: integer
                     gp:
                       type: integer
                     gp_rank:
-                      type: string
-                    group_id:
                       type: integer
+                    group_id:
+                      type: string
                     group_name:
                       type: string
                     group_set:
                       type: string
                     l:
-                      type: string
-                    l_rank:
-                      type: string
-                    min:
                       type: integer
+                    l_rank:
+                      type: integer
+                    min:
+                      type: number
                     min_rank:
-                      type: string
+                      type: integer
                     oreb:
-                      type: string
+                      type: number
                     oreb_rank:
-                      type: string
+                      type: integer
                     pf:
-                      type: string
+                      type: number
                     pf_rank:
-                      type: string
+                      type: integer
                     pfd:
-                      type: string
+                      type: number
                     pfd_rank:
-                      type: string
+                      type: integer
                     plus_minus:
-                      type: string
+                      type: number
                     plus_minus_rank:
-                      type: string
+                      type: integer
                     pts:
-                      type: string
+                      type: number
                     pts_rank:
-                      type: string
+                      type: integer
                     reb:
-                      type: string
+                      type: number
                     reb_rank:
-                      type: string
+                      type: integer
                     stl:
-                      type: string
+                      type: number
                     stl_rank:
-                      type: string
+                      type: integer
+                    sum_time_played:
+                      type: integer
                     team_abbreviation:
                       type: string
                     team_id:
                       type: integer
                     tov:
-                      type: string
+                      type: number
                     tov_rank:
-                      type: string
+                      type: integer
                     w:
-                      type: string
+                      type: integer
                     w_pct:
                       type: number
                     w_pct_rank:
-                      type: number
+                      type: integer
                     w_rank:
-                      type: string
+                      type: integer
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguedashlineups
+      tags:
+      - stats
+  /stats/leaguedashoppptshot:
+    get:
+      operationId: leaguedashoppptshot
+      parameters:
+      - description: ''
+        in: query
+        name: CloseDefDistRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Conference
+        required: false
+        schema:
+          pattern: ^((East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: DateFrom
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateTo
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Division
+        required: false
+        schema:
+          pattern: ^((Atlantic)|(Central)|(Northwest)|(Pacific)|(Southeast)|(Southwest)|(East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: DribbleRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: GameSegment
+        required: false
+        schema:
+          pattern: ^((First Half)|(Overtime)|(Second Half))?$
+          type: string
+      - description: ''
+        in: query
+        name: GeneralRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LastNGames
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LeagueID
+        required: true
+        schema:
+          default: '10'
+          enum:
+          - '00'
+          - '01'
+          - '10'
+          - '15'
+          - '20'
+          pattern: ^\d{2}$
+          type: string
+      - description: ''
+        in: query
+        name: Location
+        required: false
+        schema:
+          pattern: ^((Home)|(Road))?$
+          type: string
+      - description: ''
+        in: query
+        name: Month
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: OpponentTeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Outcome
+        required: false
+        schema:
+          pattern: ^((W)|(L))?$
+          type: string
+      - description: ''
+        in: query
+        name: PORound
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PerMode
+        required: true
+        schema:
+          pattern: ^(Totals)|(PerGame)$
+          type: string
+      - description: ''
+        in: query
+        name: Period
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Season
+        required: true
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonSegment
+        required: false
+        schema:
+          pattern: ^((Post All-Star)|(Pre All-Star))?$
+          type: string
+      - description: ''
+        in: query
+        name: SeasonType
+        required: true
+        schema:
+          pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
+          type: string
+      - description: ''
+        in: query
+        name: ShotClockRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: ShotDistRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: TeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: TouchTimeRange
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsConference
+        required: false
+        schema:
+          pattern: ^((East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: VsDivision
+        required: false
+        schema:
+          pattern: ^((Atlantic)|(Central)|(Northwest)|(Pacific)|(Southeast)|(Southwest)|(East)|(West))?$
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    efg_pct:
+                      type: number
+                    fg2_pct:
+                      type: number
+                    fg2a:
+                      type: number
+                    fg2a_frequency:
+                      type: number
+                    fg2m:
+                      type: number
+                    fg3_pct:
+                      type: number
+                    fg3a:
+                      type: number
+                    fg3a_frequency:
+                      type: number
+                    fg3m:
+                      type: number
+                    fg_pct:
+                      type: number
+                    fga:
+                      type: number
+                    fga_frequency:
+                      type: number
+                    fgm:
+                      type: number
+                    g:
+                      type: integer
+                    gp:
+                      type: integer
+                    team_abbreviation:
+                      type: string
+                    team_id:
+                      type: integer
+                    team_name:
+                      type: string
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/leaguedashoppptshot
       tags:
       - stats
   /stats/leaguedashplayerbiostats:
@@ -6853,6 +7100,275 @@ paths:
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/leaguedashplayerstats
+      tags:
+      - stats
+  /stats/leaguedashptdefend:
+    get:
+      operationId: leaguedashptdefend
+      parameters:
+      - description: ''
+        in: query
+        name: College
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Conference
+        required: false
+        schema:
+          pattern: ^((East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: Country
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateFrom
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateTo
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DefenseCategory
+        required: true
+        schema:
+          pattern: ^((Overall)|(3 Pointers)|(2 Pointers)|(Less Than 6Ft)|(Less Than
+            10Ft)|(Greater Than 15Ft))?$
+          type: string
+      - description: ''
+        in: query
+        name: Division
+        required: false
+        schema:
+          pattern: ^((Atlantic)|(Central)|(Northwest)|(Pacific)|(Southeast)|(Southwest)|(East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: DraftPick
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DraftYear
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: GameSegment
+        required: false
+        schema:
+          pattern: ^((First Half)|(Overtime)|(Second Half))?$
+          type: string
+      - description: ''
+        in: query
+        name: Height
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LastNGames
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LeagueID
+        required: true
+        schema:
+          default: '10'
+          enum:
+          - '00'
+          - '01'
+          - '10'
+          - '15'
+          - '20'
+          pattern: ^\d{2}$
+          type: string
+      - description: ''
+        in: query
+        name: Location
+        required: false
+        schema:
+          pattern: ^((Home)|(Road))?$
+          type: string
+      - description: ''
+        in: query
+        name: Month
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: OpponentTeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Outcome
+        required: false
+        schema:
+          pattern: ^((W)|(L))?$
+          type: string
+      - description: ''
+        in: query
+        name: PORound
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PerMode
+        required: true
+        schema:
+          pattern: ^(Totals)|(PerGame)$
+          type: string
+      - description: ''
+        in: query
+        name: Period
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PlayerExperience
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PlayerID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PlayerPosition
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Season
+        required: true
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonSegment
+        required: false
+        schema:
+          pattern: ^((Post All-Star)|(Pre All-Star))?$
+          type: string
+      - description: ''
+        in: query
+        name: SeasonType
+        required: true
+        schema:
+          pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
+          type: string
+      - description: ''
+        in: query
+        name: StarterBench
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: TeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsConference
+        required: false
+        schema:
+          pattern: ^((East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: VsDivision
+        required: false
+        schema:
+          pattern: ^((Atlantic)|(Central)|(Northwest)|(Pacific)|(Southeast)|(Southwest)|(East)|(West))?$
+          type: string
+      - description: ''
+        in: query
+        name: Weight
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    age:
+                      type: number
+                    close_def_person_id:
+                      type: integer
+                    d_fg_pct:
+                      type: number
+                    d_fga:
+                      type: number
+                    d_fgm:
+                      type: number
+                    freq:
+                      type: number
+                    g:
+                      type: integer
+                    gp:
+                      type: integer
+                    normal_fg_pct:
+                      type: number
+                    pct_plusminus:
+                      type: number
+                    player_last_team_abbreviation:
+                      type: string
+                    player_last_team_id:
+                      type: integer
+                    player_name:
+                      type: string
+                    player_position:
+                      type: string
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/leaguedashptdefend
       tags:
       - stats
   /stats/leaguedashteamclutch:
@@ -8626,6 +9142,490 @@ paths:
       summary: GET /stats/leaguegamelog
       tags:
       - stats
+  /stats/leaguehustlestatsplayer:
+    get:
+      operationId: leaguehustlestatsplayer
+      parameters:
+      - description: ''
+        in: query
+        name: College
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Conference
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Country
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateFrom
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateTo
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Division
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DraftPick
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DraftYear
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Height
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LeagueID
+        required: true
+        schema:
+          default: '10'
+          enum:
+          - '00'
+          - '01'
+          - '10'
+          - '15'
+          - '20'
+          type: string
+      - description: ''
+        in: query
+        name: Location
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Month
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: OpponentTeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Outcome
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PORound
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PerMode
+        required: true
+        schema:
+          pattern: ^(Totals)|(PerGame)|(Per48)|(Per40)|(Per36)|(PerMinute)$
+          type: string
+      - description: ''
+        in: query
+        name: PlayerExperience
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PlayerPosition
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Season
+        required: true
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonSegment
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonType
+        required: true
+        schema:
+          pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
+          type: string
+      - description: ''
+        in: query
+        name: TeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsConference
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsDivision
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Weight
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    age:
+                      type: number
+                    box_out_player_rebs:
+                      type: number
+                    box_out_player_team_rebs:
+                      type: number
+                    box_outs:
+                      type: number
+                    charges_drawn:
+                      type: number
+                    contested_shots:
+                      type: number
+                    contested_shots_2pt:
+                      type: number
+                    contested_shots_3pt:
+                      type: number
+                    def_boxouts:
+                      type: number
+                    def_loose_balls_recovered:
+                      type: number
+                    deflections:
+                      type: number
+                    g:
+                      type: integer
+                    loose_balls_recovered:
+                      type: number
+                    min:
+                      type: number
+                    off_boxouts:
+                      type: number
+                    off_loose_balls_recovered:
+                      type: number
+                    pct_box_outs_def:
+                      type: number
+                    pct_box_outs_off:
+                      type: number
+                    pct_box_outs_reb:
+                      type: number
+                    pct_box_outs_team_reb:
+                      type: number
+                    pct_loose_balls_recovered_def:
+                      type: number
+                    pct_loose_balls_recovered_off:
+                      type: number
+                    player_id:
+                      type: integer
+                    player_name:
+                      type: string
+                    screen_assists:
+                      type: number
+                    screen_ast_pts:
+                      type: number
+                    team_abbreviation:
+                      type: string
+                    team_id:
+                      type: integer
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/leaguehustlestatsplayer
+      tags:
+      - stats
+  /stats/leaguehustlestatsteam:
+    get:
+      operationId: leaguehustlestatsteam
+      parameters:
+      - description: ''
+        in: query
+        name: College
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Conference
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Country
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateFrom
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DateTo
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Division
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DraftPick
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: DraftYear
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Height
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: LeagueID
+        required: true
+        schema:
+          default: '10'
+          enum:
+          - '00'
+          - '01'
+          - '10'
+          - '15'
+          - '20'
+          type: string
+      - description: ''
+        in: query
+        name: Location
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Month
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: OpponentTeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Outcome
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PORound
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PerMode
+        required: true
+        schema:
+          pattern: ^(Totals)|(PerGame)|(Per48)|(Per40)|(Per36)|(PerMinute)$
+          type: string
+      - description: ''
+        in: query
+        name: PlayerExperience
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: PlayerPosition
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Season
+        required: true
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonSegment
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonType
+        required: true
+        schema:
+          pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
+          type: string
+      - description: ''
+        in: query
+        name: TeamID
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsConference
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: VsDivision
+        required: false
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: Weight
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    box_outs:
+                      type: number
+                    charges_drawn:
+                      type: number
+                    contested_shots:
+                      type: number
+                    contested_shots_2pt:
+                      type: number
+                    contested_shots_3pt:
+                      type: number
+                    def_boxouts:
+                      type: number
+                    def_loose_balls_recovered:
+                      type: number
+                    deflections:
+                      type: number
+                    loose_balls_recovered:
+                      type: number
+                    min:
+                      type: number
+                    off_boxouts:
+                      type: number
+                    off_loose_balls_recovered:
+                      type: number
+                    pct_box_outs_def:
+                      type: number
+                    pct_box_outs_off:
+                      type: number
+                    pct_loose_balls_recovered_def:
+                      type: number
+                    pct_loose_balls_recovered_off:
+                      type: number
+                    screen_assists:
+                      type: number
+                    screen_ast_pts:
+                      type: number
+                    team_id:
+                      type: integer
+                    team_name:
+                      type: string
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/leaguehustlestatsteam
+      tags:
+      - stats
   /stats/leagueleaders:
     get:
       operationId: leagueleaders
@@ -9480,6 +10480,236 @@ paths:
       summary: GET /stats/leagueseasonmatchups
       tags:
       - stats
+  /stats/leaguestandings:
+    get:
+      operationId: leaguestandings
+      parameters:
+      - description: ''
+        in: query
+        name: LeagueID
+        required: true
+        schema:
+          default: '10'
+          enum:
+          - '00'
+          - '01'
+          - '10'
+          - '15'
+          - '20'
+          pattern: ^\d{2}$
+          type: string
+      - description: ''
+        in: query
+        name: Season
+        required: true
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: SeasonType
+        required: true
+        schema:
+          pattern: ^(Regular Season)|(Pre Season)$
+          type: string
+      - description: ''
+        in: query
+        name: SeasonYear
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    aheadathalf:
+                      type: string
+                    aheadatthird:
+                      type: string
+                    apr:
+                      type: string
+                    aug:
+                      type: string
+                    behindathalf:
+                      type: string
+                    behindatthird:
+                      type: string
+                    clinchedconferencetitle:
+                      type: integer
+                    clincheddivisiontitle:
+                      type: integer
+                    clinchedplayoffbirth:
+                      type: integer
+                    clinchindicator:
+                      type: string
+                    conference:
+                      type: string
+                    conferencegamesback:
+                      type: number
+                    conferencerecord:
+                      type: string
+                    currenthomestreak:
+                      type: integer
+                    currentroadstreak:
+                      type: integer
+                    currentstreak:
+                      type: integer
+                    dec:
+                      type: string
+                    diffpointspg:
+                      type: number
+                    division:
+                      type: string
+                    divisiongamesback:
+                      type: number
+                    divisionrank:
+                      type: integer
+                    divisionrecord:
+                      type: string
+                    eliminatedconference:
+                      type: integer
+                    eliminateddivision:
+                      type: integer
+                    feb:
+                      type: string
+                    fewerturnovers:
+                      type: string
+                    home:
+                      type: string
+                    jan:
+                      type: string
+                    jul:
+                      type: string
+                    jun:
+                      type: string
+                    l10:
+                      type: string
+                    last10home:
+                      type: string
+                    last10road:
+                      type: string
+                    leadinfgpct:
+                      type: string
+                    leadinreb:
+                      type: string
+                    leagueid:
+                      type: string
+                    leaguerank:
+                      type: integer
+                    longhomestreak:
+                      type: integer
+                    longlossstreak:
+                      type: integer
+                    longroadstreak:
+                      type: integer
+                    longwinstreak:
+                      type: integer
+                    losses:
+                      type: integer
+                    mar:
+                      type: string
+                    may:
+                      type: string
+                    nov:
+                      type: string
+                    oct:
+                      type: string
+                    oppover500:
+                      type: string
+                    opppointspg:
+                      type: number
+                    oppscore100pts:
+                      type: string
+                    ot:
+                      type: string
+                    playoffrank:
+                      type: integer
+                    pointspg:
+                      type: number
+                    postas:
+                      type: string
+                    preas:
+                      type: string
+                    record:
+                      type: string
+                    road:
+                      type: string
+                    score100pts:
+                      type: string
+                    seasonid:
+                      type: string
+                    sep:
+                      type: string
+                    strcurrenthomestreak:
+                      type: string
+                    strcurrentroadstreak:
+                      type: string
+                    strcurrentstreak:
+                      type: string
+                    strlonghomestreak:
+                      type: string
+                    strlongroadstreak:
+                      type: string
+                    teamcity:
+                      type: string
+                    teamid:
+                      type: integer
+                    teamname:
+                      type: string
+                    tenptsormore:
+                      type: string
+                    threeptsorless:
+                      type: string
+                    tiedathalf:
+                      type: string
+                    tiedatthird:
+                      type: string
+                    vsatlantic:
+                      type: string
+                    vscentral:
+                      type: string
+                    vseast:
+                      type: string
+                    vsnorthwest:
+                      type: string
+                    vspacific:
+                      type: string
+                    vssoutheast:
+                      type: string
+                    vssouthwest:
+                      type: string
+                    vswest:
+                      type: string
+                    winpct:
+                      type: number
+                    wins:
+                      type: integer
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/leaguestandings
+      tags:
+      - stats
   /stats/leaguestandingsv3:
     get:
       operationId: leaguestandingsv3
@@ -10264,11 +11494,15 @@ paths:
                       type: string
                     game_date:
                       type: string
+                    game_id:
+                      type: string
                     player_id:
                       type: integer
                     stat:
                       type: string
                     stat_order:
+                      type: integer
+                    stat_value:
                       type: integer
                     stats_value:
                       type: integer
@@ -14153,6 +15387,8 @@ paths:
                       type: string
                     height:
                       type: string
+                    is_defunct:
+                      type: integer
                     jersey_number:
                       type: string
                     person_id:
@@ -19693,25 +20929,25 @@ paths:
                     dreb:
                       type: string
                     fg3_pct:
-                      type: number
+                      type: string
                     fg3a:
                       type: string
                     fg3m:
                       type: string
                     fg_pct:
-                      type: number
+                      type: string
                     fga:
                       type: string
                     fgm:
                       type: string
                     ft_pct:
-                      type: number
+                      type: string
                     fta:
                       type: string
                     ftm:
                       type: string
                     gp:
-                      type: integer
+                      type: string
                     losses:
                       type: string
                     nba_finals_appearance:
@@ -19735,13 +20971,13 @@ paths:
                     team_city:
                       type: string
                     team_id:
-                      type: integer
+                      type: string
                     team_name:
                       type: string
                     tov:
                       type: string
                     win_pct:
-                      type: number
+                      type: string
                     wins:
                       type: string
                     year:
