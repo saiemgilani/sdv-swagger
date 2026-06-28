@@ -1,0 +1,65 @@
+info:
+  description: Live game feeds on cdn.nba.com / cdn.wnba.com. Reference-only; not
+    wrapped in sdv-py.
+  title: NBA / WNBA Live CDN feeds (reference-only, unofficial)
+  version: 1.0.0-rev2026.06
+  x-nba-schema-source: nba_api committed docs + hoopR/wehoop slug sweep (offline)
+openapi: 3.1.0
+paths:
+  /static/json/liveData/boxscore:
+    get:
+      operationId: boxscore
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn boxscore
+      tags:
+      - live-cdn
+  /static/json/liveData/gleague_schedule:
+    get:
+      operationId: gleague_schedule
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn gleague_schedule
+      tags:
+      - live-cdn
+  /static/json/liveData/odds:
+    get:
+      operationId: odds
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn odds
+      tags:
+      - live-cdn
+  /static/json/liveData/playbyplay:
+    get:
+      operationId: playbyplay
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn playbyplay
+      tags:
+      - live-cdn
+  /static/json/liveData/scoreboard:
+    get:
+      operationId: scoreboard
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn scoreboard
+      tags:
+      - live-cdn
+  /static/json/liveData/wnba_scoreboard:
+    get:
+      operationId: wnba_scoreboard
+      responses:
+        '200':
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn wnba_scoreboard
+      tags:
+      - live-cdn
+servers:
+- url: https://cdn.nba.com
+- url: https://cdn.wnba.com
