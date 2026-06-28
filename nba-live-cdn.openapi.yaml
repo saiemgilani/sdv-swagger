@@ -6,58 +6,102 @@ info:
   x-nba-schema-source: nba_api committed docs + hoopR/wehoop slug sweep (offline)
 openapi: 3.1.0
 paths:
-  /static/json/liveData/boxscore:
+  /static/json/liveData/boxscore/boxscore_{game_id}.json:
     get:
       operationId: boxscore
+      parameters:
+      - description: 10-digit NBA/WNBA game id.
+        in: path
+        name: game_id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
           description: Live JSON feed (plain shape, not resultSets).
       summary: live-cdn boxscore
       tags:
       - live-cdn
-  /static/json/liveData/gleague_schedule:
-    get:
-      operationId: gleague_schedule
-      responses:
-        '200':
-          description: Live JSON feed (plain shape, not resultSets).
-      summary: live-cdn gleague_schedule
-      tags:
-      - live-cdn
-  /static/json/liveData/odds:
+  /static/json/liveData/odds/odds_todaysGames.json:
     get:
       operationId: odds
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
           description: Live JSON feed (plain shape, not resultSets).
       summary: live-cdn odds
       tags:
       - live-cdn
-  /static/json/liveData/playbyplay:
+  /static/json/liveData/playbyplay/playbyplay_{game_id}.json:
     get:
       operationId: playbyplay
+      parameters:
+      - description: 10-digit NBA/WNBA game id.
+        in: path
+        name: game_id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
           description: Live JSON feed (plain shape, not resultSets).
       summary: live-cdn playbyplay
       tags:
       - live-cdn
-  /static/json/liveData/scoreboard:
+  /static/json/liveData/scoreboard/todaysScoreboard_00.json:
     get:
       operationId: scoreboard
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
           description: Live JSON feed (plain shape, not resultSets).
       summary: live-cdn scoreboard
       tags:
       - live-cdn
-  /static/json/liveData/wnba_scoreboard:
+  /static/json/liveData/scoreboard/todaysScoreboard_10.json:
     get:
       operationId: wnba_scoreboard
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
           description: Live JSON feed (plain shape, not resultSets).
       summary: live-cdn wnba_scoreboard
+      tags:
+      - live-cdn
+  /static/json/staticData/scheduleLeagueV2_2.json:
+    get:
+      operationId: gleague_schedule
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+          description: Live JSON feed (plain shape, not resultSets).
+      summary: live-cdn gleague_schedule
       tags:
       - live-cdn
 servers:
