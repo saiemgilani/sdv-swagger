@@ -79,7 +79,7 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 
 | Spec | API host / scope | Source |
 |---|---|---|
-| `nba-stats.openapi.yaml` | `stats.nba.com` — unified spec covering NBA (`LeagueID=00`) + G-League (`20`) + Summer League (`15`) + WNBA (`stats.wnba.com`, `LeagueID=10`); 151 NBA-side + 115 WNBA-side wrappers | sdv-internal-refs `nba/tools/build.py` — live captures |
+| `nba-stats.openapi.yaml` | `stats.nba.com` — unified spec covering NBA (`LeagueID=00`) + G-League (`20`) + Summer League (`15`) + WNBA (`stats.wnba.com`, `LeagueID=10`); documents the full ~155-endpoint catalog with deprecated operations marked. Per-league projections carry the capture-confirmed live, non-deprecated subset (112 NBA-side / 95 WNBA-side) | sdv-internal-refs `nba/tools/build.py` — live captures |
 | `nba-stats-nba.openapi.yaml` | `stats.nba.com` — NBA-only projection (`LeagueID=00`) | sdv-internal-refs `nba/tools/build.py` |
 | `nba-stats-wnba.openapi.yaml` | `stats.wnba.com` — WNBA-only projection (`LeagueID=10`) | sdv-internal-refs `nba/tools/build.py` |
 | `nba-stats-gleague.openapi.yaml` | `stats.nba.com` — G-League projection (`LeagueID=20`) | sdv-internal-refs `nba/tools/build.py` |
