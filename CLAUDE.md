@@ -28,7 +28,9 @@ Coverage by provider:
   `nba-live-cdn.openapi.yaml` (concrete CDN file-level URLs, `cdn.nba.com`/`cdn.wnba.com`);
   `nba-openapi.json` (data.nba.com), `pbpstats.json` (api.pbpstats.com).
 - **Football** — `nfl_api_openapi.yaml` (NFL.com Shield), `cfbd-swagger.json` (CFBD),
-  `247sports-recruit-database.openapi.yaml`, `pff-premium.openapi.yaml` (PFF Premium Stats
+  `247sports-recruit-database.openapi.yaml` (RDB, guest-JWT) + `247sports-site-pages.openapi.yaml`
+  (247sports.com front-end page-JSON, auth-free, 35 routes),
+  `pff-premium.openapi.yaml` (PFF Premium Stats
   2.0, `premium.pff.com/api/v1`, cookie-auth/paywalled, NFL/NCAA/AAF/UFL),
   `espn_fantasy_v3.json` (**Swagger 2.0**).
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
