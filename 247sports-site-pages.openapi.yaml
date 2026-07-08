@@ -1,0 +1,1735 @@
+openapi: 3.0.1
+info:
+  title: 247Sports Site Pages (front-end page-JSON)
+  description: 'The 247Sports **front-end page-model JSON surface** on host `247sports.com` (distinct
+    from the `ipa.247sports.com/rdb/v1` Recruit Database). Any site route with a `.json` suffix returns
+    the page''s underlying model. **Auth-free** (no guest JWT), but behind the same Fastly edge that TLS-fingerprint-blocks
+    plain `requests` — call with curl / curl_cffi `impersonate="chrome"`. Payloads are flat: nested entities
+    are bare integer foreign keys, so you traverse the graph by following each entity''s `.json` sub-routes.
+    Schemas here are derived from real captures under `captures/site-pages/`.'
+  version: site-2026-07-08
+servers:
+- url: https://247sports.com
+tags:
+- name: Recruits
+- name: Institution
+- name: Player
+- name: PlayerInstitution
+- name: PlayerSport
+- name: Position
+- name: News
+- name: Coach
+- name: Predictions
+- name: Event
+- name: RecruitInterest
+- name: Recruitment
+- name: Roster
+- name: Evaluation
+- name: Draft
+paths:
+  /Season/{season}/Recruits.json:
+    get:
+      tags:
+      - Recruits
+      summary: Recruit class rankings for a season (rich per-recruit rows with inlined Player).
+      parameters:
+      - name: season
+        in: path
+        description: '`{year}-{Sport}`, e.g. `2026-Football`.'
+        schema:
+          type: string
+        required: true
+      - name: Items
+        in: query
+        description: Page size.
+        schema:
+          type: integer
+      - name: Page
+        in: query
+        description: 1-based page number.
+        schema:
+          type: integer
+      - name: Player.FullName
+        in: query
+        description: Filter by player full name (URL-encoded).
+        schema:
+          type: string
+      - name: Institution
+        in: query
+        description: Filter by committed institution key.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recruit'
+      x-example-url: https://247sports.com/Season/2026-Football/Recruits.json?Items=15&Page=1
+  /Institution/{key}.json:
+    get:
+      tags:
+      - Institution
+      summary: Institution (school/team) detail.
+      parameters:
+      - name: key
+        in: path
+        description: Institution key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Institution/24099.json
+  /Institution/{key}/Location.json:
+    get:
+      tags:
+      - Institution
+      summary: Institution location (city/state/coords/tax).
+      parameters:
+      - name: key
+        in: path
+        description: Institution key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-example-url: https://247sports.com/Institution/24099/Location.json
+  /Institution.json:
+    get:
+      tags:
+      - Institution
+      summary: Institution directory (paginated list).
+      parameters:
+      - name: items
+        in: query
+        description: Page size.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Institution.json?items=50
+  /college/{schoolSlug}/Institution/{key}/TimelineEvents.json:
+    get:
+      tags:
+      - Institution
+      summary: Institution recruiting timeline (site-authored event blurbs).
+      parameters:
+      - name: schoolSlug
+        in: path
+        description: School URL slug, e.g. `florida`.
+        schema:
+          type: string
+        required: true
+      - name: key
+        in: path
+        description: Institution key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimelineEvent'
+      x-example-url: https://247sports.com/college/florida/Institution/24099/TimelineEvents.json
+  /League/{leagueId}/Institutions.json:
+    get:
+      tags:
+      - Institution
+      summary: Institutions belonging to a league.
+      parameters:
+      - name: leagueId
+        in: path
+        description: League key.
+        schema:
+          type: integer
+        required: true
+      - name: items
+        in: query
+        description: Page size.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/League/6/Institutions.json?items=5
+  /Player/{key}.json:
+    get:
+      tags:
+      - Player
+      summary: Player detail (identity + primary-sport rating/ranks).
+      parameters:
+      - name: key
+        in: path
+        description: Player key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+      x-example-url: https://247sports.com/Player/46051367.json
+  /Player/{key}/PlayerHighSchool.json:
+    get:
+      tags:
+      - Player
+      summary: Player's high-school PlayerInstitution row.
+      parameters:
+      - name: key
+        in: path
+        description: Player key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInstitution'
+      x-example-url: https://247sports.com/Player/46051367/PlayerHighSchool.json
+  /Player/{key}/PrimaryPlayerSport.json:
+    get:
+      tags:
+      - Player
+      summary: Player's primary PlayerSport (rating/class/positions).
+      parameters:
+      - name: key
+        in: path
+        description: Player key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerSport'
+      x-example-url: https://247sports.com/Player/46051367/PrimaryPlayerSport.json
+  /Player/{key}/CurrentPlayerInstitution.json:
+    get:
+      tags:
+      - Player
+      summary: Player's current PlayerInstitution (committed/enrolled school).
+      parameters:
+      - name: key
+        in: path
+        description: Player key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInstitution'
+      x-example-url: https://247sports.com/Player/46083769/CurrentPlayerInstitution.json
+  /Player.json:
+    get:
+      tags:
+      - Player
+      summary: Player name search.
+      parameters:
+      - name: FirstName
+        in: query
+        description: First name filter.
+        schema:
+          type: string
+      - name: LastName
+        in: query
+        description: Last name filter.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+      x-example-url: https://247sports.com/Player.json?FirstName=Tayo&LastName=Fabuluje
+  /PlayerInstitution/{key}.json:
+    get:
+      tags:
+      - PlayerInstitution
+      summary: Player-at-institution association detail.
+      parameters:
+      - name: key
+        in: path
+        description: PlayerInstitution key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInstitution'
+      x-example-url: https://247sports.com/PlayerInstitution/240526.json
+  /playersport/{key}.json:
+    get:
+      tags:
+      - PlayerSport
+      summary: PlayerSport detail (note lowercase route segment).
+      parameters:
+      - name: key
+        in: path
+        description: PlayerSport key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerSport'
+      x-example-url: https://247sports.com/playersport/218200.json
+  /PlayerSport/{key}/RecruitRankHistory.json:
+    get:
+      tags:
+      - PlayerSport
+      summary: Ranking history for a PlayerSport (one row per Ranking snapshot).
+      parameters:
+      - name: key
+        in: path
+        description: PlayerSport key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerSportRanking'
+      x-example-url: https://247sports.com/PlayerSport/250563/RecruitRankHistory.json
+  /PlayerSport/{key}/PlayerInstitution.json:
+    get:
+      tags:
+      - PlayerSport
+      summary: PlayerInstitution linked to a PlayerSport.
+      parameters:
+      - name: key
+        in: path
+        description: PlayerSport key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInstitution'
+      x-example-url: https://247sports.com/PlayerSport/279200/PlayerInstitution.json
+  /Position/{key}/playersportrankings.json:
+    get:
+      tags:
+      - Position
+      summary: Player-sport rankings for a position.
+      parameters:
+      - name: key
+        in: path
+        description: Position key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerSportRanking'
+      x-example-url: https://247sports.com/Position/14/playersportrankings.json
+  /Page/{pageId}/Feeds.json:
+    get:
+      tags:
+      - News
+      summary: News/headline feed items for a site Page.
+      parameters:
+      - name: pageId
+        in: path
+        description: Page key (e.g. 100134 = FB recruiting).
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feed'
+      x-example-url: https://247sports.com/Page/100134/Feeds.json
+  /Coach/{key}.json:
+    get:
+      tags:
+      - Coach
+      summary: Coach identity detail.
+      parameters:
+      - name: key
+        in: path
+        description: Coach key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coach'
+      x-example-url: https://247sports.com/Coach/908.json
+  /Coach/{key}/CoachRankings.json:
+    get:
+      tags:
+      - Coach
+      summary: Coach's recruiting-ranking history (one row per Ranking snapshot).
+      parameters:
+      - name: key
+        in: path
+        description: Coach key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CoachRanking'
+      x-example-url: https://247sports.com/Coach/1531/CoachRankings.json
+  /Coach/{key}/Hometown.json:
+    get:
+      tags:
+      - Coach
+      summary: Coach hometown Location.
+      parameters:
+      - name: key
+        in: path
+        description: Coach key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-example-url: https://247sports.com/Coach/1504/Hometown.json
+  /Coach/{key}/AlmaMater.json:
+    get:
+      tags:
+      - Coach
+      summary: Coach alma-mater Institution.
+      parameters:
+      - name: key
+        in: path
+        description: Coach key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Coach/1504/AlmaMater.json
+  /CoachRanking/{key}.json:
+    get:
+      tags:
+      - Coach
+      summary: Single CoachRanking row.
+      parameters:
+      - name: key
+        in: path
+        description: CoachRanking key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoachRanking'
+      x-example-url: https://247sports.com/CoachRanking/701070.json
+  /Season/{season}/CurrentExpertPredictions.json:
+    get:
+      tags:
+      - Predictions
+      summary: Current expert 'crystal ball' predictions for a season.
+      parameters:
+      - name: season
+        in: path
+        description: '`{year}-{Sport}`, e.g. `2026-Football`.'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerInstitutionPrediction'
+      x-example-url: https://247sports.com/Season/2026-Football/CurrentExpertPredictions.json
+  /Event/{slug}.json:
+    get:
+      tags:
+      - Event
+      summary: Recruiting event detail (camp/combine/regional).
+      parameters:
+      - name: slug
+        in: path
+        description: Event slug, e.g. `The-Opening-Regional-2019-60`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+      x-example-url: https://247sports.com/Event/The-Opening-Regional-2019-60.json
+  /RecruitInterest/{key}.json:
+    get:
+      tags:
+      - RecruitInterest
+      summary: Single recruit-interest (school<->recruit link) detail.
+      parameters:
+      - name: key
+        in: path
+        description: RecruitInterest key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecruitInterest'
+      x-example-url: https://247sports.com/RecruitInterest/327078.json
+  /Season/{season}/RecruitInterests.json:
+    get:
+      tags:
+      - RecruitInterest
+      summary: All recruit interests for a season (paginated).
+      parameters:
+      - name: season
+        in: path
+        description: '`{year}-{Sport}`.'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecruitInterest'
+      x-example-url: https://247sports.com/Season/2026-Football/RecruitInterests.json
+  /Season/{season}/RecruitInterestEvents.json:
+    get:
+      tags:
+      - RecruitInterest
+      summary: Recruit-interest timeline events for a season (offers/visits/commits).
+      parameters:
+      - name: season
+        in: path
+        description: '`{year}-{Sport}`.'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecruitInterestEvent'
+      x-example-url: https://247sports.com/Season/2026-Football/RecruitInterestEvents.json
+  /Recruitment/{key}/Institution.json:
+    get:
+      tags:
+      - Recruitment
+      summary: Committed institution for a recruitment.
+      parameters:
+      - name: key
+        in: path
+        description: Recruitment key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Recruitment/114978/Institution.json
+  /Recruitment/{key}/Interests.json:
+    get:
+      tags:
+      - Recruitment
+      summary: All institutions the recruit has interest links with.
+      parameters:
+      - name: key
+        in: path
+        description: Recruitment key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Recruitment/114978/Interests.json
+  /Recruitment/{key}/Offers.json:
+    get:
+      tags:
+      - Recruitment
+      summary: Institutions that have offered the recruit.
+      parameters:
+      - name: key
+        in: path
+        description: Recruitment key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+      x-example-url: https://247sports.com/Recruitment/114978/Offers.json
+  /Recruitment/{key}/PlayerSport.json:
+    get:
+      tags:
+      - Recruitment
+      summary: PlayerSport underlying a recruitment.
+      parameters:
+      - name: key
+        in: path
+        description: Recruitment key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerSport'
+      x-example-url: https://247sports.com/Recruitment/114978/PlayerSport.json
+  /Recruitment/{key}/FinalChoice.json:
+    get:
+      tags:
+      - Recruitment
+      summary: Final-choice PlayerSport/commit for a recruitment.
+      parameters:
+      - name: key
+        in: path
+        description: Recruitment key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerSport'
+      x-example-url: https://247sports.com/Recruitment/114978/FinalChoice.json
+  /Season/{season}/Roster/Embed.json:
+    get:
+      tags:
+      - Roster
+      summary: Signed-class roster embed (PlayerSport rows). Accuracy can lag.
+      parameters:
+      - name: season
+        in: path
+        description: '`{year}-{Sport}`.'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerSport'
+      x-example-url: https://247sports.com/Season/2020-Football/Roster/Embed.json
+  /PlayerInstitutionEvaluation/{key}.json:
+    get:
+      tags:
+      - Evaluation
+      summary: Scout evaluation of a player-institution fit.
+      parameters:
+      - name: key
+        in: path
+        description: PlayerInstitutionEvaluation key.
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInstitutionEvaluation'
+      x-example-url: https://247sports.com/PlayerInstitutionEvaluation/2297.json
+  /League/{league}/DraftPicks/ConfigureEmbed/.json:
+    get:
+      tags:
+      - Draft
+      summary: Pro-draft picks embed for a league/year/round.
+      parameters:
+      - name: league
+        in: path
+        description: League slug, e.g. `NFL`.
+        schema:
+          type: string
+        required: true
+      - name: year
+        in: query
+        description: Draft year.
+        schema:
+          type: integer
+      - name: round
+        in: query
+        description: Draft round.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DraftPick'
+      x-example-url: https://247sports.com/League/NFL/DraftPicks/ConfigureEmbed/.json?year=2010&round=1
+components:
+  schemas:
+    Institution:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Name:
+          type: string
+        Type:
+          type: string
+          description: Institution type code (college / pro / high school).
+        Group:
+          type: string
+          description: Institution group (division/level) bitmask code.
+        Location:
+          type: integer
+          description: FK -> Location (`/Institution/{Location}/Location.json`).
+        State:
+          type: integer
+          description: FK -> State entity.
+        Latitude:
+          type: string
+        Longitude:
+          type: string
+        Rankable:
+          type: string
+          description: Whether the institution participates in class rankings.
+        Mascot:
+          type: string
+          nullable: true
+        Abbreviation:
+          type: string
+          nullable: true
+        PrimaryColor:
+          type: string
+          nullable: true
+        SecondaryColor:
+          type: string
+          nullable: true
+        IsForeign:
+          type: string
+        Site:
+          type: integer
+          nullable: true
+          description: FK -> team Site (network site key).
+        DefaultAsset:
+          type: integer
+          nullable: true
+        AlternateAsset:
+          type: integer
+          nullable: true
+        LightAsset:
+          type: integer
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        Address:
+          type: string
+          nullable: true
+        Telephone:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Location:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        PostalCode:
+          type: string
+        City:
+          type: string
+        State:
+          type: integer
+        Latitude:
+          type: string
+        Longitude:
+          type: string
+        CountyTaxRate:
+          type: string
+        CityTaxRate:
+          type: string
+        SpecialTaxRate:
+          type: string
+        RegionName:
+          type: string
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    Player:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Hometown:
+          type: object
+          nullable: true
+          description: Inline hometown stub (State FK + City).
+          properties:
+            State:
+              type: integer
+            City:
+              type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        FullName:
+          type: string
+        Height:
+          type: string
+        Weight:
+          type: number
+        Bio:
+          type: string
+        ScoutEvaluation:
+          type: string
+        Birthdate:
+          type: string
+          nullable: true
+        ModifiedUser:
+          type: string
+          nullable: true
+        ModifiedDate:
+          type: string
+        CBSKey:
+          type: integer
+          description: Cross-reference key into the CBS Sports id space.
+        Url:
+          type: string
+        PlayerHighSchool:
+          type: object
+          nullable: true
+          description: Inline high-school stub (Name).
+          properties:
+            Name:
+              type: string
+        LastRecruitmentPlayerInstitution:
+          type: integer
+        CurrentPlayerInstitution:
+          type: integer
+          description: FK -> PlayerInstitution (current school).
+        TwitterContact:
+          type: integer
+          nullable: true
+        MobilePhoneContact:
+          type: string
+          nullable: true
+        PrimaryPlayerSport:
+          type: integer
+          description: FK -> PlayerSport (`/PlayerSport/{id}.json`).
+        PrimaryPlayerPosition:
+          type: object
+          nullable: true
+          description: Inline position stub (Abbreviation).
+          properties:
+            Abbreviation:
+              type: string
+        PrimaryRecruitment:
+          type: integer
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        DefaultAsset:
+          type: integer
+        DefaultAssetUrl:
+          type: string
+        HeroAsset:
+          type: string
+          nullable: true
+        QuoteAsset:
+          type: string
+          nullable: true
+        User:
+          type: string
+          nullable: true
+        ProStatPlayer:
+          type: integer
+        CollegeStatPlayer:
+          type: integer
+          nullable: true
+        BioOrDefault:
+          type: string
+        Rating:
+          type: integer
+          nullable: true
+          description: 247Sports numeric rating (0-1 scale) for the primary sport.
+        StarRating:
+          type: integer
+          description: Star tier (2-5) derived from the rating.
+        NationalRank:
+          type: integer
+          nullable: true
+          description: Overall national rank in the recruit's class.
+        PositionRank:
+          type: integer
+          nullable: true
+          description: Rank within position for the class.
+        StateRank:
+          type: integer
+          nullable: true
+          description: Rank within home state for the class.
+      additionalProperties: false
+    PlayerInstitution:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Player:
+          type: integer
+        Institution:
+          type: integer
+        State:
+          type: integer
+        Agent:
+          type: string
+          nullable: true
+        EndYear:
+          type: string
+          nullable: true
+        EndDate:
+          type: string
+          nullable: true
+        EarlyEnrollee:
+          type: string
+        EarlySignee:
+          type: string
+        Height:
+          type: string
+        Weight:
+          type: string
+        TransferInstitution:
+          type: string
+          nullable: true
+        TransferSeason:
+          type: string
+          nullable: true
+        TransferEligibility:
+          type: string
+        CreatedDate:
+          type: string
+        ModifiedDate:
+          type: string
+        LeadExpert:
+          type: integer
+          nullable: true
+        PlayerInstitutionEvaluation:
+          type: integer
+          nullable: true
+        PrimaryPlayerSport:
+          type: integer
+        DefaultAsset:
+          type: integer
+        HeroAsset:
+          type: string
+          nullable: true
+        PrimaryRecruitment:
+          type: integer
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        EndYearOrCurrent:
+          type: string
+        StartYearOrExpected:
+          type: string
+        EndYearOrExpected:
+          type: string
+        NextInstitutionType:
+          type: string
+        NextInstitutionGroup:
+          type: string
+        StartYear:
+          type: string
+          nullable: true
+        StartDate:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PlayerSport:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Player:
+          type: integer
+        PlayerInstitution:
+          type: integer
+        State:
+          type: integer
+        Sport:
+          type: integer
+        Rating:
+          type: string
+          nullable: true
+          description: 247Sports rating string (0-1).
+        RatingOrDefault:
+          type: string
+        LocalIndex:
+          type: string
+          nullable: true
+        RivalsGrade:
+          type: string
+          nullable: true
+          description: Rivals source grade (industry composite input).
+        RivalsRank:
+          type: string
+          nullable: true
+        RivalsIndex:
+          type: string
+          nullable: true
+        EspnGrade:
+          type: string
+          nullable: true
+          description: ESPN source grade (industry composite input).
+        EspnRank:
+          type: string
+          nullable: true
+        EspnIndex:
+          type: string
+          nullable: true
+        CompositeStrength:
+          type: string
+          description: Composite strength points (team-ranking weight).
+        CompositeRating:
+          type: string
+          nullable: true
+          description: 247Sports Composite rating (industry blend).
+        CompositeRatingOrDefault:
+          type: string
+        AverageRank:
+          type: string
+          nullable: true
+        PreviousRecruitment:
+          type: integer
+          nullable: true
+        Primary:
+          type: string
+        ClassYearOverride:
+          type: string
+        ClassYear:
+          type: string
+          description: Recruiting class year.
+        Recruitment:
+          type: integer
+          nullable: true
+          description: FK -> Recruitment aggregate for this player-sport.
+        PrimaryInstitutionPrediction:
+          type: integer
+          nullable: true
+        SecondaryInstitutionPrediction:
+          type: integer
+          nullable: true
+        PrimaryInstitutionPredictionPercentage:
+          type: string
+          nullable: true
+        ShowUnrankedRating:
+          type: string
+        CurrentPlayerSportYear:
+          type: integer
+          nullable: true
+        UnpublishedPlayerSportRanking:
+          type: integer
+          nullable: true
+        CurrentPlayerSportRanking:
+          type: integer
+          nullable: true
+        PrimaryPlayerPosition:
+          type: integer
+        PrimaryPosition:
+          type: integer
+        PrimaryPositionGroup:
+          type: integer
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        StarRating:
+          type: string
+          description: Star tier (2-5).
+        SecondaryInstitutionPredictionPercentage:
+          type: string
+          nullable: true
+        Jersey:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Coach:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        FullName:
+          type: string
+        Birthdate:
+          type: string
+        Hometown:
+          type: integer
+        AlmaMater:
+          type: integer
+        CBSKey:
+          type: string
+        TwitterContact:
+          type: string
+        PredictionsLocked:
+          type: string
+        PrimaryCoachJob:
+          type: integer
+        DefaultAsset:
+          type: integer
+        HeroAsset:
+          type: string
+          nullable: true
+        QuoteAsset:
+          type: string
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    CoachRanking:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Coach:
+          type: integer
+        Institution:
+          type: integer
+        Conference:
+          type: integer
+        Ranking:
+          type: integer
+          description: FK -> the Ranking snapshot this row belongs to.
+        Sport:
+          type: integer
+        Recruitment:
+          type: string
+          nullable: true
+        Rating:
+          type: string
+        ScoutRating:
+          type: string
+        CompositeRating:
+          type: string
+          description: Composite class rating for the coach's haul.
+        Commits:
+          type: string
+        Total:
+          type: string
+        CompositeTotal:
+          type: string
+        FiveStars:
+          type: string
+        ScoutFiveStars:
+          type: string
+        CompositeFiveStars:
+          type: string
+        FourStars:
+          type: string
+        ScoutFourStars:
+          type: string
+        CompositeFourStars:
+          type: string
+        ThreeStars:
+          type: string
+        ScoutThreeStars:
+          type: string
+        CompositeThreeStars:
+          type: string
+        TwoStars:
+          type: string
+        ScoutTwoStars:
+          type: string
+        CompositeTwoStars:
+          type: string
+        AverageRating:
+          type: string
+        AverageScoutRating:
+          type: string
+        CompositeAverageRating:
+          type: string
+        OverallRank:
+          type: string
+          description: Overall national coach-recruiting rank.
+        CompositeOverallRank:
+          type: string
+        ScoutOverallRank:
+          type: string
+          nullable: true
+        DivisionRank:
+          type: string
+        ScoutDivisionRank:
+          type: string
+          nullable: true
+        CompositeDivisionRank:
+          type: string
+        ConferenceRank:
+          type: string
+          description: Rank within conference.
+        ScoutConferenceRank:
+          type: string
+          nullable: true
+        CompositeConferenceRank:
+          type: string
+        PreviousCoachRanking:
+          type: integer
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    PlayerSportRanking:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Ranking:
+          type: integer
+          description: FK -> Ranking snapshot.
+        Sport:
+          type: integer
+        PlayerSport:
+          type: integer
+        CommittedInstitution:
+          type: integer
+          nullable: true
+          description: FK -> committed Institution (null if uncommitted).
+        Order:
+          type: string
+        Position:
+          type: integer
+        PositionGroup:
+          type: integer
+        Platoon:
+          type: integer
+        State:
+          type: integer
+        Region:
+          type: integer
+          nullable: true
+        Institution:
+          type: integer
+        InstitutionGroup:
+          type: string
+        Rating:
+          type: string
+        CompositeStrength:
+          type: string
+        CompositeRating:
+          type: string
+          nullable: true
+        OverallRank:
+          type: string
+          description: Overall national rank in the snapshot.
+        CompositeOverallRank:
+          type: string
+          nullable: true
+        GroupRank:
+          type: string
+        CompositeGroupRank:
+          type: string
+          nullable: true
+        PositionRank:
+          type: string
+          description: Rank within position.
+        PreviousPlayerSportRanking:
+          type: integer
+          nullable: true
+        CompositePositionRank:
+          type: string
+          nullable: true
+        StateRank:
+          type: string
+          description: Rank within home state.
+        CompositeStateRank:
+          type: string
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        PositionGroupRank:
+          type: string
+          nullable: true
+        RegionRank:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RecruitInterest:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Recruitment:
+          type: integer
+          description: FK -> parent Recruitment.
+        PlayerSport:
+          type: integer
+        RecruitState:
+          type: integer
+        Institution:
+          type: integer
+          description: FK -> the interested/interesting Institution.
+        LockPrediction:
+          type: string
+        RecruitsInterest:
+          type: string
+        PrimaryCoach:
+          type: integer
+          nullable: true
+        SecondaryCoach:
+          type: string
+          nullable: true
+        KeeperCoach:
+          type: string
+          nullable: true
+        InstitutionsInterest:
+          type: string
+        Position:
+          type: integer
+        PositionGroup:
+          type: integer
+        Platoon:
+          type: integer
+        Offered:
+          type: string
+          description: Whether the school has extended an offer.
+        GrayShirt:
+          type: string
+        WalkOn:
+          type: string
+        OfficialVisit:
+          type: integer
+          nullable: true
+        SecondOfficialVisit:
+          type: string
+          nullable: true
+        SoftCommit:
+          type: string
+          nullable: true
+        HardCommit:
+          type: integer
+          nullable: true
+          description: FK -> the RecruitInterestEvent marking a hard commit.
+        SigningDate:
+          type: integer
+          nullable: true
+        EnrollmentDate:
+          type: integer
+          nullable: true
+        Decommit:
+          type: string
+          nullable: true
+        Offer:
+          type: string
+          nullable: true
+        HighestRecruitInterestEvent:
+          type: integer
+          nullable: true
+        CommitStatus:
+          type: string
+          description: Commitment status label (e.g. Committed, Signed).
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    RecruitInterestEvent:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Institution:
+          type: integer
+        Recruitment:
+          type: integer
+        RecruitInterest:
+          type: integer
+        Type:
+          type: string
+        Date:
+          type: string
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    PlayerInstitutionPrediction:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        PlayerInstitution:
+          type: integer
+        Institution:
+          type: integer
+          description: FK -> predicted destination Institution.
+        User:
+          type: integer
+        UpdatedOn:
+          type: string
+        PredictionStatus:
+          type: string
+          description: Crystal-ball prediction status code.
+        DaysCorrect:
+          type: string
+        Premium:
+          type: string
+        Score:
+          type: string
+          description: Expert accuracy score at time of prediction.
+        Confidence:
+          type: string
+          description: Expert confidence 1-10.
+        Parent:
+          type: string
+          nullable: true
+        IsZeroZone:
+          type: string
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    DraftPick:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        ProTeam:
+          type: integer
+        ProTeamName:
+          type: string
+        Year:
+          type: string
+        Round:
+          type: string
+          description: Draft round.
+        Pick:
+          type: string
+          description: Pick number within the round.
+        OverallPick:
+          type: string
+          description: Overall selection number in the draft.
+        Player:
+          type: integer
+        PlayerFirstName:
+          type: string
+        PlayerLastName:
+          type: string
+        CollegeTeam:
+          type: integer
+        CollegeTeamName:
+          type: string
+        PositionAbbreviation:
+          type: string
+          description: Player's position at draft.
+        TradedFromTeam:
+          type: string
+          nullable: true
+        PickType:
+          type: string
+        League:
+          type: integer
+        Mock:
+          type: string
+          description: Whether this is a mock-draft projection vs an actual pick.
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    Event:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Name:
+          type: string
+        EventGroup:
+          type: integer
+        EventType:
+          type: integer
+        EventDate:
+          type: string
+        DefaultAsset:
+          type: integer
+        PrimaryColor:
+          type: string
+        Year:
+          type: integer
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    PlayerInstitutionEvaluation:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        PlayerInstitution:
+          type: integer
+        User:
+          type: integer
+        EvaluatedDate:
+          type: string
+        ComparisonPlayer:
+          type: integer
+        Projection:
+          type: string
+        Primary:
+          type: string
+        ScoutEvaluation:
+          type: string
+        Event:
+          type: string
+          nullable: true
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+      additionalProperties: false
+    Recruit:
+      type: object
+      properties:
+        Key:
+          type: integer
+          description: Primary key of this entity (the id used in its `.json` route).
+        Player:
+          allOf:
+          - $ref: '#/components/schemas/Player'
+          description: Inlined Player object (not a bare FK).
+        PlayerInstitution:
+          type: integer
+        Year:
+          type: integer
+        AnnouncementDate:
+          type: string
+          nullable: true
+        SignedInstitution:
+          type: integer
+        Position:
+          type: integer
+        Institution:
+          type: integer
+        State:
+          type: integer
+        PlayerSport:
+          type: integer
+        CompositeStrength:
+          type: string
+          description: Composite strength points contributed to team ranking.
+        FinalChoice:
+          type: integer
+        HighestRecruitInterestEventType:
+          type: string
+        HighestRecruitInterestEvent:
+          type: integer
+        CommittedRecruitInterest:
+          type: integer
+        CommittedInstitution:
+          type: integer
+          description: FK -> committed Institution.
+        HighestRecruitInterest:
+          type: integer
+        PrimaryPlayerPosition:
+          type: integer
+        PrimaryPosition:
+          type: integer
+        DefaultName:
+          type: string
+          description: Server-rendered display label for the entity.
+        CommitedInstitutionTeamImage:
+          type: string
+        RecruitInterestCount:
+          type: integer
+          description: Number of tracked school interests.
+        RecruitInterestsUrl:
+          type: string
+          description: Site URL to the recruit's interest timeline.
+      additionalProperties: false
+    TimelineEvent:
+      type: object
+      properties:
+        Body:
+          type: string
+        Date:
+          type: string
+        Author:
+          type: object
+          nullable: true
+          properties:
+            FirstName:
+              type: string
+            LastName:
+              type: string
+            Affiliation:
+              type: string
+              nullable: true
+      additionalProperties: false
+    Feed:
+      type: object
+      properties:
+        uid:
+          type: string
+        updateDate:
+          type: string
+        titleText:
+          type: string
+        mainText:
+          type: string
+        redirectionURL:
+          type: string
+      additionalProperties: false

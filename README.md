@@ -100,7 +100,8 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 | `nfl_api_openapi.yaml` | NFL.com "Shield" data API (`api.nfl.com`) | sdv-internal-refs `nfl/` |
 | `cfbd-swagger.json` | CollegeFootballData API (`api.collegefootballdata.com`) | cfbd_starter_pack |
 | `pff-premium.openapi.yaml` | PFF **Premium Stats 2.0** (`premium.pff.com/api/v1`) — By Game/Team/Position/Player over 34 stat reports (passing/receiving/rushing/defense/blocking/special-teams + signature); NFL/NCAA/AAF/UFL via `league`. Session-cookie auth (Clerk `__session` JWT + Phoenix `_premium_key`); paywalled (PFF+). NOT official. | sdv-internal-refs `pff/` — live captures |
-| `247sports-recruit-database.openapi.yaml` | 247Sports Recruit Database (`/rdb/v1/`, internal CBSi microservice) — coaches, recruits, rankings, transfers, predictions | sdv-internal-refs `247sports/` (recruitR) |
+| `247sports-recruit-database.openapi.yaml` | 247Sports Recruit Database (`ipa.247sports.com/rdb/v1/`, guest-JWT, curl_cffi) — coaches, recruits, rankings, transfers, predictions | sdv-internal-refs `247sports/` (recruitR) |
+| `247sports-site-pages.openapi.yaml` | 247Sports **Site Pages** (`247sports.com/*.json` front-end page-model, **auth-free**, curl_cffi) — 35 routes: player/coach/institution/recruitment traversal, rank history, crystal-ball, draft picks; flat FK-graph payloads | sdv-internal-refs `247sports/` (`gen_site_pages_openapi.py` from real captures) |
 | `espn_fantasy_v3.json` | ESPN Fantasy League Manager Platform (`/apis/v3`) — cross-sport fantasy leagues, draft, rosters, transactions (Swagger 2.0) | community / ESPN Fantasy Platform Engineering |
 
 ## Cross-sport / odds
