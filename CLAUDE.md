@@ -28,7 +28,9 @@ Coverage by provider:
   `nba-live-cdn.openapi.yaml` (concrete CDN file-level URLs, `cdn.nba.com`/`cdn.wnba.com`);
   `nba-openapi.json` (data.nba.com), `pbpstats.json` (api.pbpstats.com).
 - **Football** — `nfl_api_openapi.yaml` (NFL.com Shield), `cfbd-swagger.json` (CFBD),
-  `247sports-recruit-database.openapi.yaml`, `espn_fantasy_v3.json` (**Swagger 2.0**).
+  `247sports-recruit-database.openapi.yaml`, `pff-premium.openapi.yaml` (PFF Premium Stats
+  2.0, `premium.pff.com/api/v1`, cookie-auth/paywalled, NFL/NCAA/AAF/UFL),
+  `espn_fantasy_v3.json` (**Swagger 2.0**).
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
   `cbssports-napi.openapi.yaml` (CBS NAPI, 82 endpoints).
 
@@ -37,7 +39,7 @@ Coverage by provider:
 - **The README table is part of the deliverable.** Adding/renaming a spec means adding a
   row (spec filename + API host + provenance/source) in the correct provider section.
 - Provenance matters: most specs are reverse-engineered and sourced from
-  `sdv-internal-refs/` (`espn/`, `fox/`, `yahoo/`, `cbs/`, `247sports/`, `nfl/`) or named
+  `sdv-internal-refs/` (`espn/`, `fox/`, `yahoo/`, `cbs/`, `247sports/`, `nfl/`, `pff/`) or named
   upstream projects — record the source, and keep ESPN `x-espn-schema-source` accurate
   (captured-bodies vs. documented).
 - ESPN/Fox specs are generated from `sdv-internal-refs` and are sport-agnostic via path
