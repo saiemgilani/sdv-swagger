@@ -57,6 +57,23 @@ cookies + crumb) and documented-but-unusable headless. NOT official APIs.
 | `nhl_records_openapi.yaml` | `records.nhl.com` — franchise/records/draft | fastRhockey `data-raw` |
 | `nhl_api.yaml` | `statsapi.web.nhl.com/api/v1` — **deprecated** (retired Sep 2023) | erunion/sport-api-specifications |
 
+## Hockey (HockeyTech / LeagueStat — PWHL, AHL, OHL, WHL, QMJHL, ...)
+
+OpenAPI 3.1 spec for the **HockeyTech (LeagueStat) feed API** — the JSON
+backend behind the PWHL and many minor/junior hockey league sites. One
+physical endpoint (`/feed/index.php`) dispatched by query string: `feed=`
+selects a family (`modulekit` / `gc` / `statviewfeed`) and `view=` (or `tab=`
+for gc) selects the view, so the spec models each view as a
+fragment-suffixed path (22 operations). Auth is a **public `key` +
+`client_code` query pair** shipped in each league's front-end (registry in
+the spec's `x-league-registry`, incl. the PWHL `gameCenterPlayByPlay`
+per-view key quirk). `statviewfeed` responses are paren-wrapped JSONP;
+errors are HTTP-200 in-body sentinels.
+
+| Spec | API host | Source |
+|---|---|---|
+| `hockeytech.openapi.yaml` | `lscluster.hockeytech.com/feed/index.php` (QMJHL: `cluster.leaguestat.com`) — seasons, scorebar, teams, roster, player stats, standings, leaders, brackets, transactions, game centre (summary / clock / preview / pxpverbose PBP), statviewfeed PBP + player profile, gameshifts | sdv-internal-refs `hockeytech/` — 25 PWHL + 2 AHL live captures 2026-07-12; sdv-py 2026-06-09 design spec |
+
 ## Baseball (MLB)
 
 | Spec | API host | Source |

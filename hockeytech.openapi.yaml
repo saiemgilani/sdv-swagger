@@ -1,0 +1,1165 @@
+openapi: 3.1.0
+info:
+  title: HockeyTech / LeagueStat feed API (PWHL, AHL, OHL, WHL, QMJHL, ...)
+  version: "2026.07.12"
+  description: |
+    Reverse-engineered OpenAPI description of the HockeyTech (LeagueStat) feed
+    API — the JSON backend behind the PWHL and many minor/junior hockey league
+    web sites. NOT an official API.
+
+    The API is a single physical endpoint (`/feed/index.php`) dispatched
+    entirely by query string: `feed=` selects one of three families
+    (`modulekit`, `gc`, `statviewfeed`) and `view=` (or `tab=` for the `gc`
+    family) selects the view. Because OpenAPI path items cannot carry query
+    strings, each view is modelled here as a **fragment-suffixed path**
+    (`/feed/index.php#modulekit.seasons`): the fragment is documentation-only
+    — the wire path is always `/feed/index.php` plus the operation's query
+    parameters.
+
+    Auth is a public `key` + `client_code` query pair shipped in each league's
+    own front-end (see `x-league-registry`). Responses are always HTTP 200 —
+    errors are in-body sentinels (`SiteKit.Undefined` / `{"error": ...}`).
+    `statviewfeed` responses are wrapped in bare parens `(...)` (JSONP without
+    a callback name); strip before parsing. Source captures + gotchas:
+    sdv-internal-refs `hockeytech/`.
+  x-league-registry:
+    pwhl: {client_code: pwhl, key: "446521baf8c38984", league_id: 1, site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a, gameCenterPlayByPlay_key: "694cfeed58c932ee"}
+    ahl: {client_code: ahl, key: "ccb91f29d6744675", league_id: 4, site_id: 3, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a}
+    ohl: {client_code: ohl, key: "f1aa699db3d81487", league_id: 1, site_id: 1, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b}
+    whl: {client_code: whl, key: "f1aa699db3d81487", league_id: 7, site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b}
+    qmjhl: {client_code: lhjmq, key: "f322673b6bcae299", league_id: 6, site_id: 0, host: cluster.leaguestat.com, pbp_dialect: hockeytech_b}
+servers:
+  - url: https://lscluster.hockeytech.com
+    description: HockeyTech cluster (PWHL, AHL, OHL, WHL, most leagues)
+  - url: https://cluster.leaguestat.com
+    description: Legacy LeagueStat cluster (QMJHL) — identical API
+tags:
+  - name: modulekit
+    description: 'Envelope {"SiteKit": {Parameters, <ViewName>, Copyright}}; selects view with `view=`.'
+  - name: gc
+    description: 'Game centre. Envelope {"GC": {Parameters, <TabName>}}; selects view with `tab=` (NOT `view=`).'
+  - name: statviewfeed
+    description: No envelope, but body is wrapped in bare parens `(...)`; selects view with `view=`.
+
+paths:
+  /feed/index.php#modulekit.seasons:
+    get:
+      operationId: modulekitSeasons
+      tags: [modulekit]
+      summary: All seasons (season_id discovery — call this first)
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: seasons}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Season list (playoffs/preseasons are separate season_ids)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Parameters: {$ref: "#/components/schemas/EchoedParameters"}
+                      Seasons:
+                        type: array
+                        items: {$ref: "#/components/schemas/Season"}
+                      Copyright: {$ref: "#/components/schemas/Copyright"}
+
+  /feed/index.php#modulekit.scorebar:
+    get:
+      operationId: modulekitScorebar
+      tags: [modulekit]
+      summary: Schedule / results — one row per game (date-window filtered)
+      description: >
+        Filters by the numberofdaysback/ahead window + limit; the season_id
+        param is echoed but does NOT restrict rows. Row `ID` is the game_id.
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: scorebar}
+        - {name: numberofdaysback, in: query, schema: {type: integer}, example: 10000}
+        - {name: numberofdaysahead, in: query, schema: {type: integer}, example: 10000}
+        - {name: limit, in: query, schema: {type: integer}, example: 10000}
+        - $ref: "#/components/parameters/leagueId"
+        - $ref: "#/components/parameters/seasonId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Scorebar rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Scorebar:
+                        type: array
+                        items: {$ref: "#/components/schemas/ScorebarGame"}
+
+  /feed/index.php#modulekit.teamsbyseason:
+    get:
+      operationId: modulekitTeamsbyseason
+      tags: [modulekit]
+      summary: Teams for a season
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: teamsbyseason}
+        - name: season
+          in: query
+          required: true
+          description: A season_id (note the param name is `season`, not `season_id`)
+          schema: {type: integer}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Team rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Teamsbyseason:
+                        type: array
+                        items: {$ref: "#/components/schemas/Team"}
+
+  /feed/index.php#modulekit.roster:
+    get:
+      operationId: modulekitRoster
+      tags: [modulekit]
+      summary: Team roster for a season
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: roster}
+        - $ref: "#/components/parameters/teamId"
+        - $ref: "#/components/parameters/seasonId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Roster rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Roster:
+                        type: array
+                        items: {$ref: "#/components/schemas/RosterPlayer"}
+
+  /feed/index.php#modulekit.player:
+    get:
+      operationId: modulekitPlayer
+      tags: [modulekit]
+      summary: Player season stats or game-by-game log
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: player}
+        - $ref: "#/components/parameters/playerId"
+        - name: category
+          in: query
+          required: true
+          schema: {type: string, enum: [seasonstats, gamebygame]}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: "`SiteKit.Player` with `regular` / `playoff` / `exhibition` stat arrays (seasonstats) or game-log arrays (gamebygame)"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Player:
+                        type: object
+                        properties:
+                          regular: {type: array, items: {$ref: "#/components/schemas/PlayerSeasonStatRow"}}
+                          playoff: {type: array, items: {$ref: "#/components/schemas/PlayerSeasonStatRow"}}
+                          exhibition: {type: array, items: {$ref: "#/components/schemas/PlayerSeasonStatRow"}}
+                        additionalProperties: true
+
+  /feed/index.php#modulekit.searchplayers:
+    get:
+      operationId: modulekitSearchplayers
+      tags: [modulekit]
+      summary: Player search by name
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: searchplayers}
+        - {name: search_term, in: query, required: true, schema: {type: string}, example: poulin}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Search hits with relevance `score` and latest affiliation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Searchplayers:
+                        type: array
+                        items: {$ref: "#/components/schemas/SearchPlayerRow"}
+
+  /feed/index.php#modulekit.statviewtype:
+    get:
+      operationId: modulekitStatviewtype
+      tags: [modulekit]
+      summary: Season stat table (skaters or goalies), one row per player
+      description: Returns an EMPTY array (not an error) for a season_id that has not started.
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: statviewtype}
+        - name: type
+          in: query
+          required: true
+          schema: {type: string, enum: [skaters, goalies]}
+        - $ref: "#/components/parameters/seasonId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Player-season stat rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Statviewtype:
+                        type: array
+                        items: {$ref: "#/components/schemas/SkaterStatRow"}
+
+  /feed/index.php#modulekit.transactions:
+    get:
+      operationId: modulekitTransactions
+      tags: [modulekit]
+      summary: Roster transactions
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: transactions}
+        - $ref: "#/components/parameters/leagueId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Transactions (detail fields may contain HTML)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Transactions:
+                        type: object
+                        properties:
+                          transactions: {type: array, items: {$ref: "#/components/schemas/TransactionRow"}}
+                          num_results: {type: integer}
+
+  /feed/index.php#modulekit.brackets:
+    get:
+      operationId: modulekitBrackets
+      tags: [modulekit]
+      summary: Playoff bracket
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: brackets}
+        - name: season_id
+          in: query
+          required: true
+          description: A PLAYOFF season_id (rows with playoff="1" in modulekit/seasons)
+          schema: {type: integer}
+        - $ref: "#/components/parameters/leagueId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Bracket teams + rounds/matchups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Brackets: {$ref: "#/components/schemas/Brackets"}
+
+  /feed/index.php#modulekit.gameshifts:
+    get:
+      operationId: modulekitGameshifts
+      tags: [modulekit]
+      summary: Per-player shift charts for a game
+      description: "Shift clocks count DOWN within a period: start_time > end_time."
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: gameshifts}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Home/visitor player shift lists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Gameshifts:
+                        type: object
+                        properties:
+                          home: {type: array, items: {$ref: "#/components/schemas/ShiftPlayer"}}
+                          visitor: {type: array, items: {$ref: "#/components/schemas/ShiftPlayer"}}
+
+  /feed/index.php#modulekit.streaks:
+    get:
+      operationId: modulekitStreaks
+      deprecated: true
+      tags: [modulekit]
+      summary: "BROKEN — returns the Undefined Tab sentinel (view does not exist under modulekit)"
+      description: >
+        Observed live 2026-07-12: {"SiteKit": {"Undefined": "Undefined Tab streaks", ...}}.
+        statviewfeed&view=streaks is equally invalid ({"error": "InvalidView ..."}).
+        The working view name for the Streaks page is UNKNOWN — kept here so
+        clients don't re-discover the dead end.
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: streaks}
+        - $ref: "#/components/parameters/leagueId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Undefined Tab sentinel (HTTP 200)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Undefined: {type: string, examples: ["Undefined Tab streaks"]}
+
+  /feed/index.php#gc.gamesummary:
+    get:
+      operationId: gcGamesummary
+      tags: [gc]
+      summary: Full game summary (goals with x_location/y_location, penalties, lineups, aggregates)
+      parameters:
+        - $ref: "#/components/parameters/feedGc"
+        - name: tab
+          in: query
+          required: true
+          schema: {type: string, const: gamesummary}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Game summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GC:
+                    type: object
+                    properties:
+                      Parameters: {$ref: "#/components/schemas/EchoedParameters"}
+                      Gamesummary: {$ref: "#/components/schemas/GcGamesummary"}
+
+  /feed/index.php#gc.pxpverbose:
+    get:
+      operationId: gcPxpverbose
+      tags: [gc]
+      summary: Classic per-event play-by-play (snake_case; x_location/y_location)
+      parameters:
+        - $ref: "#/components/parameters/feedGc"
+        - name: tab
+          in: query
+          required: true
+          schema: {type: string, const: pxpverbose}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Event rows (union of fields per `event` type)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GC:
+                    type: object
+                    properties:
+                      Pxpverbose:
+                        type: array
+                        items: {$ref: "#/components/schemas/PxpEvent"}
+
+  /feed/index.php#gc.clock:
+    get:
+      operationId: gcClock
+      tags: [gc]
+      summary: Live clock / game status
+      parameters:
+        - $ref: "#/components/parameters/feedGc"
+        - name: tab
+          in: query
+          required: true
+          schema: {type: string, const: clock}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Clock state + team blocks + media URLs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GC:
+                    type: object
+                    properties:
+                      Clock: {$ref: "#/components/schemas/GcClock"}
+
+  /feed/index.php#gc.preview:
+    get:
+      operationId: gcPreview
+      tags: [gc]
+      summary: Pregame preview (current-season records, head-to-head)
+      parameters:
+        - $ref: "#/components/parameters/feedGc"
+        - name: tab
+          in: query
+          required: true
+          schema: {type: string, const: preview}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Preview (text fields may embed HTML)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GC:
+                    type: object
+                    properties:
+                      Preview:
+                        type: object
+                        properties:
+                          current_season: {type: object, additionalProperties: true}
+                          HeadToHeadRecord: {type: object, additionalProperties: true}
+                          last_season: {type: string}
+
+  /feed/index.php#statviewfeed.bootstrap:
+    get:
+      operationId: svfBootstrap
+      tags: [statviewfeed]
+      summary: Site bootstrap config (leagues, seasons, conferences, divisions, teams, Firebase)
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: bootstrap}
+        - {name: season, in: query, schema: {type: string}, example: "null"}
+        - {name: pageName, in: query, schema: {type: string}, example: scorebar}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Bootstrap object (paren-wrapped on the wire)
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/SvfBootstrap"}
+
+  /feed/index.php#statviewfeed.gameCenterPlayByPlay:
+    get:
+      operationId: svfGameCenterPlayByPlay
+      tags: [statviewfeed]
+      summary: Modern play-by-play — array of {event, details} with camelCase xLocation/yLocation
+      description: >
+        PWHL quirk: this view uses a different public key (694cfeed58c932ee)
+        than the league default; see x-league-registry. Pass league_id= (empty).
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: gameCenterPlayByPlay}
+        - $ref: "#/components/parameters/gameId"
+        - {name: league_id, in: query, schema: {type: string}, description: Send empty string, example: ""}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Event array (paren-wrapped on the wire)
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: "#/components/schemas/SvfPbpEvent"}
+
+  /feed/index.php#statviewfeed.gameSummary:
+    get:
+      operationId: svfGameSummary
+      tags: [statviewfeed]
+      summary: Game summary (camelCase sibling of gc gamesummary)
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: gameSummary}
+        - $ref: "#/components/parameters/gameId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Game summary object (paren-wrapped on the wire)
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/SvfGameSummary"}
+
+  /feed/index.php#statviewfeed.teams:
+    get:
+      operationId: svfTeams
+      tags: [statviewfeed]
+      summary: Standings grid (sections/headers/data render shape)
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: teams}
+        - {name: groupTeamsBy, in: query, schema: {type: string}, example: division}
+        - {name: context, in: query, schema: {type: string}, example: overall}
+        - {name: special, in: query, schema: {type: string}, example: "false"}
+        - $ref: "#/components/parameters/leagueId"
+        - {name: sort, in: query, schema: {type: string}, example: points}
+        - {name: season, in: query, schema: {type: integer}, description: A season_id (param name is `season`)}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Grid (paren-wrapped on the wire)
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/SvfGrid"}
+
+  /feed/index.php#statviewfeed.players:
+    get:
+      operationId: svfPlayers
+      tags: [statviewfeed]
+      summary: Player stat tables grid; first/limit paginate
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: players}
+        - {name: season, in: query, schema: {type: integer}, description: A season_id}
+        - {name: team, in: query, schema: {type: string}, example: all}
+        - {name: position, in: query, schema: {type: string, enum: [skaters, goalies]}}
+        - {name: rookies, in: query, schema: {type: integer}, example: 0}
+        - {name: statsType, in: query, schema: {type: string}, example: standard}
+        - {name: rosterstatus, in: query, schema: {type: string}, example: undefined}
+        - {name: first, in: query, schema: {type: integer}, description: Pagination offset, example: 0}
+        - {name: limit, in: query, schema: {type: integer}, example: 100}
+        - {name: sort, in: query, schema: {type: string}, example: points}
+        - $ref: "#/components/parameters/leagueId"
+        - {name: division, in: query, schema: {type: integer}, example: -1}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Grid (paren-wrapped on the wire); empty data for a future season
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/SvfGrid"}
+
+  /feed/index.php#statviewfeed.leadersExtended:
+    get:
+      operationId: svfLeadersExtended
+      tags: [statviewfeed]
+      summary: Statistical leaders per requested stat types
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: leadersExtended}
+        - $ref: "#/components/parameters/seasonId"
+        - {name: team_id, in: query, schema: {type: integer}, description: 0 = all teams, example: 0}
+        - {name: playerTypes, in: query, schema: {type: string}, example: skaters}
+        - {name: skaterStatTypes, in: query, schema: {type: string}, description: Comma-separated, example: "points,goals"}
+        - {name: activeOnly, in: query, schema: {type: integer}, example: 0}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: '{skaters: {<StatName>: {results, sortKey}}} (paren-wrapped on the wire)'
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/LeadersExtended"}
+
+  /feed/index.php#statviewfeed.player:
+    get:
+      operationId: svfPlayer
+      tags: [statviewfeed]
+      summary: Full player profile incl. playerShots (x_location/y_location/orientation)
+      parameters:
+        - $ref: "#/components/parameters/feedStatviewfeed"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: player}
+        - $ref: "#/components/parameters/playerId"
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Profile object (paren-wrapped on the wire)
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/SvfPlayerProfile"}
+
+components:
+  parameters:
+    feedModulekit:
+      name: feed
+      in: query
+      required: true
+      schema: {type: string, const: modulekit}
+    feedGc:
+      name: feed
+      in: query
+      required: true
+      schema: {type: string, const: gc}
+    feedStatviewfeed:
+      name: feed
+      in: query
+      required: true
+      schema: {type: string, const: statviewfeed}
+    key:
+      name: key
+      in: query
+      required: true
+      description: Public per-league API key (see info.x-league-registry). PWHL gameCenterPlayByPlay uses its own key.
+      schema: {type: string}
+      example: "446521baf8c38984"
+    clientCode:
+      name: client_code
+      in: query
+      required: true
+      description: League selector (pwhl, ahl, ohl, whl, lhjmq, ...)
+      schema: {type: string}
+      example: pwhl
+    siteId:
+      name: site_id
+      in: query
+      required: false
+      description: Per-league site id (see x-league-registry)
+      schema: {type: integer}
+      example: 0
+    lang:
+      name: lang
+      in: query
+      required: false
+      schema: {type: string, default: en}
+    gameId:
+      name: game_id
+      in: query
+      required: true
+      description: League-global sequential game id (scorebar row `ID`)
+      schema: {type: integer}
+    seasonId:
+      name: season_id
+      in: query
+      required: false
+      description: From modulekit/seasons
+      schema: {type: integer}
+    leagueId:
+      name: league_id
+      in: query
+      required: false
+      schema: {type: integer}
+    playerId:
+      name: player_id
+      in: query
+      required: true
+      schema: {type: integer}
+    teamId:
+      name: team_id
+      in: query
+      required: true
+      schema: {type: integer}
+
+  schemas:
+    EchoedParameters:
+      type: object
+      description: Echo of the request query (fmt defaults to json)
+      additionalProperties: true
+    Copyright:
+      type: object
+      properties:
+        required_copyright: {type: string}
+        required_link: {type: string}
+        powered_by: {type: string}
+        powered_by_url: {type: string}
+    Season:
+      type: object
+      description: Numeric fields are strings on the wire
+      properties:
+        season_id: {type: string}
+        season_name: {type: string}
+        shortname: {type: string}
+        career: {type: string, description: '"1" if counts toward career totals'}
+        playoff: {type: string, description: '"1" for playoff pseudo-seasons'}
+        start_date: {type: string}
+        end_date: {type: string}
+    ScorebarGame:
+      type: object
+      description: One scheduled/played game. `ID` is the game_id.
+      properties:
+        ID: {type: string}
+        SeasonID: {type: string}
+        league_id: {type: string}
+        game_number: {type: string}
+        game_type: {type: string}
+        Date: {type: string}
+        GameDateISO8601: {type: string}
+        ScheduledTime: {type: string}
+        Timezone: {type: string}
+        HomeID: {type: string}
+        HomeCode: {type: string}
+        HomeCity: {type: string}
+        HomeNickname: {type: string}
+        HomeGoals: {type: string}
+        VisitorID: {type: string}
+        VisitorCode: {type: string}
+        VisitorGoals: {type: string}
+        GameStatus: {type: string}
+        GameStatusString: {type: string}
+        GameStatusStringLong: {type: string}
+        FloCoreEventId: {type: string}
+        FloLiveEventId: {type: string}
+      additionalProperties: true
+    Team:
+      type: object
+      properties:
+        id: {type: string}
+        name: {type: string}
+        city: {type: string}
+        code: {type: string}
+        nickname: {type: string}
+        team_caption: {type: string}
+        division_id: {type: string}
+        division_long_name: {type: string}
+        division_short_name: {type: string}
+        team_logo_url: {type: string}
+      additionalProperties: true
+    RosterPlayer:
+      type: object
+      properties:
+        id: {type: string}
+        player_id: {type: string}
+        person_id: {type: string}
+        first_name: {type: string}
+        last_name: {type: string}
+        display_name: {type: string}
+        shoots: {type: string}
+        height: {type: string}
+        weight: {type: string}
+        birthdate: {type: string}
+        hometown: {type: string}
+        status: {type: string}
+        latest_team_id: {type: string}
+        veteran_status: {type: string}
+      additionalProperties: true
+    PlayerSeasonStatRow:
+      type: object
+      properties:
+        season_id: {type: string}
+        season_name: {type: string}
+        playoff: {type: string}
+        games_played: {type: string}
+        goals: {type: string}
+        assists: {type: string}
+        points: {type: string}
+        plus_minus: {type: string}
+        penalty_minutes: {type: string}
+        power_play_goals: {type: string}
+        short_handed_goals: {type: string}
+        shots: {type: string}
+        shooting_percentage: {type: string}
+        points_per_game: {type: string}
+        game_winning_goals: {type: string}
+      additionalProperties: true
+    SearchPlayerRow:
+      type: object
+      properties:
+        person_id: {type: string}
+        player_id: {type: string}
+        first_name: {type: string}
+        last_name: {type: string}
+        score: {type: string, description: Search relevance}
+        last_team_name: {type: string}
+        last_team_code: {type: string}
+        position: {type: string}
+        jersey_number: {type: string}
+        last_active_date: {type: string}
+      additionalProperties: true
+    SkaterStatRow:
+      type: object
+      properties:
+        player_id: {type: string}
+        name: {type: string}
+        team_id: {type: string}
+        team_code: {type: string}
+        position: {type: string}
+        jersey_number: {type: string}
+        rookie: {type: string}
+        age: {type: string}
+      additionalProperties: true
+    TransactionRow:
+      type: object
+      properties:
+        transaction_type: {type: string}
+        ttype_text: {type: string}
+        transaction_date: {type: string}
+        player_id: {type: string}
+        player_name: {type: string}
+        position: {type: string}
+        team_id: {type: string}
+        team_name: {type: string}
+        detail: {type: string, description: May contain HTML}
+      additionalProperties: true
+    Brackets:
+      type: object
+      properties:
+        teams: {type: object, additionalProperties: true}
+        rounds:
+          type: array
+          items:
+            type: object
+            properties:
+              round: {type: string}
+              round_name: {type: string}
+              season_id: {type: string}
+              round_type_id: {type: string}
+              round_type_name: {type: string}
+              matchups: {type: array, items: {type: object, additionalProperties: true}}
+        logo: {type: string}
+        show_ties: {type: boolean}
+    ShiftPlayer:
+      type: object
+      properties:
+        player_id: {type: string}
+        first_name: {type: string}
+        last_name: {type: string}
+        jersey_number: {type: string}
+        home: {type: string}
+        shifts:
+          type: array
+          items:
+            type: object
+            description: "Clock counts down: start_time > end_time"
+            properties:
+              period: {type: string}
+              start_time: {type: string}
+              end_time: {type: string}
+              length: {type: string}
+              goal_on_shift: {type: string}
+              penalty_on_shift: {type: string}
+    GcGamesummary:
+      type: object
+      properties:
+        meta: {type: object, additionalProperties: true}
+        game_ident: {type: string}
+        game_date: {type: string}
+        status_value: {type: string}
+        venue: {type: string}
+        periods: {type: object, additionalProperties: true}
+        home: {type: object, additionalProperties: true}
+        visitor: {type: object, additionalProperties: true}
+        goals:
+          type: array
+          items:
+            type: object
+            properties:
+              x_location: {type: [string, integer]}
+              y_location: {type: [string, integer]}
+              time: {type: string}
+              team_id: {type: string}
+              period_id: {type: string}
+              goal_type: {type: string}
+              power_play: {type: string}
+              empty_net: {type: string}
+              short_handed: {type: string}
+              game_winning: {type: string}
+              goal_scorer: {type: object, additionalProperties: true}
+              assist1_player: {type: object, additionalProperties: true}
+              assist2_player: {type: object, additionalProperties: true}
+              plus: {type: array, items: {type: object, additionalProperties: true}}
+              minus: {type: array, items: {type: object, additionalProperties: true}}
+            additionalProperties: true
+        penalties: {type: array, items: {type: object, additionalProperties: true}}
+        mvps: {type: array, items: {type: object, additionalProperties: true}}
+        officialsOnIce: {type: array, items: {type: object, additionalProperties: true}}
+        home_team_lineup: {type: object, additionalProperties: true}
+        visitor_team_lineup: {type: object, additionalProperties: true}
+        totalShots: {type: object, additionalProperties: true}
+        goalsByPeriod: {type: object, additionalProperties: true}
+      additionalProperties: true
+    PxpEvent:
+      type: object
+      description: >
+        Event-typed row; field set unions by `event`
+        (goalie_change|faceoff|shot|blocked_shot|hit|goal|penalty).
+        Coordinates are snake_case x_location/y_location.
+      properties:
+        event: {type: string}
+        period_id: {type: string}
+        time: {type: string}
+        s: {type: [string, integer], description: Seconds}
+        team_id: {type: string}
+        x_location: {type: [string, integer]}
+        y_location: {type: [string, integer]}
+        location_id: {type: [string, integer]}
+        player_id: {type: string}
+        goalie_id: {type: string}
+        quality: {type: string}
+        shot_type: {type: string}
+        home: {type: string}
+      additionalProperties: true
+    GcClock:
+      type: object
+      properties:
+        period: {type: string}
+        game_clock: {type: string}
+        started: {type: string}
+        game_date_iso_8601: {type: string}
+        season_id: {type: string}
+        season_name: {type: string}
+        home_team: {type: object, additionalProperties: true}
+        visiting_team: {type: object, additionalProperties: true}
+      additionalProperties: true
+    SvfBootstrap:
+      type: object
+      properties:
+        firebaseUrl: {type: string}
+        firebaseApiKey: {type: string}
+        current_league_id: {type: string}
+        current_season_id: {type: string}
+        leagues: {type: array, items: {type: object, additionalProperties: true}}
+        seasons: {type: array, items: {type: object, additionalProperties: true}}
+        conferences: {type: array, items: {type: object, additionalProperties: true}}
+        divisions: {type: array, items: {type: object, additionalProperties: true}}
+        teams: {type: array, items: {type: object, additionalProperties: true}}
+      additionalProperties: true
+    SvfPbpEvent:
+      type: object
+      description: >
+        Modern PBP row. `details` fields vary by `event`; coordinates are
+        camelCase xLocation/yLocation. On-ice players (plus_players /
+        minus_players) appear only on goal events.
+      properties:
+        event: {type: string, description: goalie_change|faceoff|shot|blocked_shot|hit|goal|penalty}
+        details:
+          type: object
+          properties:
+            period: {type: [object, string], description: Object with id/label on some events}
+            time: {type: string}
+            xLocation: {type: [integer, string]}
+            yLocation: {type: [integer, string]}
+            shooter: {type: object, additionalProperties: true}
+            goalie: {type: [object, "null"], additionalProperties: true}
+            shooterTeamId: {type: [integer, string]}
+            isGoal: {type: boolean}
+            shotQuality: {type: [integer, string]}
+            shotType: {type: [integer, string]}
+          additionalProperties: true
+    SvfGameSummary:
+      type: object
+      properties:
+        details: {type: object, additionalProperties: true}
+        referees: {type: array, items: {type: object, additionalProperties: true}}
+        linesmen: {type: array, items: {type: object, additionalProperties: true}}
+        mostValuablePlayers: {type: array, items: {type: object, additionalProperties: true}}
+        hasShootout: {type: boolean}
+        homeTeam: {type: object, additionalProperties: true}
+        visitingTeam: {type: object, additionalProperties: true}
+        periods: {type: array, items: {type: object, additionalProperties: true}}
+        penaltyShots: {type: object, additionalProperties: true}
+      additionalProperties: true
+    SvfGrid:
+      type: array
+      description: Render-ready grid; zip headers keys with data rows to parse
+      items:
+        type: object
+        properties:
+          sections:
+            type: array
+            items:
+              type: object
+              properties:
+                title: {type: string}
+                headers: {type: object, additionalProperties: true}
+                data: {type: array, items: {type: object, additionalProperties: true}}
+    LeadersExtended:
+      type: object
+      properties:
+        skaters:
+          type: object
+          description: One key per requested stat type (Points, Goals, ...)
+          additionalProperties:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rank: {type: [integer, string]}
+                    player_id: {type: [integer, string]}
+                    name: {type: string}
+                    team_code: {type: string}
+                    stat_formatted: {type: string}
+                    position: {type: string}
+                  additionalProperties: true
+              sortKey: {type: string}
+      additionalProperties: true
+    SvfPlayerProfile:
+      type: object
+      properties:
+        info: {type: object, additionalProperties: true}
+        currentSeason: {type: string}
+        careerStats: {$ref: "#/components/schemas/SvfGrid"}
+        currentSeasonStats: {$ref: "#/components/schemas/SvfGrid"}
+        gameByGame: {$ref: "#/components/schemas/SvfGrid"}
+        playerShots:
+          type: array
+          items:
+            type: object
+            properties:
+              game_id: {type: [integer, string]}
+              x_location: {type: [integer, string]}
+              y_location: {type: [integer, string]}
+              orientation: {type: [integer, string]}
+        seasons: {type: array, items: {type: object, additionalProperties: true}}
+        media: {type: object, additionalProperties: true}
+      additionalProperties: true
+    SvfError:
+      type: object
+      description: statviewfeed error body (HTTP 200, NOT paren-wrapped)
+      properties:
+        error: {type: string, examples: ["InvalidView error: streaks"]}
