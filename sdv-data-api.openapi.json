@@ -1,0 +1,522 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SportsDataverse Data API",
+    "description": "Read/write HTTP access to the SportsDataverse Postgres database \u2014 the same\nsport-schema tables served by the `sdv-db` toolkit, over a CFBD-style API.\n\n**Auth.** Every endpoint needs `Authorization: Bearer <api_key>`. Read endpoints\naccept any valid key; write endpoints require a key with the `write` scope.\n\n**Generic access.** `GET /v1/{schema}/{table}` filters with `?column=value`\n(operators: `col__gte`, `col__lte`, `col__gt`, `col__lt`, `col__ne`,\n`col__like`), projects with `?select=a,b`, sorts with `?order=-col`, pages with\n`?limit=&offset=`, and returns JSON or CSV (`?format=csv`).\n",
+    "contact": {
+      "name": "SportsDataverse",
+      "url": "https://sportsdataverse.org/"
+    },
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schemas": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Schemas",
+        "operationId": "schemas_v1_schemas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaList"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/{schema}/tables": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Tables",
+        "operationId": "tables_v1__schema__tables_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableList"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{schema}/{table}": {
+      "get": {
+        "tags": [
+          "data"
+        ],
+        "summary": "Read Table",
+        "operationId": "read_table_v1__schema___table__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Schema"
+            }
+          },
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Table"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Read Table V1  Schema   Table  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "Write Table",
+        "operationId": "write_table_v1__schema___table__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Schema"
+            }
+          },
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Table"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WriteResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/load": {
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "Load",
+        "operationId": "load_v1_load_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoadRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoadResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LoadRequest": {
+        "properties": {
+          "sport": {
+            "type": "string",
+            "title": "Sport",
+            "description": "Catalog sport/league key, e.g. 'nhl'."
+          },
+          "dataset": {
+            "type": "string",
+            "title": "Dataset",
+            "description": "Catalog dataset name, e.g. 'schedule'."
+          },
+          "seasons": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Seasons"
+          },
+          "schema_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Schema Name",
+            "description": "Target schema override (defaults to sport)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sport",
+          "dataset"
+        ],
+        "title": "LoadRequest",
+        "description": "Body for ``POST /v1/load`` \u2014 refresh a catalog dataset from its source."
+      },
+      "LoadResult": {
+        "properties": {
+          "sport": {
+            "type": "string",
+            "title": "Sport"
+          },
+          "dataset": {
+            "type": "string",
+            "title": "Dataset"
+          },
+          "rows_loaded": {
+            "type": "integer",
+            "title": "Rows Loaded"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sport",
+          "dataset",
+          "rows_loaded"
+        ],
+        "title": "LoadResult"
+      },
+      "SchemaList": {
+        "properties": {
+          "schemas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Schemas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "schemas"
+        ],
+        "title": "SchemaList",
+        "description": "The league schemas the API serves."
+      },
+      "TableList": {
+        "properties": {
+          "schema_name": {
+            "type": "string",
+            "title": "Schema Name",
+            "description": "The league schema (e.g. 'nba')."
+          },
+          "tables": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Tables",
+            "description": "table name -> {column: postgres_type}."
+          }
+        },
+        "type": "object",
+        "required": [
+          "schema_name",
+          "tables"
+        ],
+        "title": "TableList",
+        "description": "Tables in one schema, each with its ``{column: sql_type}`` map."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WriteRequest": {
+        "properties": {
+          "rows": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Rows"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "replace_table",
+              "replace_partition"
+            ],
+            "title": "Mode",
+            "default": "replace_partition"
+          },
+          "partition_col": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partition Col",
+            "description": "Required for mode='replace_partition' \u2014 the column to key on."
+          },
+          "partition_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partition Value",
+            "description": "Required for mode='replace_partition' \u2014 the value to replace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "rows"
+        ],
+        "title": "WriteRequest",
+        "description": "Body for ``POST /v1/{schema}/{table}``.\n\n``mode='replace_table'`` create-or-replaces the whole table with ``rows``.\n``mode='replace_partition'`` atomically replaces just the rows matching\n``partition`` (e.g. one season) \u2014 the safe incremental write."
+      },
+      "WriteResult": {
+        "properties": {
+          "schema_name": {
+            "type": "string",
+            "title": "Schema Name"
+          },
+          "table": {
+            "type": "string",
+            "title": "Table"
+          },
+          "rows_written": {
+            "type": "integer",
+            "title": "Rows Written"
+          }
+        },
+        "type": "object",
+        "required": [
+          "schema_name",
+          "table",
+          "rows_written"
+        ],
+        "title": "WriteResult"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
