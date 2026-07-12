@@ -57,22 +57,26 @@ cookies + crumb) and documented-but-unusable headless. NOT official APIs.
 | `nhl_records_openapi.yaml` | `records.nhl.com` — franchise/records/draft | fastRhockey `data-raw` |
 | `nhl_api.yaml` | `statsapi.web.nhl.com/api/v1` — **deprecated** (retired Sep 2023) | erunion/sport-api-specifications |
 
-## Hockey (HockeyTech / LeagueStat — PWHL, AHL, OHL, WHL, QMJHL, ...)
+## Hockey (HockeyTech / LeagueStat — 20 verified leagues)
 
 OpenAPI 3.1 spec for the **HockeyTech (LeagueStat) feed API** — the JSON
-backend behind the PWHL and many minor/junior hockey league sites. One
+backend behind the PWHL and many pro-minor/junior hockey league sites. One
 physical endpoint (`/feed/index.php`) dispatched by query string: `feed=`
 selects a family (`modulekit` / `gc` / `statviewfeed`) and `view=` (or `tab=`
 for gc) selects the view, so the spec models each view as a
 fragment-suffixed path (22 operations). Auth is a **public `key` +
-`client_code` query pair** shipped in each league's front-end (registry in
-the spec's `x-league-registry`, incl. the PWHL `gameCenterPlayByPlay`
-per-view key quirk). `statviewfeed` responses are paren-wrapped JSONP;
-errors are HTTP-200 in-body sentinels.
+`client_code` query pair** shipped in each league's front-end. The spec's
+`x-league-registry` carries **20 live-verified league rows** (2026-07-12):
+PWHL, AHL, ECHL, SPHL, CHL (umbrella: Memorial Cup), OHL, WHL, QMJHL, USHL,
+BCHL, AJHL, SJHL, OJHL, CCHL, GOJHL, MHL, NOJHL, VIJHL, KIJHL, MJHL — plus
+still-valid alternate key generations and an `x-league-registry-unverified`
+list (NAHL/FPHL/LNAH/U Sports/PJHL). `statviewfeed` responses are
+paren-wrapped JSONP; errors are HTTP-200 in-body sentinels; PBP granularity
+varies per league (USHL ships goals/penalties only, no coordinates).
 
 | Spec | API host | Source |
 |---|---|---|
-| `hockeytech.openapi.yaml` | `lscluster.hockeytech.com/feed/index.php` (QMJHL: `cluster.leaguestat.com`) — seasons, scorebar, teams, roster, player stats, standings, leaders, brackets, transactions, game centre (summary / clock / preview / pxpverbose PBP), statviewfeed PBP + player profile, gameshifts | sdv-internal-refs `hockeytech/` — 25 PWHL + 2 AHL live captures 2026-07-12; sdv-py 2026-06-09 design spec |
+| `hockeytech.openapi.yaml` | `lscluster.hockeytech.com/feed/index.php` (serves all 20 leagues; `cluster.leaguestat.com` mirrors QMJHL) — seasons, scorebar, teams, roster, player stats, standings, leaders, brackets, transactions, game centre (summary / clock / preview / pxpverbose PBP), statviewfeed PBP + player profile, gameshifts | sdv-internal-refs `hockeytech/` — 21-view PWHL sweep + 16-league proof captures + 20-league key probe, live 2026-07-12; sdv-py 2026-06-09 design spec |
 
 ## Baseball (MLB)
 

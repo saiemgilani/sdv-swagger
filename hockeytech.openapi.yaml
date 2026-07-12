@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: HockeyTech / LeagueStat feed API (PWHL, AHL, OHL, WHL, QMJHL, ...)
-  version: "2026.07.12"
+  title: HockeyTech / LeagueStat feed API (PWHL, AHL, ECHL, CHL + junior leagues, ...)
+  version: "2026.07.12.1"
   description: |
     Reverse-engineered OpenAPI description of the HockeyTech (LeagueStat) feed
     API — the JSON backend behind the PWHL and many minor/junior hockey league
@@ -17,22 +17,52 @@ info:
     parameters.
 
     Auth is a public `key` + `client_code` query pair shipped in each league's
-    own front-end (see `x-league-registry`). Responses are always HTTP 200 —
-    errors are in-body sentinels (`SiteKit.Undefined` / `{"error": ...}`).
-    `statviewfeed` responses are wrapped in bare parens `(...)` (JSONP without
-    a callback name); strip before parsing. Source captures + gotchas:
-    sdv-internal-refs `hockeytech/`.
+    own front-end (see `x-league-registry`: 20 leagues verified live
+    2026-07-12; several key generations stay concurrently valid). Responses
+    are always HTTP 200 — errors are in-body sentinels (`SiteKit.Undefined` /
+    `{"error": ...}`). `statviewfeed` responses are wrapped in bare parens
+    `(...)` (JSONP without a callback name); strip before parsing. PBP event
+    granularity varies per league: USHL's gameCenterPlayByPlay ships only
+    goal/penalty/goalie_change events with no coordinates. Source captures +
+    gotchas: sdv-internal-refs `hockeytech/`.
   x-league-registry:
-    pwhl: {client_code: pwhl, key: "446521baf8c38984", league_id: 1, site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a, gameCenterPlayByPlay_key: "694cfeed58c932ee"}
-    ahl: {client_code: ahl, key: "ccb91f29d6744675", league_id: 4, site_id: 3, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a}
-    ohl: {client_code: ohl, key: "f1aa699db3d81487", league_id: 1, site_id: 1, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b}
+    # All verified live 2026-07-12 (modulekit/seasons probe; tools/probe_leagues.py).
+    # alt_keys = older key generations that ALSO still answer.
+    # pbp_dialect: hockeytech_a = ~850x400 coordinate canvas, hockeytech_b = ~600x300.
+    pwhl: {client_code: pwhl, key: "446521baf8c38984", league_id: 1, site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a, gameCenterPlayByPlay_key: "694cfeed58c932ee", alt_keys: ["694cfeed58c932ee"]}
+    ahl: {client_code: ahl, key: "ccb91f29d6744675", league_id: 4, site_id: 3, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_a, alt_keys: ["50c2cd9b5e18e390"]}
+    ohl: {client_code: ohl, key: "f1aa699db3d81487", league_id: 1, site_id: 1, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b, alt_keys: ["d33ffebb443a4536"]}
     whl: {client_code: whl, key: "f1aa699db3d81487", league_id: 7, site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b}
-    qmjhl: {client_code: lhjmq, key: "f322673b6bcae299", league_id: 6, site_id: 0, host: cluster.leaguestat.com, pbp_dialect: hockeytech_b}
+    qmjhl: {client_code: lhjmq, key: "f322673b6bcae299", league_id: 6, site_id: 0, host: cluster.leaguestat.com, pbp_dialect: hockeytech_b, alt_keys: ["02163f1eeecebec4"], note: also served by lscluster.hockeytech.com}
+    echl: {client_code: echl, key: "2c2b89ea7345cae8", site_id: 0, host: lscluster.hockeytech.com, pbp_dialect: hockeytech_b, note: b-canvas observed despite pro league (x<=547 y<=283)}
+    sphl: {client_code: sphl, key: "8fa10d218c49ec96", site_id: 0, host: lscluster.hockeytech.com}
+    chl: {client_code: chl, key: "ef96ea7d71574f2a", site_id: 0, host: lscluster.hockeytech.com, note: umbrella client — Memorial Cup / cross-league events}
+    ushl: {client_code: ushl, key: "e828f89b243dc43f", site_id: 0, host: lscluster.hockeytech.com, note: pbp is goals/penalties/goalie_changes only — no coordinates}
+    bchl: {client_code: bchl, key: "f3ed30007ad2124e", site_id: 0, host: lscluster.hockeytech.com}
+    ajhl: {client_code: ajhl, key: "cbe60a1d91c44ade", site_id: 0, host: lscluster.hockeytech.com}
+    sjhl: {client_code: sjhl, key: "2fb5c2e84bf3e4a8", site_id: 0, host: lscluster.hockeytech.com}
+    ojhl: {client_code: ojhl, key: "cce66dd6bebf4790", site_id: 0, host: lscluster.hockeytech.com}
+    cchl: {client_code: cchl, key: "b370f3e6c805baf3", site_id: 0, host: lscluster.hockeytech.com}
+    gojhl: {client_code: gojhl, key: "34b10d4d34d7b59a", site_id: 0, host: lscluster.hockeytech.com}
+    mhl: {client_code: mhl, key: "4a948e7faf5ee58d", site_id: 0, host: lscluster.hockeytech.com}
+    nojhl: {client_code: nojhl, key: "c1375ff55168bd71", site_id: 0, host: lscluster.hockeytech.com}
+    vijhl: {client_code: vijhl, key: "4f1a61df18906b61", site_id: 0, host: lscluster.hockeytech.com}
+    kijhl: {client_code: kijhl, key: "2589e0f644b1bb71", site_id: 0, host: lscluster.hockeytech.com}
+    mjhl: {client_code: mjhl, key: "f894c324fe5fd8f0", site_id: 0, host: lscluster.hockeytech.com, note: gamecenter access reportedly unavailable for this key (dry-scraper); seasons/scorebar verified}
+  x-league-registry-unverified:
+    # Suspected HockeyTech-hosted; no working public key found in mined
+    # registries (dry-scraper, teamarr/sethwv gist, fastRhockey, scrapernhl,
+    # pwhl-scraper). Harvest from the league site's JS/network calls if needed.
+    - NAHL
+    - FPHL
+    - LNAH
+    - U Sports (M/W)
+    - PJHL (Ontario) and other Jr-B/C leagues
 servers:
   - url: https://lscluster.hockeytech.com
-    description: HockeyTech cluster (PWHL, AHL, OHL, WHL, most leagues)
+    description: HockeyTech cluster — serves all 20 verified leagues (incl. QMJHL)
   - url: https://cluster.leaguestat.com
-    description: Legacy LeagueStat cluster (QMJHL) — identical API
+    description: Legacy LeagueStat cluster (QMJHL mirror) — identical API
 tags:
   - name: modulekit
     description: 'Envelope {"SiteKit": {Parameters, <ViewName>, Copyright}}; selects view with `view=`.'
