@@ -1,0 +1,1411 @@
+components:
+  schemas:
+    Competition:
+      properties:
+        competition_id:
+          type: string
+        competition_name:
+          type: string
+        competition_name_french:
+          type: string
+        competition_type:
+          type: string
+        country:
+          type: string
+      type: object
+    Match:
+      properties:
+        away:
+          properties:
+            initial_line_up:
+              type: string
+            latest_line_up:
+              type: string
+            official_staff:
+              nullable: true
+              type: string
+            player_shirt_main_color:
+              type: string
+            player_shirt_number_color:
+              type: string
+            player_shirt_secondary_color:
+              type: string
+            player_shirt_type:
+              type: string
+            players:
+              items:
+                properties:
+                  first_name:
+                    type: string
+                  is_on_field:
+                    type: string
+                  last_name:
+                    type: string
+                  person_id:
+                    type: string
+                  playing_position:
+                    type: string
+                  shirt_number:
+                    type: integer
+                  short_name:
+                    type: string
+                  starting:
+                    type: string
+                  team_leader:
+                    type: boolean
+                type: object
+              type: array
+            role:
+              type: string
+            team_id:
+              type: string
+            team_name:
+              type: string
+            team_short_name:
+              type: string
+            team_three_letter_code:
+              type: string
+            trainer_staff:
+              items:
+                properties:
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  person_id:
+                    type: string
+                  role:
+                    type: string
+                  short_name:
+                    type: string
+                type: object
+              type: array
+          type: object
+        environment:
+          properties:
+            air_humidity:
+              type: integer
+            air_pressure:
+              type: integer
+            city:
+              type: string
+            country:
+              type: string
+            floodlight:
+              type: string
+            house_number:
+              type: string
+            number_of_spectators:
+              type: integer
+            pitch_erosion:
+              type: string
+            pitch_x:
+              type: number
+            pitch_y:
+              type: number
+            precipitation:
+              type: string
+            roof:
+              type: string
+            sold_out:
+              type: boolean
+            stadium_address:
+              type: string
+            stadium_capacity:
+              type: integer
+            stadium_id:
+              type: string
+            stadium_name:
+              type: string
+            street:
+              type: string
+            temperature:
+              type: integer
+          type: object
+        home:
+          properties:
+            initial_line_up:
+              type: string
+            latest_line_up:
+              type: string
+            official_staff:
+              nullable: true
+              type: string
+            player_shirt_main_color:
+              type: string
+            player_shirt_number_color:
+              type: string
+            player_shirt_secondary_color:
+              type: string
+            player_shirt_type:
+              type: string
+            players:
+              items:
+                properties:
+                  first_name:
+                    type: string
+                  is_on_field:
+                    type: string
+                  last_name:
+                    type: string
+                  person_id:
+                    type: string
+                  playing_position:
+                    type: string
+                  shirt_number:
+                    type: integer
+                  short_name:
+                    type: string
+                  starting:
+                    type: string
+                  team_leader:
+                    type: boolean
+                type: object
+              type: array
+            role:
+              type: string
+            team_id:
+              type: string
+            team_name:
+              type: string
+            team_short_name:
+              type: string
+            team_three_letter_code:
+              type: string
+            trainer_staff:
+              items:
+                properties:
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  person_id:
+                    type: string
+                  role:
+                    type: string
+                  short_name:
+                    type: string
+                type: object
+              type: array
+          type: object
+        last_matches:
+          items:
+            properties:
+              away_team_goals:
+                type: integer
+              away_team_id:
+                type: string
+              away_team_name:
+                type: string
+              away_team_short_name:
+                type: string
+              away_team_three_letter_code:
+                type: string
+              competition_id:
+                type: string
+              home_team_goals:
+                type: integer
+              home_team_id:
+                type: string
+              home_team_name:
+                type: string
+              home_team_short_name:
+                type: string
+              home_team_three_letter_code:
+                type: string
+              match_date:
+                type: string
+              match_id:
+                type: string
+              season_id:
+                type: string
+            type: object
+          type: array
+        match_information:
+          properties:
+            away_team_goals:
+              type: integer
+            competition_id:
+              type: string
+            competition_label:
+              type: string
+            competition_name:
+              type: string
+            competition_name_french:
+              type: string
+            competition_type:
+              type: string
+            date_quality:
+              type: string
+            end_date:
+              type: string
+            group:
+              type: string
+            home_team_goals:
+              type: integer
+            kickoff_time:
+              type: string
+            match_day:
+              type: integer
+            match_id:
+              type: string
+            match_scheduled:
+              type: boolean
+            match_status:
+              type: string
+            match_title:
+              type: string
+            match_type:
+              type: string
+            minute_of_play:
+              type: string
+            other_information:
+              type: string
+            planned_kickoff_time:
+              type: string
+            playing_time_first_half:
+              type: integer
+            playing_time_penalty:
+              type: integer
+            playing_time_second_half:
+              type: integer
+            result:
+              type: string
+            season:
+              type: integer
+            season_id:
+              type: string
+            section_name:
+              type: string
+            series_type:
+              type: string
+            sub_league:
+              type: string
+            total_time_first_half:
+              type: integer
+            total_time_first_half_extra:
+              type: integer
+            total_time_penalty:
+              type: integer
+            total_time_second_half:
+              type: integer
+            total_time_second_half_extra:
+              type: integer
+          type: object
+        referees:
+          items:
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+              person_id:
+                type: string
+              role:
+                type: string
+              short_name:
+                type: string
+            type: object
+          type: array
+      type: object
+    MatchListRow:
+      properties:
+        away_team_goals:
+          type: integer
+        away_team_id:
+          type: string
+        away_team_name:
+          type: string
+        away_team_short_name:
+          type: string
+        away_team_three_letter_code:
+          type: string
+        bracket_structure_id:
+          type: string
+        competition_id:
+          type: string
+        competition_label:
+          type: string
+        competition_name:
+          type: string
+        competition_name_french:
+          type: string
+        competition_type:
+          type: string
+        date_quality:
+          type: string
+        end_date:
+          type: string
+        group:
+          type: string
+        home_team_goals:
+          type: integer
+        home_team_id:
+          type: string
+        home_team_name:
+          type: string
+        home_team_short_name:
+          type: string
+        home_team_three_letter_code:
+          type: string
+        match_date_time_status:
+          type: string
+        match_day:
+          type: integer
+        match_day_id:
+          type: string
+        match_id:
+          type: string
+        match_scheduled:
+          type: boolean
+        match_status:
+          type: string
+        match_type:
+          type: string
+        minute_of_play:
+          type: string
+        neutral_venue:
+          type: boolean
+        official_information:
+          type: string
+        planned_kickoff_time:
+          type: string
+        result:
+          type: string
+        season:
+          type: integer
+        season_id:
+          type: string
+        section_name:
+          type: string
+        series_type:
+          type: string
+        stadium_city:
+          type: string
+        stadium_country:
+          type: string
+        stadium_id:
+          type: string
+        stadium_name:
+          type: string
+        start_date:
+          type: string
+        sub_league:
+          type: string
+      type: object
+    RosterPlayer:
+      properties:
+        clubOptaId:
+          type: string
+        clubSportecId:
+          type: string
+        dateOfBirth:
+          type: string
+        firstName:
+          type: string
+        fullName:
+          type: string
+        height:
+          type: string
+        jerseyNumber:
+          type: string
+        knownName:
+          type: string
+        lastName:
+          type: string
+        onLoan:
+          type: boolean
+        optaId:
+          type: string
+        playerCategories:
+          items:
+            type: string
+          type: array
+        playerSlug:
+          type: string
+        playerStatusList:
+          items: {}
+          type: array
+        position:
+          type: string
+        rosterCategory:
+          type: string
+        sportecId:
+          type: string
+        thumbnail:
+          properties:
+            format:
+              type: string
+            overriddenFormats:
+              properties: {}
+              type: object
+            selfUrl:
+              type: string
+            slug:
+              type: string
+            templateUrl:
+              type: string
+            thumbnailUrl:
+              type: string
+            title:
+              type: string
+          type: object
+        weight:
+          type: string
+      type: object
+    Season:
+      properties:
+        season:
+          type: integer
+        season_id:
+          type: string
+      type: object
+    SeasonContent:
+      properties:
+        _entityId:
+          type: string
+        _listAvailability:
+          type: integer
+        _translationId:
+          type: string
+        contentDate:
+          type: string
+        createdBy:
+          type: string
+        entityCode:
+          type: string
+        featured:
+          type: integer
+        fields:
+          properties:
+            competitionOptaId:
+              type: integer
+            competitionSportecId:
+              type: string
+            competitionSportecIdOverwrite:
+              type: boolean
+            homeAdvantage:
+              type: integer
+            homeAdvantageLegend:
+              type: string
+            name:
+              type: string
+            optaId:
+              type: integer
+            playoffQualifiedEastConference:
+              type: integer
+            playoffQualifiedWestConference:
+              type: integer
+            sportecId:
+              type: string
+            standingsLegend:
+              type: string
+            topClubs:
+              type: integer
+            topClubsLegend:
+              type: string
+          type: object
+        lastUpdatedBy:
+          type: string
+        lastUpdatedDate:
+          type: string
+        references:
+          properties:
+            List_of_Clubs_Clinched_e:
+              items: {}
+              type: array
+            List_of_Clubs_Clinched_s:
+              items: {}
+              type: array
+            List_of_Clubs_Clinched_x:
+              items: {}
+              type: array
+            List_of_Clubs_Clinched_y:
+              items: {}
+              type: array
+          type: object
+        relations:
+          items: {}
+          type: array
+        selfUrl:
+          type: string
+        slug:
+          type: string
+        tags:
+          items: {}
+          type: array
+        title:
+          type: string
+        type:
+          type: string
+      type: object
+    SeasonQueryResult:
+      properties:
+        items:
+          items:
+            properties:
+              _entityId:
+                type: string
+              _translationId:
+                type: string
+              contentDate:
+                type: string
+              createdBy:
+                type: string
+              entityCode:
+                type: string
+              featured:
+                type: integer
+              fields:
+                properties:
+                  competitionOptaId:
+                    type: integer
+                  competitionSportecId:
+                    type: string
+                  competitionSportecIdOverwrite:
+                    type: boolean
+                  homeAdvantage:
+                    type: integer
+                  homeAdvantageLegend:
+                    type: string
+                  name:
+                    type: string
+                  optaId:
+                    type: integer
+                  playoffQualifiedEastConference:
+                    type: integer
+                  playoffQualifiedWestConference:
+                    type: integer
+                  sportecId:
+                    type: string
+                  standingsLegend:
+                    type: string
+                  topClubs:
+                    type: integer
+                  topClubsLegend:
+                    type: string
+                type: object
+              lastUpdatedBy:
+                type: string
+              lastUpdatedDate:
+                type: string
+              selfUrl:
+                type: string
+              slug:
+                type: string
+              tags:
+                items: {}
+                type: array
+              title:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+        meta:
+          properties:
+            apiVersion:
+              type: string
+            generatedAt:
+              type: string
+          type: object
+        pagination:
+          properties:
+            maxItems:
+              type: integer
+          type: object
+      type: object
+    SportApiClub:
+      properties:
+        abbreviation:
+          type: string
+        backgroundColor:
+          type: string
+        crestColorSlug:
+          type: string
+        ecalWidgetId:
+          type: string
+        fullName:
+          type: string
+        logoBWSlug:
+          type: string
+        logoColorSlug:
+          type: string
+        logoColorUrl:
+          type: string
+        optaId:
+          type: integer
+        shortName:
+          type: string
+        slug:
+          type: string
+        sportecId:
+          type: string
+      type: object
+    SportApiMatch:
+      properties:
+        appleAdvertisementCategory:
+          type: string
+        appleStreamURL:
+          type: string
+        appleSubscriptionTier:
+          type: string
+        away:
+          properties:
+            abbreviation:
+              type: string
+            backgroundColor:
+              type: string
+            crestColorSlug:
+              type: string
+            ecalWidgetId:
+              type: string
+            fullName:
+              type: string
+            logoBWSlug:
+              type: string
+            logoColorSlug:
+              type: string
+            logoColorUrl:
+              type: string
+            optaId:
+              type: integer
+            shortName:
+              type: string
+            slug:
+              type: string
+            sportecId:
+              type: string
+          type: object
+        awayClubBroadcasters:
+          items: {}
+          type: array
+        awayClubRank:
+          type: string
+        broadcasters:
+          items:
+            properties:
+              broadcasterName:
+                type: string
+              broadcasterStreamingURL:
+                type: string
+              broadcasterThumbnail:
+                properties:
+                  format:
+                    type: string
+                  overriddenFormats:
+                    properties: {}
+                    type: object
+                  selfUrl:
+                    type: string
+                  slug:
+                    type: string
+                  templateUrl:
+                    type: string
+                  thumbnailUrl:
+                    type: string
+                  title:
+                    type: string
+                type: object
+              broadcasterType:
+                type: string
+              broadcasterTypeLabel:
+                type: string
+            type: object
+          type: array
+        calendarUrl:
+          type: string
+        clubBroadcasters:
+          items: {}
+          type: array
+        competition:
+          properties:
+            blockHeaderName:
+              type: string
+            logoDark:
+              properties:
+                slug:
+                  type: string
+              type: object
+            logoLight:
+              properties:
+                slug:
+                  type: string
+              type: object
+            matchType:
+              type: string
+            mgmId:
+              type: string
+            name:
+              type: string
+            nextgenEcalMatchHubDisplay:
+              type: boolean
+            optaId:
+              type: integer
+            playerHeadshotThumbnailField:
+              type: string
+            shortName:
+              type: string
+            slug:
+              type: string
+            sportecId:
+              type: string
+            widgetId:
+              type: string
+          type: object
+        competitionPhase:
+          type: string
+        delayedMatch:
+          type: boolean
+        firstPartyTickets:
+          properties:
+            accessibleText:
+              type: string
+            displayText:
+              type: string
+            isVisible:
+              type: boolean
+            openInNewTab:
+              type: boolean
+            url:
+              type: string
+          type: object
+        home:
+          properties:
+            abbreviation:
+              type: string
+            backgroundColor:
+              type: string
+            crestColorSlug:
+              type: string
+            ecalWidgetId:
+              type: string
+            fullName:
+              type: string
+            logoBWSlug:
+              type: string
+            logoColorSlug:
+              type: string
+            logoColorUrl:
+              type: string
+            optaId:
+              type: integer
+            shortName:
+              type: string
+            slug:
+              type: string
+            sportecId:
+              type: string
+          type: object
+        homeClubBroadcasters:
+          items: {}
+          type: array
+        homeClubRank:
+          type: string
+        isTimeTbd:
+          type: boolean
+        leagueMatchTitle:
+          type: string
+        leaguePromoImage:
+          properties:
+            assetUrl:
+              type: string
+          type: object
+        matchDate:
+          type: string
+        matchDay:
+          type: string
+        mgmId:
+          type: string
+        optaId:
+          type: integer
+        priorityMatchDateTo:
+          type: string
+        priorityMatchSponsor:
+          type: string
+        roundGroup:
+          type: string
+        roundName:
+          type: string
+        roundNumber:
+          type: integer
+        season:
+          properties:
+            competitionOptaId:
+              type: string
+            name:
+              type: string
+            optaId:
+              type: integer
+            slug:
+              type: string
+            sportecId:
+              type: string
+          type: object
+        slug:
+          type: string
+        sponsorImage:
+          properties: {}
+          type: object
+        sportecId:
+          type: string
+        tags:
+          items:
+            properties:
+              _entityId:
+                type: string
+              _translationId:
+                type: string
+              externalSourceReference:
+                properties: {}
+                type: object
+              fields:
+                properties: {}
+                type: object
+              neutralSlug:
+                type: string
+              selfUrl:
+                type: string
+              slug:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+        venue:
+          properties:
+            backgroundImageSlug:
+              type: string
+            city:
+              type: string
+            name:
+              type: string
+            venueSportecId:
+              type: string
+          type: object
+      type: object
+    StandingsTable:
+      properties:
+        category:
+          type: string
+        competition:
+          type: string
+        competition_id:
+          type: string
+        entries:
+          items:
+            properties:
+              club:
+                type: string
+              club_id:
+                type: string
+              draws:
+                type: integer
+              games_played:
+                type: integer
+              goals_against:
+                type: integer
+              goals_against_per_game:
+                type: number
+              goals_difference:
+                type: integer
+              goals_difference_per_game:
+                type: number
+              goals_scored:
+                type: integer
+              goals_scored_per_game:
+                type: number
+              losses:
+                type: integer
+              points:
+                type: integer
+              points_per_game:
+                type: number
+              position:
+                type: integer
+              qualification:
+                type: string
+              team:
+                type: string
+              team_id:
+                type: string
+              team_short_name:
+                type: string
+              team_three_letter_code:
+                type: string
+              tendency:
+                type: string
+              wins:
+                type: integer
+            type: object
+          type: array
+        group:
+          type: string
+        leagues_cup_group:
+          type: string
+        match_day:
+          type: integer
+        match_day_id:
+          type: string
+        season:
+          type: integer
+        season_id:
+          type: string
+        time_scope:
+          type: string
+        type:
+          type: string
+      type: object
+    StatsClub:
+      properties:
+        city:
+          type: string
+        club_color_one:
+          properties:
+            club_color:
+              type: string
+            club_color_rgb:
+              type: string
+          type: object
+        club_color_three:
+          properties:
+            club_color:
+              type: string
+            club_color_rgb:
+              type: string
+          type: object
+        club_color_two:
+          properties:
+            club_color:
+              type: string
+            club_color_rgb:
+              type: string
+          type: object
+        club_id:
+          type: string
+        club_name:
+          type: string
+        club_short_name:
+          type: string
+        club_three_letter_code:
+          type: string
+        country:
+          type: string
+        founded:
+          type: string
+        long_name:
+          type: string
+        shirt_one:
+          properties:
+            shirt_main_color:
+              type: string
+            shirt_main_color_rgb:
+              type: string
+            shirt_number_color:
+              type: string
+            shirt_number_color_rgb:
+              type: string
+            shirt_secondary_color:
+              type: string
+            shirt_secondary_color_rgb:
+              type: string
+          type: object
+        shirt_three:
+          properties:
+            shirt_main_color:
+              type: string
+            shirt_main_color_rgb:
+              type: string
+            shirt_number_color:
+              type: string
+            shirt_number_color_rgb:
+              type: string
+            shirt_secondary_color:
+              type: string
+            shirt_secondary_color_rgb:
+              type: string
+          type: object
+        shirt_two:
+          properties:
+            shirt_main_color:
+              type: string
+            shirt_main_color_rgb:
+              type: string
+            shirt_number_color:
+              type: string
+            shirt_number_color_rgb:
+              type: string
+            shirt_secondary_color:
+              type: string
+            shirt_secondary_color_rgb:
+              type: string
+          type: object
+        short_name:
+          type: string
+        stadium_id:
+          type: string
+        stadium_name:
+          type: string
+        three_letter_code:
+          type: string
+      type: object
+info:
+  description: 'Reverse-engineered reference for the current official MLS web API (re-platformed onto
+    Sportec Solutions). Three no-auth hosts; send header `Referer: https://www.mlssoccer.com/`. Deep match
+    stats / play-by-play are NOT served here (StatsPerform Touchline widget renders those). Derived from
+    real captures 2026-07-18; changes without notice.'
+  title: MLS (Sportec Solutions) web API
+  version: 2026.07.18
+openapi: 3.1.0
+paths:
+  /api/clubs/bySportecIds/{ids}:
+    get:
+      parameters:
+      - description: Comma-separated Sportec club ids (MLS-CLU-*)
+        example: MLS-CLU-000001,MLS-CLU-000002
+        in: path
+        name: ids
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SportApiClub'
+                type: array
+          description: Batch club detail by Sportec ids (sportapi).
+      summary: Batch club detail by Sportec ids (sportapi).
+      tags:
+      - sportapi
+  /api/matches/bySportecIds/{ids}:
+    get:
+      parameters:
+      - description: Comma-separated Sportec match ids (MLS-MAT-*)
+        example: MLS-MAT-0009H8,MLS-MAT-0009H9
+        in: path
+        name: ids
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SportApiMatch'
+                type: array
+          description: Batch match detail by Sportec ids (sportapi).
+      summary: Batch match detail by Sportec ids (sportapi).
+      tags:
+      - sportapi
+  /api/matches/{matchId}:
+    get:
+      description: Host sportapi.mlssoccer.com. Broadcast/venue/branding-rich match shape (distinct from
+        the stats-api match).
+      parameters:
+      - description: Sportec match id (MLS-MAT-*) or Opta numeric id
+        example: MLS-MAT-0009H8
+        in: path
+        name: matchId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SportApiMatch'
+          description: Single match detail (sportapi / .NET).
+      summary: Single match detail (sportapi / .NET).
+      tags:
+      - sportapi
+  /api/players/byClub/{clubId}:
+    get:
+      parameters:
+      - description: Opta or Sportec club id
+        example: '11690'
+        in: path
+        name: clubId
+        required: true
+        schema:
+          type: string
+      - description: Locale, e.g. en-us
+        example: en-us
+        in: query
+        name: culture
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RosterPlayer'
+                type: array
+          description: Club roster with player Sportec ids (sportapi).
+      summary: Club roster with player Sportec ids (sportapi).
+      tags:
+      - sportapi
+  /clubs/{clubId}:
+    get:
+      parameters:
+      - description: Sportec club id (MLS-CLU-*)
+        example: MLS-CLU-000001
+        in: path
+        name: clubId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsClub'
+          description: Single club detail (stats-api).
+      summary: Single club detail (stats-api).
+      tags:
+      - stats-api
+  /competitions:
+    get:
+      description: Host stats-api.mlssoccer.com. Response envelope `{competitions:[...], next_page_token}`.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Competition'
+                type: array
+          description: List competitions (stats-api).
+      summary: List competitions (stats-api).
+      tags:
+      - stats-api
+  /competitions/{competitionId}/seasons:
+    get:
+      description: Response envelope `{seasons:[...]}`.
+      parameters:
+      - description: Sportec competition id (MLS-COM-*)
+        example: MLS-COM-000001
+        in: path
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Season'
+                type: array
+          description: List seasons for a competition (stats-api).
+      summary: List seasons for a competition (stats-api).
+      tags:
+      - stats-api
+  /competitions/{competitionId}/seasons/{seasonId}/standings:
+    get:
+      description: Response envelope `{tables:[...]}`; each table has an `entries[]` array of team rows.
+      parameters:
+      - description: Sportec competition id
+        example: MLS-COM-000001
+        in: path
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      - description: Sportec season id (MLS-SEA-*)
+        example: MLS-SEA-0001KA
+        in: path
+        name: seasonId
+        required: true
+        schema:
+          type: string
+      - description: 'Standings grouping: conference | overall'
+        example: conference
+        in: query
+        name: category
+        required: false
+        schema:
+          type: string
+      - description: home | away split (optional)
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Include live in-progress results
+        in: query
+        name: is_live
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/StandingsTable'
+                type: array
+          description: Standings table for a competition season (stats-api).
+      summary: Standings table for a competition season (stats-api).
+      tags:
+      - stats-api
+  /matches/seasons/{seasonId}:
+    get:
+      description: Response envelope `{schedule:[...]}`.
+      parameters:
+      - description: Sportec season id (MLS-SEA-*)
+        example: MLS-SEA-0001KA
+        in: path
+        name: seasonId
+        required: true
+        schema:
+          type: string
+      - description: Window start date (YYYY-MM-DD)
+        example: '2026-07-01'
+        in: query
+        name: match_date[gte]
+        required: false
+        schema:
+          type: string
+      - description: Window end date (YYYY-MM-DD)
+        example: '2026-07-31'
+        in: query
+        name: match_date[lte]
+        required: false
+        schema:
+          type: string
+      - description: Filter by competition id
+        example: MLS-COM-000001
+        in: query
+        name: competition_id
+        required: false
+        schema:
+          type: string
+      - description: Page size
+        in: query
+        name: per_page
+        required: false
+        schema:
+          type: integer
+      - description: Sort spec, e.g. planned_kickoff_time:asc,home_team_name:asc
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - description: Filter by series/round name
+        in: query
+        name: series_name
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MatchListRow'
+                type: array
+          description: List matches in a season, date-windowed (stats-api).
+      summary: List matches in a season, date-windowed (stats-api).
+      tags:
+      - stats-api
+  /matches/{matchId}:
+    get:
+      description: 200 for PLAYED matches; **404 for unplayed / future matches**. Carries `home.players[]`
+        / `away.players[]` lineups and `referees[]`.
+      parameters:
+      - description: Sportec match id (MLS-MAT-*)
+        example: MLS-MAT-0009H8
+        in: path
+        name: matchId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+          description: Single match detail incl. lineups + referees (stats-api).
+      summary: Single match detail incl. lineups + referees (stats-api).
+      tags:
+      - stats-api
+  /v2/content/en-us/seasons:
+    get:
+      description: Only **indexed** fields work as query filters; an un-indexed filter returns `{error:{message:'only
+        indexed fields can be used as query filters'}}`. Envelope `{pagination, meta, items}`.
+      parameters:
+      - description: Filter by competition Sportec id (indexed field)
+        example: MLS-COM-000001
+        in: query
+        name: fields.competitionSportecId
+        required: false
+        schema:
+          type: string
+      - description: Filter by season Sportec id (indexed field)
+        example: MLS-SEA-0001KA
+        in: query
+        name: fields.sportecId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonQueryResult'
+          description: Query season content entities (dapi / Contentful).
+      summary: Query season content entities (dapi / Contentful).
+      tags:
+      - dapi
+  /v2/content/en-us/seasons/{slug}:
+    get:
+      parameters:
+      - description: Season content slug
+        example: mls-regular-season-2026
+        in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonContent'
+          description: Season content entity by slug (dapi / Contentful).
+      summary: Season content entity by slug (dapi / Contentful).
+      tags:
+      - dapi
+servers:
+- description: 'stats-api: AWS API Gateway, Sportec-backed (cache-control: no-store)'
+  url: https://stats-api.mlssoccer.com
+- description: 'sportapi: .NET / miniprofiler match+club+roster'
+  url: https://sportapi.mlssoccer.com
+- description: 'dapi: Contentful content API (season content)'
+  url: https://dapi.mlssoccer.com
+tags:
+- description: https://stats-api.mlssoccer.com — competitions, seasons, standings, matches, clubs
+  name: stats-api
+- description: https://sportapi.mlssoccer.com — match/club batch lookups + club rosters
+  name: sportapi
+- description: https://dapi.mlssoccer.com — Contentful season content
+  name: dapi
