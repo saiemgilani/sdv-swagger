@@ -1,0 +1,936 @@
+openapi: 3.1.0
+info:
+  title: NWSL Web API (StatsPerform SDP)
+  description: 'The **official NWSL web API** — StatsPerform''s *Sports Data Platform* ("SDP") backend
+    on `api-sdp.nwslsoccer.com`, the feed behind `www.nwslsoccer.com`. **Auth-free** (CORS `*`; a `Referer:
+    https://www.nwslsoccer.com/` header suffices). All routes live under `/v1/nwsl/football` and carry
+    `locale=en-US`. Entities use composite ids `nwsl::Football_{Entity}::{32-hex}` with the `::` passed
+    **literally** in the path. Schemas here are derived from real captures under `captures/`; regenerate
+    with `tools/gen_openapi.py` — do not hand-edit. **Gap:** deeper match detail (match stats, commentary/play-by-play)
+    is not exposed — only `/lineups` resolves under a match.'
+  version: sdp-2026-07-18
+servers:
+- url: https://api-sdp.nwslsoccer.com
+tags:
+- name: Competitions
+- name: Matches
+- name: Standings
+- name: Stats
+- name: Teams
+- name: Structure
+paths:
+  /v1/nwsl/football/competitions:
+    get:
+      tags:
+      - Competitions
+      summary: All competitions StatsPerform tracks for NWSL (league + friendlies/cups).
+      parameters:
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `competitions`.
+                properties:
+                  competitions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Competition'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/competitions?locale=en-US
+  /v1/nwsl/football/seasons/multipleSeasonMatches:
+    get:
+      tags:
+      - Matches
+      summary: Matches across one or more seasons within a US-format date window.
+      parameters:
+      - name: seasonIds
+        in: query
+        description: Comma-separated composite Season ids.
+        schema:
+          type: string
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      - name: startDate
+        in: query
+        description: Window start, `MM/DD/YYYY` (US format).
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: Window end, `MM/DD/YYYY` (US format).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `matches`.
+                properties:
+                  matches:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Match'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/multipleSeasonMatches?seasonIds=nwsl::Football_Season::0b6761e4701749f593690c0f338da74c&locale=en-US&startDate=03/01/2026&endDate=12/01/2026
+  /v1/nwsl/football/seasons/{seasonId}/standings/overall:
+    get:
+      tags:
+      - Standings
+      summary: Overall standings table for a season (table/home/away splits).
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      - name: orderBy
+        in: query
+        description: Sort field, e.g. `rank`.
+        schema:
+          type: string
+      - name: direction
+        in: query
+        description: '`asc` or `desc`.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `standings[].teams`.
+                properties:
+                  standings:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Standing'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/standings/overall?locale=en-US&orderBy=rank&direction=asc
+  /v1/nwsl/football/seasons/{seasonId}/stats/players:
+    get:
+      tags:
+      - Stats
+      summary: Player-stats leaderboard for a season (paginated).
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      - name: category
+        in: query
+        description: 'Stat family: `general` (default), `attack`, `defence`, etc.'
+        schema:
+          type: string
+      - name: role
+        in: query
+        description: Position filter, e.g. `all`.
+        schema:
+          type: string
+      - name: direction
+        in: query
+        description: '`asc` or `desc`.'
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: 1-based page number.
+        schema:
+          type: integer
+      - name: pageNumElement
+        in: query
+        description: Page size (e.g. 400).
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `players`.
+                properties:
+                  players:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PlayerStat'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/stats/players?locale=en-US&category=general&role=all&direction=desc&page=1&pageNumElement=400
+  /v1/nwsl/football/seasons/{seasonId}/stats/teams:
+    get:
+      tags:
+      - Stats
+      summary: Team-stats leaderboard for a season.
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      - name: category
+        in: query
+        description: 'Stat family: `general` (default), `attack`, `defence`, etc.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `teams`.
+                properties:
+                  teams:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamStat'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/stats/teams?locale=en-US&category=general
+  /v1/nwsl/football/seasons/{seasonId}/teams:
+    get:
+      tags:
+      - Teams
+      summary: Teams participating in a season.
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `teams`.
+                properties:
+                  teams:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Team'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/teams?locale=en-US
+  /v1/nwsl/football/seasons/{seasonId}/matchdays:
+    get:
+      tags:
+      - Structure
+      summary: Match days (rounds) for a season.
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `matchdays`.
+                properties:
+                  matchdays:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MatchDay'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/matchdays?locale=en-US
+  /v1/nwsl/football/seasons/{seasonId}/stages:
+    get:
+      tags:
+      - Structure
+      summary: Competition stages for a season (may be empty for league play).
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `stages`.
+                properties:
+                  stages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Stage'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/stages?locale=en-US
+  /v1/nwsl/football/seasons/{seasonId}/matches/{matchId}/lineups:
+    get:
+      tags:
+      - Matches
+      summary: Team lineups (starting XI + bench + staff) for a match.
+      parameters:
+      - name: seasonId
+        in: path
+        description: Composite Season id, `::` passed literally, e.g. `nwsl::Football_Season::0b6761e4701749f593690c0f338da74c`.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: matchId
+        in: path
+        description: Composite Match id, `::` passed literally.
+        schema:
+          type: string
+          pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$
+        required: true
+      - name: locale
+        in: query
+        description: UI locale, always `en-US`.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Matching entities.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Envelope; rows under `home|away`.
+                properties:
+                  home:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Lineup'
+                  apiCallRequestTime:
+                    type: string
+      x-example-url: https://api-sdp.nwslsoccer.com/v1/nwsl/football/seasons/{seasonId}/matches/{matchId}/lineups?locale=en-US
+components:
+  schemas:
+    Competition:
+      type: object
+      properties:
+        competitionId:
+          type: string
+          description: Composite Competition id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        name:
+          type: string
+        officialName:
+          type: string
+        shortName:
+          type: string
+        acronymName:
+          type: string
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+      additionalProperties: true
+    Season:
+      type: object
+      properties:
+        seasonId:
+          type: string
+          description: Composite Season id (Utf8 join key).
+        startDateUtc:
+          type:
+          - string
+          - 'null'
+          description: Season window start (ISO-8601 UTC).
+        endDateUtc:
+          type:
+          - string
+          - 'null'
+          description: Season window end (ISO-8601 UTC).
+        seasonName:
+          type:
+          - string
+          - 'null'
+          description: Season label, e.g. `2026`.
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+        competitionId:
+          type: string
+          description: Composite Competition id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        name:
+          type: string
+        officialName:
+          type: string
+        shortName:
+          type:
+          - string
+          - 'null'
+        acronymName:
+          type:
+          - string
+          - 'null'
+        tournamentName:
+          type: 'null'
+          description: Parent tournament name (null for league play).
+      additionalProperties: true
+    Standing:
+      type: object
+      properties:
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatEntry'
+          description: Ordered stat cells (rank/points/W/D/L/GF/GA/GD/form).
+        qualification:
+          type:
+          - object
+          - 'null'
+          description: Qualification band (e.g. playoff/Final Series).
+        achievementStatuses:
+          type: array
+          items: {}
+        note:
+          type: 'null'
+          description: Free-text standings note (null when none).
+        teamId:
+          type: string
+          description: Composite Team id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        shortName:
+          type: string
+        officialName:
+          type: string
+        acronymName:
+          type: string
+        acronymNameLocalized:
+          type: string
+        isTeamFake:
+          type: boolean
+        mediaName:
+          type: string
+        mediaShortName:
+          type: string
+        countryCode:
+          type: 'null'
+        teamType:
+          type: 'null'
+        overallSummary:
+          type: 'null'
+        stadium:
+          type: 'null'
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+        allSeasonImagery:
+          type: array
+          items: {}
+      additionalProperties: true
+    PlayerStat:
+      type: object
+      properties:
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatEntry'
+          description: Ordered stat cells for the chosen `category`.
+        rankLabel:
+          type: 'null'
+          description: Leaderboard rank label (null unless ranked view).
+        team:
+          type: object
+          description: Team identity block the player belongs to.
+        playerId:
+          type: string
+          description: Composite Player id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        bibNumber:
+          type: string
+        roleLabel:
+          type: string
+          description: Human position label (e.g. `Forward`).
+        role:
+          type: integer
+          description: Numeric position/role code.
+        mediaFirstName:
+          type: string
+        mediaLastName:
+          type: string
+        shirtName:
+          type: string
+        shortName:
+          type: string
+        displayName:
+          type: string
+        nationality:
+          type: string
+        nationalityIsoCode:
+          type: string
+        editorial:
+          type: object
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+        apiCallRequestTime:
+          type: string
+          description: Server timestamp the payload was assembled (ISO-8601).
+      additionalProperties: true
+    TeamStat:
+      type: object
+      properties:
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatEntry'
+          description: Ordered team stat cells for the chosen `category`.
+        rankLabel:
+          type: 'null'
+        teamId:
+          type: string
+          description: Composite Team id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        shortName:
+          type: string
+        officialName:
+          type: string
+        acronymName:
+          type: string
+        acronymNameLocalized:
+          type: string
+        isTeamFake:
+          type: boolean
+        mediaName:
+          type: string
+        mediaShortName:
+          type: string
+        countryCode:
+          type: string
+        teamType:
+          type: string
+        overallSummary:
+          type: 'null'
+        stadium:
+          type: 'null'
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+        allSeasonImagery:
+          type: array
+          items: {}
+        editorial:
+          type: object
+      additionalProperties: true
+    Team:
+      type: object
+      properties:
+        teamId:
+          type: string
+          description: Composite Team id (Utf8 join key).
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        shortName:
+          type: string
+        officialName:
+          type: string
+        acronymName:
+          type: string
+        acronymNameLocalized:
+          type: string
+        isTeamFake:
+          type: boolean
+        mediaName:
+          type: string
+        mediaShortName:
+          type: string
+        countryCode:
+          type: string
+        teamType:
+          type: string
+        overallSummary:
+          type: string
+        stadium:
+          type: object
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+        allSeasonImagery:
+          type: array
+          items: {}
+        editorial:
+          type: object
+      additionalProperties: true
+    MatchDay:
+      type: object
+      properties:
+        matchSetId:
+          type: string
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        name:
+          type: string
+        seasonId:
+          type: string
+          description: Composite Season id (Utf8 join key).
+        competitionId:
+          type: string
+          description: Composite Competition id (Utf8 join key).
+        roundId:
+          type: 'null'
+        stageId:
+          type: string
+        index:
+          type: 'null'
+        shortName:
+          type: string
+        matchSetFormatId:
+          type: 'null'
+        type:
+          type: 'null'
+        startDateUtc:
+          type: string
+        endDateUtc:
+          type: string
+        matchdayStatus:
+          type: string
+      additionalProperties: true
+    Match:
+      type: object
+      properties:
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        seasonId:
+          type: string
+          description: Composite Season id (Utf8 join key).
+        editorial:
+          type: object
+        matchId:
+          type: string
+          description: Composite Match id (Utf8 join key).
+        status:
+          type: string
+          description: Normalized match status (e.g. `PostMatch`, `PreMatch`, `Live`).
+        providerStatus:
+          type: string
+          description: Raw provider status string.
+        phase:
+          type: string
+          description: Season phase (e.g. `RegularSeason`, `Final Series`).
+        matchDateUtc:
+          type: string
+          description: Kickoff time in UTC (ISO-8601).
+        matchDateLocal:
+          type: string
+          description: Kickoff time in venue-local time.
+        localTimeUtcOffset:
+          type: string
+        isUnknownKickOffTime:
+          type: boolean
+        homeScorePush:
+          type:
+          - integer
+          - 'null'
+        awayScorePush:
+          type:
+          - integer
+          - 'null'
+        providerPenaltyScoreHome:
+          type: 'null'
+        providerPenaltyScoreAway:
+          type: 'null'
+        aggregate:
+          type: string
+        winReason:
+          type: string
+        winTeamId:
+          type:
+          - string
+          - 'null'
+          description: Composite Team id of the winner (null if draw/unplayed).
+        previousLegsResult:
+          type: 'null'
+        home:
+          type: object
+          description: Home MatchTeam block (team identity + imagery).
+        away:
+          type: object
+          description: Away MatchTeam block (team identity + imagery).
+        stadiumId:
+          type: string
+          description: Composite Stadium id for the venue.
+        stadiumName:
+          type: string
+        cityName:
+          type: string
+        group:
+          type: 'null'
+        groupName:
+          type: 'null'
+        roundId:
+          type: 'null'
+        roundName:
+          type: 'null'
+        matchSet:
+          type: object
+          description: MatchDay/round grouping this fixture belongs to.
+        scheduleStatus:
+          type: string
+        providerHomeScore:
+          type:
+          - integer
+          - 'null'
+        providerAwayScore:
+          type:
+          - integer
+          - 'null'
+        groupId:
+          type: 'null'
+        subLeague:
+          type: string
+        time:
+          type: string
+        additionalTime:
+          type: string
+        previousLegId:
+          type: string
+      additionalProperties: true
+    Lineup:
+      type: object
+      properties:
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        teamId:
+          type: string
+          description: Composite Team id (Utf8 join key).
+        shortName:
+          type: string
+        officialName:
+          type: string
+        acronymName:
+          type: string
+        acronymNameLocalized:
+          type: string
+        mediaName:
+          type: string
+        mediaShortName:
+          type: string
+        tacticalFormation:
+          type: string
+          description: Formation string, e.g. `4-3-3`.
+        playerShirtMainColor:
+          type: string
+        playerShirtSecondaryColor:
+          type: string
+        playerShirtNumberColor:
+          type: string
+        fielded:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineupPlayer'
+          description: Starting XI (LineupPlayer rows).
+        benched:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineupPlayer'
+          description: Substitutes (LineupPlayer rows).
+        staff:
+          type: array
+          items: {}
+          description: Coaching staff on the teamsheet.
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+      additionalProperties: true
+    StatEntry:
+      type: object
+      properties:
+        statsId:
+          type: string
+          description: Stable stat key (e.g. `goals`, `points`, `Xg`).
+        statsLabel:
+          type: string
+          description: Human stat name.
+        statsLabelAbbreviation:
+          type: string
+          description: Short label (e.g. `PTS`, `GD`).
+        statsValue:
+          description: Stat value - integer, string, or array (e.g. `form`).
+        statsUnit:
+          type:
+          - string
+          - 'null'
+        statsUnitAbbreviation:
+          type:
+          - string
+          - 'null'
+      additionalProperties: true
+    LineupPlayer:
+      type: object
+      properties:
+        providerId:
+          type: string
+          description: Underlying StatsPerform/Opta provider id (e.g. `opta:...`).
+        playerId:
+          type: string
+          description: Composite Player id (Utf8 join key).
+        bibNumber:
+          type: string
+        roleLabel:
+          type: string
+        role:
+          type: integer
+        mediaFirstName:
+          type: string
+        mediaLastName:
+          type: string
+        shirtName:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type: string
+        displayName:
+          type: string
+        nationality:
+          type: string
+        nationalityIsoCode:
+          type: string
+        isCaptain:
+          type: boolean
+          description: Whether the player wears the captain's armband.
+        isGoalkeeper:
+          type: boolean
+          description: Whether the player is the goalkeeper.
+        events:
+          type: array
+          items: {}
+          description: In-match events attributed to the player (goals/cards/subs).
+        tacticalXPosition:
+          type:
+          - string
+          - 'null'
+          description: Formation-grid X (0-1 normalized canvas).
+        tacticalYPosition:
+          type:
+          - string
+          - 'null'
+          description: Formation-grid Y (0-1 normalized canvas).
+        averageXPosition:
+          type: 'null'
+        averageYPosition:
+          type: 'null'
+        imagery:
+          type: object
+          description: Object of CDN image URLs (crest/badge/photo variants).
+      additionalProperties: true
+    Stage:
+      type: object
+      description: 'Competition stage. The captured season returned `stages: null` (no published stage
+        breakdown), so fields are documented from the composite-id namespace only.'
+      properties:
+        stageId:
+          type: string
+          description: Composite Stage id (`nwsl::Football_Stage::{hex}`).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Stage display name.
+      additionalProperties: true
+  parameters:
+    CompositeId:
+      name: compositeId
+      in: path
+      required: true
+      description: Composite entity id `nwsl::Football_{Entity}::{32-hex}`; `::` is passed literally (never
+        percent-encoded).
+      schema:
+        type: string
+        pattern: ^nwsl::Football_(?:Competition|Season|Stage|MatchDay|Match|Team|Stadium|Player|Official)::[0-9a-f]{32}$

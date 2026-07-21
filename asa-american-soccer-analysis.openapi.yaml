@@ -1,0 +1,1519 @@
+openapi: 3.1.0
+info:
+  title: American Soccer Analysis (ASA) public API
+  description: 'The **American Soccer Analysis** public data API on host `app.americansocceranalysis.com/api/v1/{league}/*`
+    — plain HTTPS GET, JSON, **no auth** (a normal User-Agent is fine). This is the API wrapped by the
+    `itscalledsoccer` R/Python client. Every route returns a **flat top-level JSON array** (no envelope,
+    no pagination metadata). IDs are short base62 strings => treat as `Utf8` join keys, never numeric.
+    The `goals-added` routes nest a per-action-type `data[]` breakdown. Five live leagues: mls, nwsl,
+    uslc, usl1, mlsnp (per-route availability is on each operation''s `x-leagues`). Schemas here are unioned
+    from real captures under `asa/captures/{league}/`.'
+  version: asa-2026-07-18
+servers:
+- url: https://app.americansocceranalysis.com/api/v1
+tags:
+- name: Entities
+- name: Player stats
+- name: Team stats
+- name: Goalkeeper stats
+- name: Game stats
+paths:
+  /{league}/teams:
+    get:
+      tags:
+      - Entities
+      summary: Teams in the league (full table, no filter params).
+      description: 'Returns a flat JSON array of `Team`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: &id001
+          - mls
+          - nwsl
+          - uslc
+          - usl1
+          - mlsnp
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams
+      x-leagues: all 5 leagues
+  /{league}/players:
+    get:
+      tags:
+      - Entities
+      summary: Players in the league (identity + biometrics + positions).
+      description: 'Returns a flat JSON array of `Player`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players
+      x-leagues: all 5 leagues
+  /{league}/stadia:
+    get:
+      tags:
+      - Entities
+      summary: Stadia (venue metadata incl. coordinates + pitch dimensions).
+      description: 'Returns a flat JSON array of `Stadium`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stadium'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/stadia
+      x-leagues: mls, nwsl only
+  /{league}/managers:
+    get:
+      tags:
+      - Entities
+      summary: Managers/head coaches.
+      description: 'Returns a flat JSON array of `Manager`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manager'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/managers
+      x-leagues: mls, nwsl only
+  /{league}/referees:
+    get:
+      tags:
+      - Entities
+      summary: Match referees.
+      description: 'Returns a flat JSON array of `Referee`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Referee'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/referees
+      x-leagues: mls, nwsl only
+  /{league}/games:
+    get:
+      tags:
+      - Entities
+      summary: Games/fixtures with final scores, venue/official/manager FKs.
+      description: 'Returns a flat JSON array of `Game`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/games
+      x-leagues: all 5 leagues
+  /{league}/players/xgoals:
+    get:
+      tags:
+      - Player stats
+      summary: Per-player expected-goals + attacking production.
+      description: 'Returns a flat JSON array of `PlayerXgoals`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerXgoals'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/xgoals?season_name=2023&minimum_minutes=500
+      x-leagues: all 5 leagues
+  /{league}/players/goals-added:
+    get:
+      tags:
+      - Player stats
+      summary: Per-player Goals Added (g+) with a per-action-type data[] breakdown.
+      description: 'Returns a flat JSON array of `PlayerGoalsAdded`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerGoalsAdded'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/goals-added?season_name=2023
+      x-leagues: mls, nwsl only
+  /{league}/players/salaries:
+    get:
+      tags:
+      - Player stats
+      summary: Player salaries (MLS only; server caps the response at 10000 rows).
+      description: 'Returns a flat JSON array of `PlayerSalary`. Availability: mls only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerSalary'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/salaries?season_name=2023
+      x-leagues: mls only
+  /{league}/teams/xgoals:
+    get:
+      tags:
+      - Team stats
+      summary: Per-team expected-goals for/against + expected points.
+      description: 'Returns a flat JSON array of `TeamXgoals`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamXgoals'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/xgoals?season_name=2023
+      x-leagues: all 5 leagues
+  /{league}/teams/goals-added:
+    get:
+      tags:
+      - Team stats
+      summary: Per-team Goals Added for/against with a per-action-type data[] breakdown.
+      description: 'Returns a flat JSON array of `TeamGoalsAdded`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamGoalsAdded'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/goals-added?season_name=2023
+      x-leagues: mls, nwsl only
+  /{league}/teams/xpass:
+    get:
+      tags:
+      - Team stats
+      summary: Per-team expected-passing (completion over expected, vertical distance).
+      description: 'Returns a flat JSON array of `TeamXpass`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamXpass'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/xpass?season_name=2023
+      x-leagues: mls, nwsl only
+  /{league}/goalkeepers/xgoals:
+    get:
+      tags:
+      - Goalkeeper stats
+      summary: Per-goalkeeper shot-stopping vs post-shot expected goals.
+      description: 'Returns a flat JSON array of `GoalkeeperXgoals`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoalkeeperXgoals'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/goalkeepers/xgoals?season_name=2023
+      x-leagues: mls, nwsl only
+  /{league}/goalkeepers/goals-added:
+    get:
+      tags:
+      - Goalkeeper stats
+      summary: Per-goalkeeper Goals Added with a per-action-type data[] breakdown.
+      description: 'Returns a flat JSON array of `GoalkeeperGoalsAdded`. Availability: mls, nwsl only.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: mls, nwsl only.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoalkeeperGoalsAdded'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/goalkeepers/goals-added?season_name=2023
+      x-leagues: mls, nwsl only
+  /{league}/games/xgoals:
+    get:
+      tags:
+      - Game stats
+      summary: Per-game expected-goals + expected points for both sides.
+      description: 'Returns a flat JSON array of `GameXgoals`. Availability: all 5 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 5 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameXgoals'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/games/xgoals?season_name=2023
+      x-leagues: all 5 leagues
+components:
+  schemas:
+    Team:
+      type: object
+      properties:
+        team_id:
+          type: string
+          description: ASA team id (base62 string; Utf8 join key, never numeric).
+        team_name:
+          type: string
+          description: Full club name.
+        team_short_name:
+          type: string
+          description: Short club name.
+        team_abbreviation:
+          type: string
+          description: Short (2-4 char) club abbreviation.
+      additionalProperties: false
+    Player:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: ASA player id (base62 string; Utf8 join key).
+        player_name:
+          type: string
+          description: Player display name.
+        birth_date:
+          type:
+          - string
+          - 'null'
+          description: Date of birth (`YYYY-MM-DD`; may be null).
+        height_ft:
+          type:
+          - integer
+          - 'null'
+          description: Listed height, feet component.
+        height_in:
+          type:
+          - integer
+          - 'null'
+          description: Listed height, inches component.
+        weight_lb:
+          type:
+          - integer
+          - 'null'
+          description: Listed weight in pounds.
+        nationality:
+          type: string
+          description: Player nationality (country name).
+        season_name:
+          type:
+          - array
+          - object
+          - string
+          items: {}
+          description: Season(s) the player appears in; may serialize as a scalar, a list, or an object
+            across the leagues.
+        primary_broad_position:
+          type:
+          - string
+          - 'null'
+          description: Broad position bucket (Goalkeeper/Defender/Midfielder/Forward).
+        primary_general_position:
+          type:
+          - string
+          - 'null'
+          description: General position code (GK/CB/FB/DM/CM/AM/W/ST).
+        secondary_general_position:
+          type:
+          - string
+          - 'null'
+          description: Secondary general position code (nullable).
+        secondary_broad_position:
+          type:
+          - string
+          - 'null'
+          description: Secondary broad position bucket (nullable).
+      additionalProperties: false
+    Stadium:
+      type: object
+      properties:
+        stadium_id:
+          type: string
+          description: ASA stadium id (base62 string; Utf8 join key).
+        stadium_name:
+          type: string
+          description: Venue name.
+        capacity:
+          type:
+          - integer
+          - 'null'
+          description: Seating capacity.
+        year_built:
+          type:
+          - integer
+          - 'null'
+          description: Year the venue opened.
+        roof:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the venue has a roof.
+        turf:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the playing surface is artificial turf.
+        street:
+          type:
+          - string
+          - 'null'
+          description: Street address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: City.
+        province:
+          type:
+          - string
+          - 'null'
+          description: State/province.
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: Postal/ZIP code.
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude (decimal degrees).
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Longitude (decimal degrees).
+        field_x:
+          type:
+          - integer
+          - 'null'
+          description: Pitch length (venue-reported field dimension).
+        field_y:
+          type:
+          - integer
+          - 'null'
+          description: Pitch width (venue-reported field dimension).
+      additionalProperties: false
+    Manager:
+      type: object
+      properties:
+        manager_id:
+          type: string
+          description: ASA manager id (base62 string; Utf8 join key).
+        manager_name:
+          type:
+          - string
+          - 'null'
+          description: Manager display name.
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Manager nationality (country name).
+      additionalProperties: false
+    Referee:
+      type: object
+      properties:
+        referee_id:
+          type: string
+          description: ASA referee id (base62 string; Utf8 join key).
+        referee_name:
+          type: string
+          description: Referee display name.
+        birth_date:
+          type:
+          - string
+          - 'null'
+          description: Date of birth (`YYYY-MM-DD`; nullable).
+        nationality:
+          type: string
+          description: Referee nationality (country name).
+      additionalProperties: false
+    Game:
+      type: object
+      properties:
+        game_id:
+          type: string
+          description: ASA game id (base62 string; Utf8 join key).
+        date_time_utc:
+          type: string
+          description: Kickoff timestamp (UTC, ISO 8601).
+        home_score:
+          type: integer
+          description: Home goals (regulation + extra time).
+        away_score:
+          type: integer
+          description: Away goals (regulation + extra time).
+        home_team_id:
+          type: string
+          description: FK -> Team (home side).
+        away_team_id:
+          type: string
+          description: FK -> Team (away side).
+        referee_id:
+          type: string
+          description: FK -> Referee (nullable).
+        stadium_id:
+          type: string
+          description: FK -> Stadium (nullable).
+        home_manager_id:
+          type: string
+          description: FK -> Manager (home side; nullable).
+        away_manager_id:
+          type: string
+          description: FK -> Manager (away side; nullable).
+        expanded_minutes:
+          type: integer
+          description: Total match minutes incl. stoppage (data coverage window).
+        season_name:
+          type: string
+          description: Season label.
+        matchday:
+          type: integer
+          description: Round/matchday number.
+        knockout_game:
+          type: boolean
+          description: True if a knockout/playoff fixture.
+        status:
+          type: string
+          description: Game status (e.g. `final`).
+        last_updated_utc:
+          type: string
+          description: Last-updated timestamp (UTC, ISO 8601).
+        attendance:
+          type:
+          - integer
+          - 'null'
+          description: Reported attendance (nullable).
+        penalties:
+          type:
+          - boolean
+          - 'null'
+          description: True if decided by a penalty shootout.
+        home_penalties:
+          type:
+          - integer
+          - 'null'
+          description: Home shootout goals (nullable).
+        away_penalties:
+          type:
+          - integer
+          - 'null'
+          description: Away shootout goals (nullable).
+      additionalProperties: false
+    PlayerXgoals:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player.
+        team_id:
+          type:
+          - array
+          - string
+          items: {}
+          description: FK -> Team; serializes as a **list** when the player featured for multiple teams
+            in the window.
+        general_position:
+          type: string
+          description: General position code (GK/CB/FB/DM/CM/AM/W/ST).
+        minutes_played:
+          type: integer
+          description: Minutes played in the filtered window.
+        shots:
+          type: integer
+          description: Shots taken.
+        shots_on_target:
+          type: integer
+          description: Shots on target.
+        goals:
+          type: integer
+          description: Goals scored.
+        xgoals:
+          type: number
+          description: Expected goals (pre-shot xG).
+        xplace:
+          type: number
+          description: Expected goals added by shot placement (post-shot minus pre-shot).
+        goals_minus_xgoals:
+          type: number
+          description: Finishing over expectation (goals - xG).
+        key_passes:
+          type: integer
+          description: Passes that led to a shot.
+        primary_assists:
+          type: integer
+          description: Primary assists.
+        xassists:
+          type: number
+          description: Expected assists.
+        primary_assists_minus_xassists:
+          type: number
+          description: Assists over expectation.
+        goals_plus_primary_assists:
+          type: integer
+          description: Goals + primary assists (G+A).
+        xgoals_plus_xassists:
+          type: number
+          description: xGoals + xAssists (xG+xA).
+        points_added:
+          type: number
+          description: Team points added by the player's attacking output.
+        xpoints_added:
+          type: number
+          description: Expected team points added.
+      additionalProperties: false
+    PlayerGoalsAdded:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player.
+        team_id:
+          type:
+          - array
+          - string
+          items: {}
+          description: FK -> Team; a **list** for multi-team players in the window.
+        general_position:
+          type: string
+          description: General position code.
+        minutes_played:
+          type: integer
+          description: Minutes played in the filtered window.
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              action_type:
+                type: string
+                description: Action category (Dribbling/Passing/Receiving/Shooting/Interrupting/Fouling,
+                  etc.).
+              goals_added_raw:
+                type: number
+                description: Raw goals added credited for this action type.
+              goals_added_above_avg:
+                type: number
+                description: Goals added above the positional average.
+              count_actions:
+                type: integer
+                description: Number of actions of this type.
+            additionalProperties: false
+          description: Per-action-type Goals Added breakdown (one entry per action category).
+      additionalProperties: false
+    PlayerSalary:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player.
+        team_id:
+          type: string
+          description: FK -> Team.
+        season_name:
+          type: integer
+          description: Season year (integer).
+        position:
+          type: string
+          description: Roster position designation (string; distinct from `general_position`).
+        base_salary:
+          type: integer
+          description: Base salary (USD).
+        guaranteed_compensation:
+          type: integer
+          description: Guaranteed compensation (USD).
+        mlspa_release:
+          type: string
+          description: MLSPA salary-release label/date the row is sourced from.
+      additionalProperties: false
+    TeamXgoals:
+      type: object
+      properties:
+        team_id:
+          type: string
+          description: FK -> Team.
+        count_games:
+          type: integer
+          description: Games included in the window.
+        shots_for:
+          type: integer
+          description: Shots taken.
+        shots_against:
+          type: integer
+          description: Shots faced.
+        goals_for:
+          type: integer
+          description: Goals scored.
+        goals_against:
+          type: integer
+          description: Goals conceded.
+        goal_difference:
+          type: integer
+          description: goals_for - goals_against.
+        xgoals_for:
+          type: number
+          description: Expected goals created.
+        xgoals_against:
+          type: number
+          description: Expected goals conceded.
+        xgoal_difference:
+          type: number
+          description: xgoals_for - xgoals_against.
+        goal_difference_minus_xgoal_difference:
+          type: number
+          description: Finishing/keeping over expectation.
+        points:
+          type: integer
+          description: Actual league points earned.
+        xpoints:
+          type: number
+          description: Expected league points.
+      additionalProperties: false
+    TeamGoalsAdded:
+      type: object
+      properties:
+        team_id:
+          type: string
+          description: FK -> Team.
+        minutes:
+          type: integer
+          description: Team minutes in the window.
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              action_type:
+                type: string
+                description: Action category.
+              num_actions_for:
+                type: integer
+                description: Team actions of this type.
+              goals_added_for:
+                type: number
+                description: Goals added for the team on this action type.
+              num_actions_against:
+                type: integer
+                description: Opponent actions of this type.
+              goals_added_against:
+                type: number
+                description: Goals added conceded on this action type.
+            additionalProperties: false
+          description: Per-action-type Goals Added for/against breakdown.
+      additionalProperties: false
+    TeamXpass:
+      type: object
+      properties:
+        team_id:
+          type: string
+          description: FK -> Team.
+        count_games:
+          type: integer
+          description: Games included in the window.
+        attempted_passes_for:
+          type: integer
+          description: Passes attempted by the team.
+        pass_completion_percentage_for:
+          type: number
+          description: Actual pass completion % (for).
+        xpass_completion_percentage_for:
+          type: number
+          description: Expected pass completion % (for).
+        passes_completed_over_expected_for:
+          type: number
+          description: Passes completed over expected (for).
+        passes_completed_over_expected_p100_for:
+          type: number
+          description: Passes completed over expected per 100 passes (for).
+        avg_vertical_distance_for:
+          type: number
+          description: Average vertical (goalward) pass distance (for).
+        attempted_passes_against:
+          type: integer
+          description: Passes attempted by opponents.
+        pass_completion_percentage_against:
+          type: number
+          description: Actual pass completion % (against).
+        xpass_completion_percentage_against:
+          type: number
+          description: Expected pass completion % (against).
+        passes_completed_over_expected_against:
+          type: number
+          description: Passes completed over expected (against).
+        passes_completed_over_expected_p100_against:
+          type: number
+          description: Passes completed over expected per 100 passes (against).
+        avg_vertical_distance_against:
+          type: number
+          description: Average vertical pass distance (against).
+        passes_completed_over_expected_difference:
+          type: number
+          description: For minus against (passes over expected).
+        avg_vertical_distance_difference:
+          type: number
+          description: For minus against (vertical distance).
+      additionalProperties: false
+    GoalkeeperXgoals:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player (goalkeeper).
+        team_id:
+          type: string
+          description: FK -> Team.
+        minutes_played:
+          type: integer
+          description: Minutes played in goal.
+        shots_faced:
+          type: integer
+          description: Shots faced.
+        goals_conceded:
+          type: integer
+          description: Goals conceded.
+        saves:
+          type: integer
+          description: Saves made.
+        share_headed_shots:
+          type: number
+          description: Share of faced shots that were headers.
+        xgoals_gk_faced:
+          type: number
+          description: Post-shot expected goals faced.
+        goals_minus_xgoals_gk:
+          type: number
+          description: Goals conceded minus post-shot xG (negative = shots saved above expectation).
+        goals_divided_by_xgoals_gk:
+          type: number
+          description: Goals conceded / post-shot xG faced.
+      additionalProperties: false
+    GoalkeeperGoalsAdded:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player (goalkeeper).
+        team_id:
+          type: string
+          description: FK -> Team.
+        minutes_played:
+          type: integer
+          description: Minutes played in goal.
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              action_type:
+                type: string
+                description: Action category (Dribbling/Passing/Receiving/Shooting/Interrupting/Fouling,
+                  etc.).
+              goals_added_raw:
+                type: number
+                description: Raw goals added credited for this action type.
+              goals_added_above_avg:
+                type: number
+                description: Goals added above the positional average.
+              count_actions:
+                type: integer
+                description: Number of actions of this type.
+            additionalProperties: false
+          description: Per-action-type Goals Added breakdown (one entry per action category).
+      additionalProperties: false
+    GameXgoals:
+      type: object
+      properties:
+        game_id:
+          type: string
+          description: FK -> Game.
+        date_time_utc:
+          type: string
+          description: Kickoff timestamp (UTC, ISO 8601).
+        home_team_id:
+          type: string
+          description: FK -> Team (home side).
+        home_goals:
+          type: integer
+          description: Home goals scored.
+        home_team_xgoals:
+          type: number
+          description: Home expected goals (team model).
+        home_player_xgoals:
+          type: number
+          description: Home expected goals (player-shot model).
+        away_team_id:
+          type: string
+          description: FK -> Team (away side).
+        away_goals:
+          type: integer
+          description: Away goals scored.
+        away_team_xgoals:
+          type: number
+          description: Away expected goals (team model).
+        away_player_xgoals:
+          type: number
+          description: Away expected goals (player-shot model).
+        goal_difference:
+          type: integer
+          description: home_goals - away_goals.
+        team_xgoal_difference:
+          type: number
+          description: Home minus away team xGoals.
+        player_xgoal_difference:
+          type: number
+          description: Home minus away player xGoals.
+        final_score_difference:
+          type: integer
+          description: Final goal margin (home perspective).
+        home_xpoints:
+          type: number
+          description: Home expected points from the match.
+        away_xpoints:
+          type: number
+          description: Away expected points from the match.
+      additionalProperties: false
