@@ -127,6 +127,14 @@ paths:
           - '289234'
           - '289262'
           - '3'
+          - '8039'
+          - '8040'
+          - '8044'
+          - '8048'
+          - '8049'
+          - '8050'
+          - '8052'
+          - '8053'
           - afl
           - atp
           - bellator
@@ -336,7 +344,15 @@ paths:
           - '3'
           australian-football:
           - afl
-          cricket: []
+          cricket:
+          - '8039'
+          - '8040'
+          - '8044'
+          - '8048'
+          - '8049'
+          - '8050'
+          - '8052'
+          - '8053'
           volleyball:
           - mens-college-volleyball
           - womens-college-volleyball
@@ -597,6 +613,10 @@ paths:
       parameters:
       - *id001
       - *id002
+      - &id003
+        $ref: '#/components/parameters/CoreV2Limit'
+      - &id004
+        $ref: '#/components/parameters/CoreV2Page'
       responses:
         '200':
           description: Successful response.
@@ -909,6 +929,8 @@ paths:
         description: athleteId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -984,6 +1006,8 @@ paths:
         description: athleteId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -1241,6 +1265,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -1287,6 +1313,8 @@ paths:
         description: awardId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -1324,6 +1352,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -1745,6 +1775,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -1895,6 +1927,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -2158,6 +2192,8 @@ paths:
         description: competitorId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -2300,6 +2336,8 @@ paths:
         description: competitorId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -3010,6 +3048,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -3565,6 +3605,8 @@ paths:
         description: oddsId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -3739,6 +3781,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -3879,6 +3923,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -4129,6 +4175,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -4349,6 +4397,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -4703,6 +4753,8 @@ paths:
         description: competitionId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -4815,6 +4867,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5110,6 +5164,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5223,6 +5279,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5263,6 +5321,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5304,6 +5364,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5535,6 +5597,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5926,6 +5990,8 @@ paths:
         description: athleteId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -5984,6 +6050,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -6145,6 +6213,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -6439,6 +6509,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -6521,6 +6593,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -6731,6 +6805,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -6902,6 +6978,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7007,6 +7085,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7072,6 +7152,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7181,6 +7263,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7316,6 +7400,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7367,6 +7453,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7418,6 +7506,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7469,6 +7559,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7667,6 +7759,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -7712,6 +7806,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -8127,6 +8223,8 @@ paths:
         description: 'Season type: 1=pre, 2=regular, 3=post, 4=off/all-star.'
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -8273,6 +8371,8 @@ paths:
         description: group path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -8330,6 +8430,8 @@ paths:
         description: group path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -8556,6 +8658,8 @@ paths:
         description: group path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -9118,6 +9222,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -9196,6 +9302,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -9601,6 +9709,8 @@ paths:
         description: 'Season type: 1=pre, 2=regular, 3=post, 4=off/all-star.'
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -9730,6 +9840,8 @@ paths:
         description: week path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10115,6 +10227,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10162,6 +10276,8 @@ paths:
         description: teamId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10200,6 +10316,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10287,6 +10405,8 @@ paths:
         description: tournamentId path segment.
         schema:
           type: string
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10412,6 +10532,8 @@ paths:
         description: Season year (4-digit). Meaning varies by league; see the response `season` field.
         schema:
           type: integer
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -10558,6 +10680,8 @@ paths:
       parameters:
       - *id001
       - *id002
+      - *id003
+      - *id004
       responses:
         '200':
           description: Successful response.
@@ -12966,3 +13090,51 @@ components:
           type: boolean
         parent:
           $ref: '#/components/schemas/Reference'
+  parameters:
+    CoreV2Limit:
+      name: limit
+      in: query
+      required: false
+      description: 'Rows per page. The host default is 25, NOT the endpoint''s natural size -- a request
+        without `limit` is already truncated for any collection larger than 25, and the response is well-formed
+        with no error, so a short page is indistinguishable from a complete one. Pair with `page` to walk
+        the collection; compare the accumulated row count against the response''s own `count` to know
+        when it is whole.
+
+        '
+      schema:
+        type: integer
+        minimum: 1
+        default: 25
+      example: 1000
+    CoreV2Page:
+      name: page
+      in: query
+      required: false
+      description: '1-based page index. The response echoes it as `pageIndex` and states `pageCount`.
+        Requesting a page beyond the last returns an empty `items` array rather than an error.
+
+        '
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      example: 2
+x-espn-pagination:
+  summary: 'Every Core v2 collection endpoint accepts `limit` and `page`; neither was documented here
+    until 2026-08-29 because this spec is generated from CAPTURED RESPONSES, and a capture records what
+    came back, never what could have been asked for. The result was 131 operations with zero query parameters,
+    while `pageIndex`/`pageSize` appeared throughout the response schemas -- the spec described the pagination
+    it returned but not how to request it.
+
+    '
+  detection: 'The generator now infers these two parameters from the response envelope (`items` plus two
+    or more of count/pageIndex/pageSize/pageCount), so new collection paths acquire them automatically.
+
+    '
+  verified: '2026-08-29, 11 collection paths across football and basketball (seasons, season teams, season
+    athletes, recruiting athletes, season recruits, venues, week events, season coaches, positions, nba
+    franchises, nba seasons). All 11 honoured both parameters: pageSize echoed `limit`, pageIndex echoed
+    `page`, and page 2 returned items disjoint from page 1.
+
+    '
