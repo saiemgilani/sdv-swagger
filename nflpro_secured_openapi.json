@@ -4,7 +4,7 @@
     "title": "NFL Pro secured API (pro.nfl.com) \u2014 unofficial",
     "version": "0.1.0-rev2026.09",
     "summary": "Reverse-engineered spec for the Next Gen Stats data behind pro.nfl.com's NFL+ Premium paywall.",
-    "description": "Unofficial OpenAPI description of the **`pro.nfl.com/api/secured/*`** surface -- the Next Gen Stats data that `nextgenstats.nfl.com` stopped serving (see the sibling `nextgenstats/` spec for that dead host's history). NGS moved behind an NFL+ Premium subscription.\n\n**Auth.** A client-credentials token is NOT sufficient -- it mints successfully but is not user-bound, and every `/api/secured/*` call 401s. A user-bound token is obtained only by completing the real `id.nfl.com` login (a 3-step flow: email, a passkey-sign-in *offer* at `/account/sign-in-biometric` with no password field, then password at `/account/sign-in-password`) and confirming the resulting token's `plans` claim carries an ACTIVE `NFL_PLUS_*` entry -- an anonymous token has claims byte-identical to a UID-minted one otherwise. There is no token-mint endpoint modeled here since the login is a browser flow, not a REST operation.\n\n**Gotchas verified by measurement:** an unsupported query param returns HTTP 200 with an EMPTY body (no error envelope) rather than a 400; `week`/`game` are PATH scopes, not query params; responses truncate silently at the page `limit` with the envelope's own `total` as the only truncation signal.\n\nField-level descriptions are intentionally omitted -- see `catalogs/nfl_pro_secured_returns.md` for why, and the identified `load_nfl_nextgen_stats` cross-walk that could recover some of them.",
+    "description": "Unofficial OpenAPI description of the **`pro.nfl.com/api/secured/*`** surface -- the Next Gen Stats data that `nextgenstats.nfl.com` stopped serving (see sdv-internal-refs' nfl/nextgenstats/ for that dead host's history). NGS moved behind an NFL+ Premium subscription.\n\n**Auth.** A client-credentials token is NOT sufficient -- it mints successfully but is not user-bound, and every `/api/secured/*` call 401s. A user-bound token is obtained only by completing the real `id.nfl.com` login (a 3-step flow: email, a passkey-sign-in *offer* at `/account/sign-in-biometric` with no password field, then password at `/account/sign-in-password`) and confirming the resulting token's `plans` claim carries an ACTIVE `NFL_PLUS_*` entry -- an anonymous token has claims byte-identical to a UID-minted one otherwise. There is no token-mint endpoint modeled here since the login is a browser flow, not a REST operation.\n\n**Gotchas verified by measurement:** an unsupported query param returns HTTP 200 with an EMPTY body (no error envelope) rather than a 400; `week`/`game` are PATH scopes, not query params; responses truncate silently at the page `limit` with the envelope's own `total` as the only truncation signal.\n\nField-level descriptions are intentionally omitted -- see sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for why, and the identified `load_nfl_nextgen_stats` cross-walk that could recover some of them.",
     "x-nfl-schema-source": "live-captured-2026-09-03 (NFL+ Premium account, season 2024 REG)",
     "contact": {
       "name": "sdv-internal-refs"
@@ -136,7 +136,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "att": {
                             "type": "integer",
@@ -500,7 +500,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "att": {
                             "type": "integer",
@@ -883,7 +883,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "att": {
                             "type": "integer",
@@ -1227,7 +1227,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "att": {
                             "type": "integer",
@@ -1590,7 +1590,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "avgRtDep": {
                             "type": "number",
@@ -1962,7 +1962,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "avgRtDep": {
                             "type": "integer",
@@ -2353,7 +2353,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "displayName": {
                             "type": "string",
@@ -2621,7 +2621,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "displayName": {
                             "type": "string",
@@ -2908,7 +2908,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "bhPct": {
                             "type": "number",
@@ -3176,7 +3176,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "bhPct": {
                             "type": "number",
@@ -3454,7 +3454,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "epa": {
                             "type": "number",
@@ -3688,7 +3688,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "epa": {
                             "type": "number",
@@ -3950,7 +3950,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "defensiveTouchdown": {
                             "type": "integer",
@@ -4212,7 +4212,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "defensiveTouchdown": {
                             "type": "integer",
@@ -4520,7 +4520,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "designRushAtt": {
                             "type": "integer",
@@ -5420,7 +5420,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
+                        "description": "Column descriptions are deliberately omitted -- no authoritative label source was reachable for these Next Gen Stats field names. See sdv-internal-refs' nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do not fill these in by inference.",
                         "properties": {
                           "designRushAtt": {
                             "type": "integer",

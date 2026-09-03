@@ -4,8 +4,8 @@ info:
   version: 0.1.0-rev2026.09
   summary: Reverse-engineered spec for the Next Gen Stats data behind pro.nfl.com's NFL+ Premium paywall.
   description: 'Unofficial OpenAPI description of the **`pro.nfl.com/api/secured/*`** surface -- the Next
-    Gen Stats data that `nextgenstats.nfl.com` stopped serving (see the sibling `nextgenstats/` spec for
-    that dead host''s history). NGS moved behind an NFL+ Premium subscription.
+    Gen Stats data that `nextgenstats.nfl.com` stopped serving (see sdv-internal-refs'' nfl/nextgenstats/
+    for that dead host''s history). NGS moved behind an NFL+ Premium subscription.
 
 
     **Auth.** A client-credentials token is NOT sufficient -- it mints successfully but is not user-bound,
@@ -22,8 +22,8 @@ info:
     truncate silently at the page `limit` with the envelope''s own `total` as the only truncation signal.
 
 
-    Field-level descriptions are intentionally omitted -- see `catalogs/nfl_pro_secured_returns.md` for
-    why, and the identified `load_nfl_nextgen_stats` cross-walk that could recover some of them.'
+    Field-level descriptions are intentionally omitted -- see sdv-internal-refs'' nfl/nflpro/catalogs/nfl_pro_secured_returns.md
+    for why, and the identified `load_nfl_nextgen_stats` cross-walk that could recover some of them.'
   x-nfl-schema-source: live-captured-2026-09-03 (NFL+ Premium account, season 2024 REG)
   contact:
     name: sdv-internal-refs
@@ -124,8 +124,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         att:
                           type: integer
@@ -352,8 +353,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         att:
                           type: integer
@@ -592,8 +594,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         att:
                           type: integer
@@ -797,8 +800,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         att:
                           type: integer
@@ -1022,8 +1026,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         avgRtDep:
                           type: number
@@ -1248,8 +1253,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         avgRtDep:
                           type: integer
@@ -1494,8 +1500,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         displayName:
                           type: string
@@ -1642,8 +1649,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         displayName:
                           type: string
@@ -1810,8 +1818,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         bhPct:
                           type: number
@@ -1958,8 +1967,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         bhPct:
                           type: number
@@ -2120,8 +2130,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         epa:
                           type: number
@@ -2250,8 +2261,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         epa:
                           type: number
@@ -2400,8 +2412,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         defensiveTouchdown:
                           type: integer
@@ -2551,8 +2564,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         defensiveTouchdown:
                           type: integer
@@ -2729,8 +2743,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         designRushAtt:
                           type: integer
@@ -3352,8 +3367,9 @@ paths:
                     items:
                       type: object
                       description: Column descriptions are deliberately omitted -- no authoritative label
-                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
-                        for the full provenance note. Do not fill these in by inference.
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
                       properties:
                         designRushAtt:
                           type: integer
