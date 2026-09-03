@@ -1,0 +1,3966 @@
+openapi: 3.1.0
+info:
+  title: NFL Pro secured API (pro.nfl.com) — unofficial
+  version: 0.1.0-rev2026.09
+  summary: Reverse-engineered spec for the Next Gen Stats data behind pro.nfl.com's NFL+ Premium paywall.
+  description: 'Unofficial OpenAPI description of the **`pro.nfl.com/api/secured/*`** surface -- the Next
+    Gen Stats data that `nextgenstats.nfl.com` stopped serving (see the sibling `nextgenstats/` spec for
+    that dead host''s history). NGS moved behind an NFL+ Premium subscription.
+
+
+    **Auth.** A client-credentials token is NOT sufficient -- it mints successfully but is not user-bound,
+    and every `/api/secured/*` call 401s. A user-bound token is obtained only by completing the real `id.nfl.com`
+    login (a 3-step flow: email, a passkey-sign-in *offer* at `/account/sign-in-biometric` with no password
+    field, then password at `/account/sign-in-password`) and confirming the resulting token''s `plans`
+    claim carries an ACTIVE `NFL_PLUS_*` entry -- an anonymous token has claims byte-identical to a UID-minted
+    one otherwise. There is no token-mint endpoint modeled here since the login is a browser flow, not
+    a REST operation.
+
+
+    **Gotchas verified by measurement:** an unsupported query param returns HTTP 200 with an EMPTY body
+    (no error envelope) rather than a 400; `week`/`game` are PATH scopes, not query params; responses
+    truncate silently at the page `limit` with the envelope''s own `total` as the only truncation signal.
+
+
+    Field-level descriptions are intentionally omitted -- see `catalogs/nfl_pro_secured_returns.md` for
+    why, and the identified `load_nfl_nextgen_stats` cross-walk that could recover some of them.'
+  x-nfl-schema-source: live-captured-2026-09-03 (NFL+ Premium account, season 2024 REG)
+  contact:
+    name: sdv-internal-refs
+  license:
+    name: Reference only
+servers:
+- url: https://pro.nfl.com
+  description: NFL Pro data host
+tags:
+- name: secured
+  description: /api/secured/* Next Gen Stats resources (NFL+ Premium).
+security:
+- bearerAuth: []
+paths:
+  /api/secured/stats/players-offense/passing/season:
+    get:
+      operationId: getPlayersOffensePassingSeason
+      summary: Quarterback passing for the season, incl. Next Gen time-to-throw, aggressiveness and CPOE.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - &id001
+        name: season
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 2024
+        description: Season, as the STARTING year (2024 = the 2024-25 NFL season).
+      - &id002
+        name: seasonType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - PRE
+          - REG
+          - POST
+          default: REG
+        description: 'Season type code (string): PRE, REG, or POST -- not ESPN''s numeric 1/2/3.'
+      - &id003
+        name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 500
+        description: Page size. Responses truncate silently at this many rows with no error and no indication
+          in the body -- the envelope's own `total` is the only signal a caller has that more rows exist.
+          Page with `offset` until the accumulated row count reaches `total`.
+      - &id004
+        name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Zero-based row offset for pagination.
+      - &id005
+        name: sortKey
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Field name to sort by, e.g. `epa`.
+      - &id006
+        name: sortValue
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+        description: Sort direction.
+      - name: qualifiedPasser
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  passers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        att:
+                          type: integer
+                          example: 584
+                        attPG:
+                          type: number
+                          example: 34.35294
+                        avgSep:
+                          type: number
+                          example: 3.72766
+                        avgTTP:
+                          type: number
+                          example: 2.69506
+                        avgTTS:
+                          type: number
+                          example: 4.45105
+                        avgTTT:
+                          type: number
+                          example: 2.68814
+                        ay:
+                          type: number
+                          example: 1662.33999
+                        ayAtt:
+                          type: number
+                          example: 6.72435
+                        blitzR:
+                          type: number
+                          example: 0.25
+                        cmp:
+                          type: integer
+                          example: 368
+                        cmpPG:
+                          type: number
+                          example: 21.64706
+                        cmpPct:
+                          type: number
+                          example: 0.63014
+                        cpoe:
+                          type: number
+                          example: -0.04713
+                        db:
+                          type: integer
+                          example: 640
+                        dbPG:
+                          type: number
+                          example: 37.64706
+                        deepAttPct:
+                          type: number
+                          example: 0.07363
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        drop:
+                          type: integer
+                          example: 24
+                        dropPG:
+                          type: number
+                          example: 1.41176
+                        dropR:
+                          type: number
+                          example: 0.0411
+                        epa:
+                          type: number
+                          example: -41.28122
+                        epaDb:
+                          type: number
+                          example: -0.0645
+                        epaPG:
+                          type: number
+                          example: -2.42831
+                        gp:
+                          type: integer
+                          example: 17
+                        gs:
+                          type: integer
+                          example: 17
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 11
+                        intPG:
+                          type: number
+                          example: 0.64706
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        paDbPct:
+                          type: number
+                          example: 0.23594
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qbp:
+                          type: integer
+                          example: 169
+                        qbpPG:
+                          type: number
+                          example: 9.94118
+                        qbpR:
+                          type: number
+                          example: 0.26406
+                        qp:
+                          type: boolean
+                          example: true
+                        rating:
+                          type: number
+                          example: 90.53225
+                        sack:
+                          type: integer
+                          example: 40
+                        sackPG:
+                          type: number
+                          example: 2.35294
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        td:
+                          type: integer
+                          example: 28
+                        tdPG:
+                          type: number
+                          example: 1.64706
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 17
+                        totalTg:
+                          type: integer
+                          example: 17
+                        twAttPG:
+                          type: number
+                          example: 4.82353
+                        twAttPct:
+                          type: number
+                          example: 0.14041
+                        xCmp:
+                          type: number
+                          example: 0.67727
+                        xYac:
+                          type: number
+                          example: 2055.36557
+                        yac:
+                          type: number
+                          example: 2295.91
+                        yacPct:
+                          type: number
+                          example: 0.58915
+                        yds:
+                          type: integer
+                          example: 3897
+                        ydsPG:
+                          type: number
+                          example: 229.23529
+                        ypa:
+                          type: number
+                          example: 6.67295
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/players-offense/passing/week:
+    get:
+      operationId: getPlayersOffensePassingWeek
+      summary: Quarterback passing per week.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedPasser
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      - &id007
+        name: nflId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional player filter on the player-scoped week routes (omit for the whole league-week
+          table). Verified live to be silently accepted-and-ignored on the team-scoped team-offense/team-defense
+          week routes -- NOT exposed as a parameter there.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  passers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        att:
+                          type: integer
+                          example: 21
+                        attPG:
+                          type: integer
+                          example: 21
+                        avgSep:
+                          type: number
+                          example: 3.46254
+                        avgTTP:
+                          type: number
+                          example: 2.9
+                        avgTTS:
+                          type: number
+                          example: 4.169
+                        avgTTT:
+                          type: number
+                          example: 2.47319
+                        ay:
+                          type: number
+                          example: 61.04
+                        ayAtt:
+                          type: number
+                          example: 6.34333
+                        blitzR:
+                          type: number
+                          example: 0.09091
+                        cmp:
+                          type: integer
+                          example: 13
+                        cmpPG:
+                          type: integer
+                          example: 13
+                        cmpPct:
+                          type: number
+                          example: 0.61905
+                        cpoe:
+                          type: number
+                          example: -0.08873
+                        db:
+                          type: integer
+                          example: 22
+                        dbPG:
+                          type: integer
+                          example: 22
+                        deepAttPct:
+                          type: number
+                          example: 0.09524
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        drop:
+                          type: integer
+                          example: 2
+                        dropPG:
+                          type: integer
+                          example: 2
+                        dropR:
+                          type: number
+                          example: 0.09524
+                        epa:
+                          type: number
+                          example: -5.49929
+                        epaDb:
+                          type: number
+                          example: -0.24997
+                        epaPG:
+                          type: number
+                          example: -5.49929
+                        fapiGameId:
+                          type: string
+                          example: 7d404133-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 19-32
+                        gameId:
+                          type: integer
+                          example: 2024090900
+                        gameResult:
+                          type: string
+                          example: L
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 1
+                        intPG:
+                          type: integer
+                          example: 1
+                        isHome:
+                          type: boolean
+                          example: false
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        opponentTeamId:
+                          type: string
+                          example: '4500'
+                        paDbPct:
+                          type: number
+                          example: 0.22727
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qbp:
+                          type: integer
+                          example: 6
+                        qbpPG:
+                          type: integer
+                          example: 6
+                        qbpR:
+                          type: number
+                          example: 0.27273
+                        qp:
+                          type: boolean
+                          example: true
+                        rating:
+                          type: number
+                          example: 82.8373
+                        sack:
+                          type: integer
+                          example: 1
+                        sackPG:
+                          type: integer
+                          example: 1
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        td:
+                          type: integer
+                          example: 1
+                        tdPG:
+                          type: integer
+                          example: 1
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 1
+                        totalTg:
+                          type: integer
+                          example: 1
+                        twAttPG:
+                          type: integer
+                          example: 3
+                        twAttPct:
+                          type: number
+                          example: 0.14286
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+                        xCmp:
+                          type: number
+                          example: 0.70778
+                        xYac:
+                          type: number
+                          example: 94.89277
+                        yac:
+                          type: number
+                          example: 105.31
+                        yacPct:
+                          type: number
+                          example: 0.6306
+                        yds:
+                          type: integer
+                          example: 167
+                        ydsPG:
+                          type: integer
+                          example: 167
+                        ypa:
+                          type: number
+                          example: 7.95238
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/players-offense/rushing/season:
+    get:
+      operationId: getPlayersOffenseRushingSeason
+      summary: Rushing for the season, incl. Next Gen efficiency, yards over expected and defenders-in-box.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedRusher
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  rushers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        att:
+                          type: integer
+                          example: 22
+                        attPG:
+                          type: number
+                          example: 2.44444
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        eff:
+                          type: number
+                          example: 22.66409
+                        epa:
+                          type: number
+                          example: 6.05151
+                        epaAtt:
+                          type: number
+                          example: 0.27507
+                        epaPG:
+                          type: number
+                          example: 0.67239
+                        fum:
+                          type: integer
+                          example: 0
+                        fumPG:
+                          type: number
+                          example: 0.0
+                        gp:
+                          type: integer
+                          example: 9
+                        gs:
+                          type: integer
+                          example: 9
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        inTPct:
+                          type: number
+                          example: 0.09091
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        lost:
+                          type: integer
+                          example: 0
+                        lostPG:
+                          type: number
+                          example: 0.0
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qr:
+                          type: boolean
+                          example: false
+                        rush10PYds:
+                          type: integer
+                          example: 4
+                        rush10PYdsPG:
+                          type: number
+                          example: 0.44444
+                        rush15PMph:
+                          type: integer
+                          example: 12
+                        rush15PMphPG:
+                          type: number
+                          example: 1.33333
+                        rush20PMph:
+                          type: integer
+                          example: 0
+                        rush20PMphPG:
+                          type: number
+                          example: 0.0
+                        ryoe:
+                          type: number
+                          example: -11.19731
+                        ryoeAtt:
+                          type: number
+                          example: -0.69983
+                        ryoePG:
+                          type: number
+                          example: -1.24415
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        stBoxPct:
+                          type: number
+                          example: 0.04545
+                        success:
+                          type: number
+                          example: 0.36364
+                        td:
+                          type: integer
+                          example: 0
+                        tdPG:
+                          type: number
+                          example: 0.0
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 9
+                        totalTg:
+                          type: integer
+                          example: 17
+                        underPct:
+                          type: number
+                          example: 0.04545
+                        xRy:
+                          type: number
+                          example: 115.19731
+                        xRyPG:
+                          type: number
+                          example: 12.7997
+                        xYpc:
+                          type: number
+                          example: 7.19983
+                        yaco:
+                          type: number
+                          example: 7.11
+                        yacoAtt:
+                          type: number
+                          example: 0.32318
+                        yacoPG:
+                          type: number
+                          example: 0.79
+                        ybco:
+                          type: number
+                          example: 103.89
+                        ybcoAtt:
+                          type: number
+                          example: 4.72227
+                        ybcoPG:
+                          type: number
+                          example: 11.54333
+                        yds:
+                          type: integer
+                          example: 107
+                        ydsPG:
+                          type: number
+                          example: 11.88889
+                        ypc:
+                          type: number
+                          example: 4.86364
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/players-offense/rushing/week:
+    get:
+      operationId: getPlayersOffenseRushingWeek
+      summary: Rushing per week.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedRusher
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      - *id007
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  rushers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        att:
+                          type: integer
+                          example: 1
+                        attPG:
+                          type: integer
+                          example: 1
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        eff:
+                          type: number
+                          example: 0.3
+                        epa:
+                          type: number
+                          example: 0.0
+                        epaAtt:
+                          type: number
+                          example: 0.0
+                        epaPG:
+                          type: number
+                          example: 0.0
+                        fapiGameId:
+                          type: string
+                          example: 7d404133-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 19-32
+                        fum:
+                          type: integer
+                          example: 0
+                        fumPG:
+                          type: integer
+                          example: 0
+                        gameId:
+                          type: integer
+                          example: 2024090900
+                        gameResult:
+                          type: string
+                          example: L
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        inTPct:
+                          type: number
+                          example: 0.0
+                        isHome:
+                          type: boolean
+                          example: false
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        lost:
+                          type: integer
+                          example: 0
+                        lostPG:
+                          type: integer
+                          example: 0
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        opponentTeamId:
+                          type: string
+                          example: '4500'
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qr:
+                          type: boolean
+                          example: false
+                        rush10PYds:
+                          type: integer
+                          example: 0
+                        rush10PYdsPG:
+                          type: integer
+                          example: 0
+                        rush15PMph:
+                          type: integer
+                          example: 0
+                        rush15PMphPG:
+                          type: integer
+                          example: 0
+                        rush20PMph:
+                          type: integer
+                          example: 0
+                        rush20PMphPG:
+                          type: integer
+                          example: 0
+                        ryoe:
+                          type: number
+                          example: 0.0
+                        ryoeAtt:
+                          type: number
+                          example: 0.0
+                        ryoePG:
+                          type: number
+                          example: 0.0
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        stBoxPct:
+                          type: integer
+                          example: 0
+                        success:
+                          type: number
+                          example: 0.0
+                        td:
+                          type: integer
+                          example: 0
+                        tdPG:
+                          type: integer
+                          example: 0
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 1
+                        totalTg:
+                          type: integer
+                          example: 1
+                        underPct:
+                          type: number
+                          example: 0.0
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+                        xRy:
+                          type: number
+                          example: 0.0
+                        xRyPG:
+                          type: number
+                          example: 0.0
+                        xYpc:
+                          type: number
+                          example: 0.0
+                        yaco:
+                          type: number
+                          example: 0.0
+                        yacoAtt:
+                          type: number
+                          example: 0.0
+                        yacoPG:
+                          type: number
+                          example: 0.0
+                        ybco:
+                          type: number
+                          example: 0.0
+                        ybcoAtt:
+                          type: number
+                          example: 0.0
+                        ybcoPG:
+                          type: number
+                          example: 0.0
+                        yds:
+                          type: integer
+                          example: -1
+                        ydsPG:
+                          type: integer
+                          example: -1
+                        ypc:
+                          type: number
+                          example: -1.0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/players-offense/receiving/season:
+    get:
+      operationId: getPlayersOffenseReceivingSeason
+      summary: Receiving for the season, incl. Next Gen separation, cushion and catch rate over expected.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedReceiver
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  receivers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        avgRtDep:
+                          type: number
+                          example: 0.0
+                        avgSep:
+                          type: number
+                          example: 0.0
+                        ay:
+                          type: number
+                          example: 0.0
+                        ayPG:
+                          type: number
+                          example: 0.0
+                        ayTgt:
+                          type: number
+                          example: 0.0
+                        catch:
+                          type: number
+                          example: 0.0
+                        croe:
+                          type: number
+                          example: 0.0
+                        deepTgtPct:
+                          type: number
+                          example: 0.0
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        drop:
+                          type: integer
+                          example: 0
+                        dropPG:
+                          type: number
+                          example: 0.0
+                        dropTgt:
+                          type: number
+                          example: 0.0
+                        epa:
+                          type: number
+                          example: 0.0
+                        epaPG:
+                          type: number
+                          example: 0.0
+                        epaRt:
+                          type: number
+                          example: 0.0
+                        epaTgt:
+                          type: number
+                          example: 0.0
+                        ezRec:
+                          type: integer
+                          example: 0
+                        ezRecPG:
+                          type: number
+                          example: 0.0
+                        ezTgt:
+                          type: integer
+                          example: 0
+                        ezTgtPG:
+                          type: number
+                          example: 0.0
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        intPG:
+                          type: number
+                          example: 0.0
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qr:
+                          type: boolean
+                          example: false
+                        rating:
+                          type: number
+                          example: 0.0
+                        rec:
+                          type: integer
+                          example: 0
+                        recPG:
+                          type: number
+                          example: 0.0
+                        rt:
+                          type: integer
+                          example: 1
+                        rtPG:
+                          type: number
+                          example: 1.0
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        td:
+                          type: integer
+                          example: 0
+                        tdPG:
+                          type: number
+                          example: 0.0
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 1
+                        tgt:
+                          type: integer
+                          example: 0
+                        tgtPG:
+                          type: number
+                          example: 0.0
+                        tgtRt:
+                          type: number
+                          example: 0.0
+                        totalTg:
+                          type: integer
+                          example: 17
+                        twPct:
+                          type: number
+                          example: 0.0
+                        xCatch:
+                          type: number
+                          example: 0.0
+                        xYac:
+                          type: integer
+                          example: 0
+                        xYacPG:
+                          type: number
+                          example: 0.0
+                        yac:
+                          type: integer
+                          example: 0
+                        yacPG:
+                          type: number
+                          example: 0.0
+                        yacRec:
+                          type: number
+                          example: 0.0
+                        yacoe:
+                          type: integer
+                          example: 0
+                        yacoePG:
+                          type: number
+                          example: 0.0
+                        yds:
+                          type: integer
+                          example: 0
+                        ydsPG:
+                          type: number
+                          example: 0.0
+                        ydsRec:
+                          type: number
+                          example: 0.0
+                        ydsRt:
+                          type: number
+                          example: 0.0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/players-offense/receiving/week:
+    get:
+      operationId: getPlayersOffenseReceivingWeek
+      summary: Receiving per week.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedReceiver
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      - *id007
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  receivers:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        avgRtDep:
+                          type: integer
+                          example: 0
+                        avgSep:
+                          type: integer
+                          example: 0
+                        ay:
+                          type: integer
+                          example: 0
+                        ayPG:
+                          type: integer
+                          example: 0
+                        ayTgt:
+                          type: integer
+                          example: 0
+                        catch:
+                          type: integer
+                          example: 0
+                        croe:
+                          type: integer
+                          example: 0
+                        deepTgtPct:
+                          type: integer
+                          example: 0
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        drop:
+                          type: integer
+                          example: 0
+                        dropPG:
+                          type: integer
+                          example: 0
+                        dropTgt:
+                          type: integer
+                          example: 0
+                        epa:
+                          type: integer
+                          example: 0
+                        epaPG:
+                          type: integer
+                          example: 0
+                        epaRt:
+                          type: integer
+                          example: 0
+                        epaTgt:
+                          type: integer
+                          example: 0
+                        ezRec:
+                          type: integer
+                          example: 0
+                        ezRecPG:
+                          type: integer
+                          example: 0
+                        ezTgt:
+                          type: integer
+                          example: 0
+                        ezTgtPG:
+                          type: integer
+                          example: 0
+                        fapiGameId:
+                          type: string
+                          example: 45c26800-1313-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 32-20
+                        gameId:
+                          type: integer
+                          example: 2025010511
+                        gameResult:
+                          type: string
+                          example: W
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        intPG:
+                          type: integer
+                          example: 0
+                        isHome:
+                          type: boolean
+                          example: true
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        nflId:
+                          type: string
+                          example: '29851'
+                        ngsPosition:
+                          type: string
+                          example: QB
+                        ngsPositionGroup:
+                          type: string
+                          example: QB
+                        opponentTeamId:
+                          type: string
+                          example: '2700'
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        qr:
+                          type: boolean
+                          example: false
+                        rating:
+                          type: integer
+                          example: 0
+                        rec:
+                          type: integer
+                          example: 0
+                        recPG:
+                          type: integer
+                          example: 0
+                        rt:
+                          type: integer
+                          example: 1
+                        rtPG:
+                          type: integer
+                          example: 1
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        td:
+                          type: integer
+                          example: 0
+                        tdPG:
+                          type: integer
+                          example: 0
+                        teamId:
+                          type: string
+                          example: '3430'
+                        tg:
+                          type: integer
+                          example: 1
+                        tgt:
+                          type: integer
+                          example: 0
+                        tgtPG:
+                          type: integer
+                          example: 0
+                        tgtRt:
+                          type: integer
+                          example: 0
+                        totalTg:
+                          type: integer
+                          example: 1
+                        twPct:
+                          type: integer
+                          example: 0
+                        weekSlug:
+                          type: string
+                          example: WEEK_18
+                        xCatch:
+                          type: integer
+                          example: 0
+                        xYac:
+                          type: integer
+                          example: 0
+                        xYacPG:
+                          type: integer
+                          example: 0
+                        yac:
+                          type: integer
+                          example: 0
+                        yacPG:
+                          type: integer
+                          example: 0
+                        yacRec:
+                          type: integer
+                          example: 0
+                        yacoe:
+                          type: integer
+                          example: 0
+                        yacoePG:
+                          type: integer
+                          example: 0
+                        yds:
+                          type: integer
+                          example: 0
+                        ydsPG:
+                          type: integer
+                          example: 0
+                        ydsRec:
+                          type: integer
+                          example: 0
+                        ydsRt:
+                          type: integer
+                          example: 0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/defense/overview/season:
+    get:
+      operationId: getDefenseOverviewSeason
+      summary: Defensive overview for the season, incl. snap counts, pressures and havoc stops.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedDefender
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defenders:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        displayName:
+                          type: string
+                          example: Calais Campbell
+                        gameSnap:
+                          type: integer
+                          example: 587
+                        gp:
+                          type: integer
+                          example: 17
+                        gs:
+                          type: integer
+                          example: 17
+                        hStop:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        jerseyNumber:
+                          type: integer
+                          example: 93
+                        nflId:
+                          type: string
+                          example: '33131'
+                        ngsPosition:
+                          type: string
+                          example: DT
+                        ngsPositionGroup:
+                          type: string
+                          example: DL
+                        passRatingNd:
+                          type: number
+                          example: 127.31481
+                        position:
+                          type: string
+                          example: DE
+                        positionGroup:
+                          type: string
+                          example: DL
+                        pr:
+                          type: integer
+                          example: 378
+                        qbp:
+                          type: integer
+                          example: 37
+                        qbpR:
+                          type: number
+                          example: 0.09788
+                        qd:
+                          type: boolean
+                          example: true
+                        rd:
+                          type: integer
+                          example: 193
+                        recNd:
+                          type: integer
+                          example: 7
+                        recTdNd:
+                          type: integer
+                          example: 1
+                        recYdsNd:
+                          type: integer
+                          example: 51
+                        sack:
+                          type: number
+                          example: 5.0
+                        shortName:
+                          type: string
+                          example: C.Campbell
+                        snap:
+                          type: integer
+                          example: 587
+                        snapPct:
+                          type: number
+                          example: 0.58004
+                        tStop:
+                          type: integer
+                          example: 44
+                        tck:
+                          type: integer
+                          example: 52
+                        teamId:
+                          type: string
+                          example: '2700'
+                        teamSnap:
+                          type: integer
+                          example: 1012
+                        tg:
+                          type: integer
+                          example: 17
+                        tgtNd:
+                          type: integer
+                          example: 9
+                        totalTg:
+                          type: integer
+                          example: 17
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/defense/overview/week:
+    get:
+      operationId: getDefenseOverviewWeek
+      summary: Defensive overview per week.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedDefender
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      - *id007
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defenders:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        displayName:
+                          type: string
+                          example: Calais Campbell
+                        fapiGameId:
+                          type: string
+                          example: 7d402db2-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 20-17
+                        gameId:
+                          type: integer
+                          example: 2024090805
+                        gameResult:
+                          type: string
+                          example: W
+                        gameSnap:
+                          type: integer
+                          example: 33
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        hStop:
+                          type: integer
+                          example: 0
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        isHome:
+                          type: boolean
+                          example: true
+                        jerseyNumber:
+                          type: integer
+                          example: 93
+                        nflId:
+                          type: string
+                          example: '33131'
+                        ngsPosition:
+                          type: string
+                          example: DT
+                        ngsPositionGroup:
+                          type: string
+                          example: DL
+                        opponentTeamId:
+                          type: string
+                          example: '2250'
+                        passRatingNd:
+                          type: number
+                          example: 0.0
+                        position:
+                          type: string
+                          example: DE
+                        positionGroup:
+                          type: string
+                          example: DL
+                        pr:
+                          type: integer
+                          example: 18
+                        qbp:
+                          type: integer
+                          example: 1
+                        qbpR:
+                          type: number
+                          example: 0.05556
+                        qd:
+                          type: boolean
+                          example: true
+                        rd:
+                          type: integer
+                          example: 13
+                        recNd:
+                          type: integer
+                          example: 0
+                        recTdNd:
+                          type: integer
+                          example: 0
+                        recYdsNd:
+                          type: integer
+                          example: 0
+                        sack:
+                          type: integer
+                          example: 1
+                        shortName:
+                          type: string
+                          example: C.Campbell
+                        snap:
+                          type: integer
+                          example: 33
+                        snapPct:
+                          type: number
+                          example: 0.66
+                        tStop:
+                          type: integer
+                          example: 3
+                        tck:
+                          type: integer
+                          example: 3
+                        teamId:
+                          type: string
+                          example: '2700'
+                        teamSnap:
+                          type: integer
+                          example: 50
+                        tg:
+                          type: integer
+                          example: 1
+                        tgtNd:
+                          type: integer
+                          example: 0
+                        totalTg:
+                          type: integer
+                          example: 1
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/defense/nearest/season:
+    get:
+      operationId: getDefenseNearestSeason
+      summary: Nearest-defender coverage for the season, incl. targets, catch rate and CROE allowed.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedDefender
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defenders:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        bhPct:
+                          type: number
+                          example: 0.55556
+                        catchNd:
+                          type: number
+                          example: 0.77778
+                        cov:
+                          type: integer
+                          example: 16
+                        covNd:
+                          type: integer
+                          example: 16
+                        croeNd:
+                          type: number
+                          example: -0.07646
+                        displayName:
+                          type: string
+                          example: Calais Campbell
+                        gameSnap:
+                          type: integer
+                          example: 587
+                        gp:
+                          type: integer
+                          example: 17
+                        gs:
+                          type: integer
+                          example: 17
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        jerseyNumber:
+                          type: integer
+                          example: 93
+                        nflId:
+                          type: string
+                          example: '33131'
+                        ngsPosition:
+                          type: string
+                          example: DT
+                        ngsPositionGroup:
+                          type: string
+                          example: DL
+                        passRatingNd:
+                          type: number
+                          example: 127.31481
+                        position:
+                          type: string
+                          example: DE
+                        positionGroup:
+                          type: string
+                          example: DL
+                        qd:
+                          type: boolean
+                          example: true
+                        recNd:
+                          type: integer
+                          example: 7
+                        recTdNd:
+                          type: integer
+                          example: 1
+                        recYdsNd:
+                          type: integer
+                          example: 51
+                        sep:
+                          type: number
+                          example: 6.63542
+                        shortName:
+                          type: string
+                          example: C.Campbell
+                        teamId:
+                          type: string
+                          example: '2700'
+                        teamSnap:
+                          type: integer
+                          example: 1012
+                        tg:
+                          type: integer
+                          example: 17
+                        tgtEpaNd:
+                          type: number
+                          example: -0.020018823444843292
+                        tgtNd:
+                          type: integer
+                          example: 9
+                        tgtRNd:
+                          type: number
+                          example: 0.5625
+                        totalTg:
+                          type: integer
+                          example: 17
+                        twfPct:
+                          type: number
+                          example: 0.0
+                        yacprNd:
+                          type: number
+                          example: 8.0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/defense/nearest/week:
+    get:
+      operationId: getDefenseNearestWeek
+      summary: Nearest-defender coverage per week.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: qualifiedDefender
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Restrict to players meeting the league qualifying threshold.
+      - *id007
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defenders:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        bhPct:
+                          type: number
+                          example: 0.0
+                        catchNd:
+                          type: number
+                          example: 0.0
+                        cov:
+                          type: integer
+                          example: 2
+                        covNd:
+                          type: integer
+                          example: 2
+                        croeNd:
+                          type: number
+                          example: 0.0
+                        displayName:
+                          type: string
+                          example: Calais Campbell
+                        fapiGameId:
+                          type: string
+                          example: 7d402db2-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 20-17
+                        gameId:
+                          type: integer
+                          example: 2024090805
+                        gameResult:
+                          type: string
+                          example: W
+                        gameSnap:
+                          type: integer
+                          example: 33
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        int:
+                          type: integer
+                          example: 0
+                        isHome:
+                          type: boolean
+                          example: true
+                        jerseyNumber:
+                          type: integer
+                          example: 93
+                        nflId:
+                          type: string
+                          example: '33131'
+                        ngsPosition:
+                          type: string
+                          example: DT
+                        ngsPositionGroup:
+                          type: string
+                          example: DL
+                        opponentTeamId:
+                          type: string
+                          example: '2250'
+                        passRatingNd:
+                          type: number
+                          example: 0.0
+                        position:
+                          type: string
+                          example: DE
+                        positionGroup:
+                          type: string
+                          example: DL
+                        qd:
+                          type: boolean
+                          example: true
+                        recNd:
+                          type: integer
+                          example: 0
+                        recTdNd:
+                          type: integer
+                          example: 0
+                        recYdsNd:
+                          type: integer
+                          example: 0
+                        sep:
+                          type: number
+                          example: 0.0
+                        shortName:
+                          type: string
+                          example: C.Campbell
+                        teamId:
+                          type: string
+                          example: '2700'
+                        teamSnap:
+                          type: integer
+                          example: 50
+                        tg:
+                          type: integer
+                          example: 1
+                        tgtEpaNd:
+                          type: number
+                          example: 0.0
+                        tgtNd:
+                          type: integer
+                          example: 0
+                        tgtRNd:
+                          type: number
+                          example: 0.0
+                        totalTg:
+                          type: integer
+                          example: 1
+                        twfPct:
+                          type: integer
+                          example: 0
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+                        yacprNd:
+                          type: number
+                          example: 0.0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/team-offense/overview/season:
+    get:
+      operationId: getTeamOffenseOverviewSeason
+      summary: Team offensive overview for the season, incl. EPA per play, pass and rush splits.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  offense:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        epa:
+                          type: number
+                          example: 0.53999
+                        epaPP:
+                          type: number
+                          example: 0.0005
+                        epaPass:
+                          type: number
+                          example: 9.02791
+                        epaPassPP:
+                          type: number
+                          example: 0.01528
+                        epaRush:
+                          type: number
+                          example: -8.48793
+                        epaRushPP:
+                          type: number
+                          example: -0.01715
+                        gp:
+                          type: integer
+                          example: 17
+                        pass:
+                          type: integer
+                          example: 591
+                        passPct:
+                          type: number
+                          example: 0.5442
+                        passYds:
+                          type: integer
+                          example: 4068
+                        passYpg:
+                          type: number
+                          example: 239.29412
+                        passYpp:
+                          type: number
+                          example: 6.88325
+                        ppg:
+                          type: number
+                          example: 22.88235
+                        qbp:
+                          type: integer
+                          example: 213
+                        qbpPct:
+                          type: number
+                          example: 0.35559
+                        run:
+                          type: integer
+                          example: 495
+                        rushYds:
+                          type: integer
+                          example: 2219
+                        rushYpg:
+                          type: number
+                          example: 130.52941
+                        rushYpp:
+                          type: number
+                          example: 4.48283
+                        ryoe:
+                          type: number
+                          example: 257.40412
+                        sackedYds:
+                          type: integer
+                          example: 215
+                        sackedYpg:
+                          type: number
+                          example: 12.64706
+                        td:
+                          type: integer
+                          example: 39
+                        teamId:
+                          type: string
+                          example: '0200'
+                        total:
+                          type: integer
+                          example: 1086
+                        ttt:
+                          type: number
+                          example: 2.70401
+                        yds:
+                          type: integer
+                          example: 6287
+                        ypg:
+                          type: number
+                          example: 369.82353
+                        ypp:
+                          type: number
+                          example: 5.78913
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/team-offense/overview/week:
+    get:
+      operationId: getTeamOffenseOverviewWeek
+      summary: Team offensive overview per week. `nflId` is NOT a parameter here -- verified live it is
+        silently ignored.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  offense:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        epa:
+                          type: number
+                          example: -18.54694
+                        epaPP:
+                          type: number
+                          example: -0.37094
+                        epaPass:
+                          type: number
+                          example: -12.23092
+                        epaPassPP:
+                          type: number
+                          example: -0.43682
+                        epaRush:
+                          type: number
+                          example: -6.31602
+                        epaRushPP:
+                          type: number
+                          example: -0.28709
+                        fapiGameId:
+                          type: string
+                          example: 7d401ff8-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 10-18
+                        gameId:
+                          type: integer
+                          example: 2024090800
+                        gameResult:
+                          type: string
+                          example: L
+                        gp:
+                          type: integer
+                          example: 1
+                        isHome:
+                          type: boolean
+                          example: true
+                        opponentTeamId:
+                          type: string
+                          example: '3900'
+                        pass:
+                          type: integer
+                          example: 28
+                        passPct:
+                          type: number
+                          example: 0.56
+                        passYds:
+                          type: integer
+                          example: 137
+                        passYpg:
+                          type: integer
+                          example: 137
+                        passYpp:
+                          type: number
+                          example: 4.89286
+                        ppg:
+                          type: integer
+                          example: 10
+                        qbp:
+                          type: integer
+                          example: 11
+                        qbpPct:
+                          type: number
+                          example: 0.39286
+                        run:
+                          type: integer
+                          example: 22
+                        rushYds:
+                          type: integer
+                          example: 89
+                        rushYpg:
+                          type: integer
+                          example: 89
+                        rushYpp:
+                          type: number
+                          example: 4.04545
+                        ryoe:
+                          type: number
+                          example: -0.61413
+                        sackedYds:
+                          type: integer
+                          example: 18
+                        sackedYpg:
+                          type: integer
+                          example: 18
+                        td:
+                          type: integer
+                          example: 1
+                        teamId:
+                          type: string
+                          example: '0200'
+                        total:
+                          type: integer
+                          example: 50
+                        ttt:
+                          type: number
+                          example: 2.55084
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+                        yds:
+                          type: integer
+                          example: 226
+                        ypg:
+                          type: integer
+                          example: 226
+                        ypp:
+                          type: number
+                          example: 4.52
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/team-defense/overview/season:
+    get:
+      operationId: getTeamDefenseOverviewSeason
+      summary: Team defensive overview for the season, incl. EPA allowed per play and takeaways.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defense:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        defensiveTouchdown:
+                          type: integer
+                          example: 3
+                        epa:
+                          type: number
+                          example: 19.72105
+                        epaPP:
+                          type: number
+                          example: 0.01848
+                        epaPass:
+                          type: number
+                          example: 29.64428
+                        epaPassPP:
+                          type: number
+                          example: 0.04868
+                        epaRush:
+                          type: number
+                          example: -9.92323
+                        epaRushPP:
+                          type: number
+                          example: -0.02167
+                        forcedFumble:
+                          type: integer
+                          example: 12
+                        fumbleRecovered:
+                          type: integer
+                          example: 5
+                        gp:
+                          type: integer
+                          example: 17
+                        interception:
+                          type: integer
+                          example: 12
+                        pass:
+                          type: integer
+                          example: 609
+                        passPct:
+                          type: number
+                          example: 0.57076
+                        passTd:
+                          type: integer
+                          example: 34
+                        passYds:
+                          type: integer
+                          example: 3817
+                        passYpg:
+                          type: number
+                          example: 224.52941
+                        passYpp:
+                          type: number
+                          example: 6.26765
+                        ppg:
+                          type: number
+                          example: 24.88235
+                        qbp:
+                          type: integer
+                          example: 184
+                        qbpPct:
+                          type: number
+                          example: 0.28092
+                        run:
+                          type: integer
+                          example: 458
+                        rushTd:
+                          type: integer
+                          example: 11
+                        rushYds:
+                          type: integer
+                          example: 2051
+                        rushYpg:
+                          type: number
+                          example: 120.64706
+                        rushYpp:
+                          type: number
+                          example: 4.47817
+                        ryoe:
+                          type: number
+                          example: 84.91764
+                        sackedYds:
+                          type: integer
+                          example: 187
+                        sackedYpg:
+                          type: number
+                          example: 11.0
+                        td:
+                          type: integer
+                          example: 45
+                        teamId:
+                          type: string
+                          example: '0200'
+                        total:
+                          type: integer
+                          example: 1067
+                        totalTakeaways:
+                          type: integer
+                          example: 17
+                        ttt:
+                          type: number
+                          example: 2.83769
+                        yds:
+                          type: integer
+                          example: 5868
+                        ypg:
+                          type: number
+                          example: 345.17647
+                        ypp:
+                          type: number
+                          example: 5.49953
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/team-defense/overview/week:
+    get:
+      operationId: getTeamDefenseOverviewWeek
+      summary: Team defensive overview per week. `nflId` is NOT a parameter here -- verified live it is
+        silently ignored.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  defense:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        defensiveTouchdown:
+                          type: integer
+                          example: 0
+                        epa:
+                          type: number
+                          example: -11.61085
+                        epaPP:
+                          type: number
+                          example: -0.17592
+                        epaPass:
+                          type: number
+                          example: -3.77142
+                        epaPassPP:
+                          type: number
+                          example: -0.15086
+                        epaRush:
+                          type: number
+                          example: -7.83943
+                        epaRushPP:
+                          type: number
+                          example: -0.19121
+                        fapiGameId:
+                          type: string
+                          example: 7d401ff8-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 10-18
+                        forcedFumble:
+                          type: integer
+                          example: 0
+                        fumbleRecovered:
+                          type: integer
+                          example: 0
+                        gameId:
+                          type: integer
+                          example: 2024090800
+                        gameResult:
+                          type: string
+                          example: L
+                        gp:
+                          type: integer
+                          example: 1
+                        interception:
+                          type: integer
+                          example: 0
+                        isHome:
+                          type: boolean
+                          example: true
+                        opponentTeamId:
+                          type: string
+                          example: '3900'
+                        pass:
+                          type: integer
+                          example: 25
+                        passPct:
+                          type: number
+                          example: 0.37879
+                        passTd:
+                          type: integer
+                          example: 0
+                        passYds:
+                          type: integer
+                          example: 133
+                        passYpg:
+                          type: integer
+                          example: 133
+                        passYpp:
+                          type: number
+                          example: 5.32
+                        ppg:
+                          type: integer
+                          example: 18
+                        qbp:
+                          type: integer
+                          example: 8
+                        qbpPct:
+                          type: number
+                          example: 0.28571
+                        run:
+                          type: integer
+                          example: 41
+                        rushTd:
+                          type: integer
+                          example: 0
+                        rushYds:
+                          type: integer
+                          example: 137
+                        rushYpg:
+                          type: integer
+                          example: 137
+                        rushYpp:
+                          type: number
+                          example: 3.34146
+                        ryoe:
+                          type: number
+                          example: -19.32152
+                        sackedYds:
+                          type: integer
+                          example: 23
+                        sackedYpg:
+                          type: integer
+                          example: 23
+                        td:
+                          type: integer
+                          example: 0
+                        teamId:
+                          type: string
+                          example: '0200'
+                        total:
+                          type: integer
+                          example: 66
+                        totalTakeaways:
+                          type: integer
+                          example: 0
+                        ttt:
+                          type: number
+                          example: 3.06491
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+                        yds:
+                          type: integer
+                          example: 270
+                        ypg:
+                          type: integer
+                          example: 270
+                        ypp:
+                          type: number
+                          example: 4.09091
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/fantasy/season:
+    get:
+      operationId: getFantasySeason
+      summary: Fantasy scoring, opportunity and usage for the season.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - *id007
+      - name: positionGroup
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Position group, e.g. `QB`. Optional on this scope.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  players:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        designRushAtt:
+                          type: integer
+                          example: 79
+                        designRushTd:
+                          type: integer
+                          example: 3
+                        designRushYd:
+                          type: integer
+                          example: 481
+                        displayName:
+                          type: string
+                          example: Lamar Jackson
+                        fpHalfPPR:
+                          type: number
+                          example: 428.38
+                        fpKick:
+                          type: integer
+                          example: 0
+                        fpMisc:
+                          type: integer
+                          example: -10
+                        fpPGHalfPPR:
+                          type: number
+                          example: 25.19882
+                        fpPGPPR:
+                          type: number
+                          example: 25.19882
+                        fpPGStd:
+                          type: number
+                          example: 25.19882
+                        fpPOHalfPPR:
+                          type: number
+                          example: 3.08187
+                        fpPOPPR:
+                          type: number
+                          example: 3.08187
+                        fpPOStd:
+                          type: number
+                          example: 3.08187
+                        fpPPR:
+                          type: number
+                          example: 428.38
+                        fpPRtHalfPPR:
+                          type: number
+                          example: 0.0
+                        fpPRtPPR:
+                          type: number
+                          example: 0.0
+                        fpPRtStd:
+                          type: number
+                          example: 0.0
+                        fpPSHalfPPR:
+                          type: number
+                          example: 0.41998
+                        fpPSPPR:
+                          type: number
+                          example: 0.41998
+                        fpPSStd:
+                          type: number
+                          example: 0.41998
+                        fpPTHalfPPR:
+                          type: number
+                          example: 0.0
+                        fpPTPPR:
+                          type: number
+                          example: 0.0
+                        fpPTStd:
+                          type: number
+                          example: 0.0
+                        fpPass:
+                          type: number
+                          example: 322.88
+                        fpPosRkHalfPPR:
+                          type: integer
+                          example: 1
+                        fpPosRkLblHalfPPR:
+                          type: string
+                          example: QB1
+                        fpPosRkLblPPR:
+                          type: string
+                          example: QB1
+                        fpPosRkLblStd:
+                          type: string
+                          example: QB1
+                        fpPosRkPPR:
+                          type: integer
+                          example: 1
+                        fpPosRkStd:
+                          type: integer
+                          example: 1
+                        fpRecHalfPPR:
+                          type: number
+                          example: 0.0
+                        fpRecPPR:
+                          type: number
+                          example: 0.0
+                        fpRecStd:
+                          type: number
+                          example: 0.0
+                        fpRush:
+                          type: number
+                          example: 115.5
+                        fpStd:
+                          type: number
+                          example: 428.38
+                        gp:
+                          type: integer
+                          example: 17
+                        gs:
+                          type: integer
+                          example: 17
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        kickFgAtt:
+                          type: integer
+                          example: 0
+                        kickFgMade:
+                          type: integer
+                          example: 0
+                        kickFgMade40To49:
+                          type: integer
+                          example: 0
+                        kickFgMade50To59:
+                          type: integer
+                          example: 0
+                        kickFgMade60Plus:
+                          type: integer
+                          example: 0
+                        kickFgMadeLess40:
+                          type: integer
+                          example: 0
+                        kickFgMiss:
+                          type: integer
+                          example: 0
+                        kickXpAtt:
+                          type: integer
+                          example: 0
+                        kickXpMade:
+                          type: integer
+                          example: 0
+                        miscBlkPuntFgRetTd:
+                          type: integer
+                          example: 0
+                        miscFum:
+                          type: integer
+                          example: 10
+                        miscFumLost:
+                          type: integer
+                          example: 5
+                        miscFumRecTd:
+                          type: integer
+                          example: 0
+                        miscFumRetTd:
+                          type: integer
+                          example: 0
+                        miscIntRetTd:
+                          type: integer
+                          example: 0
+                        miscKickoffRetTd:
+                          type: integer
+                          example: 0
+                        miscOnePtSafety:
+                          type: integer
+                          example: 0
+                        miscPuntRetTd:
+                          type: integer
+                          example: 0
+                        miscTwoPtRet:
+                          type: integer
+                          example: 0
+                        nflId:
+                          type: string
+                          example: '46101'
+                        oMissTklForced:
+                          type: integer
+                          example: 24
+                        oMissTklForcedPct:
+                          type: number
+                          example: 0.17266
+                        oOpp:
+                          type: integer
+                          example: 139
+                        oOppPG:
+                          type: number
+                          example: 8.17647
+                        oSnap:
+                          type: integer
+                          example: 1020
+                        oSnap3rd:
+                          type: integer
+                          example: 181
+                        oSnapPG:
+                          type: number
+                          example: 60.0
+                        oTmDb:
+                          type: integer
+                          example: 501
+                        oTmPPG:
+                          type: number
+                          example: 30.47059
+                        oTmPassPct:
+                          type: number
+                          example: 0.47488
+                        oTmSnap:
+                          type: integer
+                          example: 1055
+                        oTmYdPG:
+                          type: number
+                          example: 424.94118
+                        oTouch:
+                          type: integer
+                          example: 139
+                        passAtt:
+                          type: integer
+                          example: 474
+                        passAttPG:
+                          type: number
+                          example: 27.88235
+                        passAvgTTT:
+                          type: number
+                          example: 3.14427
+                        passAyPA:
+                          type: number
+                          example: 9.01073
+                        passCmp:
+                          type: integer
+                          example: 316
+                        passCmpPG:
+                          type: number
+                          example: 18.58824
+                        passCmpPct:
+                          type: number
+                          example: 0.66667
+                        passCpoe:
+                          type: number
+                          example: -0.0019400000000000528
+                        passDb:
+                          type: integer
+                          example: 545
+                        passDbPG:
+                          type: number
+                          example: 32.05882
+                        passDeepAttPct:
+                          type: number
+                          example: 0.12869
+                        passExpCmpPct:
+                          type: number
+                          example: 0.66861
+                        passInt:
+                          type: integer
+                          example: 4
+                        passIntPG:
+                          type: number
+                          example: 0.23529
+                        passQbp:
+                          type: integer
+                          example: 178
+                        passQbpPct:
+                          type: number
+                          example: 0.32661
+                        passRating:
+                          type: number
+                          example: 119.62904360056257
+                        passSack:
+                          type: integer
+                          example: 23
+                        passSackPG:
+                          type: number
+                          example: 1.35294
+                        passTd:
+                          type: integer
+                          example: 41
+                        passTdPG:
+                          type: number
+                          example: 2.41176
+                        passTwoPtConv:
+                          type: integer
+                          example: 0
+                        passYacPct:
+                          type: number
+                          example: 0.51713
+                        passYd:
+                          type: integer
+                          example: 4172
+                        passYdPG:
+                          type: number
+                          example: 245.41176
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        ptPct:
+                          type: number
+                          example: 0.96682
+                        ptPct3rd:
+                          type: number
+                          example: 0.94764
+                        recAyPT:
+                          type: number
+                          example: 0.0
+                        recAyRec:
+                          type: integer
+                          example: 0
+                        recAyShare:
+                          type: number
+                          example: 0.0
+                        recAyTgt:
+                          type: integer
+                          example: 0
+                        recAyUnrealized:
+                          type: integer
+                          example: 0
+                        recCatchPct:
+                          type: number
+                          example: 0.0
+                        recExpYac:
+                          type: integer
+                          example: 0
+                        recEzRec:
+                          type: integer
+                          example: 0
+                        recEzTgt:
+                          type: integer
+                          example: 0
+                        recRec:
+                          type: integer
+                          example: 0
+                        recRecPG:
+                          type: number
+                          example: 0.0
+                        recRt:
+                          type: integer
+                          example: 0
+                        recRtPG:
+                          type: number
+                          example: 0.0
+                        recRtPartPct:
+                          type: number
+                          example: 0.0
+                        recRzTgt:
+                          type: integer
+                          example: 0
+                        recTd:
+                          type: integer
+                          example: 0
+                        recTdPG:
+                          type: number
+                          example: 0.0
+                        recTgt:
+                          type: integer
+                          example: 0
+                        recTgtAy10Plus:
+                          type: integer
+                          example: 0
+                        recTgtPG:
+                          type: number
+                          example: 0.0
+                        recTgtPlayAct:
+                          type: integer
+                          example: 0
+                        recTgtQuick:
+                          type: integer
+                          example: 0
+                        recTgtRate:
+                          type: number
+                          example: 0.0
+                        recTgtShare:
+                          type: number
+                          example: 0.0
+                        recTwoPtConv:
+                          type: integer
+                          example: 0
+                        recYac:
+                          type: integer
+                          example: 0
+                        recYacoe:
+                          type: integer
+                          example: 0
+                        recYd:
+                          type: integer
+                          example: 0
+                        recYdPG:
+                          type: number
+                          example: 0.0
+                        recYdPR:
+                          type: number
+                          example: 0.0
+                        recYdPRt:
+                          type: number
+                          example: 0.0
+                        recYdPT:
+                          type: number
+                          example: 0.0
+                        rush10PlusYd:
+                          type: integer
+                          example: 37
+                        rushAtt:
+                          type: integer
+                          example: 139
+                        rushAttPG:
+                          type: number
+                          example: 8.17647
+                        rushExpYd:
+                          type: integer
+                          example: 589
+                        rushGlAtt:
+                          type: integer
+                          example: 7
+                        rushRyoe:
+                          type: integer
+                          example: 326
+                        rushRzAtt:
+                          type: integer
+                          example: 20
+                        rushStuffed:
+                          type: integer
+                          example: 28
+                        rushTd:
+                          type: integer
+                          example: 4
+                        rushTdPG:
+                          type: number
+                          example: 0.23529
+                        rushTwoPtConv:
+                          type: integer
+                          example: 0
+                        rushYaco:
+                          type: number
+                          example: 331.21000058576465
+                        rushYacoPA:
+                          type: number
+                          example: 2.38281
+                        rushYbco:
+                          type: number
+                          example: 585.7899982333183
+                        rushYbcoPA:
+                          type: number
+                          example: 4.21432
+                        rushYd:
+                          type: integer
+                          example: 915
+                        rushYdPA:
+                          type: number
+                          example: 6.58273
+                        rushYdPG:
+                          type: number
+                          example: 53.82353
+                        rzOpp:
+                          type: integer
+                          example: 20
+                        scrRushAtt:
+                          type: integer
+                          example: 48
+                        scrRushPct:
+                          type: number
+                          example: 0.08807
+                        scrRushTd:
+                          type: integer
+                          example: 1
+                        scrRushYd:
+                          type: integer
+                          example: 446
+                        shortName:
+                          type: string
+                          example: L.Jackson
+                        teamId:
+                          type: string
+                          example: '0325'
+                        top12KWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12KWkPPR:
+                          type: integer
+                          example: 0
+                        top12KWkStd:
+                          type: integer
+                          example: 0
+                        top12QBWkHalfPPR:
+                          type: integer
+                          example: 15
+                        top12QBWkPPR:
+                          type: integer
+                          example: 15
+                        top12QBWkStd:
+                          type: integer
+                          example: 15
+                        top12RBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12RBWkPPR:
+                          type: integer
+                          example: 0
+                        top12RBWkStd:
+                          type: integer
+                          example: 0
+                        top12TEWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12TEWkPPR:
+                          type: integer
+                          example: 0
+                        top12TEWkStd:
+                          type: integer
+                          example: 0
+                        top12WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12WRWkPPR:
+                          type: integer
+                          example: 0
+                        top12WRWkStd:
+                          type: integer
+                          example: 0
+                        top24RBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top24RBWkPPR:
+                          type: integer
+                          example: 0
+                        top24RBWkStd:
+                          type: integer
+                          example: 0
+                        top24WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top24WRWkPPR:
+                          type: integer
+                          example: 0
+                        top24WRWkStd:
+                          type: integer
+                          example: 0
+                        top36WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top36WRWkPPR:
+                          type: integer
+                          example: 0
+                        top36WRWkStd:
+                          type: integer
+                          example: 0
+                        top5KWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top5KWkPPR:
+                          type: integer
+                          example: 0
+                        top5KWkStd:
+                          type: integer
+                          example: 0
+                        top5QBWkHalfPPR:
+                          type: integer
+                          example: 10
+                        top5QBWkPPR:
+                          type: integer
+                          example: 10
+                        top5QBWkStd:
+                          type: integer
+                          example: 10
+                        top5TEWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top5TEWkPPR:
+                          type: integer
+                          example: 0
+                        top5TEWkStd:
+                          type: integer
+                          example: 0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/stats/fantasy/game:
+    get:
+      operationId: getFantasyGame
+      summary: Fantasy scoring per player-game.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - *id007
+      - name: positionGroup
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Position group, e.g. `QB`. REQUIRED on this scope -- verified live the route returns
+          HTTP 500 without it.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total matching rows, independent of what this page returned -- the free
+                      truncation detector.
+                  players:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See the companion catalogs/nfl_pro_secured_returns.md
+                        for the full provenance note. Do not fill these in by inference.
+                      properties:
+                        designRushAtt:
+                          type: integer
+                          example: 0
+                        designRushTd:
+                          type: integer
+                          example: 0
+                        designRushYd:
+                          type: integer
+                          example: 0
+                        displayName:
+                          type: string
+                          example: Aaron Rodgers
+                        fapiGameId:
+                          type: string
+                          example: 7d404133-1312-11ef-afd1-646009f18b2e
+                        finalScore:
+                          type: string
+                          example: 19-32
+                        fpHalfPPR:
+                          type: number
+                          example: 8.58
+                        fpKick:
+                          type: integer
+                          example: 0
+                        fpMisc:
+                          type: integer
+                          example: 0
+                        fpPGHalfPPR:
+                          type: number
+                          example: 8.58
+                        fpPGPPR:
+                          type: number
+                          example: 8.58
+                        fpPGStd:
+                          type: number
+                          example: 8.58
+                        fpPOHalfPPR:
+                          type: number
+                          example: 8.58
+                        fpPOPPR:
+                          type: number
+                          example: 8.58
+                        fpPOStd:
+                          type: number
+                          example: 8.58
+                        fpPPR:
+                          type: number
+                          example: 8.58
+                        fpPRtHalfPPR:
+                          type: number
+                          example: 0.0
+                        fpPRtPPR:
+                          type: number
+                          example: 0.0
+                        fpPRtStd:
+                          type: number
+                          example: 0.0
+                        fpPSHalfPPR:
+                          type: number
+                          example: 0.23189
+                        fpPSPPR:
+                          type: number
+                          example: 0.23189
+                        fpPSStd:
+                          type: number
+                          example: 0.23189
+                        fpPTHalfPPR:
+                          type: integer
+                          example: 0
+                        fpPTPPR:
+                          type: integer
+                          example: 0
+                        fpPTStd:
+                          type: integer
+                          example: 0
+                        fpPass:
+                          type: number
+                          example: 8.68
+                        fpPosRkHalfPPR:
+                          type: integer
+                          example: 26
+                        fpPosRkLblHalfPPR:
+                          type: string
+                          example: QB26
+                        fpPosRkLblPPR:
+                          type: string
+                          example: QB26
+                        fpPosRkLblStd:
+                          type: string
+                          example: QB26
+                        fpPosRkPPR:
+                          type: integer
+                          example: 26
+                        fpPosRkStd:
+                          type: integer
+                          example: 26
+                        fpRecHalfPPR:
+                          type: integer
+                          example: 0
+                        fpRecPPR:
+                          type: integer
+                          example: 0
+                        fpRecStd:
+                          type: integer
+                          example: 0
+                        fpRush:
+                          type: number
+                          example: -0.1
+                        fpStd:
+                          type: number
+                          example: 8.58
+                        gameId:
+                          type: integer
+                          example: 2024090900
+                        gameResult:
+                          type: string
+                          example: L
+                        gp:
+                          type: integer
+                          example: 1
+                        gs:
+                          type: integer
+                          example: 1
+                        headshot:
+                          type: string
+                          example: https://static.www.nfl.com/image/uplo
+                        isHome:
+                          type: boolean
+                          example: false
+                        jerseyNumber:
+                          type: integer
+                          example: 8
+                        kickFgAtt:
+                          type: integer
+                          example: 0
+                        kickFgMade:
+                          type: integer
+                          example: 0
+                        kickFgMade40To49:
+                          type: integer
+                          example: 0
+                        kickFgMade50To59:
+                          type: integer
+                          example: 0
+                        kickFgMade60Plus:
+                          type: integer
+                          example: 0
+                        kickFgMadeLess40:
+                          type: integer
+                          example: 0
+                        kickFgMiss:
+                          type: integer
+                          example: 0
+                        kickXpAtt:
+                          type: integer
+                          example: 0
+                        kickXpMade:
+                          type: integer
+                          example: 0
+                        miscBlkPuntFgRetTd:
+                          type: integer
+                          example: 0
+                        miscFum:
+                          type: integer
+                          example: 0
+                        miscFumLost:
+                          type: integer
+                          example: 0
+                        miscFumRecTd:
+                          type: integer
+                          example: 0
+                        miscFumRetTd:
+                          type: integer
+                          example: 0
+                        miscIntRetTd:
+                          type: integer
+                          example: 0
+                        miscKickoffRetTd:
+                          type: integer
+                          example: 0
+                        miscOnePtSafety:
+                          type: integer
+                          example: 0
+                        miscPuntRetTd:
+                          type: integer
+                          example: 0
+                        miscTwoPtRet:
+                          type: integer
+                          example: 0
+                        nflId:
+                          type: string
+                          example: '29851'
+                        oMissTklForced:
+                          type: integer
+                          example: 0
+                        oMissTklForcedPct:
+                          type: integer
+                          example: 0
+                        oOpp:
+                          type: integer
+                          example: 1
+                        oOppPG:
+                          type: integer
+                          example: 1
+                        oSnap:
+                          type: integer
+                          example: 37
+                        oSnap3rd:
+                          type: integer
+                          example: 8
+                        oSnapPG:
+                          type: integer
+                          example: 37
+                        oTmDb:
+                          type: integer
+                          example: 30
+                        oTmPPG:
+                          type: integer
+                          example: 19
+                        oTmPassPct:
+                          type: number
+                          example: 0.61224
+                        oTmSnap:
+                          type: integer
+                          example: 49
+                        oTmYdPG:
+                          type: integer
+                          example: 266
+                        oTouch:
+                          type: integer
+                          example: 1
+                        opponentTeamId:
+                          type: string
+                          example: '4500'
+                        passAtt:
+                          type: integer
+                          example: 21
+                        passAttPG:
+                          type: integer
+                          example: 21
+                        passAvgTTT:
+                          type: number
+                          example: 2.47319
+                        passAyPA:
+                          type: number
+                          example: 6.34333
+                        passCmp:
+                          type: integer
+                          example: 13
+                        passCmpPG:
+                          type: integer
+                          example: 13
+                        passCmpPct:
+                          type: number
+                          example: 0.61905
+                        passCpoe:
+                          type: number
+                          example: -0.08872999999999998
+                        passDb:
+                          type: integer
+                          example: 22
+                        passDbPG:
+                          type: integer
+                          example: 22
+                        passDeepAttPct:
+                          type: number
+                          example: 0.09524
+                        passExpCmpPct:
+                          type: number
+                          example: 0.70778
+                        passInt:
+                          type: integer
+                          example: 1
+                        passIntPG:
+                          type: integer
+                          example: 1
+                        passQbp:
+                          type: integer
+                          example: 6
+                        passQbpPct:
+                          type: number
+                          example: 0.27273
+                        passRating:
+                          type: number
+                          example: 82.83730158730158
+                        passSack:
+                          type: integer
+                          example: 1
+                        passSackPG:
+                          type: integer
+                          example: 1
+                        passTd:
+                          type: integer
+                          example: 1
+                        passTdPG:
+                          type: integer
+                          example: 1
+                        passTwoPtConv:
+                          type: integer
+                          example: 0
+                        passYacPct:
+                          type: number
+                          example: 0.6306
+                        passYd:
+                          type: integer
+                          example: 167
+                        passYdPG:
+                          type: integer
+                          example: 167
+                        position:
+                          type: string
+                          example: QB
+                        positionGroup:
+                          type: string
+                          example: QB
+                        ptPct:
+                          type: number
+                          example: 0.7551
+                        ptPct3rd:
+                          type: number
+                          example: 0.8
+                        recAyPT:
+                          type: integer
+                          example: 0
+                        recAyRec:
+                          type: integer
+                          example: 0
+                        recAyShare:
+                          type: integer
+                          example: 0
+                        recAyTgt:
+                          type: integer
+                          example: 0
+                        recAyUnrealized:
+                          type: integer
+                          example: 0
+                        recCatchPct:
+                          type: integer
+                          example: 0
+                        recExpYac:
+                          type: integer
+                          example: 0
+                        recEzRec:
+                          type: integer
+                          example: 0
+                        recEzTgt:
+                          type: integer
+                          example: 0
+                        recRec:
+                          type: integer
+                          example: 0
+                        recRecPG:
+                          type: integer
+                          example: 0
+                        recRt:
+                          type: integer
+                          example: 0
+                        recRtPG:
+                          type: integer
+                          example: 0
+                        recRtPartPct:
+                          type: number
+                          example: 0.0
+                        recRzTgt:
+                          type: integer
+                          example: 0
+                        recTd:
+                          type: integer
+                          example: 0
+                        recTdPG:
+                          type: integer
+                          example: 0
+                        recTgt:
+                          type: integer
+                          example: 0
+                        recTgtAy10Plus:
+                          type: integer
+                          example: 0
+                        recTgtPG:
+                          type: integer
+                          example: 0
+                        recTgtPlayAct:
+                          type: integer
+                          example: 0
+                        recTgtQuick:
+                          type: integer
+                          example: 0
+                        recTgtRate:
+                          type: integer
+                          example: 0
+                        recTgtShare:
+                          type: integer
+                          example: 0
+                        recTwoPtConv:
+                          type: integer
+                          example: 0
+                        recYac:
+                          type: integer
+                          example: 0
+                        recYacoe:
+                          type: integer
+                          example: 0
+                        recYd:
+                          type: integer
+                          example: 0
+                        recYdPG:
+                          type: integer
+                          example: 0
+                        recYdPR:
+                          type: integer
+                          example: 0
+                        recYdPRt:
+                          type: integer
+                          example: 0
+                        recYdPT:
+                          type: integer
+                          example: 0
+                        rush10PlusYd:
+                          type: integer
+                          example: 0
+                        rushAtt:
+                          type: integer
+                          example: 1
+                        rushAttPG:
+                          type: integer
+                          example: 1
+                        rushExpYd:
+                          type: integer
+                          example: 0
+                        rushGlAtt:
+                          type: integer
+                          example: 0
+                        rushRyoe:
+                          type: integer
+                          example: -1
+                        rushRzAtt:
+                          type: integer
+                          example: 0
+                        rushStuffed:
+                          type: integer
+                          example: 1
+                        rushTd:
+                          type: integer
+                          example: 0
+                        rushTdPG:
+                          type: integer
+                          example: 0
+                        rushTwoPtConv:
+                          type: integer
+                          example: 0
+                        rushYaco:
+                          type: number
+                          example: 0.0
+                        rushYacoPA:
+                          type: number
+                          example: 0.0
+                        rushYbco:
+                          type: number
+                          example: 0.0
+                        rushYbcoPA:
+                          type: number
+                          example: 0.0
+                        rushYd:
+                          type: integer
+                          example: -1
+                        rushYdPA:
+                          type: number
+                          example: -1.0
+                        rushYdPG:
+                          type: integer
+                          example: -1
+                        rzOpp:
+                          type: integer
+                          example: 0
+                        scrRushAtt:
+                          type: integer
+                          example: 0
+                        scrRushPct:
+                          type: number
+                          example: 0.0
+                        scrRushTd:
+                          type: integer
+                          example: 0
+                        scrRushYd:
+                          type: integer
+                          example: 0
+                        shortName:
+                          type: string
+                          example: A.Rodgers
+                        teamId:
+                          type: string
+                          example: '3430'
+                        top12KWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12KWkPPR:
+                          type: integer
+                          example: 0
+                        top12KWkStd:
+                          type: integer
+                          example: 0
+                        top12QBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12QBWkPPR:
+                          type: integer
+                          example: 0
+                        top12QBWkStd:
+                          type: integer
+                          example: 0
+                        top12RBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12RBWkPPR:
+                          type: integer
+                          example: 0
+                        top12RBWkStd:
+                          type: integer
+                          example: 0
+                        top12TEWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12TEWkPPR:
+                          type: integer
+                          example: 0
+                        top12TEWkStd:
+                          type: integer
+                          example: 0
+                        top12WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top12WRWkPPR:
+                          type: integer
+                          example: 0
+                        top12WRWkStd:
+                          type: integer
+                          example: 0
+                        top24RBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top24RBWkPPR:
+                          type: integer
+                          example: 0
+                        top24RBWkStd:
+                          type: integer
+                          example: 0
+                        top24WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top24WRWkPPR:
+                          type: integer
+                          example: 0
+                        top24WRWkStd:
+                          type: integer
+                          example: 0
+                        top36WRWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top36WRWkPPR:
+                          type: integer
+                          example: 0
+                        top36WRWkStd:
+                          type: integer
+                          example: 0
+                        top5KWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top5KWkPPR:
+                          type: integer
+                          example: 0
+                        top5KWkStd:
+                          type: integer
+                          example: 0
+                        top5QBWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top5QBWkPPR:
+                          type: integer
+                          example: 0
+                        top5QBWkStd:
+                          type: integer
+                          example: 0
+                        top5TEWkHalfPPR:
+                          type: integer
+                          example: 0
+                        top5TEWkPPR:
+                          type: integer
+                          example: 0
+                        top5TEWkStd:
+                          type: integer
+                          example: 0
+                        weekSlug:
+                          type: string
+                          example: WEEK_1
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: User-bound access token obtained via the id.nfl.com browser login flow (see info.description).
+        Must carry an ACTIVE NFL_PLUS_* plan in its `plans` claim.
