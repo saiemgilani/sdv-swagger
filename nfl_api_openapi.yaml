@@ -41,6 +41,8 @@ tags:
     description: /football/v2 data resources.
   - name: experience
     description: /experience game-detail resources.
+  - name: live
+    description: /live/v1 streaming listings.
 security:
   - bearerAuth: []
 paths:
@@ -317,7 +319,7 @@ paths:
       summary: Live player box score for one game (awayTeam.players[] / homeTeam.players[]).
       tags: [football]
       description: |
-        Each side is `{teamId, players[]}`; a player row carries `gsisPlayerId`,
+        Accepts `simulationDisabled` (seen in the web SDK). Each side is `{teamId, players[]}`; a player row carries `gsisPlayerId`,
         `gsisPlayerJerseyNumber`, `gsisPlayerName`, `personId` and every stat
         family's counting stats.
       parameters:
@@ -399,6 +401,163 @@ paths:
         - {$ref: "#/components/parameters/includeReplays"}
       responses:
         "200": {$ref: "#/components/responses/GameDetailV2"}
+  /football/v2/games/{gameId}:
+    get:
+      operationId: getGame
+      summary: One game by Shield uuid (the games-list record).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/standings/latest:
+    get:
+      operationId: getStandingsLatest
+      summary: Latest standings snapshot for a season type (weeks[] + pagination).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: query, required: true, schema: {type: integer}}
+        - {name: seasonType, in: query, required: true, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/weeks/latest-replays:
+    get:
+      operationId: getWeekLatestReplays
+      summary: The most recent week with replays available (one week object).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters: []
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/teams/markets:
+    get:
+      operationId: getTeamMarkets
+      summary: Team markets (data[] + pagination).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters: []
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/prospects/profiles:
+    get:
+      operationId: getProspectProfiles
+      summary: Draft prospect profiles for a year (profiles[] + pagination).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: year, in: query, required: true, schema: {type: integer}}
+        - {name: limit, in: query, required: false, schema: {type: integer}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/prospects/draft/report:
+    get:
+      operationId: getProspectDraftReport
+      summary: Draft report for a year (draftState, days, picks).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: year, in: query, required: true, schema: {type: integer}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/prospects/draft/team-needs:
+    get:
+      operationId: getProspectTeamNeeds
+      summary: Team needs for a draft year (teams[]).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: year, in: query, required: true, schema: {type: integer}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/stats/historical/season/{season}/seasonType/{seasonType}/team/{teamId}:
+    get:
+      operationId: getHistoricalTeamSeasonStats
+      summary: A team's season statistics and lineup.
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+        - {name: seasonType, in: path, required: true, schema: {type: string}}
+        - {name: teamId, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/stats/historical/season/{season}/seasonType/{seasonType}/team/{teamId}/persons:
+    get:
+      operationId: getHistoricalTeamSeasonPersonStats
+      summary: Per-player season statistics for a team (data[] + pagination).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+        - {name: seasonType, in: path, required: true, schema: {type: string}}
+        - {name: teamId, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/stats/historical/game/{gameId}/persons/team/{teamId}:
+    get:
+      operationId: getHistoricalGameTeamPersonStats
+      summary: Per-player statistics for one team in one game (game, team, personStats[]).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none. Near-empty for an in-progress game.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+        - {name: teamId, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /football/v2/experience/playoffs/games/season/{season}:
+    get:
+      operationId: getPlayoffGames
+      summary: Playoff bracket games for a season (weeks[]).
+      tags: [football]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /experience/v1/gamedetails/season/{season}/team/{teamId}:
+    get:
+      operationId: getTeamSeasonGameDetails
+      summary: Every game detail for a team-season, paged (games[] + pageToken; ~1.3 MB).
+      tags: [experience]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+        - {name: teamId, in: path, required: true, schema: {type: string}}
+        - {name: pageToken, in: query, required: false, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /experience/v2/gamedetails/season/{season}/team/{teamId}:
+    get:
+      operationId: getTeamSeasonGameDetailsV2
+      summary: Every v2 game detail for a team-season, paged (games[] + pageToken).
+      tags: [experience]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters:
+        - {name: season, in: path, required: true, schema: {type: integer}}
+        - {name: teamId, in: path, required: true, schema: {type: string}}
+        - {name: pageToken, in: query, required: false, schema: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /live/v1/livestreams:
+    get:
+      operationId: getLivestreams
+      summary: Current livestreams (items[] + metadata + pagination).
+      tags: [live]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters: []
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /live/v1/nflnetwork:
+    get:
+      operationId: getNflNetwork
+      summary: NFL Network schedule/stream listing (items[] + metadata + pagination).
+      tags: [live]
+      description: Found in the www.nfl.com web SDK (chunk 7516) and verified 2026-09-15 -- 200 with the anonymous device token, 401 with none.
+      parameters: []
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
 components:
   securitySchemes:
     bearerAuth:
