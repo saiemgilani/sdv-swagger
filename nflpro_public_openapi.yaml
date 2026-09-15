@@ -1,0 +1,253 @@
+openapi: 3.1.0
+info:
+  title: NFL Pro public API (pro.nfl.com/api) — unofficial
+  version: 0.1.0-rev2026.09
+  summary: Reverse-engineered spec for the unauthenticated tier of pro.nfl.com's API.
+  description: |
+    Unofficial OpenAPI description of the **public** tier of `pro.nfl.com/api/*` --
+    every route here answered HTTP 200 with **no `Authorization` header and no
+    cookies** (verified 2026-09-15, during a live game). The subscriber-only
+    `/api/secured/*` tier is described separately in `nflpro-secured.openapi.yaml`.
+
+    **Ids.** This host keys teams by the 4-digit NGS team id (`2310` = KC, from
+    `/teams/all`) and games by the NGS `gameId` (`2026091400`, = the Shield game's
+    `elias` external id). `/schedules/game` is the exception: it takes the Shield
+    uuid as `fapiGameId` and returns both. Passing a Shield *team* uuid to
+    `/teams/roster` returns HTTP 200 with an empty `teamPlayers` list -- no error.
+
+    Schemas are intentionally shallow (documented wrapper keys + free-form items).
+    Sample bodies: `captures/public/2026-09-14/`.
+  x-nfl-schema-source: live-captured-2026-09-15 (no auth)
+  contact:
+    name: sdv-internal-refs
+  license:
+    name: Reference only
+servers:
+  - url: https://pro.nfl.com
+    description: NFL Pro web host
+tags:
+  - name: schedules
+  - name: scores
+  - name: teams
+  - name: stats
+security: []
+paths:
+  /api/schedules/current:
+    get:
+      operationId: getCurrentSchedule
+      summary: The current week's games (games[] plus season/seasonType/week and games-played counts).
+      tags: [schedules]
+      responses:
+        "200": {$ref: "#/components/responses/GamesWrapper"}
+  /api/schedules/weeks:
+    get:
+      operationId: getScheduleWeeks
+      summary: Week calendar for a season (weeks[] + pagination).
+      tags: [schedules]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+      responses:
+        "200":
+          description: Weeks list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  weeks: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  pagination: {$ref: "#/components/schemas/Item"}
+                  season: {type: string}
+  /api/schedules/games:
+    get:
+      operationId: getScheduleGames
+      summary: Games for a season/week (games[]).
+      tags: [schedules]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200": {$ref: "#/components/responses/GamesWrapper"}
+  /api/schedules/game:
+    get:
+      operationId: getScheduleGame
+      summary: One game's schedule record, looked up by Shield uuid (returns NGS gameId, gameKey and smartId).
+      tags: [schedules]
+      parameters:
+        - name: fapiGameId
+          in: query
+          required: true
+          schema: {type: string, format: uuid}
+          example: a9a890ed-4feb-11f1-abca-2c54536568a9
+          description: Shield ("football API") game uuid.
+      responses:
+        "200": {$ref: "#/components/responses/Object"}
+  /api/schedules/standings:
+    get:
+      operationId: getScheduleStandings
+      summary: Standings snapshot (weeks[].standings + pagination).
+      tags: [schedules]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+      responses:
+        "200":
+          description: Standings nested under weeks[].
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  weeks: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  pagination: {$ref: "#/components/schemas/Item"}
+  /api/schedules/week/odds:
+    get:
+      operationId: getWeekOdds
+      summary: Betting odds per game for a season/week (games[]).
+      tags: [schedules]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200": {$ref: "#/components/responses/GamesWrapper"}
+  /api/scores/live/games:
+    get:
+      operationId: getLiveScores
+      summary: Live scoreboard for a season/week (games[] with clock, quarter, score).
+      tags: [scores]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200": {$ref: "#/components/responses/GamesWrapper"}
+  /api/teams/all:
+    get:
+      operationId: getAllTeams
+      summary: Team directory (bare list; teamId, abbr, colors, slug, names).
+      tags: [teams]
+      responses:
+        "200":
+          description: A bare JSON array of teams (34 incl. Pro Bowl sides).
+          content:
+            application/json:
+              schema: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /api/teams/roster:
+    get:
+      operationId: getTeamRoster
+      summary: A team's season roster (team + teamPlayers[]).
+      tags: [teams]
+      parameters:
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/teamId"}
+      responses:
+        "200": {$ref: "#/components/responses/RosterWrapper"}
+  /api/teams/rosterWeek:
+    get:
+      operationId: getTeamRosterWeek
+      summary: A team's roster as of a week (team + teamPlayers[]).
+      tags: [teams]
+      parameters:
+        - {$ref: "#/components/parameters/teamId"}
+        - {$ref: "#/components/parameters/season"}
+        - {$ref: "#/components/parameters/seasonType"}
+        - {$ref: "#/components/parameters/week"}
+      responses:
+        "200": {$ref: "#/components/responses/RosterWrapper"}
+  /api/stats/boxscore:
+    get:
+      operationId: getBoxscore
+      summary: Per-game box score (schedule + home/away team and player stats).
+      tags: [stats]
+      description: |
+        Keyed by NGS `gameId`. Answers anonymously here although the same
+        per-game lookup on `nextgenstats.nfl.com/api` is an explicit-deny 403.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200":
+          description: Box score for both sides.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId: {type: integer}
+                  schedule: {$ref: "#/components/schemas/Item"}
+                  home: {$ref: "#/components/schemas/Item"}
+                  away: {$ref: "#/components/schemas/Item"}
+  /api/stats/gamecenter:
+    get:
+      operationId: getGamecenter
+      summary: Per-game NGS game-center summary (passers, rushers, receivers, pass rushers, leaders).
+      tags: [stats]
+      description: Same payload as `nextgenstats.nfl.com/api/gamecenter/overview`.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200":
+          description: Game-center sections.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schedule: {$ref: "#/components/schemas/Item"}
+                  passers: {$ref: "#/components/schemas/Item"}
+                  rushers: {$ref: "#/components/schemas/Item"}
+                  receivers: {$ref: "#/components/schemas/Item"}
+                  passRushers: {$ref: "#/components/schemas/Item"}
+                  leaders: {$ref: "#/components/schemas/Item"}
+components:
+  parameters:
+    season: {name: season, in: query, required: true, schema: {type: integer}, example: 2026}
+    seasonType: {name: seasonType, in: query, required: true, schema: {type: string, enum: [PRE, REG, POST]}}
+    week: {name: week, in: query, required: true, schema: {type: integer}, example: 1}
+    teamId:
+      name: teamId
+      in: query
+      required: true
+      schema: {type: string, pattern: "^[0-9]{4}$"}
+      example: "2310"
+      description: 4-digit NGS team id from /api/teams/all. A Shield team uuid returns an empty teamPlayers list.
+    gameId:
+      name: gameId
+      in: query
+      required: true
+      schema: {type: integer}
+      example: 2026091400
+      description: NGS game id (YYYYMMDDNN), = the Shield game's `elias` external id.
+  schemas:
+    Item:
+      type: object
+      additionalProperties: true
+      description: A free-form resource object (shape varies by endpoint).
+  responses:
+    Object:
+      description: A single resource object.
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Item"}
+    GamesWrapper:
+      description: Games for the slice under games[].
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              games: {type: array, items: {$ref: "#/components/schemas/Item"}}
+              season: {type: [string, integer]}
+              seasonType: {type: string}
+              week: {type: [string, integer]}
+    RosterWrapper:
+      description: Team plus its players.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              season: {type: integer}
+              team: {$ref: "#/components/schemas/Item"}
+              teamPlayers: {type: array, items: {$ref: "#/components/schemas/Item"}}
