@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: NFL.com API (api.nfl.com) — unofficial
-  version: 0.1.0-rev2026.06
+  version: 0.2.0-rev2026.09
   summary: Reverse-engineered spec for the modern NFL.com data API (NFL "Shield").
   description: |
     Unofficial OpenAPI description of the modern **`api.nfl.com`** ("Shield") data
@@ -16,7 +16,17 @@ info:
     NFL.com account is involved. This is **not** an official, supported API.
     Schemas are intentionally shallow (documented wrapper keys + a free-form item
     shape) since the payloads are large and evolve.
-  x-nfl-schema-source: code+captured-2026-06
+
+    **Game identifiers.** A game carries four ids: the Shield uuid (path param
+    `gameId` below), plus `externalIds` from the games list -- `elias`
+    (`YYYYMMDDNN`, = Next Gen Stats `gameId`), `gsis` (= NGS `gameKey`) and
+    `slug` (`broncos-at-chiefs-2026-reg-1`, = the nfl.com `/games/{slug}` page).
+    The Shield uuid is also NGS's `gameSmartId`.
+
+    **Live.** The `/football/v2/stats/live/*` game routes and both game-detail
+    routes answered during an in-progress game (2026-09-15, DEN@KC) with the
+    anonymous token; sample bodies are in `captures/shield/2026-09-14/`.
+  x-nfl-schema-source: code+captured-2026-06+captured-2026-09-14
   contact:
     name: sdv-internal-refs
   license:
@@ -267,19 +277,118 @@ paths:
                 properties:
                   games: {type: array, items: {$ref: "#/components/schemas/Item"}}
                   pagination: {$ref: "#/components/schemas/Item"}
-  /experience/v1/game/{gameId}:
+  /football/v2/stats/live/team-statistics/{gameId}:
+    get:
+      operationId: getLiveTeamStatistics
+      summary: Live team box score for one game (awayTeam / homeTeam stat objects).
+      tags: [football]
+      description: |
+        One flat object per side with ~100 counting stats (`firstDownsPassing`,
+        `defensiveSacks`, `fieldGoalsLongestMade`, ...). `offset` advances during
+        the game (97 when captured mid-1st-quarter) and appears to be the feed
+        position the stats reflect.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200":
+          description: Team statistics for both sides.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId: {type: string}
+                  offset: {type: integer}
+                  awayTeam: {$ref: "#/components/schemas/Item"}
+                  homeTeam: {$ref: "#/components/schemas/Item"}
+  /football/v2/stats/live/player-statistics/{gameId}:
+    get:
+      operationId: getLivePlayerStatistics
+      summary: Live player box score for one game (awayTeam.players[] / homeTeam.players[]).
+      tags: [football]
+      description: |
+        Each side is `{teamId, players[]}`; a player row carries `gsisPlayerId`,
+        `gsisPlayerJerseyNumber`, `gsisPlayerName`, `personId` and every stat
+        family's counting stats.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200":
+          description: Player statistics for both sides.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId: {type: string}
+                  offset: {type: integer}
+                  awayTeam:
+                    type: object
+                    properties:
+                      teamId: {type: string}
+                      players: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  homeTeam:
+                    type: object
+                    properties:
+                      teamId: {type: string}
+                      players: {type: array, items: {$ref: "#/components/schemas/Item"}}
+  /experience/v1/gamedetails/{gameId}:
     get:
       operationId: getGameDetails
-      summary: Single-game experience detail (drive chart, plays, scoring).
+      summary: Single-game experience detail, v1 shape (everything under `data`).
       tags: [experience]
+      description: |
+        Drives, plays and scoring for one game. The payload is wrapped in a single
+        `data` key. This path was previously documented as `/experience/v1/game/{gameId}`,
+        which answers 404; `gamedetails` is the live route (verified 2026-09-15).
       parameters:
-        - name: gameId
+        - {$ref: "#/components/parameters/gameId"}
+      responses:
+        "200":
+          description: Game detail under `data`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: "#/components/schemas/Item"}
+  /experience/v2/gamedetails/{gameId}:
+    get:
+      operationId: getGameDetailsV2
+      summary: Single-game experience detail, v2 flat shape (game + summary, driveChart, replays, standings).
+      tags: [experience]
+      description: |
+        The current nfl.com game page's call. Game fields sit at the top level
+        (the games-list shape plus `externalIds`); the `include*` flags add
+        `driveChart`, `replays`, `homeTeamStandings`/`awayTeamStandings` and
+        tagged videos, and change the payload from ~26 KB to ~113 KB.
+      parameters:
+        - {$ref: "#/components/parameters/gameId"}
+        - {$ref: "#/components/parameters/includeDriveChart"}
+        - {$ref: "#/components/parameters/includeReplays"}
+        - {$ref: "#/components/parameters/includeStandings"}
+        - {$ref: "#/components/parameters/includeTaggedVideos"}
+      responses:
+        "200": {$ref: "#/components/responses/GameDetailV2"}
+  /experience/v1/gamedetailsbyslug/{slug}:
+    get:
+      operationId: getGameDetailsBySlug
+      summary: Single-game experience detail looked up by nfl.com slug.
+      tags: [experience]
+      description: |
+        Same flat game-detail shape as v2, keyed by the `slug` external id
+        (`{away-nickname}-at-{home-nickname}-{season}-{seasonType}-{week}`) -- the
+        last path segment of the nfl.com game page URL.
+      parameters:
+        - name: slug
           in: path
           required: true
           schema: {type: string}
-          description: The uuid game id from the games / weekly-game-details lists.
+          example: broncos-at-chiefs-2026-reg-1
+          description: The `slug` external id from the games list.
+        - {$ref: "#/components/parameters/includeReplays"}
       responses:
-        "200": {$ref: "#/components/responses/Object"}
+        "200": {$ref: "#/components/responses/GameDetailV2"}
 components:
   securitySchemes:
     bearerAuth:
@@ -288,6 +397,17 @@ components:
       bearerFormat: JWT
       description: Bearer accessToken minted at POST /identity/v3/token (plus X-Domain-Id 100).
   parameters:
+    gameId:
+      name: gameId
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+      example: a9a890ed-4feb-11f1-abca-2c54536568a9
+      description: The Shield uuid game id (`id` in the games / weekly-game-details lists).
+    includeDriveChart: {name: includeDriveChart, in: query, schema: {type: boolean, default: false}}
+    includeReplays: {name: includeReplays, in: query, schema: {type: boolean, default: false}}
+    includeStandings: {name: includeStandings, in: query, schema: {type: boolean, default: false}}
+    includeTaggedVideos: {name: includeTaggedVideos, in: query, schema: {type: boolean, default: false}}
     season:
       name: season
       in: query
@@ -328,6 +448,33 @@ components:
       content:
         application/json:
           schema: {$ref: "#/components/schemas/Item"}
+    GameDetailV2:
+      description: Flat game detail -- game fields at the top level plus optional sections.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+            properties:
+              id: {type: string, format: uuid}
+              externalIds:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    source: {type: string, enum: [elias, gsis, slug]}
+                    id: {type: string}
+              season: {type: integer}
+              seasonType: {$ref: "#/components/schemas/SeasonTypeStr"}
+              week: {type: integer}
+              status: {type: string}
+              homeTeam: {$ref: "#/components/schemas/Item"}
+              awayTeam: {$ref: "#/components/schemas/Item"}
+              summary: {$ref: "#/components/schemas/Item"}
+              driveChart: {$ref: "#/components/schemas/Item"}
+              replays: {type: array, items: {$ref: "#/components/schemas/Item"}}
+              homeTeamStandings: {$ref: "#/components/schemas/Item"}
+              awayTeamStandings: {$ref: "#/components/schemas/Item"}
     WeeksWrapper:
       description: Records nested under weeks[] (each week carrying its own list).
       content:
