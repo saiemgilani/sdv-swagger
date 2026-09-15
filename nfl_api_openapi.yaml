@@ -92,20 +92,30 @@ paths:
   /football/v2/rosters:
     get:
       operationId: getRosters
-      summary: Team rosters for a season (rosters[]).
+      summary: Team rosters for a season (rosters[]), optionally one team.
       tags: [football]
       parameters:
         - {$ref: "#/components/parameters/season"}
         - {$ref: "#/components/parameters/limit"}
+        - name: teamId
+          in: query
+          required: false
+          schema: {type: string, format: uuid}
+          example: 10401400-b89b-96e5-55d1-caa7e18de3d8
+          description: |
+            Shield team uuid. Returns just that team's roster (DEN 2026: 1 roster,
+            37 KB) instead of all 32 (1.2 MB). The nfl.com game page calls it once
+            per side.
       responses:
         "200":
-          description: One entry per team roster under `rosters`.
+          description: One entry per team roster (`season`, `seasonType`, `team`, `persons[]`) under `rosters`, plus `pagination`.
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   rosters: {type: array, items: {$ref: "#/components/schemas/Item"}}
+                  pagination: {$ref: "#/components/schemas/Item"}
   /football/v2/teams/history:
     get:
       operationId: getTeamsHistory
