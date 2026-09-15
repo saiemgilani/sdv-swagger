@@ -3972,6 +3972,250 @@ paths:
         '500':
           description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
             -- the body's `statusText` usually names the failed request.
+  /api/secured/plays/playlist/game:
+    get:
+      operationId: getPlaysPlaylistGame
+      summary: Every play of one game (description, down/distance, scoring, playStats, nflIds); live during
+        the game.
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - &id008
+        name: gameId
+        in: query
+        required: true
+        schema:
+          type: integer
+        example: 2026091400
+        description: NGS game id (YYYYMMDDNN) -- the Shield game's `elias` external id.
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId:
+                    type: integer
+                  gameKey:
+                    type: integer
+                  plays:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
+                      properties:
+                        defense:
+                          type: string
+                        down:
+                          type: integer
+                          example: 0
+                        endGameClock:
+                          type: string
+                          example: '15:00'
+                        gameId:
+                          type: integer
+                          example: 2026091400
+                        homeScore:
+                          type: integer
+                          example: 0
+                        isBigPlay:
+                          type: boolean
+                          example: false
+                        isMarkerPlay:
+                          type: boolean
+                          example: true
+                        isRedzonePlay:
+                          type: boolean
+                          example: false
+                        isSTPlay:
+                          type: boolean
+                          example: false
+                        isScoring:
+                          type: boolean
+                          example: false
+                        nflIds:
+                          type: string
+                        offense:
+                          type: string
+                        passInfo:
+                          type: string
+                        playDescription:
+                          type: string
+                          example: GAME
+                        playId:
+                          type: integer
+                          example: 1
+                        playState:
+                          type: string
+                          example: UNOFFICIAL
+                        playStats:
+                          type: string
+                        playType:
+                          type: string
+                          example: play_type_unknown
+                        possessionTeam:
+                          type: string
+                          example: ''
+                        possessionTeamId:
+                          type: string
+                          example: '1400'
+                        quarter:
+                          type: integer
+                          example: 1
+                        recInfo:
+                          type: string
+                        season:
+                          type: integer
+                          example: 2026
+                        seasonType:
+                          type: string
+                          example: REG
+                        sequence:
+                          type: number
+                          example: 1.0
+                        startGameClock:
+                          type: string
+                          example: '15:00'
+                        unofficialPlay:
+                          type: string
+                        visitorScore:
+                          type: integer
+                          example: 0
+                        week:
+                          type: integer
+                          example: 1
+                        yardlineNumber:
+                          type: integer
+                          example: 35
+                        yardlineSide:
+                          type: string
+                          example: KC
+                        yardsToGo:
+                          type: integer
+                          example: 0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
+  /api/secured/plays/winProbability:
+    get:
+      operationId: getPlaysWinprobability
+      summary: 'NGS win probability per play for one game: pre-snap, added and post-play for both teams,
+        plus pregame probabilities.'
+      tags:
+      - secured
+      security:
+      - bearerAuth: []
+      parameters:
+      - *id008
+      responses:
+        '200':
+          description: Envelope with the requested params echoed back plus the record collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId:
+                    type: integer
+                  gameKey:
+                    type: integer
+                  pregameHomeTeamWinProbability:
+                    type: number
+                  pregameAwayTeamWinProbability:
+                    type: number
+                  plays:
+                    type: array
+                    items:
+                      type: object
+                      description: Column descriptions are deliberately omitted -- no authoritative label
+                        source was reachable for these Next Gen Stats field names. See sdv-internal-refs'
+                        nfl/nflpro/catalogs/nfl_pro_secured_returns.md for the full provenance note. Do
+                        not fill these in by inference.
+                      properties:
+                        down:
+                          type: integer
+                          example: 0
+                        homeScore:
+                          type: integer
+                          example: 0
+                        homeTeamWinProbabilityAdded:
+                          type: number
+                          example: -0.016786523163318634
+                        homeTimeoutsLeft:
+                          type: integer
+                          example: 3
+                        playDescription:
+                          type: string
+                          example: GAME
+                        playId:
+                          type: integer
+                          example: 1
+                        possessionTeamId:
+                          type: string
+                          example: '1400'
+                        postPlayHomeTeamWinProbability:
+                          type: number
+                          example: 0.5383778661489487
+                        postPlayVisitorTeamWinProbability:
+                          type: number
+                          example: 0.46162213385105133
+                        preSnapHomeScore:
+                          type: integer
+                          example: 0
+                        preSnapHomeTeamWinProbability:
+                          type: number
+                          example: 0.5551643893122673
+                        preSnapVisitorScore:
+                          type: integer
+                          example: 0
+                        preSnapVisitorTeamWinProbability:
+                          type: number
+                          example: 0.4448356106877327
+                        quarter:
+                          type: integer
+                          example: 1
+                        sequence:
+                          type: number
+                          example: 1.0
+                        visitorScore:
+                          type: integer
+                          example: 0
+                        visitorTeamWinProbabilityAdded:
+                          type: number
+                          example: 0.016786523163318634
+                        visitorTimeoutsLeft:
+                          type: integer
+                          example: 3
+                        yardline:
+                          type: string
+                          example: ''
+                        yardlineNumber:
+                          type: integer
+                          example: 35
+                        yardlineSide:
+                          type: string
+                          example: KC
+                        yardsToGo:
+                          type: integer
+                          example: 0
+        '401':
+          description: Token expired, not user-bound, or lacks an active NFL_PLUS_* plan.
+        '403':
+          description: Same as 401 -- both surface the auth failure on this host.
+        '500':
+          description: Frequently a missing required parameter (see `fantasy/game`'s `positionGroup`)
+            -- the body's `statusText` usually names the failed request.
 components:
   securitySchemes:
     bearerAuth:
