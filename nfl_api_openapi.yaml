@@ -347,23 +347,31 @@ paths:
   /experience/v1/gamedetails/{gameId}:
     get:
       operationId: getGameDetails
-      summary: Single-game experience detail, v1 shape (everything under `data`).
+      summary: Single-game experience detail, v1 shape (body under `data.viewer.gameDetail`).
       tags: [experience]
       description: |
-        Drives, plays and scoring for one game. The payload is wrapped in a single
-        `data` key. This path was previously documented as `/experience/v1/game/{gameId}`,
-        which answers 404; `gamedetails` is the live route (verified 2026-09-15).
+        Drives, plays and scoring for one game. The payload is wrapped three deep:
+        the game object sits at `data.viewer.gameDetail`, not directly under `data`
+        (verified live 2026-09-17). This path was previously documented as
+        `/experience/v1/game/{gameId}`, which answers 404; `gamedetails` is the live
+        route (verified 2026-09-15).
       parameters:
         - {$ref: "#/components/parameters/gameId"}
       responses:
         "200":
-          description: Game detail under `data`.
+          description: Game detail under `data.viewer.gameDetail`.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  data: {$ref: "#/components/schemas/Item"}
+                  data:
+                    type: object
+                    properties:
+                      viewer:
+                        type: object
+                        properties:
+                          gameDetail: {$ref: "#/components/schemas/Item"}
   /experience/v2/gamedetails/{gameId}:
     get:
       operationId: getGameDetailsV2
