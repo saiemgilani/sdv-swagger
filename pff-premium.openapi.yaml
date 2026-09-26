@@ -1,8 +1,12 @@
 openapi: 3.1.0
 info:
-  title: PFF Premium Stats API (unofficial, reverse-engineered)
+  title: "LEGACY - PFF Premium Stats API (unofficial, reverse-engineered)"
   version: "0.1.0-re.2026-07-08"
   description: >
+    LEGACY - superseded 2026-09-26 by PFF's official Developer API (https://api.pff.com, bearer
+    API key; spec pff/developer/pff-developer.openapi.json). Its /v1 routes mirror these paths
+    byte-for-byte BUT only honour snake_case franchise_id/game_id (the camelCase below is
+    silently ignored there). Kept as the reference for the cookie-auth fallback.
     Reverse-engineered map of https://premium.pff.com/api/v1/ observed via authenticated
     browser traffic + the frontend JS route table. NOT an official PFF spec. Auth is by
     session COOKIE (no Authorization header): Clerk '__session' JWT (~60s TTL, silently

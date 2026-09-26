@@ -32,7 +32,9 @@ Coverage by provider:
   (247sports.com front-end page-JSON, auth-free, 35 routes),
   `on3-recruit-database.openapi.yaml` (On3 **public** RDB, `api.on3.com/public/rdb/v1`,
   auth-free, 82 endpoints/36 live-validated — recruiting/rankings/NIL/transfer/draft),
-  `pff-premium.openapi.yaml` (PFF Premium Stats
+  `pff-developer.openapi.json` (PFF's OFFICIAL Developer API spec, `api.pff.com`, bearer API
+  key, mirrored byte-for-byte from sdv-internal-refs `pff/developer/`),
+  `pff-premium.openapi.yaml` (**LEGACY** PFF Premium Stats
   2.0, `premium.pff.com/api/v1`, cookie-auth/paywalled, NFL/NCAA/AAF/UFL),
   `espn_fantasy_v3.json` (**Swagger 2.0**).
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
