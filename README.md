@@ -105,7 +105,7 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 | `nba-stats-wnba.openapi.yaml` | `stats.wnba.com` — WNBA-only projection (`LeagueID=10`) | sdv-internal-refs `nba/tools/build.py` |
 | `nba-stats-gleague.openapi.yaml` | `stats.nba.com` — G-League projection (`LeagueID=20`) | sdv-internal-refs `nba/tools/build.py` |
 | `nba-stats-summer.openapi.yaml` | `stats.nba.com` — Summer League projection (`LeagueID=15`) | sdv-internal-refs `nba/tools/build.py` |
-| `nba-live-cdn.openapi.yaml` | `cdn.nba.com` (NBA) / `cdn.wnba.com` (WNBA) — live data feeds: `scoreboard/todaysScoreboard_00.json` (NBA) / `_10.json` (WNBA), `boxscore/boxscore_{game_id}.json`, `playbyplay/playbyplay_{game_id}.json`, `odds/odds_todaysGames.json`, `staticData/scheduleLeagueV2_2.json` (G-League); concrete file-level URLs with JSON response schemas | sdv-internal-refs `nba/tools/render_openapi.py` — live captures |
+| `nba-live-cdn.openapi.yaml` | `cdn.nba.com` (NBA) / `cdn.wnba.com` (WNBA) / `cdn-gleague.nba.com` (G League) — live data feeds: `scoreboard/todaysScoreboard_00.json` (NBA) / `_10.json` (WNBA, current only on `cdn.wnba.com`), `boxscore/boxscore_{game_id}.json`, `playbyplay/playbyplay_{game_id}.json`, `odds/odds_todaysGames.json`, `staticData/scheduleLeagueV2.json` (G League, on `cdn-gleague.nba.com`); concrete file-level URLs with JSON response schemas | sdv-internal-refs `nba/tools/render_openapi.py` — live captures |
 
 ### Other Basketball APIs
 
