@@ -1,2 +1,8 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Pin LF for text in the index AND the working tree, as sdv-internal-refs does.
+#
+# The specs here are byte-identical mirrors of sdv-internal-refs, and its
+# tests/test_*_spec.py compare the two WORKING-TREE files byte for byte. With
+# plain `text=auto`, a Windows checkout writes CRLF here while internal-refs
+# (eol=lf) writes LF, so the asa/mls/nwsl/on3 mirror tests failed locally even
+# though the committed blobs were identical.
+* text=auto eol=lf
