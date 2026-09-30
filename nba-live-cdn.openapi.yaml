@@ -1,7 +1,8 @@
 info:
-  description: Live game feeds on cdn.nba.com / cdn.wnba.com. Reference-only; not
-    wrapped in sdv-py.
-  title: NBA / WNBA Live CDN feeds (reference-only, unofficial)
+  description: Live game feeds on cdn.nba.com, the WNBA scoreboard on cdn.wnba.com
+    and the G League schedule on cdn-gleague.nba.com (per-path servers). Reference-only;
+    not wrapped in sdv-py.
+  title: NBA / WNBA / G League Live CDN feeds (reference-only, unofficial)
   version: 1.0.0-rev2026.06
   x-nba-schema-source: nba_api committed docs + hoopR/wehoop slug sweep (offline)
 openapi: 3.1.0
@@ -90,6 +91,8 @@ paths:
       summary: live-cdn wnba_scoreboard
       tags:
       - live-cdn
+    servers:
+    - url: https://cdn.wnba.com
   /static/json/staticData/scheduleLeagueV2.json:
     get:
       operationId: gleague_schedule
@@ -104,7 +107,7 @@ paths:
       summary: live-cdn gleague_schedule
       tags:
       - live-cdn
+    servers:
+    - url: https://cdn-gleague.nba.com
 servers:
-- url: https://cdn-gleague.nba.com
 - url: https://cdn.nba.com
-- url: https://cdn.wnba.com
