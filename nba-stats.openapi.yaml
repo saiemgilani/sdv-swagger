@@ -736,7 +736,7 @@ paths:
         schema:
           default: '0022200021'
           example: '0022200021'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -1236,7 +1236,7 @@ paths:
         schema:
           default: '0022200021'
           example: '0022200021'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -2057,7 +2057,7 @@ paths:
         schema:
           default: '00'
           example: '00'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Person1Season
@@ -2087,7 +2087,7 @@ paths:
         schema:
           default: '00'
           example: '00'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Person2Season
@@ -4964,7 +4964,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Season
@@ -5893,7 +5893,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Season
@@ -13163,7 +13163,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -13680,7 +13680,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -32826,7 +32826,7 @@ paths:
         schema:
           default: '0021700807'
           example: '0021700807'
-          type: integer
+          type: string
       responses:
         '200':
           content:
