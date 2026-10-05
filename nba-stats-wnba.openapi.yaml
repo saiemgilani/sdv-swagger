@@ -10483,6 +10483,7 @@ paths:
         name: PlayerIDList
         required: true
         schema:
+          default: 100720,202250,204319,1627668,1628931
           type: string
       - description: ''
         in: query
@@ -10507,7 +10508,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2020-21
           example: 2020-21
           type: string
       - description: ''
@@ -10559,6 +10559,7 @@ paths:
         name: VsPlayerIDList
         required: true
         schema:
+          default: 202252,203399,1631022,1628878,204333
           type: string
       responses:
         '200':
