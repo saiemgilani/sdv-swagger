@@ -32683,6 +32683,43 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videodetailsasset
       tags:
@@ -32733,6 +32770,39 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videoevents
       tags:
@@ -32754,8 +32824,8 @@ paths:
         name: GameID
         required: false
         schema:
-          default: 0021700807
-          example: 0021700807
+          default: '0021700807'
+          example: '0021700807'
           type: integer
       responses:
         '200':
@@ -32781,6 +32851,43 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videoeventsasset
       tags:
@@ -32880,8 +32987,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: 0021700807
-          example: 0021700807
+          default: '0021700807'
+          example: '0021700807'
           type: string
       - description: ''
         in: query

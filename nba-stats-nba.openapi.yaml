@@ -443,7 +443,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -585,7 +585,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -703,7 +703,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -817,7 +817,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -905,7 +905,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1027,7 +1027,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1157,7 +1157,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1285,7 +1285,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1391,7 +1391,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1619,7 +1619,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1865,7 +1865,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -2065,7 +2065,7 @@ paths:
         required: true
         schema:
           default: '1610612739'
-          example: '1611661317'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -2199,7 +2199,7 @@ paths:
         required: true
         schema:
           default: '0022000756'
-          example: '1022200018'
+          example: '0022000756'
           type: string
       - description: ''
         in: query
@@ -2220,7 +2220,7 @@ paths:
         required: true
         schema:
           default: '1629611'
-          example: '204319'
+          example: '1629611'
           type: string
       - description: ''
         in: query
@@ -2228,7 +2228,7 @@ paths:
         required: true
         schema:
           default: 2020-21
-          example: 2021-22
+          example: 2020-21
           type: string
       - description: ''
         in: query
@@ -2405,14 +2405,13 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '204319'
+          example: '2544'
           type: string
       - description: ''
         in: query
         name: Season
         required: true
         schema:
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2491,8 +2490,8 @@ paths:
         name: GameIDs
         required: true
         schema:
-          default: 0022201094
-          example: '1022200018'
+          default: '0022201094'
+          example: '0022201094'
           type: string
       - description: ''
         in: query
@@ -2512,7 +2511,6 @@ paths:
         name: Season
         required: true
         schema:
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2529,7 +2527,7 @@ paths:
         required: true
         schema:
           default: '1610612739'
-          example: '1611661317'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -2698,7 +2696,6 @@ paths:
         name: Season
         required: true
         schema:
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2723,7 +2720,7 @@ paths:
         required: true
         schema:
           default: '1610612739'
-          example: '1611661317'
+          example: '1610612739'
           type: string
       - description: ''
         in: query
@@ -3406,7 +3403,7 @@ paths:
         required: true
         schema:
           default: '1610612739'
-          example: '1611661324'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -3502,7 +3499,7 @@ paths:
         required: false
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           type: string
       - description: ''
         in: query
@@ -3510,7 +3507,7 @@ paths:
         required: false
         schema:
           default: '1610612739'
-          example: '1611661324'
+          example: '1610612739'
           type: integer
       responses:
         '200':
@@ -3669,7 +3666,7 @@ paths:
         required: true
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
           type: string
       - description: ''
@@ -3678,7 +3675,7 @@ paths:
         required: true
         schema:
           default: '1610612739'
-          example: '1611661319'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -3773,7 +3770,7 @@ paths:
         required: true
         schema:
           default: '0022200021'
-          example: '1022200034'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -3853,8 +3850,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: 0022201086
-          example: '1022200034'
+          default: '0022201086'
+          example: '0022201086'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -10708,7 +10705,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661313'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -11691,8 +11688,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: 0022201086
-          example: '1022200034'
+          default: '0022201086'
+          example: '0022201086'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -11792,7 +11789,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -12004,7 +12001,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -12231,6 +12228,7 @@ paths:
         required: true
         schema:
           default: 202681,203078,2544,201567,203954
+          example: 202681,203078,2544,201567,203954
           type: string
       - description: ''
         in: query
@@ -12308,6 +12306,7 @@ paths:
         required: true
         schema:
           default: 201566,201939,201935,201142,203076
+          example: 201566,201939,201935,201142,203076
           type: string
       responses:
         '200':
@@ -12521,7 +12520,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -12883,7 +12882,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13245,7 +13244,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13607,7 +13606,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13963,7 +13962,7 @@ paths:
         required: false
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: integer
       - description: ''
         in: query
@@ -14317,7 +14316,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -14615,7 +14614,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -14981,7 +14980,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -16266,7 +16265,7 @@ paths:
         required: false
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: integer
       - description: ''
         in: query
@@ -16418,7 +16417,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -16535,7 +16534,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -16754,7 +16753,7 @@ paths:
         required: false
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -17971,7 +17970,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -18183,7 +18182,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -18251,7 +18250,7 @@ paths:
         required: true
         schema:
           default: '203076'
-          example: '1629488'
+          example: '203076'
           type: string
       responses:
         '200':
@@ -18767,7 +18766,7 @@ paths:
         required: false
         schema:
           default: '2023-03-26'
-          example: '2022-06-26'
+          example: '2023-03-26'
           type: string
       - description: ''
         in: query
@@ -19122,7 +19121,7 @@ paths:
         required: true
         schema:
           default: '202696'
-          example: '1628932'
+          example: '202696'
           type: string
       - description: ''
         in: query
@@ -19411,7 +19410,7 @@ paths:
         required: true
         schema:
           default: -202689-203493-203501-1626174-1627827-
-          example: -1628899-1629481-1630096-1631019-1642784-
+          example: -202689-203493-203501-1626174-1627827-
           pattern: ^\d+(( - \d+){2,4})?$
           type: string
       - description: ''
@@ -19476,7 +19475,7 @@ paths:
         required: true
         schema:
           default: '0'
-          example: '1611661324'
+          example: '0'
           type: string
       - description: ''
         in: query
@@ -19525,7 +19524,7 @@ paths:
         required: true
         schema:
           default: '1610612742'
-          example: '1611661321'
+          example: '1610612742'
           type: string
       - description: ''
         in: query
@@ -19948,7 +19947,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -20278,7 +20277,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -20620,7 +20619,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -20954,7 +20953,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -21284,7 +21283,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -21626,7 +21625,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -21912,7 +21911,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -22246,7 +22245,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -22605,7 +22604,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -23415,7 +23414,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -23646,7 +23645,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -23886,7 +23885,7 @@ paths:
         required: false
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -24087,7 +24086,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -24337,7 +24336,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -24685,7 +24684,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25021,7 +25020,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25361,7 +25360,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25387,7 +25386,7 @@ paths:
         required: true
         schema:
           default: '2544'
-          example: '1628932'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -25590,7 +25589,7 @@ paths:
         required: true
         schema:
           default: '1610612749'
-          example: '1611661328'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -25691,6 +25690,91 @@ paths:
       summary: GET /stats/teamyearbyyearstats
       tags:
       - stats
+  /stats/videoeventsasset:
+    get:
+      operationId: videoeventsasset
+      parameters:
+      - description: ''
+        in: query
+        name: GameEventID
+        required: false
+        schema:
+          default: '0'
+          example: '0'
+          type: integer
+      - description: ''
+        in: query
+        name: GameID
+        required: false
+        schema:
+          default: '0021700807'
+          example: '0021700807'
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/videoeventsasset
+      tags:
+      - stats
   /stats/videostatus:
     get:
       operationId: videostatus
@@ -25701,7 +25785,7 @@ paths:
         required: true
         schema:
           default: '2023-03-10'
-          example: '2022-06-10'
+          example: '2023-03-10'
           type: string
       - description: ''
         in: query
