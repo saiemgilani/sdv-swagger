@@ -3638,7 +3638,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: PerMode
@@ -3653,7 +3653,7 @@ paths:
         required: false
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           type: string
       - description: ''
         in: query
@@ -3820,7 +3820,7 @@ paths:
         required: true
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
           type: string
       - description: ''
@@ -10483,6 +10483,8 @@ paths:
         name: PlayerIDList
         required: true
         schema:
+          default: 100720,202250,204319,1627668,1628931
+          example: 100720,202250,204319,1627668,1628931
           type: string
       - description: ''
         in: query
@@ -10507,8 +10509,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2020-21
-          example: 2020-21
           type: string
       - description: ''
         in: query
@@ -10559,6 +10559,8 @@ paths:
         name: VsPlayerIDList
         required: true
         schema:
+          default: 202252,203399,1631022,1628878,204333
+          example: 202252,203399,1631022,1628878,204333
           type: string
       responses:
         '200':
@@ -12135,7 +12137,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -13573,8 +13575,6 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '2544'
-          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13819,7 +13819,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: MeasureType
@@ -16258,7 +16258,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -16953,7 +16953,7 @@ paths:
         required: true
         schema:
           default: '0'
-          example: '1611661324'
+          example: '0'
           type: string
       - description: ''
         in: query
@@ -17153,7 +17153,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -17483,7 +17483,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -18159,7 +18159,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -18489,7 +18489,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -19117,7 +19117,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -19451,7 +19451,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location

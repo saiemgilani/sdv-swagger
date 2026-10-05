@@ -442,8 +442,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -584,8 +584,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -702,8 +702,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -816,8 +816,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -904,8 +904,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1026,8 +1026,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1156,8 +1156,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1284,8 +1284,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1390,8 +1390,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1618,8 +1618,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1864,8 +1864,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -2064,8 +2064,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
+          default: '1610612739'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -2198,8 +2198,8 @@ paths:
         name: GameIDs
         required: true
         schema:
-          default: '1022200018'
-          example: '1022200018'
+          default: '0022000756'
+          example: '0022000756'
           type: string
       - description: ''
         in: query
@@ -2219,16 +2219,16 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '204319'
-          example: '204319'
+          default: '1629611'
+          example: '1629611'
           type: string
       - description: ''
         in: query
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
+          default: 2020-21
+          example: 2020-21
           type: string
       - description: ''
         in: query
@@ -2404,16 +2404,14 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '204319'
-          example: '204319'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2492,8 +2490,8 @@ paths:
         name: GameIDs
         required: true
         schema:
-          default: '1022200018'
-          example: '1022200018'
+          default: '0022201094'
+          example: '0022201094'
           type: string
       - description: ''
         in: query
@@ -2513,8 +2511,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2530,8 +2526,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
+          default: '1610612739'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -2700,8 +2696,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2725,8 +2719,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
+          default: '1610612739'
+          example: '1610612739'
           type: string
       - description: ''
         in: query
@@ -2785,444 +2779,6 @@ paths:
                   type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/cumestatsteamgames
-      tags:
-      - stats
-  /stats/draftcombinedrillresults:
-    get:
-      operationId: draftcombinedrillresults
-      parameters:
-      - description: ''
-        in: query
-        name: LeagueID
-        required: true
-        schema:
-          default: '00'
-          enum:
-          - '00'
-          - '01'
-          - '10'
-          - '15'
-          - '20'
-          type: string
-      - description: ''
-        in: query
-        name: SeasonYear
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                properties:
-                  resource:
-                    type: string
-                  resultSets:
-                    items:
-                      properties:
-                        headers:
-                          items:
-                            type: string
-                          type: array
-                        name:
-                          type: string
-                        rowSet:
-                          items:
-                            type: array
-                          type: array
-                      type: object
-                    type: array
-                type: object
-                x-result-set-example:
-                  properties:
-                    bench_press:
-                      type: string
-                    first_name:
-                      type: string
-                    lane_agility_time:
-                      type: number
-                    last_name:
-                      type: string
-                    max_vertical_leap:
-                      type: number
-                    modified_lane_agility_time:
-                      type: number
-                    player_id:
-                      type: integer
-                    player_name:
-                      type: string
-                    position:
-                      type: string
-                    standing_vertical_leap:
-                      type: number
-                    temp_player_id:
-                      type: integer
-                    three_quarter_sprint:
-                      type: number
-                  type: object
-          description: stats.nba.com resultSets envelope.
-      summary: GET /stats/draftcombinedrillresults
-      tags:
-      - stats
-  /stats/draftcombinenonstationaryshooting:
-    get:
-      operationId: draftcombinenonstationaryshooting
-      parameters:
-      - description: ''
-        in: query
-        name: LeagueID
-        required: true
-        schema:
-          default: '00'
-          enum:
-          - '00'
-          - '01'
-          - '10'
-          - '15'
-          - '20'
-          type: string
-      - description: ''
-        in: query
-        name: SeasonYear
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                properties:
-                  resource:
-                    type: string
-                  resultSets:
-                    items:
-                      properties:
-                        headers:
-                          items:
-                            type: string
-                          type: array
-                        name:
-                          type: string
-                        rowSet:
-                          items:
-                            type: array
-                          type: array
-                      type: object
-                    type: array
-                type: object
-                x-result-set-example:
-                  properties:
-                    first_name:
-                      type: string
-                    last_name:
-                      type: string
-                    off_drib_college_break_left_attempt:
-                      type: integer
-                    off_drib_college_break_left_made:
-                      type: integer
-                    off_drib_college_break_left_pct:
-                      type: number
-                    off_drib_college_break_right_attempt:
-                      type: string
-                    off_drib_college_break_right_made:
-                      type: string
-                    off_drib_college_break_right_pct:
-                      type: string
-                    off_drib_college_top_key_attempt:
-                      type: string
-                    off_drib_college_top_key_made:
-                      type: string
-                    off_drib_college_top_key_pct:
-                      type: string
-                    off_drib_fifteen_break_left_attempt:
-                      type: string
-                    off_drib_fifteen_break_left_made:
-                      type: string
-                    off_drib_fifteen_break_left_pct:
-                      type: string
-                    off_drib_fifteen_break_right_attempt:
-                      type: string
-                    off_drib_fifteen_break_right_made:
-                      type: string
-                    off_drib_fifteen_break_right_pct:
-                      type: string
-                    off_drib_fifteen_top_key_attempt:
-                      type: string
-                    off_drib_fifteen_top_key_made:
-                      type: string
-                    off_drib_fifteen_top_key_pct:
-                      type: string
-                    on_move_college_attempt:
-                      type: integer
-                    on_move_college_made:
-                      type: integer
-                    on_move_college_pct:
-                      type: number
-                    on_move_fifteen_attempt:
-                      type: string
-                    on_move_fifteen_made:
-                      type: string
-                    on_move_fifteen_pct:
-                      type: string
-                    player_id:
-                      type: integer
-                    player_name:
-                      type: string
-                    position:
-                      type: string
-                    temp_player_id:
-                      type: integer
-                  type: object
-          description: stats.nba.com resultSets envelope.
-      summary: GET /stats/draftcombinenonstationaryshooting
-      tags:
-      - stats
-  /stats/draftcombineplayeranthro:
-    get:
-      operationId: draftcombineplayeranthro
-      parameters:
-      - description: ''
-        in: query
-        name: LeagueID
-        required: true
-        schema:
-          default: '00'
-          enum:
-          - '00'
-          - '01'
-          - '10'
-          - '15'
-          - '20'
-          type: string
-      - description: ''
-        in: query
-        name: SeasonYear
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                properties:
-                  resource:
-                    type: string
-                  resultSets:
-                    items:
-                      properties:
-                        headers:
-                          items:
-                            type: string
-                          type: array
-                        name:
-                          type: string
-                        rowSet:
-                          items:
-                            type: array
-                          type: array
-                      type: object
-                    type: array
-                type: object
-                x-result-set-example:
-                  properties:
-                    body_fat_pct:
-                      type: string
-                    first_name:
-                      type: string
-                    hand_length:
-                      type: number
-                    hand_width:
-                      type: number
-                    height_w_shoes:
-                      type: string
-                    height_w_shoes_ft_in:
-                      type: string
-                    height_wo_shoes:
-                      type: number
-                    height_wo_shoes_ft_in:
-                      type: string
-                    last_name:
-                      type: string
-                    player_id:
-                      type: integer
-                    player_name:
-                      type: string
-                    position:
-                      type: string
-                    standing_reach:
-                      type: number
-                    standing_reach_ft_in:
-                      type: string
-                    temp_player_id:
-                      type: integer
-                    weight:
-                      type: string
-                    wingspan:
-                      type: number
-                    wingspan_ft_in:
-                      type: string
-                  type: object
-          description: stats.nba.com resultSets envelope.
-      summary: GET /stats/draftcombineplayeranthro
-      tags:
-      - stats
-  /stats/draftcombinespotshooting:
-    get:
-      operationId: draftcombinespotshooting
-      parameters:
-      - description: ''
-        in: query
-        name: LeagueID
-        required: true
-        schema:
-          default: '00'
-          enum:
-          - '00'
-          - '01'
-          - '10'
-          - '15'
-          - '20'
-          type: string
-      - description: ''
-        in: query
-        name: SeasonYear
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                properties:
-                  resource:
-                    type: string
-                  resultSets:
-                    items:
-                      properties:
-                        headers:
-                          items:
-                            type: string
-                          type: array
-                        name:
-                          type: string
-                        rowSet:
-                          items:
-                            type: array
-                          type: array
-                      type: object
-                    type: array
-                type: object
-                x-result-set-example:
-                  properties:
-                    college_break_left_attempt:
-                      type: string
-                    college_break_left_made:
-                      type: string
-                    college_break_left_pct:
-                      type: string
-                    college_break_right_attempt:
-                      type: string
-                    college_break_right_made:
-                      type: string
-                    college_break_right_pct:
-                      type: string
-                    college_corner_left_attempt:
-                      type: integer
-                    college_corner_left_made:
-                      type: integer
-                    college_corner_left_pct:
-                      type: number
-                    college_corner_right_attempt:
-                      type: string
-                    college_corner_right_made:
-                      type: string
-                    college_corner_right_pct:
-                      type: string
-                    college_top_key_attempt:
-                      type: string
-                    college_top_key_made:
-                      type: string
-                    college_top_key_pct:
-                      type: string
-                    fifteen_break_left_attempt:
-                      type: string
-                    fifteen_break_left_made:
-                      type: string
-                    fifteen_break_left_pct:
-                      type: string
-                    fifteen_break_right_attempt:
-                      type: string
-                    fifteen_break_right_made:
-                      type: string
-                    fifteen_break_right_pct:
-                      type: string
-                    fifteen_corner_left_attempt:
-                      type: string
-                    fifteen_corner_left_made:
-                      type: string
-                    fifteen_corner_left_pct:
-                      type: string
-                    fifteen_corner_right_attempt:
-                      type: string
-                    fifteen_corner_right_made:
-                      type: string
-                    fifteen_corner_right_pct:
-                      type: string
-                    fifteen_top_key_attempt:
-                      type: string
-                    fifteen_top_key_made:
-                      type: string
-                    fifteen_top_key_pct:
-                      type: string
-                    first_name:
-                      type: string
-                    last_name:
-                      type: string
-                    nba_break_left_attempt:
-                      type: string
-                    nba_break_left_made:
-                      type: string
-                    nba_break_left_pct:
-                      type: string
-                    nba_break_right_attempt:
-                      type: string
-                    nba_break_right_made:
-                      type: string
-                    nba_break_right_pct:
-                      type: string
-                    nba_corner_left_attempt:
-                      type: string
-                    nba_corner_left_made:
-                      type: string
-                    nba_corner_left_pct:
-                      type: string
-                    nba_corner_right_attempt:
-                      type: string
-                    nba_corner_right_made:
-                      type: string
-                    nba_corner_right_pct:
-                      type: string
-                    nba_top_key_attempt:
-                      type: string
-                    nba_top_key_made:
-                      type: string
-                    nba_top_key_pct:
-                      type: string
-                    player_id:
-                      type: integer
-                    player_name:
-                      type: string
-                    position:
-                      type: string
-                    temp_player_id:
-                      type: integer
-                  type: object
-          description: stats.nba.com resultSets envelope.
-      summary: GET /stats/draftcombinespotshooting
       tags:
       - stats
   /stats/draftcombinestats:
@@ -3846,8 +3402,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661324'
-          example: '1611661324'
+          default: '1610612739'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -3928,7 +3484,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: PerMode
@@ -3943,15 +3499,15 @@ paths:
         required: false
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           type: string
       - description: ''
         in: query
         name: TeamID
         required: false
         schema:
-          default: '1611661324'
-          example: '1611661324'
+          default: '1610612739'
+          example: '1610612739'
           type: integer
       responses:
         '200':
@@ -4110,7 +3666,7 @@ paths:
         required: true
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
           type: string
       - description: ''
@@ -4118,8 +3674,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661319'
-          example: '1611661319'
+          default: '1610612739'
+          example: '1610612739'
           type: string
       responses:
         '200':
@@ -4213,8 +3769,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022200021'
+          example: '0022200021'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -4294,8 +3850,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022201086'
+          example: '0022201086'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -11148,8 +10704,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661313'
-          example: '1611661313'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -12132,8 +11688,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
+          default: '0022201086'
+          example: '0022201086'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -12232,8 +11788,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -12444,8 +12000,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -12671,6 +12227,8 @@ paths:
         name: PlayerIDList
         required: true
         schema:
+          default: 202681,203078,2544,201567,203954
+          example: 202681,203078,2544,201567,203954
           type: string
       - description: ''
         in: query
@@ -12747,6 +12305,8 @@ paths:
         name: VsPlayerIDList
         required: true
         schema:
+          default: 201566,201939,201935,201142,203076
+          example: 201566,201939,201935,201142,203076
           type: string
       responses:
         '200':
@@ -12959,8 +12519,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13321,8 +12881,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -13683,8 +13243,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -14045,8 +13605,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -14323,7 +13883,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -14401,8 +13961,8 @@ paths:
         name: PlayerID
         required: false
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: integer
       - description: ''
         in: query
@@ -14755,8 +14315,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -15053,8 +14613,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -15419,8 +14979,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -16674,7 +16234,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: MeasureType
@@ -16704,8 +16264,8 @@ paths:
         name: PlayerID
         required: false
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: integer
       - description: ''
         in: query
@@ -16856,8 +16416,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -16973,8 +16533,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -17192,8 +16752,8 @@ paths:
         name: PlayerID
         required: false
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -18409,8 +17969,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -18621,8 +18181,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       - description: ''
         in: query
@@ -18689,8 +18249,8 @@ paths:
         name: VsPlayerID
         required: true
         schema:
-          default: '1629488'
-          example: '1629488'
+          default: '203076'
+          example: '203076'
           type: string
       responses:
         '200':
@@ -19205,8 +18765,8 @@ paths:
         name: GameDate
         required: false
         schema:
-          default: '2022-06-26'
-          example: '2022-06-26'
+          default: '2023-03-26'
+          example: '2023-03-26'
           type: string
       - description: ''
         in: query
@@ -19220,7 +18780,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -19560,8 +19120,8 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '202696'
+          example: '202696'
           type: string
       - description: ''
         in: query
@@ -19849,8 +19409,8 @@ paths:
         name: GROUP_ID
         required: true
         schema:
-          default: -1628899-1629481-1630096-1631019-1642784-
-          example: -1628899-1629481-1630096-1631019-1642784-
+          default: -202689-203493-203501-1626174-1627827-
+          example: -202689-203493-203501-1626174-1627827-
           pattern: ^\d+(( - \d+){2,4})?$
           type: string
       - description: ''
@@ -19915,7 +19475,7 @@ paths:
         required: true
         schema:
           default: '0'
-          example: '1611661324'
+          example: '0'
           type: string
       - description: ''
         in: query
@@ -19963,8 +19523,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661321'
-          example: '1611661321'
+          default: '1610612742'
+          example: '1610612742'
           type: string
       - description: ''
         in: query
@@ -20262,7 +19822,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -20386,8 +19946,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -20592,7 +20152,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -20716,8 +20276,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -21058,8 +20618,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -21268,7 +20828,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -21392,8 +20952,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -21598,7 +21158,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -21722,8 +21282,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -22064,8 +21624,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -22226,7 +21786,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -22350,8 +21910,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -22560,7 +22120,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -22684,8 +22244,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: integer
       - description: ''
         in: query
@@ -23043,8 +22603,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -23853,8 +23413,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -24084,8 +23644,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -24324,8 +23884,8 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -24525,8 +24085,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -24775,8 +24335,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25123,8 +24683,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25459,8 +25019,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25799,8 +25359,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       - description: ''
         in: query
@@ -25825,8 +25385,8 @@ paths:
         name: VsPlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
+          default: '2544'
+          example: '2544'
           type: string
       responses:
         '200':
@@ -26028,8 +25588,8 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
+          default: '1610612749'
+          example: '1610612749'
           type: string
       responses:
         '200':
@@ -26130,6 +25690,91 @@ paths:
       summary: GET /stats/teamyearbyyearstats
       tags:
       - stats
+  /stats/videoeventsasset:
+    get:
+      operationId: videoeventsasset
+      parameters:
+      - description: ''
+        in: query
+        name: GameEventID
+        required: false
+        schema:
+          default: '0'
+          example: '0'
+          type: integer
+      - description: ''
+        in: query
+        name: GameID
+        required: false
+        schema:
+          default: '0021700807'
+          example: '0021700807'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    type: string
+                  resultSets:
+                    items:
+                      properties:
+                        headers:
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          type: string
+                        rowSet:
+                          items:
+                            type: array
+                          type: array
+                      type: object
+                    type: array
+                type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
+          description: stats.nba.com resultSets envelope.
+      summary: GET /stats/videoeventsasset
+      tags:
+      - stats
   /stats/videostatus:
     get:
       operationId: videostatus
@@ -26139,8 +25784,8 @@ paths:
         name: GameDate
         required: true
         schema:
-          default: '2022-06-10'
-          example: '2022-06-10'
+          default: '2023-03-10'
+          example: '2023-03-10'
           type: string
       - description: ''
         in: query

@@ -443,8 +443,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -585,8 +583,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -703,8 +699,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -817,8 +811,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -905,8 +897,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1027,8 +1017,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1157,8 +1145,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1285,8 +1271,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -1391,8 +1375,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1619,8 +1601,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -1772,8 +1752,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
           type: string
       responses:
         '200':
@@ -1906,8 +1884,6 @@ paths:
         name: GameIDs
         required: true
         schema:
-          default: '1022200018'
-          example: '1022200018'
           type: string
       - description: ''
         in: query
@@ -1927,16 +1903,12 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '204319'
-          example: '204319'
           type: string
       - description: ''
         in: query
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2083,8 +2055,6 @@ paths:
         name: GameIDs
         required: true
         schema:
-          default: '1022200018'
-          example: '1022200018'
           type: string
       - description: ''
         in: query
@@ -2104,8 +2074,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2121,8 +2089,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
           type: string
       responses:
         '200':
@@ -2291,8 +2257,6 @@ paths:
         name: Season
         required: true
         schema:
-          default: 2021-22
-          example: 2021-22
           type: string
       - description: ''
         in: query
@@ -2316,8 +2280,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661317'
-          example: '1611661317'
           type: string
       - description: ''
         in: query
@@ -2628,8 +2590,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661324'
-          example: '1611661324'
           type: string
       responses:
         '200':
@@ -2726,7 +2686,7 @@ paths:
         required: true
         schema:
           default: Regular Season
-          example: Playoffs
+          example: Regular Season
           pattern: ^(Regular Season)|(Pre Season)|(Playoffs)|(All Star)$
           type: string
       - description: ''
@@ -2734,8 +2694,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661319'
-          example: '1611661319'
           type: string
       responses:
         '200':
@@ -2829,8 +2787,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -2910,8 +2866,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       responses:
@@ -7123,8 +7077,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661313'
-          example: '1611661313'
           type: string
       - description: ''
         in: query
@@ -7566,8 +7518,6 @@ paths:
         name: GameID
         required: true
         schema:
-          default: '1022200034'
-          example: '1022200034'
           pattern: ^\d{10}$
           type: string
       - description: ''
@@ -7666,8 +7616,6 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
           type: string
       responses:
         '200':
@@ -8077,8 +8025,6 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
           type: string
       responses:
         '200':
@@ -8289,8 +8235,6 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
           type: string
       - description: ''
         in: query
@@ -8357,8 +8301,6 @@ paths:
         name: VsPlayerID
         required: true
         schema:
-          default: '1629488'
-          example: '1629488'
           type: string
       responses:
         '200':
@@ -8766,8 +8708,6 @@ paths:
         name: GameDate
         required: false
         schema:
-          default: '2022-06-26'
-          example: '2022-06-26'
           type: string
       - description: ''
         in: query
@@ -8781,7 +8721,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -9121,8 +9061,6 @@ paths:
         name: PlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
           type: string
       - description: ''
         in: query
@@ -9410,8 +9348,6 @@ paths:
         name: GROUP_ID
         required: true
         schema:
-          default: -1628899-1629481-1630096-1631019-1642784-
-          example: -1628899-1629481-1630096-1631019-1642784-
           pattern: ^\d+(( - \d+){2,4})?$
           type: string
       - description: ''
@@ -9476,7 +9412,7 @@ paths:
         required: true
         schema:
           default: '0'
-          example: '1611661324'
+          example: '0'
           type: string
       - description: ''
         in: query
@@ -9524,8 +9460,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661321'
-          example: '1611661321'
           type: string
       - description: ''
         in: query
@@ -9676,7 +9610,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -9800,8 +9734,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -10006,7 +9938,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -10130,8 +10062,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -10472,8 +10402,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -10682,7 +10610,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -10806,8 +10734,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -11012,7 +10938,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -11136,8 +11062,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -11478,8 +11402,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -11640,7 +11562,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -11764,8 +11686,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -11974,7 +11894,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -12098,8 +12018,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: integer
       - description: ''
         in: query
@@ -12265,8 +12183,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       responses:
         '200':
@@ -12496,8 +12412,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       responses:
         '200':
@@ -12736,8 +12650,6 @@ paths:
         name: TeamID
         required: false
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -12937,8 +12849,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       responses:
         '200':
@@ -13187,8 +13097,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -13535,8 +13443,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -13871,8 +13777,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -14211,8 +14115,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       - description: ''
         in: query
@@ -14237,8 +14139,6 @@ paths:
         name: VsPlayerID
         required: true
         schema:
-          default: '1628932'
-          example: '1628932'
           type: string
       responses:
         '200':
@@ -14440,8 +14340,6 @@ paths:
         name: TeamID
         required: true
         schema:
-          default: '1611661328'
-          example: '1611661328'
           type: string
       responses:
         '200':

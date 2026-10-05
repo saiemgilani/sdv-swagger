@@ -736,7 +736,7 @@ paths:
         schema:
           default: '0022200021'
           example: '0022200021'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -1236,7 +1236,7 @@ paths:
         schema:
           default: '0022200021'
           example: '0022200021'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -1616,7 +1616,7 @@ paths:
         schema:
           default: '1022200034'
           example: '1022200034'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -2057,7 +2057,7 @@ paths:
         schema:
           default: '00'
           example: '00'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Person1Season
@@ -2087,7 +2087,7 @@ paths:
         schema:
           default: '00'
           example: '00'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Person2Season
@@ -4227,6 +4227,7 @@ paths:
       - stats
   /stats/draftcombinedrillresults:
     get:
+      deprecated: true
       operationId: draftcombinedrillresults
       parameters:
       - description: ''
@@ -4305,6 +4306,7 @@ paths:
       - stats
   /stats/draftcombinenonstationaryshooting:
     get:
+      deprecated: true
       operationId: draftcombinenonstationaryshooting
       parameters:
       - description: ''
@@ -4419,6 +4421,7 @@ paths:
       - stats
   /stats/draftcombineplayeranthro:
     get:
+      deprecated: true
       operationId: draftcombineplayeranthro
       parameters:
       - description: ''
@@ -4509,6 +4512,7 @@ paths:
       - stats
   /stats/draftcombinespotshooting:
     get:
+      deprecated: true
       operationId: draftcombinespotshooting
       parameters:
       - description: ''
@@ -4960,7 +4964,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Season
@@ -5425,7 +5429,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: PerMode
@@ -5889,7 +5893,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Season
@@ -13159,7 +13163,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -13676,7 +13680,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -17965,7 +17969,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -20316,7 +20320,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: MeasureType
@@ -22978,7 +22982,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -23156,7 +23160,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       responses:
         '200':
           content:
@@ -24583,7 +24587,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -24913,7 +24917,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -25589,7 +25593,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -25919,7 +25923,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -26547,7 +26551,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -26881,7 +26885,7 @@ paths:
           - '10'
           - '15'
           - '20'
-          type: integer
+          type: string
       - description: ''
         in: query
         name: Location
@@ -32679,12 +32683,50 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videodetailsasset
       tags:
       - stats
   /stats/videoevents:
     get:
+      deprecated: true
       operationId: videoevents
       parameters:
       - description: ''
@@ -32728,6 +32770,39 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videoevents
       tags:
@@ -32749,9 +32824,9 @@ paths:
         name: GameID
         required: false
         schema:
-          default: 0021700807
-          example: 0021700807
-          type: integer
+          default: '0021700807'
+          example: '0021700807'
+          type: string
       responses:
         '200':
           content:
@@ -32776,6 +32851,43 @@ paths:
                       type: object
                     type: array
                 type: object
+                x-result-set-example:
+                  properties:
+                    d:
+                      type: string
+                    dsc:
+                      type: string
+                    ei:
+                      type: integer
+                    gc:
+                      type: string
+                    gi:
+                      type: string
+                    ha:
+                      type: string
+                    hid:
+                      type: integer
+                    hpa:
+                      type: integer
+                    hpb:
+                      type: integer
+                    m:
+                      type: string
+                    p:
+                      type: integer
+                    pta:
+                      type: integer
+                    va:
+                      type: string
+                    vid:
+                      type: integer
+                    vpa:
+                      type: integer
+                    vpb:
+                      type: integer
+                    y:
+                      type: integer
+                  type: object
           description: stats.nba.com resultSets envelope.
       summary: GET /stats/videoeventsasset
       tags:
@@ -32875,8 +32987,8 @@ paths:
         name: GameID
         required: true
         schema:
-          default: 0021700807
-          example: 0021700807
+          default: '0021700807'
+          example: '0021700807'
           type: string
       - description: ''
         in: query
