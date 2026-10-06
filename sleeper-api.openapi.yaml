@@ -103,7 +103,8 @@ components:
           draft_slot:
             type: integer
           is_keeper:
-            nullable: true
+            type:
+            - 'null'
           metadata:
             properties:
               first_name:
@@ -134,7 +135,8 @@ components:
           player_id:
             type: string
           reactions:
-            nullable: true
+            type:
+            - 'null'
           roster_id:
             type: integer
           round:
@@ -148,13 +150,16 @@ components:
         bracket_id:
           type: integer
         bracket_overrides_id:
-          nullable: true
+          type:
+          - 'null'
         company_id:
-          nullable: true
+          type:
+          - 'null'
         draft_id:
           type: string
         group_id:
-          nullable: true
+          type:
+          - 'null'
         last_author_avatar:
           type: string
         last_author_display_name:
@@ -162,25 +167,30 @@ components:
         last_author_id:
           type: string
         last_author_is_bot:
-          nullable: true
+          type:
+          - 'null'
         last_message_attachment:
-          nullable: true
+          type:
+          - 'null'
         last_message_id:
           type: string
         last_message_text_map:
-          nullable: true
+          type:
+          - 'null'
         last_message_time:
           type: integer
         last_pinned_message_id:
           type: string
         last_read_id:
-          nullable: true
+          type:
+          - 'null'
         league_id:
           type: string
         loser_bracket_id:
           type: integer
         loser_bracket_overrides_id:
-          nullable: true
+          type:
+          - 'null'
         metadata:
           properties:
             trophy_loser:
@@ -549,7 +559,8 @@ components:
       items:
         properties:
           custom_points:
-            nullable: true
+            type:
+            - 'null'
           matchup_id:
             type: integer
           players:
@@ -673,10 +684,12 @@ components:
           co_owners:
             items:
               type: string
-            nullable: true
-            type: array
+            type:
+            - array
+            - 'null'
           keepers:
-            nullable: true
+            type:
+            - 'null'
           league_id:
             type: string
           metadata:
@@ -889,7 +902,8 @@ components:
           owner_id:
             type: string
           player_map:
-            nullable: true
+            type:
+            - 'null'
           players:
             items:
               type: string
@@ -897,8 +911,9 @@ components:
           reserve:
             items:
               type: string
-            nullable: true
-            type: array
+            type:
+            - array
+            - 'null'
           roster_id:
             type: integer
           settings:
@@ -933,7 +948,8 @@ components:
               type: string
             type: array
           taxi:
-            nullable: true
+            type:
+            - 'null'
         type: object
       type: array
     LeagueLeagueIdTradedPicks:
@@ -975,7 +991,8 @@ components:
             items: {}
             type: array
           drops:
-            nullable: true
+            type:
+            - 'null'
           leg:
             type: integer
           metadata:
@@ -1015,7 +1032,8 @@ components:
           display_name:
             type: string
           is_bot:
-            nullable: true
+            type:
+            - 'null'
           is_owner:
             type: boolean
           league_id:
@@ -1048,7 +1066,8 @@ components:
                 type: string
             type: object
           settings:
-            nullable: true
+            type:
+            - 'null'
           user_id:
             type: string
         type: object
@@ -1083,22 +1102,27 @@ components:
           age:
             type: integer
           birth_city:
-            nullable: true
+            type:
+            - 'null'
           birth_country:
-            nullable: true
+            type:
+            - 'null'
           birth_date:
             type: string
           birth_state:
-            nullable: true
+            type:
+            - 'null'
           college:
             type: string
           competitions:
             items: {}
             type: array
           depth_chart_order:
-            nullable: true
+            type:
+            - 'null'
           depth_chart_position:
-            nullable: true
+            type:
+            - 'null'
           espn_id:
             type: integer
           fantasy_data_id:
@@ -1112,38 +1136,50 @@ components:
           full_name:
             type: string
           gsis_id:
-            nullable: true
+            type:
+            - 'null'
           hashtag:
             type: string
           height:
             type: string
           high_school:
-            nullable: true
-            type: string
+            type:
+            - string
+            - 'null'
           injury_body_part:
-            nullable: true
+            type:
+            - 'null'
           injury_notes:
-            nullable: true
+            type:
+            - 'null'
           injury_start_date:
-            nullable: true
+            type:
+            - 'null'
           injury_status:
-            nullable: true
+            type:
+            - 'null'
           kalshi_id:
-            nullable: true
+            type:
+            - 'null'
           last_name:
             type: string
           metadata:
-            nullable: true
+            type:
+            - 'null'
           news_updated:
-            nullable: true
+            type:
+            - 'null'
           number:
             type: integer
           oddsjam_id:
-            nullable: true
+            type:
+            - 'null'
           opta_id:
-            nullable: true
+            type:
+            - 'null'
           pandascore_id:
-            nullable: true
+            type:
+            - 'null'
           player_id:
             type: string
           player_shard:
@@ -1151,14 +1187,17 @@ components:
           position:
             type: string
           practice_description:
-            nullable: true
+            type:
+            - 'null'
           practice_participation:
-            nullable: true
+            type:
+            - 'null'
           rotowire_id:
             type: integer
           rotoworld_id:
-            nullable: true
-            type: integer
+            type:
+            - integer
+            - 'null'
           search_first_name:
             type: string
           search_full_name:
@@ -1172,18 +1211,23 @@ components:
           sportradar_id:
             type: string
           stats_id:
-            nullable: true
-            type: integer
+            type:
+            - integer
+            - 'null'
           status:
             type: string
           swish_id:
-            nullable: true
+            type:
+            - 'null'
           team:
-            nullable: true
+            type:
+            - 'null'
           team_abbr:
-            nullable: true
+            type:
+            - 'null'
           team_changed_at:
-            nullable: true
+            type:
+            - 'null'
           weight:
             type: string
           yahoo_id:
@@ -1228,20 +1272,24 @@ components:
       items:
         properties:
           avatar:
-            nullable: true
-            type: string
+            type:
+            - string
+            - 'null'
           bracket_id:
             type: integer
           bracket_overrides_id:
-            nullable: true
+            type:
+            - 'null'
           company_id:
-            nullable: true
+            type:
+            - 'null'
           display_order:
             type: integer
           draft_id:
             type: string
           group_id:
-            nullable: true
+            type:
+            - 'null'
           last_author_avatar:
             type: string
           last_author_display_name:
@@ -1249,13 +1297,16 @@ components:
           last_author_id:
             type: string
           last_author_is_bot:
-            nullable: true
+            type:
+            - 'null'
           last_message_attachment:
-            nullable: true
+            type:
+            - 'null'
           last_message_id:
             type: string
           last_message_text_map:
-            nullable: true
+            type:
+            - 'null'
           last_message_time:
             type: integer
           last_pinned_message_id:
@@ -1269,9 +1320,9 @@ components:
           loser_bracket_id:
             type: integer
           loser_bracket_overrides_id:
-            nullable: true
+            type:
+            - 'null'
           metadata:
-            nullable: true
             properties:
               trophy_loser:
                 type: string
@@ -1285,12 +1336,15 @@ components:
                 type: string
               trophy_winner_banner_text:
                 type: string
-            type: object
+            type:
+            - object
+            - 'null'
           name:
             type: string
           previous_league_id:
-            nullable: true
-            type: string
+            type:
+            - string
+            - 'null'
           roster_positions:
             items:
               type: string
@@ -1562,45 +1616,62 @@ components:
         avatar:
           type: string
         cookies:
-          nullable: true
+          type:
+          - 'null'
         created:
-          nullable: true
+          type:
+          - 'null'
         currencies:
-          nullable: true
+          type:
+          - 'null'
         data_updated:
-          nullable: true
+          type:
+          - 'null'
         deleted:
-          nullable: true
+          type:
+          - 'null'
         display_name:
           type: string
         email:
-          nullable: true
+          type:
+          - 'null'
         is_bot:
-          nullable: true
+          type:
+          - 'null'
         metadata:
-          nullable: true
+          type:
+          - 'null'
         notifications:
-          nullable: true
+          type:
+          - 'null'
         pending:
-          nullable: true
+          type:
+          - 'null'
         phone:
-          nullable: true
+          type:
+          - 'null'
         real_name:
-          nullable: true
+          type:
+          - 'null'
         solicitable:
-          nullable: true
+          type:
+          - 'null'
         summoner_name:
-          nullable: true
+          type:
+          - 'null'
         summoner_region:
-          nullable: true
+          type:
+          - 'null'
         token:
-          nullable: true
+          type:
+          - 'null'
         user_id:
           type: string
         username:
           type: string
         verification:
-          nullable: true
+          type:
+          - 'null'
       type: object
 info:
   description: 'Routes per docs.sleeper.com; shapes from committed captures in sleeper/captures/. Read-only,

@@ -34,7 +34,6 @@ components:
               startDate:
                 type: string
               winner:
-                nullable: true
                 properties:
                   abbreviatedName:
                     type: string
@@ -53,7 +52,9 @@ components:
                     type: string
                   tvCode:
                     type: string
-                type: object
+                type:
+                - object
+                - 'null'
               year:
                 type: integer
             type: object
@@ -199,7 +200,8 @@ components:
               localTimeZone:
                 type: integer
               operationsCode:
-                nullable: true
+                type:
+                - 'null'
               phaseType:
                 properties:
                   alias:
@@ -283,7 +285,8 @@ components:
                     type: string
                 type: object
               referee4:
-                nullable: true
+                type:
+                - 'null'
               road:
                 properties:
                   club:
@@ -363,7 +366,8 @@ components:
                   images:
                     properties:
                       medium:
-                        nullable: true
+                        type:
+                        - 'null'
                     type: object
                   name:
                     type: string
@@ -748,8 +752,9 @@ components:
                       person:
                         properties:
                           abbreviatedName:
-                            nullable: true
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                           alias:
                             type: string
                           aliasRaw:
@@ -1030,8 +1035,9 @@ components:
               person:
                 properties:
                   abbreviatedName:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   alias:
                     type: string
                   aliasRaw:
@@ -1055,21 +1061,24 @@ components:
                         type: string
                     type: object
                   facebookAccount:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   height:
                     type: integer
                   images:
                     properties: {}
                     type: object
                   instagramAccount:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   isReferee:
                     type: boolean
                   jerseyName:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   name:
                     type: string
                   passportName:
@@ -1077,15 +1086,17 @@ components:
                   passportSurname:
                     type: string
                   twitterAccount:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   weight:
                     type: integer
                 type: object
               position:
                 type: integer
               positionName:
-                nullable: true
+                type:
+                - 'null'
               season:
                 properties:
                   alias:
@@ -1147,17 +1158,9 @@ openapi: 3.1.0
 paths:
   /competitions:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions
-      parameters:
-      - &id001
-        description: Without it the API answers XML.
-        in: header
-        name: Accept
-        required: true
-        schema:
-          enum:
-          - application/json
-          type: string
+      parameters: []
       responses:
         '200':
           content:
@@ -1166,11 +1169,13 @@ paths:
                 $ref: '#/components/schemas/Competitions'
           description: OK
       summary: Competitions (EuroLeague E, EuroCup U, ...)
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1185,11 +1190,13 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasons'
           description: OK
       summary: Seasons of a competition
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons/{seasonCode}/clubs:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons_E2025_clubs
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1210,11 +1217,13 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasonsClubs'
           description: OK
       summary: Clubs in a season
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons/{seasonCode}/games:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons_E2025_games
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1245,11 +1254,13 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasonsGames'
           description: OK
       summary: Games of a season
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons/{seasonCode}/games/{gameCode}/stats:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons_E2025_games_1_stats
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1276,11 +1287,13 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasonsGamesStats'
           description: OK
       summary: Box score of one game
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons/{seasonCode}/people:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons_E2025_people
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1311,11 +1324,13 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasonsPeople'
           description: OK
       summary: People (players, coaches) in a season
+      x-required-headers:
+        Accept: application/json
   /competitions/{competitionCode}/seasons/{seasonCode}/rounds:
     get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
       operationId: competitions_E_seasons_E2025_rounds
       parameters:
-      - *id001
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
         name: competitionCode
@@ -1336,5 +1351,7 @@ paths:
                 $ref: '#/components/schemas/CompetitionsSeasonsRounds'
           description: OK
       summary: Rounds of a season
+      x-required-headers:
+        Accept: application/json
 servers:
 - url: https://api-live.euroleague.net/v2
