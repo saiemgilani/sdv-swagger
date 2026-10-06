@@ -1,0 +1,841 @@
+components:
+  schemas:
+    Events:
+      properties:
+        cursor:
+          type: string
+        events:
+          items:
+            properties:
+              category:
+                type: string
+              collateral_return_type:
+                type: string
+              event_ticker:
+                type: string
+              exchange_index:
+                type: integer
+              last_updated_ts:
+                type: string
+              mutually_exclusive:
+                type: boolean
+              product_metadata:
+                properties:
+                  competition:
+                    type: string
+                  competition_scope:
+                    type: string
+                type: object
+              series_ticker:
+                type: string
+              settlement_sources:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              strike_period:
+                type: string
+              sub_title:
+                type: string
+              title:
+                type: string
+            type: object
+          type: array
+        milestones:
+          items: {}
+          type: array
+      type: object
+    EventsEventTicker:
+      properties:
+        event:
+          properties:
+            category:
+              type: string
+            collateral_return_type:
+              type: string
+            event_ticker:
+              type: string
+            exchange_index:
+              type: integer
+            last_updated_ts:
+              type: string
+            markets:
+              items:
+                properties:
+                  can_close_early:
+                    type: boolean
+                  close_time:
+                    type: string
+                  created_time:
+                    type: string
+                  custom_strike:
+                    properties:
+                      football_team:
+                        type: string
+                    type: object
+                  early_close_condition:
+                    type: string
+                  event_ticker:
+                    type: string
+                  exchange_index:
+                    type: integer
+                  expected_expiration_time:
+                    type: string
+                  expiration_time:
+                    type: string
+                  expiration_value:
+                    type: string
+                  last_price_dollars:
+                    type: string
+                  latest_expiration_time:
+                    type: string
+                  market_type:
+                    type: string
+                  no_ask_dollars:
+                    type: string
+                  no_bid_dollars:
+                    type: string
+                  no_sub_title:
+                    type: string
+                  notional_value_dollars:
+                    type: string
+                  occurrence_datetime:
+                    type: string
+                  open_interest_fp:
+                    type: string
+                  open_time:
+                    type: string
+                  previous_price_dollars:
+                    type: string
+                  previous_yes_ask_dollars:
+                    type: string
+                  previous_yes_bid_dollars:
+                    type: string
+                  price_level_structure:
+                    type: string
+                  price_ranges:
+                    items:
+                      properties:
+                        end:
+                          type: string
+                        start:
+                          type: string
+                        step:
+                          type: string
+                      type: object
+                    type: array
+                  result:
+                    type: string
+                  rules_primary:
+                    type: string
+                  rules_secondary:
+                    type: string
+                  settlement_bounds_type:
+                    type: string
+                  settlement_timer_seconds:
+                    type: integer
+                  status:
+                    type: string
+                  strike_type:
+                    type: string
+                  ticker:
+                    type: string
+                  title:
+                    type: string
+                  updated_time:
+                    type: string
+                  volume_24h_fp:
+                    type: string
+                  volume_fp:
+                    type: string
+                  yes_ask_dollars:
+                    type: string
+                  yes_ask_size_fp:
+                    type: string
+                  yes_bid_dollars:
+                    type: string
+                  yes_bid_size_fp:
+                    type: string
+                  yes_sub_title:
+                    type: string
+                type: object
+              type: array
+            mutually_exclusive:
+              type: boolean
+            product_metadata:
+              properties:
+                competition:
+                  type: string
+                competition_scope:
+                  type: string
+              type: object
+            series_ticker:
+              type: string
+            settlement_sources:
+              items:
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              type: array
+            strike_period:
+              type: string
+            sub_title:
+              type: string
+            title:
+              type: string
+          type: object
+        markets:
+          items: {}
+          type: array
+      type: object
+    ExchangeStatus:
+      properties:
+        exchange_active:
+          type: boolean
+        exchange_index_statuses:
+          items:
+            properties:
+              description:
+                type: string
+              exchange_active:
+                type: boolean
+              exchange_index:
+                type: integer
+              intra_exchange_transfers_active:
+                type: boolean
+              trading_active:
+                type: boolean
+            type: object
+          type: array
+        intra_exchange_transfers_active:
+          type: boolean
+        trading_active:
+          type: boolean
+      type: object
+    Markets:
+      properties:
+        cursor:
+          type: string
+        markets:
+          items:
+            properties:
+              can_close_early:
+                type: boolean
+              close_time:
+                type: string
+              created_time:
+                type: string
+              custom_strike:
+                properties:
+                  football_team:
+                    type: string
+                type: object
+              early_close_condition:
+                type: string
+              event_ticker:
+                type: string
+              exchange_index:
+                type: integer
+              expected_expiration_time:
+                type: string
+              expiration_time:
+                type: string
+              expiration_value:
+                type: string
+              last_price_dollars:
+                type: string
+              latest_expiration_time:
+                type: string
+              market_type:
+                type: string
+              no_ask_dollars:
+                type: string
+              no_bid_dollars:
+                type: string
+              no_sub_title:
+                type: string
+              notional_value_dollars:
+                type: string
+              occurrence_datetime:
+                type: string
+              open_interest_fp:
+                type: string
+              open_time:
+                type: string
+              previous_price_dollars:
+                type: string
+              previous_yes_ask_dollars:
+                type: string
+              previous_yes_bid_dollars:
+                type: string
+              price_level_structure:
+                type: string
+              price_ranges:
+                items:
+                  properties:
+                    end:
+                      type: string
+                    start:
+                      type: string
+                    step:
+                      type: string
+                  type: object
+                type: array
+              result:
+                type: string
+              rules_primary:
+                type: string
+              rules_secondary:
+                type: string
+              settlement_bounds_type:
+                type: string
+              settlement_timer_seconds:
+                type: integer
+              status:
+                type: string
+              strike_type:
+                type: string
+              ticker:
+                type: string
+              title:
+                type: string
+              updated_time:
+                type: string
+              volume_24h_fp:
+                type: string
+              volume_fp:
+                type: string
+              yes_ask_dollars:
+                type: string
+              yes_ask_size_fp:
+                type: string
+              yes_bid_dollars:
+                type: string
+              yes_bid_size_fp:
+                type: string
+              yes_sub_title:
+                type: string
+            type: object
+          type: array
+      type: object
+    MarketsTicker:
+      properties:
+        market:
+          properties:
+            can_close_early:
+              type: boolean
+            close_time:
+              type: string
+            created_time:
+              type: string
+            custom_strike:
+              properties:
+                football_team:
+                  type: string
+              type: object
+            early_close_condition:
+              type: string
+            event_ticker:
+              type: string
+            exchange_index:
+              type: integer
+            expected_expiration_time:
+              type: string
+            expiration_time:
+              type: string
+            expiration_value:
+              type: string
+            last_price_dollars:
+              type: string
+            latest_expiration_time:
+              type: string
+            market_type:
+              type: string
+            no_ask_dollars:
+              type: string
+            no_bid_dollars:
+              type: string
+            no_sub_title:
+              type: string
+            notional_value_dollars:
+              type: string
+            occurrence_datetime:
+              type: string
+            open_interest_fp:
+              type: string
+            open_time:
+              type: string
+            previous_price_dollars:
+              type: string
+            previous_yes_ask_dollars:
+              type: string
+            previous_yes_bid_dollars:
+              type: string
+            price_level_structure:
+              type: string
+            price_ranges:
+              items:
+                properties:
+                  end:
+                    type: string
+                  start:
+                    type: string
+                  step:
+                    type: string
+                type: object
+              type: array
+            result:
+              type: string
+            rules_primary:
+              type: string
+            rules_secondary:
+              type: string
+            settlement_bounds_type:
+              type: string
+            settlement_timer_seconds:
+              type: integer
+            status:
+              type: string
+            strike_type:
+              type: string
+            ticker:
+              type: string
+            title:
+              type: string
+            updated_time:
+              type: string
+            volume_24h_fp:
+              type: string
+            volume_fp:
+              type: string
+            yes_ask_dollars:
+              type: string
+            yes_ask_size_fp:
+              type: string
+            yes_bid_dollars:
+              type: string
+            yes_bid_size_fp:
+              type: string
+            yes_sub_title:
+              type: string
+          type: object
+      type: object
+    MarketsTickerOrderbook:
+      properties:
+        orderbook_fp:
+          properties:
+            no_dollars:
+              items:
+                items:
+                  type: string
+                type: array
+              type: array
+            yes_dollars:
+              items:
+                items:
+                  type: string
+                type: array
+              type: array
+          type: object
+      type: object
+    MarketsTrades:
+      properties:
+        cursor:
+          type: string
+        trades:
+          items:
+            properties:
+              count_fp:
+                type: string
+              created_time:
+                type: string
+              is_block_trade:
+                type: boolean
+              no_price_dollars:
+                type: string
+              taker_book_side:
+                type: string
+              taker_outcome_side:
+                type: string
+              taker_side:
+                type: string
+              ticker:
+                type: string
+              trade_id:
+                type: string
+              yes_price_dollars:
+                type: string
+            type: object
+          type: array
+      type: object
+    Series:
+      properties:
+        series:
+          items:
+            properties:
+              additional_prohibitions:
+                items:
+                  type: string
+                type: array
+              categories:
+                items:
+                  type: string
+                type: array
+              category:
+                type: string
+              contract_terms_url:
+                type: string
+              contract_url:
+                type: string
+              exchange_index:
+                type: integer
+              fee_multiplier:
+                type: integer
+              fee_type:
+                type: string
+              frequency:
+                type: string
+              last_updated_ts:
+                type: string
+              settlement_sources:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              tags:
+                items:
+                  type: string
+                type: array
+              ticker:
+                type: string
+              title:
+                type: string
+            type: object
+          type: array
+      type: object
+    SeriesSeriesTicker:
+      properties:
+        series:
+          properties:
+            additional_prohibitions:
+              items:
+                type: string
+              type: array
+            categories:
+              items:
+                type: string
+              type: array
+            category:
+              type: string
+            contract_terms_url:
+              type: string
+            contract_url:
+              type: string
+            exchange_index:
+              type: integer
+            fee_multiplier:
+              type: integer
+            fee_type:
+              type: string
+            frequency:
+              type: string
+            last_updated_ts:
+              type: string
+            product_metadata:
+              properties:
+                scope:
+                  type: string
+              type: object
+            settlement_sources:
+              items:
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              type: array
+            tags:
+              items:
+                type: string
+              type: array
+            ticker:
+              type: string
+            title:
+              type: string
+          type: object
+      type: object
+info:
+  description: The keyless market-data routes of Kalshi's Trade API v2; shapes from committed captures
+    in kalshi/captures/ (2026-10-06). /events, /markets and /markets/trades page by an opaque `cursor`
+    echoed in the body (see x-pagination); captures hold the first page only. /series ignores limit/cursor
+    and returns a whole category at once. Order placement and portfolio routes need KALSHI-ACCESS-KEY
+    plus an RSA signature and are out of scope. Not official or supported.
+  title: Kalshi Trade API v2 (api.elections.kalshi.com) — public market data
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /events:
+    get:
+      operationId: events
+      parameters:
+      - description: Rows per page (max 1000 on /markets, 200 on /events; default 100).
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: 'Lifecycle filter: open, closed, settled (events also accept unopened).'
+        example: open
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+      - description: Series ticker, e.g. KXNFLGAME (from /series).
+        example: KXNFLGAME
+        in: query
+        name: series_ticker
+        required: false
+        schema:
+          type: string
+      - description: Opaque page cursor returned in the previous page's `cursor` field (verified 2026-10-06).
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+          description: OK
+      summary: Events, filterable by series and status; cursor-paged
+      x-pagination:
+        params:
+        - cursor
+        - limit
+        request: 'verified 2026-10-06: passing the returned cursor back gives a page whose first row differs'
+        response_field: cursor
+        style: cursor
+  /events/{event_ticker}:
+    get:
+      operationId: events_event_ticker
+      parameters:
+      - description: Event ticker, e.g. KXNFLGAME-26OCT08TBDAL (from /events).
+        example: KXNFLGAME-26OCT08TBDAL
+        in: path
+        name: event_ticker
+        required: true
+        schema:
+          type: string
+      - description: true nests the event's markets under event.markets.
+        example: 'true'
+        in: query
+        name: with_nested_markets
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsEventTicker'
+          description: OK
+      summary: One event, optionally with its markets nested
+  /exchange/status:
+    get:
+      operationId: exchange_status
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeStatus'
+          description: OK
+      summary: Exchange and trading status
+  /markets:
+    get:
+      operationId: markets
+      parameters:
+      - description: Rows per page (max 1000 on /markets, 200 on /events; default 100).
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Event ticker, e.g. KXNFLGAME-26OCT08TBDAL (from /events).
+        example: KXNFLGAME-26OCT08TBDAL
+        in: query
+        name: event_ticker
+        required: false
+        schema:
+          type: string
+      - description: Opaque page cursor returned in the previous page's `cursor` field (verified 2026-10-06).
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Markets'
+          description: OK
+      summary: Markets, filterable by event/series/status; cursor-paged
+      x-pagination:
+        params:
+        - cursor
+        - limit
+        request: 'verified 2026-10-06: passing the returned cursor back gives a page whose first row differs'
+        response_field: cursor
+        style: cursor
+  /markets/trades:
+    get:
+      operationId: markets_trades
+      parameters:
+      - description: Rows per page (max 1000 on /markets, 200 on /events; default 100).
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Market ticker, e.g. KXNFLGAME-26OCT08TBDAL-DAL (from /markets).
+        example: KXNFLGAME-26OCT08TBDAL-DAL
+        in: query
+        name: ticker
+        required: false
+        schema:
+          type: string
+      - description: Opaque page cursor returned in the previous page's `cursor` field (verified 2026-10-06).
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsTrades'
+          description: OK
+      summary: Public trades, filterable by market; cursor-paged
+      x-pagination:
+        params:
+        - cursor
+        - limit
+        request: 'verified 2026-10-06: passing the returned cursor back gives a page whose first row differs'
+        response_field: cursor
+        style: cursor
+  /markets/{ticker}:
+    get:
+      operationId: markets_ticker
+      parameters:
+      - description: Market ticker, e.g. KXNFLGAME-26OCT08TBDAL-DAL (from /markets).
+        example: KXNFLGAME-26OCT08TBDAL-DAL
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsTicker'
+          description: OK
+      summary: One market
+  /markets/{ticker}/orderbook:
+    get:
+      operationId: markets_ticker_orderbook
+      parameters:
+      - description: Market ticker, e.g. KXNFLGAME-26OCT08TBDAL-DAL (from /markets).
+        example: KXNFLGAME-26OCT08TBDAL-DAL
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      - description: Price levels per side (omit for the full book).
+        example: '3'
+        in: query
+        name: depth
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsTickerOrderbook'
+          description: OK
+      summary: Order book of a market (fixed-point dollar levels)
+  /series:
+    get:
+      operationId: series
+      parameters:
+      - description: Series category, e.g. Sports.
+        example: Sports
+        in: query
+        name: category
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+          description: OK
+      summary: Series (market families) in a category; the whole category in one body
+      x-pagination:
+        params: []
+        request: 'unverified: limit and cursor are ignored (probed 2026-10-06: 3,982 Sports series with
+          limit=3 and with cursor=abc); the whole category comes back in one 6.3 MB body and the capture
+          keeps three rows'
+        style: none
+  /series/{series_ticker}:
+    get:
+      operationId: series_series_ticker
+      parameters:
+      - description: Series ticker, e.g. KXNFLGAME (from /series).
+        example: KXNFLGAME
+        in: path
+        name: series_ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesSeriesTicker'
+          description: OK
+      summary: One series
+servers:
+- url: https://api.elections.kalshi.com/trade-api/v2
