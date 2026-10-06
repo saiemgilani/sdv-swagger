@@ -1,0 +1,805 @@
+components:
+  schemas:
+    GetavailablegroupsLeagueSeason:
+      items:
+        properties:
+          groupID:
+            type: integer
+          groupName:
+            type: string
+          groupOrderID:
+            type: integer
+        type: object
+      type: array
+    Getavailableleagues:
+      items:
+        properties:
+          leagueId:
+            type: integer
+          leagueName:
+            type: string
+          leagueSeason:
+            type: string
+          leagueShortcut:
+            type: string
+          sport:
+            properties:
+              sportId:
+                type: integer
+              sportName:
+                type: string
+            type: object
+        type: object
+      type: array
+    GetavailableteamsLeagueSeason:
+      items:
+        properties:
+          shortName:
+            type: string
+          teamGroupName:
+            type:
+            - 'null'
+          teamIconUrl:
+            type: string
+          teamId:
+            type: integer
+          teamName:
+            type: string
+        type: object
+      type: array
+    GetbltableLeagueSeason:
+      items:
+        properties:
+          draw:
+            type: integer
+          goalDiff:
+            type: integer
+          goals:
+            type: integer
+          lost:
+            type: integer
+          matches:
+            type: integer
+          opponentGoals:
+            type: integer
+          points:
+            type: integer
+          shortName:
+            type: string
+          teamIconUrl:
+            type: string
+          teamInfoId:
+            type: integer
+          teamName:
+            type: string
+          won:
+            type: integer
+        type: object
+      type: array
+    GetcurrentgroupLeague:
+      properties:
+        groupID:
+          type: integer
+        groupName:
+          type: string
+        groupOrderID:
+          type: integer
+      type: object
+    GetgoalgettersLeagueSeason:
+      items:
+        properties:
+          goalCount:
+            type: integer
+          goalGetterId:
+            type: integer
+          goalGetterName:
+            type: string
+        type: object
+      type: array
+    GetlastchangedateLeagueSeasonGroup:
+      type: string
+    GetmatchdataLeagueSeason:
+      items:
+        properties:
+          goals:
+            items:
+              properties:
+                comment:
+                  type:
+                  - 'null'
+                goalGetterID:
+                  type: integer
+                goalGetterName:
+                  type: string
+                goalID:
+                  type: integer
+                isOvertime:
+                  type: boolean
+                isOwnGoal:
+                  type: boolean
+                isPenalty:
+                  type: boolean
+                matchMinute:
+                  type: integer
+                scoreTeam1:
+                  type: integer
+                scoreTeam2:
+                  type: integer
+                scoringTeamId:
+                  type: integer
+              type: object
+            type: array
+          group:
+            properties:
+              groupID:
+                type: integer
+              groupName:
+                type: string
+              groupOrderID:
+                type: integer
+            type: object
+          lastUpdateDateTime:
+            type: string
+          leagueId:
+            type: integer
+          leagueName:
+            type: string
+          leagueSeason:
+            type: integer
+          leagueShortcut:
+            type: string
+          location:
+            type:
+            - 'null'
+          matchDateTime:
+            type: string
+          matchDateTimeUTC:
+            type: string
+          matchID:
+            type: integer
+          matchIsFinished:
+            type: boolean
+          matchResults:
+            items:
+              properties:
+                pointsTeam1:
+                  type: integer
+                pointsTeam2:
+                  type: integer
+                resultDescription:
+                  type: string
+                resultID:
+                  type: integer
+                resultName:
+                  type: string
+                resultOrderID:
+                  type: integer
+                resultTypeID:
+                  type: integer
+                resultTypeKind:
+                  type: string
+              type: object
+            type: array
+          numberOfViewers:
+            type:
+            - 'null'
+          team1:
+            properties:
+              shortName:
+                type: string
+              teamGroupName:
+                type:
+                - 'null'
+              teamIconUrl:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+            type: object
+          team2:
+            properties:
+              shortName:
+                type: string
+              teamGroupName:
+                type:
+                - 'null'
+              teamIconUrl:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+            type: object
+          timeZoneID:
+            type: string
+        type: object
+      type: array
+    GetmatchdataLeagueSeasonGroup:
+      items:
+        properties:
+          goals:
+            items:
+              properties:
+                comment:
+                  type:
+                  - 'null'
+                goalGetterID:
+                  type: integer
+                goalGetterName:
+                  type: string
+                goalID:
+                  type: integer
+                isOvertime:
+                  type: boolean
+                isOwnGoal:
+                  type: boolean
+                isPenalty:
+                  type: boolean
+                matchMinute:
+                  type: integer
+                scoreTeam1:
+                  type: integer
+                scoreTeam2:
+                  type: integer
+                scoringTeamId:
+                  type: integer
+              type: object
+            type: array
+          group:
+            properties:
+              groupID:
+                type: integer
+              groupName:
+                type: string
+              groupOrderID:
+                type: integer
+            type: object
+          lastUpdateDateTime:
+            type: string
+          leagueId:
+            type: integer
+          leagueName:
+            type: string
+          leagueSeason:
+            type: integer
+          leagueShortcut:
+            type: string
+          location:
+            type:
+            - 'null'
+          matchDateTime:
+            type: string
+          matchDateTimeUTC:
+            type: string
+          matchID:
+            type: integer
+          matchIsFinished:
+            type: boolean
+          matchResults:
+            items:
+              properties:
+                pointsTeam1:
+                  type: integer
+                pointsTeam2:
+                  type: integer
+                resultDescription:
+                  type: string
+                resultID:
+                  type: integer
+                resultName:
+                  type: string
+                resultOrderID:
+                  type: integer
+                resultTypeID:
+                  type: integer
+                resultTypeKind:
+                  type: string
+              type: object
+            type: array
+          numberOfViewers:
+            type:
+            - 'null'
+          team1:
+            properties:
+              shortName:
+                type: string
+              teamGroupName:
+                type:
+                - 'null'
+              teamIconUrl:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+            type: object
+          team2:
+            properties:
+              shortName:
+                type: string
+              teamGroupName:
+                type:
+                - 'null'
+              teamIconUrl:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+            type: object
+          timeZoneID:
+            type: string
+        type: object
+      type: array
+    GetmatchdataMatchId:
+      properties:
+        goals:
+          items:
+            properties:
+              comment:
+                type:
+                - 'null'
+              goalGetterID:
+                type: integer
+              goalGetterName:
+                type: string
+              goalID:
+                type: integer
+              isOvertime:
+                type: boolean
+              isOwnGoal:
+                type: boolean
+              isPenalty:
+                type: boolean
+              matchMinute:
+                type: integer
+              scoreTeam1:
+                type: integer
+              scoreTeam2:
+                type: integer
+              scoringTeamId:
+                type: integer
+            type: object
+          type: array
+        group:
+          properties:
+            groupID:
+              type: integer
+            groupName:
+              type: string
+            groupOrderID:
+              type: integer
+          type: object
+        lastUpdateDateTime:
+          type: string
+        leagueId:
+          type: integer
+        leagueName:
+          type: string
+        leagueSeason:
+          type: integer
+        leagueShortcut:
+          type: string
+        location:
+          type:
+          - 'null'
+        matchDateTime:
+          type: string
+        matchDateTimeUTC:
+          type: string
+        matchID:
+          type: integer
+        matchIsFinished:
+          type: boolean
+        matchResults:
+          items:
+            properties:
+              pointsTeam1:
+                type: integer
+              pointsTeam2:
+                type: integer
+              resultDescription:
+                type: string
+              resultID:
+                type: integer
+              resultName:
+                type: string
+              resultOrderID:
+                type: integer
+              resultTypeID:
+                type: integer
+              resultTypeKind:
+                type: string
+            type: object
+          type: array
+        numberOfViewers:
+          type:
+          - 'null'
+        team1:
+          properties:
+            shortName:
+              type: string
+            teamGroupName:
+              type:
+              - 'null'
+            teamIconUrl:
+              type: string
+            teamId:
+              type: integer
+            teamName:
+              type: string
+          type: object
+        team2:
+          properties:
+            shortName:
+              type: string
+            teamGroupName:
+              type:
+              - 'null'
+            teamIconUrl:
+              type: string
+            teamId:
+              type: integer
+            teamName:
+              type: string
+          type: object
+        timeZoneID:
+          type: string
+      type: object
+    GetnextmatchbyleagueteamLeagueIdTeamId:
+      properties:
+        goals:
+          items: {}
+          type: array
+        group:
+          properties:
+            groupID:
+              type: integer
+            groupName:
+              type: string
+            groupOrderID:
+              type: integer
+          type: object
+        lastUpdateDateTime:
+          type: string
+        leagueId:
+          type: integer
+        leagueName:
+          type: string
+        leagueSeason:
+          type: integer
+        leagueShortcut:
+          type: string
+        location:
+          type:
+          - 'null'
+        matchDateTime:
+          type: string
+        matchDateTimeUTC:
+          type: string
+        matchID:
+          type: integer
+        matchIsFinished:
+          type: boolean
+        matchResults:
+          items: {}
+          type: array
+        numberOfViewers:
+          type:
+          - 'null'
+        team1:
+          properties:
+            shortName:
+              type: string
+            teamGroupName:
+              type:
+              - 'null'
+            teamIconUrl:
+              type: string
+            teamId:
+              type: integer
+            teamName:
+              type: string
+          type: object
+        team2:
+          properties:
+            shortName:
+              type: string
+            teamGroupName:
+              type:
+              - 'null'
+            teamIconUrl:
+              type: string
+            teamId:
+              type: integer
+            teamName:
+              type: string
+          type: object
+        timeZoneID:
+          type: string
+      type: object
+info:
+  description: Routes per the API's own swagger (api.openligadb.de/swagger/v1/swagger.json); shapes from
+    committed captures in openligadb/captures/ (captured 2026-10-06, Bundesliga bl1 season 2025 = 2025/26).
+    Keyless, read-only, community-maintained football results, mostly German leagues; no query parameters.
+    Not official or supported.
+  title: OpenLigaDB API (api.openligadb.de)
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /getavailablegroups/{league}/{season}:
+    get:
+      operationId: getavailablegroups_league_season
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetavailablegroupsLeagueSeason'
+          description: OK
+      summary: Matchdays of a league-season
+  /getavailableleagues:
+    get:
+      operationId: getavailableleagues
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getavailableleagues'
+          description: OK
+      summary: All leagues (shortcut, season, sport)
+  /getavailableteams/{league}/{season}:
+    get:
+      operationId: getavailableteams_league_season
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetavailableteamsLeagueSeason'
+          description: OK
+      summary: Teams of a league-season
+  /getbltable/{league}/{season}:
+    get:
+      operationId: getbltable_league_season
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetbltableLeagueSeason'
+          description: OK
+      summary: League table
+  /getcurrentgroup/{league}:
+    get:
+      operationId: getcurrentgroup_league
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetcurrentgroupLeague'
+          description: OK
+      summary: Current matchday
+  /getgoalgetters/{league}/{season}:
+    get:
+      operationId: getgoalgetters_league_season
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetgoalgettersLeagueSeason'
+          description: OK
+      summary: Top scorers
+  /getlastchangedate/{league}/{season}/{group}:
+    get:
+      operationId: getlastchangedate_league_season_group
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Matchday number (groupOrderID from /getavailablegroups), e.g. 1.
+        example: '1'
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetlastchangedateLeagueSeasonGroup'
+          description: OK
+      summary: Last change timestamp (bare ISO string)
+  /getmatchdata/{league}/{season}:
+    get:
+      operationId: getmatchdata_league_season
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetmatchdataLeagueSeason'
+          description: OK
+      summary: All matches of a season
+  /getmatchdata/{league}/{season}/{group}:
+    get:
+      operationId: getmatchdata_league_season_group
+      parameters:
+      - description: League shortcut from /getavailableleagues, e.g. bl1 (Bundesliga).
+        example: bl1
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Season start year, e.g. 2025 for 2025/26.
+        example: '2025'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Matchday number (groupOrderID from /getavailablegroups), e.g. 1.
+        example: '1'
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetmatchdataLeagueSeasonGroup'
+          description: OK
+      summary: Matches of one matchday
+  /getmatchdata/{match_id}:
+    get:
+      operationId: getmatchdata_match_id
+      parameters:
+      - description: Match id (matchID from any getmatchdata list), e.g. 77264.
+        example: '77264'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetmatchdataMatchId'
+          description: OK
+      summary: One match
+  /getnextmatchbyleagueteam/{league_id}/{team_id}:
+    get:
+      operationId: getnextmatchbyleagueteam_league_id_team_id
+      parameters:
+      - description: Numeric leagueId from /getavailableleagues of a season still in progress, e.g. 4937
+          (bl1 2026); a finished season answers 404 text.
+        example: '4937'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      - description: Team id (teamId from /getavailableteams), e.g. 40 (FC Bayern München).
+        example: '40'
+        in: path
+        name: team_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetnextmatchbyleagueteamLeagueIdTeamId'
+          description: OK
+      summary: Next match of a team (404 text once the season is over)
+servers:
+- url: https://api.openligadb.de
