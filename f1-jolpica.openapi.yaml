@@ -1,0 +1,1549 @@
+components:
+  schemas:
+    Circuits:
+      properties:
+        Circuits:
+          items:
+            properties:
+              Location:
+                properties:
+                  country:
+                    type: string
+                  lat:
+                    type: string
+                  locality:
+                    type: string
+                  long:
+                    type: string
+                type: object
+              circuitId:
+                type: string
+              circuitName:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+      type: object
+    ConstructorStandings:
+      properties:
+        StandingsLists:
+          items:
+            properties:
+              ConstructorStandings:
+                items:
+                  properties:
+                    Constructor:
+                      properties:
+                        constructorId:
+                          type: string
+                        name:
+                          type: string
+                        nationality:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    points:
+                      type: string
+                    position:
+                      type: string
+                    positionText:
+                      type: string
+                    wins:
+                      type: string
+                  type: object
+                type: array
+              round:
+                type: string
+              season:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Constructors:
+      properties:
+        Constructors:
+          items:
+            properties:
+              constructorId:
+                type: string
+              name:
+                type: string
+              nationality:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        season:
+          type: string
+      type: object
+    Driver:
+      properties:
+        Drivers:
+          items:
+            properties:
+              code:
+                type: string
+              dateOfBirth:
+                type: string
+              driverId:
+                type: string
+              familyName:
+                type: string
+              givenName:
+                type: string
+              nationality:
+                type: string
+              permanentNumber:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        driverId:
+          type: string
+      type: object
+    DriverStandings:
+      properties:
+        StandingsLists:
+          items:
+            properties:
+              DriverStandings:
+                items:
+                  properties:
+                    Constructors:
+                      items:
+                        properties:
+                          constructorId:
+                            type: string
+                          name:
+                            type: string
+                          nationality:
+                            type: string
+                          url:
+                            type: string
+                        type: object
+                      type: array
+                    Driver:
+                      properties:
+                        code:
+                          type: string
+                        dateOfBirth:
+                          type: string
+                        driverId:
+                          type: string
+                        familyName:
+                          type: string
+                        givenName:
+                          type: string
+                        nationality:
+                          type: string
+                        permanentNumber:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    points:
+                      type: string
+                    position:
+                      type: string
+                    positionText:
+                      type: string
+                    wins:
+                      type: string
+                  type: object
+                type: array
+              round:
+                type: string
+              season:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Drivers:
+      properties:
+        Drivers:
+          items:
+            properties:
+              code:
+                type: string
+              dateOfBirth:
+                type: string
+              driverId:
+                type: string
+              familyName:
+                type: string
+              givenName:
+                type: string
+              nationality:
+                type: string
+              permanentNumber:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        season:
+          type: string
+      type: object
+    Laps:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              Laps:
+                items:
+                  properties:
+                    Timings:
+                      items:
+                        properties:
+                          driverId:
+                            type: string
+                          position:
+                            type: string
+                          time:
+                            type: string
+                        type: object
+                      type: array
+                    number:
+                      type: string
+                  type: object
+                type: array
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    MRData:
+      description: Shared Ergast envelope; the route's table key (RaceTable, StandingsTable, ...) sits
+        beside these.
+      properties:
+        limit:
+          description: Effective page size (string).
+          type: string
+        offset:
+          description: Effective offset (string).
+          type: string
+        series:
+          description: Always `f1`.
+          type: string
+        total:
+          description: Total innermost rows matching the query across all pages (string).
+          type: string
+        url:
+          description: The request URL as the host canonicalized it (path lowercased, e.g. `driverStandings`
+            -> `driverstandings`).
+          type: string
+        xmlns:
+          description: Always empty on the JSON rendering.
+          type: string
+      type: object
+    PitStops:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              PitStops:
+                items:
+                  properties:
+                    driverId:
+                      type: string
+                    duration:
+                      type: string
+                    lap:
+                      type: string
+                    stop:
+                      type: string
+                    time:
+                      type: string
+                  type: object
+                type: array
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Qualifying:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              QualifyingResults:
+                items:
+                  properties:
+                    Constructor:
+                      properties:
+                        constructorId:
+                          type: string
+                        name:
+                          type: string
+                        nationality:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    Driver:
+                      properties:
+                        code:
+                          type: string
+                        dateOfBirth:
+                          type: string
+                        driverId:
+                          type: string
+                        familyName:
+                          type: string
+                        givenName:
+                          type: string
+                        nationality:
+                          type: string
+                        permanentNumber:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    Q1:
+                      type: string
+                    Q2:
+                      type: string
+                    Q3:
+                      type: string
+                    number:
+                      type: string
+                    position:
+                      type: string
+                  type: object
+                type: array
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Results:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              Results:
+                items:
+                  properties:
+                    Constructor:
+                      properties:
+                        constructorId:
+                          type: string
+                        name:
+                          type: string
+                        nationality:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    Driver:
+                      properties:
+                        code:
+                          type: string
+                        dateOfBirth:
+                          type: string
+                        driverId:
+                          type: string
+                        familyName:
+                          type: string
+                        givenName:
+                          type: string
+                        nationality:
+                          type: string
+                        permanentNumber:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    FastestLap:
+                      properties:
+                        AverageSpeed:
+                          properties:
+                            speed:
+                              type: string
+                            units:
+                              type: string
+                          type: object
+                        Time:
+                          properties:
+                            time:
+                              type: string
+                          type: object
+                        lap:
+                          type: string
+                        rank:
+                          type: string
+                      type: object
+                    Time:
+                      properties:
+                        millis:
+                          type: string
+                        time:
+                          type: string
+                      type: object
+                    grid:
+                      type: string
+                    laps:
+                      type: string
+                    number:
+                      type: string
+                    points:
+                      type: string
+                    position:
+                      type: string
+                    positionText:
+                      type: string
+                    status:
+                      type: string
+                  type: object
+                type: array
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Round:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              FirstPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              Qualifying:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              SecondPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              ThirdPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Schedule:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              FirstPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              Qualifying:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              SecondPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              Sprint:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              SprintQualifying:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              ThirdPractice:
+                properties:
+                  date:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        season:
+          type: string
+      type: object
+    Seasons:
+      properties:
+        Seasons:
+          items:
+            properties:
+              season:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+      type: object
+    Sprint:
+      properties:
+        Races:
+          items:
+            properties:
+              Circuit:
+                properties:
+                  Location:
+                    properties:
+                      country:
+                        type: string
+                      lat:
+                        type: string
+                      locality:
+                        type: string
+                      long:
+                        type: string
+                    type: object
+                  circuitId:
+                    type: string
+                  circuitName:
+                    type: string
+                  url:
+                    type: string
+                type: object
+              SprintResults:
+                items:
+                  properties:
+                    Constructor:
+                      properties:
+                        constructorId:
+                          type: string
+                        name:
+                          type: string
+                        nationality:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    Driver:
+                      properties:
+                        code:
+                          type: string
+                        dateOfBirth:
+                          type: string
+                        driverId:
+                          type: string
+                        familyName:
+                          type: string
+                        givenName:
+                          type: string
+                        nationality:
+                          type: string
+                        permanentNumber:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    FastestLap:
+                      properties:
+                        Time:
+                          properties:
+                            time:
+                              type: string
+                          type: object
+                        lap:
+                          type: string
+                        rank:
+                          type: string
+                      type: object
+                    Time:
+                      properties:
+                        millis:
+                          type: string
+                        time:
+                          type: string
+                      type: object
+                    grid:
+                      type: string
+                    laps:
+                      type: string
+                    number:
+                      type: string
+                    points:
+                      type: string
+                    position:
+                      type: string
+                    positionText:
+                      type: string
+                    status:
+                      type: string
+                  type: object
+                type: array
+              date:
+                type: string
+              raceName:
+                type: string
+              round:
+                type: string
+              season:
+                type: string
+              time:
+                type: string
+              url:
+                type: string
+            type: object
+          type: array
+        round:
+          type: string
+        season:
+          type: string
+      type: object
+    Status:
+      properties:
+        Status:
+          items:
+            properties:
+              count:
+                type: string
+              status:
+                type: string
+              statusId:
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Reverse-engineered from committed captures in f1/captures/. Keyless. Rate limit: 4 req/s
+    burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0 (non-commercial, share-alike)
+    -- wrap-only, never republished as release assets. Not official or supported.'
+  title: Jolpica F1 API (Ergast-compatible)
+  version: '1'
+openapi: 3.1.0
+paths:
+  /circuits.json:
+    get:
+      description: 'Ergast `MRData` envelope with `CircuitTable`; rows at `CircuitTable.Circuits[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: circuits
+      parameters:
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        CircuitTable:
+                          $ref: '#/components/schemas/Circuits'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: All circuits
+  /drivers/{driverId}.json:
+    get:
+      description: 'Ergast `MRData` envelope with `DriverTable`; rows at `DriverTable.Drivers[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: drivers_driverId
+      parameters:
+      - description: Ergast driver id, e.g. `max_verstappen`.
+        in: path
+        name: driverId
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        DriverTable:
+                          $ref: '#/components/schemas/Driver'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: One driver by id
+  /seasons.json:
+    get:
+      description: 'Ergast `MRData` envelope with `SeasonTable`; rows at `SeasonTable.Seasons[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: seasons
+      parameters:
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        SeasonTable:
+                          $ref: '#/components/schemas/Seasons'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: All championship seasons
+  /status.json:
+    get:
+      description: 'Ergast `MRData` envelope with `StatusTable`; rows at `StatusTable.Status[]`. The path
+        is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`. Rate
+        limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0 (non-commercial,
+        share-alike) -- wrap-only, never republished as release assets.'
+      operationId: status
+      parameters:
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        StatusTable:
+                          $ref: '#/components/schemas/Status'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Finishing-status vocabulary with all-time counts
+  /{season}.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races[]`. The path is
+        case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`. Rate limit:
+        4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0 (non-commercial,
+        share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Schedule'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Race schedule of a season (one row per race)
+  /{season}/constructorStandings.json:
+    get:
+      description: 'Ergast `MRData` envelope with `StandingsTable`; rows at `StandingsTable.StandingsLists.ConstructorStandings[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_constructorStandings
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        StandingsTable:
+                          $ref: '#/components/schemas/ConstructorStandings'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Constructors' championship standings after the season's last round
+  /{season}/constructors.json:
+    get:
+      description: 'Ergast `MRData` envelope with `ConstructorTable`; rows at `ConstructorTable.Constructors[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_constructors
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        ConstructorTable:
+                          $ref: '#/components/schemas/Constructors'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Constructors who took part in a season
+  /{season}/driverStandings.json:
+    get:
+      description: 'Ergast `MRData` envelope with `StandingsTable`; rows at `StandingsTable.StandingsLists.DriverStandings[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_driverStandings
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        StandingsTable:
+                          $ref: '#/components/schemas/DriverStandings'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Drivers' championship standings after the season's last round
+  /{season}/drivers.json:
+    get:
+      description: 'Ergast `MRData` envelope with `DriverTable`; rows at `DriverTable.Drivers[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_drivers
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        DriverTable:
+                          $ref: '#/components/schemas/Drivers'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Drivers who took part in a season
+  /{season}/{round}.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races[]`. The path is
+        case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`. Rate limit:
+        4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0 (non-commercial,
+        share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Round'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: One race of the schedule
+  /{season}/{round}/laps.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races.Laps.Timings[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round_laps
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Laps'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Lap times, one timing row per driver per lap (1996+; offset-paged, max 100 timings per
+        call)
+  /{season}/{round}/pitstops.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races.PitStops[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round_pitstops
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/PitStops'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Pit stops of a race (2012+)
+  /{season}/{round}/qualifying.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races.QualifyingResults[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round_qualifying
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Qualifying'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Qualifying classification (Q1/Q2/Q3)
+  /{season}/{round}/results.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races.Results[]`. The
+        path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round_results
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Results'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Race classification
+  /{season}/{round}/sprint.json:
+    get:
+      description: 'Ergast `MRData` envelope with `RaceTable`; rows at `RaceTable.Races.SprintResults[]`.
+        The path is case-insensitive (the host lowercases it); `.json` may be replaced by `?format=json`.
+        Rate limit: 4 req/s burst, 500 requests/hour sustained, unauthenticated. Data: CC BY-NC-SA 4.0
+        (non-commercial, share-alike) -- wrap-only, never republished as release assets.'
+      operationId: season_round_sprint
+      parameters:
+      - description: Four-digit season year, or `current`.
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season, or `last` / `next`.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: string
+      - description: Page size. Default 30, maximum 100 (a larger value is clamped to 100 and echoed in
+          `MRData.limit`).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Rows to skip (paging on the innermost rows counted by `MRData.total`). Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  MRData:
+                    allOf:
+                    - $ref: '#/components/schemas/MRData'
+                    - properties:
+                        RaceTable:
+                          $ref: '#/components/schemas/Sprint'
+                      type: object
+                required:
+                - MRData
+                type: object
+          description: OK
+      summary: Sprint race classification (empty Races[] on a non-sprint weekend)
+servers:
+- url: https://api.jolpi.ca/ergast/f1
