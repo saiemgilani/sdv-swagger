@@ -1,0 +1,1446 @@
+components:
+  schemas:
+    AllLeagues:
+      properties:
+        leagues:
+          items:
+            properties:
+              idLeague:
+                type: string
+              strLeague:
+                type: string
+              strSport:
+                type: string
+            type: object
+          type: array
+      type: object
+    AllSports:
+      properties:
+        sports:
+          items:
+            properties:
+              idSport:
+                type: string
+              strFormat:
+                type: string
+              strSport:
+                type: string
+              strSportDescription:
+                type: string
+              strSportIconGreen:
+                type: string
+              strSportThumb:
+                type: string
+              strSportThumbBW:
+                type: string
+            type: object
+          type: array
+      type: object
+    Eventsnextleague:
+      properties:
+        events:
+          items:
+            properties:
+              dateEvent:
+                type: string
+              dateEventLocal:
+                type:
+                - 'null'
+              idAPIfootball:
+                type: string
+              idAwayTeam:
+                type: string
+              idEvent:
+                type: string
+              idHomeTeam:
+                type: string
+              idLeague:
+                type: string
+              idVenue:
+                type: string
+              intAwayScore:
+                type:
+                - 'null'
+              intAwayScoreExtra:
+                type:
+                - 'null'
+              intHomeScore:
+                type:
+                - 'null'
+              intHomeScoreExtra:
+                type:
+                - 'null'
+              intRound:
+                type: string
+              intScore:
+                type:
+                - 'null'
+              intScoreVotes:
+                type:
+                - 'null'
+              intSpectators:
+                type:
+                - 'null'
+              strAwayTeam:
+                type: string
+              strAwayTeamBadge:
+                type: string
+              strBanner:
+                type: string
+              strCity:
+                type:
+                - 'null'
+              strCountry:
+                type: string
+              strDescriptionEN:
+                type:
+                - 'null'
+              strEvent:
+                type: string
+              strEventAlternate:
+                type: string
+              strFanart:
+                type:
+                - 'null'
+              strFilename:
+                type: string
+              strGroup:
+                type:
+                - 'null'
+              strHomeTeam:
+                type: string
+              strHomeTeamBadge:
+                type: string
+              strLeague:
+                type: string
+              strLeagueBadge:
+                type: string
+              strLocked:
+                type: string
+              strMap:
+                type:
+                - 'null'
+              strOfficial:
+                type: string
+              strPoster:
+                type: string
+              strPostponed:
+                type: string
+              strResult:
+                type:
+                - 'null'
+              strSeason:
+                type: string
+              strSport:
+                type: string
+              strSquare:
+                type: string
+              strStatus:
+                type: string
+              strThumb:
+                type: string
+              strTime:
+                type: string
+              strTimeLocal:
+                type:
+                - 'null'
+              strTimestamp:
+                type: string
+              strTweet1:
+                type:
+                - 'null'
+              strVenue:
+                type: string
+              strVideo:
+                type:
+                - 'null'
+              strWeather:
+                type:
+                - 'null'
+            type: object
+          type: array
+      type: object
+    Eventsseason:
+      properties:
+        events:
+          items:
+            properties:
+              dateEvent:
+                type: string
+              dateEventLocal:
+                type: string
+              idAwayTeam:
+                type: string
+              idEvent:
+                type: string
+              idHomeTeam:
+                type: string
+              idLeague:
+                type: string
+              intAwayScore:
+                type: string
+              intHomeScore:
+                type: string
+              intRound:
+                type: string
+              strAwayTeam:
+                type: string
+              strAwayTeamBadge:
+                type: string
+              strCountry:
+                type: string
+              strEvent:
+                type: string
+              strEventAlternate:
+                type: string
+              strFilename:
+                type: string
+              strHomeTeam:
+                type: string
+              strHomeTeamBadge:
+                type: string
+              strLeague:
+                type: string
+              strLeagueBadge:
+                type: string
+              strPoster:
+                type: string
+              strPostponed:
+                type: string
+              strSeason:
+                type: string
+              strSport:
+                type: string
+              strStatus:
+                type: string
+              strThumb:
+                type: string
+              strTime:
+                type: string
+              strTimeLocal:
+                type: string
+              strTimestamp:
+                type: string
+              strVenue:
+                type: string
+              strVideo:
+                type: string
+            type: object
+          type: array
+      type: object
+    LookupAllPlayers:
+      properties:
+        player:
+          items:
+            properties:
+              dateBorn:
+                type: string
+              dateDied:
+                type:
+                - 'null'
+              dateSigned:
+                type:
+                - 'null'
+              idAPIfootball:
+                type:
+                - string
+                - 'null'
+              idESPN:
+                type:
+                - string
+                - 'null'
+              idGoogle:
+                type:
+                - string
+                - 'null'
+              idPlayer:
+                type: string
+              idPlayerManager:
+                type:
+                - 'null'
+              idTeam:
+                type: string
+              idTeam2:
+                type:
+                - string
+                - 'null'
+              idTeamNational:
+                type:
+                - 'null'
+              idTransferMkt:
+                type:
+                - string
+                - 'null'
+              idWikidata:
+                type: string
+              intLoved:
+                type: string
+              intSoccerXMLTeamID:
+                type:
+                - 'null'
+              strAgent:
+                type: string
+              strBanner:
+                type:
+                - 'null'
+              strBirthLocation:
+                type: string
+              strCartoon:
+                type:
+                - string
+                - 'null'
+              strCollege:
+                type:
+                - 'null'
+              strCreativeCommons:
+                type: string
+              strCreativeCommonsAttribution:
+                type:
+                - string
+                - 'null'
+              strCutout:
+                type: string
+              strDeathLocation:
+                type:
+                - 'null'
+              strDescriptionCN:
+                type:
+                - 'null'
+              strDescriptionDE:
+                type:
+                - 'null'
+              strDescriptionEN:
+                type: string
+              strDescriptionES:
+                type:
+                - 'null'
+              strDescriptionFR:
+                type:
+                - 'null'
+              strDescriptionHU:
+                type:
+                - 'null'
+              strDescriptionIL:
+                type:
+                - 'null'
+              strDescriptionIT:
+                type:
+                - 'null'
+              strDescriptionJP:
+                type:
+                - 'null'
+              strDescriptionNL:
+                type:
+                - 'null'
+              strDescriptionNO:
+                type:
+                - 'null'
+              strDescriptionPL:
+                type:
+                - 'null'
+              strDescriptionPT:
+                type:
+                - 'null'
+              strDescriptionRU:
+                type:
+                - 'null'
+              strDescriptionSE:
+                type:
+                - 'null'
+              strEthnicity:
+                type: string
+              strFacebook:
+                type: string
+              strFanart1:
+                type:
+                - string
+                - 'null'
+              strFanart2:
+                type:
+                - string
+                - 'null'
+              strFanart3:
+                type:
+                - string
+                - 'null'
+              strFanart4:
+                type:
+                - string
+                - 'null'
+              strGender:
+                type: string
+              strHeight:
+                type: string
+              strInstagram:
+                type: string
+              strKit:
+                type: string
+              strLastName:
+                type: string
+              strLocked:
+                type: string
+              strNationality:
+                type: string
+              strNumber:
+                type: string
+              strOutfitter:
+                type: string
+              strPlayer:
+                type: string
+              strPlayerAlternate:
+                type: string
+              strPosition:
+                type: string
+              strPoster:
+                type:
+                - string
+                - 'null'
+              strRender:
+                type:
+                - string
+                - 'null'
+              strSide:
+                type: string
+              strSigning:
+                type: string
+              strSport:
+                type: string
+              strStatus:
+                type: string
+              strTeam:
+                type: string
+              strTeam2:
+                type: string
+              strThumb:
+                type: string
+              strTwitter:
+                type: string
+              strWage:
+                type: string
+              strWebsite:
+                type: string
+              strWeight:
+                type: string
+              strYoutube:
+                type: string
+            type: object
+          type: array
+      type: object
+    Lookupevent:
+      properties:
+        events:
+          items:
+            properties:
+              dateEvent:
+                type: string
+              dateEventLocal:
+                type: string
+              idAPIfootball:
+                type: string
+              idAwayTeam:
+                type: string
+              idEvent:
+                type: string
+              idHomeTeam:
+                type: string
+              idLeague:
+                type: string
+              idVenue:
+                type: string
+              intAwayScore:
+                type: string
+              intAwayScoreExtra:
+                type:
+                - 'null'
+              intHomeScore:
+                type: string
+              intHomeScoreExtra:
+                type:
+                - 'null'
+              intRound:
+                type: string
+              intScore:
+                type:
+                - 'null'
+              intScoreVotes:
+                type:
+                - 'null'
+              intSpectators:
+                type:
+                - 'null'
+              strAwayTeam:
+                type: string
+              strAwayTeamBadge:
+                type: string
+              strBanner:
+                type: string
+              strCity:
+                type: string
+              strCountry:
+                type: string
+              strDescriptionEN:
+                type: string
+              strEvent:
+                type: string
+              strEventAlternate:
+                type: string
+              strFanart:
+                type:
+                - 'null'
+              strFilename:
+                type: string
+              strGroup:
+                type: string
+              strHomeTeam:
+                type: string
+              strHomeTeamBadge:
+                type: string
+              strLeague:
+                type: string
+              strLeagueBadge:
+                type: string
+              strLocked:
+                type: string
+              strMap:
+                type:
+                - 'null'
+              strOfficial:
+                type: string
+              strPoster:
+                type: string
+              strPostponed:
+                type: string
+              strResult:
+                type: string
+              strSeason:
+                type: string
+              strSport:
+                type: string
+              strSquare:
+                type: string
+              strStatus:
+                type: string
+              strThumb:
+                type: string
+              strTime:
+                type: string
+              strTimeLocal:
+                type: string
+              strTimestamp:
+                type: string
+              strTweet1:
+                type: string
+              strVenue:
+                type: string
+              strVideo:
+                type: string
+              strWeather:
+                type:
+                - 'null'
+            type: object
+          type: array
+      type: object
+    Lookupleague:
+      properties:
+        leagues:
+          items:
+            properties:
+              dateFirstEvent:
+                type: string
+              idAPIfootball:
+                type: string
+              idAPIfootballv3:
+                type: string
+              idCup:
+                type: string
+              idLeague:
+                type: string
+              intDivision:
+                type: string
+              intFormedYear:
+                type: string
+              strBadge:
+                type: string
+              strBanner:
+                type: string
+              strComplete:
+                type: string
+              strCountry:
+                type: string
+              strCurrentSeason:
+                type: string
+              strDescriptionCN:
+                type: string
+              strDescriptionDE:
+                type: string
+              strDescriptionEN:
+                type: string
+              strDescriptionES:
+                type: string
+              strDescriptionFR:
+                type: string
+              strDescriptionHU:
+                type: string
+              strDescriptionIL:
+                type: string
+              strDescriptionIT:
+                type: string
+              strDescriptionJP:
+                type: string
+              strDescriptionNL:
+                type: string
+              strDescriptionNO:
+                type: string
+              strDescriptionPL:
+                type: string
+              strDescriptionPT:
+                type: string
+              strDescriptionRU:
+                type: string
+              strDescriptionSE:
+                type: string
+              strFacebook:
+                type: string
+              strFanart1:
+                type: string
+              strFanart2:
+                type: string
+              strFanart3:
+                type: string
+              strFanart4:
+                type: string
+              strGender:
+                type: string
+              strInstagram:
+                type: string
+              strLeague:
+                type: string
+              strLeagueAlternate:
+                type: string
+              strLocked:
+                type: string
+              strLogo:
+                type: string
+              strNaming:
+                type: string
+              strPoster:
+                type: string
+              strRSS:
+                type: string
+              strSport:
+                type: string
+              strTrophy:
+                type: string
+              strTvRights:
+                type: string
+              strTwitter:
+                type: string
+              strWebsite:
+                type: string
+              strYoutube:
+                type: string
+            type: object
+          type: array
+      type: object
+    Lookupplayer:
+      properties:
+        players:
+          items:
+            properties:
+              dateBorn:
+                type: string
+              dateDied:
+                type:
+                - 'null'
+              dateSigned:
+                type: string
+              idAPIfootball:
+                type: string
+              idESPN:
+                type: string
+              idGoogle:
+                type:
+                - 'null'
+              idPlayer:
+                type: string
+              idPlayerManager:
+                type: string
+              idTeam:
+                type: string
+              idTeam2:
+                type:
+                - 'null'
+              idTeamNational:
+                type:
+                - 'null'
+              idTransferMkt:
+                type: string
+              idWikidata:
+                type: string
+              intLoved:
+                type: string
+              intSoccerXMLTeamID:
+                type: string
+              strAgent:
+                type: string
+              strBanner:
+                type:
+                - 'null'
+              strBirthLocation:
+                type: string
+              strCartoon:
+                type:
+                - 'null'
+              strCollege:
+                type:
+                - 'null'
+              strCreativeCommons:
+                type: string
+              strCreativeCommonsAttribution:
+                type: string
+              strCutout:
+                type: string
+              strDeathLocation:
+                type:
+                - 'null'
+              strDescriptionCN:
+                type:
+                - 'null'
+              strDescriptionDE:
+                type:
+                - 'null'
+              strDescriptionEN:
+                type: string
+              strDescriptionES:
+                type:
+                - 'null'
+              strDescriptionFR:
+                type:
+                - 'null'
+              strDescriptionHU:
+                type:
+                - 'null'
+              strDescriptionIL:
+                type:
+                - 'null'
+              strDescriptionIT:
+                type:
+                - 'null'
+              strDescriptionJP:
+                type:
+                - 'null'
+              strDescriptionNL:
+                type:
+                - 'null'
+              strDescriptionNO:
+                type:
+                - 'null'
+              strDescriptionPL:
+                type:
+                - 'null'
+              strDescriptionPT:
+                type:
+                - 'null'
+              strDescriptionRU:
+                type:
+                - 'null'
+              strDescriptionSE:
+                type:
+                - 'null'
+              strEthnicity:
+                type: string
+              strFacebook:
+                type: string
+              strFanart1:
+                type: string
+              strFanart2:
+                type: string
+              strFanart3:
+                type: string
+              strFanart4:
+                type: string
+              strGender:
+                type: string
+              strHeight:
+                type: string
+              strInstagram:
+                type: string
+              strKit:
+                type: string
+              strLastName:
+                type: string
+              strLocked:
+                type: string
+              strNationality:
+                type: string
+              strNumber:
+                type: string
+              strOutfitter:
+                type: string
+              strPlayer:
+                type: string
+              strPlayerAlternate:
+                type: string
+              strPosition:
+                type: string
+              strPoster:
+                type:
+                - 'null'
+              strRender:
+                type: string
+              strSide:
+                type: string
+              strSigning:
+                type: string
+              strSport:
+                type: string
+              strStatus:
+                type: string
+              strTeam:
+                type: string
+              strTeam2:
+                type: string
+              strThumb:
+                type: string
+              strTwitter:
+                type: string
+              strWage:
+                type: string
+              strWebsite:
+                type: string
+              strWeight:
+                type: string
+              strYoutube:
+                type: string
+            type: object
+          type: array
+      type: object
+    Lookuptable:
+      properties:
+        table:
+          items:
+            properties:
+              dateUpdated:
+                type: string
+              idLeague:
+                type: string
+              idStanding:
+                type: string
+              idTeam:
+                type: string
+              intDraw:
+                type: string
+              intGoalDifference:
+                type: string
+              intGoalsAgainst:
+                type: string
+              intGoalsFor:
+                type: string
+              intLoss:
+                type: string
+              intPlayed:
+                type: string
+              intPoints:
+                type: string
+              intRank:
+                type: string
+              intWin:
+                type: string
+              strBadge:
+                type: string
+              strDescription:
+                type: string
+              strForm:
+                type: string
+              strGroup:
+                type: string
+              strLeague:
+                type: string
+              strSeason:
+                type: string
+              strTeam:
+                type: string
+            type: object
+          type: array
+      type: object
+    Lookupteam:
+      properties:
+        teams:
+          items:
+            properties:
+              idAPIfootball:
+                type: string
+              idESPN:
+                type: string
+              idLeague:
+                type: string
+              idLeague2:
+                type: string
+              idLeague3:
+                type: string
+              idLeague4:
+                type: string
+              idLeague5:
+                type: string
+              idLeague6:
+                type: string
+              idLeague7:
+                type: string
+              idTeam:
+                type: string
+              idVenue:
+                type: string
+              intFormedYear:
+                type: string
+              intLoved:
+                type: string
+              strBadge:
+                type: string
+              strBanner:
+                type: string
+              strColour1:
+                type: string
+              strColour2:
+                type: string
+              strColour3:
+                type: string
+              strCountry:
+                type: string
+              strDescriptionCN:
+                type:
+                - 'null'
+              strDescriptionDE:
+                type: string
+              strDescriptionEN:
+                type: string
+              strDescriptionES:
+                type: string
+              strDescriptionFR:
+                type: string
+              strDescriptionHU:
+                type:
+                - 'null'
+              strDescriptionIL:
+                type:
+                - 'null'
+              strDescriptionIT:
+                type: string
+              strDescriptionJP:
+                type: string
+              strDescriptionNL:
+                type:
+                - 'null'
+              strDescriptionNO:
+                type: string
+              strDescriptionPL:
+                type:
+                - 'null'
+              strDescriptionPT:
+                type: string
+              strDescriptionRU:
+                type: string
+              strDescriptionSE:
+                type:
+                - 'null'
+              strDivision:
+                type:
+                - 'null'
+              strEquipment:
+                type: string
+              strFacebook:
+                type: string
+              strFanart1:
+                type: string
+              strFanart2:
+                type: string
+              strFanart3:
+                type: string
+              strFanart4:
+                type: string
+              strGender:
+                type: string
+              strInstagram:
+                type: string
+              strKeywords:
+                type: string
+              strLeague:
+                type: string
+              strLeague2:
+                type: string
+              strLeague3:
+                type: string
+              strLeague4:
+                type: string
+              strLeague5:
+                type: string
+              strLeague6:
+                type: string
+              strLeague7:
+                type: string
+              strLocation:
+                type: string
+              strLocked:
+                type: string
+              strLogo:
+                type: string
+              strRSS:
+                type: string
+              strSport:
+                type: string
+              strStadium:
+                type: string
+              strTeam:
+                type: string
+              strTeamAlternate:
+                type: string
+              strTeamShort:
+                type: string
+              strTwitter:
+                type: string
+              strWebsite:
+                type: string
+              strYoutube:
+                type: string
+            type: object
+          type: array
+      type: object
+    SearchAllTeams:
+      properties:
+        teams:
+          items:
+            properties:
+              idAPIfootball:
+                type: string
+              idESPN:
+                type: string
+              idLeague:
+                type: string
+              idLeague2:
+                type: string
+              idLeague3:
+                type: string
+              idLeague4:
+                type: string
+              idLeague5:
+                type:
+                - string
+                - 'null'
+              idLeague6:
+                type:
+                - string
+                - 'null'
+              idLeague7:
+                type:
+                - string
+                - 'null'
+              idTeam:
+                type: string
+              idVenue:
+                type: string
+              intFormedYear:
+                type: string
+              intLoved:
+                type:
+                - string
+                - 'null'
+              strBadge:
+                type: string
+              strBanner:
+                type: string
+              strColour1:
+                type: string
+              strColour2:
+                type: string
+              strColour3:
+                type: string
+              strCountry:
+                type: string
+              strDescriptionCN:
+                type:
+                - 'null'
+              strDescriptionDE:
+                type:
+                - string
+                - 'null'
+              strDescriptionEN:
+                type: string
+              strDescriptionES:
+                type:
+                - string
+                - 'null'
+              strDescriptionFR:
+                type:
+                - string
+                - 'null'
+              strDescriptionHU:
+                type:
+                - 'null'
+              strDescriptionIL:
+                type:
+                - 'null'
+              strDescriptionIT:
+                type: string
+              strDescriptionJP:
+                type:
+                - string
+                - 'null'
+              strDescriptionNL:
+                type:
+                - 'null'
+              strDescriptionNO:
+                type:
+                - string
+                - 'null'
+              strDescriptionPL:
+                type:
+                - 'null'
+              strDescriptionPT:
+                type:
+                - string
+                - 'null'
+              strDescriptionRU:
+                type:
+                - string
+                - 'null'
+              strDescriptionSE:
+                type:
+                - 'null'
+              strDivision:
+                type:
+                - 'null'
+              strEquipment:
+                type: string
+              strFacebook:
+                type: string
+              strFanart1:
+                type: string
+              strFanart2:
+                type: string
+              strFanart3:
+                type: string
+              strFanart4:
+                type: string
+              strGender:
+                type: string
+              strInstagram:
+                type: string
+              strKeywords:
+                type: string
+              strLeague:
+                type: string
+              strLeague2:
+                type: string
+              strLeague3:
+                type: string
+              strLeague4:
+                type: string
+              strLeague5:
+                type: string
+              strLeague6:
+                type: string
+              strLeague7:
+                type: string
+              strLocation:
+                type: string
+              strLocked:
+                type: string
+              strLogo:
+                type: string
+              strRSS:
+                type: string
+              strSport:
+                type: string
+              strStadium:
+                type: string
+              strTeam:
+                type: string
+              strTeamAlternate:
+                type: string
+              strTeamShort:
+                type: string
+              strTwitter:
+                type: string
+              strWebsite:
+                type: string
+              strYoutube:
+                type: string
+            type: object
+          type: array
+      type: object
+    Searchplayers:
+      properties:
+        player:
+          items:
+            properties:
+              dateBorn:
+                type: string
+              idPlayer:
+                type: string
+              idTeam:
+                type: string
+              relevance:
+                type: string
+              strCutout:
+                type: string
+              strGender:
+                type: string
+              strNationality:
+                type: string
+              strPlayer:
+                type: string
+              strPosition:
+                type: string
+              strSport:
+                type: string
+              strStatus:
+                type: string
+              strTeam:
+                type: string
+              strThumb:
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Routes per thesportsdb.com/documentation; shapes from committed captures in thesportsdb/captures/
+    taken 2026-10-06 with the free test key 3 (30 requests per minute, watermarked artwork; a Patreon
+    key lifts the limits and unlocks more routes). Every parameter is a query parameter; a bad or missing
+    id answers 200 with {"<key>": null} or a message string. Not official or supported.'
+  title: TheSportsDB API v1 (www.thesportsdb.com)
+  version: v1
+openapi: 3.1.0
+paths:
+  /all_leagues.php:
+    get:
+      operationId: all_leagues
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllLeagues'
+          description: OK
+      summary: All leagues
+  /all_sports.php:
+    get:
+      operationId: all_sports
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllSports'
+          description: OK
+      summary: All sports
+  /eventsnextleague.php:
+    get:
+      operationId: eventsnextleague
+      parameters:
+      - description: League id (idLeague from /all_leagues.php).
+        example: '4328'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eventsnextleague'
+          description: OK
+      summary: Next 15 events of a league
+  /eventsseason.php:
+    get:
+      operationId: eventsseason
+      parameters:
+      - description: League id (idLeague from /all_leagues.php).
+        example: '4328'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Season label, e.g. 2025-2026; omitted, the API answers the current season.
+        example: 2025-2026
+        in: query
+        name: s
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eventsseason'
+          description: OK
+      summary: Events of a league-season
+  /lookup_all_players.php:
+    get:
+      operationId: lookup_all_players
+      parameters:
+      - description: Team id (idTeam from /search_all_teams.php).
+        example: '133604'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupAllPlayers'
+          description: OK
+      summary: Players of a team
+  /lookupevent.php:
+    get:
+      operationId: lookupevent
+      parameters:
+      - description: Event id (idEvent from /eventsseason.php).
+        example: '2267073'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lookupevent'
+          description: OK
+      summary: One event
+  /lookupleague.php:
+    get:
+      operationId: lookupleague
+      parameters:
+      - description: League id (idLeague from /all_leagues.php).
+        example: '4328'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lookupleague'
+          description: OK
+      summary: One league
+  /lookupplayer.php:
+    get:
+      operationId: lookupplayer
+      parameters:
+      - description: Player id (idPlayer from /lookup_all_players.php).
+        example: '34145937'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lookupplayer'
+          description: OK
+      summary: One player
+  /lookuptable.php:
+    get:
+      operationId: lookuptable
+      parameters:
+      - description: League id (idLeague from /all_leagues.php).
+        example: '4328'
+        in: query
+        name: l
+        required: true
+        schema:
+          type: string
+      - description: Season label, e.g. 2025-2026; omitted, the API answers the current season.
+        example: 2025-2026
+        in: query
+        name: s
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lookuptable'
+          description: OK
+      summary: League table
+  /lookupteam.php:
+    get:
+      operationId: lookupteam
+      parameters:
+      - description: Team id (idTeam from /search_all_teams.php).
+        example: '133604'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lookupteam'
+          description: OK
+      summary: One team
+  /search_all_teams.php:
+    get:
+      operationId: search_all_teams
+      parameters:
+      - description: League name as spelled in strLeague.
+        example: English Premier League
+        in: query
+        name: l
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchAllTeams'
+          description: OK
+      summary: Teams in a league (by league name)
+  /searchplayers.php:
+    get:
+      operationId: searchplayers
+      parameters:
+      - description: Player name (substring search).
+        example: Danny Welbeck
+        in: query
+        name: p
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Searchplayers'
+          description: OK
+      summary: Search players by name
+servers:
+- url: https://www.thesportsdb.com/api/v1/json/{key}
+  variables:
+    key:
+      default: '3'
+      description: Free test key 3 (watermarked artwork, 30 req/min); a Patreon key lifts the limits.
