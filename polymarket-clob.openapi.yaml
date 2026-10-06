@@ -1,0 +1,249 @@
+components:
+  schemas:
+    ClobBook:
+      properties:
+        asks:
+          items:
+            properties:
+              price:
+                type: string
+              size:
+                type: string
+            type: object
+          type: array
+        asset_id:
+          type: string
+        bids:
+          items:
+            properties:
+              price:
+                type: string
+              size:
+                type: string
+            type: object
+          type: array
+        hash:
+          type: string
+        last_trade_price:
+          type: string
+        market:
+          type: string
+        min_order_size:
+          type: string
+        neg_risk:
+          type: boolean
+        tick_size:
+          type: string
+        timestamp:
+          type: string
+      type: object
+    ClobMarkets:
+      properties:
+        count:
+          type: integer
+        data:
+          items:
+            properties:
+              accepting_order_timestamp:
+                type:
+                - 'null'
+              accepting_orders:
+                type: boolean
+              active:
+                type: boolean
+              archived:
+                type: boolean
+              closed:
+                type: boolean
+              condition_id:
+                type: string
+              description:
+                type: string
+              enable_order_book:
+                type: boolean
+              end_date_iso:
+                type: string
+              fpmm:
+                type: string
+              game_start_time:
+                type:
+                - 'null'
+              icon:
+                type: string
+              image:
+                type: string
+              is_50_50_outcome:
+                type: boolean
+              maker_base_fee:
+                type: integer
+              market_slug:
+                type: string
+              minimum_order_size:
+                type: integer
+              minimum_tick_size:
+                type: number
+              neg_risk:
+                type: boolean
+              neg_risk_market_id:
+                type: string
+              neg_risk_request_id:
+                type: string
+              notifications_enabled:
+                type: boolean
+              question:
+                type: string
+              question_id:
+                type: string
+              rewards:
+                properties:
+                  max_spread:
+                    type: integer
+                  min_size:
+                    type: integer
+                  rates:
+                    type:
+                    - 'null'
+                type: object
+              seconds_delay:
+                type: integer
+              tags:
+                items:
+                  type: string
+                type: array
+              taker_base_fee:
+                type: integer
+              tokens:
+                items:
+                  properties:
+                    outcome:
+                      type: string
+                    price:
+                      type: integer
+                    token_id:
+                      type: string
+                    winner:
+                      type: boolean
+                  type: object
+                type: array
+              version:
+                type: string
+            type: object
+          type: array
+        limit:
+          type: integer
+        next_cursor:
+          type: string
+      type: object
+    ClobMidpoint:
+      properties:
+        mid:
+          type: string
+      type: object
+    ClobPrice:
+      properties:
+        price:
+          type: string
+      type: object
+info:
+  description: Order books and prices; the read routes are keyless (trading needs API keys and is out
+    of scope). Reverse-engineered from committed captures in polymarket/captures/ (2026-10-06). /markets
+    pages by next_cursor (MA== is the first page, LTE= the end; ~1.8 MB per page) and the capture holds
+    the first page only (see x-pagination). Prices (mid, price, bids/asks price and size) arrive as strings.
+    Not official or supported.
+  title: Polymarket CLOB API (clob.polymarket.com) - public reads
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /book:
+    get:
+      operationId: get_book
+      parameters:
+      - description: CLOB token id (uint256 as a decimal string) = one entry of a Gamma market's clobTokenIds.
+        example: '14940935985254400645996902276818598247231942791302218826999289776538227075176'
+        in: query
+        name: token_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClobBook'
+          description: OK
+      summary: clob.polymarket.com/book
+  /markets:
+    get:
+      operationId: get_markets
+      parameters:
+      - description: Page cursor from the previous response; MA== (base64 0) or empty is the first page,
+          LTE= means no more pages.
+        example: MA==
+        in: query
+        name: next_cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClobMarkets'
+          description: OK
+      summary: clob.polymarket.com/markets
+      x-pagination:
+        parameters:
+        - next_cursor
+        request: 'verified: next_cursor from the previous page changes the first row; MA== (or empty)
+          is the first page, LTE= the end (probed 2026-10-06)'
+        response:
+        - next_cursor
+  /midpoint:
+    get:
+      operationId: get_midpoint
+      parameters:
+      - description: CLOB token id (uint256 as a decimal string) = one entry of a Gamma market's clobTokenIds.
+        example: '14940935985254400645996902276818598247231942791302218826999289776538227075176'
+        in: query
+        name: token_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClobMidpoint'
+          description: OK
+      summary: clob.polymarket.com/midpoint
+  /price:
+    get:
+      operationId: get_price
+      parameters:
+      - description: CLOB token id (uint256 as a decimal string) = one entry of a Gamma market's clobTokenIds.
+        example: '14940935985254400645996902276818598247231942791302218826999289776538227075176'
+        in: query
+        name: token_id
+        required: true
+        schema:
+          type: string
+      - description: buy or sell.
+        example: buy
+        in: query
+        name: side
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClobPrice'
+          description: OK
+      summary: clob.polymarket.com/price
+servers:
+- url: https://clob.polymarket.com
