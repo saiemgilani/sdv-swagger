@@ -1174,7 +1174,7 @@ paths:
   /competitions/{competitionCode}/seasons:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons
+      operationId: competitions_competitionCode_seasons
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
@@ -1195,7 +1195,7 @@ paths:
   /competitions/{competitionCode}/seasons/{seasonCode}/clubs:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons_E2025_clubs
+      operationId: competitions_competitionCode_seasons_seasonCode_clubs
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
@@ -1222,7 +1222,7 @@ paths:
   /competitions/{competitionCode}/seasons/{seasonCode}/games:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons_E2025_games
+      operationId: competitions_competitionCode_seasons_seasonCode_games
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
@@ -1259,7 +1259,7 @@ paths:
   /competitions/{competitionCode}/seasons/{seasonCode}/games/{gameCode}/stats:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons_E2025_games_1_stats
+      operationId: competitions_competitionCode_seasons_seasonCode_games_gameCode_stats
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
@@ -1292,7 +1292,7 @@ paths:
   /competitions/{competitionCode}/seasons/{seasonCode}/people:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons_E2025_people
+      operationId: competitions_competitionCode_seasons_seasonCode_people
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
@@ -1329,7 +1329,7 @@ paths:
   /competitions/{competitionCode}/seasons/{seasonCode}/rounds:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
-      operationId: competitions_E_seasons_E2025_rounds
+      operationId: competitions_competitionCode_seasons_seasonCode_rounds
       parameters:
       - description: E = EuroLeague, U = EuroCup (see /competitions).
         in: path
