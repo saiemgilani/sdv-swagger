@@ -1,0 +1,1092 @@
+components:
+  schemas:
+    GammaApiEvents:
+      items:
+        properties:
+          active:
+            type: boolean
+          archived:
+            type: boolean
+          automaticallyActive:
+            type: boolean
+          closed:
+            type: boolean
+          commentCount:
+            type: integer
+          competitive:
+            type: number
+          createdAt:
+            type: string
+          creationDate:
+            type: string
+          cumulativeMarkets:
+            type: boolean
+          cyom:
+            type: boolean
+          deploying:
+            type: boolean
+          deployingTimestamp:
+            type: string
+          description:
+            type: string
+          enableNegRisk:
+            type: boolean
+          enableOrderBook:
+            type: boolean
+          endDate:
+            type: string
+          estimateValue:
+            type: boolean
+          eventMetadata:
+            properties:
+              context_requires_regen:
+                type: boolean
+            type: object
+          featured:
+            type: boolean
+          featuredOrder:
+            type: integer
+          gmpChartMode:
+            type: string
+          icon:
+            type: string
+          id:
+            type: string
+          image:
+            type: string
+          liquidity:
+            type: number
+          liquidityClob:
+            type: number
+          markets:
+            items:
+              properties:
+                acceptingOrders:
+                  type: boolean
+                acceptingOrdersTimestamp:
+                  type: string
+                active:
+                  type: boolean
+                approved:
+                  type: boolean
+                archived:
+                  type: boolean
+                automaticallyActive:
+                  type: boolean
+                bestAsk:
+                  type: number
+                bestBid:
+                  type: number
+                clearBookOnStart:
+                  type: boolean
+                clobTokenIds:
+                  type: string
+                closed:
+                  type: boolean
+                comboStatus:
+                  type: string
+                competitive:
+                  type: number
+                conditionId:
+                  type: string
+                createdAt:
+                  type: string
+                customLiveness:
+                  type: integer
+                cyom:
+                  type: boolean
+                deploying:
+                  type: boolean
+                deployingTimestamp:
+                  type: string
+                description:
+                  type: string
+                enableOrderBook:
+                  type: boolean
+                endDate:
+                  type: string
+                endDateIso:
+                  type: string
+                featured:
+                  type: boolean
+                feeSchedule:
+                  properties:
+                    exponent:
+                      type: integer
+                    rate:
+                      type: number
+                    rebateRate:
+                      type: number
+                    takerOnly:
+                      type: boolean
+                  type: object
+                feeType:
+                  type:
+                  - string
+                  - 'null'
+                feesEnabled:
+                  type: boolean
+                funded:
+                  type: boolean
+                groupItemThreshold:
+                  type: string
+                groupItemTitle:
+                  type: string
+                hasReviewedDates:
+                  type: boolean
+                holdingRewardsEnabled:
+                  type: boolean
+                icon:
+                  type: string
+                id:
+                  type: string
+                image:
+                  type: string
+                lastTradePrice:
+                  type: number
+                liquidity:
+                  type: string
+                liquidityClob:
+                  type: number
+                liquidityNum:
+                  type: number
+                makerBaseFee:
+                  type: integer
+                manualActivation:
+                  type: boolean
+                marketMakerAddress:
+                  type: string
+                negRisk:
+                  type: boolean
+                negRiskMarketID:
+                  type: string
+                negRiskOther:
+                  type: boolean
+                negRiskRequestID:
+                  type: string
+                new:
+                  type: boolean
+                oneDayPriceChange:
+                  type: number
+                oneHourPriceChange:
+                  type: number
+                oneMonthPriceChange:
+                  type: number
+                oneWeekPriceChange:
+                  type: number
+                oneYearPriceChange:
+                  type: number
+                orderMinSize:
+                  type: integer
+                orderPriceMinTickSize:
+                  type: number
+                outcomePrices:
+                  type: string
+                outcomes:
+                  type: string
+                pendingDeployment:
+                  type: boolean
+                positionIds:
+                  items:
+                    type: string
+                  type: array
+                question:
+                  type: string
+                questionID:
+                  type: string
+                ready:
+                  type: boolean
+                resolutionSource:
+                  type: string
+                resolvedBy:
+                  type: string
+                restricted:
+                  type: boolean
+                rewardsMaxSpread:
+                  type:
+                  - integer
+                  - number
+                rewardsMinSize:
+                  type: integer
+                rfqEnabled:
+                  type: boolean
+                showGmpOutcome:
+                  type: boolean
+                showGmpSeries:
+                  type: boolean
+                slug:
+                  type: string
+                spread:
+                  type: number
+                startDate:
+                  type: string
+                startDateIso:
+                  type: string
+                submitted_by:
+                  type: string
+                takerBaseFee:
+                  type: integer
+                umaBond:
+                  type: string
+                umaResolutionStatuses:
+                  type: string
+                umaReward:
+                  type: string
+                updatedAt:
+                  type: string
+                version:
+                  type: string
+                volume:
+                  type: string
+                volume1mo:
+                  type: number
+                volume1moClob:
+                  type: number
+                volume1wk:
+                  type: number
+                volume1wkClob:
+                  type: number
+                volume1yr:
+                  type: number
+                volume1yrClob:
+                  type: number
+                volume24hr:
+                  type: number
+                volume24hrClob:
+                  type: number
+                volumeClob:
+                  type: number
+                volumeNum:
+                  type: number
+              type: object
+            type: array
+          negRisk:
+            type: boolean
+          negRiskAugmented:
+            type: boolean
+          negRiskMarketID:
+            type: string
+          new:
+            type: boolean
+          openInterest:
+            type: number
+          pendingDeployment:
+            type: boolean
+          resolutionSource:
+            type: string
+          restricted:
+            type: boolean
+          showAllOutcomes:
+            type: boolean
+          showMarketImages:
+            type: boolean
+          slug:
+            type: string
+          sortBy:
+            type: string
+          startDate:
+            type: string
+          tags:
+            items:
+              properties:
+                createdAt:
+                  type: string
+                forceHide:
+                  type: boolean
+                forceShow:
+                  type: boolean
+                id:
+                  type: string
+                label:
+                  type: string
+                publishedAt:
+                  type: string
+                slug:
+                  type: string
+                updatedAt:
+                  type: string
+                updatedBy:
+                  type: integer
+              type: object
+            type: array
+          ticker:
+            type: string
+          title:
+            type: string
+          updatedAt:
+            type: string
+          version:
+            type: string
+          volume:
+            type: number
+          volume1mo:
+            type: number
+          volume1wk:
+            type: number
+          volume1yr:
+            type: number
+          volume24hr:
+            type: number
+        type: object
+      type: array
+    GammaApiMarkets:
+      items:
+        properties:
+          acceptingOrders:
+            type: boolean
+          acceptingOrdersTimestamp:
+            type: string
+          active:
+            type: boolean
+          approved:
+            type: boolean
+          archived:
+            type: boolean
+          automaticallyActive:
+            type: boolean
+          bestAsk:
+            type: number
+          bestBid:
+            type: number
+          clearBookOnStart:
+            type: boolean
+          clobRewards:
+            items:
+              properties:
+                assetAddress:
+                  type: string
+                conditionId:
+                  type: string
+                endDate:
+                  type: string
+                id:
+                  type: string
+                rewardsAmount:
+                  type: integer
+                rewardsDailyRate:
+                  type: integer
+                startDate:
+                  type: string
+              type: object
+            type: array
+          clobTokenIds:
+            type: string
+          closed:
+            type: boolean
+          comboStatus:
+            type: string
+          competitive:
+            type: number
+          conditionId:
+            type: string
+          createdAt:
+            type: string
+          customLiveness:
+            type: integer
+          cyom:
+            type: boolean
+          deploying:
+            type: boolean
+          deployingTimestamp:
+            type: string
+          description:
+            type: string
+          enableOrderBook:
+            type: boolean
+          endDate:
+            type: string
+          endDateIso:
+            type: string
+          eventStartTime:
+            type: string
+          events:
+            items:
+              properties:
+                active:
+                  type: boolean
+                archived:
+                  type: boolean
+                automaticallyActive:
+                  type: boolean
+                closed:
+                  type: boolean
+                commentCount:
+                  type: integer
+                competitive:
+                  type: number
+                countryName:
+                  type: string
+                createdAt:
+                  type: string
+                creationDate:
+                  type: string
+                cumulativeMarkets:
+                  type: boolean
+                cyom:
+                  type: boolean
+                deploying:
+                  type: boolean
+                deployingTimestamp:
+                  type: string
+                description:
+                  type: string
+                electionType:
+                  type: string
+                enableNegRisk:
+                  type: boolean
+                enableOrderBook:
+                  type: boolean
+                endDate:
+                  type: string
+                estimateValue:
+                  type: boolean
+                eventMetadata:
+                  properties:
+                    context_requires_regen:
+                      type: boolean
+                    finalPrice:
+                      type: number
+                    priceToBeat:
+                      type: number
+                  type: object
+                featured:
+                  type: boolean
+                featuredOrder:
+                  type: integer
+                gmpChartMode:
+                  type: string
+                icon:
+                  type: string
+                id:
+                  type: string
+                image:
+                  type: string
+                liquidity:
+                  type: number
+                liquidityClob:
+                  type: number
+                negRisk:
+                  type: boolean
+                negRiskAugmented:
+                  type: boolean
+                negRiskMarketID:
+                  type: string
+                new:
+                  type: boolean
+                openInterest:
+                  type: number
+                pendingDeployment:
+                  type: boolean
+                resolutionSource:
+                  type: string
+                restricted:
+                  type: boolean
+                series:
+                  items:
+                    properties:
+                      active:
+                        type: boolean
+                      archived:
+                        type: boolean
+                      closed:
+                        type: boolean
+                      commentCount:
+                        type: integer
+                      commentsEnabled:
+                        type: boolean
+                      competitive:
+                        type: string
+                      createdAt:
+                        type: string
+                      createdBy:
+                        type: string
+                      featured:
+                        type: boolean
+                      icon:
+                        type: string
+                      id:
+                        type: string
+                      image:
+                        type: string
+                      layout:
+                        type: string
+                      liquidity:
+                        type: number
+                      new:
+                        type: boolean
+                      publishedAt:
+                        type: string
+                      recurrence:
+                        type: string
+                      restricted:
+                        type: boolean
+                      seriesType:
+                        type: string
+                      slug:
+                        type: string
+                      ticker:
+                        type: string
+                      title:
+                        type: string
+                      updatedAt:
+                        type: string
+                      updatedBy:
+                        type: string
+                      volume:
+                        type: number
+                      volume24hr:
+                        type: number
+                    type: object
+                  type: array
+                seriesSlug:
+                  type: string
+                showAllOutcomes:
+                  type: boolean
+                showMarketImages:
+                  type: boolean
+                slug:
+                  type: string
+                sortBy:
+                  type: string
+                startDate:
+                  type: string
+                startTime:
+                  type: string
+                ticker:
+                  type: string
+                title:
+                  type: string
+                updatedAt:
+                  type: string
+                version:
+                  type: string
+                volume:
+                  type: number
+                volume1mo:
+                  type: number
+                volume1wk:
+                  type: number
+                volume1yr:
+                  type: number
+                volume24hr:
+                  type: number
+              type: object
+            type: array
+          featured:
+            type: boolean
+          feeSchedule:
+            properties:
+              exponent:
+                type: integer
+              rate:
+                type: number
+              rebateRate:
+                type: number
+              takerOnly:
+                type: boolean
+            type: object
+          feeType:
+            type: string
+          feesEnabled:
+            type: boolean
+          funded:
+            type: boolean
+          groupItemThreshold:
+            type: string
+          groupItemTitle:
+            type: string
+          hasReviewedDates:
+            type: boolean
+          holdingRewardsEnabled:
+            type: boolean
+          icon:
+            type: string
+          id:
+            type: string
+          image:
+            type: string
+          lastTradePrice:
+            type: number
+          liquidity:
+            type: string
+          liquidityClob:
+            type: number
+          liquidityNum:
+            type: number
+          makerBaseFee:
+            type: integer
+          manualActivation:
+            type: boolean
+          marketMakerAddress:
+            type: string
+          negRisk:
+            type: boolean
+          negRiskMarketID:
+            type: string
+          negRiskOther:
+            type: boolean
+          negRiskRequestID:
+            type: string
+          new:
+            type: boolean
+          oneDayPriceChange:
+            type: number
+          oneHourPriceChange:
+            type: number
+          oneMonthPriceChange:
+            type: number
+          oneWeekPriceChange:
+            type: number
+          oneYearPriceChange:
+            type: number
+          orderMinSize:
+            type: integer
+          orderPriceMinTickSize:
+            type: number
+          outcomePrices:
+            type: string
+          outcomes:
+            type: string
+          pendingDeployment:
+            type: boolean
+          question:
+            type: string
+          questionID:
+            type: string
+          ready:
+            type: boolean
+          resolutionSource:
+            type: string
+          resolvedBy:
+            type: string
+          restricted:
+            type: boolean
+          rewardsMaxSpread:
+            type: number
+          rewardsMinSize:
+            type: integer
+          rfqEnabled:
+            type: boolean
+          seriesColor:
+            type: string
+          showGmpOutcome:
+            type: boolean
+          showGmpSeries:
+            type: boolean
+          slug:
+            type: string
+          spread:
+            type: number
+          startDate:
+            type: string
+          startDateIso:
+            type: string
+          submitted_by:
+            type: string
+          takerBaseFee:
+            type: integer
+          umaBond:
+            type: string
+          umaResolutionStatus:
+            type: string
+          umaResolutionStatuses:
+            type: string
+          umaReward:
+            type: string
+          updatedAt:
+            type: string
+          version:
+            type: string
+          volume:
+            type: string
+          volume1mo:
+            type: number
+          volume1moClob:
+            type: number
+          volume1wk:
+            type: number
+          volume1wkClob:
+            type: number
+          volume1yr:
+            type: number
+          volume1yrClob:
+            type: number
+          volume24hr:
+            type: number
+          volume24hrClob:
+            type: number
+          volumeClob:
+            type: number
+          volumeNum:
+            type: number
+        type: object
+      type: array
+    GammaApiMarketsId:
+      properties:
+        $schema:
+          type: string
+        acceptingOrders:
+          type: boolean
+        acceptingOrdersTimestamp:
+          type: string
+        active:
+          type: boolean
+        approved:
+          type: boolean
+        archived:
+          type: boolean
+        automaticallyActive:
+          type: boolean
+        bestAsk:
+          type: number
+        bestBid:
+          type: number
+        clearBookOnStart:
+          type: boolean
+        clobTokenIds:
+          type: string
+        closed:
+          type: boolean
+        comboStatus:
+          type: string
+        competitive:
+          type: number
+        conditionId:
+          type: string
+        createdAt:
+          type: string
+        customLiveness:
+          type: integer
+        cyom:
+          type: boolean
+        deploying:
+          type: boolean
+        deployingTimestamp:
+          type: string
+        description:
+          type: string
+        enableOrderBook:
+          type: boolean
+        endDate:
+          type: string
+        endDateIso:
+          type: string
+        featured:
+          type: boolean
+        feeSchedule:
+          properties:
+            exponent:
+              type: integer
+            rate:
+              type: number
+            rebateRate:
+              type: number
+            takerOnly:
+              type: boolean
+          type: object
+        feeType:
+          type: string
+        feesEnabled:
+          type: boolean
+        funded:
+          type: boolean
+        groupItemThreshold:
+          type: string
+        groupItemTitle:
+          type: string
+        hasReviewedDates:
+          type: boolean
+        holdingRewardsEnabled:
+          type: boolean
+        icon:
+          type: string
+        id:
+          type: string
+        image:
+          type: string
+        lastTradePrice:
+          type: number
+        liquidity:
+          type: string
+        liquidityClob:
+          type: number
+        liquidityNum:
+          type: number
+        makerBaseFee:
+          type: integer
+        manualActivation:
+          type: boolean
+        marketMakerAddress:
+          type: string
+        negRisk:
+          type: boolean
+        negRiskMarketID:
+          type: string
+        negRiskOther:
+          type: boolean
+        negRiskRequestID:
+          type: string
+        new:
+          type: boolean
+        oneDayPriceChange:
+          type: number
+        oneHourPriceChange:
+          type: number
+        oneMonthPriceChange:
+          type: number
+        oneWeekPriceChange:
+          type: number
+        orderMinSize:
+          type: integer
+        orderPriceMinTickSize:
+          type: number
+        outcomePrices:
+          type: string
+        outcomes:
+          type: string
+        pendingDeployment:
+          type: boolean
+        question:
+          type: string
+        questionID:
+          type: string
+        ready:
+          type: boolean
+        resolutionSource:
+          type: string
+        resolvedBy:
+          type: string
+        restricted:
+          type: boolean
+        rewardsMaxSpread:
+          type: number
+        rewardsMinSize:
+          type: integer
+        rfqEnabled:
+          type: boolean
+        seriesColor:
+          type: string
+        showGmpOutcome:
+          type: boolean
+        showGmpSeries:
+          type: boolean
+        slug:
+          type: string
+        spread:
+          type: number
+        startDate:
+          type: string
+        startDateIso:
+          type: string
+        submitted_by:
+          type: string
+        takerBaseFee:
+          type: integer
+        umaBond:
+          type: string
+        umaResolutionStatuses:
+          type: string
+        umaReward:
+          type: string
+        updatedAt:
+          type: string
+        version:
+          type: string
+        volume:
+          type: string
+        volume1mo:
+          type: number
+        volume1moClob:
+          type: number
+        volume1wk:
+          type: number
+        volume1wkClob:
+          type: number
+        volume1yr:
+          type: number
+        volume1yrClob:
+          type: number
+        volume24hr:
+          type: number
+        volume24hrClob:
+          type: number
+        volumeClob:
+          type: number
+        volumeNum:
+          type: number
+      type: object
+    GammaApiTags:
+      items:
+        properties:
+          createdAt:
+            type: string
+          id:
+            type: string
+          label:
+            type: string
+          publishedAt:
+            type: string
+          slug:
+            type: string
+          updatedAt:
+            type: string
+        type: object
+      type: array
+info:
+  description: 'Market, event and tag metadata; keyless. Reverse-engineered from committed captures in
+    polymarket/captures/ (2026-10-06). List routes page by limit/offset and the captures hold the first
+    page only (see x-pagination). Decimal fields arrive as strings, and outcomePrices / clobTokenIds /
+    outcomes are JSON arrays serialised inside a string: the spec types them string. Not official or supported.'
+  title: Polymarket Gamma API (gamma-api.polymarket.com)
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /events:
+    get:
+      operationId: get_events
+      parameters:
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Filter closed markets/events (true/false).
+        example: 'false'
+        in: query
+        name: closed
+        required: false
+        schema:
+          type: string
+      - description: Filter events by tag slug (e.g. sports; see /tags).
+        example: sports
+        in: query
+        name: tag_slug
+        required: false
+        schema:
+          type: string
+      - description: Row offset; offset=1 shifts the first row by one (verified 2026-10-06).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GammaApiEvents'
+          description: OK
+      summary: gamma-api.polymarket.com/events
+      x-pagination:
+        parameters:
+        - limit
+        - offset
+        request: 'unverified: pages by the same limit/offset pair as /markets, not probed; the capture
+          holds the first page only'
+  /markets:
+    get:
+      operationId: get_markets
+      parameters:
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Filter closed markets/events (true/false).
+        example: 'false'
+        in: query
+        name: closed
+        required: false
+        schema:
+          type: string
+      - description: Sort field, e.g. volume24hr, liquidity, startDate.
+        example: volume24hr
+        in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Sort direction (true/false).
+        example: 'false'
+        in: query
+        name: ascending
+        required: false
+        schema:
+          type: string
+      - description: Row offset; offset=1 shifts the first row by one (verified 2026-10-06).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GammaApiMarkets'
+          description: OK
+      summary: gamma-api.polymarket.com/markets
+      x-pagination:
+        parameters:
+        - limit
+        - offset
+        request: 'verified: offset=1 shifts the first row by one; the capture holds the first page only
+          (probed 2026-10-06)'
+  /markets/{id}:
+    get:
+      operationId: get_markets_id
+      parameters:
+      - description: Gamma market id (from /markets).
+        example: '608565'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GammaApiMarketsId'
+          description: OK
+      summary: gamma-api.polymarket.com/markets/{id}
+  /tags:
+    get:
+      operationId: get_tags
+      parameters:
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Row offset; offset=1 shifts the first row by one (verified 2026-10-06).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GammaApiTags'
+          description: OK
+      summary: gamma-api.polymarket.com/tags
+      x-pagination:
+        parameters:
+        - limit
+        - offset
+        request: 'unverified: pages by the same limit/offset pair as /markets, not probed; the capture
+          holds the first page only'
+servers:
+- url: https://gamma-api.polymarket.com
