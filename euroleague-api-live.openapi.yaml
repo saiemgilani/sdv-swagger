@@ -1,0 +1,1340 @@
+components:
+  schemas:
+    Competitions:
+      properties:
+        data:
+          items:
+            properties:
+              code:
+                type: string
+              name:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    CompetitionsSeasons:
+      properties:
+        data:
+          items:
+            properties:
+              activationDate:
+                type: string
+              alias:
+                type: string
+              code:
+                type: string
+              competitionCode:
+                type: string
+              endDate:
+                type: string
+              name:
+                type: string
+              startDate:
+                type: string
+              winner:
+                nullable: true
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              year:
+                type: integer
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    CompetitionsSeasonsClubs:
+      properties:
+        data:
+          items:
+            properties:
+              abbreviatedName:
+                type: string
+              address:
+                type: string
+              city:
+                type: string
+              clubPermanentAlias:
+                type: string
+              clubPermanentName:
+                type: string
+              code:
+                type: string
+              country:
+                properties:
+                  code:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              editorialName:
+                type: string
+              images:
+                properties:
+                  crest:
+                    type: string
+                type: object
+              isVirtual:
+                type: boolean
+              name:
+                type: string
+              phone:
+                type: string
+              president:
+                type: string
+              sponsor:
+                type: string
+              ticketsUrl:
+                type: string
+              tvCode:
+                type: string
+              twitterAccount:
+                type: string
+              venueCode:
+                type: string
+              website:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    CompetitionsSeasonsGames:
+      properties:
+        data:
+          items:
+            properties:
+              audience:
+                type: integer
+              audienceConfirmed:
+                type: boolean
+              confirmedDate:
+                type: boolean
+              confirmedHour:
+                type: boolean
+              date:
+                type: string
+              gameCode:
+                type: integer
+              gameStatus:
+                type: string
+              group:
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  order:
+                    type: integer
+                  rawName:
+                    type: string
+                type: object
+              id:
+                type: string
+              identifier:
+                type: string
+              isNeutralVenue:
+                type: boolean
+              local:
+                properties:
+                  club:
+                    properties:
+                      abbreviatedName:
+                        type: string
+                      code:
+                        type: string
+                      editorialName:
+                        type: string
+                      images:
+                        properties:
+                          crest:
+                            type: string
+                        type: object
+                      isVirtual:
+                        type: boolean
+                      name:
+                        type: string
+                      tvCode:
+                        type: string
+                    type: object
+                  partials:
+                    properties:
+                      extraPeriods:
+                        properties: {}
+                        type: object
+                      partials1:
+                        type: integer
+                      partials2:
+                        type: integer
+                      partials3:
+                        type: integer
+                      partials4:
+                        type: integer
+                    type: object
+                  score:
+                    type: integer
+                  standingsScore:
+                    type: integer
+                type: object
+              localDate:
+                type: string
+              localTimeZone:
+                type: integer
+              operationsCode:
+                nullable: true
+              phaseType:
+                properties:
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  isGroupPhase:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              played:
+                type: boolean
+              referee1:
+                properties:
+                  active:
+                    type: boolean
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  country:
+                    properties:
+                      code:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                  images:
+                    properties:
+                      verticalSmall:
+                        type: string
+                    type: object
+                  name:
+                    type: string
+                type: object
+              referee2:
+                properties:
+                  active:
+                    type: boolean
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  country:
+                    properties:
+                      code:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                  images:
+                    properties:
+                      verticalSmall:
+                        type: string
+                    type: object
+                  name:
+                    type: string
+                type: object
+              referee3:
+                properties:
+                  active:
+                    type: boolean
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  country:
+                    properties:
+                      code:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                  images:
+                    properties:
+                      verticalSmall:
+                        type: string
+                    type: object
+                  name:
+                    type: string
+                type: object
+              referee4:
+                nullable: true
+              road:
+                properties:
+                  club:
+                    properties:
+                      abbreviatedName:
+                        type: string
+                      code:
+                        type: string
+                      editorialName:
+                        type: string
+                      images:
+                        properties:
+                          crest:
+                            type: string
+                        type: object
+                      isVirtual:
+                        type: boolean
+                      name:
+                        type: string
+                      tvCode:
+                        type: string
+                    type: object
+                  partials:
+                    properties:
+                      extraPeriods:
+                        properties: {}
+                        type: object
+                      partials1:
+                        type: integer
+                      partials2:
+                        type: integer
+                      partials3:
+                        type: integer
+                      partials4:
+                        type: integer
+                    type: object
+                  score:
+                    type: integer
+                  standingsScore:
+                    type: integer
+                type: object
+              round:
+                type: integer
+              roundAlias:
+                type: string
+              roundName:
+                type: string
+              season:
+                properties:
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  competitionCode:
+                    type: string
+                  name:
+                    type: string
+                  startDate:
+                    type: string
+                  year:
+                    type: integer
+                type: object
+              socialFeed:
+                type: string
+              utcDate:
+                type: string
+              venue:
+                properties:
+                  active:
+                    type: boolean
+                  address:
+                    type: string
+                  capacity:
+                    type: integer
+                  code:
+                    type: string
+                  images:
+                    properties:
+                      medium:
+                        nullable: true
+                    type: object
+                  name:
+                    type: string
+                  notes:
+                    type: string
+                type: object
+              winner:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    CompetitionsSeasonsGamesStats:
+      properties:
+        local:
+          properties:
+            coach:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+              type: object
+            players:
+              items:
+                properties:
+                  player:
+                    properties:
+                      active:
+                        type: boolean
+                      club:
+                        properties:
+                          abbreviatedName:
+                            type: string
+                          code:
+                            type: string
+                          editorialName:
+                            type: string
+                          images:
+                            properties:
+                              crest:
+                                type: string
+                            type: object
+                          isVirtual:
+                            type: boolean
+                          name:
+                            type: string
+                          tvCode:
+                            type: string
+                        type: object
+                      dorsal:
+                        type: string
+                      dorsalRaw:
+                        type: string
+                      endDate:
+                        type: string
+                      externalId:
+                        type: integer
+                      images:
+                        properties:
+                          action:
+                            type: string
+                          headshot:
+                            type: string
+                        type: object
+                      lastTeam:
+                        type: string
+                      order:
+                        type: integer
+                      person:
+                        properties:
+                          abbreviatedName:
+                            type: string
+                          alias:
+                            type: string
+                          aliasRaw:
+                            type: string
+                          birthCountry:
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                          birthDate:
+                            type: string
+                          code:
+                            type: string
+                          country:
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                          facebookAccount:
+                            type: string
+                          height:
+                            type: integer
+                          images:
+                            properties: {}
+                            type: object
+                          instagramAccount:
+                            type: string
+                          isReferee:
+                            type: boolean
+                          jerseyName:
+                            type: string
+                          name:
+                            type: string
+                          passportName:
+                            type: string
+                          passportSurname:
+                            type: string
+                          twitterAccount:
+                            type: string
+                          weight:
+                            type: integer
+                        type: object
+                      position:
+                        type: integer
+                      positionName:
+                        type: string
+                      season:
+                        properties:
+                          alias:
+                            type: string
+                          code:
+                            type: string
+                          competitionCode:
+                            type: string
+                          name:
+                            type: string
+                          startDate:
+                            type: string
+                          year:
+                            type: integer
+                        type: object
+                      startDate:
+                        type: string
+                      type:
+                        type: string
+                      typeName:
+                        type: string
+                    type: object
+                  stats:
+                    properties:
+                      accuracyAttempted:
+                        type: number
+                      accuracyMade:
+                        type: number
+                      assistances:
+                        type: number
+                      blocksAgainst:
+                        type: number
+                      blocksFavour:
+                        type: number
+                      defensiveRebounds:
+                        type: number
+                      dorsal:
+                        type: integer
+                      fieldGoalsAttempted2:
+                        type: number
+                      fieldGoalsAttempted3:
+                        type: number
+                      fieldGoalsAttemptedTotal:
+                        type: number
+                      fieldGoalsMade2:
+                        type: number
+                      fieldGoalsMade3:
+                        type: number
+                      fieldGoalsMadeTotal:
+                        type: number
+                      foulsCommited:
+                        type: number
+                      foulsReceived:
+                        type: number
+                      freeThrowsAttempted:
+                        type: number
+                      freeThrowsMade:
+                        type: number
+                      offensiveRebounds:
+                        type: number
+                      plusMinus:
+                        type: number
+                      points:
+                        type: number
+                      startFive:
+                        type: boolean
+                      startFive2:
+                        type: boolean
+                      steals:
+                        type: number
+                      timePlayed:
+                        type: number
+                      totalRebounds:
+                        type: number
+                      turnovers:
+                        type: number
+                      valuation:
+                        type: number
+                    type: object
+                type: object
+              type: array
+            team:
+              properties:
+                accuracyAttempted:
+                  type: number
+                accuracyMade:
+                  type: number
+                assistances:
+                  type: number
+                blocksAgainst:
+                  type: number
+                blocksFavour:
+                  type: number
+                defensiveRebounds:
+                  type: number
+                fieldGoalsAttempted2:
+                  type: number
+                fieldGoalsAttempted3:
+                  type: number
+                fieldGoalsAttemptedTotal:
+                  type: number
+                fieldGoalsMade2:
+                  type: number
+                fieldGoalsMade3:
+                  type: number
+                fieldGoalsMadeTotal:
+                  type: number
+                foulsCommited:
+                  type: number
+                foulsReceived:
+                  type: number
+                freeThrowsAttempted:
+                  type: number
+                freeThrowsMade:
+                  type: number
+                offensiveRebounds:
+                  type: number
+                plusMinus:
+                  type: number
+                points:
+                  type: number
+                steals:
+                  type: number
+                timePlayed:
+                  type: number
+                totalRebounds:
+                  type: number
+                turnovers:
+                  type: number
+                valuation:
+                  type: number
+              type: object
+            total:
+              properties:
+                accuracyAttempted:
+                  type: number
+                accuracyMade:
+                  type: number
+                assistances:
+                  type: number
+                blocksAgainst:
+                  type: number
+                blocksFavour:
+                  type: number
+                defensiveRebounds:
+                  type: number
+                fieldGoalsAttempted2:
+                  type: number
+                fieldGoalsAttempted3:
+                  type: number
+                fieldGoalsAttemptedTotal:
+                  type: number
+                fieldGoalsMade2:
+                  type: number
+                fieldGoalsMade3:
+                  type: number
+                fieldGoalsMadeTotal:
+                  type: number
+                foulsCommited:
+                  type: number
+                foulsReceived:
+                  type: number
+                freeThrowsAttempted:
+                  type: number
+                freeThrowsMade:
+                  type: number
+                offensiveRebounds:
+                  type: number
+                plusMinus:
+                  type: number
+                points:
+                  type: number
+                steals:
+                  type: number
+                timePlayed:
+                  type: number
+                totalRebounds:
+                  type: number
+                turnovers:
+                  type: number
+                valuation:
+                  type: number
+              type: object
+          type: object
+        road:
+          properties:
+            coach:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+              type: object
+            players:
+              items:
+                properties:
+                  player:
+                    properties:
+                      active:
+                        type: boolean
+                      club:
+                        properties:
+                          abbreviatedName:
+                            type: string
+                          code:
+                            type: string
+                          editorialName:
+                            type: string
+                          images:
+                            properties:
+                              crest:
+                                type: string
+                            type: object
+                          isVirtual:
+                            type: boolean
+                          name:
+                            type: string
+                          tvCode:
+                            type: string
+                        type: object
+                      dorsal:
+                        type: string
+                      dorsalRaw:
+                        type: string
+                      endDate:
+                        type: string
+                      externalId:
+                        type: integer
+                      images:
+                        properties:
+                          action:
+                            type: string
+                          headshot:
+                            type: string
+                        type: object
+                      lastTeam:
+                        type: string
+                      order:
+                        type: integer
+                      person:
+                        properties:
+                          abbreviatedName:
+                            nullable: true
+                            type: string
+                          alias:
+                            type: string
+                          aliasRaw:
+                            type: string
+                          birthCountry:
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                          birthDate:
+                            type: string
+                          code:
+                            type: string
+                          country:
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                          facebookAccount:
+                            type: string
+                          height:
+                            type: integer
+                          images:
+                            properties: {}
+                            type: object
+                          instagramAccount:
+                            type: string
+                          isReferee:
+                            type: boolean
+                          jerseyName:
+                            type: string
+                          name:
+                            type: string
+                          passportName:
+                            type: string
+                          passportSurname:
+                            type: string
+                          twitterAccount:
+                            type: string
+                          weight:
+                            type: integer
+                        type: object
+                      position:
+                        type: integer
+                      positionName:
+                        type: string
+                      season:
+                        properties:
+                          alias:
+                            type: string
+                          code:
+                            type: string
+                          competitionCode:
+                            type: string
+                          name:
+                            type: string
+                          startDate:
+                            type: string
+                          year:
+                            type: integer
+                        type: object
+                      startDate:
+                        type: string
+                      type:
+                        type: string
+                      typeName:
+                        type: string
+                    type: object
+                  stats:
+                    properties:
+                      accuracyAttempted:
+                        type: number
+                      accuracyMade:
+                        type: number
+                      assistances:
+                        type: number
+                      blocksAgainst:
+                        type: number
+                      blocksFavour:
+                        type: number
+                      defensiveRebounds:
+                        type: number
+                      dorsal:
+                        type: integer
+                      fieldGoalsAttempted2:
+                        type: number
+                      fieldGoalsAttempted3:
+                        type: number
+                      fieldGoalsAttemptedTotal:
+                        type: number
+                      fieldGoalsMade2:
+                        type: number
+                      fieldGoalsMade3:
+                        type: number
+                      fieldGoalsMadeTotal:
+                        type: number
+                      foulsCommited:
+                        type: number
+                      foulsReceived:
+                        type: number
+                      freeThrowsAttempted:
+                        type: number
+                      freeThrowsMade:
+                        type: number
+                      offensiveRebounds:
+                        type: number
+                      plusMinus:
+                        type: number
+                      points:
+                        type: number
+                      startFive:
+                        type: boolean
+                      startFive2:
+                        type: boolean
+                      steals:
+                        type: number
+                      timePlayed:
+                        type: number
+                      totalRebounds:
+                        type: number
+                      turnovers:
+                        type: number
+                      valuation:
+                        type: number
+                    type: object
+                type: object
+              type: array
+            team:
+              properties:
+                accuracyAttempted:
+                  type: number
+                accuracyMade:
+                  type: number
+                assistances:
+                  type: number
+                blocksAgainst:
+                  type: number
+                blocksFavour:
+                  type: number
+                defensiveRebounds:
+                  type: number
+                fieldGoalsAttempted2:
+                  type: number
+                fieldGoalsAttempted3:
+                  type: number
+                fieldGoalsAttemptedTotal:
+                  type: number
+                fieldGoalsMade2:
+                  type: number
+                fieldGoalsMade3:
+                  type: number
+                fieldGoalsMadeTotal:
+                  type: number
+                foulsCommited:
+                  type: number
+                foulsReceived:
+                  type: number
+                freeThrowsAttempted:
+                  type: number
+                freeThrowsMade:
+                  type: number
+                offensiveRebounds:
+                  type: number
+                plusMinus:
+                  type: number
+                points:
+                  type: number
+                steals:
+                  type: number
+                timePlayed:
+                  type: number
+                totalRebounds:
+                  type: number
+                turnovers:
+                  type: number
+                valuation:
+                  type: number
+              type: object
+            total:
+              properties:
+                accuracyAttempted:
+                  type: number
+                accuracyMade:
+                  type: number
+                assistances:
+                  type: number
+                blocksAgainst:
+                  type: number
+                blocksFavour:
+                  type: number
+                defensiveRebounds:
+                  type: number
+                fieldGoalsAttempted2:
+                  type: number
+                fieldGoalsAttempted3:
+                  type: number
+                fieldGoalsAttemptedTotal:
+                  type: number
+                fieldGoalsMade2:
+                  type: number
+                fieldGoalsMade3:
+                  type: number
+                fieldGoalsMadeTotal:
+                  type: number
+                foulsCommited:
+                  type: number
+                foulsReceived:
+                  type: number
+                freeThrowsAttempted:
+                  type: number
+                freeThrowsMade:
+                  type: number
+                offensiveRebounds:
+                  type: number
+                plusMinus:
+                  type: number
+                points:
+                  type: number
+                steals:
+                  type: number
+                timePlayed:
+                  type: number
+                totalRebounds:
+                  type: number
+                turnovers:
+                  type: number
+                valuation:
+                  type: number
+              type: object
+          type: object
+      type: object
+    CompetitionsSeasonsPeople:
+      properties:
+        data:
+          items:
+            properties:
+              active:
+                type: boolean
+              club:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              dorsal:
+                type: string
+              dorsalRaw:
+                type: string
+              endDate:
+                type: string
+              externalId:
+                type: integer
+              images:
+                properties: {}
+                type: object
+              lastTeam:
+                type: string
+              order:
+                type: integer
+              person:
+                properties:
+                  abbreviatedName:
+                    nullable: true
+                    type: string
+                  alias:
+                    type: string
+                  aliasRaw:
+                    type: string
+                  birthCountry:
+                    properties:
+                      code:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                  birthDate:
+                    type: string
+                  code:
+                    type: string
+                  country:
+                    properties:
+                      code:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                  facebookAccount:
+                    nullable: true
+                    type: string
+                  height:
+                    type: integer
+                  images:
+                    properties: {}
+                    type: object
+                  instagramAccount:
+                    nullable: true
+                    type: string
+                  isReferee:
+                    type: boolean
+                  jerseyName:
+                    nullable: true
+                    type: string
+                  name:
+                    type: string
+                  passportName:
+                    type: string
+                  passportSurname:
+                    type: string
+                  twitterAccount:
+                    nullable: true
+                    type: string
+                  weight:
+                    type: integer
+                type: object
+              position:
+                type: integer
+              positionName:
+                nullable: true
+              season:
+                properties:
+                  alias:
+                    type: string
+                  code:
+                    type: string
+                  competitionCode:
+                    type: string
+                  name:
+                    type: string
+                  startDate:
+                    type: string
+                  year:
+                    type: integer
+                type: object
+              startDate:
+                type: string
+              type:
+                type: string
+              typeName:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    CompetitionsSeasonsRounds:
+      properties:
+        data:
+          items:
+            properties:
+              datesFormmated:
+                type: string
+              index:
+                type: integer
+              maxGameStartDate:
+                type: string
+              minGameStartDate:
+                type: string
+              name:
+                type: string
+              phaseTypeCode:
+                type: string
+              round:
+                type: integer
+              seasonCode:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+info:
+  description: 'Reverse-engineered from committed captures in euroleague/captures/. Keyless; JSON only
+    with Accept: application/json. Not official or supported.'
+  title: EuroLeague Competition Engine API (api-live.euroleague.net v2)
+  version: '2'
+openapi: 3.1.0
+paths:
+  /competitions:
+    get:
+      operationId: competitions
+      parameters:
+      - &id001
+        description: Without it the API answers XML.
+        in: header
+        name: Accept
+        required: true
+        schema:
+          enum:
+          - application/json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Competitions'
+          description: OK
+      summary: Competitions (EuroLeague E, EuroCup U, ...)
+  /competitions/{competitionCode}/seasons:
+    get:
+      operationId: competitions_E_seasons
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasons'
+          description: OK
+      summary: Seasons of a competition
+  /competitions/{competitionCode}/seasons/{seasonCode}/clubs:
+    get:
+      operationId: competitions_E_seasons_E2025_clubs
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasonsClubs'
+          description: OK
+      summary: Clubs in a season
+  /competitions/{competitionCode}/seasons/{seasonCode}/games:
+    get:
+      operationId: competitions_E_seasons_E2025_games
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasonsGames'
+          description: OK
+      summary: Games of a season
+  /competitions/{competitionCode}/seasons/{seasonCode}/games/{gameCode}/stats:
+    get:
+      operationId: competitions_E_seasons_E2025_games_1_stats
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Game number within the season (1-based).
+        in: path
+        name: gameCode
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasonsGamesStats'
+          description: OK
+      summary: Box score of one game
+  /competitions/{competitionCode}/seasons/{seasonCode}/people:
+    get:
+      operationId: competitions_E_seasons_E2025_people
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasonsPeople'
+          description: OK
+      summary: People (players, coaches) in a season
+  /competitions/{competitionCode}/seasons/{seasonCode}/rounds:
+    get:
+      operationId: competitions_E_seasons_E2025_rounds
+      parameters:
+      - *id001
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsSeasonsRounds'
+          description: OK
+      summary: Rounds of a season
+servers:
+- url: https://api-live.euroleague.net/v2
