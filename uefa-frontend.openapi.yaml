@@ -1,0 +1,3949 @@
+components:
+  schemas:
+    CompV2Competitions:
+      items:
+        properties:
+          age:
+            type: string
+          code:
+            type: string
+          id:
+            type: string
+          images:
+            properties:
+              FULL_LOGO:
+                type: string
+            type: object
+          metaData:
+            properties:
+              name:
+                type: string
+            type: object
+          region:
+            type: string
+          sex:
+            type: string
+          sportsType:
+            type: string
+          teamCategory:
+            type: string
+          translations:
+            properties:
+              name:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              prequalifyingName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              qualifyingName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              tournamentName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+            type: object
+          type:
+            type: string
+        type: object
+      type: array
+    CompV2Players:
+      items:
+        properties:
+          age:
+            type: string
+          birthDate:
+            type: string
+          clubId:
+            type: string
+          clubJerseyNumber:
+            type: string
+          clubShirtName:
+            type: string
+          countryCode:
+            type: string
+          detailedFieldPosition:
+            type: string
+          fieldPosition:
+            type: string
+          gender:
+            type: string
+          height:
+            type: integer
+          id:
+            type: string
+          imageUrl:
+            type: string
+          internationalName:
+            type: string
+          nationalFieldPosition:
+            type: string
+          nationalJerseyNumber:
+            type: string
+          nationalShirtName:
+            type: string
+          nationalTeamId:
+            type: string
+          translations:
+            properties:
+              countryName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              fieldPosition:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              firstName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              lastName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              name:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              nationalFieldPosition:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              shortName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+            type: object
+          weight:
+            type: integer
+        type: object
+      type: array
+    CompV2Teams:
+      items:
+        properties:
+          associationId:
+            type: string
+          associationLogoUrl:
+            type: string
+          bigLogoUrl:
+            type: string
+          confederationType:
+            type: string
+          countryCode:
+            type: string
+          id:
+            type: string
+          idProvider:
+            type: string
+          internationalName:
+            type: string
+          isPlaceHolder:
+            type: boolean
+          logoUrl:
+            type: string
+          mediumLogoUrl:
+            type: string
+          organizationId:
+            type: string
+          teamCode:
+            type: string
+          teamTypeDetail:
+            type: string
+          translations:
+            properties:
+              countryName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              displayName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              displayOfficialName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              displayTeamCode:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+              shortName:
+                properties:
+                  AR:
+                    type: string
+                  DE:
+                    type: string
+                  EN:
+                    type: string
+                  ES:
+                    type: string
+                  FR:
+                    type: string
+                  IT:
+                    type: string
+                  PT:
+                    type: string
+                  RU:
+                    type: string
+                  ZH:
+                    type: string
+                type: object
+            type: object
+          typeIsNational:
+            type: boolean
+          typeTeam:
+            type: string
+        type: object
+      type: array
+    MatchV5Livescore:
+      items:
+        properties:
+          hash:
+            type: string
+          id:
+            type: string
+          lineupStatus:
+            type: string
+          status:
+            type: string
+        type: object
+      type: array
+    MatchV5Matches:
+      items:
+        properties:
+          awayTeam:
+            properties:
+              associationId:
+                type: string
+              associationLogoUrl:
+                type: string
+              bigLogoUrl:
+                type: string
+              confederationType:
+                type: string
+              countryCode:
+                type: string
+              id:
+                type: string
+              idProvider:
+                type: string
+              internationalName:
+                type: string
+              isPlaceHolder:
+                type: boolean
+              logoUrl:
+                type: string
+              mediumLogoUrl:
+                type: string
+              organizationId:
+                type: string
+              teamCode:
+                type: string
+              teamTypeDetail:
+                type: string
+              translations:
+                properties:
+                  countryName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayOfficialName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayTeamCode:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  shortName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              typeIsNational:
+                type: boolean
+              typeTeam:
+                type: string
+            type: object
+          behindClosedDoors:
+            type: boolean
+          competition:
+            properties:
+              age:
+                type: string
+              code:
+                type: string
+              id:
+                type: string
+              images:
+                properties:
+                  FULL_LOGO:
+                    type: string
+                type: object
+              metaData:
+                properties:
+                  name:
+                    type: string
+                type: object
+              region:
+                type: string
+              sex:
+                type: string
+              sportsType:
+                type: string
+              teamCategory:
+                type: string
+              translations:
+                properties:
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  prequalifyingName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  qualifyingName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  tournamentName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              type:
+                type: string
+            type: object
+          competitionPhase:
+            type: string
+          condition:
+            properties:
+              humidity:
+                type: integer
+              pitchCondition:
+                type: string
+              temperature:
+                type: integer
+              translations:
+                properties:
+                  pitchConditionName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  weatherConditionName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              weatherCondition:
+                type: string
+              windSpeed:
+                type: integer
+            type: object
+          fullTimeAt:
+            type: string
+          homeTeam:
+            properties:
+              associationId:
+                type: string
+              associationLogoUrl:
+                type: string
+              bigLogoUrl:
+                type: string
+              confederationType:
+                type: string
+              countryCode:
+                type: string
+              id:
+                type: string
+              idProvider:
+                type: string
+              internationalName:
+                type: string
+              isPlaceHolder:
+                type: boolean
+              logoUrl:
+                type: string
+              mediumLogoUrl:
+                type: string
+              organizationId:
+                type: string
+              teamCode:
+                type: string
+              teamTypeDetail:
+                type: string
+              translations:
+                properties:
+                  countryName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayOfficialName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  displayTeamCode:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  shortName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              typeIsNational:
+                type: boolean
+              typeTeam:
+                type: string
+            type: object
+          id:
+            type: string
+          kickOffTime:
+            properties:
+              date:
+                type: string
+              dateTime:
+                type: string
+              utcOffsetInHours:
+                type: integer
+            type: object
+          leg:
+            properties:
+              dateTimeFrom:
+                type: string
+              dateTimeTo:
+                type: string
+              number:
+                type: integer
+              translations:
+                properties:
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+            type: object
+          lineupStatus:
+            type: string
+          matchAttendance:
+            type: integer
+          matchday:
+            properties:
+              competitionId:
+                type: string
+              dateFrom:
+                type: string
+              dateTo:
+                type: string
+              format:
+                type: string
+              id:
+                type: string
+              longName:
+                type: string
+              name:
+                type: string
+              phase:
+                type: string
+              roundId:
+                type: string
+              seasonYear:
+                type: string
+              sequenceNumber:
+                type: string
+              translations:
+                properties:
+                  longName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              type:
+                type: string
+            type: object
+          playerEvents:
+            properties:
+              penaltyScorers:
+                items:
+                  properties:
+                    id:
+                      type: string
+                    penaltyType:
+                      type: string
+                    phase:
+                      type: string
+                    player:
+                      properties:
+                        age:
+                          type: string
+                        birthDate:
+                          type: string
+                        clubId:
+                          type: string
+                        clubJerseyNumber:
+                          type: string
+                        clubShirtName:
+                          type: string
+                        countryCode:
+                          type: string
+                        countryOfBirthCode:
+                          type: string
+                        detailedFieldPosition:
+                          type: string
+                        fieldPosition:
+                          type: string
+                        gender:
+                          type: string
+                        id:
+                          type: string
+                        imageUrl:
+                          type: string
+                        internationalName:
+                          type: string
+                        nationalFieldPosition:
+                          type: string
+                        nationalJerseyNumber:
+                          type: string
+                        nationalShirtName:
+                          type: string
+                        nationalTeamId:
+                          type: string
+                        translations:
+                          properties:
+                            countryName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            countryOfBirthName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            fieldPosition:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            firstName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            lastName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            name:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            nationalFieldPosition:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            shortName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    teamId:
+                      type: string
+                    teamIdProvider:
+                      type: string
+                  type: object
+                type: array
+              scorers:
+                items:
+                  properties:
+                    goalType:
+                      type: string
+                    id:
+                      type: string
+                    phase:
+                      type: string
+                    player:
+                      properties:
+                        age:
+                          type: string
+                        birthDate:
+                          type: string
+                        clubId:
+                          type: string
+                        clubJerseyNumber:
+                          type: string
+                        clubShirtName:
+                          type: string
+                        countryCode:
+                          type: string
+                        detailedFieldPosition:
+                          type: string
+                        fieldPosition:
+                          type: string
+                        gender:
+                          type: string
+                        height:
+                          type: integer
+                        id:
+                          type: string
+                        imageUrl:
+                          type: string
+                        internationalName:
+                          type: string
+                        nationalFieldPosition:
+                          type: string
+                        nationalJerseyNumber:
+                          type: string
+                        nationalShirtName:
+                          type: string
+                        nationalTeamId:
+                          type: string
+                        translations:
+                          properties:
+                            countryName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            fieldPosition:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            firstName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            lastName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            name:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            nationalFieldPosition:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            shortName:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                          type: object
+                        weight:
+                          type: integer
+                      type: object
+                    teamId:
+                      type: string
+                    teamIdProvider:
+                      type: string
+                    time:
+                      properties:
+                        injuryMinute:
+                          type: integer
+                        minute:
+                          type: integer
+                        second:
+                          type: integer
+                      type: object
+                  type: object
+                type: array
+            type: object
+          playerOfTheMatch:
+            properties:
+              player:
+                properties:
+                  age:
+                    type: string
+                  birthDate:
+                    type: string
+                  clubId:
+                    type: string
+                  clubJerseyNumber:
+                    type: string
+                  clubShirtName:
+                    type: string
+                  countryCode:
+                    type: string
+                  detailedFieldPosition:
+                    type: string
+                  fieldPosition:
+                    type: string
+                  gender:
+                    type: string
+                  id:
+                    type: string
+                  imageUrl:
+                    type: string
+                  internationalName:
+                    type: string
+                  nationalFieldPosition:
+                    type: string
+                  nationalJerseyNumber:
+                    type: string
+                  nationalShirtName:
+                    type: string
+                  nationalTeamId:
+                    type: string
+                  translations:
+                    properties:
+                      countryName:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      fieldPosition:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      firstName:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      lastName:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      name:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      nationalFieldPosition:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      shortName:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              teamId:
+                type: string
+            type: object
+          referees:
+            items:
+              properties:
+                images:
+                  properties:
+                    SMALL_SQUARE:
+                      type: string
+                  type: object
+                person:
+                  properties:
+                    countryCode:
+                      type: string
+                    gender:
+                      type: string
+                    id:
+                      type: string
+                    translations:
+                      properties:
+                        countryName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        firstName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        lastName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        name:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        shortName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                      type: object
+                  type: object
+                role:
+                  type: string
+                translations:
+                  properties:
+                    roleName:
+                      properties:
+                        AR:
+                          type: string
+                        DE:
+                          type: string
+                        EN:
+                          type: string
+                        ES:
+                          type: string
+                        FR:
+                          type: string
+                        IT:
+                          type: string
+                        PT:
+                          type: string
+                        RU:
+                          type: string
+                        ZH:
+                          type: string
+                      type: object
+                  type: object
+              type: object
+            type: array
+          relatedMatches:
+            items:
+              properties:
+                awayTeam:
+                  properties:
+                    associationId:
+                      type: string
+                    associationLogoUrl:
+                      type: string
+                    bigLogoUrl:
+                      type: string
+                    confederationType:
+                      type: string
+                    countryCode:
+                      type: string
+                    id:
+                      type: string
+                    idProvider:
+                      type: string
+                    internationalName:
+                      type: string
+                    isPlaceHolder:
+                      type: boolean
+                    logoUrl:
+                      type: string
+                    mediumLogoUrl:
+                      type: string
+                    organizationId:
+                      type: string
+                    teamCode:
+                      type: string
+                    teamTypeDetail:
+                      type: string
+                    translations:
+                      properties:
+                        countryName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayOfficialName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayTeamCode:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        shortName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                      type: object
+                    typeIsNational:
+                      type: boolean
+                    typeTeam:
+                      type: string
+                  type: object
+                homeTeam:
+                  properties:
+                    associationId:
+                      type: string
+                    associationLogoUrl:
+                      type: string
+                    bigLogoUrl:
+                      type: string
+                    confederationType:
+                      type: string
+                    countryCode:
+                      type: string
+                    id:
+                      type: string
+                    idProvider:
+                      type: string
+                    internationalName:
+                      type: string
+                    isPlaceHolder:
+                      type: boolean
+                    logoUrl:
+                      type: string
+                    mediumLogoUrl:
+                      type: string
+                    organizationId:
+                      type: string
+                    teamCode:
+                      type: string
+                    teamTypeDetail:
+                      type: string
+                    translations:
+                      properties:
+                        countryName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayOfficialName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayTeamCode:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        shortName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                      type: object
+                    typeIsNational:
+                      type: boolean
+                    typeTeam:
+                      type: string
+                  type: object
+                id:
+                  type: string
+                kickOffTime:
+                  properties:
+                    date:
+                      type: string
+                    dateTime:
+                      type: string
+                    utcOffsetInHours:
+                      type: integer
+                  type: object
+                score:
+                  properties:
+                    aggregate:
+                      properties:
+                        away:
+                          type: integer
+                        home:
+                          type: integer
+                      type: object
+                    regular:
+                      properties:
+                        away:
+                          type: integer
+                        home:
+                          type: integer
+                      type: object
+                    total:
+                      properties:
+                        away:
+                          type: integer
+                        home:
+                          type: integer
+                      type: object
+                  type: object
+                status:
+                  type: string
+                type:
+                  type: string
+                winner:
+                  properties:
+                    aggregate:
+                      properties:
+                        reason:
+                          type: string
+                        team:
+                          properties:
+                            associationId:
+                              type: string
+                            associationLogoUrl:
+                              type: string
+                            bigLogoUrl:
+                              type: string
+                            confederationType:
+                              type: string
+                            countryCode:
+                              type: string
+                            id:
+                              type: string
+                            idProvider:
+                              type: string
+                            internationalName:
+                              type: string
+                            isPlaceHolder:
+                              type: boolean
+                            logoUrl:
+                              type: string
+                            mediumLogoUrl:
+                              type: string
+                            organizationId:
+                              type: string
+                            teamCode:
+                              type: string
+                            teamTypeDetail:
+                              type: string
+                            translations:
+                              properties:
+                                countryName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayOfficialName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayTeamCode:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                shortName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                              type: object
+                            typeIsNational:
+                              type: boolean
+                            typeTeam:
+                              type: string
+                          type: object
+                        translations:
+                          properties:
+                            reasonTextAbbr:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    match:
+                      properties:
+                        reason:
+                          type: string
+                        team:
+                          properties:
+                            associationId:
+                              type: string
+                            associationLogoUrl:
+                              type: string
+                            bigLogoUrl:
+                              type: string
+                            confederationType:
+                              type: string
+                            countryCode:
+                              type: string
+                            id:
+                              type: string
+                            idProvider:
+                              type: string
+                            internationalName:
+                              type: string
+                            isPlaceHolder:
+                              type: boolean
+                            logoUrl:
+                              type: string
+                            mediumLogoUrl:
+                              type: string
+                            organizationId:
+                              type: string
+                            teamCode:
+                              type: string
+                            teamTypeDetail:
+                              type: string
+                            translations:
+                              properties:
+                                countryName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayOfficialName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                displayTeamCode:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                                shortName:
+                                  properties:
+                                    AR:
+                                      type: string
+                                    DE:
+                                      type: string
+                                    EN:
+                                      type: string
+                                    ES:
+                                      type: string
+                                    FR:
+                                      type: string
+                                    IT:
+                                      type: string
+                                    PT:
+                                      type: string
+                                    RU:
+                                      type: string
+                                    ZH:
+                                      type: string
+                                  type: object
+                              type: object
+                            typeIsNational:
+                              type: boolean
+                            typeTeam:
+                              type: string
+                          type: object
+                        translations:
+                          properties:
+                            reasonText:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                            reasonTextAbbr:
+                              properties:
+                                AR:
+                                  type: string
+                                DE:
+                                  type: string
+                                EN:
+                                  type: string
+                                ES:
+                                  type: string
+                                FR:
+                                  type: string
+                                IT:
+                                  type: string
+                                PT:
+                                  type: string
+                                RU:
+                                  type: string
+                                ZH:
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                  type: object
+              type: object
+            type: array
+          round:
+            properties:
+              active:
+                type: boolean
+              benchGKCount:
+                type: integer
+              benchPlayersCount:
+                type: integer
+              benchStaffCount:
+                type: integer
+              coefficientWinnerBonus:
+                type: number
+              competitionId:
+                type: string
+              dateFrom:
+                type: string
+              dateTo:
+                type: string
+              fieldPlayersCount:
+                type: integer
+              groupCount:
+                type: integer
+              id:
+                type: string
+              metaData:
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+                type: object
+              mode:
+                type: string
+              modeDetail:
+                type: string
+              orderInCompetition:
+                type: integer
+              phase:
+                type: string
+              seasonYear:
+                type: string
+              secondaryType:
+                type: string
+              stadiumNameType:
+                type: string
+              status:
+                type: string
+              substitutionCount:
+                type: integer
+              teamCount:
+                type: integer
+              teams:
+                items:
+                  type: string
+                type: array
+              translations:
+                properties:
+                  abbreviation:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  shortName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+            type: object
+          score:
+            properties:
+              aggregate:
+                properties:
+                  away:
+                    type: integer
+                  home:
+                    type: integer
+                type: object
+              penalty:
+                properties:
+                  away:
+                    type: integer
+                  home:
+                    type: integer
+                type: object
+              regular:
+                properties:
+                  away:
+                    type: integer
+                  home:
+                    type: integer
+                type: object
+              total:
+                properties:
+                  away:
+                    type: integer
+                  home:
+                    type: integer
+                type: object
+            type: object
+          seasonYear:
+            type: string
+          sessionNumber:
+            type: integer
+          stadium:
+            properties:
+              address:
+                type: string
+              capacity:
+                type: integer
+              city:
+                properties:
+                  countryCode:
+                    type: string
+                  id:
+                    type: string
+                  translations:
+                    properties:
+                      name:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              countryCode:
+                type: string
+              geolocation:
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+                type: object
+              id:
+                type: string
+              images:
+                properties:
+                  LARGE_ULTRA_WIDE:
+                    type: string
+                  MEDIUM_WIDE:
+                    type: string
+                type: object
+              openingDate:
+                type: string
+              pitch:
+                properties:
+                  length:
+                    type: integer
+                  width:
+                    type: integer
+                type: object
+              translations:
+                properties:
+                  mediaName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  officialName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  specialEventsName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  sponsorName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+            type: object
+          status:
+            type: string
+          type:
+            type: string
+          winner:
+            properties:
+              aggregate:
+                properties:
+                  reason:
+                    type: string
+                  team:
+                    properties:
+                      associationId:
+                        type: string
+                      associationLogoUrl:
+                        type: string
+                      bigLogoUrl:
+                        type: string
+                      confederationType:
+                        type: string
+                      countryCode:
+                        type: string
+                      id:
+                        type: string
+                      idProvider:
+                        type: string
+                      internationalName:
+                        type: string
+                      isPlaceHolder:
+                        type: boolean
+                      logoUrl:
+                        type: string
+                      mediumLogoUrl:
+                        type: string
+                      organizationId:
+                        type: string
+                      teamCode:
+                        type: string
+                      teamTypeDetail:
+                        type: string
+                      translations:
+                        properties:
+                          countryName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayOfficialName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayTeamCode:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          shortName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                        type: object
+                      typeIsNational:
+                        type: boolean
+                      typeTeam:
+                        type: string
+                    type: object
+                  translations:
+                    properties:
+                      reasonTextAbbr:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              match:
+                properties:
+                  reason:
+                    type: string
+                  team:
+                    properties:
+                      associationId:
+                        type: string
+                      associationLogoUrl:
+                        type: string
+                      bigLogoUrl:
+                        type: string
+                      confederationType:
+                        type: string
+                      countryCode:
+                        type: string
+                      id:
+                        type: string
+                      idProvider:
+                        type: string
+                      internationalName:
+                        type: string
+                      isPlaceHolder:
+                        type: boolean
+                      logoUrl:
+                        type: string
+                      mediumLogoUrl:
+                        type: string
+                      organizationId:
+                        type: string
+                      teamCode:
+                        type: string
+                      teamTypeDetail:
+                        type: string
+                      translations:
+                        properties:
+                          countryName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayOfficialName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          displayTeamCode:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                          shortName:
+                            properties:
+                              AR:
+                                type: string
+                              DE:
+                                type: string
+                              EN:
+                                type: string
+                              ES:
+                                type: string
+                              FR:
+                                type: string
+                              IT:
+                                type: string
+                              PT:
+                                type: string
+                              RU:
+                                type: string
+                              ZH:
+                                type: string
+                            type: object
+                        type: object
+                      typeIsNational:
+                        type: boolean
+                      typeTeam:
+                        type: string
+                    type: object
+                  translations:
+                    properties:
+                      reasonText:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                      reasonTextAbbr:
+                        properties:
+                          AR:
+                            type: string
+                          DE:
+                            type: string
+                          EN:
+                            type: string
+                          ES:
+                            type: string
+                          FR:
+                            type: string
+                          IT:
+                            type: string
+                          PT:
+                            type: string
+                          RU:
+                            type: string
+                          ZH:
+                            type: string
+                        type: object
+                    type: object
+                type: object
+            type: object
+        type: object
+      type: array
+    MatchstatsV1TeamStatistics:
+      items:
+        properties:
+          idProvider:
+            type: string
+          statistics:
+            items:
+              properties:
+                name:
+                  type: string
+                translations:
+                  properties:
+                    name:
+                      properties:
+                        AR:
+                          type: string
+                        DE:
+                          type: string
+                        EN:
+                          type: string
+                        ES:
+                          type: string
+                        FR:
+                          type: string
+                        IT:
+                          type: string
+                        PT:
+                          type: string
+                        RU:
+                          type: string
+                        ZH:
+                          type: string
+                      type: object
+                  type: object
+                value:
+                  type: string
+              type: object
+            type: array
+          teamId:
+            type: string
+        type: object
+      type: array
+    StandingsV1Standings:
+      items:
+        properties:
+          group:
+            properties:
+              competitionId:
+                type: string
+              id:
+                type: string
+              metaData:
+                properties:
+                  groupName:
+                    type: string
+                  groupShortName:
+                    type: string
+                type: object
+              order:
+                type: integer
+              phase:
+                type: string
+              roundId:
+                type: string
+              seasonYear:
+                type: string
+              teams:
+                items:
+                  type: string
+                type: array
+              teamsQualifiedNumber:
+                type: integer
+              translations:
+                properties:
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  shortName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+              type:
+                type: string
+            type: object
+          items:
+            items:
+              properties:
+                drawn:
+                  type: integer
+                goalDifference:
+                  type: integer
+                goalsAgainst:
+                  type: integer
+                goalsFor:
+                  type: integer
+                goalsForAway:
+                  type: integer
+                goalsForHome:
+                  type: integer
+                groupFairPlayCoefficient:
+                  type: number
+                isBanned:
+                  type: boolean
+                isLive:
+                  type: boolean
+                isOverridden:
+                  type: boolean
+                isQualifying:
+                  type: boolean
+                isTied:
+                  type: boolean
+                lost:
+                  type: integer
+                lostAway:
+                  type: integer
+                lostHome:
+                  type: integer
+                opponentsGoalDifference:
+                  type: integer
+                opponentsGoalScored:
+                  type: integer
+                opponentsPoints:
+                  type: number
+                played:
+                  type: integer
+                points:
+                  type: integer
+                previousRank:
+                  type: integer
+                qualified:
+                  type: boolean
+                rank:
+                  type: integer
+                rankTrend:
+                  type: string
+                rankingCoefficient:
+                  type: number
+                team:
+                  properties:
+                    associationId:
+                      type: string
+                    associationLogoUrl:
+                      type: string
+                    bigLogoUrl:
+                      type: string
+                    confederationType:
+                      type: string
+                    countryCode:
+                      type: string
+                    id:
+                      type: string
+                    idProvider:
+                      type: string
+                    internationalName:
+                      type: string
+                    isPlaceHolder:
+                      type: boolean
+                    logoUrl:
+                      type: string
+                    mediumLogoUrl:
+                      type: string
+                    organizationId:
+                      type: string
+                    teamCode:
+                      type: string
+                    teamTypeDetail:
+                      type: string
+                    translations:
+                      properties:
+                        countryName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayOfficialName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        displayTeamCode:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                        shortName:
+                          properties:
+                            AR:
+                              type: string
+                            DE:
+                              type: string
+                            EN:
+                              type: string
+                            ES:
+                              type: string
+                            FR:
+                              type: string
+                            IT:
+                              type: string
+                            PT:
+                              type: string
+                            RU:
+                              type: string
+                            ZH:
+                              type: string
+                          type: object
+                      type: object
+                    typeIsNational:
+                      type: boolean
+                    typeTeam:
+                      type: string
+                  type: object
+                teamId:
+                  type: string
+                tieBreakerRuleId:
+                  type: string
+                totalPoints:
+                  type: number
+                won:
+                  type: integer
+                wonAway:
+                  type: integer
+                wonHome:
+                  type: integer
+              type: object
+            type: array
+          qualificationLabels:
+            items:
+              properties:
+                labelId:
+                  type: string
+                translations:
+                  properties:
+                    labelName:
+                      properties:
+                        AR:
+                          type: string
+                        DE:
+                          type: string
+                        EN:
+                          type: string
+                        ES:
+                          type: string
+                        FR:
+                          type: string
+                        IT:
+                          type: string
+                        PT:
+                          type: string
+                        RU:
+                          type: string
+                        ZH:
+                          type: string
+                      type: object
+                  type: object
+              type: object
+            type: array
+          round:
+            properties:
+              active:
+                type: boolean
+              benchGKCount:
+                type: integer
+              benchPlayersCount:
+                type: integer
+              benchStaffCount:
+                type: integer
+              coefficientWinnerBonus:
+                type: number
+              competitionId:
+                type: string
+              dateFrom:
+                type: string
+              dateTo:
+                type: string
+              fieldPlayersCount:
+                type: integer
+              groupCount:
+                type: integer
+              id:
+                type: string
+              metaData:
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+                type: object
+              mode:
+                type: string
+              modeDetail:
+                type: string
+              orderInCompetition:
+                type: integer
+              phase:
+                type: string
+              seasonYear:
+                type: string
+              secondaryType:
+                type: string
+              stadiumNameType:
+                type: string
+              standingsRankingFormulaId:
+                type: string
+              status:
+                type: string
+              substitutionCount:
+                type: integer
+              teamCount:
+                type: integer
+              teams:
+                items:
+                  type: string
+                type: array
+              translations:
+                properties:
+                  abbreviation:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  name:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                  shortName:
+                    properties:
+                      AR:
+                        type: string
+                      DE:
+                        type: string
+                      EN:
+                        type: string
+                      ES:
+                        type: string
+                      FR:
+                        type: string
+                      IT:
+                        type: string
+                      PT:
+                        type: string
+                      RU:
+                        type: string
+                      ZH:
+                        type: string
+                    type: object
+                type: object
+            type: object
+          status:
+            type: string
+        type: object
+      type: array
+info:
+  description: Reverse-engineered from committed captures in uefa/captures/. Keyless; each path carries
+    its own host. Not official or supported.
+  title: UEFA front-end APIs (comp / match / standings / matchstats .uefa.com)
+  version: '2026-10-05'
+openapi: 3.1.0
+paths:
+  /v1/standings:
+    get:
+      operationId: standings_v1_standings
+      parameters:
+      - description: 1 = Champions League, 3 = Europa League, 2019 = Conference League (see /v2/competitions).
+        example: '1'
+        in: query
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      - description: The season's end year (2026 = 2025-26).
+        example: '2026'
+        in: query
+        name: seasonYear
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandingsV1Standings'
+          description: OK
+      summary: standings.uefa.com/v1/standings
+    servers:
+    - url: https://standings.uefa.com
+  /v1/team-statistics/{matchId}:
+    get:
+      operationId: matchstats_v1_team_statistics_2047742
+      parameters:
+      - description: Match id (from /v5/matches).
+        in: path
+        name: matchId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchstatsV1TeamStatistics'
+          description: OK
+      summary: matchstats.uefa.com/v1/team-statistics/{matchId}
+    servers:
+    - url: https://matchstats.uefa.com
+  /v2/competitions:
+    get:
+      operationId: comp_v2_competitions
+      parameters:
+      - description: Comma-separated competition ids.
+        example: 1,3,2019
+        in: query
+        name: competitionIds
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompV2Competitions'
+          description: OK
+      summary: comp.uefa.com/v2/competitions
+    servers:
+    - url: https://comp.uefa.com
+  /v2/players:
+    get:
+      operationId: comp_v2_players
+      parameters:
+      - description: 1 = Champions League, 3 = Europa League, 2019 = Conference League (see /v2/competitions).
+        example: '1'
+        in: query
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      - description: The season's end year (2026 = 2025-26).
+        example: '2026'
+        in: query
+        name: seasonYear
+        required: false
+        schema:
+          type: string
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Page offset.
+        example: '0'
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompV2Players'
+          description: OK
+      summary: comp.uefa.com/v2/players
+    servers:
+    - url: https://comp.uefa.com
+  /v2/teams:
+    get:
+      operationId: comp_v2_teams
+      parameters:
+      - description: 1 = Champions League, 3 = Europa League, 2019 = Conference League (see /v2/competitions).
+        example: '1'
+        in: query
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      - description: The season's end year (2026 = 2025-26).
+        example: '2026'
+        in: query
+        name: seasonYear
+        required: false
+        schema:
+          type: string
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Page offset.
+        example: '0'
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompV2Teams'
+          description: OK
+      summary: comp.uefa.com/v2/teams
+    servers:
+    - url: https://comp.uefa.com
+  /v5/livescore:
+    get:
+      operationId: match_v5_livescore
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchV5Livescore'
+          description: OK
+      summary: match.uefa.com/v5/livescore
+    servers:
+    - url: https://match.uefa.com
+  /v5/matches:
+    get:
+      operationId: match_v5_matches
+      parameters:
+      - description: 1 = Champions League, 3 = Europa League, 2019 = Conference League (see /v2/competitions).
+        example: '1'
+        in: query
+        name: competitionId
+        required: true
+        schema:
+          type: string
+      - description: The season's end year (2026 = 2025-26).
+        example: '2026'
+        in: query
+        name: seasonYear
+        required: false
+        schema:
+          type: string
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Page offset.
+        example: '0'
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchV5Matches'
+          description: OK
+      summary: match.uefa.com/v5/matches
+    servers:
+    - url: https://match.uefa.com
+servers:
+- url: https://match.uefa.com
