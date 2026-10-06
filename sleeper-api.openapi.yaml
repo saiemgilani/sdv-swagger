@@ -1,0 +1,1911 @@
+components:
+  schemas:
+    DraftDraftId:
+      properties:
+        created:
+          type: integer
+        creators:
+          items:
+            type: string
+          type: array
+        draft_id:
+          type: string
+        draft_order:
+          properties:
+            '199042945356140544':
+              type: integer
+            '200837482281963520':
+              type: integer
+            '246105752211554304':
+              type: integer
+            '457511950237696':
+              type: integer
+            '667279356739584':
+              type: integer
+            '720638189125632':
+              type: integer
+          type: object
+        last_message_id:
+          type: string
+        last_message_time:
+          type: integer
+        last_picked:
+          type: integer
+        league_id:
+          type: string
+        metadata:
+          properties:
+            description:
+              type: string
+            name:
+              type: string
+            scoring_type:
+              type: string
+          type: object
+        season:
+          type: string
+        season_type:
+          type: string
+        settings:
+          properties:
+            pick_timer:
+              type: integer
+            rounds:
+              type: integer
+            slots_bn:
+              type: integer
+            slots_def:
+              type: integer
+            slots_flex:
+              type: integer
+            slots_k:
+              type: integer
+            slots_qb:
+              type: integer
+            slots_rb:
+              type: integer
+            slots_te:
+              type: integer
+            slots_wr:
+              type: integer
+            teams:
+              type: integer
+          type: object
+        slot_to_roster_id:
+          properties:
+            '1':
+              type: integer
+            '2':
+              type: integer
+            '3':
+              type: integer
+            '4':
+              type: integer
+            '5':
+              type: integer
+            '6':
+              type: integer
+          type: object
+        sport:
+          type: string
+        start_time:
+          type: integer
+        status:
+          type: string
+        type:
+          type: string
+      type: object
+    DraftDraftIdPicks:
+      items:
+        properties:
+          draft_id:
+            type: string
+          draft_slot:
+            type: integer
+          is_keeper:
+            nullable: true
+          metadata:
+            properties:
+              first_name:
+                type: string
+              injury_status:
+                type: string
+              last_name:
+                type: string
+              news_updated:
+                type: string
+              number:
+                type: string
+              player_id:
+                type: string
+              position:
+                type: string
+              sport:
+                type: string
+              status:
+                type: string
+              team:
+                type: string
+            type: object
+          pick_no:
+            type: integer
+          picked_by:
+            type: string
+          player_id:
+            type: string
+          reactions:
+            nullable: true
+          roster_id:
+            type: integer
+          round:
+            type: integer
+        type: object
+      type: array
+    LeagueLeagueId:
+      properties:
+        avatar:
+          type: string
+        bracket_id:
+          type: integer
+        bracket_overrides_id:
+          nullable: true
+        company_id:
+          nullable: true
+        draft_id:
+          type: string
+        group_id:
+          nullable: true
+        last_author_avatar:
+          type: string
+        last_author_display_name:
+          type: string
+        last_author_id:
+          type: string
+        last_author_is_bot:
+          nullable: true
+        last_message_attachment:
+          nullable: true
+        last_message_id:
+          type: string
+        last_message_text_map:
+          nullable: true
+        last_message_time:
+          type: integer
+        last_pinned_message_id:
+          type: string
+        last_read_id:
+          nullable: true
+        league_id:
+          type: string
+        loser_bracket_id:
+          type: integer
+        loser_bracket_overrides_id:
+          nullable: true
+        metadata:
+          properties:
+            trophy_loser:
+              type: string
+            trophy_loser_background:
+              type: string
+            trophy_loser_banner_text:
+              type: string
+            trophy_winner:
+              type: string
+            trophy_winner_background:
+              type: string
+            trophy_winner_banner_text:
+              type: string
+          type: object
+        name:
+          type: string
+        previous_league_id:
+          type: string
+        roster_positions:
+          items:
+            type: string
+          type: array
+        scoring_settings:
+          properties:
+            blk_kick:
+              type: number
+            blk_kick_ret_yd:
+              type: number
+            bonus_pass_yd_300:
+              type: number
+            bonus_pass_yd_400:
+              type: number
+            bonus_rec_yd_100:
+              type: number
+            bonus_rec_yd_200:
+              type: number
+            bonus_rush_yd_100:
+              type: number
+            bonus_rush_yd_200:
+              type: number
+            def_2pt:
+              type: number
+            def_pass_def:
+              type: number
+            def_st_ff:
+              type: number
+            def_st_fum_rec:
+              type: number
+            def_st_td:
+              type: number
+            def_td:
+              type: number
+            ff:
+              type: number
+            fg_ret_yd:
+              type: number
+            fgm:
+              type: number
+            fgm_0_19:
+              type: number
+            fgm_20_29:
+              type: number
+            fgm_30_39:
+              type: number
+            fgm_40_49:
+              type: number
+            fgm_50p:
+              type: number
+            fgmiss_0_19:
+              type: number
+            fgmiss_20_29:
+              type: number
+            fgmiss_30_39:
+              type: number
+            fum:
+              type: number
+            fum_lost:
+              type: number
+            fum_rec:
+              type: number
+            fum_ret_yd:
+              type: number
+            idp_blk:
+              type: number
+            idp_ff:
+              type: number
+            idp_fum_rec:
+              type: number
+            idp_int:
+              type: number
+            idp_pass_def:
+              type: number
+            idp_sack:
+              type: number
+            idp_safe:
+              type: number
+            idp_tkl:
+              type: number
+            idp_tkl_ast:
+              type: number
+            idp_tkl_solo:
+              type: number
+            int:
+              type: number
+            int_ret_yd:
+              type: number
+            kr_td:
+              type: number
+            kr_yd:
+              type: number
+            pass_2pt:
+              type: number
+            pass_att:
+              type: number
+            pass_cmp:
+              type: number
+            pass_int:
+              type: number
+            pass_sack:
+              type: number
+            pass_td:
+              type: number
+            pass_yd:
+              type: number
+            pr_td:
+              type: number
+            pr_yd:
+              type: number
+            pts_allow_0:
+              type: number
+            pts_allow_14_20:
+              type: number
+            pts_allow_1_6:
+              type: number
+            pts_allow_21_27:
+              type: number
+            pts_allow_28_34:
+              type: number
+            pts_allow_35p:
+              type: number
+            pts_allow_7_13:
+              type: number
+            qb_hit:
+              type: number
+            rec:
+              type: number
+            rec_2pt:
+              type: number
+            rec_td:
+              type: number
+            rec_yd:
+              type: number
+            rush_2pt:
+              type: number
+            rush_att:
+              type: number
+            rush_td:
+              type: number
+            rush_yd:
+              type: number
+            sack:
+              type: number
+            sack_yd:
+              type: number
+            safe:
+              type: number
+            st_ff:
+              type: number
+            st_fum_rec:
+              type: number
+            st_td:
+              type: number
+            st_tkl_solo:
+              type: number
+            tkl:
+              type: number
+            tkl_ast:
+              type: number
+            tkl_loss:
+              type: number
+            tkl_solo:
+              type: number
+            xpm:
+              type: number
+            xpmiss:
+              type: number
+          type: object
+        season:
+          type: string
+        season_type:
+          type: string
+        settings:
+          properties:
+            bench_lock:
+              type: integer
+            daily_waivers:
+              type: integer
+            daily_waivers_hour:
+              type: integer
+            draft_rounds:
+              type: integer
+            last_report:
+              type: integer
+            last_scored_leg:
+              type: integer
+            league_average_match:
+              type: integer
+            leg:
+              type: integer
+            max_keepers:
+              type: integer
+            num_teams:
+              type: integer
+            offseason_adds:
+              type: integer
+            pick_trading:
+              type: integer
+            playoff_teams:
+              type: integer
+            playoff_type:
+              type: integer
+            playoff_week_start:
+              type: integer
+            reserve_allow_doubtful:
+              type: integer
+            reserve_allow_out:
+              type: integer
+            reserve_allow_sus:
+              type: integer
+            reserve_slots:
+              type: integer
+            start_week:
+              type: integer
+            taxi_allow_vets:
+              type: integer
+            taxi_deadline:
+              type: integer
+            taxi_slots:
+              type: integer
+            taxi_years:
+              type: integer
+            trade_deadline:
+              type: integer
+            trade_review_days:
+              type: integer
+            type:
+              type: integer
+            waiver_budget:
+              type: integer
+            waiver_clear_days:
+              type: integer
+            waiver_day_of_week:
+              type: integer
+            waiver_type:
+              type: integer
+            was_auto_archived:
+              type: integer
+          type: object
+        shard:
+          type: integer
+        sport:
+          type: string
+        status:
+          type: string
+        total_rosters:
+          type: integer
+      type: object
+    LeagueLeagueIdDrafts:
+      items:
+        properties:
+          created:
+            type: integer
+          creators:
+            items:
+              type: string
+            type: array
+          draft_id:
+            type: string
+          draft_order:
+            properties:
+              '189140835533586432':
+                type: integer
+              '228297280283734016':
+                type: integer
+              '31161755661385728':
+                type: integer
+              '313952381563858944':
+                type: integer
+              '314278749690396672':
+                type: integer
+              '3975968863961088':
+                type: integer
+              '457511950237696':
+                type: integer
+              '521611313037312':
+                type: integer
+              '61960473868124160':
+                type: integer
+              '667279356739584':
+                type: integer
+              '720638189125632':
+                type: integer
+              '76888557872365568':
+                type: integer
+            type: object
+          last_message_id:
+            type: string
+          last_message_time:
+            type: integer
+          last_picked:
+            type: integer
+          league_id:
+            type: string
+          metadata:
+            properties:
+              description:
+                type: string
+              name:
+                type: string
+              scoring_type:
+                type: string
+            type: object
+          season:
+            type: string
+          season_type:
+            type: string
+          settings:
+            properties:
+              cpu_autopick:
+                type: integer
+              pick_timer:
+                type: integer
+              player_type:
+                type: integer
+              rounds:
+                type: integer
+              slots_bn:
+                type: integer
+              slots_def:
+                type: integer
+              slots_flex:
+                type: integer
+              slots_qb:
+                type: integer
+              slots_rb:
+                type: integer
+              slots_te:
+                type: integer
+              slots_wr:
+                type: integer
+              teams:
+                type: integer
+            type: object
+          sport:
+            type: string
+          start_time:
+            type: integer
+          status:
+            type: string
+          type:
+            type: string
+        type: object
+      type: array
+    LeagueLeagueIdMatchupsWeek:
+      items:
+        properties:
+          custom_points:
+            nullable: true
+          matchup_id:
+            type: integer
+          players:
+            items:
+              type: string
+            type: array
+          players_points:
+            properties:
+              '1170':
+                type: number
+              '1195':
+                type: number
+              '1234':
+                type: number
+              '1244':
+                type: number
+              '1346':
+                type: number
+              '1352':
+                type: number
+              '1825':
+                type: number
+              '1837':
+                type: number
+              '184':
+                type: number
+              '1848':
+                type: number
+              '1892':
+                type: number
+              '2028':
+                type: number
+              '2078':
+                type: number
+              '2133':
+                type: number
+              '223':
+                type: number
+              '2238':
+                type: number
+              '2257':
+                type: number
+              '2307':
+                type: number
+              '2320':
+                type: number
+              '2410':
+                type: number
+              '2449':
+                type: number
+              '284':
+                type: number
+              '3157':
+                type: number
+              '3242':
+                type: number
+              '331':
+                type: number
+              '367':
+                type: number
+              '4018':
+                type: number
+              '4035':
+                type: number
+              '4037':
+                type: number
+              '4066':
+                type: number
+              '4146':
+                type: number
+              '4149':
+                type: number
+              '4199':
+                type: number
+              '421':
+                type: number
+              '4531':
+                type: number
+              '4866':
+                type: number
+              '4950':
+                type: number
+              '4962':
+                type: number
+              '4993':
+                type: number
+              '5038':
+                type: number
+              '5045':
+                type: number
+              '5052':
+                type: number
+              '538':
+                type: number
+              '788':
+                type: number
+              CAR:
+                type: number
+              LAR:
+                type: number
+              PHI:
+                type: number
+            type: object
+          points:
+            type: number
+          roster_id:
+            type: integer
+          starters:
+            items:
+              type: string
+            type: array
+          starters_points:
+            items:
+              type: number
+            type: array
+        type: object
+      type: array
+    LeagueLeagueIdRosters:
+      items:
+        properties:
+          co_owners:
+            items:
+              type: string
+            nullable: true
+            type: array
+          keepers:
+            nullable: true
+          league_id:
+            type: string
+          metadata:
+            properties:
+              allow_pn_news:
+                type: string
+              allow_pn_scoring:
+                type: string
+              league_avatar:
+                type: string
+              league_description:
+                type: string
+              league_name:
+                type: string
+              p_nick_103:
+                type: string
+              p_nick_1048:
+                type: string
+              p_nick_1107:
+                type: string
+              p_nick_1111:
+                type: string
+              p_nick_1166:
+                type: string
+              p_nick_1170:
+                type: string
+              p_nick_1195:
+                type: string
+              p_nick_1234:
+                type: string
+              p_nick_1244:
+                type: string
+              p_nick_1329:
+                type: string
+              p_nick_1339:
+                type: string
+              p_nick_1346:
+                type: string
+              p_nick_1388:
+                type: string
+              p_nick_1575:
+                type: string
+              p_nick_1706:
+                type: string
+              p_nick_1817:
+                type: string
+              p_nick_1825:
+                type: string
+              p_nick_1837:
+                type: string
+              p_nick_184:
+                type: string
+              p_nick_1848:
+                type: string
+              p_nick_1892:
+                type: string
+              p_nick_1971:
+                type: string
+              p_nick_1987:
+                type: string
+              p_nick_2028:
+                type: string
+              p_nick_2078:
+                type: string
+              p_nick_2118:
+                type: string
+              p_nick_2133:
+                type: string
+              p_nick_2161:
+                type: string
+              p_nick_2182:
+                type: string
+              p_nick_223:
+                type: string
+              p_nick_2238:
+                type: string
+              p_nick_2257:
+                type: string
+              p_nick_2307:
+                type: string
+              p_nick_232:
+                type: string
+              p_nick_2320:
+                type: string
+              p_nick_2341:
+                type: string
+              p_nick_2374:
+                type: string
+              p_nick_2382:
+                type: string
+              p_nick_2410:
+                type: string
+              p_nick_2449:
+                type: string
+              p_nick_2462:
+                type: string
+              p_nick_2549:
+                type: string
+              p_nick_2585:
+                type: string
+              p_nick_268:
+                type: string
+              p_nick_284:
+                type: string
+              p_nick_3157:
+                type: string
+              p_nick_3163:
+                type: string
+              p_nick_3178:
+                type: string
+              p_nick_3204:
+                type: string
+              p_nick_3242:
+                type: string
+              p_nick_326:
+                type: string
+              p_nick_3306:
+                type: string
+              p_nick_331:
+                type: string
+              p_nick_333:
+                type: string
+              p_nick_3969:
+                type: string
+              p_nick_4018:
+                type: string
+              p_nick_4034:
+                type: string
+              p_nick_4035:
+                type: string
+              p_nick_4036:
+                type: string
+              p_nick_4037:
+                type: string
+              p_nick_4055:
+                type: string
+              p_nick_4066:
+                type: string
+              p_nick_4068:
+                type: string
+              p_nick_4080:
+                type: string
+              p_nick_4098:
+                type: string
+              p_nick_4146:
+                type: string
+              p_nick_4147:
+                type: string
+              p_nick_4149:
+                type: string
+              p_nick_4152:
+                type: string
+              p_nick_4199:
+                type: string
+              p_nick_421:
+                type: string
+              p_nick_4217:
+                type: string
+              p_nick_4274:
+                type: string
+              p_nick_4455:
+                type: string
+              p_nick_4531:
+                type: string
+              p_nick_4651:
+                type: string
+              p_nick_4866:
+                type: string
+              p_nick_4950:
+                type: string
+              p_nick_4962:
+                type: string
+              p_nick_4973:
+                type: string
+              p_nick_4993:
+                type: string
+              p_nick_5026:
+                type: string
+              p_nick_5310:
+                type: string
+              p_nick_5347:
+                type: string
+              p_nick_536:
+                type: string
+              p_nick_538:
+                type: string
+              p_nick_574:
+                type: string
+              p_nick_648:
+                type: string
+              p_nick_788:
+                type: string
+              p_nick_818:
+                type: string
+              p_nick_947:
+                type: string
+              p_nick_CAR:
+                type: string
+              p_nick_DEN:
+                type: string
+              p_nick_DET:
+                type: string
+              p_nick_JAX:
+                type: string
+              p_nick_LAR:
+                type: string
+              p_nick_PHI:
+                type: string
+            type: object
+          owner_id:
+            type: string
+          player_map:
+            nullable: true
+          players:
+            items:
+              type: string
+            type: array
+          reserve:
+            items:
+              type: string
+            nullable: true
+            type: array
+          roster_id:
+            type: integer
+          settings:
+            properties:
+              fpts:
+                type: integer
+              fpts_against:
+                type: integer
+              fpts_against_decimal:
+                type: integer
+              fpts_decimal:
+                type: integer
+              losses:
+                type: integer
+              ppts:
+                type: integer
+              ppts_decimal:
+                type: integer
+              ties:
+                type: integer
+              total_moves:
+                type: integer
+              waiver_budget_used:
+                type: integer
+              waiver_position:
+                type: integer
+              wins:
+                type: integer
+            type: object
+          starters:
+            items:
+              type: string
+            type: array
+          taxi:
+            nullable: true
+        type: object
+      type: array
+    LeagueLeagueIdTradedPicks:
+      items:
+        properties:
+          owner_id:
+            type: integer
+          previous_owner_id:
+            type: integer
+          roster_id:
+            type: integer
+          round:
+            type: integer
+          season:
+            type: string
+        type: object
+      type: array
+    LeagueLeagueIdTransactionsWeek:
+      items:
+        properties:
+          adds:
+            properties:
+              '2319':
+                type: integer
+              '3204':
+                type: integer
+              '4992':
+                type: integer
+            type: object
+          consenter_ids:
+            items:
+              type: integer
+            type: array
+          created:
+            type: integer
+          creator:
+            type: string
+          draft_picks:
+            items: {}
+            type: array
+          drops:
+            nullable: true
+          leg:
+            type: integer
+          metadata:
+            properties:
+              notes:
+                type: string
+            type: object
+          roster_ids:
+            items:
+              type: integer
+            type: array
+          settings:
+            properties:
+              priority:
+                type: integer
+              waiver_bid:
+                type: integer
+            type: object
+          status:
+            type: string
+          status_updated:
+            type: integer
+          transaction_id:
+            type: string
+          type:
+            type: string
+          waiver_budget:
+            items: {}
+            type: array
+        type: object
+      type: array
+    LeagueLeagueIdUsers:
+      items:
+        properties:
+          avatar:
+            type: string
+          display_name:
+            type: string
+          is_bot:
+            nullable: true
+          is_owner:
+            type: boolean
+          league_id:
+            type: string
+          metadata:
+            properties:
+              allow_pn:
+                type: string
+              mascot_item_type_id_leg_16:
+                type: string
+              mascot_item_type_id_leg_17:
+                type: string
+              mention_pn:
+                type: string
+              player_nickname_update:
+                type: string
+              team_name:
+                type: string
+              team_name_update:
+                type: string
+              transaction_commissioner:
+                type: string
+              transaction_free_agent:
+                type: string
+              transaction_trade:
+                type: string
+              transaction_waiver:
+                type: string
+              user_message_pn:
+                type: string
+            type: object
+          settings:
+            nullable: true
+          user_id:
+            type: string
+        type: object
+      type: array
+    LeagueLeagueIdWinnersBracket:
+      items:
+        properties:
+          l:
+            type: integer
+          m:
+            type: integer
+          r:
+            type: integer
+          t1:
+            type: integer
+          t2:
+            type: integer
+          t2_from:
+            properties:
+              w:
+                type: integer
+            type: object
+          w:
+            type: integer
+        type: object
+      type: array
+    PlayersNfl:
+      additionalProperties:
+        properties:
+          active:
+            type: boolean
+          age:
+            type: integer
+          birth_city:
+            nullable: true
+          birth_country:
+            nullable: true
+          birth_date:
+            type: string
+          birth_state:
+            nullable: true
+          college:
+            type: string
+          competitions:
+            items: {}
+            type: array
+          depth_chart_order:
+            nullable: true
+          depth_chart_position:
+            nullable: true
+          espn_id:
+            type: integer
+          fantasy_data_id:
+            type: integer
+          fantasy_positions:
+            items:
+              type: string
+            type: array
+          first_name:
+            type: string
+          full_name:
+            type: string
+          gsis_id:
+            nullable: true
+          hashtag:
+            type: string
+          height:
+            type: string
+          high_school:
+            nullable: true
+            type: string
+          injury_body_part:
+            nullable: true
+          injury_notes:
+            nullable: true
+          injury_start_date:
+            nullable: true
+          injury_status:
+            nullable: true
+          kalshi_id:
+            nullable: true
+          last_name:
+            type: string
+          metadata:
+            nullable: true
+          news_updated:
+            nullable: true
+          number:
+            type: integer
+          oddsjam_id:
+            nullable: true
+          opta_id:
+            nullable: true
+          pandascore_id:
+            nullable: true
+          player_id:
+            type: string
+          player_shard:
+            type: string
+          position:
+            type: string
+          practice_description:
+            nullable: true
+          practice_participation:
+            nullable: true
+          rotowire_id:
+            type: integer
+          rotoworld_id:
+            nullable: true
+            type: integer
+          search_first_name:
+            type: string
+          search_full_name:
+            type: string
+          search_last_name:
+            type: string
+          search_rank:
+            type: integer
+          sport:
+            type: string
+          sportradar_id:
+            type: string
+          stats_id:
+            nullable: true
+            type: integer
+          status:
+            type: string
+          swish_id:
+            nullable: true
+          team:
+            nullable: true
+          team_abbr:
+            nullable: true
+          team_changed_at:
+            nullable: true
+          weight:
+            type: string
+          yahoo_id:
+            type: integer
+          years_exp:
+            type: integer
+        type: object
+      type: object
+    PlayersNflTrendingAdd:
+      items:
+        properties:
+          count:
+            type: integer
+          player_id:
+            type: string
+        type: object
+      type: array
+    StateNfl:
+      properties:
+        display_week:
+          type: integer
+        league_create_season:
+          type: string
+        league_season:
+          type: string
+        leg:
+          type: integer
+        previous_season:
+          type: string
+        season:
+          type: string
+        season_has_scores:
+          type: boolean
+        season_start_date:
+          type: string
+        season_type:
+          type: string
+        week:
+          type: integer
+      type: object
+    UserUserIdLeaguesNflSeason:
+      items:
+        properties:
+          avatar:
+            nullable: true
+            type: string
+          bracket_id:
+            type: integer
+          bracket_overrides_id:
+            nullable: true
+          company_id:
+            nullable: true
+          display_order:
+            type: integer
+          draft_id:
+            type: string
+          group_id:
+            nullable: true
+          last_author_avatar:
+            type: string
+          last_author_display_name:
+            type: string
+          last_author_id:
+            type: string
+          last_author_is_bot:
+            nullable: true
+          last_message_attachment:
+            nullable: true
+          last_message_id:
+            type: string
+          last_message_text_map:
+            nullable: true
+          last_message_time:
+            type: integer
+          last_pinned_message_id:
+            type: string
+          last_read_id:
+            type: string
+          last_transaction_id:
+            type: integer
+          league_id:
+            type: string
+          loser_bracket_id:
+            type: integer
+          loser_bracket_overrides_id:
+            nullable: true
+          metadata:
+            nullable: true
+            properties:
+              trophy_loser:
+                type: string
+              trophy_loser_background:
+                type: string
+              trophy_loser_banner_text:
+                type: string
+              trophy_winner:
+                type: string
+              trophy_winner_background:
+                type: string
+              trophy_winner_banner_text:
+                type: string
+            type: object
+          name:
+            type: string
+          previous_league_id:
+            nullable: true
+            type: string
+          roster_positions:
+            items:
+              type: string
+            type: array
+          scoring_settings:
+            properties:
+              blk_kick:
+                type: number
+              blk_kick_ret_yd:
+                type: number
+              bonus_pass_yd_300:
+                type: number
+              bonus_pass_yd_400:
+                type: number
+              bonus_rec_te:
+                type: number
+              bonus_rec_wr:
+                type: number
+              bonus_rec_yd_100:
+                type: number
+              bonus_rec_yd_200:
+                type: number
+              bonus_rush_yd_100:
+                type: number
+              bonus_rush_yd_200:
+                type: number
+              def_2pt:
+                type: number
+              def_pass_def:
+                type: number
+              def_st_ff:
+                type: number
+              def_st_fum_rec:
+                type: number
+              def_st_td:
+                type: number
+              def_td:
+                type: number
+              ff:
+                type: number
+              fg_ret_yd:
+                type: number
+              fgm:
+                type: number
+              fgm_0_19:
+                type: number
+              fgm_20_29:
+                type: number
+              fgm_30_39:
+                type: number
+              fgm_40_49:
+                type: number
+              fgm_50p:
+                type: number
+              fgm_yds:
+                type: number
+              fgm_yds_over_30:
+                type: number
+              fgmiss:
+                type: number
+              fgmiss_0_19:
+                type: number
+              fgmiss_20_29:
+                type: number
+              fgmiss_30_39:
+                type: number
+              fgmiss_40_49:
+                type: number
+              fum:
+                type: number
+              fum_lost:
+                type: number
+              fum_rec:
+                type: number
+              fum_ret_yd:
+                type: number
+              idp_blk:
+                type: number
+              idp_ff:
+                type: number
+              idp_fum_rec:
+                type: number
+              idp_int:
+                type: number
+              idp_pass_def:
+                type: number
+              idp_sack:
+                type: number
+              idp_safe:
+                type: number
+              idp_tkl:
+                type: number
+              idp_tkl_ast:
+                type: number
+              idp_tkl_solo:
+                type: number
+              int:
+                type: number
+              int_ret_yd:
+                type: number
+              kr_td:
+                type: number
+              kr_yd:
+                type: number
+              pass_2pt:
+                type: number
+              pass_att:
+                type: number
+              pass_cmp:
+                type: number
+              pass_int:
+                type: number
+              pass_sack:
+                type: number
+              pass_td:
+                type: number
+              pass_yd:
+                type: number
+              pr_td:
+                type: number
+              pr_yd:
+                type: number
+              pts_allow_0:
+                type: number
+              pts_allow_14_20:
+                type: number
+              pts_allow_1_6:
+                type: number
+              pts_allow_21_27:
+                type: number
+              pts_allow_28_34:
+                type: number
+              pts_allow_35p:
+                type: number
+              pts_allow_7_13:
+                type: number
+              qb_hit:
+                type: number
+              rec:
+                type: number
+              rec_2pt:
+                type: number
+              rec_fd:
+                type: number
+              rec_td:
+                type: number
+              rec_yd:
+                type: number
+              rush_2pt:
+                type: number
+              rush_att:
+                type: number
+              rush_fd:
+                type: number
+              rush_td:
+                type: number
+              rush_yd:
+                type: number
+              sack:
+                type: number
+              sack_yd:
+                type: number
+              safe:
+                type: number
+              st_ff:
+                type: number
+              st_fum_rec:
+                type: number
+              st_td:
+                type: number
+              st_tkl_solo:
+                type: number
+              tkl:
+                type: number
+              tkl_ast:
+                type: number
+              tkl_loss:
+                type: number
+              tkl_solo:
+                type: number
+              xpm:
+                type: number
+              xpmiss:
+                type: number
+            type: object
+          season:
+            type: string
+          season_type:
+            type: string
+          settings:
+            properties:
+              bench_lock:
+                type: integer
+              daily_waivers:
+                type: integer
+              daily_waivers_hour:
+                type: integer
+              draft_rounds:
+                type: integer
+              last_report:
+                type: integer
+              last_scored_leg:
+                type: integer
+              league_average_match:
+                type: integer
+              leg:
+                type: integer
+              max_keepers:
+                type: integer
+              num_teams:
+                type: integer
+              offseason_adds:
+                type: integer
+              pick_trading:
+                type: integer
+              playoff_teams:
+                type: integer
+              playoff_type:
+                type: integer
+              playoff_week_start:
+                type: integer
+              reserve_allow_doubtful:
+                type: integer
+              reserve_allow_out:
+                type: integer
+              reserve_allow_sus:
+                type: integer
+              reserve_slots:
+                type: integer
+              start_week:
+                type: integer
+              taxi_allow_vets:
+                type: integer
+              taxi_deadline:
+                type: integer
+              taxi_slots:
+                type: integer
+              taxi_years:
+                type: integer
+              trade_deadline:
+                type: integer
+              trade_review_days:
+                type: integer
+              type:
+                type: integer
+              waiver_budget:
+                type: integer
+              waiver_clear_days:
+                type: integer
+              waiver_day_of_week:
+                type: integer
+              waiver_type:
+                type: integer
+              was_auto_archived:
+                type: integer
+            type: object
+          shard:
+            type: integer
+          sport:
+            type: string
+          status:
+            type: string
+          total_rosters:
+            type: integer
+        type: object
+      type: array
+    UserUsername:
+      properties:
+        avatar:
+          type: string
+        cookies:
+          nullable: true
+        created:
+          nullable: true
+        currencies:
+          nullable: true
+        data_updated:
+          nullable: true
+        deleted:
+          nullable: true
+        display_name:
+          type: string
+        email:
+          nullable: true
+        is_bot:
+          nullable: true
+        metadata:
+          nullable: true
+        notifications:
+          nullable: true
+        pending:
+          nullable: true
+        phone:
+          nullable: true
+        real_name:
+          nullable: true
+        solicitable:
+          nullable: true
+        summoner_name:
+          nullable: true
+        summoner_region:
+          nullable: true
+        token:
+          nullable: true
+        user_id:
+          type: string
+        username:
+          type: string
+        verification:
+          nullable: true
+      type: object
+info:
+  description: 'Routes per docs.sleeper.com; shapes from committed captures in sleeper/captures/. Read-only,
+    keyless, about 1000 requests per minute. /players/nfl is a 5 MB map keyed by player id: fetch it at
+    most once a day. Not official or supported.'
+  title: Sleeper API v1 (api.sleeper.app)
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /draft/{draft_id}:
+    get:
+      operationId: draft_draft_id
+      parameters:
+      - description: Draft id (from /league/{league_id}/drafts).
+        example: '257270643320426496'
+        in: path
+        name: draft_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDraftId'
+          description: OK
+      summary: A draft
+  /draft/{draft_id}/picks:
+    get:
+      operationId: draft_draft_id_picks
+      parameters:
+      - description: Draft id (from /league/{league_id}/drafts).
+        example: '257270643320426496'
+        in: path
+        name: draft_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDraftIdPicks'
+          description: OK
+      summary: Picks of a draft
+  /league/{league_id}:
+    get:
+      operationId: league_league_id
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueId'
+          description: OK
+      summary: A league
+  /league/{league_id}/drafts:
+    get:
+      operationId: league_league_id_drafts
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdDrafts'
+          description: OK
+      summary: Drafts of a league
+  /league/{league_id}/matchups/{week}:
+    get:
+      operationId: league_league_id_matchups_week
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      - description: NFL week (1-18).
+        example: '1'
+        in: path
+        name: week
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdMatchupsWeek'
+          description: OK
+      summary: Matchups for a week
+  /league/{league_id}/rosters:
+    get:
+      operationId: league_league_id_rosters
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdRosters'
+          description: OK
+      summary: Rosters in a league
+  /league/{league_id}/traded_picks:
+    get:
+      operationId: league_league_id_traded_picks
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdTradedPicks'
+          description: OK
+      summary: Traded draft picks
+  /league/{league_id}/transactions/{week}:
+    get:
+      operationId: league_league_id_transactions_week
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      - description: NFL week (1-18).
+        example: '1'
+        in: path
+        name: week
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdTransactionsWeek'
+          description: OK
+      summary: Transactions for a week
+  /league/{league_id}/users:
+    get:
+      operationId: league_league_id_users
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdUsers'
+          description: OK
+      summary: Users in a league
+  /league/{league_id}/winners_bracket:
+    get:
+      operationId: league_league_id_winners_bracket
+      parameters:
+      - description: League id.
+        example: '289646328504385536'
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueLeagueIdWinnersBracket'
+          description: OK
+      summary: Playoff bracket
+  /players/nfl:
+    get:
+      operationId: players_nfl
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersNfl'
+          description: OK
+      summary: All NFL players (large; fetch at most once per day)
+  /players/nfl/trending/add:
+    get:
+      operationId: players_nfl_trending_add
+      parameters:
+      - description: Hours to look back (default 24).
+        in: query
+        name: lookback_hours
+        required: false
+        schema:
+          type: integer
+      - description: Number of players (default 25).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersNflTrendingAdd'
+          description: OK
+      summary: Trending adds (lookback_hours, limit)
+  /state/nfl:
+    get:
+      operationId: state_nfl
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateNfl'
+          description: OK
+      summary: Current NFL week and season state
+  /user/{user_id}/leagues/nfl/{season}:
+    get:
+      operationId: user_user_id_leagues_nfl_season
+      parameters:
+      - description: User id (from /user/{username}).
+        example: ''
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+      - description: Season year, e.g. 2026.
+        example: '2018'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUserIdLeaguesNflSeason'
+          description: OK
+      summary: Leagues a user is in for a season
+  /user/{username}:
+    get:
+      operationId: user_username
+      parameters:
+      - description: Username or user id.
+        example: '457511950237696'
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUsername'
+          description: OK
+      summary: Look up a user by username or id
+servers:
+- url: https://api.sleeper.app/v1
