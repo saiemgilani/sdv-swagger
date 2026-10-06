@@ -1,5 +1,526 @@
 components:
   schemas:
+    ApiBoxscore:
+      properties:
+        Attendance:
+          type: string
+        ByQuarter:
+          items:
+            properties:
+              Quarter1:
+                type: integer
+              Quarter2:
+                type: integer
+              Quarter3:
+                type: integer
+              Quarter4:
+                type: integer
+              Team:
+                type: string
+            type: object
+          type: array
+        EndOfQuarter:
+          items:
+            properties:
+              Quarter1:
+                type: integer
+              Quarter2:
+                type: integer
+              Quarter3:
+                type: integer
+              Quarter4:
+                type: integer
+              Team:
+                type: string
+            type: object
+          type: array
+        Live:
+          type: boolean
+        Referees:
+          type: string
+        Stats:
+          items:
+            properties:
+              Coach:
+                type: string
+              PlayersStats:
+                items:
+                  properties:
+                    Assistances:
+                      type: integer
+                    BlocksAgainst:
+                      type: integer
+                    BlocksFavour:
+                      type: integer
+                    DefensiveRebounds:
+                      type: integer
+                    Dorsal:
+                      type: string
+                    FieldGoalsAttempted2:
+                      type: integer
+                    FieldGoalsAttempted3:
+                      type: integer
+                    FieldGoalsMade2:
+                      type: integer
+                    FieldGoalsMade3:
+                      type: integer
+                    FoulsCommited:
+                      type: integer
+                    FoulsReceived:
+                      type: integer
+                    FreeThrowsAttempted:
+                      type: integer
+                    FreeThrowsMade:
+                      type: integer
+                    IsPlaying:
+                      type: integer
+                    IsStarter:
+                      type: integer
+                    Minutes:
+                      type: string
+                    OffensiveRebounds:
+                      type: integer
+                    Player:
+                      type: string
+                    Player_ID:
+                      type: string
+                    Plusminus:
+                      type: integer
+                    Points:
+                      type: integer
+                    Steals:
+                      type: integer
+                    Team:
+                      type: string
+                    TotalRebounds:
+                      type: integer
+                    Turnovers:
+                      type: integer
+                    Valuation:
+                      type: integer
+                  type: object
+                type: array
+              Team:
+                type: string
+              tmr:
+                properties:
+                  Assistances:
+                    type: integer
+                  BlocksAgainst:
+                    type: integer
+                  BlocksFavour:
+                    type: integer
+                  DefensiveRebounds:
+                    type: integer
+                  Dorsal:
+                    type: string
+                  FieldGoalsAttempted2:
+                    type: integer
+                  FieldGoalsAttempted3:
+                    type: integer
+                  FieldGoalsMade2:
+                    type: integer
+                  FieldGoalsMade3:
+                    type: integer
+                  FoulsCommited:
+                    type: integer
+                  FoulsReceived:
+                    type: integer
+                  FreeThrowsAttempted:
+                    type: integer
+                  FreeThrowsMade:
+                    type: integer
+                  IsPlaying:
+                    type: integer
+                  IsStarter:
+                    type: integer
+                  Minutes:
+                    type:
+                    - 'null'
+                  OffensiveRebounds:
+                    type: integer
+                  Player:
+                    type: string
+                  Player_ID:
+                    type: string
+                  Plusminus:
+                    type:
+                    - 'null'
+                  Points:
+                    type: integer
+                  Steals:
+                    type: integer
+                  Team:
+                    type: string
+                  TotalRebounds:
+                    type: integer
+                  Turnovers:
+                    type: integer
+                  Valuation:
+                    type: integer
+                type: object
+              totr:
+                properties:
+                  Assistances:
+                    type: integer
+                  BlocksAgainst:
+                    type: integer
+                  BlocksFavour:
+                    type: integer
+                  DefensiveRebounds:
+                    type: integer
+                  FieldGoalsAttempted2:
+                    type: integer
+                  FieldGoalsAttempted3:
+                    type: integer
+                  FieldGoalsMade2:
+                    type: integer
+                  FieldGoalsMade3:
+                    type: integer
+                  FoulsCommited:
+                    type: integer
+                  FoulsReceived:
+                    type: integer
+                  FreeThrowsAttempted:
+                    type: integer
+                  FreeThrowsMade:
+                    type: integer
+                  Minutes:
+                    type: string
+                  OffensiveRebounds:
+                    type: integer
+                  Points:
+                    type: integer
+                  Steals:
+                    type: integer
+                  TotalRebounds:
+                    type: integer
+                  Turnovers:
+                    type: integer
+                  Valuation:
+                    type: integer
+                type: object
+            type: object
+          type: array
+      type: object
+    ApiHeader:
+      properties:
+        Capacity:
+          type: string
+        CoachA:
+          type: string
+        CoachB:
+          type: string
+        CodeTeamA:
+          type: string
+        CodeTeamB:
+          type: string
+        Competition:
+          type: string
+        CompetitionReducedName:
+          type: string
+        Date:
+          type: string
+        FoultsA:
+          type: string
+        FoultsB:
+          type: string
+        GameTime:
+          type: string
+        Hour:
+          type: string
+        Live:
+          type: boolean
+        Phase:
+          type: string
+        PhaseReducedName:
+          type: string
+        Quarter:
+          type: string
+        Referee1:
+          type: string
+        Referee2:
+          type: string
+        Referee3:
+          type: string
+        RemainingPartialTime:
+          type: string
+        Round:
+          type: string
+        ScoreA:
+          type: string
+        ScoreB:
+          type: string
+        ScoreExtraTimeA:
+          type: integer
+        ScoreExtraTimeB:
+          type: integer
+        ScoreQuarter1A:
+          type: integer
+        ScoreQuarter1B:
+          type: integer
+        ScoreQuarter2A:
+          type: integer
+        ScoreQuarter2B:
+          type: integer
+        ScoreQuarter3A:
+          type: integer
+        ScoreQuarter3B:
+          type: integer
+        ScoreQuarter4A:
+          type: integer
+        ScoreQuarter4B:
+          type: integer
+        Stadium:
+          type: string
+        TVCodeA:
+          type: string
+        TVCodeB:
+          type: string
+        TeamA:
+          type: string
+        TeamB:
+          type: string
+        TimeoutsA:
+          type: string
+        TimeoutsB:
+          type: string
+        imA:
+          type: string
+        imB:
+          type: string
+        pcom:
+          type: string
+        wid:
+          type: string
+      type: object
+    ApiPlaybyplay:
+      properties:
+        ActualQuarter:
+          type: integer
+        CodeTeamA:
+          type: string
+        CodeTeamB:
+          type: string
+        ExtraTime:
+          items: {}
+          type: array
+        FirstQuarter:
+          items:
+            properties:
+              CODETEAM:
+                type: string
+              COMMENT:
+                type: string
+              DORSAL:
+                type:
+                - string
+                - 'null'
+              MARKERTIME:
+                type: string
+              MINUTE:
+                type: integer
+              NUMBEROFPLAY:
+                type: integer
+              PLAYER:
+                type:
+                - string
+                - 'null'
+              PLAYER_ID:
+                type: string
+              PLAYINFO:
+                type: string
+              PLAYTYPE:
+                type: string
+              POINTS_A:
+                type:
+                - integer
+                - 'null'
+              POINTS_B:
+                type:
+                - 'null'
+              TEAM:
+                type:
+                - string
+                - 'null'
+              TYPE:
+                type: integer
+            type: object
+          type: array
+        ForthQuarter:
+          items:
+            properties:
+              CODETEAM:
+                type: string
+              COMMENT:
+                type: string
+              DORSAL:
+                type:
+                - string
+                - 'null'
+              MARKERTIME:
+                type: string
+              MINUTE:
+                type: integer
+              NUMBEROFPLAY:
+                type: integer
+              PLAYER:
+                type:
+                - string
+                - 'null'
+              PLAYER_ID:
+                type: string
+              PLAYINFO:
+                type: string
+              PLAYTYPE:
+                type: string
+              POINTS_A:
+                type:
+                - 'null'
+              POINTS_B:
+                type:
+                - 'null'
+              TEAM:
+                type:
+                - string
+                - 'null'
+              TYPE:
+                type: integer
+            type: object
+          type: array
+        Live:
+          type: boolean
+        SecondQuarter:
+          items:
+            properties:
+              CODETEAM:
+                type: string
+              COMMENT:
+                type: string
+              DORSAL:
+                type:
+                - string
+                - 'null'
+              MARKERTIME:
+                type: string
+              MINUTE:
+                type: integer
+              NUMBEROFPLAY:
+                type: integer
+              PLAYER:
+                type:
+                - string
+                - 'null'
+              PLAYER_ID:
+                type: string
+              PLAYINFO:
+                type: string
+              PLAYTYPE:
+                type: string
+              POINTS_A:
+                type:
+                - 'null'
+              POINTS_B:
+                type:
+                - 'null'
+              TEAM:
+                type:
+                - string
+                - 'null'
+              TYPE:
+                type: integer
+            type: object
+          type: array
+        TeamA:
+          type: string
+        TeamB:
+          type: string
+        ThirdQuarter:
+          items:
+            properties:
+              CODETEAM:
+                type: string
+              COMMENT:
+                type: string
+              DORSAL:
+                type:
+                - string
+                - 'null'
+              MARKERTIME:
+                type: string
+              MINUTE:
+                type: integer
+              NUMBEROFPLAY:
+                type: integer
+              PLAYER:
+                type:
+                - string
+                - 'null'
+              PLAYER_ID:
+                type: string
+              PLAYINFO:
+                type: string
+              PLAYTYPE:
+                type: string
+              POINTS_A:
+                type:
+                - 'null'
+              POINTS_B:
+                type:
+                - 'null'
+              TEAM:
+                type:
+                - string
+                - 'null'
+              TYPE:
+                type: integer
+            type: object
+          type: array
+      type: object
+    ApiPoints:
+      properties:
+        Rows:
+          items:
+            properties:
+              ACTION:
+                type: string
+              CONSOLE:
+                type: string
+              COORD_X:
+                type: integer
+              COORD_Y:
+                type: integer
+              FASTBREAK:
+                type: string
+              ID_ACTION:
+                type: string
+              ID_PLAYER:
+                type: string
+              MINUTE:
+                type: integer
+              NUM_ANOT:
+                type: integer
+              PLAYER:
+                type: string
+              POINTS:
+                type: integer
+              POINTS_A:
+                type: integer
+              POINTS_B:
+                type: integer
+              POINTS_OFF_TURNOVER:
+                type: string
+              SECOND_CHANCE:
+                type: string
+              TEAM:
+                type: string
+              UTC:
+                type: string
+              ZONE:
+                type: string
+            type: object
+          type: array
+      type: object
     Competitions:
       properties:
         data:
@@ -1149,13 +1670,838 @@ components:
         total:
           type: integer
       type: object
+    V3CompetitionsSeasonsGamesReport:
+      properties:
+        confirmedDate:
+          type: boolean
+        confirmedHour:
+          type: boolean
+        date:
+          type: string
+        gameCode:
+          type: integer
+        group:
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            order:
+              type: integer
+            rawName:
+              type: string
+          type: object
+        local:
+          properties:
+            club:
+              properties:
+                abbreviatedName:
+                  type: string
+                code:
+                  type: string
+                editorialName:
+                  type: string
+                images:
+                  properties:
+                    crest:
+                      type: string
+                  type: object
+                isVirtual:
+                  type: boolean
+                name:
+                  type: string
+                tvCode:
+                  type: string
+              type: object
+            score:
+              type: integer
+            standingsScore:
+              type: integer
+          type: object
+        localDate:
+          type: string
+        localLast5Form:
+          items:
+            type: string
+          type: array
+        localTimeZone:
+          type: integer
+        phaseType:
+          properties:
+            alias:
+              type: string
+            code:
+              type: string
+            isGroupPhase:
+              type: boolean
+            name:
+              type: string
+          type: object
+        played:
+          type: boolean
+        road:
+          properties:
+            club:
+              properties:
+                abbreviatedName:
+                  type: string
+                code:
+                  type: string
+                editorialName:
+                  type: string
+                images:
+                  properties:
+                    crest:
+                      type: string
+                  type: object
+                isVirtual:
+                  type: boolean
+                name:
+                  type: string
+                tvCode:
+                  type: string
+              type: object
+            score:
+              type: integer
+            standingsScore:
+              type: integer
+          type: object
+        roadLast5Form:
+          items:
+            type: string
+          type: array
+        round:
+          type: integer
+        roundAlias:
+          type: string
+        roundName:
+          type: string
+        season:
+          properties:
+            alias:
+              type: string
+            code:
+              type: string
+            competitionCode:
+              type: string
+            name:
+              type: string
+            startDate:
+              type: string
+            year:
+              type: integer
+          type: object
+        utcDate:
+          type: string
+      type: object
+    V3CompetitionsSeasonsRoundsAheadbehind:
+      properties:
+        teams:
+          items:
+            properties:
+              club:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              gamesLost:
+                type: integer
+              gamesPlayed:
+                type: integer
+              gamesWon:
+                type: integer
+              groupName:
+                type: string
+              half1Ahead:
+                type: string
+              half1Behind:
+                type: string
+              half1Tied:
+                type: string
+              position:
+                type: integer
+              positionChange:
+                type: string
+              qualified:
+                type: boolean
+              quater1Ahead:
+                type: string
+              quater1Behind:
+                type: string
+              quater1Tied:
+                type: string
+              quater3Ahead:
+                type: string
+              quater3Behind:
+                type: string
+              quater3Tied:
+                type: string
+              winsPercentage:
+                type: string
+            type: object
+          type: array
+        winner:
+          properties:
+            abbreviatedName:
+              type: string
+            code:
+              type: string
+            editorialName:
+              type: string
+            images:
+              properties:
+                crest:
+                  type: string
+              type: object
+            isVirtual:
+              type: boolean
+            name:
+              type: string
+            tvCode:
+              type: string
+          type: object
+      type: object
+    V3CompetitionsSeasonsRoundsBasicstandings:
+      properties:
+        teams:
+          items:
+            properties:
+              awayRecord:
+                type: string
+              club:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              gamesLost:
+                type: integer
+              gamesPlayed:
+                type: integer
+              gamesWon:
+                type: integer
+              groupName:
+                type: string
+              homeRecord:
+                type: string
+              last5Form:
+                items:
+                  type: string
+                type: array
+              lastTenRecord:
+                type: string
+              neutralRecord:
+                type: string
+              overtimeRecord:
+                type: string
+              pointsAgainst:
+                type: integer
+              pointsDifference:
+                type: string
+              pointsFor:
+                type: integer
+              position:
+                type: integer
+              positionChange:
+                type: string
+              qualified:
+                type: boolean
+              winPercentage:
+                type: string
+            type: object
+          type: array
+        winner:
+          properties:
+            abbreviatedName:
+              type: string
+            code:
+              type: string
+            editorialName:
+              type: string
+            images:
+              properties:
+                crest:
+                  type: string
+              type: object
+            isVirtual:
+              type: boolean
+            name:
+              type: string
+            tvCode:
+              type: string
+          type: object
+      type: object
+    V3CompetitionsSeasonsRoundsCalendarstandings:
+      properties:
+        teams:
+          items:
+            properties:
+              club:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              gamesLost:
+                type: integer
+              gamesPlayed:
+                type: integer
+              gamesWon:
+                type: integer
+              groupName:
+                type: string
+              position:
+                type: integer
+              positionChange:
+                type: string
+              qualified:
+                type: boolean
+              streaks:
+                items:
+                  properties:
+                    endDate:
+                      type: string
+                    startDate:
+                      type: string
+                    winLossRecord:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type: array
+        winner:
+          properties:
+            abbreviatedName:
+              type: string
+            code:
+              type: string
+            editorialName:
+              type: string
+            images:
+              properties:
+                crest:
+                  type: string
+              type: object
+            isVirtual:
+              type: boolean
+            name:
+              type: string
+            tvCode:
+              type: string
+          type: object
+      type: object
+    V3CompetitionsSeasonsRoundsStreaks:
+      properties:
+        teams:
+          items:
+            properties:
+              awayLast5:
+                type: string
+              awayRecord:
+                type: string
+              club:
+                properties:
+                  abbreviatedName:
+                    type: string
+                  code:
+                    type: string
+                  editorialName:
+                    type: string
+                  images:
+                    properties:
+                      crest:
+                        type: string
+                    type: object
+                  isVirtual:
+                    type: boolean
+                  name:
+                    type: string
+                  tvCode:
+                    type: string
+                type: object
+              gamesLost:
+                type: integer
+              gamesPlayed:
+                type: integer
+              gamesWon:
+                type: integer
+              groupName:
+                type: string
+              homeLast5:
+                type: string
+              homeRecord:
+                type: string
+              last10:
+                type: string
+              longestLosesStreakAnySeason:
+                type: integer
+              longestLosesStreakCurrentSeason:
+                type: integer
+              longestWinsStreakAnySeason:
+                type: integer
+              longestWinsStreakCurrentSeason:
+                type: integer
+              position:
+                type: integer
+              positionChange:
+                type: string
+              qualified:
+                type: boolean
+            type: object
+          type: array
+        winner:
+          properties:
+            abbreviatedName:
+              type: string
+            code:
+              type: string
+            editorialName:
+              type: string
+            images:
+              properties:
+                crest:
+                  type: string
+              type: object
+            isVirtual:
+              type: boolean
+            name:
+              type: string
+            tvCode:
+              type: string
+          type: object
+      type: object
+    V3CompetitionsStatisticsPlayersAdvanced:
+      properties:
+        players:
+          items:
+            properties:
+              assistsRatio:
+                type: string
+              assistsToTurnoversRatio:
+                type: number
+              defensiveReboundsPercentage:
+                type: string
+              effectiveFieldGoalPercentage:
+                type: string
+              freeThrowsRate:
+                type: string
+              gamesPlayed:
+                type: number
+              minutesPlayed:
+                type: number
+              offensiveReboundsPercentage:
+                type: string
+              player:
+                properties:
+                  age:
+                    type: integer
+                  code:
+                    type: string
+                  imageUrl:
+                    type: string
+                  name:
+                    type: string
+                  team:
+                    properties:
+                      code:
+                        type: string
+                      imageUrl:
+                        type: string
+                      name:
+                        type: string
+                      tvCodes:
+                        type: string
+                    type: object
+                type: object
+              playerRanking:
+                type: integer
+              possesions:
+                type: number
+              reboundsPercentage:
+                type: string
+              threePointAttemptsRatio:
+                type: string
+              trueShootingPercentage:
+                type: string
+              turnoversRatio:
+                type: string
+              twoPointAttemptsRatio:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    V3CompetitionsStatisticsPlayersTraditional:
+      properties:
+        players:
+          items:
+            properties:
+              assists:
+                type: number
+              blocks:
+                type: number
+              blocksAgainst:
+                type: number
+              defensiveRebounds:
+                type: number
+              foulsCommited:
+                type: number
+              foulsDrawn:
+                type: number
+              freeThrowsAttempted:
+                type: number
+              freeThrowsMade:
+                type: number
+              freeThrowsPercentage:
+                type: string
+              gamesPlayed:
+                type: number
+              gamesStarted:
+                type: number
+              minutesPlayed:
+                type: number
+              offensiveRebounds:
+                type: number
+              pir:
+                type: number
+              player:
+                properties:
+                  age:
+                    type: integer
+                  code:
+                    type: string
+                  imageUrl:
+                    type: string
+                  name:
+                    type: string
+                  team:
+                    properties:
+                      code:
+                        type: string
+                      imageUrl:
+                        type: string
+                      name:
+                        type: string
+                      tvCodes:
+                        type: string
+                    type: object
+                type: object
+              playerRanking:
+                type: integer
+              pointsScored:
+                type: number
+              steals:
+                type: number
+              threePointersAttempted:
+                type: number
+              threePointersMade:
+                type: number
+              threePointersPercentage:
+                type: string
+              totalRebounds:
+                type: number
+              turnovers:
+                type: number
+              twoPointersAttempted:
+                type: number
+              twoPointersMade:
+                type: number
+              twoPointersPercentage:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    V3CompetitionsStatisticsTeamsAdvanced:
+      properties:
+        teams:
+          items:
+            properties:
+              assistsRatio:
+                type: string
+              assistsToTurnoversRatio:
+                type: number
+              defensiveReboundsPercentage:
+                type: string
+              effectiveFieldGoalPercentage:
+                type: string
+              freeThrowsRate:
+                type: string
+              gamesPlayed:
+                type: number
+              offensiveReboundsPercentage:
+                type: string
+              pointsFromFreeThrowsPercentage:
+                type: string
+              pointsFromThreePointersPercentage:
+                type: string
+              pointsFromTwoPointersPercentage:
+                type: string
+              reboundsPercentage:
+                type: string
+              team:
+                properties:
+                  code:
+                    type: string
+                  imageUrl:
+                    type: string
+                  name:
+                    type: string
+                  tvCodes:
+                    type: string
+                type: object
+              teamRanking:
+                type: integer
+              threePointRate:
+                type: string
+              trueShootingPercentage:
+                type: string
+              turnoversRatio:
+                type: string
+              twoPointRate:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
+    V3CompetitionsStatisticsTeamsTraditional:
+      properties:
+        teams:
+          items:
+            properties:
+              assists:
+                type: number
+              blocks:
+                type: number
+              blocksAgainst:
+                type: number
+              defensiveRebounds:
+                type: number
+              foulsCommited:
+                type: number
+              foulsDrawn:
+                type: number
+              freeThrowsAttempted:
+                type: number
+              freeThrowsMade:
+                type: number
+              freeThrowsPercentage:
+                type: string
+              gamesPlayed:
+                type: number
+              minutesPlayed:
+                type: number
+              offensiveRebounds:
+                type: number
+              pir:
+                type: number
+              pointsScored:
+                type: number
+              steals:
+                type: number
+              team:
+                properties:
+                  code:
+                    type: string
+                  imageUrl:
+                    type: string
+                  name:
+                    type: string
+                  tvCodes:
+                    type: string
+                type: object
+              teamRanking:
+                type: integer
+              threePointersAttempted:
+                type: number
+              threePointersMade:
+                type: number
+              threePointersPercentage:
+                type: string
+              totalRebounds:
+                type: number
+              turnovers:
+                type: number
+              twoPointersAttempted:
+                type: number
+              twoPointersMade:
+                type: number
+              twoPointersPercentage:
+                type: string
+            type: object
+          type: array
+        total:
+          type: integer
+      type: object
 info:
-  description: 'Reverse-engineered from committed captures in euroleague/captures/. Keyless; JSON only
-    with Accept: application/json. Not official or supported.'
-  title: EuroLeague Competition Engine API (api-live.euroleague.net v2)
+  description: 'Reverse-engineered from committed captures in euroleague/captures/. Keyless; api-live
+    answers JSON only with Accept: application/json. Routes with their own `servers` entry live on api-live
+    v3 (standings, season stats, game report) or on the legacy live.euroleague.net/api (shots, play-by-play,
+    box score, header). Not official or supported.'
+  title: EuroLeague Competition Engine API (api-live.euroleague.net v2 + v3, live.euroleague.net/api)
   version: '2'
 openapi: 3.1.0
 paths:
+  /Boxscore:
+    get:
+      description: Keyless JSON by default (no Accept header needed). An EMPTY 200 body means no such
+        game.
+      operationId: Boxscore
+      parameters:
+      - description: Game number within the season (1-based).
+        in: query
+        name: gamecode
+        required: true
+        schema:
+          type: integer
+      - description: 'Competition code + start year: E2025 (EuroLeague 2025-26), U2025 (EuroCup).'
+        in: query
+        name: seasoncode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiBoxscore'
+          description: OK
+      summary: 'Box score of one game: per-player and team totals per side, by-quarter scores, referees,
+        attendance'
+    servers:
+    - url: https://live.euroleague.net/api
+  /Header:
+    get:
+      description: Keyless JSON by default (no Accept header needed). An EMPTY 200 body means no such
+        game.
+      operationId: Header
+      parameters:
+      - description: Game number within the season (1-based).
+        in: query
+        name: gamecode
+        required: true
+        schema:
+          type: integer
+      - description: 'Competition code + start year: E2025 (EuroLeague 2025-26), U2025 (EuroCup).'
+        in: query
+        name: seasoncode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiHeader'
+          description: OK
+      summary: 'Game header: teams, codes, coaches, score by quarter, venue, referees'
+    servers:
+    - url: https://live.euroleague.net/api
+  /PlayByPlay:
+    get:
+      description: Keyless JSON by default (no Accept header needed). An EMPTY 200 body means no such
+        game.
+      operationId: PlayByPlay
+      parameters:
+      - description: Game number within the season (1-based).
+        in: query
+        name: gamecode
+        required: true
+        schema:
+          type: integer
+      - description: 'Competition code + start year: E2025 (EuroLeague 2025-26), U2025 (EuroCup).'
+        in: query
+        name: seasoncode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiPlaybyplay'
+          description: OK
+      summary: Play-by-play of one game, one array per quarter (FirstQuarter ... ForthQuarter, ExtraTime)
+    servers:
+    - url: https://live.euroleague.net/api
+  /Points:
+    get:
+      description: Keyless JSON by default (no Accept header needed). An EMPTY 200 body means no such
+        game.
+      operationId: Points
+      parameters:
+      - description: Game number within the season (1-based).
+        in: query
+        name: gamecode
+        required: true
+        schema:
+          type: integer
+      - description: 'Competition code + start year: E2025 (EuroLeague 2025-26), U2025 (EuroCup).'
+        in: query
+        name: seasoncode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiPoints'
+          description: OK
+      summary: 'Shot chart of one game: one row per made/missed FG and made FT, with COORD_X/COORD_Y in
+        cm from the hoop (the shot-chart source)'
+    servers:
+    - url: https://live.euroleague.net/api
   /competitions:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
@@ -1256,6 +2602,41 @@ paths:
       summary: Games of a season
       x-required-headers:
         Accept: application/json
+  /competitions/{competitionCode}/seasons/{seasonCode}/games/{gameCode}/report:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_seasons_seasonCode_games_gameCode_report
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Game number within the season (1-based).
+        in: path
+        name: gameCode
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsSeasonsGamesReport'
+          description: OK
+      summary: 'Game report: date, round, phase, both clubs with score and last-5 form'
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
   /competitions/{competitionCode}/seasons/{seasonCode}/games/{gameCode}/stats:
     get:
       description: 'Send `Accept: application/json`; without it the API answers XML.'
@@ -1353,5 +2734,357 @@ paths:
       summary: Rounds of a season
       x-required-headers:
         Accept: application/json
+  /competitions/{competitionCode}/seasons/{seasonCode}/rounds/{round}/aheadbehind:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_seasons_seasonCode_rounds_round_aheadbehind
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season (the `round` field of /rounds); the standings are
+          as of this round.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsSeasonsRoundsAheadbehind'
+          description: OK
+      summary: Standings as of a round with ahead/behind/tied records after Q1, the half and Q3
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/seasons/{seasonCode}/rounds/{round}/basicstandings:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_seasons_seasonCode_rounds_round_basicstandings
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season (the `round` field of /rounds); the standings are
+          as of this round.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsSeasonsRoundsBasicstandings'
+          description: OK
+      summary: Standings as of a round (W-L, points for/against, home/away/last-10 records)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/seasons/{seasonCode}/rounds/{round}/calendarstandings:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_seasons_seasonCode_rounds_round_calendarstandings
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season (the `round` field of /rounds); the standings are
+          as of this round.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsSeasonsRoundsCalendarstandings'
+          description: OK
+      summary: Standings as of a round with the per-round result streak of every team
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/seasons/{seasonCode}/rounds/{round}/streaks:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_seasons_seasonCode_rounds_round_streaks
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: string
+      - description: Round number within the season (the `round` field of /rounds); the standings are
+          as of this round.
+        in: path
+        name: round
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsSeasonsRoundsStreaks'
+          description: OK
+      summary: Standings as of a round with win/loss streaks (current season and any season)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/statistics/players/advanced:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_statistics_players_advanced
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: '`Single` as captured (other values unverified).'
+        in: query
+        name: SeasonMode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: query
+        name: SeasonCode
+        required: true
+        schema:
+          type: string
+      - description: '`PerGame` as captured (other values unverified).'
+        in: query
+        name: statisticMode
+        required: true
+        schema:
+          type: string
+      - description: Page size (the capture used 3).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsStatisticsPlayersAdvanced'
+          description: OK
+      summary: Season player stats, advanced (eFG%, TS%, rebound/assist/turnover rates)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/statistics/players/traditional:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_statistics_players_traditional
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: '`Single` as captured (other values unverified).'
+        in: query
+        name: SeasonMode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: query
+        name: SeasonCode
+        required: true
+        schema:
+          type: string
+      - description: '`PerGame` as captured (other values unverified).'
+        in: query
+        name: statisticMode
+        required: true
+        schema:
+          type: string
+      - description: Page size (the capture used 3).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsStatisticsPlayersTraditional'
+          description: OK
+      summary: Season player stats, traditional (captured with statisticMode=PerGame)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/statistics/teams/advanced:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_statistics_teams_advanced
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: '`Single` as captured (other values unverified).'
+        in: query
+        name: SeasonMode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: query
+        name: SeasonCode
+        required: true
+        schema:
+          type: string
+      - description: '`PerGame` as captured (other values unverified).'
+        in: query
+        name: statisticMode
+        required: true
+        schema:
+          type: string
+      - description: Page size (the capture used 3).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsStatisticsTeamsAdvanced'
+          description: OK
+      summary: Season team stats, advanced (eFG%, TS%, four-factor style rates)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
+  /competitions/{competitionCode}/statistics/teams/traditional:
+    get:
+      description: 'Send `Accept: application/json`; without it the API answers XML.'
+      operationId: competitions_competitionCode_statistics_teams_traditional
+      parameters:
+      - description: E = EuroLeague, U = EuroCup (see /competitions).
+        in: path
+        name: competitionCode
+        required: true
+        schema:
+          type: string
+      - description: '`Single` as captured (other values unverified).'
+        in: query
+        name: SeasonMode
+        required: true
+        schema:
+          type: string
+      - description: Competition code + start year, e.g. E2025 for 2025-26.
+        in: query
+        name: SeasonCode
+        required: true
+        schema:
+          type: string
+      - description: '`PerGame` as captured (other values unverified).'
+        in: query
+        name: statisticMode
+        required: true
+        schema:
+          type: string
+      - description: Page size (the capture used 3).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V3CompetitionsStatisticsTeamsTraditional'
+          description: OK
+      summary: Season team stats, traditional (captured with statisticMode=PerGame)
+      x-required-headers:
+        Accept: application/json
+    servers:
+    - url: https://api-live.euroleague.net/v3
 servers:
 - url: https://api-live.euroleague.net/v2
