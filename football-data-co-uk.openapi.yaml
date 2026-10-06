@@ -1,0 +1,891 @@
+info:
+  description: 'Files, not an API: one CSV per league-season (mmz4281/<season>/<div>.csv) for the main
+    leagues, one CSV per country for the ''extra'' leagues (new/<country>.csv), the upcoming fixtures
+    file, and notes.txt, the column glossary. Column types come from committed CSV heads (header + 3 rows)
+    captured 2026-10-06, descriptions from the committed notes.txt; odds columns are bookmaker-prefixed
+    (B365H, PSD, ...) as the glossary states. Keyless, no rate limit stated: stay at one request per second.
+    Not official or supported.'
+  title: Football-Data.co.uk CSV files (www.football-data.co.uk)
+  version: csv
+openapi: 3.1.0
+paths:
+  /fixtures.csv:
+    get:
+      operationId: fixtures
+      parameters: []
+      responses:
+        '200':
+          content:
+            text/csv:
+              schema:
+                type: string
+          description: OK (CSV; columns listed in x-columns)
+      summary: Upcoming fixtures with odds
+      x-columns:
+      - description: League Division
+        name: Div
+        type: string
+      - description: Match Date (dd/mm/yy)
+        name: Date
+        type: string
+      - description: Time of match kick off
+        name: Time
+        type: string
+      - description: Home Team
+        name: HomeTeam
+        type: string
+      - description: Away Team
+        name: AwayTeam
+        type: string
+      - description: Match Referee
+        name: Referee
+        type: string
+      - description: Bet365 home win odds
+        name: B365H
+        type: number
+      - description: Bet365 draw odds
+        name: B365D
+        type: number
+      - description: Bet365 away win odds
+        name: B365A
+        type: number
+      - description: Betfred home win odds
+        name: BFDH
+        type: number
+      - description: Betfred draw odds
+        name: BFDD
+        type: number
+      - description: Betfred away win odds
+        name: BFDA
+        type: number
+      - description: Betvictor home win odds
+        name: BVH
+        type: number
+      - description: Betvictor draw odds
+        name: BVD
+        type: number
+      - description: Betvictor away win odds
+        name: BVA
+        type: number
+      - description: Bet&Win home win odds
+        name: BWH
+        type: number
+      - description: Bet&Win draw odds
+        name: BWD
+        type: number
+      - description: Bet&Win away win odds
+        name: BWA
+        type: number
+      - description: Paddy Power home win odds
+        name: PPH
+        type: number
+      - description: Paddy Power draw odds
+        name: PPD
+        type: number
+      - description: Paddy Power away win odds
+        name: PPA
+        type: number
+      - description: ''
+        name: SKBH
+        type: number
+      - description: ''
+        name: SKBD
+        type: number
+      - description: ''
+        name: SKBA
+        type: number
+      - description: Market maximum home win odds
+        name: MaxH
+        type: number
+      - description: Market maximum draw win odds
+        name: MaxD
+        type: number
+      - description: Market maximum away win odds
+        name: MaxA
+        type: number
+      - description: Market average home win odds
+        name: AvgH
+        type: number
+      - description: Market average draw win odds
+        name: AvgD
+        type: number
+      - description: Market average away win odds
+        name: AvgA
+        type: number
+      - description: Betfair Exchange home win odds
+        name: BFEH
+        type: number
+      - description: Betfair Exchange draw odds
+        name: BFED
+        type: number
+      - description: Betfair Exchange away win odds
+        name: BFEA
+        type: number
+      - description: Bet365 over 2.5 goals
+        name: B365>2.5
+        type: number
+      - description: Bet365 under 2.5 goals
+        name: B365<2.5
+        type: number
+      - description: Market maximum over 2.5 goals
+        name: Max>2.5
+        type: number
+      - description: Market maximum under 2.5 goals
+        name: Max<2.5
+        type: number
+      - description: Market average over 2.5 goals
+        name: Avg>2.5
+        type: number
+      - description: Market average under 2.5 goals
+        name: Avg<2.5
+        type: number
+      - description: ''
+        name: BFE>2.5
+        type: number
+      - description: ''
+        name: BFE<2.5
+        type: number
+      - description: Market size of handicap (home team) (since 2019/2020)
+        name: AHh
+        type: number
+      - description: Bet365 Asian handicap home team odds
+        name: B365AHH
+        type: number
+      - description: Bet365 Asian handicap away team odds
+        name: B365AHA
+        type: number
+      - description: Market maximum Asian handicap home team odds
+        name: MaxAHH
+        type: number
+      - description: Market maximum Asian handicap away team odds
+        name: MaxAHA
+        type: number
+      - description: Market average Asian handicap home team odds
+        name: AvgAHH
+        type: number
+      - description: Market average Asian handicap away team odds
+        name: AvgAHA
+        type: number
+      - description: ''
+        name: BFEAHH
+        type: number
+      - description: ''
+        name: BFEAHA
+        type: number
+      - description: Closing Bet365 home win odds
+        name: B365CH
+        type:
+        - 'null'
+      - description: Closing Bet365 draw odds
+        name: B365CD
+        type:
+        - 'null'
+      - description: Closing Bet365 away win odds
+        name: B365CA
+        type:
+        - 'null'
+      - description: Closing Betfred home win odds
+        name: BFDCH
+        type:
+        - 'null'
+      - description: Closing Betfred draw odds
+        name: BFDCD
+        type:
+        - 'null'
+      - description: Closing Betfred away win odds
+        name: BFDCA
+        type:
+        - 'null'
+      - description: Closing Betvictor home win odds
+        name: BVCH
+        type:
+        - 'null'
+      - description: Closing Betvictor draw odds
+        name: BVCD
+        type:
+        - 'null'
+      - description: Closing Betvictor away win odds
+        name: BVCA
+        type:
+        - 'null'
+      - description: Closing Bet&Win home win odds
+        name: BWCH
+        type:
+        - 'null'
+      - description: Closing Bet&Win draw odds
+        name: BWCD
+        type:
+        - 'null'
+      - description: Closing Bet&Win away win odds
+        name: BWCA
+        type:
+        - 'null'
+      - description: Closing Paddy Power home win odds
+        name: PPCH
+        type:
+        - 'null'
+      - description: Closing Paddy Power draw odds
+        name: PPCD
+        type:
+        - 'null'
+      - description: Closing Paddy Power away win odds
+        name: PPCA
+        type:
+        - 'null'
+      - description: ''
+        name: SKBCH
+        type:
+        - 'null'
+      - description: ''
+        name: SKBCD
+        type:
+        - 'null'
+      - description: ''
+        name: SKBCA
+        type:
+        - 'null'
+      - description: Closing Market maximum home win odds
+        name: MaxCH
+        type:
+        - 'null'
+      - description: Closing Market maximum draw win odds
+        name: MaxCD
+        type:
+        - 'null'
+      - description: Closing Market maximum away win odds
+        name: MaxCA
+        type:
+        - 'null'
+      - description: Closing Market average home win odds
+        name: AvgCH
+        type:
+        - 'null'
+      - description: Closing Market average draw win odds
+        name: AvgCD
+        type:
+        - 'null'
+      - description: Closing Market average away win odds
+        name: AvgCA
+        type:
+        - 'null'
+      - description: Closing Betfair Exchange home win odds
+        name: BFECH
+        type:
+        - 'null'
+      - description: Closing Betfair Exchange draw odds
+        name: BFECD
+        type:
+        - 'null'
+      - description: Closing Betfair Exchange away win odds
+        name: BFECA
+        type:
+        - 'null'
+      - description: Closing Bet365 over 2.5 goals
+        name: B365C>2.5
+        type:
+        - 'null'
+      - description: Closing Bet365 under 2.5 goals
+        name: B365C<2.5
+        type:
+        - 'null'
+      - description: Closing Market maximum over 2.5 goals
+        name: MaxC>2.5
+        type:
+        - 'null'
+      - description: Closing Market maximum under 2.5 goals
+        name: MaxC<2.5
+        type:
+        - 'null'
+      - description: Closing Market average over 2.5 goals
+        name: AvgC>2.5
+        type:
+        - 'null'
+      - description: Closing Market average under 2.5 goals
+        name: AvgC<2.5
+        type:
+        - 'null'
+      - description: ''
+        name: BFEC>2.5
+        type:
+        - 'null'
+      - description: ''
+        name: BFEC<2.5
+        type:
+        - 'null'
+      - description: Closing Market size of handicap (home team) (since 2019/2020)
+        name: AHCh
+        type:
+        - 'null'
+      - description: Closing Bet365 Asian handicap home team odds
+        name: B365CAHH
+        type:
+        - 'null'
+      - description: Closing Bet365 Asian handicap away team odds
+        name: B365CAHA
+        type:
+        - 'null'
+      - description: Closing Market maximum Asian handicap home team odds
+        name: MaxCAHH
+        type:
+        - 'null'
+      - description: Closing Market maximum Asian handicap away team odds
+        name: MaxCAHA
+        type:
+        - 'null'
+      - description: Closing Market average Asian handicap home team odds
+        name: AvgCAHH
+        type:
+        - 'null'
+      - description: Closing Market average Asian handicap away team odds
+        name: AvgCAHA
+        type:
+        - 'null'
+      - description: ''
+        name: BFECAHH
+        type:
+        - 'null'
+      - description: ''
+        name: BFECAHA
+        type:
+        - 'null'
+  /mmz4281/{season}/{div}.csv:
+    get:
+      operationId: mmz4281_season_div
+      parameters:
+      - description: Two-digit start and end years of the season, e.g. 2526 for 2025/26 (files go back
+          to 9394).
+        example: '2526'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Division code, e.g. E0 (Premier League); E1-E3, EC, SC0-SC3, D1, D2, I1, I2, SP1,
+          SP2, F1, F2, N1, B1, P1, T1, G1 per matches.php.
+        example: E0
+        in: path
+        name: div
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/csv:
+              schema:
+                type: string
+          description: OK (CSV; columns listed in x-columns)
+      summary: One league-season of results + closing odds (main leagues)
+      x-columns:
+      - description: League Division
+        name: Div
+        type: string
+      - description: Match Date (dd/mm/yy)
+        name: Date
+        type: string
+      - description: Time of match kick off
+        name: Time
+        type: string
+      - description: Home Team
+        name: HomeTeam
+        type: string
+      - description: Away Team
+        name: AwayTeam
+        type: string
+      - description: Full Time Home Team Goals
+        name: FTHG
+        type: integer
+      - description: Full Time Away Team Goals
+        name: FTAG
+        type: integer
+      - description: Full Time Result (H=Home Win, D=Draw, A=Away Win)
+        name: FTR
+        type: string
+      - description: Half Time Home Team Goals
+        name: HTHG
+        type: integer
+      - description: Half Time Away Team Goals
+        name: HTAG
+        type: integer
+      - description: Half Time Result (H=Home Win, D=Draw, A=Away Win)
+        name: HTR
+        type: string
+      - description: Match Referee
+        name: Referee
+        type: string
+      - description: Home Team Shots
+        name: HS
+        type: integer
+      - description: Away Team Shots
+        name: AS
+        type: integer
+      - description: Home Team Shots on Target
+        name: HST
+        type: integer
+      - description: Away Team Shots on Target
+        name: AST
+        type: integer
+      - description: Home Team Fouls Committed
+        name: HF
+        type: integer
+      - description: Away Team Fouls Committed
+        name: AF
+        type: integer
+      - description: Home Team Corners
+        name: HC
+        type: integer
+      - description: Away Team Corners
+        name: AC
+        type: integer
+      - description: Home Team Yellow Cards
+        name: HY
+        type: integer
+      - description: Away Team Yellow Cards
+        name: AY
+        type: integer
+      - description: Home Team Red Cards
+        name: HR
+        type: integer
+      - description: Away Team Red Cards
+        name: AR
+        type: integer
+      - description: Bet365 home win odds
+        name: B365H
+        type: number
+      - description: Bet365 draw odds
+        name: B365D
+        type: number
+      - description: Bet365 away win odds
+        name: B365A
+        type: number
+      - description: Betfred home win odds
+        name: BFDH
+        type: number
+      - description: Betfred draw odds
+        name: BFDD
+        type: number
+      - description: Betfred away win odds
+        name: BFDA
+        type: number
+      - description: BetMGM home win odds
+        name: BMGMH
+        type: number
+      - description: BetMGM draw odds
+        name: BMGMD
+        type: number
+      - description: BetMGM away win odds
+        name: BMGMA
+        type: number
+      - description: Betvictor home win odds
+        name: BVH
+        type: number
+      - description: Betvictor draw odds
+        name: BVD
+        type: number
+      - description: Betvictor away win odds
+        name: BVA
+        type: number
+      - description: Bet&Win home win odds
+        name: BWH
+        type: number
+      - description: Bet&Win draw odds
+        name: BWD
+        type: number
+      - description: Bet&Win away win odds
+        name: BWA
+        type: number
+      - description: Coral home win odds
+        name: CLH
+        type: number
+      - description: Coral draw odds
+        name: CLD
+        type: number
+      - description: Coral away win odds
+        name: CLA
+        type: number
+      - description: Ladbrokes home win odds
+        name: LBH
+        type: number
+      - description: Ladbrokes draw odds
+        name: LBD
+        type: number
+      - description: Ladbrokes away win odds
+        name: LBA
+        type: number
+      - description: Pinnacle home win odds
+        name: PSH
+        type: number
+      - description: Pinnacle draw odds
+        name: PSD
+        type: number
+      - description: Pinnacle away win odds
+        name: PSA
+        type: number
+      - description: Market maximum home win odds
+        name: MaxH
+        type: number
+      - description: Market maximum draw win odds
+        name: MaxD
+        type: number
+      - description: Market maximum away win odds
+        name: MaxA
+        type: number
+      - description: Market average home win odds
+        name: AvgH
+        type: number
+      - description: Market average draw win odds
+        name: AvgD
+        type: number
+      - description: Market average away win odds
+        name: AvgA
+        type: number
+      - description: Betfair Exchange home win odds
+        name: BFEH
+        type: number
+      - description: Betfair Exchange draw odds
+        name: BFED
+        type: number
+      - description: Betfair Exchange away win odds
+        name: BFEA
+        type: number
+      - description: Bet365 over 2.5 goals
+        name: B365>2.5
+        type: number
+      - description: Bet365 under 2.5 goals
+        name: B365<2.5
+        type: number
+      - description: Pinnacle over 2.5 goals
+        name: P>2.5
+        type: number
+      - description: Pinnacle under 2.5 goals
+        name: P<2.5
+        type: number
+      - description: Market maximum over 2.5 goals
+        name: Max>2.5
+        type: number
+      - description: Market maximum under 2.5 goals
+        name: Max<2.5
+        type: number
+      - description: Market average over 2.5 goals
+        name: Avg>2.5
+        type: number
+      - description: Market average under 2.5 goals
+        name: Avg<2.5
+        type: number
+      - description: ''
+        name: BFE>2.5
+        type: number
+      - description: ''
+        name: BFE<2.5
+        type: number
+      - description: Market size of handicap (home team) (since 2019/2020)
+        name: AHh
+        type: number
+      - description: Bet365 Asian handicap home team odds
+        name: B365AHH
+        type: number
+      - description: Bet365 Asian handicap away team odds
+        name: B365AHA
+        type: number
+      - description: Pinnacle Asian handicap home team odds
+        name: PAHH
+        type: number
+      - description: Pinnacle Asian handicap away team odds
+        name: PAHA
+        type: number
+      - description: Market maximum Asian handicap home team odds
+        name: MaxAHH
+        type: number
+      - description: Market maximum Asian handicap away team odds
+        name: MaxAHA
+        type: number
+      - description: Market average Asian handicap home team odds
+        name: AvgAHH
+        type: number
+      - description: Market average Asian handicap away team odds
+        name: AvgAHA
+        type: number
+      - description: ''
+        name: BFEAHH
+        type: number
+      - description: ''
+        name: BFEAHA
+        type: number
+      - description: Closing Bet365 home win odds
+        name: B365CH
+        type: number
+      - description: Closing Bet365 draw odds
+        name: B365CD
+        type: number
+      - description: Closing Bet365 away win odds
+        name: B365CA
+        type: number
+      - description: Closing Betfred home win odds
+        name: BFDCH
+        type: number
+      - description: Closing Betfred draw odds
+        name: BFDCD
+        type: number
+      - description: Closing Betfred away win odds
+        name: BFDCA
+        type: number
+      - description: Closing BetMGM home win odds
+        name: BMGMCH
+        type: number
+      - description: Closing BetMGM draw odds
+        name: BMGMCD
+        type: number
+      - description: Closing BetMGM away win odds
+        name: BMGMCA
+        type: number
+      - description: Closing Betvictor home win odds
+        name: BVCH
+        type: number
+      - description: Closing Betvictor draw odds
+        name: BVCD
+        type: number
+      - description: Closing Betvictor away win odds
+        name: BVCA
+        type: number
+      - description: Closing Bet&Win home win odds
+        name: BWCH
+        type: number
+      - description: Closing Bet&Win draw odds
+        name: BWCD
+        type: number
+      - description: Closing Bet&Win away win odds
+        name: BWCA
+        type: number
+      - description: Closing Coral home win odds
+        name: CLCH
+        type: number
+      - description: Closing Coral draw odds
+        name: CLCD
+        type: number
+      - description: Closing Coral away win odds
+        name: CLCA
+        type: number
+      - description: Closing Ladbrokes home win odds
+        name: LBCH
+        type: number
+      - description: Closing Ladbrokes draw odds
+        name: LBCD
+        type: number
+      - description: Closing Ladbrokes away win odds
+        name: LBCA
+        type: number
+      - description: Closing Pinnacle home win odds
+        name: PSCH
+        type: number
+      - description: Closing Pinnacle draw odds
+        name: PSCD
+        type: number
+      - description: Closing Pinnacle away win odds
+        name: PSCA
+        type: number
+      - description: Closing Market maximum home win odds
+        name: MaxCH
+        type: number
+      - description: Closing Market maximum draw win odds
+        name: MaxCD
+        type: number
+      - description: Closing Market maximum away win odds
+        name: MaxCA
+        type: number
+      - description: Closing Market average home win odds
+        name: AvgCH
+        type: number
+      - description: Closing Market average draw win odds
+        name: AvgCD
+        type: number
+      - description: Closing Market average away win odds
+        name: AvgCA
+        type: number
+      - description: Closing Betfair Exchange home win odds
+        name: BFECH
+        type: number
+      - description: Closing Betfair Exchange draw odds
+        name: BFECD
+        type: number
+      - description: Closing Betfair Exchange away win odds
+        name: BFECA
+        type: number
+      - description: Closing Bet365 over 2.5 goals
+        name: B365C>2.5
+        type: number
+      - description: Closing Bet365 under 2.5 goals
+        name: B365C<2.5
+        type: number
+      - description: Closing Pinnacle over 2.5 goals
+        name: PC>2.5
+        type: number
+      - description: Closing Pinnacle under 2.5 goals
+        name: PC<2.5
+        type: number
+      - description: Closing Market maximum over 2.5 goals
+        name: MaxC>2.5
+        type: number
+      - description: Closing Market maximum under 2.5 goals
+        name: MaxC<2.5
+        type: number
+      - description: Closing Market average over 2.5 goals
+        name: AvgC>2.5
+        type: number
+      - description: Closing Market average under 2.5 goals
+        name: AvgC<2.5
+        type: number
+      - description: ''
+        name: BFEC>2.5
+        type: number
+      - description: ''
+        name: BFEC<2.5
+        type: number
+      - description: Closing Market size of handicap (home team) (since 2019/2020)
+        name: AHCh
+        type: number
+      - description: Closing Bet365 Asian handicap home team odds
+        name: B365CAHH
+        type: number
+      - description: Closing Bet365 Asian handicap away team odds
+        name: B365CAHA
+        type: number
+      - description: Closing Pinnacle Asian handicap home team odds
+        name: PCAHH
+        type: number
+      - description: Closing Pinnacle Asian handicap away team odds
+        name: PCAHA
+        type: number
+      - description: Closing Market maximum Asian handicap home team odds
+        name: MaxCAHH
+        type: number
+      - description: Closing Market maximum Asian handicap away team odds
+        name: MaxCAHA
+        type: number
+      - description: Closing Market average Asian handicap home team odds
+        name: AvgCAHH
+        type: number
+      - description: Closing Market average Asian handicap away team odds
+        name: AvgCAHA
+        type: number
+      - description: ''
+        name: BFECAHH
+        type: number
+      - description: ''
+        name: BFECAHA
+        type: number
+  /new/{country}.csv:
+    get:
+      operationId: new_country
+      parameters:
+      - description: Three-letter country code of an 'extra' league, e.g. BRA (Brazil); ARG, AUT, CHN,
+          DNK, FIN, IRL, JPN, MEX, NOR, POL, ROU, RUS, SWE, SWZ, USA per new_leagues.php.
+        example: BRA
+        in: path
+        name: country
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/csv:
+              schema:
+                type: string
+          description: OK (CSV; columns listed in x-columns)
+      summary: All seasons of one 'extra' league (BRA, ARG, USA, ...)
+      x-columns:
+      - description: ''
+        name: Country
+        type: string
+      - description: ''
+        name: League
+        type: string
+      - description: ''
+        name: Season
+        type: integer
+      - description: Match Date (dd/mm/yy)
+        name: Date
+        type: string
+      - description: Time of match kick off
+        name: Time
+        type: string
+      - description: ''
+        name: Home
+        type: string
+      - description: ''
+        name: Away
+        type: string
+      - description: Full Time Home Team Goals
+        name: HG
+        type: integer
+      - description: Full Time Away Team Goals
+        name: AG
+        type: integer
+      - description: Full Time Result (H=Home Win, D=Draw, A=Away Win)
+        name: Res
+        type: string
+      - description: Closing Pinnacle home win odds
+        name: PSCH
+        type: number
+      - description: Closing Pinnacle draw odds
+        name: PSCD
+        type: number
+      - description: Closing Pinnacle away win odds
+        name: PSCA
+        type: number
+      - description: Closing Market maximum home win odds
+        name: MaxCH
+        type: number
+      - description: Closing Market maximum draw win odds
+        name: MaxCD
+        type: number
+      - description: Closing Market maximum away win odds
+        name: MaxCA
+        type: number
+      - description: Closing Market average home win odds
+        name: AvgCH
+        type: number
+      - description: Closing Market average draw win odds
+        name: AvgCD
+        type: number
+      - description: Closing Market average away win odds
+        name: AvgCA
+        type: number
+      - description: Closing Betfair Exchange home win odds
+        name: BFECH
+        type:
+        - 'null'
+      - description: Closing Betfair Exchange draw odds
+        name: BFECD
+        type:
+        - 'null'
+      - description: Closing Betfair Exchange away win odds
+        name: BFECA
+        type:
+        - 'null'
+      - description: Closing Bet365 home win odds
+        name: B365CH
+        type:
+        - 'null'
+      - description: Closing Bet365 draw odds
+        name: B365CD
+        type:
+        - 'null'
+      - description: Closing Bet365 away win odds
+        name: B365CA
+        type:
+        - 'null'
+  /notes.txt:
+    get:
+      operationId: notes
+      parameters: []
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK (plain-text glossary of the CSV columns)
+      summary: Column glossary
+servers:
+- url: https://www.football-data.co.uk
