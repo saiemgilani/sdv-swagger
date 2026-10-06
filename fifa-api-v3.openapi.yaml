@@ -1,0 +1,1707 @@
+components:
+  schemas:
+    CalendarMatches:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              AggregateAwayTeamScore:
+                nullable: true
+              AggregateHomeTeamScore:
+                nullable: true
+              Attendance:
+                type: string
+              Away:
+                properties:
+                  Abbreviation:
+                    type: string
+                  AgeType:
+                    type: integer
+                  FootballType:
+                    type: integer
+                  Gender:
+                    type: integer
+                  IdAssociation:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdTeam:
+                    type: string
+                  PictureUrl:
+                    type: string
+                  Score:
+                    type: integer
+                  ShortClubName:
+                    type: string
+                  Side:
+                    nullable: true
+                  Tactics:
+                    type: string
+                  TeamName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  TeamType:
+                    type: integer
+                type: object
+              AwayTeamPenaltyScore:
+                nullable: true
+              AwayTeamScore:
+                type: integer
+              BallPossession:
+                nullable: true
+              CompetitionName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              Date:
+                type: string
+              FirstHalfExtraTime:
+                nullable: true
+              FirstHalfTime:
+                nullable: true
+              GroupName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              Home:
+                properties:
+                  Abbreviation:
+                    type: string
+                  AgeType:
+                    type: integer
+                  FootballType:
+                    type: integer
+                  Gender:
+                    type: integer
+                  IdAssociation:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdTeam:
+                    type: string
+                  PictureUrl:
+                    type: string
+                  Score:
+                    type: integer
+                  ShortClubName:
+                    type: string
+                  Side:
+                    nullable: true
+                  Tactics:
+                    type: string
+                  TeamName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  TeamType:
+                    type: integer
+                type: object
+              HomeTeamPenaltyScore:
+                nullable: true
+              HomeTeamScore:
+                type: integer
+              IdCompetition:
+                type: string
+              IdGroup:
+                type: string
+              IdMatch:
+                type: string
+              IdSeason:
+                type: string
+              IdStage:
+                type: string
+              IsHomeMatch:
+                nullable: true
+              IsTicketSalesAllowed:
+                nullable: true
+              IsUpdateable:
+                nullable: true
+              LastPeriodUpdate:
+                nullable: true
+              Leg:
+                nullable: true
+              LocalDate:
+                type: string
+              MatchDay:
+                nullable: true
+              MatchLegInfo:
+                nullable: true
+              MatchNumber:
+                type: integer
+              MatchReportUrl:
+                nullable: true
+              MatchStatus:
+                type: integer
+              MatchTime:
+                type: string
+              OfficialityStatus:
+                type: integer
+              Officials:
+                items:
+                  properties:
+                    IdCountry:
+                      type: string
+                    Name:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                    NameShort:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                    OfficialId:
+                      type: string
+                    OfficialType:
+                      type: integer
+                    TypeLocalized:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+                type: array
+              PlaceHolderA:
+                type: string
+              PlaceHolderB:
+                type: string
+              Properties:
+                properties:
+                  IdIFES:
+                    type: string
+                type: object
+              ResultType:
+                type: integer
+              SeasonName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              SeasonShortName:
+                items: {}
+                type: array
+              SecondHalfExtraTime:
+                nullable: true
+              SecondHalfTime:
+                nullable: true
+              Stadium:
+                properties:
+                  AffiliationCountry:
+                    nullable: true
+                  AffiliationRegion:
+                    nullable: true
+                  Built:
+                    nullable: true
+                  Capacity:
+                    nullable: true
+                  CityName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  Email:
+                    nullable: true
+                  Fax:
+                    nullable: true
+                  IdCity:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdStadium:
+                    type: string
+                  IsUpdateable:
+                    nullable: true
+                  Latitude:
+                    nullable: true
+                  Length:
+                    nullable: true
+                  Longitude:
+                    nullable: true
+                  Name:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  Phone:
+                    nullable: true
+                  PostalCode:
+                    nullable: true
+                  Properties:
+                    properties:
+                      IdIFES:
+                        type: string
+                    type: object
+                  Roof:
+                    type: boolean
+                  Street:
+                    nullable: true
+                  Turf:
+                    nullable: true
+                  WebAddress:
+                    nullable: true
+                  Width:
+                    nullable: true
+                type: object
+              StageName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              TimeDefined:
+                type: boolean
+              Weather:
+                properties:
+                  Humidity:
+                    nullable: true
+                  Temperature:
+                    nullable: true
+                  Type:
+                    nullable: true
+                  TypeLocalized:
+                    items: {}
+                    type: array
+                  WindSpeed:
+                    nullable: true
+                type: object
+              Winner:
+                nullable: true
+                type: string
+            type: object
+          type: array
+      type: object
+    Competitions:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              AgeType:
+                type: integer
+              CompetitionType:
+                type: integer
+              DisplayOrder:
+                type: integer
+              FootballType:
+                type: integer
+              Gender:
+                type: integer
+              IdCompetition:
+                type: string
+              IdConfederation:
+                items:
+                  type: string
+                type: array
+              IdMemberAssociation:
+                items:
+                  type: string
+                type: array
+              IdOwner:
+                type: string
+              IsUpdateable:
+                nullable: true
+              Name:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              Properties:
+                properties:
+                  IdStatsPerform:
+                    type: string
+                type: object
+              TeamType:
+                type: integer
+            type: object
+          type: array
+      type: object
+    CompetitionsById:
+      properties:
+        AgeType:
+          type: integer
+        CompetitionType:
+          type: integer
+        DisplayOrder:
+          nullable: true
+        FootballType:
+          type: integer
+        Gender:
+          type: integer
+        IdCompetition:
+          type: string
+        IdConfederation:
+          items: {}
+          type: array
+        IdMemberAssociation:
+          items: {}
+          type: array
+        IdOwner:
+          type: string
+        IsUpdateable:
+          nullable: true
+        Name:
+          items:
+            properties:
+              Description:
+                type: string
+              Locale:
+                type: string
+            type: object
+          type: array
+        Properties:
+          properties:
+            IdIFES:
+              type: string
+          type: object
+        TeamType:
+          type: integer
+      type: object
+    LiveFootball:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              AggregateAwayTeamScore:
+                nullable: true
+              AggregateHomeTeamScore:
+                nullable: true
+              Attendance:
+                nullable: true
+              AwayTeam:
+                properties:
+                  Abbreviation:
+                    type: string
+                  AgeType:
+                    type: integer
+                  Bookings:
+                    items:
+                      properties:
+                        Card:
+                          type: integer
+                        EventNumber:
+                          nullable: true
+                        IdCoach:
+                          nullable: true
+                        IdEvent:
+                          nullable: true
+                        IdPlayer:
+                          type: string
+                        IdStaff:
+                          nullable: true
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        Reason:
+                          type: string
+                      type: object
+                    type: array
+                  Coaches:
+                    items:
+                      properties:
+                        Alias:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        IdCoach:
+                          type: string
+                        IdCountry:
+                          type: string
+                        Name:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PictureUrl:
+                          nullable: true
+                        Role:
+                          type: integer
+                        SpecialStatus:
+                          nullable: true
+                      type: object
+                    type: array
+                  FootballType:
+                    type: integer
+                  Gender:
+                    type: integer
+                  Goals:
+                    items:
+                      properties:
+                        IdAssistPlayer:
+                          type: string
+                        IdGoal:
+                          nullable: true
+                        IdPlayer:
+                          type: string
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        Type:
+                          type: integer
+                      type: object
+                    type: array
+                  IdAssociation:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdTeam:
+                    type: string
+                  PictureUrl:
+                    nullable: true
+                    type: string
+                  Players:
+                    items:
+                      properties:
+                        Captain:
+                          type: boolean
+                        FieldStatus:
+                          type: integer
+                        IdPlayer:
+                          type: string
+                        IdTeam:
+                          type: string
+                        LineupX:
+                          nullable: true
+                        LineupY:
+                          nullable: true
+                        PlayerName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PlayerPicture:
+                          nullable: true
+                        Position:
+                          type: integer
+                        ShirtNumber:
+                          type: integer
+                        ShortName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        SpecialStatus:
+                          nullable: true
+                        Status:
+                          type: integer
+                      type: object
+                    type: array
+                  Score:
+                    nullable: true
+                    type: integer
+                  ShortClubName:
+                    type: string
+                  Side:
+                    nullable: true
+                  Staffs:
+                    items: {}
+                    type: array
+                  Substitutions:
+                    items:
+                      properties:
+                        IdEvent:
+                          nullable: true
+                        IdPlayerOff:
+                          type: string
+                        IdPlayerOn:
+                          type: string
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        PlayerOffName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PlayerOnName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        Reason:
+                          type: integer
+                        SubstitutePosition:
+                          type: integer
+                      type: object
+                    type: array
+                  Tactics:
+                    nullable: true
+                    type: string
+                  TeamName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  TeamType:
+                    type: integer
+                type: object
+              AwayTeamPenaltyScore:
+                nullable: true
+              BallPossession:
+                nullable: true
+                properties:
+                  Intervals:
+                    items: {}
+                    type: array
+                  LastX:
+                    items: {}
+                    type: array
+                  OverallAway:
+                    type: number
+                  OverallHome:
+                    type: number
+                type: object
+              CompetitionName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              CoverageLevel:
+                type: integer
+              Date:
+                type: string
+              FirstHalfExtraTime:
+                nullable: true
+                type: integer
+              FirstHalfTime:
+                nullable: true
+              GroupName:
+                items: {}
+                type: array
+              HomeTeam:
+                properties:
+                  Abbreviation:
+                    type: string
+                  AgeType:
+                    type: integer
+                  Bookings:
+                    items:
+                      properties:
+                        Card:
+                          type: integer
+                        EventNumber:
+                          nullable: true
+                        IdCoach:
+                          nullable: true
+                        IdEvent:
+                          nullable: true
+                        IdPlayer:
+                          type: string
+                        IdStaff:
+                          nullable: true
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        Reason:
+                          type: string
+                      type: object
+                    type: array
+                  Coaches:
+                    items:
+                      properties:
+                        Alias:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        IdCoach:
+                          type: string
+                        IdCountry:
+                          type: string
+                        Name:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PictureUrl:
+                          nullable: true
+                        Role:
+                          type: integer
+                        SpecialStatus:
+                          nullable: true
+                      type: object
+                    type: array
+                  FootballType:
+                    type: integer
+                  Gender:
+                    type: integer
+                  Goals:
+                    items:
+                      properties:
+                        IdAssistPlayer:
+                          type: string
+                        IdGoal:
+                          nullable: true
+                        IdPlayer:
+                          type: string
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        Type:
+                          type: integer
+                      type: object
+                    type: array
+                  IdAssociation:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdTeam:
+                    type: string
+                  PictureUrl:
+                    type: string
+                  Players:
+                    items:
+                      properties:
+                        Captain:
+                          type: boolean
+                        FieldStatus:
+                          type: integer
+                        IdPlayer:
+                          type: string
+                        IdTeam:
+                          type: string
+                        LineupX:
+                          nullable: true
+                        LineupY:
+                          nullable: true
+                        PlayerName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PlayerPicture:
+                          nullable: true
+                        Position:
+                          type: integer
+                        ShirtNumber:
+                          type: integer
+                        ShortName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        SpecialStatus:
+                          nullable: true
+                        Status:
+                          type: integer
+                      type: object
+                    type: array
+                  Score:
+                    nullable: true
+                    type: integer
+                  ShortClubName:
+                    type: string
+                  Side:
+                    nullable: true
+                  Staffs:
+                    items: {}
+                    type: array
+                  Substitutions:
+                    items:
+                      properties:
+                        IdEvent:
+                          nullable: true
+                        IdPlayerOff:
+                          type: string
+                        IdPlayerOn:
+                          type: string
+                        IdTeam:
+                          type: string
+                        Minute:
+                          type: string
+                        Period:
+                          type: integer
+                        PlayerOffName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        PlayerOnName:
+                          items:
+                            properties:
+                              Description:
+                                type: string
+                              Locale:
+                                type: string
+                            type: object
+                          type: array
+                        Reason:
+                          type: integer
+                        SubstitutePosition:
+                          type: integer
+                      type: object
+                    type: array
+                  Tactics:
+                    nullable: true
+                    type: string
+                  TeamName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  TeamType:
+                    type: integer
+                type: object
+              HomeTeamPenaltyScore:
+                nullable: true
+              IdCompetition:
+                type: string
+              IdGroup:
+                nullable: true
+              IdMatch:
+                type: string
+              IdSeason:
+                type: string
+              IdStage:
+                type: string
+              IsUpdateable:
+                nullable: true
+              LocalDate:
+                type: string
+              MatchDay:
+                type: string
+              MatchNumber:
+                nullable: true
+              MatchStatus:
+                type: integer
+              MatchTime:
+                type: string
+              OfficialityStatus:
+                type: integer
+              Officials:
+                items:
+                  properties:
+                    IdCountry:
+                      type: string
+                    Name:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                    NameShort:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                    OfficialId:
+                      type: string
+                    OfficialType:
+                      type: integer
+                    TypeLocalized:
+                      items:
+                        properties:
+                          Description:
+                            type: string
+                          Locale:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+                type: array
+              Period:
+                type: integer
+              Properties:
+                properties:
+                  IdStatsPerform:
+                    type: string
+                type: object
+              ResultType:
+                type: integer
+              SeasonName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              SeasonShortName:
+                items: {}
+                type: array
+              SecondHalfExtraTime:
+                nullable: true
+                type: integer
+              SecondHalfTime:
+                nullable: true
+              Stadium:
+                properties:
+                  AffiliationCountry:
+                    nullable: true
+                  AffiliationRegion:
+                    nullable: true
+                  Built:
+                    type: string
+                  Capacity:
+                    type: integer
+                  CityName:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  Email:
+                    nullable: true
+                  Fax:
+                    nullable: true
+                  IdCity:
+                    type: string
+                  IdCountry:
+                    type: string
+                  IdStadium:
+                    nullable: true
+                  IsUpdateable:
+                    nullable: true
+                  Latitude:
+                    type: number
+                  Length:
+                    nullable: true
+                  Longitude:
+                    type: number
+                  Name:
+                    items:
+                      properties:
+                        Description:
+                          type: string
+                        Locale:
+                          type: string
+                      type: object
+                    type: array
+                  Phone:
+                    nullable: true
+                  PostalCode:
+                    nullable: true
+                  Properties:
+                    properties: {}
+                    type: object
+                  Roof:
+                    type: boolean
+                  Street:
+                    type: string
+                  Turf:
+                    nullable: true
+                  WebAddress:
+                    nullable: true
+                  Width:
+                    nullable: true
+                type: object
+              StageName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              TerritorialPossesion:
+                nullable: true
+              TerritorialThirdPossesion:
+                nullable: true
+              TimeDefined:
+                type: boolean
+              Weather:
+                nullable: true
+              Winner:
+                nullable: true
+            type: object
+          type: array
+      type: object
+    PlayersSearch:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              Alias:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              BirthDate:
+                type: string
+              BirthPlace:
+                nullable: true
+                type: string
+              Goals:
+                type: integer
+              Height:
+                type: number
+              IdCountry:
+                type: string
+              IdPlayer:
+                type: string
+              InternationalCaps:
+                type: integer
+              InternationalDebut:
+                nullable: true
+                type: string
+              IsUpdateable:
+                nullable: true
+              LocalizedTwitterAccounts:
+                nullable: true
+              MediaContent:
+                items: {}
+                type: array
+              Name:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              PictureUrl:
+                nullable: true
+              PlayerPicture:
+                nullable: true
+              PreferredFoot:
+                nullable: true
+                type: integer
+              Properties:
+                properties:
+                  IdIFES:
+                    type: string
+                  IdStatsPerform:
+                    type: string
+                  StatsPerformIfesId:
+                    type: string
+                type: object
+              ThumbnailUrl:
+                nullable: true
+              TopCompetitionDebut:
+                nullable: true
+              TwitterAccount:
+                nullable: true
+              Weight:
+                type: number
+            type: object
+          type: array
+      type: object
+    Seasons:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              Abbreviation:
+                type: string
+              EndDate:
+                type: string
+              HostTeams:
+                items:
+                  properties:
+                    IdTeam:
+                      type: string
+                  type: object
+                type: array
+              IdCompetition:
+                type: string
+              IdConfederation:
+                items:
+                  type: string
+                type: array
+              IdMemberAssociation:
+                items:
+                  type: string
+                type: array
+              IdSeason:
+                type: string
+              IsUpdateable:
+                nullable: true
+              MascotPictureUrl:
+                type: string
+              MatchBallPictureUrl:
+                type: string
+              Name:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              PictureUrl:
+                type: string
+              Properties:
+                properties:
+                  IdIFES:
+                    type: string
+                  Providers:
+                    type: string
+                type: object
+              ShortName:
+                items: {}
+                type: array
+              SportType:
+                type: integer
+              StartDate:
+                type: string
+            type: object
+          type: array
+      type: object
+    Stadiums:
+      properties:
+        ContinuationHash:
+          type: string
+        ContinuationToken:
+          type: string
+        Results:
+          items:
+            properties:
+              AffiliationCountry:
+                nullable: true
+              AffiliationRegion:
+                nullable: true
+              Built:
+                nullable: true
+              Capacity:
+                nullable: true
+              CityName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              Email:
+                nullable: true
+              Fax:
+                nullable: true
+              IdCity:
+                type: string
+              IdCountry:
+                type: string
+              IdStadium:
+                type: string
+              IsUpdateable:
+                nullable: true
+              Latitude:
+                nullable: true
+              Length:
+                nullable: true
+              Longitude:
+                nullable: true
+              Name:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              Phone:
+                nullable: true
+              PostalCode:
+                nullable: true
+              Properties:
+                properties:
+                  IdIFES:
+                    type: string
+                type: object
+              Roof:
+                type: boolean
+              Street:
+                nullable: true
+              Turf:
+                nullable: true
+              WebAddress:
+                nullable: true
+              Width:
+                nullable: true
+            type: object
+          type: array
+      type: object
+    TeamsById:
+      properties:
+        Abbreviation:
+          type: string
+        ActiveStatus:
+          type: integer
+        AgeType:
+          type: integer
+        City:
+          type: string
+        Content:
+          items: {}
+          type: array
+        DisplayName:
+          items:
+            properties:
+              Description:
+                type: string
+              Locale:
+                type: string
+            type: object
+          type: array
+        FootballType:
+          type: integer
+        FoundationYear:
+          type: integer
+        Gender:
+          type: integer
+        Headquarters:
+          nullable: true
+        IdAssociation:
+          type: string
+        IdCity:
+          nullable: true
+        IdConfederation:
+          type: string
+        IdCountry:
+          type: string
+        IdTeam:
+          type: string
+        IsUpdateable:
+          nullable: true
+        Name:
+          items:
+            properties:
+              Description:
+                type: string
+              Locale:
+                type: string
+            type: object
+          type: array
+        OfficialSite:
+          nullable: true
+        PictureUrl:
+          type: string
+        PostalCode:
+          type: string
+        Properties:
+          properties:
+            IdIFES:
+              type: string
+            IdStatsPerform:
+              type: string
+            StatsPerformIfesId:
+              type: string
+          type: object
+        RegionName:
+          nullable: true
+        ShortClubName:
+          type: string
+        Stadium:
+          nullable: true
+        Street:
+          type: string
+        ThumbnailUrl:
+          nullable: true
+        TrainingCentre:
+          nullable: true
+        Type:
+          type: integer
+      type: object
+    TeamsSearch:
+      properties:
+        ContinuationHash:
+          nullable: true
+        ContinuationToken:
+          nullable: true
+        Results:
+          items:
+            properties:
+              Abbreviation:
+                type: string
+              ActiveStatus:
+                nullable: true
+                type: integer
+              AgeType:
+                type: integer
+              City:
+                type: string
+              Content:
+                items: {}
+                type: array
+              DisplayName:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              FootballType:
+                type: integer
+              FoundationYear:
+                nullable: true
+                type: integer
+              Gender:
+                type: integer
+              Headquarters:
+                nullable: true
+              IdAssociation:
+                type: string
+              IdCity:
+                nullable: true
+              IdConfederation:
+                type: string
+              IdCountry:
+                type: string
+              IdTeam:
+                type: string
+              IsUpdateable:
+                nullable: true
+              Name:
+                items:
+                  properties:
+                    Description:
+                      type: string
+                    Locale:
+                      type: string
+                  type: object
+                type: array
+              OfficialSite:
+                nullable: true
+              PictureUrl:
+                type: string
+              PostalCode:
+                nullable: true
+                type: string
+              Properties:
+                properties:
+                  IdIFES:
+                    type: string
+                  IdStatsPerform:
+                    type: string
+                  StatsPerformIfesId:
+                    type: string
+                type: object
+              RegionName:
+                nullable: true
+              ShortClubName:
+                nullable: true
+                type: string
+              Stadium:
+                nullable: true
+              Street:
+                nullable: true
+                type: string
+              ThumbnailUrl:
+                nullable: true
+              TrainingCentre:
+                nullable: true
+              Type:
+                type: integer
+            type: object
+          type: array
+      type: object
+info:
+  description: Reverse-engineered from committed captures in fifa/captures/. Keyless. List routes page
+    through ContinuationToken/ContinuationHash in the body; pass the token back as ?continuationToken=
+    for the next page. Captures hold the first page only. Not official or supported.
+  title: FIFA public API v3 (api.fifa.com)
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /calendar/matches:
+    get:
+      operationId: calendar_matches
+      parameters:
+      - description: Competition id; 17 = FIFA World Cup (see /competitions).
+        example: '17'
+        in: query
+        name: idCompetition
+        required: true
+        schema:
+          type: string
+      - description: Season id; 285023 = FIFA World Cup 2026 (see /seasons?idCompetition=17).
+        example: '285023'
+        in: query
+        name: idSeason
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+        example: '3'
+        in: query
+        name: count
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarMatches'
+          description: OK
+      summary: /calendar/matches
+  /competitions:
+    get:
+      operationId: competitions
+      parameters:
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+        example: '3'
+        in: query
+        name: count
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Competitions'
+          description: OK
+      summary: /competitions
+  /competitions/{idCompetition}:
+    get:
+      operationId: competitions_idCompetition
+      parameters:
+      - description: Competition id; 17 = FIFA World Cup (see /competitions).
+        in: path
+        name: idCompetition
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionsById'
+          description: OK
+      summary: /competitions/{idCompetition}
+  /live/football:
+    get:
+      operationId: live_football
+      parameters:
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveFootball'
+          description: OK
+      summary: /live/football
+  /players/search:
+    get:
+      operationId: players_search
+      parameters:
+      - description: Search text.
+        example: Messi
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersSearch'
+          description: OK
+      summary: /players/search
+  /seasons:
+    get:
+      operationId: seasons
+      parameters:
+      - description: Competition id; 17 = FIFA World Cup (see /competitions).
+        example: '17'
+        in: query
+        name: idCompetition
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+        example: '3'
+        in: query
+        name: count
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seasons'
+          description: OK
+      summary: /seasons
+  /stadiums:
+    get:
+      operationId: stadiums
+      parameters:
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+        example: '3'
+        in: query
+        name: count
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stadiums'
+          description: OK
+      summary: /stadiums
+  /teams/search:
+    get:
+      operationId: teams_search
+      parameters:
+      - description: Search text.
+        example: Argentina
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsSearch'
+          description: OK
+      summary: /teams/search
+  /teams/{idTeam}:
+    get:
+      operationId: teams_idTeam
+      parameters:
+      - description: Team id (see /teams/search).
+        in: path
+        name: idTeam
+        required: true
+        schema:
+          type: string
+      - description: Content language, e.g. en, es, fr.
+        example: en
+        in: query
+        name: language
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsById'
+          description: OK
+      summary: /teams/{idTeam}
+servers:
+- url: https://api.fifa.com/api/v3
