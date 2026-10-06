@@ -5,9 +5,9 @@ info:
     — plain HTTPS GET, JSON, **no auth** (a normal User-Agent is fine). This is the API wrapped by the
     `itscalledsoccer` R/Python client. Every route returns a **flat top-level JSON array** (no envelope,
     no pagination metadata). IDs are short base62 strings => treat as `Utf8` join keys, never numeric.
-    The `goals-added` routes nest a per-action-type `data[]` breakdown. Five live leagues: mls, nwsl,
-    uslc, usl1, mlsnp (per-route availability is on each operation''s `x-leagues`). Schemas here are unioned
-    from real captures under `asa/captures/{league}/`.'
+    The `goals-added` routes nest a per-action-type `data[]` breakdown. Seven documented leagues: mls,
+    nwsl, uslc, usl1, mlsnp, nasl, usls (per-route availability is on each operation''s `x-leagues`).
+    Schemas here are unioned from real captures under `asa/captures/{league}/`.'
   version: asa-2026-07-18
 servers:
 - url: https://app.americansocceranalysis.com/api/v1
@@ -23,12 +23,12 @@ paths:
       tags:
       - Entities
       summary: Teams in the league (full table, no filter params).
-      description: 'Returns a flat JSON array of `Team`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `Team`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: &id001
@@ -37,6 +37,8 @@ paths:
           - uslc
           - usl1
           - mlsnp
+          - nasl
+          - usls
       responses:
         '200':
           description: Flat array of matching rows (no envelope, no pagination).
@@ -47,18 +49,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Team'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
   /{league}/players:
     get:
       tags:
       - Entities
       summary: Players in the league (identity + biometrics + positions).
-      description: 'Returns a flat JSON array of `Player`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `Player`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -72,18 +74,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Player'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
   /{league}/stadia:
     get:
       tags:
       - Entities
       summary: Stadia (venue metadata incl. coordinates + pitch dimensions).
-      description: 'Returns a flat JSON array of `Stadium`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `Stadium`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -97,18 +99,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Stadium'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/stadia
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/managers:
     get:
       tags:
       - Entities
       summary: Managers/head coaches.
-      description: 'Returns a flat JSON array of `Manager`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `Manager`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -122,18 +124,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Manager'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/managers
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/referees:
     get:
       tags:
       - Entities
       summary: Match referees.
-      description: 'Returns a flat JSON array of `Referee`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `Referee`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -147,18 +149,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Referee'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/referees
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/games:
     get:
       tags:
       - Entities
       summary: Games/fixtures with final scores, venue/official/manager FKs.
-      description: 'Returns a flat JSON array of `Game`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `Game`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -172,18 +174,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/games
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
   /{league}/players/xgoals:
     get:
       tags:
       - Player stats
       summary: Per-player expected-goals + attacking production.
-      description: 'Returns a flat JSON array of `PlayerXgoals`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `PlayerXgoals`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -251,18 +253,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/PlayerXgoals'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/xgoals?season_name=2023&minimum_minutes=500
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
   /{league}/players/goals-added:
     get:
       tags:
       - Player stats
       summary: Per-player Goals Added (g+) with a per-action-type data[] breakdown.
-      description: 'Returns a flat JSON array of `PlayerGoalsAdded`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `PlayerGoalsAdded`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -330,7 +332,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PlayerGoalsAdded'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/goals-added?season_name=2023
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/players/salaries:
     get:
       tags:
@@ -410,17 +412,96 @@ paths:
                   $ref: '#/components/schemas/PlayerSalary'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/salaries?season_name=2023
       x-leagues: mls only
+  /{league}/players/xpass:
+    get:
+      tags:
+      - Player stats
+      summary: Per-player expected-passing (completion over expected, distance, share of team touches).
+      description: 'Returns a flat JSON array of `PlayerXpass`. Availability: all 7 leagues.'
+      parameters:
+      - name: league
+        in: path
+        required: true
+        description: 'League slug. Route published for: all 7 leagues.'
+        schema:
+          type: string
+          enum: *id001
+      - name: season_name
+        in: query
+        required: false
+        description: Filter to one or more seasons. Comma-list accepted (`2022,2023`).
+        schema:
+          type: string
+      - name: stage_name
+        in: query
+        required: false
+        description: Filter to a competition stage, e.g. `Regular Season`. **URL-encode spaces.**
+        schema:
+          type: string
+      - name: minimum_minutes
+        in: query
+        required: false
+        description: Drop players/teams below this minutes-played threshold.
+        schema:
+          type: string
+      - name: general_position
+        in: query
+        required: false
+        description: 'Filter by general position code: GK, CB, FB, DM, CM, AM, W, ST (player/GK routes).'
+        schema:
+          type: string
+      - name: split_by_teams
+        in: query
+        required: false
+        description: '`true` => one row per entity per team (splits traded players).'
+        schema:
+          type: string
+      - name: split_by_seasons
+        in: query
+        required: false
+        description: '`true` => one row per entity per season.'
+        schema:
+          type: string
+      - name: split_by_games
+        in: query
+        required: false
+        description: '`true` => one row per entity per game.'
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Lower date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: Upper date bound (`YYYY-MM-DD`), where the route supports date windows.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flat array of matching rows (no envelope, no pagination).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerXpass'
+      x-example-url: https://app.americansocceranalysis.com/api/v1/mls/players/xpass?season_name=2024
+      x-leagues: all 7 leagues
   /{league}/teams/xgoals:
     get:
       tags:
       - Team stats
       summary: Per-team expected-goals for/against + expected points.
-      description: 'Returns a flat JSON array of `TeamXgoals`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `TeamXgoals`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -488,18 +569,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/TeamXgoals'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/xgoals?season_name=2023
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
   /{league}/teams/goals-added:
     get:
       tags:
       - Team stats
       summary: Per-team Goals Added for/against with a per-action-type data[] breakdown.
-      description: 'Returns a flat JSON array of `TeamGoalsAdded`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `TeamGoalsAdded`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -567,18 +648,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/TeamGoalsAdded'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/goals-added?season_name=2023
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/teams/xpass:
     get:
       tags:
       - Team stats
       summary: Per-team expected-passing (completion over expected, vertical distance).
-      description: 'Returns a flat JSON array of `TeamXpass`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `TeamXpass`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -646,18 +727,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/TeamXpass'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/teams/xpass?season_name=2023
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/goalkeepers/xgoals:
     get:
       tags:
       - Goalkeeper stats
       summary: Per-goalkeeper shot-stopping vs post-shot expected goals.
-      description: 'Returns a flat JSON array of `GoalkeeperXgoals`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `GoalkeeperXgoals`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -725,18 +806,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/GoalkeeperXgoals'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/goalkeepers/xgoals?season_name=2023
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/goalkeepers/goals-added:
     get:
       tags:
       - Goalkeeper stats
       summary: Per-goalkeeper Goals Added with a per-action-type data[] breakdown.
-      description: 'Returns a flat JSON array of `GoalkeeperGoalsAdded`. Availability: mls, nwsl only.'
+      description: 'Returns a flat JSON array of `GoalkeeperGoalsAdded`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: mls, nwsl only.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -804,18 +885,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/GoalkeeperGoalsAdded'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/goalkeepers/goals-added?season_name=2023
-      x-leagues: mls, nwsl only
+      x-leagues: all 7 leagues
   /{league}/games/xgoals:
     get:
       tags:
       - Game stats
       summary: Per-game expected-goals + expected points for both sides.
-      description: 'Returns a flat JSON array of `GameXgoals`. Availability: all 5 leagues.'
+      description: 'Returns a flat JSON array of `GameXgoals`. Availability: all 7 leagues.'
       parameters:
       - name: league
         in: path
         required: true
-        description: 'League slug. Route published for: all 5 leagues.'
+        description: 'League slug. Route published for: all 7 leagues.'
         schema:
           type: string
           enum: *id001
@@ -883,7 +964,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/GameXgoals'
       x-example-url: https://app.americansocceranalysis.com/api/v1/mls/games/xgoals?season_name=2023
-      x-leagues: all 5 leagues
+      x-leagues: all 7 leagues
 components:
   schemas:
     Team:
@@ -1144,6 +1225,10 @@ components:
           - integer
           - 'null'
           description: Away shootout goals (nullable).
+        extra_time:
+          type:
+          - boolean
+          - 'null'
       additionalProperties: false
     PlayerXgoals:
       type: object
@@ -1270,6 +1355,49 @@ components:
         mlspa_release:
           type: string
           description: MLSPA salary-release label/date the row is sourced from.
+      additionalProperties: false
+    PlayerXpass:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: FK -> Player.
+        team_id:
+          type: string
+          description: FK -> Team; a list of ids when the player featured for several teams in the window.
+        general_position:
+          type: string
+          description: Bucketed position code (GK, CB, FB, DM, CM, AM, W, ST).
+        minutes_played:
+          type: integer
+          description: Minutes played in the window.
+        attempted_passes:
+          type: integer
+          description: Passes attempted.
+        pass_completion_percentage:
+          type: number
+          description: Actual pass completion (0-1).
+        xpass_completion_percentage:
+          type: number
+          description: Expected pass completion (0-1).
+        passes_completed_over_expected:
+          type: number
+          description: Passes completed over expected.
+        passes_completed_over_expected_p100:
+          type: number
+          description: Passes completed over expected per 100 passes.
+        avg_distance_yds:
+          type: number
+          description: Average pass distance in yards.
+        avg_vertical_distance_yds:
+          type: number
+          description: Average vertical (goalward) pass distance in yards.
+        share_team_touches:
+          type: number
+          description: Share of the team's touches (0-1).
+        count_games:
+          type: integer
+          description: Games included in the window.
       additionalProperties: false
     TeamXgoals:
       type: object
