@@ -1,0 +1,1521 @@
+components:
+  schemas:
+    SportsNews:
+      properties:
+        breakingNews:
+          items: {}
+          type: array
+        headlines:
+          items:
+            properties:
+              allowAMP:
+                type: boolean
+              allowAds:
+                type: boolean
+              allowComments:
+                type: boolean
+              allowCommerce:
+                type: boolean
+              allowContentReactions:
+                type: boolean
+              allowSearch:
+                type: boolean
+              byline:
+                type: string
+              categories:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    guid:
+                      type: string
+                    id:
+                      type: integer
+                    league:
+                      properties:
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                      type: object
+                    leagueId:
+                      type: integer
+                    sportId:
+                      type: integer
+                    team:
+                      properties:
+                        abbreviation:
+                          type: string
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        shortDisplayName:
+                          type: string
+                      type: object
+                    teamId:
+                      type: integer
+                    topicId:
+                      type: integer
+                    type:
+                      type: string
+                    uid:
+                      type: string
+                  type: object
+                type: array
+              categorized:
+                type: string
+              contentKey:
+                type: string
+              dataSourceIdentifier:
+                type: string
+              description:
+                type: string
+              feedDisplayType:
+                type: string
+              headline:
+                type: string
+              id:
+                type: integer
+              images:
+                items:
+                  properties:
+                    caption:
+                      type: string
+                    credit:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    height:
+                      type: integer
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    url:
+                      type: string
+                    width:
+                      type: integer
+                  type: object
+                type: array
+              isLiveBlog:
+                type: boolean
+              keywords:
+                items:
+                  type: string
+                type: array
+              lastModified:
+                type: string
+              linkText:
+                type: string
+              links:
+                properties:
+                  api:
+                    properties:
+                      self:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  app:
+                    properties:
+                      sportscenter:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  mobile:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                  web:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                type: object
+              nowId:
+                type: string
+              originallyPosted:
+                type: string
+              premium:
+                type: boolean
+              published:
+                type: string
+              publishedkey:
+                type: string
+              root:
+                type: string
+              section:
+                type: string
+              story:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              video:
+                items:
+                  properties:
+                    ad:
+                      properties:
+                        bundle:
+                          type: string
+                        sport:
+                          type: string
+                      type: object
+                    caption:
+                      type: string
+                    categories:
+                      items:
+                        properties:
+                          athlete:
+                            properties:
+                              description:
+                                type: string
+                              id:
+                                type: integer
+                              links:
+                                properties:
+                                  mobile:
+                                    properties:
+                                      athletes:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  web:
+                                    properties:
+                                      athletes:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                            type: object
+                          athleteId:
+                            type: integer
+                          description:
+                            type: string
+                          guid:
+                            type: string
+                          id:
+                            type: integer
+                          sportId:
+                            type: integer
+                          team:
+                            properties:
+                              abbreviation:
+                                type: string
+                              description:
+                                type: string
+                              id:
+                                type: integer
+                              links:
+                                properties:
+                                  mobile:
+                                    properties:
+                                      teams:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  web:
+                                    properties:
+                                      teams:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                              shortDisplayName:
+                                type: string
+                            type: object
+                          teamId:
+                            type: integer
+                          type:
+                            type: string
+                          uid:
+                            type: string
+                        type: object
+                      type: array
+                    cerebroId:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    description:
+                      type: string
+                    deviceRestrictions:
+                      properties:
+                        devices:
+                          items:
+                            type: string
+                          type: array
+                        type:
+                          type: string
+                      type: object
+                    duration:
+                      type: integer
+                    headline:
+                      type: string
+                    id:
+                      type: integer
+                    images:
+                      items:
+                        properties:
+                          alt:
+                            type: string
+                          caption:
+                            type: string
+                          credit:
+                            type: string
+                          height:
+                            type: integer
+                          name:
+                            type: string
+                          url:
+                            type: string
+                          width:
+                            type: integer
+                        type: object
+                      type: array
+                    lastModified:
+                      type: string
+                    links:
+                      properties:
+                        api:
+                          properties:
+                            artwork:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            self:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        mobile:
+                          properties:
+                            alert:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            href:
+                              type: string
+                            progressiveDownload:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            source:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            streaming:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        source:
+                          properties:
+                            HD:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            HLS:
+                              properties:
+                                HD:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                cmaf:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                                shield:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            flash:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            full:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            href:
+                              type: string
+                            mezzanine:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        sportscenter:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        web:
+                          properties:
+                            href:
+                              type: string
+                            self:
+                              properties:
+                                dsi:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    originalPublishDate:
+                      type: string
+                    pccId:
+                      type: string
+                    posterImages:
+                      properties:
+                        default:
+                          properties:
+                            height:
+                              type: integer
+                            href:
+                              type: string
+                            width:
+                              type: integer
+                          type: object
+                        firstFrame:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        full:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        square:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        wide:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                      type: object
+                    premium:
+                      type: boolean
+                    shortDescription:
+                      type: string
+                    shortHeadline:
+                      type: string
+                    source:
+                      type: string
+                    syndicatable:
+                      type: boolean
+                    thumbnail:
+                      type: string
+                    timeRestrictions:
+                      properties:
+                        embargoDate:
+                          type: string
+                        expirationDate:
+                          type: string
+                      type: object
+                    title:
+                      type: string
+                    tracking:
+                      properties:
+                        coverageType:
+                          type: string
+                        leagueName:
+                          type: string
+                        sportName:
+                          type: string
+                        trackingId:
+                          type: string
+                        trackingName:
+                          type: string
+                      type: object
+                    videoRatio:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type: array
+        resultsCount:
+          type: integer
+        resultsLimit:
+          type: integer
+        resultsOffset:
+          type: integer
+        status:
+          type: string
+        timestamp:
+          type: string
+      type: object
+    SportsNewsId:
+      properties:
+        breakingNews:
+          items: {}
+          type: array
+        headlines:
+          items:
+            properties:
+              allowAMP:
+                type: boolean
+              allowAds:
+                type: boolean
+              allowComments:
+                type: boolean
+              allowCommerce:
+                type: boolean
+              allowContentReactions:
+                type: boolean
+              allowSearch:
+                type: boolean
+              byline:
+                type: string
+              categories:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    guid:
+                      type: string
+                    id:
+                      type: integer
+                    league:
+                      properties:
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                      type: object
+                    leagueId:
+                      type: integer
+                    sportId:
+                      type: integer
+                    team:
+                      properties:
+                        abbreviation:
+                          type: string
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        shortDisplayName:
+                          type: string
+                      type: object
+                    teamId:
+                      type: integer
+                    topicId:
+                      type: integer
+                    type:
+                      type: string
+                    uid:
+                      type: string
+                  type: object
+                type: array
+              categorized:
+                type: string
+              contentKey:
+                type: string
+              dataSourceIdentifier:
+                type: string
+              description:
+                type: string
+              feedDisplayType:
+                type: string
+              headline:
+                type: string
+              id:
+                type: integer
+              images:
+                items:
+                  properties:
+                    credit:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    height:
+                      type: integer
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    url:
+                      type: string
+                    width:
+                      type: integer
+                  type: object
+                type: array
+              isLiveBlog:
+                type: boolean
+              keywords:
+                items:
+                  type: string
+                type: array
+              lastModified:
+                type: string
+              linkText:
+                type: string
+              links:
+                properties:
+                  api:
+                    properties:
+                      self:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  app:
+                    properties:
+                      sportscenter:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  mobile:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                  web:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                type: object
+              nowId:
+                type: string
+              originallyPosted:
+                type: string
+              premium:
+                type: boolean
+              published:
+                type: string
+              publishedkey:
+                type: string
+              root:
+                type: string
+              section:
+                type: string
+              story:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+        resultsCount:
+          type: integer
+        resultsLimit:
+          type: integer
+        resultsOffset:
+          type: integer
+        status:
+          type: string
+        timestamp:
+          type: string
+      type: object
+    SportsSportLeagueNews:
+      properties:
+        breakingNews:
+          items: {}
+          type: array
+        headlines:
+          items:
+            properties:
+              allowAMP:
+                type: boolean
+              allowAds:
+                type: boolean
+              allowComments:
+                type: boolean
+              allowCommerce:
+                type: boolean
+              allowContentReactions:
+                type: boolean
+              allowSearch:
+                type: boolean
+              byline:
+                type: string
+              categories:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    guid:
+                      type: string
+                    id:
+                      type: integer
+                    league:
+                      properties:
+                        abbreviation:
+                          type: string
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                leagues:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                      type: object
+                    leagueId:
+                      type: integer
+                    sportId:
+                      type: integer
+                    team:
+                      properties:
+                        abbreviation:
+                          type: string
+                        description:
+                          type: string
+                        id:
+                          type: integer
+                        links:
+                          properties:
+                            mobile:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            web:
+                              properties:
+                                teams:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        shortDisplayName:
+                          type: string
+                      type: object
+                    teamId:
+                      type: integer
+                    topicId:
+                      type: integer
+                    type:
+                      type: string
+                    uid:
+                      type: string
+                  type: object
+                type: array
+              categorized:
+                type: string
+              contentKey:
+                type: string
+              dataSourceIdentifier:
+                type: string
+              description:
+                type: string
+              feedDisplayType:
+                type: string
+              headline:
+                type: string
+              id:
+                type: integer
+              images:
+                items:
+                  properties:
+                    caption:
+                      type: string
+                    credit:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    height:
+                      type: integer
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    url:
+                      type: string
+                    width:
+                      type: integer
+                  type: object
+                type: array
+              isLiveBlog:
+                type: boolean
+              keywords:
+                items:
+                  type: string
+                type: array
+              lastModified:
+                type: string
+              linkText:
+                type: string
+              links:
+                properties:
+                  api:
+                    properties:
+                      self:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  app:
+                    properties:
+                      sportscenter:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                    type: object
+                  mobile:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                  web:
+                    properties:
+                      href:
+                        type: string
+                    type: object
+                type: object
+              nowId:
+                type: string
+              originallyPosted:
+                type: string
+              premium:
+                type: boolean
+              published:
+                type: string
+              publishedkey:
+                type: string
+              related:
+                items:
+                  properties:
+                    byline:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    headline:
+                      type: string
+                    id:
+                      type: integer
+                    images:
+                      items:
+                        properties:
+                          alt:
+                            type: string
+                          caption:
+                            type: string
+                          credit:
+                            type: string
+                          dataSourceIdentifier:
+                            type: string
+                          height:
+                            type: integer
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          type:
+                            type: string
+                          url:
+                            type: string
+                          width:
+                            type: integer
+                        type: object
+                      type: array
+                    isLiveBlog:
+                      type: boolean
+                    linkText:
+                      type: string
+                    links:
+                      properties:
+                        api:
+                          properties:
+                            self:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        app:
+                          properties:
+                            sportscenter:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        mobile:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        web:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                      type: object
+                    premium:
+                      type: boolean
+                    publishedkey:
+                      type: string
+                    source:
+                      type: string
+                    title:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              root:
+                type: string
+              section:
+                type: string
+              story:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              video:
+                items:
+                  properties:
+                    ad:
+                      properties:
+                        bundle:
+                          type: string
+                        sport:
+                          type: string
+                      type: object
+                    caption:
+                      type: string
+                    categories:
+                      items:
+                        properties:
+                          athlete:
+                            properties:
+                              description:
+                                type: string
+                              id:
+                                type: integer
+                              links:
+                                properties:
+                                  mobile:
+                                    properties:
+                                      athletes:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  web:
+                                    properties:
+                                      athletes:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                            type: object
+                          athleteId:
+                            type: integer
+                          description:
+                            type: string
+                          guid:
+                            type: string
+                          id:
+                            type: integer
+                          league:
+                            properties:
+                              abbreviation:
+                                type: string
+                              description:
+                                type: string
+                              id:
+                                type: integer
+                              links:
+                                properties:
+                                  mobile:
+                                    properties:
+                                      leagues:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  web:
+                                    properties:
+                                      leagues:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                            type: object
+                          leagueId:
+                            type: integer
+                          sportId:
+                            type: integer
+                          team:
+                            properties:
+                              abbreviation:
+                                type: string
+                              description:
+                                type: string
+                              id:
+                                type: integer
+                              links:
+                                properties:
+                                  mobile:
+                                    properties:
+                                      teams:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  web:
+                                    properties:
+                                      teams:
+                                        properties:
+                                          href:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                              shortDisplayName:
+                                type: string
+                            type: object
+                          teamId:
+                            type: integer
+                          type:
+                            type: string
+                          uid:
+                            type: string
+                        type: object
+                      type: array
+                    cerebroId:
+                      type: string
+                    contributingPartner:
+                      type: string
+                    contributingSystem:
+                      type: string
+                    dataSourceIdentifier:
+                      type: string
+                    description:
+                      type: string
+                    deviceRestrictions:
+                      properties:
+                        devices:
+                          items:
+                            type: string
+                          type: array
+                        type:
+                          type: string
+                      type: object
+                    duration:
+                      type: integer
+                    headline:
+                      type: string
+                    id:
+                      type: integer
+                    images:
+                      items:
+                        properties:
+                          alt:
+                            type: string
+                          caption:
+                            type: string
+                          credit:
+                            type: string
+                          height:
+                            type: integer
+                          name:
+                            type: string
+                          url:
+                            type: string
+                          width:
+                            type: integer
+                        type: object
+                      type: array
+                    lastModified:
+                      type: string
+                    links:
+                      properties:
+                        api:
+                          properties:
+                            artwork:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            self:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        mobile:
+                          properties:
+                            alert:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            href:
+                              type: string
+                            progressiveDownload:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            source:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            streaming:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        source:
+                          properties:
+                            HD:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            HLS:
+                              properties:
+                                9x16:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                HD:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                cmaf:
+                                  properties:
+                                    9x16:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    cmb:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    href:
+                                      type: string
+                                  type: object
+                                cmb:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                                shield:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            flash:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            full:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            href:
+                              type: string
+                            mezzanine:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        sportscenter:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        web:
+                          properties:
+                            href:
+                              type: string
+                            self:
+                              properties:
+                                dsi:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    originalPublishDate:
+                      type: string
+                    pccId:
+                      type: string
+                    plays:
+                      items:
+                        properties:
+                          id:
+                            type: integer
+                        type: object
+                      type: array
+                    posterImages:
+                      properties:
+                        default:
+                          properties:
+                            height:
+                              type: integer
+                            href:
+                              type: string
+                            width:
+                              type: integer
+                          type: object
+                        firstFrame:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        full:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        square:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        vertical:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        verticalFirstFrame:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                        wide:
+                          properties:
+                            href:
+                              type: string
+                          type: object
+                      type: object
+                    premium:
+                      type: boolean
+                    shortDescription:
+                      type: string
+                    shortHeadline:
+                      type: string
+                    source:
+                      type: string
+                    syndicatable:
+                      type: boolean
+                    thumbnail:
+                      type: string
+                    timeRestrictions:
+                      properties:
+                        embargoDate:
+                          type: string
+                        expirationDate:
+                          type: string
+                      type: object
+                    title:
+                      type: string
+                    tracking:
+                      properties:
+                        coverageType:
+                          type: string
+                        leagueName:
+                          type: string
+                        program:
+                          type: string
+                        sportName:
+                          type: string
+                        trackingId:
+                          type: string
+                        trackingName:
+                          type: string
+                      type: object
+                    videoRatio:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type: array
+        resultsCount:
+          type: integer
+        resultsLimit:
+          type: integer
+        resultsOffset:
+          type: integer
+        status:
+          type: string
+        timestamp:
+          type: string
+      type: object
+info:
+  description: 'ESPN headline feeds: cross-sport, per league, and one story by id. Routes probed live
+    2026-10-06; shapes from committed captures in espn-content/captures/ (first page only, limit=3). Keyless.
+    The list routes page with limit/offset (see x-pagination); team= and athlete= are ignored. Same headlines[]
+    envelope as now.core.api.espn.com (espn/espn-now.openapi.yaml), scoped per league. Not official or
+    supported.'
+  title: ESPN content.core v1 (content.core.api.espn.com)
+  version: '2026-10-06'
+openapi: 3.1.0
+paths:
+  /sports/news:
+    get:
+      operationId: sports_news
+      parameters:
+      - description: Page size (default 10; the body echoes resultsLimit).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Page offset (body echoes resultsOffset).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SportsNews'
+          description: OK
+      summary: Cross-sport headlines (limit, offset)
+      x-pagination:
+        params:
+        - limit
+        - offset
+        request: verified
+        response:
+        - resultsCount
+        - resultsLimit
+        - resultsOffset
+        style: offset
+  /sports/news/{id}:
+    get:
+      operationId: sports_news_id
+      parameters:
+      - description: Story id (headlines[].id; links.api.self.href points here).
+        example: '49778940'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SportsNewsId'
+          description: OK
+      summary: One story (same envelope, one headline)
+  /sports/{sport}/{league}/news:
+    get:
+      operationId: sports_sport_league_news
+      parameters:
+      - description: ESPN sport slug (football, basketball, soccer, ...).
+        example: football
+        in: path
+        name: sport
+        required: true
+        schema:
+          type: string
+      - description: ESPN league slug (nfl, college-football, nba, mens-college-basketball, eng.1, ...).
+        example: nfl
+        in: path
+        name: league
+        required: true
+        schema:
+          type: string
+      - description: Page size (default 10; the body echoes resultsLimit).
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Page offset (body echoes resultsOffset).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SportsSportLeagueNews'
+          description: OK
+      summary: Headlines for one league (limit, offset)
+      x-pagination:
+        params:
+        - limit
+        - offset
+        request: verified
+        response:
+        - resultsCount
+        - resultsLimit
+        - resultsOffset
+        style: offset
+servers:
+- url: https://content.core.api.espn.com/v1
