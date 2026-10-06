@@ -3766,7 +3766,7 @@ paths:
     - url: https://standings.uefa.com
   /v1/team-statistics/{matchId}:
     get:
-      operationId: matchstats_v1_team_statistics_2047742
+      operationId: matchstats_v1_team_statistics_matchId
       parameters:
       - description: Match id (from /v5/matches).
         in: path

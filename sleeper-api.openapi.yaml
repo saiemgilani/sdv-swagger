@@ -1938,13 +1938,13 @@ paths:
       operationId: user_user_id_leagues_nfl_season
       parameters:
       - description: User id (from /user/{username}).
-        example: ''
+        example: '457511950237696'
         in: path
         name: user_id
         required: true
         schema:
           type: string
-      - description: Season year, e.g. 2026.
+      - description: Season year, e.g. 2018 (the season the example league played).
         example: '2018'
         in: path
         name: season

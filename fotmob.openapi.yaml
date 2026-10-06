@@ -10171,7 +10171,7 @@ paths:
         example: en
         in: query
         name: lang
-        required: true
+        required: false
         schema:
           type: string
       responses:
@@ -10211,21 +10211,21 @@ paths:
         example: overview
         in: query
         name: tab
-        required: true
+        required: false
         schema:
           type: string
       - description: league or team.
         example: league
         in: query
         name: type
-        required: true
+        required: false
         schema:
           type: string
       - description: IANA zone for kickoff times.
         example: UTC
         in: query
         name: timeZone
-        required: true
+        required: false
         schema:
           type: string
       responses:
@@ -10263,14 +10263,14 @@ paths:
         example: '20260301'
         in: query
         name: date
-        required: true
+        required: false
         schema:
           type: string
       - description: IANA zone.
         example: UTC
         in: query
         name: timezone
-        required: true
+        required: false
         schema:
           type: string
       responses:
@@ -10315,7 +10315,7 @@ paths:
         example: en
         in: query
         name: lang
-        required: true
+        required: false
         schema:
           type: string
       responses:
@@ -10360,7 +10360,7 @@ paths:
         example: 2025/2026
         in: query
         name: season
-        required: true
+        required: false
         schema:
           type: string
       responses:
@@ -10386,21 +10386,21 @@ paths:
         example: overview
         in: query
         name: tab
-        required: true
+        required: false
         schema:
           type: string
       - description: league or team.
         example: team
         in: query
         name: type
-        required: true
+        required: false
         schema:
           type: string
       - description: IANA zone for kickoff times.
         example: UTC
         in: query
         name: timeZone
-        required: true
+        required: false
         schema:
           type: string
       responses:
