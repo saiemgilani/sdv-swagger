@@ -10,9 +10,11 @@ components:
           items:
             properties:
               AggregateAwayTeamScore:
-                nullable: true
+                type:
+                - 'null'
               AggregateHomeTeamScore:
-                nullable: true
+                type:
+                - 'null'
               Attendance:
                 type: string
               Away:
@@ -38,7 +40,8 @@ components:
                   ShortClubName:
                     type: string
                   Side:
-                    nullable: true
+                    type:
+                    - 'null'
                   Tactics:
                     type: string
                   TeamName:
@@ -54,11 +57,13 @@ components:
                     type: integer
                 type: object
               AwayTeamPenaltyScore:
-                nullable: true
+                type:
+                - 'null'
               AwayTeamScore:
                 type: integer
               BallPossession:
-                nullable: true
+                type:
+                - 'null'
               CompetitionName:
                 items:
                   properties:
@@ -71,9 +76,11 @@ components:
               Date:
                 type: string
               FirstHalfExtraTime:
-                nullable: true
+                type:
+                - 'null'
               FirstHalfTime:
-                nullable: true
+                type:
+                - 'null'
               GroupName:
                 items:
                   properties:
@@ -106,7 +113,8 @@ components:
                   ShortClubName:
                     type: string
                   Side:
-                    nullable: true
+                    type:
+                    - 'null'
                   Tactics:
                     type: string
                   TeamName:
@@ -122,7 +130,8 @@ components:
                     type: integer
                 type: object
               HomeTeamPenaltyScore:
-                nullable: true
+                type:
+                - 'null'
               HomeTeamScore:
                 type: integer
               IdCompetition:
@@ -136,25 +145,33 @@ components:
               IdStage:
                 type: string
               IsHomeMatch:
-                nullable: true
+                type:
+                - 'null'
               IsTicketSalesAllowed:
-                nullable: true
+                type:
+                - 'null'
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               LastPeriodUpdate:
-                nullable: true
+                type:
+                - 'null'
               Leg:
-                nullable: true
+                type:
+                - 'null'
               LocalDate:
                 type: string
               MatchDay:
-                nullable: true
+                type:
+                - 'null'
               MatchLegInfo:
-                nullable: true
+                type:
+                - 'null'
               MatchNumber:
                 type: integer
               MatchReportUrl:
-                nullable: true
+                type:
+                - 'null'
               MatchStatus:
                 type: integer
               MatchTime:
@@ -223,19 +240,25 @@ components:
                 items: {}
                 type: array
               SecondHalfExtraTime:
-                nullable: true
+                type:
+                - 'null'
               SecondHalfTime:
-                nullable: true
+                type:
+                - 'null'
               Stadium:
                 properties:
                   AffiliationCountry:
-                    nullable: true
+                    type:
+                    - 'null'
                   AffiliationRegion:
-                    nullable: true
+                    type:
+                    - 'null'
                   Built:
-                    nullable: true
+                    type:
+                    - 'null'
                   Capacity:
-                    nullable: true
+                    type:
+                    - 'null'
                   CityName:
                     items:
                       properties:
@@ -246,9 +269,11 @@ components:
                       type: object
                     type: array
                   Email:
-                    nullable: true
+                    type:
+                    - 'null'
                   Fax:
-                    nullable: true
+                    type:
+                    - 'null'
                   IdCity:
                     type: string
                   IdCountry:
@@ -256,13 +281,17 @@ components:
                   IdStadium:
                     type: string
                   IsUpdateable:
-                    nullable: true
+                    type:
+                    - 'null'
                   Latitude:
-                    nullable: true
+                    type:
+                    - 'null'
                   Length:
-                    nullable: true
+                    type:
+                    - 'null'
                   Longitude:
-                    nullable: true
+                    type:
+                    - 'null'
                   Name:
                     items:
                       properties:
@@ -273,9 +302,11 @@ components:
                       type: object
                     type: array
                   Phone:
-                    nullable: true
+                    type:
+                    - 'null'
                   PostalCode:
-                    nullable: true
+                    type:
+                    - 'null'
                   Properties:
                     properties:
                       IdIFES:
@@ -284,13 +315,17 @@ components:
                   Roof:
                     type: boolean
                   Street:
-                    nullable: true
+                    type:
+                    - 'null'
                   Turf:
-                    nullable: true
+                    type:
+                    - 'null'
                   WebAddress:
-                    nullable: true
+                    type:
+                    - 'null'
                   Width:
-                    nullable: true
+                    type:
+                    - 'null'
                 type: object
               StageName:
                 items:
@@ -306,20 +341,25 @@ components:
               Weather:
                 properties:
                   Humidity:
-                    nullable: true
+                    type:
+                    - 'null'
                   Temperature:
-                    nullable: true
+                    type:
+                    - 'null'
                   Type:
-                    nullable: true
+                    type:
+                    - 'null'
                   TypeLocalized:
                     items: {}
                     type: array
                   WindSpeed:
-                    nullable: true
+                    type:
+                    - 'null'
                 type: object
               Winner:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
             type: object
           type: array
       type: object
@@ -355,7 +395,8 @@ components:
               IdOwner:
                 type: string
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               Name:
                 items:
                   properties:
@@ -382,7 +423,8 @@ components:
         CompetitionType:
           type: integer
         DisplayOrder:
-          nullable: true
+          type:
+          - 'null'
         FootballType:
           type: integer
         Gender:
@@ -398,7 +440,8 @@ components:
         IdOwner:
           type: string
         IsUpdateable:
-          nullable: true
+          type:
+          - 'null'
         Name:
           items:
             properties:
@@ -426,11 +469,14 @@ components:
           items:
             properties:
               AggregateAwayTeamScore:
-                nullable: true
+                type:
+                - 'null'
               AggregateHomeTeamScore:
-                nullable: true
+                type:
+                - 'null'
               Attendance:
-                nullable: true
+                type:
+                - 'null'
               AwayTeam:
                 properties:
                   Abbreviation:
@@ -443,15 +489,19 @@ components:
                         Card:
                           type: integer
                         EventNumber:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdCoach:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdEvent:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayer:
                           type: string
                         IdStaff:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdTeam:
                           type: string
                         Minute:
@@ -488,11 +538,13 @@ components:
                             type: object
                           type: array
                         PictureUrl:
-                          nullable: true
+                          type:
+                          - 'null'
                         Role:
                           type: integer
                         SpecialStatus:
-                          nullable: true
+                          type:
+                          - 'null'
                       type: object
                     type: array
                   FootballType:
@@ -505,7 +557,8 @@ components:
                         IdAssistPlayer:
                           type: string
                         IdGoal:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayer:
                           type: string
                         IdTeam:
@@ -525,8 +578,9 @@ components:
                   IdTeam:
                     type: string
                   PictureUrl:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   Players:
                     items:
                       properties:
@@ -539,9 +593,11 @@ components:
                         IdTeam:
                           type: string
                         LineupX:
-                          nullable: true
+                          type:
+                          - 'null'
                         LineupY:
-                          nullable: true
+                          type:
+                          - 'null'
                         PlayerName:
                           items:
                             properties:
@@ -552,7 +608,8 @@ components:
                             type: object
                           type: array
                         PlayerPicture:
-                          nullable: true
+                          type:
+                          - 'null'
                         Position:
                           type: integer
                         ShirtNumber:
@@ -567,18 +624,21 @@ components:
                             type: object
                           type: array
                         SpecialStatus:
-                          nullable: true
+                          type:
+                          - 'null'
                         Status:
                           type: integer
                       type: object
                     type: array
                   Score:
-                    nullable: true
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                   ShortClubName:
                     type: string
                   Side:
-                    nullable: true
+                    type:
+                    - 'null'
                   Staffs:
                     items: {}
                     type: array
@@ -586,7 +646,8 @@ components:
                     items:
                       properties:
                         IdEvent:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayerOff:
                           type: string
                         IdPlayerOn:
@@ -622,8 +683,9 @@ components:
                       type: object
                     type: array
                   Tactics:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   TeamName:
                     items:
                       properties:
@@ -637,9 +699,9 @@ components:
                     type: integer
                 type: object
               AwayTeamPenaltyScore:
-                nullable: true
+                type:
+                - 'null'
               BallPossession:
-                nullable: true
                 properties:
                   Intervals:
                     items: {}
@@ -651,7 +713,9 @@ components:
                     type: number
                   OverallHome:
                     type: number
-                type: object
+                type:
+                - object
+                - 'null'
               CompetitionName:
                 items:
                   properties:
@@ -666,10 +730,12 @@ components:
               Date:
                 type: string
               FirstHalfExtraTime:
-                nullable: true
-                type: integer
+                type:
+                - integer
+                - 'null'
               FirstHalfTime:
-                nullable: true
+                type:
+                - 'null'
               GroupName:
                 items: {}
                 type: array
@@ -685,15 +751,19 @@ components:
                         Card:
                           type: integer
                         EventNumber:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdCoach:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdEvent:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayer:
                           type: string
                         IdStaff:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdTeam:
                           type: string
                         Minute:
@@ -730,11 +800,13 @@ components:
                             type: object
                           type: array
                         PictureUrl:
-                          nullable: true
+                          type:
+                          - 'null'
                         Role:
                           type: integer
                         SpecialStatus:
-                          nullable: true
+                          type:
+                          - 'null'
                       type: object
                     type: array
                   FootballType:
@@ -747,7 +819,8 @@ components:
                         IdAssistPlayer:
                           type: string
                         IdGoal:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayer:
                           type: string
                         IdTeam:
@@ -780,9 +853,11 @@ components:
                         IdTeam:
                           type: string
                         LineupX:
-                          nullable: true
+                          type:
+                          - 'null'
                         LineupY:
-                          nullable: true
+                          type:
+                          - 'null'
                         PlayerName:
                           items:
                             properties:
@@ -793,7 +868,8 @@ components:
                             type: object
                           type: array
                         PlayerPicture:
-                          nullable: true
+                          type:
+                          - 'null'
                         Position:
                           type: integer
                         ShirtNumber:
@@ -808,18 +884,21 @@ components:
                             type: object
                           type: array
                         SpecialStatus:
-                          nullable: true
+                          type:
+                          - 'null'
                         Status:
                           type: integer
                       type: object
                     type: array
                   Score:
-                    nullable: true
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                   ShortClubName:
                     type: string
                   Side:
-                    nullable: true
+                    type:
+                    - 'null'
                   Staffs:
                     items: {}
                     type: array
@@ -827,7 +906,8 @@ components:
                     items:
                       properties:
                         IdEvent:
-                          nullable: true
+                          type:
+                          - 'null'
                         IdPlayerOff:
                           type: string
                         IdPlayerOn:
@@ -863,8 +943,9 @@ components:
                       type: object
                     type: array
                   Tactics:
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   TeamName:
                     items:
                       properties:
@@ -878,11 +959,13 @@ components:
                     type: integer
                 type: object
               HomeTeamPenaltyScore:
-                nullable: true
+                type:
+                - 'null'
               IdCompetition:
                 type: string
               IdGroup:
-                nullable: true
+                type:
+                - 'null'
               IdMatch:
                 type: string
               IdSeason:
@@ -890,13 +973,15 @@ components:
               IdStage:
                 type: string
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               LocalDate:
                 type: string
               MatchDay:
                 type: string
               MatchNumber:
-                nullable: true
+                type:
+                - 'null'
               MatchStatus:
                 type: integer
               MatchTime:
@@ -963,16 +1048,20 @@ components:
                 items: {}
                 type: array
               SecondHalfExtraTime:
-                nullable: true
-                type: integer
+                type:
+                - integer
+                - 'null'
               SecondHalfTime:
-                nullable: true
+                type:
+                - 'null'
               Stadium:
                 properties:
                   AffiliationCountry:
-                    nullable: true
+                    type:
+                    - 'null'
                   AffiliationRegion:
-                    nullable: true
+                    type:
+                    - 'null'
                   Built:
                     type: string
                   Capacity:
@@ -987,21 +1076,26 @@ components:
                       type: object
                     type: array
                   Email:
-                    nullable: true
+                    type:
+                    - 'null'
                   Fax:
-                    nullable: true
+                    type:
+                    - 'null'
                   IdCity:
                     type: string
                   IdCountry:
                     type: string
                   IdStadium:
-                    nullable: true
+                    type:
+                    - 'null'
                   IsUpdateable:
-                    nullable: true
+                    type:
+                    - 'null'
                   Latitude:
                     type: number
                   Length:
-                    nullable: true
+                    type:
+                    - 'null'
                   Longitude:
                     type: number
                   Name:
@@ -1014,9 +1108,11 @@ components:
                       type: object
                     type: array
                   Phone:
-                    nullable: true
+                    type:
+                    - 'null'
                   PostalCode:
-                    nullable: true
+                    type:
+                    - 'null'
                   Properties:
                     properties: {}
                     type: object
@@ -1025,11 +1121,14 @@ components:
                   Street:
                     type: string
                   Turf:
-                    nullable: true
+                    type:
+                    - 'null'
                   WebAddress:
-                    nullable: true
+                    type:
+                    - 'null'
                   Width:
-                    nullable: true
+                    type:
+                    - 'null'
                 type: object
               StageName:
                 items:
@@ -1041,15 +1140,19 @@ components:
                   type: object
                 type: array
               TerritorialPossesion:
-                nullable: true
+                type:
+                - 'null'
               TerritorialThirdPossesion:
-                nullable: true
+                type:
+                - 'null'
               TimeDefined:
                 type: boolean
               Weather:
-                nullable: true
+                type:
+                - 'null'
               Winner:
-                nullable: true
+                type:
+                - 'null'
             type: object
           type: array
       type: object
@@ -1074,8 +1177,9 @@ components:
               BirthDate:
                 type: string
               BirthPlace:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               Goals:
                 type: integer
               Height:
@@ -1087,12 +1191,15 @@ components:
               InternationalCaps:
                 type: integer
               InternationalDebut:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               LocalizedTwitterAccounts:
-                nullable: true
+                type:
+                - 'null'
               MediaContent:
                 items: {}
                 type: array
@@ -1106,12 +1213,15 @@ components:
                   type: object
                 type: array
               PictureUrl:
-                nullable: true
+                type:
+                - 'null'
               PlayerPicture:
-                nullable: true
+                type:
+                - 'null'
               PreferredFoot:
-                nullable: true
-                type: integer
+                type:
+                - integer
+                - 'null'
               Properties:
                 properties:
                   IdIFES:
@@ -1122,11 +1232,14 @@ components:
                     type: string
                 type: object
               ThumbnailUrl:
-                nullable: true
+                type:
+                - 'null'
               TopCompetitionDebut:
-                nullable: true
+                type:
+                - 'null'
               TwitterAccount:
-                nullable: true
+                type:
+                - 'null'
               Weight:
                 type: number
             type: object
@@ -1165,7 +1278,8 @@ components:
               IdSeason:
                 type: string
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               MascotPictureUrl:
                 type: string
               MatchBallPictureUrl:
@@ -1208,13 +1322,17 @@ components:
           items:
             properties:
               AffiliationCountry:
-                nullable: true
+                type:
+                - 'null'
               AffiliationRegion:
-                nullable: true
+                type:
+                - 'null'
               Built:
-                nullable: true
+                type:
+                - 'null'
               Capacity:
-                nullable: true
+                type:
+                - 'null'
               CityName:
                 items:
                   properties:
@@ -1225,9 +1343,11 @@ components:
                   type: object
                 type: array
               Email:
-                nullable: true
+                type:
+                - 'null'
               Fax:
-                nullable: true
+                type:
+                - 'null'
               IdCity:
                 type: string
               IdCountry:
@@ -1235,13 +1355,17 @@ components:
               IdStadium:
                 type: string
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               Latitude:
-                nullable: true
+                type:
+                - 'null'
               Length:
-                nullable: true
+                type:
+                - 'null'
               Longitude:
-                nullable: true
+                type:
+                - 'null'
               Name:
                 items:
                   properties:
@@ -1252,9 +1376,11 @@ components:
                   type: object
                 type: array
               Phone:
-                nullable: true
+                type:
+                - 'null'
               PostalCode:
-                nullable: true
+                type:
+                - 'null'
               Properties:
                 properties:
                   IdIFES:
@@ -1263,13 +1389,17 @@ components:
               Roof:
                 type: boolean
               Street:
-                nullable: true
+                type:
+                - 'null'
               Turf:
-                nullable: true
+                type:
+                - 'null'
               WebAddress:
-                nullable: true
+                type:
+                - 'null'
               Width:
-                nullable: true
+                type:
+                - 'null'
             type: object
           type: array
       type: object
@@ -1302,11 +1432,13 @@ components:
         Gender:
           type: integer
         Headquarters:
-          nullable: true
+          type:
+          - 'null'
         IdAssociation:
           type: string
         IdCity:
-          nullable: true
+          type:
+          - 'null'
         IdConfederation:
           type: string
         IdCountry:
@@ -1314,7 +1446,8 @@ components:
         IdTeam:
           type: string
         IsUpdateable:
-          nullable: true
+          type:
+          - 'null'
         Name:
           items:
             properties:
@@ -1325,7 +1458,8 @@ components:
             type: object
           type: array
         OfficialSite:
-          nullable: true
+          type:
+          - 'null'
         PictureUrl:
           type: string
         PostalCode:
@@ -1340,34 +1474,41 @@ components:
               type: string
           type: object
         RegionName:
-          nullable: true
+          type:
+          - 'null'
         ShortClubName:
           type: string
         Stadium:
-          nullable: true
+          type:
+          - 'null'
         Street:
           type: string
         ThumbnailUrl:
-          nullable: true
+          type:
+          - 'null'
         TrainingCentre:
-          nullable: true
+          type:
+          - 'null'
         Type:
           type: integer
       type: object
     TeamsSearch:
       properties:
         ContinuationHash:
-          nullable: true
+          type:
+          - 'null'
         ContinuationToken:
-          nullable: true
+          type:
+          - 'null'
         Results:
           items:
             properties:
               Abbreviation:
                 type: string
               ActiveStatus:
-                nullable: true
-                type: integer
+                type:
+                - integer
+                - 'null'
               AgeType:
                 type: integer
               City:
@@ -1387,16 +1528,19 @@ components:
               FootballType:
                 type: integer
               FoundationYear:
-                nullable: true
-                type: integer
+                type:
+                - integer
+                - 'null'
               Gender:
                 type: integer
               Headquarters:
-                nullable: true
+                type:
+                - 'null'
               IdAssociation:
                 type: string
               IdCity:
-                nullable: true
+                type:
+                - 'null'
               IdConfederation:
                 type: string
               IdCountry:
@@ -1404,7 +1548,8 @@ components:
               IdTeam:
                 type: string
               IsUpdateable:
-                nullable: true
+                type:
+                - 'null'
               Name:
                 items:
                   properties:
@@ -1415,12 +1560,14 @@ components:
                   type: object
                 type: array
               OfficialSite:
-                nullable: true
+                type:
+                - 'null'
               PictureUrl:
                 type: string
               PostalCode:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               Properties:
                 properties:
                   IdIFES:
@@ -1431,28 +1578,34 @@ components:
                     type: string
                 type: object
               RegionName:
-                nullable: true
+                type:
+                - 'null'
               ShortClubName:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               Stadium:
-                nullable: true
+                type:
+                - 'null'
               Street:
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               ThumbnailUrl:
-                nullable: true
+                type:
+                - 'null'
               TrainingCentre:
-                nullable: true
+                type:
+                - 'null'
               Type:
                 type: integer
             type: object
           type: array
       type: object
 info:
-  description: Reverse-engineered from committed captures in fifa/captures/. Keyless. List routes page
-    through ContinuationToken/ContinuationHash in the body; pass the token back as ?continuationToken=
-    for the next page. Captures hold the first page only. Not official or supported.
+  description: Reverse-engineered from committed captures in fifa/captures/. Keyless. List routes return
+    ContinuationToken/ContinuationHash in the body (see x-pagination); the request parameter that accepts
+    the token is unverified. Captures hold the first page only. Not official or supported.
   title: FIFA public API v3 (api.fifa.com)
   version: '2026-10-06'
 openapi: 3.1.0
@@ -1482,7 +1635,8 @@ paths:
         required: false
         schema:
           type: string
-      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+      - description: Page size. List routes return ContinuationToken / ContinuationHash in the body; the
+          request parameter that takes the token back is unverified.
         example: '3'
         in: query
         name: count
@@ -1497,6 +1651,12 @@ paths:
                 $ref: '#/components/schemas/CalendarMatches'
           description: OK
       summary: /calendar/matches
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /competitions:
     get:
       operationId: competitions
@@ -1508,7 +1668,8 @@ paths:
         required: false
         schema:
           type: string
-      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+      - description: Page size. List routes return ContinuationToken / ContinuationHash in the body; the
+          request parameter that takes the token back is unverified.
         example: '3'
         in: query
         name: count
@@ -1523,6 +1684,12 @@ paths:
                 $ref: '#/components/schemas/Competitions'
           description: OK
       summary: /competitions
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /competitions/{idCompetition}:
     get:
       operationId: competitions_idCompetition
@@ -1567,6 +1734,12 @@ paths:
                 $ref: '#/components/schemas/LiveFootball'
           description: OK
       summary: /live/football
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /players/search:
     get:
       operationId: players_search
@@ -1593,6 +1766,12 @@ paths:
                 $ref: '#/components/schemas/PlayersSearch'
           description: OK
       summary: /players/search
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /seasons:
     get:
       operationId: seasons
@@ -1611,7 +1790,8 @@ paths:
         required: false
         schema:
           type: string
-      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+      - description: Page size. List routes return ContinuationToken / ContinuationHash in the body; the
+          request parameter that takes the token back is unverified.
         example: '3'
         in: query
         name: count
@@ -1626,6 +1806,12 @@ paths:
                 $ref: '#/components/schemas/Seasons'
           description: OK
       summary: /seasons
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /stadiums:
     get:
       operationId: stadiums
@@ -1637,7 +1823,8 @@ paths:
         required: false
         schema:
           type: string
-      - description: Page size (list routes page through ContinuationToken / ContinuationHash in the body).
+      - description: Page size. List routes return ContinuationToken / ContinuationHash in the body; the
+          request parameter that takes the token back is unverified.
         example: '3'
         in: query
         name: count
@@ -1652,6 +1839,12 @@ paths:
                 $ref: '#/components/schemas/Stadiums'
           description: OK
       summary: /stadiums
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /teams/search:
     get:
       operationId: teams_search
@@ -1678,6 +1871,12 @@ paths:
                 $ref: '#/components/schemas/TeamsSearch'
           description: OK
       summary: /teams/search
+      x-pagination:
+        request: 'unverified: no query name was found that pages (continuationToken+continuationHash answer
+          400; continuationtoken, skip, page, offset, start, token are ignored; probed 2026-10-06)'
+        response:
+        - ContinuationToken
+        - ContinuationHash
   /teams/{idTeam}:
     get:
       operationId: teams_idTeam
