@@ -108,10 +108,12 @@ paths:
     get:
       operationId: modulekitScorebar
       tags: [modulekit]
-      summary: Schedule / results — one row per game (date-window filtered)
+      summary: Games in a date window around today — one row per game (date-window filtered)
       description: >
         Filters by the numberofdaysback/ahead window + limit; the season_id
-        param is echoed but does NOT restrict rows. Row `ID` is the game_id.
+        param is echoed but does NOT restrict rows (a large window returns
+        every season, oldest first, cut at limit). Row `ID` is the game_id.
+        For one season's schedule use modulekit.schedule.
       parameters:
         - $ref: "#/components/parameters/feedModulekit"
         - name: view
@@ -141,6 +143,48 @@ paths:
                       Scorebar:
                         type: array
                         items: {$ref: "#/components/schemas/ScorebarGame"}
+
+  /feed/index.php#modulekit.schedule:
+    get:
+      operationId: modulekitSchedule
+      tags: [modulekit]
+      summary: One season's schedule / results — one row per game
+      description: >
+        Scoped to season_id by the feed (2026-10-08 sweep: every row of every
+        league's reply carries the requested season_id). Omitting season_id
+        returns the season in progress, which can be a preseason.
+      parameters:
+        - $ref: "#/components/parameters/feedModulekit"
+        - name: view
+          in: query
+          required: true
+          schema: {type: string, const: schedule}
+        - $ref: "#/components/parameters/seasonId"
+        - name: team_id
+          in: query
+          required: false
+          description: Restrict to one team's games
+          schema: {type: integer}
+        - $ref: "#/components/parameters/key"
+        - $ref: "#/components/parameters/clientCode"
+        - $ref: "#/components/parameters/siteId"
+        - $ref: "#/components/parameters/lang"
+      responses:
+        "200":
+          description: Schedule rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SiteKit:
+                    type: object
+                    properties:
+                      Parameters: {$ref: "#/components/schemas/EchoedParameters"}
+                      Schedule:
+                        type: array
+                        items: {$ref: "#/components/schemas/ScheduleGame"}
+                      Copyright: {$ref: "#/components/schemas/Copyright"}
 
   /feed/index.php#modulekit.teamsbyseason:
     get:
@@ -856,6 +900,42 @@ components:
         playoff: {type: string, description: '"1" for playoff pseudo-seasons'}
         start_date: {type: string}
         end_date: {type: string}
+    ScheduleGame:
+      type: object
+      description: One game of the requested season. `game_id` (= `id`) is the game id.
+      properties:
+        id: {type: string}
+        game_id: {type: string}
+        season_id: {type: string}
+        game_number: {type: string}
+        game_letter: {type: string}
+        game_type: {type: string}
+        if_necessary: {type: string}
+        date_played: {type: string}
+        date_time_played: {type: string, description: "Local time with a misleading Z suffix (15:00 PDT ships as 15:00:00Z); use GameDateISO8601"}
+        GameDateISO8601: {type: string, description: Local time with UTC offset}
+        timezone: {type: string}
+        date_tbd: {type: string}
+        time_tbd: {type: string}
+        home_team: {type: string, description: Home team id}
+        visiting_team: {type: string, description: Visiting team id}
+        home_team_name: {type: string}
+        home_team_code: {type: string}
+        visiting_team_name: {type: string}
+        visiting_team_code: {type: string}
+        home_goal_count: {type: string}
+        visiting_goal_count: {type: string}
+        period: {type: string}
+        overtime: {type: string}
+        shootout: {type: string}
+        status: {type: string, description: "1 not started, 2 in progress, 3 unofficial final, 4 final"}
+        game_status: {type: string, description: '"Final", "Final OT", "Final OT2", "Final SO", "Postponed", or the start time'}
+        started: {type: string}
+        final: {type: string}
+        attendance: {type: string}
+        venue_name: {type: string}
+        venue_location: {type: string}
+        broadcasters: {type: object, description: CHL / OHL / PWHL / QMJHL / WHL only}
     ScorebarGame:
       type: object
       description: One scheduled/played game. `ID` is the game_id.
