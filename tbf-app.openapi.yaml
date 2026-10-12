@@ -2,17 +2,18 @@ components:
   schemas:
     TbfBox:
       description: 'Response of /Match/box-score: Short box score: starters and bench per side, team totals.
-        Scope check: matchId is always null: the team totals'' points must equal the game''s final score.'
+        Scope check: matchId is always null: the team totals'' points must equal the game''s final score,
+        and every player row (side, shirt number, name) must be on the game header''s roster.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             awayBenchPlayers:
-              description: Away bench players.
+              description: Away non-starters on the team sheet (every away player not in awayTopFive).
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   caption:
                     description: Constant placeholder in every sample (false). By name the captain flag
@@ -56,7 +57,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   teamName:
                     description: Constant placeholder in every sample (''). Use the header's team names.
@@ -67,10 +69,11 @@ components:
                 type: object
               type: array
             awayTeamTotal:
-              description: Away team totals.
+              description: The away team's totals for the game (one object, the player rows' stat fields
+                summed).
               properties:
                 assists:
-                  description: Assists (asist).
+                  description: Assists in this game (asist).
                   type: integer
                 efficiency:
                   description: 'Efficiency rating (verimlilik puanı, PIR: points + rebounds + assists
@@ -82,7 +85,8 @@ components:
                     exceed 59).'
                   type: string
                 points:
-                  description: Points (sayı).
+                  description: Points scored in this game (sayı); on the team-total rows the team's final
+                    score.
                   type: integer
                 totalRebounds:
                   description: Total rebounds (toplam ribaund).
@@ -93,7 +97,7 @@ components:
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   caption:
                     description: Constant placeholder in every sample (false). By name the captain flag
@@ -137,7 +141,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   teamName:
                     description: Constant placeholder in every sample (''). Use the header's team names.
@@ -148,11 +153,11 @@ components:
                 type: object
               type: array
             homeBenchPlayers:
-              description: Home bench players (every non-starter on the sheet).
+              description: Home non-starters on the team sheet (every home player not in homeTopFive).
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   caption:
                     description: Constant placeholder in every sample (false). By name the captain flag
@@ -196,7 +201,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   teamName:
                     description: Constant placeholder in every sample (''). Use the header's team names.
@@ -207,10 +213,11 @@ components:
                 type: object
               type: array
             homeTeamTotal:
-              description: Home team totals.
+              description: The home team's totals for the game (one object, the player rows' stat fields
+                summed).
               properties:
                 assists:
-                  description: Assists (asist).
+                  description: Assists in this game (asist).
                   type: integer
                 efficiency:
                   description: 'Efficiency rating (verimlilik puanı, PIR: points + rebounds + assists
@@ -222,7 +229,8 @@ components:
                     exceed 59).'
                   type: string
                 points:
-                  description: Points (sayı).
+                  description: Points scored in this game (sayı); on the team-total rows the team's final
+                    score.
                   type: integer
                 totalRebounds:
                   description: Total rebounds (toplam ribaund).
@@ -233,7 +241,7 @@ components:
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   caption:
                     description: Constant placeholder in every sample (false). By name the captain flag
@@ -277,7 +285,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   teamName:
                     description: Constant placeholder in every sample (''). Use the header's team names.
@@ -317,7 +326,8 @@ components:
               items:
                 properties:
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimId:
                     description: 'Club id (takım = team; key space: TBF clubs, STABLE across seasons and
@@ -344,7 +354,8 @@ components:
               items:
                 properties:
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimId:
                     description: 'Club id (takım = team; key space: TBF clubs, STABLE across seasons and
@@ -451,7 +462,7 @@ components:
                       description: Activity name ('BSL 2026-2027').
                       type: string
                     awayTeam:
-                      description: Away team.
+                      description: 'The away team: team-season id, name, logo, score, side flag.'
                       properties:
                         hexCode1:
                           description: Team primary colour, '#rrggbb'.
@@ -466,13 +477,14 @@ components:
                             Not the club id (takimID / teamId of the team lists).'
                           type: number
                         isHome:
-                          description: true on homeTeam, false on awayTeam.
+                          description: 'Always false: this object is the away team.'
                           type: boolean
                         logoUrl:
                           description: Team logo URL.
                           type: string
                         name:
-                          description: Team name, uppercase.
+                          description: 'Team name as registered for that season, uppercase with Turkish
+                            letters (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                           type: string
                         score:
                           description: Points as a STRING ('90'); '' before the game.
@@ -487,10 +499,13 @@ components:
                     genuisId:
                       description: 'Genius Sports LiveStats match id, spelt genuisId by TBF (key space:
                         Genius matches, unique across every Genius org). String; '''' when TBF stored
-                        none. Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json
-                        (provider genius-livestats/): 200 for 2018-19 to 2020-21 and 2025-26+, S3 AccessDenied
-                        403 for 2017-18 and 2021-22, '''' for 2016-17 and 2022-23 to 2024-25 (README coverage
-                        matrix).'
+                        none, including scheduled games that have not been assigned one yet (BSL 2026-27
+                        week 6 on 2026-10-12). Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json
+                        (provider genius-livestats/). Coverage is from SPOT CHECKS (one week per season,
+                        1-3 ids each), not a census: ids on every checked game of 2017-18 to 2020-21 and
+                        2025-26+, on some games only in 2021-22, none in 2016-17 and 2022-23 to 2024-25;
+                        the checked ids answered 200 for 2018-19 to 2020-21 and 2025-26+ and S3 AccessDenied
+                        403 for 2017-18 and 2021-22 (README coverage matrix).'
                       type: string
                     halfValue:
                       description: Phase code as a string ('1' = first half of the regular season); see
@@ -501,7 +516,7 @@ components:
                         games checked; reliability unverified.
                       type: boolean
                     homeTeam:
-                      description: Home team.
+                      description: 'The home team: team-season id, name, logo, score, side flag.'
                       properties:
                         hexCode1:
                           description: Team primary colour, '#rrggbb'.
@@ -516,13 +531,14 @@ components:
                             Not the club id (takimID / teamId of the team lists).'
                           type: number
                         isHome:
-                          description: true on homeTeam, false on awayTeam.
+                          description: 'Always true: this object is the home team.'
                           type: boolean
                         logoUrl:
                           description: Team logo URL.
                           type: string
                         name:
-                          description: Team name, uppercase.
+                          description: 'Team name as registered for that season, uppercase with Turkish
+                            letters (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                           type: string
                         score:
                           description: Points as a STRING ('90'); '' before the game.
@@ -557,9 +573,8 @@ components:
                       type: string
                     matchStatusId:
                       description: 'Game status code: 1 = played (Oynandı), 4 = not played (Oynanmadı),
-                        19 = fixture without date and time (Fikstür / Tarih ve Saat Atanmadı). JSON number:
-                        the same id arrives as 22214 or 22214.0 depending on route and season; cast to
-                        an integer.'
+                        19 = fixture without date and time (Fikstür / Tarih ve Saat Atanmadı). A JSON
+                        number: sent as 1 or 1.0 depending on route and season; cast to an integer.'
                       type: number
                     matchTime:
                       description: Tip-off time 'HH:MM' (Turkey local).
@@ -637,9 +652,13 @@ components:
                     description: Constant placeholder in every sample (false). A UI flag of the app; ignore.
                     type: boolean
                   isHome:
-                    description: 'Side of the acting team: true = home, false = away, null on game events
-                      (game and period start / end, timeouts ''Mola'').'
-                    type: boolean
+                    description: 'Side of the acting team: true = home, false = away (timeouts ''Mola''
+                      carry the calling team''s side). null ONLY on the game and period start / end events
+                      (''Maç Başladı'', ''Maç Sonu'', ''Çeyrek Başladı'', ''Çeyrek Sonu''): full-body
+                      type boolean/null.'
+                    type:
+                    - boolean
+                    - 'null'
                   isStarter:
                     description: Constant placeholder in every sample (false).
                     type: boolean
@@ -702,7 +721,7 @@ components:
           description: The payload (see the data.* rows).
           properties:
             awayTeam:
-              description: Away team.
+              description: 'The away team: team-season id, name, logo, head coach, colours.'
               properties:
                 coachImage:
                   description: Head coach photo URL.
@@ -727,7 +746,8 @@ components:
                     / awayTeamProcessId, not the club id).'
                   type: integer
                 teamName:
-                  description: Team name, uppercase.
+                  description: 'Team name as registered for that season, uppercase with Turkish letters
+                    (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                   type: string
               type: object
             awayTeamProcessId:
@@ -759,16 +779,20 @@ components:
               type: string
             genuisId:
               description: 'Genius Sports LiveStats match id, spelt genuisId by TBF (key space: Genius
-                matches, unique across every Genius org). String; '''' when TBF stored none. Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json
-                (provider genius-livestats/): 200 for 2018-19 to 2020-21 and 2025-26+, S3 AccessDenied
-                403 for 2017-18 and 2021-22, '''' for 2016-17 and 2022-23 to 2024-25 (README coverage
-                matrix).'
+                matches, unique across every Genius org). String; '''' when TBF stored none, including
+                scheduled games that have not been assigned one yet (BSL 2026-27 week 6 on 2026-10-12).
+                Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json (provider
+                genius-livestats/). Coverage is from SPOT CHECKS (one week per season, 1-3 ids each),
+                not a census: ids on every checked game of 2017-18 to 2020-21 and 2025-26+, on some games
+                only in 2021-22, none in 2016-17 and 2022-23 to 2024-25; the checked ids answered 200
+                for 2018-19 to 2020-21 and 2025-26+ and S3 AccessDenied 403 for 2017-18 and 2021-22 (README
+                coverage matrix).'
               type: string
             hasUzatma:
               description: Overtime flag (uzatma); see the schedule note.
               type: boolean
             homeTeam:
-              description: Home team.
+              description: 'The home team: team-season id, name, logo, head coach, colours.'
               properties:
                 coachImage:
                   description: Head coach photo URL.
@@ -793,7 +817,8 @@ components:
                     / awayTeamProcessId, not the club id).'
                   type: integer
                 teamName:
-                  description: Team name, uppercase.
+                  description: 'Team name as registered for that season, uppercase with Turkish letters
+                    (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                   type: string
               type: object
             homeTeamProcessId:
@@ -822,10 +847,10 @@ components:
               description: Constant placeholder in every sample (''); use faaliyetAdi.
               type: string
             liveVideoLink:
-              description: Live video URL, or ''.
+              description: Live stream URL TBF attached to the game (YouTube watch link), or '' when none.
               type: string
             location:
-              description: Venue name.
+              description: Venue (salon) where the game was played.
               type: string
             mainReferee:
               description: Crew chief (baş hakem), uppercase name.
@@ -851,9 +876,8 @@ components:
               type: string
             matchStatusId:
               description: 'Game status code: 1 = played (Oynandı), 4 = not played (Oynanmadı), 19 = fixture
-                without date and time (Fikstür / Tarih ve Saat Atanmadı). JSON number: the same id arrives
-                as 22214 or 22214.0 depending on route and season; cast to an integer. The capture banks
-                only 1 (played).'
+                without date and time (Fikstür / Tarih ve Saat Atanmadı). A JSON number: sent as 1 or
+                1.0 depending on route and season; cast to an integer. The capture banks only 1 (played).'
               type: number
             players:
               description: 'Both rosters (home rows first): name, shirt number, photo, side. 20-24 rows.'
@@ -932,16 +956,16 @@ components:
           x-unobserved: true
       type: object
     TbfLead3point:
-      description: 'Response of /Player/get-3Point-leaders: Season leaders in three-point field goals
-        made (3 Sayılık Atış): totals (sum) and per-game (avg). Scope check: nothing is echoed: only a
-        non-empty sum list is required.'
+      description: 'Response of /Player/get-3Point-leaders: Season top 20 in three-point field goals made
+        (3 Sayılık Atış): totals (sum) and per-game (avg), a server cap. Scope check: nothing is echoed:
+        sum and avg must each hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME three-point field goals made (3 Sayılık Atış), best
-                first.
+              description: The server's top 20 players by PER-GAME three-point field goals made (3 Sayılık
+                Atış), best first. ALWAYS exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -967,7 +991,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -988,8 +1013,9 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL three-point field goals made (3 Sayılık Atış),
-                best first.
+              description: The server's top 20 players by season TOTAL three-point field goals made (3
+                Sayılık Atış), best first. ALWAYS exactly 20 rows (a server cap; paging params are ignored;
+                the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1015,7 +1041,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1050,14 +1077,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadAsist:
-      description: 'Response of /Player/get-asist-leaders: Season leaders in assists (Asist): totals (sum)
-        and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required.'
+      description: 'Response of /Player/get-asist-leaders: Season top 20 in assists (Asist): totals (sum)
+        and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must each hold exactly
+        the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME assists (Asist), best first.
+              description: The server's top 20 players by PER-GAME assists (Asist), best first. ALWAYS
+                exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1083,7 +1112,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1104,7 +1134,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL assists (Asist), best first.
+              description: The server's top 20 players by season TOTAL assists (Asist), best first. ALWAYS
+                exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1130,7 +1161,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1165,14 +1197,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadBlok:
-      description: 'Response of /Player/get-blok-leaders: Season leaders in blocks (Blok): totals (sum)
-        and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required.'
+      description: 'Response of /Player/get-blok-leaders: Season top 20 in blocks (Blok): totals (sum)
+        and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must each hold exactly
+        the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME blocks (Blok), best first.
+              description: The server's top 20 players by PER-GAME blocks (Blok), best first. ALWAYS exactly
+                20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1198,7 +1232,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1219,7 +1254,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL blocks (Blok), best first.
+              description: The server's top 20 players by season TOTAL blocks (Blok), best first. ALWAYS
+                exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1245,7 +1281,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1280,15 +1317,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadDuration:
-      description: 'Response of /Player/get-duration-leaders: Season leaders in minutes played (Süre):
-        totals (sum) and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is
-        required.'
+      description: 'Response of /Player/get-duration-leaders: Season top 20 in minutes played (Süre):
+        totals (sum) and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must
+        each hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME minutes played (Süre), best first.
+              description: The server's top 20 players by PER-GAME minutes played (Süre), best first.
+                ALWAYS exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1314,7 +1352,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1335,7 +1374,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL minutes played (Süre), best first.
+              description: The server's top 20 players by season TOTAL minutes played (Süre), best first.
+                ALWAYS exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1361,7 +1401,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1396,15 +1437,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadMvp:
-      description: 'Response of /Player/get-mvp-leaders: Season leaders in efficiency rating (Verimlilik):
-        totals (sum) and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is
-        required.'
+      description: 'Response of /Player/get-mvp-leaders: Season top 20 in efficiency rating (Verimlilik):
+        totals (sum) and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must
+        each hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME efficiency rating (Verimlilik), best first.
+              description: The server's top 20 players by PER-GAME efficiency rating (Verimlilik), best
+                first. ALWAYS exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1430,7 +1472,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1451,7 +1494,9 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL efficiency rating (Verimlilik), best first.
+              description: The server's top 20 players by season TOTAL efficiency rating (Verimlilik),
+                best first. ALWAYS exactly 20 rows (a server cap; paging params are ignored; the capture
+                asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1477,7 +1522,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1512,14 +1558,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadPoint:
-      description: 'Response of /Player/get-point-leaders: Season leaders in points (Sayı): totals (sum)
-        and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required.'
+      description: 'Response of /Player/get-point-leaders: Season top 20 in points (Sayı): totals (sum)
+        and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must each hold exactly
+        the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME points (Sayı), best first.
+              description: The server's top 20 players by PER-GAME points (Sayı), best first. ALWAYS exactly
+                20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1545,7 +1593,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1566,7 +1615,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL points (Sayı), best first.
+              description: The server's top 20 players by season TOTAL points (Sayı), best first. ALWAYS
+                exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1592,7 +1642,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1627,14 +1678,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadRibound:
-      description: 'Response of /Player/get-ribound-leaders: Season leaders in rebounds (Ribaund): totals
-        (sum) and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required.'
+      description: 'Response of /Player/get-ribound-leaders: Season top 20 in rebounds (Ribaund): totals
+        (sum) and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must each
+        hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME rebounds (Ribaund), best first.
+              description: The server's top 20 players by PER-GAME rebounds (Ribaund), best first. ALWAYS
+                exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1660,7 +1713,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1681,7 +1735,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL rebounds (Ribaund), best first.
+              description: The server's top 20 players by season TOTAL rebounds (Ribaund), best first.
+                ALWAYS exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1707,7 +1762,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1742,14 +1798,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadTopCalma:
-      description: 'Response of /Player/get-top-calma-leaders: Season leaders in steals (Top Çalma): totals
-        (sum) and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required.'
+      description: 'Response of /Player/get-top-calma-leaders: Season top 20 in steals (Top Çalma): totals
+        (sum) and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must each
+        hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME steals (Top Çalma), best first.
+              description: The server's top 20 players by PER-GAME steals (Top Çalma), best first. ALWAYS
+                exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1775,7 +1833,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1796,7 +1855,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL steals (Top Çalma), best first.
+              description: The server's top 20 players by season TOTAL steals (Top Çalma), best first.
+                ALWAYS exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1822,7 +1882,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1857,15 +1918,16 @@ components:
           x-unobserved: true
       type: object
     TbfLeadTopKaybi:
-      description: 'Response of /Player/get-top-kaybi-leaders: Season leaders in turnovers (Top Kaybı):
-        totals (sum) and per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is
-        required.'
+      description: 'Response of /Player/get-top-kaybi-leaders: Season top 20 in turnovers (Top Kaybı):
+        totals (sum) and per-game (avg), a server cap. Scope check: nothing is echoed: sum and avg must
+        each hold exactly the server''s top 20.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             avg:
-              description: Top 20 players by PER-GAME turnovers (Top Kaybı), best first.
+              description: The server's top 20 players by PER-GAME turnovers (Top Kaybı), best first.
+                ALWAYS exactly 20 rows (server cap, asserted).
               items:
                 properties:
                   fotograf:
@@ -1891,7 +1953,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -1912,7 +1975,8 @@ components:
                 type: object
               type: array
             sum:
-              description: Top 20 players by season TOTAL turnovers (Top Kaybı), best first.
+              description: The server's top 20 players by season TOTAL turnovers (Top Kaybı), best first.
+                ALWAYS exactly 20 rows (a server cap; paging params are ignored; the capture asserts 20).
               items:
                 properties:
                   fotograf:
@@ -1938,7 +2002,8 @@ components:
                       (''501076'').'
                     type: string
                   takimAdi:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   takimIslemLogo:
                     description: Team-season logo URL.
@@ -2075,7 +2140,7 @@ components:
                   = faaliyetId = faaliyet_ID and the leagueId / LeagueId / ActivityId parameters. Not
                   a season id and not a constant league id. JSON number: the same id arrives as 22214
                   or 22214.0 depending on route and season; cast to an integer.'
-                type: number
+                type: integer
               displayName:
                 description: League short name ('BSL', 'KBSL', 'TBL', 'TKBL', 'TB2L', 'BGL', 'BGLK', 'KBBL').
                 type: string
@@ -2105,7 +2170,7 @@ components:
                   END year of the ''YYYY-YYYY'' label (174 -> 2027). JSON number: the same id arrives
                   as 22214 or 22214.0 depending on route and season; cast to an integer. Equals the seasonId
                   parameter (checked).'
-                type: number
+                type: integer
               sort:
                 description: 'Display order in the app (integer, 1 = first: BSL).'
                 type: integer
@@ -2158,7 +2223,7 @@ components:
                 description: Activity name ('BSL 2026-2027').
                 type: string
               awayTeam:
-                description: Away team.
+                description: 'The away team: team-season id, name, logo, score, side flag.'
                 properties:
                   id:
                     description: 'Team-season id (teamProcessId = takimIslemId, ''team registration'';
@@ -2167,13 +2232,14 @@ components:
                       club id (takimID / teamId of the team lists).'
                     type: number
                   isHome:
-                    description: true on homeTeam, false on awayTeam.
+                    description: 'Always false: this object is the away team.'
                     type: boolean
                   logoUrl:
                     description: Team logo URL.
                     type: string
                   name:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   score:
                     description: Points as a STRING ('90'); '' before the game.
@@ -2187,10 +2253,14 @@ components:
                 type: string
               genuisId:
                 description: 'Genius Sports LiveStats match id, spelt genuisId by TBF (key space: Genius
-                  matches, unique across every Genius org). String; '''' when TBF stored none. Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json
-                  (provider genius-livestats/): 200 for 2018-19 to 2020-21 and 2025-26+, S3 AccessDenied
-                  403 for 2017-18 and 2021-22, '''' for 2016-17 and 2022-23 to 2024-25 (README coverage
-                  matrix).'
+                  matches, unique across every Genius org). String; '''' when TBF stored none, including
+                  scheduled games that have not been assigned one yet (BSL 2026-27 week 6 on 2026-10-12).
+                  Joins https://fibalivestats.dcd.shared.geniussports.com/data/{genuisId}/data.json (provider
+                  genius-livestats/). Coverage is from SPOT CHECKS (one week per season, 1-3 ids each),
+                  not a census: ids on every checked game of 2017-18 to 2020-21 and 2025-26+, on some
+                  games only in 2021-22, none in 2016-17 and 2022-23 to 2024-25; the checked ids answered
+                  200 for 2018-19 to 2020-21 and 2025-26+ and S3 AccessDenied 403 for 2017-18 and 2021-22
+                  (README coverage matrix).'
                 type: string
               halfValue:
                 description: Phase code as a string ('1' = first half of the regular season); see get-league-weeks
@@ -2201,7 +2271,7 @@ components:
                   checked; reliability unverified.
                 type: boolean
               homeTeam:
-                description: Home team.
+                description: 'The home team: team-season id, name, logo, score, side flag.'
                 properties:
                   id:
                     description: 'Team-season id (teamProcessId = takimIslemId, ''team registration'';
@@ -2210,13 +2280,14 @@ components:
                       club id (takimID / teamId of the team lists).'
                     type: number
                   isHome:
-                    description: true on homeTeam, false on awayTeam.
+                    description: 'Always true: this object is the home team.'
                     type: boolean
                   logoUrl:
                     description: Team logo URL.
                     type: string
                   name:
-                    description: Team name, uppercase.
+                    description: 'Team name as registered for that season, uppercase with Turkish letters
+                      (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                     type: string
                   score:
                     description: Points as a STRING ('90'); '' before the game.
@@ -2248,8 +2319,8 @@ components:
                 type: number
               matchStatusId:
                 description: 'Game status code: 1 = played (Oynandı), 4 = not played (Oynanmadı), 19 =
-                  fixture without date and time (Fikstür / Tarih ve Saat Atanmadı). JSON number: the same
-                  id arrives as 22214 or 22214.0 depending on route and season; cast to an integer.'
+                  fixture without date and time (Fikstür / Tarih ve Saat Atanmadı). A JSON number: sent
+                  as 1 or 1.0 depending on route and season; cast to an integer.'
                 type: number
               matchTime:
                 description: Tip-off time 'HH:MM' (Turkey local).
@@ -2290,7 +2361,7 @@ components:
           description: Number of pages (1 with pageSize -1 / PageSize -1, which returns everything).
           type: integer
         pageNumber:
-          description: Page number, 1-based.
+          description: Page returned, 1-based (always 1 with pageSize / PageSize -1).
           type: integer
         problemDetails:
           description: 'Unobserved: null in every sample. When filled: null on success; on errors an object
@@ -2318,7 +2389,9 @@ components:
                 type: string
               formaNo:
                 description: Shirt number (forma no) as a string; null when not assigned.
-                type: string
+                type:
+                - string
+                - 'null'
               fotograf:
                 description: Player photo URL (fotoğraf).
                 type: string
@@ -2339,17 +2412,20 @@ components:
                   174 = 2026-2027, 172 = 2025-2026, 160 = 2019-2020, 24 = 2006-2007; the odd ids 175,
                   173, ... are the international ''UA-'' seasons). Internal: the sdv season key is the
                   END year of the ''YYYY-YYYY'' label (174 -> 2027). Equals the seasonId parameter (checked).'
-                type: number
+                type: integer
               tabiyet:
-                description: 'Nationality in TURKISH, uppercase (tabiyet = nationality: ''TÜRKİYE'', ''SIRBİSTAN''
-                  = Serbia); use tabiyetKısa for the code.'
+                description: 'Nationality as a TURKISH country name, uppercase (tabiyet = nationality:
+                  ''TÜRKİYE'', ''SIRBİSTAN'' = Serbia). See the Country names table (tbf-returns.md and
+                  README) for the English name and code.'
                 type: string
               tabiyetKısa:
-                description: 'Nationality code (kısa = short): ISO 3166-1 alpha-3 mostly (''TUR'', ''SRB'',
-                  ''USA''), sometimes alpha-2 (''GB'').'
+                description: 'Nationality code (kısa = short): ISO 3166-1 alpha-3 (''TUR'', ''SRB'', ''USA'')
+                  except ''GB'' (alpha-2) for the United Kingdom; ''GBR'' is used for İNGİLTERE (England).
+                  See the Country names table (tbf-returns.md and README) for the English name and code.'
                 type: string
               takimAdi:
-                description: Team name, uppercase.
+                description: 'Team name as registered for that season, uppercase with Turkish letters
+                  (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                 type: string
               takimHexRenkKod1:
                 description: Team primary colour, '#rrggbb'.
@@ -2382,7 +2458,7 @@ components:
           description: Number of pages (1 with pageSize -1 / PageSize -1, which returns everything).
           type: integer
         pageNumber:
-          description: Page number, 1-based.
+          description: Page returned, 1-based (always 1 with pageSize / PageSize -1).
           type: integer
         problemDetails:
           description: 'Unobserved: null in every sample. When filled: null on success; on errors an object
@@ -2455,13 +2531,13 @@ components:
       description: 'Error envelope (HTTP 404 on an unknown game or player): data null, isSuccess false.'
       properties:
         data:
-          description: null.
-          type: 'null'
+          const: null
+          description: Always null on an error (no payload).
         isSuccess:
-          description: false.
-          type: boolean
+          const: false
+          description: Always false on an error.
         message:
-          description: '''''.'
+          description: Empty string '' on every 404 seen (the text is in problemDetails).
           type: string
         problemDetails:
           description: 'RFC 7807-like problem: type ''NotFoundException'', title ''Data bulunamadı.''
@@ -2503,18 +2579,26 @@ components:
                       '2027 Dünya Kupası Eleme Grubu(A Erkek)' = 2027 World Cup qualifiers, men's A team).
                     type: string
                   faaliyetAlani:
-                    description: 'Competition area in Turkish (faaliyet alanı): ''LİG'' = league, ''KUPA''
-                      = cup, ''RESMİ ŞAMPİYONALAR'' = official (national-team) championships.'
+                    description: 'Competition area label in Turkish (faaliyet alanı): ''LİG'' = league,
+                      ''KUPA'' = cup, ''ALT YAPI'' = youth (academy), ''RESMİ ŞAMPİYONALAR'' = official
+                      (national-team) championships.'
                     type: string
                   faaliyetAlaniId:
-                    description: 'Competition area code: 1 = league, 2 = cup, 3 = official championships.'
+                    description: 'Competition area code: 1 = club competitions (both LİG and KUPA rows),
+                      2 = youth (ALT YAPI), 3 = official championships (RESMİ ŞAMPİYONALAR). Observed
+                      pairs only.'
                     type: integer
                   faaliyetAltAlaniId:
-                    description: Competition sub-area code (alt alan); 1 on league rows, others unverified.
+                    description: 'Competition sub-area code (alt alan): 1 = league, 2 = cup, 3 = youth,
+                      7 = official championships. Observed pairs only.'
                     type: integer
                   faaliyetTuruId:
                     description: 'Competition type id (faaliyet türü; key space: TBF competition types,
-                      constant across seasons: 1 = BSL, 4 = TBL, 79 = BGL); joins nothing captured.'
+                      constant across seasons). Codes observed (not exhaustive): 1 = BSL, 4 = TBL, 8 =
+                      Turkish Cup (Erkekler Türkiye Kupası / Ziraat Bankası Türkiye Kupası), 20 = youth
+                      national championships (U18 / Genç / Yıldız Erkekler Türkiye Şampiyonası), 36 =
+                      national-team official championship (2027 World Cup qualifiers, men''s A team),
+                      79 = BGL. Joins nothing captured.'
                     type: integer
                   fauls:
                     description: 'Personal fouls committed. Scope of the number: careerInfo = that team-season-competition
@@ -2627,7 +2711,11 @@ components:
                     type: string
                   faaliyetTuruId:
                     description: 'Competition type id (faaliyet türü; key space: TBF competition types,
-                      constant across seasons: 1 = BSL, 4 = TBL, 79 = BGL); joins nothing captured.'
+                      constant across seasons). Codes observed (not exhaustive): 1 = BSL, 4 = TBL, 8 =
+                      Turkish Cup (Erkekler Türkiye Kupası / Ziraat Bankası Türkiye Kupası), 20 = youth
+                      national championships (U18 / Genç / Yıldız Erkekler Türkiye Şampiyonası), 36 =
+                      national-team official championship (2027 World Cup qualifiers, men''s A team),
+                      79 = BGL. Joins nothing captured.'
                     type: integer
                   fauls:
                     description: 'Personal fouls committed. Scope of the number: careerInfo = that team-season-competition
@@ -2734,7 +2822,11 @@ components:
                     type: string
                   faaliyetTuruId:
                     description: 'Competition type id (faaliyet türü; key space: TBF competition types,
-                      constant across seasons: 1 = BSL, 4 = TBL, 79 = BGL); joins nothing captured.'
+                      constant across seasons). Codes observed (not exhaustive): 1 = BSL, 4 = TBL, 8 =
+                      Turkish Cup (Erkekler Türkiye Kupası / Ziraat Bankası Türkiye Kupası), 20 = youth
+                      national championships (U18 / Genç / Yıldız Erkekler Türkiye Şampiyonası), 36 =
+                      national-team official championship (2027 World Cup qualifiers, men''s A team),
+                      79 = BGL. Joins nothing captured.'
                     type: integer
                   fauls:
                     description: 'Personal fouls committed. Scope of the number: careerInfo = that team-season-competition
@@ -2826,7 +2918,9 @@ components:
                   description: Date of birth 'YYYY-MM-DDT00:00:00' (player public bio); checked.
                   type: string
                 country:
-                  description: Nationality in TURKISH, uppercase ('TÜRKİYE' = Türkiye / TUR).
+                  description: Nationality as a TURKISH country name, uppercase, with no code on this
+                    route ('TÜRKİYE' = Türkiye / TUR). See the Country names table (tbf-returns.md and
+                    README) for the English name and code.
                   type: string
                 formaNo:
                   description: Current shirt number as a string.
@@ -2835,7 +2929,7 @@ components:
                   description: Name 'First Last'; checked against the asked player.
                   type: string
                 height:
-                  description: Height in cm.
+                  description: 'Height in centimetres (integer: 201).'
                   type: integer
                 playerPic:
                   description: Photo URL.
@@ -2844,7 +2938,7 @@ components:
                   description: Constant placeholder in every sample ('').
                   type: string
                 teamName:
-                  description: Current team name.
+                  description: Name of the team the player is registered with now, uppercase.
                   type: string
                 weight:
                   description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -2867,7 +2961,8 @@ components:
     TbfReport:
       description: 'Response of /Match/get-match-report-with-players: Team comparison report with the
         best player per stat. Scope check: no id is echoed: sY_A / sY_B (points) must equal the game''s
-        final score, macSayisi_A / _B = 1.'
+        final score, macSayisi_A / _B = 1, and every best player must be on that side of the header''s
+        roster.'
       properties:
         data:
           description: The payload (see the data.* rows).
@@ -3819,12 +3914,12 @@ components:
           x-unobserved: true
       type: object
     TbfSeasons:
-      description: 'Response of /Season/get-seasons: Every TBF season (domestic and international), newest
-        first. Scope check: full: the request''s ids are echoed and compared.'
+      description: 'Response of /Season/get-seasons: The 20 most recent TBF seasons (domestic and international),
+        newest first: a server cap. Scope check: full: the request''s ids are echoed and compared.'
       properties:
         count:
-          description: Total rows of the list (all pages). The capture refuses a page whose row count
-            differs (a truncated page).
+          description: 'Always 20: the list is server-capped to the 20 most recent seasons, so count is
+            NOT the number of TBF seasons (older ones: get-leagues-and-seasons-by-prefix).'
           type: integer
         data:
           description: The payload (see the data.* rows).
@@ -3855,7 +3950,7 @@ components:
             type: object
           type: array
         hasNextPage:
-          description: true when more pages follow; the capture refuses such a page.
+          description: 'false even though older seasons exist: the cap is silent (see count).'
           type: boolean
         hasPreviousPage:
           description: true when a page precedes this one.
@@ -3868,7 +3963,7 @@ components:
           description: Number of pages (1 with pageSize -1 / PageSize -1, which returns everything).
           type: integer
         pageNumber:
-          description: Page number, 1-based.
+          description: Page returned, 1-based (always 1 with pageSize / PageSize -1).
           type: integer
         problemDetails:
           description: 'Unobserved: null in every sample. When filled: null on success; on errors an object
@@ -3929,7 +4024,8 @@ components:
                       Join the shooter on playerName + jerseyNumber + isHome instead.
                     type: integer
                   playerName:
-                    description: Shooter 'First Last'.
+                    description: Shooter's name 'First Last'; with jerseyNumber + isHome the only usable
+                      join to the player (playerId is another key space).
                     type: string
                   pno:
                     description: Constant placeholder in every sample (0). By name the Genius LiveStats
@@ -4032,7 +4128,8 @@ components:
                       description: Rank (sıra), 1 = first.
                       type: integer
                     takimAdi:
-                      description: Team name, uppercase.
+                      description: 'Team name as registered for that season, uppercase with Turkish letters
+                        (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                       type: string
                     takimIslemId:
                       description: 'Team-season id (teamProcessId = takimIslemId, ''team registration'';
@@ -4075,7 +4172,7 @@ components:
                             description: Row order, 1-based.
                             type: integer
                           teamName:
-                            description: Team name.
+                            description: Name of the team this tie-break row scores, uppercase.
                             type: string
                           teamProcessId:
                             description: 'Team-season id (teamProcessId = takimIslemId, ''team registration'';
@@ -4121,20 +4218,21 @@ components:
     TbfStats:
       description: 'Response of /Match/mac-istatistik: Full box score: every player''s shooting, rebounds,
         assists, +/-, efficiency. Scope check: matchId is always null: the team totals'' points must equal
-        the game''s final score.'
+        the game''s final score, and every player row (side, shirt number, name) must be on the game header''s
+        roster.'
       properties:
         data:
           description: The payload (see the data.* rows).
           properties:
             awayBenchPlayers:
-              description: Away bench players.
+              description: Away non-starters on the team sheet (every away player not in awayTopFive).
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   blocks:
-                    description: Blocks made (blok).
+                    description: Shots this player blocked in this game (blok).
                     type: integer
                   blocksReceived:
                     description: Shots of this player that were blocked (yenilen blok).
@@ -4203,7 +4301,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   rivalFoul:
                     description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4215,7 +4314,7 @@ components:
                     description: Field-goal percentage 0-100, rounded to an integer.
                     type: integer
                   steals:
-                    description: Steals (top çalma).
+                    description: Steals in this game (top çalma).
                     type: integer
                   successfulShots:
                     description: Field goals made, 2PT + 3PT.
@@ -4236,7 +4335,7 @@ components:
                     description: Total rebounds (toplam ribaund).
                     type: integer
                   turnovers:
-                    description: Turnovers (top kaybı).
+                    description: Turnovers committed in this game (top kaybı).
                     type: integer
                   twoPointPercentage:
                     description: Two-point percentage 0-100, integer.
@@ -4270,13 +4369,14 @@ components:
                   type: integer
               type: object
             awayTeamTotal:
-              description: Away team totals.
+              description: The away team's totals for the game (one object, the player rows' stat fields
+                summed).
               properties:
                 assists:
-                  description: Assists (asist).
+                  description: Assists in this game (asist).
                   type: integer
                 blocks:
-                  description: Blocks made (blok).
+                  description: Shots this player blocked in this game (blok).
                   type: integer
                 blocksReceived:
                   description: Shots of this player that were blocked (yenilen blok).
@@ -4344,7 +4444,8 @@ components:
                     in-game player number; not filled here.
                   type: integer
                 points:
-                  description: Points (sayı).
+                  description: Points scored in this game (sayı); on the team-total rows the team's final
+                    score.
                   type: integer
                 rivalFoul:
                   description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4356,7 +4457,7 @@ components:
                   description: Field-goal percentage 0-100, rounded to an integer.
                   type: integer
                 steals:
-                  description: Steals (top çalma).
+                  description: Steals in this game (top çalma).
                   type: integer
                 successfulShots:
                   description: Field goals made, 2PT + 3PT.
@@ -4377,7 +4478,7 @@ components:
                   description: Total rebounds (toplam ribaund).
                   type: integer
                 turnovers:
-                  description: Turnovers (top kaybı).
+                  description: Turnovers committed in this game (top kaybı).
                   type: integer
                 twoPointPercentage:
                   description: Two-point percentage 0-100, integer.
@@ -4394,10 +4495,10 @@ components:
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   blocks:
-                    description: Blocks made (blok).
+                    description: Shots this player blocked in this game (blok).
                     type: integer
                   blocksReceived:
                     description: Shots of this player that were blocked (yenilen blok).
@@ -4466,7 +4567,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   rivalFoul:
                     description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4478,7 +4580,7 @@ components:
                     description: Field-goal percentage 0-100, rounded to an integer.
                     type: integer
                   steals:
-                    description: Steals (top çalma).
+                    description: Steals in this game (top çalma).
                     type: integer
                   successfulShots:
                     description: Field goals made, 2PT + 3PT.
@@ -4499,7 +4601,7 @@ components:
                     description: Total rebounds (toplam ribaund).
                     type: integer
                   turnovers:
-                    description: Turnovers (top kaybı).
+                    description: Turnovers committed in this game (top kaybı).
                     type: integer
                   twoPointPercentage:
                     description: Two-point percentage 0-100, integer.
@@ -4513,14 +4615,14 @@ components:
                 type: object
               type: array
             homeBenchPlayers:
-              description: Home bench players (every non-starter on the sheet).
+              description: Home non-starters on the team sheet (every home player not in homeTopFive).
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   blocks:
-                    description: Blocks made (blok).
+                    description: Shots this player blocked in this game (blok).
                     type: integer
                   blocksReceived:
                     description: Shots of this player that were blocked (yenilen blok).
@@ -4589,7 +4691,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   rivalFoul:
                     description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4601,7 +4704,7 @@ components:
                     description: Field-goal percentage 0-100, rounded to an integer.
                     type: integer
                   steals:
-                    description: Steals (top çalma).
+                    description: Steals in this game (top çalma).
                     type: integer
                   successfulShots:
                     description: Field goals made, 2PT + 3PT.
@@ -4622,7 +4725,7 @@ components:
                     description: Total rebounds (toplam ribaund).
                     type: integer
                   turnovers:
-                    description: Turnovers (top kaybı).
+                    description: Turnovers committed in this game (top kaybı).
                     type: integer
                   twoPointPercentage:
                     description: Two-point percentage 0-100, integer.
@@ -4656,13 +4759,14 @@ components:
                   type: integer
               type: object
             homeTeamTotal:
-              description: Home team totals.
+              description: The home team's totals for the game (one object, the player rows' stat fields
+                summed).
               properties:
                 assists:
-                  description: Assists (asist).
+                  description: Assists in this game (asist).
                   type: integer
                 blocks:
-                  description: Blocks made (blok).
+                  description: Shots this player blocked in this game (blok).
                   type: integer
                 blocksReceived:
                   description: Shots of this player that were blocked (yenilen blok).
@@ -4730,7 +4834,8 @@ components:
                     in-game player number; not filled here.
                   type: integer
                 points:
-                  description: Points (sayı).
+                  description: Points scored in this game (sayı); on the team-total rows the team's final
+                    score.
                   type: integer
                 rivalFoul:
                   description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4742,7 +4847,7 @@ components:
                   description: Field-goal percentage 0-100, rounded to an integer.
                   type: integer
                 steals:
-                  description: Steals (top çalma).
+                  description: Steals in this game (top çalma).
                   type: integer
                 successfulShots:
                   description: Field goals made, 2PT + 3PT.
@@ -4763,7 +4868,7 @@ components:
                   description: Total rebounds (toplam ribaund).
                   type: integer
                 turnovers:
-                  description: Turnovers (top kaybı).
+                  description: Turnovers committed in this game (top kaybı).
                   type: integer
                 twoPointPercentage:
                   description: Two-point percentage 0-100, integer.
@@ -4780,10 +4885,10 @@ components:
               items:
                 properties:
                   assists:
-                    description: Assists (asist).
+                    description: Assists in this game (asist).
                     type: integer
                   blocks:
-                    description: Blocks made (blok).
+                    description: Shots this player blocked in this game (blok).
                     type: integer
                   blocksReceived:
                     description: Shots of this player that were blocked (yenilen blok).
@@ -4852,7 +4957,8 @@ components:
                       in-game player number; not filled here.
                     type: integer
                   points:
-                    description: Points (sayı).
+                    description: Points scored in this game (sayı); on the team-total rows the team's
+                      final score.
                     type: integer
                   rivalFoul:
                     description: 'Fouls drawn: fouls the opponents committed on this player (rakip faul).'
@@ -4864,7 +4970,7 @@ components:
                     description: Field-goal percentage 0-100, rounded to an integer.
                     type: integer
                   steals:
-                    description: Steals (top çalma).
+                    description: Steals in this game (top çalma).
                     type: integer
                   successfulShots:
                     description: Field goals made, 2PT + 3PT.
@@ -4885,7 +4991,7 @@ components:
                     description: Total rebounds (toplam ribaund).
                     type: integer
                   turnovers:
-                    description: Turnovers (top kaybı).
+                    description: Turnovers committed in this game (top kaybı).
                     type: integer
                   twoPointPercentage:
                     description: Two-point percentage 0-100, integer.
@@ -4931,7 +5037,7 @@ components:
                     description: 1 = regulation, 2 = overtime.
                     type: integer
                   quarter:
-                    description: Period number.
+                    description: The period this row scores (1-4; overtime rows unobserved).
                     type: integer
                   score:
                     description: Away points scored IN the period.
@@ -4947,7 +5053,7 @@ components:
                     description: 1 = regulation, 2 = overtime.
                     type: integer
                   quarter:
-                    description: Period number.
+                    description: The period this row scores (1-4; overtime rows unobserved).
                     type: integer
                   score:
                     description: Home points scored IN the period (not cumulative).
@@ -4974,8 +5080,7 @@ components:
                     description: Best home player's photo URL.
                     type: string
                   homeValue:
-                    description: Best home player's value, an integer as a string; null when no home player
-                      has one.
+                    description: Best home player's value, an integer as a string.
                     type: string
                   title:
                     description: 'Stat name in Turkish: ''Sayı'' = points, ''Ribaund'' = rebounds, ''Asist''
@@ -5082,7 +5187,8 @@ components:
                   description: Home venue name.
                   type: string
                 takimAdi:
-                  description: Team name, uppercase.
+                  description: 'Team name as registered for that season, uppercase with Turkish letters
+                    (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                   type: string
                 takimKodu:
                   description: 'Club id (takım = team; key space: TBF clubs, STABLE across seasons and
@@ -5253,7 +5359,8 @@ components:
       type: object
     TbfTeamMatches:
       description: 'Response of /Team/get-team-detail-matches-by-season-and-league: One team-season''s
-        games and record. Scope check: full: the request''s ids are echoed and compared.'
+        games and record. Scope check: no league or season is echoed: the asked team must be takimA or
+        takimB of every game.'
       properties:
         data:
           description: The payload (see the data.* rows).
@@ -5327,7 +5434,9 @@ components:
                     type: string
                   sehir:
                     description: City (şehir) of the venue, uppercase Turkish.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   skorA:
                     description: Home points as a string; '' before the game.
                     type: string
@@ -5408,17 +5517,18 @@ components:
           items:
             properties:
               age:
-                description: Age in years (integer).
+                description: Age in whole years at request time (integer; matches birthDay).
                 type: integer
               birthDay:
                 description: Date of birth 'YYYY-MM-DDT00:00:00' (player public bio).
                 type: string
               country:
-                description: Nationality in TURKISH, uppercase ('TÜRKİYE' = Türkiye / TUR, 'ABD' = United
-                  States / USA); no ISO code on this route.
+                description: Nationality as a TURKISH country name, uppercase, with no code on this route
+                  ('TÜRKİYE' = Türkiye / TUR, 'ABD' = United States / USA). See the Country names table
+                  (tbf-returns.md and README) for the English name and code.
                 type: string
               firstName:
-                description: First name.
+                description: Given name as registered with TBF, mixed case ('Yiğitcan').
                 type: string
               height:
                 description: Height in cm (integer); null when not registered.
@@ -5427,9 +5537,11 @@ components:
                 - 'null'
               jerseyNo:
                 description: Shirt number as a string; null when not assigned.
-                type: string
+                type:
+                - string
+                - 'null'
               lastName:
-                description: Last name.
+                description: Family name as registered with TBF, mixed case ('Saybir').
                 type: string
               macSayisi:
                 description: Games played this season (maç sayısı).
@@ -5482,9 +5594,9 @@ components:
                   the box scores and the {playerId} of the profile route. JSON number: the same id arrives
                   as 22214 or 22214.0 depending on route and season; cast to an integer. (staff members
                   are TBF persons too.)'
-                type: integer
+                type: number
               firstName:
-                description: First name(s), uppercase.
+                description: Given name(s) as registered with TBF, uppercase ('MEVLÜT TULGA').
                 type: string
               job:
                 description: 'Role in Turkish: ''Antrenör'' = head coach, ''Yardımcı Antrenör'' = assistant
@@ -5493,7 +5605,7 @@ components:
                   ''Masör'' = masseur, ''Malzeme Sorumlusu'' = equipment manager (Tofaş 2026-27).'
                 type: string
               lastName:
-                description: Last name, uppercase.
+                description: Family name as registered with TBF, uppercase ('ÖNGÖREN').
                 type: string
               resim:
                 description: Photo URL.
@@ -5502,7 +5614,7 @@ components:
                 description: 'Role code matching job (number): 254 = head coach, 255 = assistant coach,
                   582 = athletic performance coach, 239 = general manager, 244 = administrative manager,
                   262 = physiotherapist, 252 = masseur, 247 = equipment manager.'
-                type: integer
+                type: number
             type: object
           type: array
         isSuccess:
@@ -5563,7 +5675,7 @@ components:
                     description: Per-game average of personal fouls, a STRING with two decimals ('5.67').
                     type: string
                   firstName:
-                    description: First name.
+                    description: Given name as registered with TBF, mixed case ('Yiğitcan').
                     type: string
                   hrOrtalama:
                     description: Per-game average of offensive rebounds (hücum ribaundu), a STRING with
@@ -5574,7 +5686,7 @@ components:
                       when there were no attempts.
                     type: string
                   lastName:
-                    description: Last name.
+                    description: Family name as registered with TBF, mixed case ('Saybir').
                     type: string
                   macSayisi:
                     description: Games played (maç sayısı).
@@ -5677,7 +5789,7 @@ components:
                     description: Season total of personal fouls, an integer as a STRING ('56').
                     type: string
                   firstName:
-                    description: First name.
+                    description: Given name as registered with TBF, mixed case ('Yiğitcan').
                     type: string
                   hrToplam:
                     description: Season total of offensive rebounds (hücum ribaundu), an integer as a
@@ -5688,7 +5800,7 @@ components:
                       when there were no attempts.
                     type: string
                   lastName:
-                    description: Last name.
+                    description: Family name as registered with TBF, mixed case ('Saybir').
                     type: string
                   macSayisi:
                     description: Games played (maç sayısı).
@@ -5977,7 +6089,8 @@ components:
                 description: Team logo URL.
                 type: string
               teamName:
-                description: Team name, uppercase.
+                description: 'Team name as registered for that season, uppercase with Turkish letters
+                  (sponsor name: ''PİZZABULLS BORDO BANDIRMA'').'
                 type: string
               teamProcessId:
                 description: 'Team-season id (teamProcessId = takimIslemId, ''team registration''; key
@@ -6200,8 +6313,10 @@ paths:
   /Match/box-score:
     get:
       description: 'Short box score: starters and bench per side, team totals. Scope check: matchId is
-        always null: the team totals'' points must equal the game''s final score. Partly scoped (README
-        list): no id is echoed (matchId null), so the team totals must equal the final score.'
+        always null: the team totals'' points must equal the game''s final score, and every player row
+        (side, shirt number, name) must be on the game header''s roster. Partly scoped (README list):
+        no id is echoed (matchId null), so the team totals must equal the final score and every player
+        row (side from the block, shirt number, name) must be on the header''s roster.'
       operationId: get_tbf_box
       parameters:
       - description: TBF game id (matchId of the schedule routes).
@@ -6329,8 +6444,9 @@ paths:
   /Match/get-match-report-with-players:
     get:
       description: 'Team comparison report with the best player per stat. Scope check: no id is echoed:
-        sY_A / sY_B (points) must equal the game''s final score, macSayisi_A / _B = 1. Partly scoped:
-        the points must equal the final score and macSayisi = 1.'
+        sY_A / sY_B (points) must equal the game''s final score, macSayisi_A / _B = 1, and every best
+        player must be on that side of the header''s roster. Partly scoped: the points must equal the
+        final score, macSayisi = 1, and every best player must be on that side of the header roster.'
       operationId: get_tbf_report
       parameters:
       - description: TBF game id (matchId of the schedule routes).
@@ -6381,8 +6497,9 @@ paths:
   /Match/mac-istatistik:
     get:
       description: 'Full box score: every player''s shooting, rebounds, assists, +/-, efficiency. Scope
-        check: matchId is always null: the team totals'' points must equal the game''s final score. Partly
-        scoped like box-score. twoPointShots / threePointShots / freeThrows are MADE counts.'
+        check: matchId is always null: the team totals'' points must equal the game''s final score, and
+        every player row (side, shirt number, name) must be on the game header''s roster. Partly scoped
+        like box-score. twoPointShots / threePointShots / freeThrows are MADE counts.'
       operationId: get_tbf_stats
       parameters:
       - description: TBF game id (matchId of the schedule routes).
@@ -6410,7 +6527,8 @@ paths:
   /Match/mac-leader:
     get:
       description: 'Game leaders per stat category (top 5 per category). Scope check: full: the request''s
-        ids are echoed and compared. Top 5 of both teams together per category; value is a number.'
+        ids are echoed and compared. Top 5 of both teams together per category; value is a number. Every
+        leader must be on the header roster (checked).'
       operationId: get_tbf_leaders
       parameters:
       - description: TBF game id (matchId of the schedule routes).
@@ -6433,7 +6551,8 @@ paths:
     get:
       description: 'Game summary: period scores, top performers, team comparison. Scope check: full: the
         request''s ids are echoed and compared. Period scores are per period, not cumulative; their sum
-        equals the final score (checked).'
+        equals the final score (checked). Highlight players must be on that side of the header roster
+        (checked).'
       operationId: get_tbf_summary
       parameters:
       - description: TBF game id (matchId of the schedule routes).
@@ -6484,10 +6603,10 @@ paths:
       summary: Every field-goal attempt with x / y (percent of the court)
   /Player/get-3Point-leaders:
     get:
-      description: 'Season leaders in three-point field goals made (3 Sayılık Atış): totals (sum) and
-        per-game (avg). Scope check: nothing is echoed: only a non-empty sum list is required. Not scoped
-        (README list): nothing echoes the league or season. grup holds the value; takimKodu is the team-season
-        id.'
+      description: 'Season top 20 in three-point field goals made (3 Sayılık Atış): totals (sum) and per-game
+        (avg), a server cap. Scope check: nothing is echoed: sum and avg must each hold exactly the server''s
+        top 20. CAPPED LIST: always the server''s top 20 in sum and in avg (paging params ignored); the
+        capture asserts exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_3Point
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6513,13 +6632,14 @@ paths:
                 $ref: '#/components/schemas/TbfLead3point'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in three-point field goals made (3 Sayılık Atış): totals (sum) and per-game
-        (avg)'
+      summary: 'Season top 20 in three-point field goals made (3 Sayılık Atış): totals (sum) and per-game
+        (avg), a server cap'
   /Player/get-asist-leaders:
     get:
-      description: 'Season leaders in assists (Asist): totals (sum) and per-game (avg). Scope check: nothing
-        is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes the
-        league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in assists (Asist): totals (sum) and per-game (avg), a server cap. Scope
+        check: nothing is echoed: sum and avg must each hold exactly the server''s top 20. CAPPED LIST:
+        always the server''s top 20 in sum and in avg (paging params ignored); the capture asserts exactly
+        20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_asist
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6545,12 +6665,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadAsist'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in assists (Asist): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in assists (Asist): totals (sum) and per-game (avg), a server cap'
   /Player/get-blok-leaders:
     get:
-      description: 'Season leaders in blocks (Blok): totals (sum) and per-game (avg). Scope check: nothing
-        is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes the
-        league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in blocks (Blok): totals (sum) and per-game (avg), a server cap. Scope
+        check: nothing is echoed: sum and avg must each hold exactly the server''s top 20. CAPPED LIST:
+        always the server''s top 20 in sum and in avg (paging params ignored); the capture asserts exactly
+        20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_blok
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6576,12 +6697,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadBlok'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in blocks (Blok): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in blocks (Blok): totals (sum) and per-game (avg), a server cap'
   /Player/get-duration-leaders:
     get:
-      description: 'Season leaders in minutes played (Süre): totals (sum) and per-game (avg). Scope check:
-        nothing is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes
-        the league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in minutes played (Süre): totals (sum) and per-game (avg), a server
+        cap. Scope check: nothing is echoed: sum and avg must each hold exactly the server''s top 20.
+        CAPPED LIST: always the server''s top 20 in sum and in avg (paging params ignored); the capture
+        asserts exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_duration
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6607,12 +6729,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadDuration'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in minutes played (Süre): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in minutes played (Süre): totals (sum) and per-game (avg), a server cap'
   /Player/get-mvp-leaders:
     get:
-      description: 'Season leaders in efficiency rating (Verimlilik): totals (sum) and per-game (avg).
-        Scope check: nothing is echoed: only a non-empty sum list is required. Not scoped (README list):
-        nothing echoes the league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in efficiency rating (Verimlilik): totals (sum) and per-game (avg),
+        a server cap. Scope check: nothing is echoed: sum and avg must each hold exactly the server''s
+        top 20. CAPPED LIST: always the server''s top 20 in sum and in avg (paging params ignored); the
+        capture asserts exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_mvp
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6638,7 +6761,8 @@ paths:
                 $ref: '#/components/schemas/TbfLeadMvp'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in efficiency rating (Verimlilik): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in efficiency rating (Verimlilik): totals (sum) and per-game (avg), a server
+        cap'
   /Player/get-player-detail-profile-and-career-info/{playerId}:
     get:
       description: 'One player''s profile and career per season / competition. Scope check: no player
@@ -6722,9 +6846,10 @@ paths:
       summary: Every player registered in one league-season
   /Player/get-point-leaders:
     get:
-      description: 'Season leaders in points (Sayı): totals (sum) and per-game (avg). Scope check: nothing
-        is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes the
-        league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in points (Sayı): totals (sum) and per-game (avg), a server cap. Scope
+        check: nothing is echoed: sum and avg must each hold exactly the server''s top 20. CAPPED LIST:
+        always the server''s top 20 in sum and in avg (paging params ignored); the capture asserts exactly
+        20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_point
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6750,12 +6875,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadPoint'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in points (Sayı): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in points (Sayı): totals (sum) and per-game (avg), a server cap'
   /Player/get-ribound-leaders:
     get:
-      description: 'Season leaders in rebounds (Ribaund): totals (sum) and per-game (avg). Scope check:
-        nothing is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes
-        the league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in rebounds (Ribaund): totals (sum) and per-game (avg), a server cap.
+        Scope check: nothing is echoed: sum and avg must each hold exactly the server''s top 20. CAPPED
+        LIST: always the server''s top 20 in sum and in avg (paging params ignored); the capture asserts
+        exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_ribound
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6781,12 +6907,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadRibound'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in rebounds (Ribaund): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in rebounds (Ribaund): totals (sum) and per-game (avg), a server cap'
   /Player/get-top-calma-leaders:
     get:
-      description: 'Season leaders in steals (Top Çalma): totals (sum) and per-game (avg). Scope check:
-        nothing is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes
-        the league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in steals (Top Çalma): totals (sum) and per-game (avg), a server cap.
+        Scope check: nothing is echoed: sum and avg must each hold exactly the server''s top 20. CAPPED
+        LIST: always the server''s top 20 in sum and in avg (paging params ignored); the capture asserts
+        exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_top-calma
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6812,12 +6939,13 @@ paths:
                 $ref: '#/components/schemas/TbfLeadTopCalma'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in steals (Top Çalma): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in steals (Top Çalma): totals (sum) and per-game (avg), a server cap'
   /Player/get-top-kaybi-leaders:
     get:
-      description: 'Season leaders in turnovers (Top Kaybı): totals (sum) and per-game (avg). Scope check:
-        nothing is echoed: only a non-empty sum list is required. Not scoped (README list): nothing echoes
-        the league or season. grup holds the value; takimKodu is the team-season id.'
+      description: 'Season top 20 in turnovers (Top Kaybı): totals (sum) and per-game (avg), a server
+        cap. Scope check: nothing is echoed: sum and avg must each hold exactly the server''s top 20.
+        CAPPED LIST: always the server''s top 20 in sum and in avg (paging params ignored); the capture
+        asserts exactly 20 each. Not scoped (README list): nothing echoes the league or season.'
       operationId: get_tbf_lead_top-kaybi
       parameters:
       - description: TBF season id (174 = 2026-2027; see Season/get-seasons).
@@ -6843,12 +6971,15 @@ paths:
                 $ref: '#/components/schemas/TbfLeadTopKaybi'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: 'Season leaders in turnovers (Top Kaybı): totals (sum) and per-game (avg)'
+      summary: 'Season top 20 in turnovers (Top Kaybı): totals (sum) and per-game (avg), a server cap'
   /Season/get-seasons:
     get:
-      description: 'Every TBF season (domestic and international), newest first. Scope check: full: the
-        request''s ids are echoed and compared. Only the latest 20 seasons are listed (back to 2017-2018);
-        older activities still resolve by prefix (BSL back to 1966-67).'
+      description: 'The 20 most recent TBF seasons (domestic and international), newest first: a server
+        cap. Scope check: full: the request''s ids are echoed and compared. CAPPED LIST: always exactly
+        the 20 most recent seasons (2017-18 onward on 2026-10-12), whatever the paging params; count 20,
+        hasNextPage false. The capture banks it as an explicit exemption and asserts 20 rows. Older seasons
+        (BSL back to 1966-67) are reached through League/get-leagues-and-seasons-by-prefix (sezon_ID /
+        faaliyet_ID per season), never through this list.'
       operationId: get_tbf_seasons
       parameters: []
       responses:
@@ -6859,7 +6990,7 @@ paths:
                 $ref: '#/components/schemas/TbfSeasons'
           description: TBF envelope {data, isSuccess, ...}. Unknown ids often answer 200 with empty or
             zeroed data (refused by the capture).
-      summary: Every TBF season (domestic and international), newest first
+      summary: 'The 20 most recent TBF seasons (domestic and international), newest first: a server cap'
   /Team/get-team-active-player-list-by-season-and-league:
     get:
       description: 'One team-season''s roster. Scope check: nothing is echoed: only a non-empty roster
@@ -6938,8 +7069,9 @@ paths:
       summary: 'One team-season: season totals and averages, and club details'
   /Team/get-team-detail-matches-by-season-and-league:
     get:
-      description: 'One team-season''s games and record. Scope check: full: the request''s ids are echoed
-        and compared. Includes scheduled games (durumId 4 / 19, empty scores).'
+      description: 'One team-season''s games and record. Scope check: no league or season is echoed: the
+        asked team must be takimA or takimB of every game. Includes scheduled games (durumId 4 / 19, empty
+        scores).'
       operationId: get_tbf_team_matches
       parameters:
       - description: Activity id = league-season (22214 = BSL 2026-27; see League/get-leagues-and-seasons-by-prefix
