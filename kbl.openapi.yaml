@@ -19,7 +19,8 @@ components:
               'hd1997').
             type: string
           teamName:
-            description: Team short name (Korean, no space, e.g. '창원LG').
+            description: Team short name (Korean, no space, e.g. '창원LG' = Changwon LG); the English form
+              is `teamNameEn`.
             type: string
           teamNameEn:
             description: Team short name in English.
@@ -48,7 +49,8 @@ components:
           type: string
       type: object
     LeaguePlayoffGlkey:
-      description: Playoff bracket, format used through 2023-24 (seasonCode < 45).
+      description: Playoff bracket, format used through 2023-24 (seasonCode < 45); takes the REGULAR-SEASON
+        glkey (S43G01).
       properties:
         defaultRank:
           description: Final regular-season standings that seed the playoffs (top six).
@@ -75,7 +77,8 @@ components:
                   as 'hd1997').
                 type: string
               teamName1:
-                description: Team short name (Korean).
+                description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+                  `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                 type: string
               teamName2:
                 description: Team full name (Korean).
@@ -113,7 +116,8 @@ components:
                   as 'hd1997').
                 type: string
               teamName1:
-                description: Team short name (Korean).
+                description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+                  `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                 type: string
               teamName2:
                 description: Team full name (Korean).
@@ -154,7 +158,8 @@ components:
                   as 'hd1997').
                 type: string
               teamName1:
-                description: Team short name (Korean).
+                description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+                  `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                 type: string
               teamName2:
                 description: Team full name (Korean).
@@ -198,7 +203,8 @@ components:
                   as 'hd1997').
                 type: string
               teamName1:
-                description: Team short name (Korean).
+                description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+                  `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                 type: string
               teamName2:
                 description: Team full name (Korean).
@@ -210,7 +216,8 @@ components:
           type: array
       type: object
     LeaguePlayoffNewGlkey:
-      description: Playoff bracket, format used from 2024-25 (seasonCode >= 45).
+      description: Playoff bracket, format used from 2024-25 (seasonCode >= 45); takes the REGULAR-SEASON
+        glkey (S45G01; S45G03 answers empty).
       properties:
         defaultRank:
           description: Final regular-season standings that seed the playoffs (top six).
@@ -237,7 +244,8 @@ components:
                   as 'hd1997').
                 type: string
               teamName1:
-                description: Team short name (Korean).
+                description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+                  `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                 type: string
               teamName2:
                 description: Team full name (Korean).
@@ -391,10 +399,12 @@ components:
                       and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
                     type: string
                   tnameA:
-                    description: Away team short name (Korean).
+                    description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                   tnameH:
-                    description: Home team short name (Korean).
+                    description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                 type: object
               type: array
@@ -446,10 +456,12 @@ components:
                       and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
                     type: string
                   tnameA:
-                    description: Away team short name (Korean).
+                    description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                   tnameH:
-                    description: Home team short name (Korean).
+                    description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                 type: object
               type: array
@@ -501,10 +513,12 @@ components:
                       and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
                     type: string
                   tnameA:
-                    description: Away team short name (Korean).
+                    description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                   tnameH:
-                    description: Home team short name (Korean).
+                    description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                 type: object
               type: array
@@ -556,10 +570,12 @@ components:
                       and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
                     type: string
                   tnameA:
-                    description: Away team short name (Korean).
+                    description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                   tnameH:
-                    description: Home team short name (Korean).
+                    description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                 type: object
               type: array
@@ -611,10 +627,12 @@ components:
                       and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
                     type: string
                   tnameA:
-                    description: Away team short name (Korean).
+                    description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                   tnameH:
-                    description: Home team short name (Korean).
+                    description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English
+                      names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
                     type: string
                 type: object
               type: array
@@ -732,12 +750,12 @@ components:
               for the competition (glkey).
             type: integer
           fg:
-            description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft holds
-              on every sampled box). Team season total for the competition (glkey).
+            description: 'Two-point field goals made, dunks included: 201 + 207 rows (score = 2*fg + 3*threep
+              + ft holds on every sampled box). Team season total for the competition (glkey).'
             type: integer
           fgA:
-            description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208). Team
-              season total for the competition (glkey).
+            description: 'Two-point field-goal attempts, made + missed, dunks included: 201 + 202 + 207
+              + 208 rows (checked per team on S47G01N49). Team season total for the competition (glkey).'
             type: integer
           foulTot:
             description: Fouls committed. Team season total for the competition (glkey).
@@ -846,7 +864,8 @@ components:
               'hd1997').
             type: string
           teamName1:
-            description: Team short name (Korean).
+            description: 'Team short name (Korean, e.g. ''원주 DB'' = Wonju DB). English names: /common/teamList
+              `teamNameEn` / `teamNameFullEn`, joined on the team code.'
             type: string
           teamName2:
             description: Team full name (Korean).
@@ -984,7 +1003,8 @@ components:
               'hd1997').
             type: string
           tname:
-            description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+            description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was at the time.
+              English names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
             type: string
           tnameF:
             description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
@@ -1101,7 +1121,9 @@ components:
                         today. D-League sides have their own codes (`teamCodeD`).'
                       type: string
                     tname:
-                      description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                      description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was
+                        at the time. English names: /common/teamList `teamNameEn` / `teamNameFullEn`,
+                        joined on the team code.'
                       type: string
                   type: object
                 rank:
@@ -1159,7 +1181,9 @@ components:
                   own codes (`teamCodeD`).'
                 type: string
               tname:
-                description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was at the
+                  time. English names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the
+                  team code.'
                 type: string
             type: object
           records:
@@ -1196,12 +1220,12 @@ components:
                   for the competition (glkey).
                 type: integer
               fg:
-                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
-                  holds on every sampled box). Season total for the competition (glkey).
+                description: 'Two-point field goals made, dunks included: 201 + 207 rows (score = 2*fg
+                  + 3*threep + ft holds on every sampled box). Season total for the competition (glkey).'
                 type: integer
               fgA:
-                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
-                  Season total for the competition (glkey).
+                description: 'Two-point field-goal attempts, made + missed, dunks included: 201 + 202
+                  + 207 + 208 rows (checked per team on S47G01N49). Season total for the competition (glkey).'
                 type: integer
               fgt:
                 description: Field goals made, two- and three-point (fg + threep). Season total for the
@@ -1425,7 +1449,8 @@ components:
               description: CSS logo class of the home team, era-specific (e.g. 'hd1997').
               type: string
             tnameA:
-              description: Away team short name (Korean).
+              description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English names:
+                /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
               type: string
             tnameFA:
               description: Away team full name (Korean).
@@ -1434,7 +1459,8 @@ components:
               description: Home team full name (Korean).
               type: string
             tnameH:
-              description: Home team short name (Korean).
+              description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English names:
+                /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
               type: string
             tv:
               description: Broadcaster name(s), e.g. 'tvN SPORTS', 'SPOTV2 / SPOTV ON'.
@@ -1526,7 +1552,9 @@ components:
                     have their own codes (`teamCodeD`).'
                   type: string
                 tname:
-                  description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                  description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was at the
+                    time. English names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the
+                    team code.'
                   type: string
                 tnameF:
                   description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
@@ -1562,7 +1590,9 @@ components:
                     have their own codes (`teamCodeD`).'
                   type: string
                 tname:
-                  description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                  description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was at the
+                    time. English names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the
+                    team code.'
                   type: string
                 tnameF:
                   description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
@@ -1842,7 +1872,9 @@ components:
                   own codes (`teamCodeD`).'
                 type: string
               tname:
-                description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                description: 'Team short name (Korean, e.g. ''창원 LG'' = Changwon LG), as it was at the
+                  time. English names: /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the
+                  team code.'
                 type: string
             type: object
           records:
@@ -1895,12 +1927,12 @@ components:
                   in 1997-98); 0 in recent seasons, where fast breaks are team rows (`tfb`). This game.
                 type: integer
               fg:
-                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
-                  holds on every sampled box). This game.
+                description: 'Two-point field goals made, dunks included: 201 + 207 rows (score = 2*fg
+                  + 3*threep + ft holds on every sampled box). This game.'
                 type: integer
               fgA:
-                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
-                  This game.
+                description: 'Two-point field-goal attempts, made + missed, dunks included: 201 + 202
+                  + 207 + 208 rows (checked per team on S47G01N49). This game.'
                 type: integer
               fgt:
                 description: Field goals made, two- and three-point (fg + threep). This game.
@@ -2098,12 +2130,12 @@ components:
                 description: Fast-break points. This game, team total.
                 type: integer
               fg:
-                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
-                  holds on every sampled box). This game, team total.
+                description: 'Two-point field goals made, dunks included: 201 + 207 rows (score = 2*fg
+                  + 3*threep + ft holds on every sampled box). This game, team total.'
                 type: integer
               fgA:
-                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
-                  This game, team total.
+                description: 'Two-point field-goal attempts, made + missed, dunks included: 201 + 202
+                  + 207 + 208 rows (checked per team on S47G01N49). This game, team total.'
                 type: integer
               fgt:
                 description: Field goals made, two- and three-point (fg + threep). This game, team total.
@@ -2404,7 +2436,8 @@ components:
               sides have their own codes (`teamCodeD`).'
             type: string
           tnameA:
-            description: Away team short name (Korean).
+            description: 'Away team short name (Korean, e.g. ''창원 LG'' = Changwon LG). English names:
+              /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
             type: string
           tnameFA:
             description: Away team full name (Korean).
@@ -2413,7 +2446,8 @@ components:
             description: Home team full name (Korean).
             type: string
           tnameH:
-            description: Home team short name (Korean).
+            description: 'Home team short name (Korean, e.g. ''고양 소노'' = Goyang Sono). English names:
+              /common/teamList `teamNameEn` / `teamNameFullEn`, joined on the team code.'
             type: string
           tv:
             description: Broadcaster name(s), e.g. 'tvN SPORTS', 'SPOTV2 / SPOTV ON'.
@@ -2610,7 +2644,8 @@ paths:
           description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
             오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
             capture.'
-      summary: Playoff bracket, format used from 2024-25 (seasonCode >= 45)
+      summary: Playoff bracket, format used from 2024-25 (seasonCode >= 45); takes the REGULAR-SEASON
+        glkey (S45G01; S45G03 answers empty)
   /league/playoff/{glkey}:
     get:
       description: The site calls this route for seasonCode < 45 and /league/playoff/new for 45+. The
@@ -2646,7 +2681,8 @@ paths:
           description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
             오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
             capture.'
-      summary: Playoff bracket, format used through 2023-24 (seasonCode < 45)
+      summary: Playoff bracket, format used through 2023-24 (seasonCode < 45); takes the REGULAR-SEASON
+        glkey (S43G01)
   /league/rank/team:
     get:
       description: 'Not scope-checked: no parameter; the active season only.'
