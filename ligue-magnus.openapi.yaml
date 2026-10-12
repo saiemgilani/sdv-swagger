@@ -1,0 +1,2192 @@
+components:
+  schemas:
+    GetClassementsphase:
+      properties:
+        data:
+          properties:
+            data:
+              properties:
+                classement_id:
+                  type: integer
+                positions:
+                  items:
+                    properties:
+                      dernier_resultats:
+                        items:
+                          properties:
+                            match_nul:
+                              type: boolean
+                            participant_gagnant_id:
+                              type: integer
+                            scores:
+                              items:
+                                properties:
+                                  equipe_id:
+                                    type: integer
+                                  participant_id:
+                                    type: integer
+                                  score:
+                                    type: integer
+                                  sportif_rencontre_id:
+                                    type: integer
+                                type: object
+                              type: array
+                            sportif_rencontre_id:
+                              type: integer
+                          type: object
+                        type: array
+                      equipe:
+                        properties:
+                          abreviation:
+                            type: string
+                          code:
+                            type: string
+                          id:
+                            type: integer
+                          logo:
+                            type: string
+                          nom:
+                            type: string
+                          nom_court:
+                            type: string
+                          proprietaire:
+                            properties:
+                              code:
+                                type: string
+                            type: object
+                        type: object
+                      logo:
+                        type: string
+                      nombre_but_concede:
+                        type: integer
+                      nombre_but_marque:
+                        type: integer
+                      nombre_defaite:
+                        type: integer
+                      nombre_dprl:
+                        type: integer
+                      nombre_nul:
+                        type: integer
+                      nombre_penalites:
+                        type: integer
+                      nombre_point:
+                        type: integer
+                      nombre_rencontres_joues:
+                        type: integer
+                      nombre_victoire:
+                        type: integer
+                      nombre_vprl:
+                        type: integer
+                      participant_id:
+                        type: integer
+                      position:
+                        type: integer
+                    type: object
+                  type: array
+              type: object
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetCompetitionByType:
+      properties:
+        data:
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  libelle:
+                    type: string
+                  parametres:
+                    properties:
+                      publier_sur_site:
+                        type: boolean
+                      url_externe:
+                        type: string
+                    type: object
+                  saison:
+                    type: integer
+                  type:
+                    properties:
+                      code:
+                        type: string
+                      created_at:
+                        type: string
+                      id:
+                        type: integer
+                      libelle:
+                        type: string
+                      updated_at:
+                        type: string
+                    type: object
+                type: object
+              type: array
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetEquipes:
+      properties:
+        data:
+          properties:
+            data:
+              items:
+                properties:
+                  abreviation:
+                    type: string
+                  id:
+                    type: integer
+                  id_compet:
+                    items:
+                      type: integer
+                    type: array
+                  libelle:
+                    type: string
+                  libelle_complet:
+                    type: string
+                  libelle_court:
+                    type: string
+                  logo:
+                    type: string
+                  sexe:
+                    type: string
+                  structure:
+                    properties:
+                      code:
+                        type: string
+                      etat:
+                        type: string
+                      id:
+                        type: integer
+                      logo:
+                        type: string
+                      nom:
+                        type: string
+                      nom_court:
+                        type: string
+                      type:
+                        type: string
+                    type: object
+                type: object
+              type: array
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetListeTours:
+      properties:
+        data:
+          properties:
+            data:
+              items:
+                properties:
+                  competition:
+                    properties:
+                      id:
+                        type: integer
+                      libelle:
+                        type: string
+                      parametres:
+                        properties:
+                          publier_sur_site:
+                            type: boolean
+                          url_externe:
+                            type: string
+                        type: object
+                      saison:
+                        type: integer
+                      type:
+                        properties:
+                          code:
+                            type: string
+                          created_at:
+                            type: string
+                          id:
+                            type: integer
+                          libelle:
+                            type: string
+                          updated_at:
+                            type: string
+                        type: object
+                    type: object
+                  date_debut:
+                    type: string
+                  date_fin:
+                    type: string
+                  id:
+                    type: integer
+                  libelle:
+                    type:
+                    - 'null'
+                  phase:
+                    properties:
+                      competition_libelle:
+                        type: string
+                      id:
+                        type: integer
+                      libelle:
+                        type: string
+                      parametrage:
+                        properties:
+                          aller_retour:
+                            type: integer
+                          appuis:
+                            type: integer
+                          avec_bascule_auto:
+                            type: boolean
+                          avec_classement_final:
+                            type: boolean
+                          extra_poule:
+                            type: boolean
+                          grille_id:
+                            type:
+                            - 'null'
+                          nombre_groupe:
+                            type: integer
+                          nombre_match_par_confrontation:
+                            type: integer
+                          nombre_participant:
+                            type: integer
+                          nombre_plateaux:
+                            type:
+                            - 'null'
+                          petite_finale:
+                            type: boolean
+                          phase_finale:
+                            type: boolean
+                          prolongation:
+                            type: boolean
+                          score_cumule:
+                            type: boolean
+                          type_assignation:
+                            type: string
+                        type: object
+                      type_phase:
+                        type: string
+                      visible:
+                        type: boolean
+                    type: object
+                  phase_id:
+                    type: integer
+                  rencontres:
+                    type:
+                    - 'null'
+                  tour:
+                    type: integer
+                type: object
+              type: array
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetPhases:
+      properties:
+        data:
+          properties:
+            data:
+              items:
+                properties:
+                  competition_libelle:
+                    type: string
+                  id:
+                    type: integer
+                  libelle:
+                    type: string
+                  parametrage:
+                    properties:
+                      aller_retour:
+                        type: integer
+                      appuis:
+                        type: integer
+                      avec_bascule_auto:
+                        type: boolean
+                      avec_classement_final:
+                        type: boolean
+                      extra_poule:
+                        type: boolean
+                      grille_id:
+                        type:
+                        - 'null'
+                      nombre_groupe:
+                        type: integer
+                      nombre_match_par_confrontation:
+                        type: integer
+                      nombre_participant:
+                        type: integer
+                      nombre_plateaux:
+                        type:
+                        - 'null'
+                      petite_finale:
+                        type: boolean
+                      phase_finale:
+                        type: boolean
+                      prolongation:
+                        type: boolean
+                      score_cumule:
+                        type: boolean
+                      type_assignation:
+                        type: string
+                    type: object
+                  type_phase:
+                    type: string
+                  visible:
+                    type: boolean
+                type: object
+              type: array
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetRencontres:
+      properties:
+        data:
+          properties:
+            data:
+              items:
+                properties:
+                  calendrier:
+                    properties:
+                      date_debut:
+                        type: string
+                      date_fin:
+                        type: string
+                    type: object
+                  competition:
+                    properties:
+                      id:
+                        type: integer
+                      libelle:
+                        type: string
+                      parametres:
+                        properties:
+                          publier_sur_site:
+                            type: boolean
+                          url_externe:
+                            type: string
+                        type: object
+                      saison:
+                        type: integer
+                      type:
+                        properties:
+                          code:
+                            type: string
+                          created_at:
+                            type: string
+                          id:
+                            type: integer
+                          libelle:
+                            type: string
+                          updated_at:
+                            type: string
+                        type: object
+                    type: object
+                  date_rencontre:
+                    type: string
+                  en_cours:
+                    type: boolean
+                  etat:
+                    type: string
+                  id:
+                    type: integer
+                  infos_complementaires:
+                    type: string
+                  lieu_de_pratique:
+                    properties:
+                      id:
+                        type: integer
+                      nom:
+                        type: string
+                    type: object
+                  lot:
+                    type:
+                    - 'null'
+                  phase:
+                    properties:
+                      competition_libelle:
+                        type: string
+                      id:
+                        type: integer
+                      libelle:
+                        type: string
+                      parametrage:
+                        properties:
+                          aller_retour:
+                            type: integer
+                          appuis:
+                            type: integer
+                          avec_bascule_auto:
+                            type: boolean
+                          avec_classement_final:
+                            type: boolean
+                          extra_poule:
+                            type: boolean
+                          grille_id:
+                            type:
+                            - 'null'
+                          nombre_groupe:
+                            type: integer
+                          nombre_match_par_confrontation:
+                            type: integer
+                          nombre_participant:
+                            type: integer
+                          nombre_plateaux:
+                            type:
+                            - 'null'
+                          petite_finale:
+                            type: boolean
+                          phase_finale:
+                            type: boolean
+                          prolongation:
+                            type: boolean
+                          score_cumule:
+                            type: boolean
+                          type_assignation:
+                            type: string
+                        type: object
+                      type_phase:
+                        type: string
+                      visible:
+                        type: boolean
+                    type: object
+                  phase_id:
+                    type: integer
+                  receveur:
+                    properties:
+                      abreviation:
+                        type: string
+                      id:
+                        type: integer
+                      id_compet:
+                        items:
+                          type: integer
+                        type: array
+                      libelle:
+                        type: string
+                      libelle_complet:
+                        type: string
+                      libelle_court:
+                        type: string
+                      logo:
+                        type: string
+                      sexe:
+                        type: string
+                      structure:
+                        properties:
+                          code:
+                            type: string
+                          etat:
+                            type: string
+                          id:
+                            type: integer
+                          logo:
+                            type: string
+                          nom:
+                            type: string
+                          nom_court:
+                            type: string
+                          type:
+                            type: string
+                        type: object
+                    type: object
+                  rencontre_libelle:
+                    type: string
+                  score:
+                    items:
+                      properties:
+                        equipe_id:
+                          type: integer
+                        participant_id:
+                          type: integer
+                        score:
+                          type: integer
+                        sportif_rencontre_id:
+                          type: integer
+                      type: object
+                    type: array
+                  tour:
+                    type: integer
+                  tour_libelle:
+                    type:
+                    - 'null'
+                  victoire_par:
+                    type: string
+                  visiteur:
+                    properties:
+                      abreviation:
+                        type: string
+                      id:
+                        type: integer
+                      id_compet:
+                        items:
+                          type: integer
+                        type: array
+                      libelle:
+                        type: string
+                      libelle_complet:
+                        type: string
+                      libelle_court:
+                        type: string
+                      logo:
+                        type: string
+                      sexe:
+                        type: string
+                      structure:
+                        properties:
+                          code:
+                            type: string
+                          etat:
+                            type: string
+                          id:
+                            type: integer
+                          logo:
+                            type: string
+                          nom:
+                            type: string
+                          nom_court:
+                            type: string
+                          type:
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              type: array
+            links:
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                next:
+                  type:
+                  - 'null'
+                prev:
+                  type:
+                  - 'null'
+              type: object
+            meta:
+              properties:
+                current_page:
+                  type: integer
+                from:
+                  type: integer
+                last_page:
+                  type: integer
+                links:
+                  items:
+                    properties:
+                      active:
+                        type: boolean
+                      label:
+                        type: string
+                      page:
+                        type:
+                        - integer
+                        - 'null'
+                      url:
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+                  type: array
+                path:
+                  type: string
+                per_page:
+                  type: integer
+                to:
+                  type: integer
+                total:
+                  type: integer
+              type: object
+          type: object
+        success:
+          type: boolean
+      type: object
+    GetRencontrestours:
+      properties:
+        data:
+          properties:
+            data:
+              properties:
+                competition:
+                  properties:
+                    id:
+                      type: integer
+                    libelle:
+                      type: string
+                    parametres:
+                      properties:
+                        publier_sur_site:
+                          type: boolean
+                        url_externe:
+                          type: string
+                      type: object
+                    saison:
+                      type: integer
+                    type:
+                      properties:
+                        code:
+                          type: string
+                        created_at:
+                          type: string
+                        id:
+                          type: integer
+                        libelle:
+                          type: string
+                        updated_at:
+                          type: string
+                      type: object
+                  type: object
+                date_debut:
+                  type: string
+                date_fin:
+                  type: string
+                id:
+                  type: integer
+                libelle:
+                  type:
+                  - 'null'
+                phase:
+                  properties:
+                    competition_libelle:
+                      type: string
+                    id:
+                      type: integer
+                    libelle:
+                      type: string
+                    parametrage:
+                      properties:
+                        aller_retour:
+                          type: integer
+                        appuis:
+                          type: integer
+                        avec_bascule_auto:
+                          type: boolean
+                        avec_classement_final:
+                          type: boolean
+                        extra_poule:
+                          type: boolean
+                        grille_id:
+                          type:
+                          - 'null'
+                        nombre_groupe:
+                          type: integer
+                        nombre_match_par_confrontation:
+                          type: integer
+                        nombre_participant:
+                          type: integer
+                        nombre_plateaux:
+                          type:
+                          - 'null'
+                        petite_finale:
+                          type: boolean
+                        phase_finale:
+                          type: boolean
+                        prolongation:
+                          type: boolean
+                        score_cumule:
+                          type: boolean
+                        type_assignation:
+                          type: string
+                      type: object
+                    type_phase:
+                      type: string
+                    visible:
+                      type: boolean
+                  type: object
+                phase_id:
+                  type: integer
+                rencontres:
+                  items:
+                    properties:
+                      date_rencontre:
+                        type: string
+                      en_cours:
+                        type: boolean
+                      etat:
+                        type: string
+                      id:
+                        type: integer
+                      infos_complementaires:
+                        type: string
+                      lieu_de_pratique:
+                        properties:
+                          id:
+                            type: integer
+                          nom:
+                            type: string
+                        type: object
+                      poule:
+                        type:
+                        - 'null'
+                      receveur:
+                        properties:
+                          abreviation:
+                            type: string
+                          id:
+                            type: integer
+                          id_compet:
+                            items:
+                              type: integer
+                            type: array
+                          libelle:
+                            type: string
+                          libelle_complet:
+                            type: string
+                          libelle_court:
+                            type: string
+                          logo:
+                            type: string
+                          sexe:
+                            type: string
+                          structure:
+                            properties:
+                              code:
+                                type: string
+                              etat:
+                                type: string
+                              id:
+                                type: integer
+                              logo:
+                                type: string
+                              nom:
+                                type: string
+                              nom_court:
+                                type: string
+                              type:
+                                type: string
+                            type: object
+                        type: object
+                      rencontre_libelle:
+                        type: string
+                      score:
+                        items:
+                          properties:
+                            equipe_id:
+                              type: integer
+                            participant_id:
+                              type: integer
+                            score:
+                              type: integer
+                            sportif_rencontre_id:
+                              type: integer
+                          type: object
+                        type: array
+                      visiteur:
+                        properties:
+                          abreviation:
+                            type: string
+                          id:
+                            type: integer
+                          id_compet:
+                            items:
+                              type: integer
+                            type: array
+                          libelle:
+                            type: string
+                          libelle_complet:
+                            type: string
+                          libelle_court:
+                            type: string
+                          logo:
+                            type: string
+                          sexe:
+                            type: string
+                          structure:
+                            properties:
+                              code:
+                                type: string
+                              etat:
+                                type: string
+                              id:
+                                type: integer
+                              logo:
+                                type: string
+                              nom:
+                                type: string
+                              nom_court:
+                                type: string
+                              type:
+                                type: string
+                            type: object
+                        type: object
+                    type: object
+                  type: array
+                tour:
+                  type: integer
+              type: object
+            time:
+              type: string
+          type: object
+        success:
+          type: boolean
+      type: object
+    RencontreGameSheet:
+      properties:
+        chronometre:
+          properties:
+            en_pause:
+              type: boolean
+            milisecondes_total:
+              type: integer
+            reference_debut:
+              type: string
+            reference_fin:
+              type: string
+          type: object
+        competition:
+          type: string
+        date_rencontre:
+          type: string
+        date_rencontre_non_formate:
+          type: string
+        est_debute:
+          type: boolean
+        est_en_pause:
+          type: boolean
+        est_terminee:
+          type: boolean
+        etat:
+          type: string
+        evenements:
+          items:
+            properties:
+              assistants:
+                items:
+                  properties:
+                    attributs:
+                      items:
+                        properties:
+                          code:
+                            type: string
+                          couleur:
+                            type: string
+                          libelle:
+                            type: string
+                        type: object
+                      type: array
+                    code_adherent:
+                      type: string
+                    equipe_id:
+                      type: integer
+                    id:
+                      type: integer
+                    nom_complet:
+                      type: string
+                    numero:
+                      type: string
+                    participant_id:
+                      type: integer
+                    personne:
+                      properties:
+                        code_adherent:
+                          type: string
+                        id:
+                          type: integer
+                        nom_complet:
+                          type: string
+                        numero:
+                          type: string
+                        photo_url:
+                          type: string
+                      type: object
+                    position:
+                      properties:
+                        code:
+                          type: string
+                        couleur:
+                          type: string
+                        libelle:
+                          type: string
+                      type: object
+                  type: object
+                type: array
+              but_associe:
+                type:
+                - 'null'
+              buteur:
+                properties:
+                  attributs:
+                    items:
+                      properties:
+                        code:
+                          type: string
+                        couleur:
+                          type: string
+                        libelle:
+                          type: string
+                      type: object
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type: object
+              entrant:
+                type:
+                - 'null'
+              equipe:
+                properties:
+                  abreviation:
+                    type: string
+                  id:
+                    type: integer
+                  id_compet:
+                    items:
+                      type: integer
+                    type: array
+                  libelle:
+                    type: string
+                  libelle_complet:
+                    type: string
+                  libelle_court:
+                    type: string
+                  logo:
+                    type: string
+                  sexe:
+                    type: string
+                  structure:
+                    properties:
+                      EquivalentStructure:
+                        properties:
+                          affiliable:
+                            type: boolean
+                          code:
+                            type: string
+                          color:
+                            type: string
+                          colorlabel:
+                            type: string
+                          enfants:
+                            items:
+                              type: string
+                            type: array
+                          filter_key:
+                            type: string
+                          nom:
+                            type: string
+                        type: object
+                      TypeColorLabel:
+                        type: string
+                      annuaire_web:
+                        type: integer
+                      choix_correspondance:
+                        type: string
+                      code:
+                        type: string
+                      code_import:
+                        type:
+                        - 'null'
+                      correspondant_adresse_id:
+                        type:
+                        - 'null'
+                      correspondant_personne_id:
+                        type:
+                        - 'null'
+                      created_at:
+                        type: string
+                      est_club_federal:
+                        type:
+                        - 'null'
+                      etat:
+                        type: string
+                      id:
+                        type: integer
+                      id_import:
+                        type:
+                        - 'null'
+                      logo:
+                        type: string
+                      nom:
+                        type: string
+                      nom_court:
+                        type: string
+                      sites_partenaires:
+                        type: integer
+                      type:
+                        type: string
+                      updated_at:
+                        type: string
+                      uuid:
+                        type: string
+                    type: object
+                type: object
+              equipe_gagante_id:
+                type: integer
+              gagnant:
+                properties:
+                  attributs:
+                    items:
+                      properties:
+                        code:
+                          type: string
+                        couleur:
+                          type: string
+                        libelle:
+                          type: string
+                      type: object
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type:
+                    - object
+                    - 'null'
+                type: object
+              gardien:
+                properties:
+                  attributs:
+                    items: {}
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type: object
+              id:
+                type: string
+              joueur:
+                properties:
+                  attributs:
+                    items:
+                      properties:
+                        code:
+                          type: string
+                        couleur:
+                          type: string
+                        libelle:
+                          type: string
+                      type: object
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type: object
+              joueurs_moins_ids:
+                items:
+                  type: integer
+                type: array
+              joueurs_plus_ids:
+                items:
+                  type: integer
+                type: array
+              receveur:
+                properties:
+                  attributs:
+                    items: {}
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type: object
+              sanction:
+                properties:
+                  actif:
+                    type: boolean
+                  code:
+                    type: string
+                  libelle:
+                    type: string
+                  libelle_court:
+                    type: string
+                type: object
+              sortant:
+                properties:
+                  attributs:
+                    items: {}
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type: object
+              substitution:
+                type:
+                - 'null'
+              surnombre:
+                properties:
+                  code:
+                    type: string
+                  libelle:
+                    type: string
+                type: object
+              surnombre_details:
+                type:
+                - 'null'
+              temps:
+                type: integer
+              temps_debut_sanction:
+                type: integer
+              temps_fin_sanction:
+                type: integer
+              temps_penalite:
+                type: integer
+              tir_associe:
+                type:
+                - 'null'
+              tireur:
+                properties:
+                  attributs:
+                    items: {}
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type: object
+                type:
+                - object
+                - 'null'
+              type:
+                type: string
+              visiteur:
+                properties:
+                  attributs:
+                    items:
+                      properties:
+                        code:
+                          type: string
+                        couleur:
+                          type: string
+                        libelle:
+                          type: string
+                      type: object
+                    type: array
+                  code_adherent:
+                    type: string
+                  equipe_id:
+                    type: integer
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  participant_id:
+                    type: integer
+                  personne:
+                    properties:
+                      code_adherent:
+                        type: string
+                      id:
+                        type: integer
+                      nom_complet:
+                        type: string
+                      numero:
+                        type: string
+                      photo_url:
+                        type: string
+                    type: object
+                  position:
+                    properties:
+                      code:
+                        type: string
+                      couleur:
+                        type: string
+                      libelle:
+                        type: string
+                    type:
+                    - object
+                    - 'null'
+                type: object
+            type: object
+          type: array
+        joueurs:
+          items:
+            properties:
+              attributs:
+                items:
+                  properties:
+                    code:
+                      type: string
+                    couleur:
+                      type: string
+                    libelle:
+                      type: string
+                  type: object
+                type: array
+              code_adherent:
+                type: string
+              equipe_id:
+                type: integer
+              id:
+                type: integer
+              nom_complet:
+                type: string
+              numero:
+                type: string
+              participant_id:
+                type: integer
+              personne:
+                properties:
+                  code_adherent:
+                    type: string
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  photo_url:
+                    type: string
+                type: object
+              position:
+                properties:
+                  code:
+                    type: string
+                  couleur:
+                    type: string
+                  libelle:
+                    type: string
+                type: object
+            type: object
+          type: array
+        journee:
+          type: integer
+        mouvements:
+          items:
+            properties:
+              equipe:
+                properties:
+                  abreviation:
+                    type: string
+                  id:
+                    type: integer
+                  libelle:
+                    type: string
+                  libelle_complet:
+                    type: string
+                  libelle_court:
+                    type: string
+                  logo:
+                    type: string
+                  structure:
+                    properties:
+                      EquivalentStructure:
+                        properties:
+                          affiliable:
+                            type: boolean
+                          code:
+                            type: string
+                          color:
+                            type: string
+                          colorlabel:
+                            type: string
+                          enfants:
+                            items:
+                              type: string
+                            type: array
+                          filter_key:
+                            type: string
+                          nom:
+                            type: string
+                        type: object
+                      TypeColorLabel:
+                        type: string
+                      annuaire_web:
+                        type: integer
+                      choix_correspondance:
+                        type: string
+                      code:
+                        type: string
+                      code_import:
+                        type:
+                        - 'null'
+                      correspondant_adresse_id:
+                        type:
+                        - 'null'
+                      correspondant_personne_id:
+                        type:
+                        - 'null'
+                      created_at:
+                        type: string
+                      est_club_federal:
+                        type:
+                        - 'null'
+                      etat:
+                        type: string
+                      id:
+                        type: integer
+                      id_import:
+                        type:
+                        - 'null'
+                      logo:
+                        type: string
+                      nom:
+                        type: string
+                      nom_court:
+                        type: string
+                      sites_partenaires:
+                        type: integer
+                      type:
+                        type: string
+                      updated_at:
+                        type: string
+                      uuid:
+                        type: string
+                    type: object
+                type: object
+              id:
+                type: integer
+              personne:
+                properties:
+                  code_adherent:
+                    type: string
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  photo_url:
+                    type: string
+                type: object
+              temps_rentree_secondes:
+                type: integer
+              temps_sortie_secondes:
+                type:
+                - integer
+                - 'null'
+            type: object
+          type: array
+        mvps:
+          items:
+            properties:
+              created_at:
+                type: string
+              equipe_id:
+                type: integer
+              id:
+                type: integer
+              participant_joueur_id:
+                type: integer
+              sportif_rencontre_id:
+                type: integer
+              updated_at:
+                type: string
+            type: object
+          type: array
+        nombre_spectateurs:
+          type: integer
+        patinoire:
+          type: string
+        periodes:
+          properties:
+            duree:
+              type: integer
+            nombre:
+              type: integer
+          type: object
+        phase:
+          type: string
+        receveur:
+          properties:
+            abreviation:
+              type: string
+            id:
+              type: integer
+            id_compet:
+              items:
+                type: integer
+              type: array
+            libelle:
+              type: string
+            libelle_complet:
+              type: string
+            libelle_court:
+              type: string
+            logo:
+              type: string
+            sexe:
+              type: string
+            structure:
+              properties:
+                code:
+                  type: string
+                etat:
+                  type: string
+                id:
+                  type: integer
+                logo:
+                  type: string
+                nom:
+                  type: string
+                nom_court:
+                  type: string
+                type:
+                  type: string
+              type: object
+          type: object
+        reserves:
+          items: {}
+          type: array
+        scores:
+          items:
+            properties:
+              created_at:
+                type: string
+              equipe_id:
+                type: integer
+              id:
+                type: integer
+              participant_id:
+                type: integer
+              score:
+                type: integer
+              sportif_rencontre_id:
+                type: integer
+              updated_at:
+                type: string
+            type: object
+          type: array
+        staffs:
+          items:
+            properties:
+              attributs:
+                properties:
+                  couleur:
+                    type: string
+                  id:
+                    type: integer
+                  libelle:
+                    type: string
+                type: object
+              code_adherent:
+                type: string
+              ddn:
+                type: string
+              equipe_id:
+                type: integer
+              id:
+                type: integer
+              nom:
+                type: string
+              nom_complet:
+                type: string
+              photo_url:
+                type: string
+              prenom:
+                type: string
+            type: object
+          type: array
+        tirs_aux_but:
+          items:
+            properties:
+              equipe:
+                properties:
+                  abreviation:
+                    type: string
+                  id:
+                    type: integer
+                  libelle:
+                    type: string
+                  libelle_complet:
+                    type: string
+                  libelle_court:
+                    type: string
+                  logo:
+                    type: string
+                  structure:
+                    properties:
+                      EquivalentStructure:
+                        properties:
+                          affiliable:
+                            type: boolean
+                          code:
+                            type: string
+                          color:
+                            type: string
+                          colorlabel:
+                            type: string
+                          enfants:
+                            items:
+                              type: string
+                            type: array
+                          filter_key:
+                            type: string
+                          nom:
+                            type: string
+                        type: object
+                      TypeColorLabel:
+                        type: string
+                      annuaire_web:
+                        type: integer
+                      choix_correspondance:
+                        type: string
+                      code:
+                        type: string
+                      code_import:
+                        type:
+                        - 'null'
+                      correspondant_adresse_id:
+                        type:
+                        - 'null'
+                      correspondant_personne_id:
+                        type:
+                        - 'null'
+                      created_at:
+                        type: string
+                      est_club_federal:
+                        type:
+                        - 'null'
+                      etat:
+                        type: string
+                      id:
+                        type: integer
+                      id_import:
+                        type:
+                        - 'null'
+                      logo:
+                        type: string
+                      nom:
+                        type: string
+                      nom_court:
+                        type: string
+                      sites_partenaires:
+                        type: integer
+                      type:
+                        type: string
+                      updated_at:
+                        type: string
+                      uuid:
+                        type: string
+                    type: object
+                type: object
+              gardien:
+                properties:
+                  code_adherent:
+                    type: string
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  photo_url:
+                    type: string
+                type: object
+              id:
+                type: integer
+              marque:
+                type: boolean
+              numero:
+                type: integer
+              tireur:
+                properties:
+                  code_adherent:
+                    type: string
+                  id:
+                    type: integer
+                  nom_complet:
+                    type: string
+                  numero:
+                    type: string
+                  photo_url:
+                    type: string
+                type: object
+            type: object
+          type: array
+        types_evenements:
+          items:
+            properties:
+              code:
+                type: string
+              libelle:
+                type: string
+            type: object
+          type: array
+        visiteur:
+          properties:
+            abreviation:
+              type: string
+            id:
+              type: integer
+            id_compet:
+              items:
+                type: integer
+              type: array
+            libelle:
+              type: string
+            libelle_complet:
+              type: string
+            libelle_court:
+              type: string
+            logo:
+              type: string
+            sexe:
+              type: string
+            structure:
+              properties:
+                code:
+                  type: string
+                etat:
+                  type: string
+                id:
+                  type: integer
+                logo:
+                  type: string
+                nom:
+                  type: string
+                nom_court:
+                  type: string
+                type:
+                  type: string
+              type: object
+          type: object
+      type: object
+info:
+  description: 'France''s Ligue Magnus. Keyless. The WordPress endpoint /wp-admin/admin-ajax.php is dispatched
+    by the `action` query parameter; each action is modelled as a fragment-suffixed path (/wp-admin/admin-ajax.php#get_rencontres,
+    the hockeytech precedent): the fragment is documentation-only and the wire path is always /wp-admin/admin-ajax.php.
+    It proxies the FFHG back office (hockeynet.fr/api/v1, 401 without auth). Errors are HTTP 200 application/json:
+    {success: false, data: ''Aucune donnée disponible''} (no data), {success: true, data: ''''} (a required
+    parameter is missing) or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel
+    validation error). An unknown action answers HTTP 400 text/html ''0''. The game sheet (events, rosters,
+    staff, MVPs, shootout) is JSON embedded in the text/html page /rencontre/{id}/ (see x-embedded-json).
+    Coverage 2020-21 onward; competition_id is per season and season keys are END years. /statistiques-individuelles/
+    is Cloudflare-blocked and not modelled. Shapes from captures of 2026-10-12. Not official or supported.'
+  title: Ligue Magnus (liguemagnus.com) admin-ajax JSON + game sheets
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /rencontre/{id}/:
+    get:
+      description: 'text/html. The game sheet JSON is the value of the Vue `:data` attribute of `<live-rencontre-container>`,
+        HTML-entity escaped (&quot; &amp; &#039; ...). Extract with the regex `:data="([^"]*)"`, then
+        html.unescape, then json.loads. An unknown id still answers 200 text/html, with `:data` = {"message":
+        ...}.'
+      operationId: get_rencontre_page
+      parameters:
+      - description: 'Game id (get_rencontres data.data[].id). Example 77779 (2026-27, shootout + MVPs);
+          also sampled: 68838.'
+        example: '77779'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-embedded-json:
+                attribute: :data
+                element: live-rencontre-container
+                encoding: HTML entities (&quot; &amp; &#039; ...)
+                extract: :data="([^"]*)" -> html.unescape -> json.loads
+                schema:
+                  $ref: '#/components/schemas/RencontreGameSheet'
+          description: Match page (HTML) with the game sheet embedded as JSON
+      summary: Game sheet page (text/html); the game JSON is embedded in the :data attribute
+  /wp-admin/admin-ajax.php#get_classementsphase:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_classementsphase&... (the path
+        fragment only names the operation). Errors are HTTP 200 application/json: {success: false, data:
+        ''Aucune donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is
+        missing) or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation
+        error). An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_classementsphase
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_classementsphase
+          type: string
+      - description: 'Phase id from get_phases. Omitted: data='''' (probed 2026-10-12).'
+        example: 714
+        in: query
+        name: phase_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetClassementsphase'
+          description: '{success: true, data: ...}'
+      summary: Standings of a phase
+  /wp-admin/admin-ajax.php#get_competition_by_type:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_competition_by_type&... (the
+        path fragment only names the operation). Errors are HTTP 200 application/json: {success: false,
+        data: ''Aucune donnée disponible''} (no data), {success: true, data: ''''} (a required parameter
+        is missing) or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation
+        error). An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_competition_by_type
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_competition_by_type
+          type: string
+      - description: 'Competition type: 1 = Ligue Magnus, 2 = Division 1. Omitted: success=false ''Aucune
+          donnée disponible'' (probed 2026-10-12).'
+        example: 1
+        in: query
+        name: id_type
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCompetitionByType'
+          description: '{success: true, data: ...}'
+      summary: Competitions (one per season) of a competition type
+  /wp-admin/admin-ajax.php#get_equipes:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_equipes&... (the path fragment
+        only names the operation). Errors are HTTP 200 application/json: {success: false, data: ''Aucune
+        donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is missing)
+        or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation error).
+        An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_equipes
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_equipes
+          type: string
+      - description: 'Phase id from get_phases. Omitted: every team of every competition in the federation
+          database (~680 KB) (probed 2026-10-12).'
+        example: 714
+        in: query
+        name: phase_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEquipes'
+          description: '{success: true, data: ...}'
+      summary: Teams of a phase
+  /wp-admin/admin-ajax.php#get_liste_tours:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_liste_tours&... (the path fragment
+        only names the operation). Errors are HTTP 200 application/json: {success: false, data: ''Aucune
+        donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is missing)
+        or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation error).
+        An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_liste_tours
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_liste_tours
+          type: string
+      - description: 'Phase id from get_phases. Omitted: data='''' (probed 2026-10-12).'
+        example: 714
+        in: query
+        name: phase_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetListeTours'
+          description: '{success: true, data: ...}'
+      summary: Rounds (journees) of a phase with their dates (games via get_rencontrestours)
+  /wp-admin/admin-ajax.php#get_phases:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_phases&... (the path fragment
+        only names the operation). Errors are HTTP 200 application/json: {success: false, data: ''Aucune
+        donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is missing)
+        or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation error).
+        An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_phases
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_phases
+          type: string
+      - description: 'Competition (season) id from get_competition_by_type: 1 = 2020-21 ... 240 = 2026-27.
+          Omitted: data='''' (probed 2026-10-12).'
+        example: 240
+        in: query
+        name: competition_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPhases'
+          description: '{success: true, data: ...}'
+      summary: Phases of a competition (regular season, playoffs, relegation)
+  /wp-admin/admin-ajax.php#get_rencontres:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_rencontres&... (the path fragment
+        only names the operation). Errors are HTTP 200 application/json: {success: false, data: ''Aucune
+        donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is missing)
+        or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation error).
+        An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_rencontres
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_rencontres
+          type: string
+      - description: Competition (season) id. Optional when phase_id is set (same 264 games without it,
+          probed 2026-10-12).
+        example: 240
+        in: query
+        name: competition_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Phase id. Omitted: every phase of the competition (314 games for 2025-26 vs 264
+          for its regular season, probed 2026-10-12).'
+        example: 714
+        in: query
+        name: phase_id
+        required: false
+        schema:
+          type: integer
+      - description: Page size (default 20). 700 returns a whole season in one page.
+        example: 700
+        in: query
+        name: par_page
+        required: false
+        schema:
+          type: integer
+      - description: 1-based page number (default 1).
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - description: 'Team id (get_equipes data[].id): that team''s games only (44 for 2025-26, probed
+          2026-10-12). Non-numeric: a validation error.'
+        in: query
+        name: equipe_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Earliest game date, YYYY-MM-DD (verified: 2025-10-01..2025-10-31 gave 44 games,
+          probed 2026-10-12).'
+        in: query
+        name: date_min
+        required: false
+        schema:
+          type: string
+      - description: Latest game date, YYYY-MM-DD.
+        in: query
+        name: date_max
+        required: false
+        schema:
+          type: string
+      - description: 'Round number (tour): that round''s games only (6 per round, probed 2026-10-12).'
+        example: 1
+        in: query
+        name: journee
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRencontres'
+          description: '{success: true, data: ...}'
+      summary: Games (schedule and results); Laravel-paginated, par_page=700 returns a full season
+      x-pagination:
+        params:
+        - par_page
+        - page
+        request: 'verified: page=2&par_page=5 returns the next five games; par_page defaults to 20; par_page=700
+          returns a full season (meta.last_page = 1) (probed 2026-10-12)'
+        response:
+        - data.links
+        - data.meta
+        style: page
+  /wp-admin/admin-ajax.php#get_rencontrestours:
+    get:
+      description: 'Wire request: GET /wp-admin/admin-ajax.php?action=get_rencontrestours&... (the path
+        fragment only names the operation). Errors are HTTP 200 application/json: {success: false, data:
+        ''Aucune donnée disponible''} (no data), {success: true, data: ''''} (a required parameter is
+        missing) or {success: true, data: {<param>: [''Le champ ... est invalide.'']}} (a Laravel validation
+        error). An unknown action answers HTTP 400 text/html ''0''.'
+      operationId: get_rencontrestours
+      parameters:
+      - description: admin-ajax action (selects the operation).
+        in: query
+        name: action
+        required: true
+        schema:
+          const: get_rencontrestours
+          type: string
+      - description: 'Phase id from get_phases. Omitted: data='''' (probed 2026-10-12).'
+        example: 714
+        in: query
+        name: phase_id
+        required: true
+        schema:
+          type: integer
+      - description: 'Round number (tour), 1-based. Omitted: data='''' (probed 2026-10-12).'
+        example: 1
+        in: query
+        name: journee
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRencontrestours'
+          description: '{success: true, data: ...}'
+      summary: One round of a phase with its games
+servers:
+- url: https://liguemagnus.com
