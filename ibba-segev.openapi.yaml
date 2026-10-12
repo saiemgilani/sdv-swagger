@@ -1,0 +1,1412 @@
+components:
+  schemas:
+    GetActionsResponse:
+      properties:
+        error:
+          description: Null in every sample (all are successes). On failure an object {code, message}
+            (e.g. '-32000' game not found, '-33000' method not found), which the capture refuses.
+          x-unobserved: true
+        id:
+          description: 'JSON-RPC response id, not a data key space: ''42'' on every success (''1'' on
+            errors).'
+          type: string
+        jsonrpc:
+          description: JSON-RPC version, '2.0'.
+          type: string
+        result:
+          description: The method's payload.
+          properties:
+            actions:
+              description: Play-by-play actions in game order (each committed file holds one action type).
+              items:
+                properties:
+                  id:
+                    description: 'Action id (Segev action key space: integer, unique within the game and
+                      increasing in game order: 500001... for game 50).'
+                    type: integer
+                  parameters:
+                    description: Type-specific fields (which keys appear depends on `type`).
+                    properties:
+                      coordX:
+                        description: 'Shot x: across the court, sideline to sideline, 0-1470, basket at
+                          ~735. See the frame note; metric scale unverified.'
+                        type: number
+                      coordY:
+                        description: 'Shot y: distance out from the baseline, rim at ~112-140, deepest
+                          observed 1176. See the frame note; metric scale unverified.'
+                        type: number
+                      currentQuarter:
+                        description: Period of the clock tick (clock actions).
+                        type: integer
+                      currentQuarterTime:
+                        description: Game clock 'mm:ss' at the tick (clock actions).
+                        type: string
+                      fastBreak:
+                        description: true when the shot or free throw came on a fast break.
+                        type: boolean
+                      fouledOn:
+                        description: Jersey number (string) of the fouled player.
+                        type:
+                        - string
+                        - 'null'
+                      freeThrowNumber:
+                        description: Which free throw of the set (1, 2, 3).
+                        type: integer
+                      freeThrows:
+                        description: 'Free throws the foul awards: a STRING when non-zero (''1''), the
+                          integer 0 otherwise.'
+                        type:
+                        - integer
+                        - string
+                      freeThrowsAwarded:
+                        description: Free throws in the set.
+                        type: integer
+                      isCoachFoul:
+                        description: 1 on a foul charged to the coach or bench (player null, playerId
+                          0); absent otherwise.
+                        type: integer
+                      kind:
+                        description: 'Foul kind: ''shooting'' or ''offensive''; absent on some fouls.
+                          ''shooting'' also appears on technical and offensive-unsportsmanlike fouls,
+                          so it does not prove a shooting foul.'
+                        type: string
+                      made:
+                        description: 'Shot or free-throw result: ''made'', ''missed'' or ''blocked'' (shots
+                          only).'
+                        type: string
+                      player:
+                        description: Jersey number of the acting player as a string (not an id); null
+                          when none (team rebound, timeout).
+                        type:
+                        - string
+                        - 'null'
+                      playerIn:
+                        description: 'Substitution: jersey number (string) of the player coming in; null
+                          when the row records the player going out.'
+                        type:
+                        - string
+                        - 'null'
+                      playerOut:
+                        description: 'Substitution: jersey number (string) of the player going out; null
+                          when the row records the player coming in.'
+                        type:
+                        - string
+                        - 'null'
+                      points:
+                        description: 'Shot value: 2 or 3.'
+                        type: integer
+                      pointsFromTurnover:
+                        description: true when the attempt came off an opponent turnover.
+                        type: boolean
+                      quarter:
+                        description: Period that starts or ends (quarter actions).
+                        type: integer
+                      secondChancePoints:
+                        description: true when the attempt was a second-chance attempt (after an offensive
+                          rebound).
+                        type: boolean
+                      team:
+                        description: '1 = home, 2 = away (verified: game 50''s team-1 shots equal its
+                          home FGA); null on game, quarter and clock actions.'
+                        type:
+                        - integer
+                        - 'null'
+                      type:
+                        description: 'Subtype; its vocabulary depends on `type` (code table in ibba-returns.md):
+                          shot type, rebound side, turnover kind, foul type, start/end of game or quarter.'
+                        type: string
+                    type: object
+                  parentActionId:
+                    description: Id of the action this one follows from (rebound -> missed shot, steal
+                      -> turnover, assist/block -> shot); 0 = none.
+                    type: integer
+                  playerId:
+                    description: Segev player id (integer; 0 when no player).
+                    type: integer
+                  quarter:
+                    description: Period of the action (1-4 in the samples).
+                    type: integer
+                  quarterTime:
+                    description: Game clock remaining in the period, 'mm:ss', counting down from '10:00'.
+                    type: string
+                  score:
+                    description: Running score 'away-home' after the action (game 50's first home basket
+                      reads '0-2'). Present only on scoring actions (absent otherwise).
+                    type: string
+                  teamId:
+                    description: Segev team id (integer; 0 when no team).
+                    type: integer
+                  totalPlayerPoints:
+                    description: The scorer's running points, string. Present only on scoring actions.
+                    type: string
+                  type:
+                    description: 'Action type (code table in ibba-returns.md): game, quarter, clock, substitution,
+                      shot, freeThrow, rebound, assist, steal, turnover, block, deflection, foul, foul-drawn,
+                      timeout.'
+                    type: string
+                  userTime:
+                    description: 'Wall-clock time the scorer logged the action, ''HH:MM:SS'', UTC (inferred:
+                      game 50 tipped at 18:40 Israel time = 15:40 UTC, its first clock tick is 15:42:04).'
+                    type: string
+                type: object
+              type: array
+            gameInfo:
+              description: Game header.
+              properties:
+                apiId:
+                  description: External game id; empty in every sample.
+                  type: string
+                awayTeam:
+                  description: Away team.
+                  properties:
+                    Score:
+                      description: 'Away team: Always 0 in every sample (not filled here: use getBoxScore
+                        homeScore / awayScore).'
+                      type: integer
+                    apiId:
+                      description: 'Away team: External team id: null in every sample, so its type is
+                        unconfirmed.'
+                      x-unobserved: true
+                    id:
+                      description: 'Away team: Segev team id as a string (Segev team key space, stable
+                        across seasons and competitions: Maccabi Tel Aviv = 2 in 2025-26 and 2026-27).
+                        Not an IBBA id. = getBoxScore homeTeamId / awayTeamId; actions carry it as `teamId`
+                        (integer).'
+                      type: string
+                    name:
+                      description: 'Away team: Team name, English, upper case; some women''s teams end
+                        in '' (W)'' (not all: use competition.name).'
+                      type: string
+                    nameLocal:
+                      description: 'Away team: Team name, Hebrew (Latin sponsor words kept).'
+                      type: string
+                    players:
+                      description: 'Away team: The team''s game roster.'
+                      items:
+                        properties:
+                          apiId:
+                            description: 'Away team: External player id: either empty or equal to `id`
+                              (both occur within one game); its source is unverified.'
+                            type: string
+                          firstName:
+                            description: 'Away team: First name, English, upper case.'
+                            type: string
+                          firstNameLocal:
+                            description: 'Away team: First name, Hebrew.'
+                            type: string
+                          id:
+                            description: 'Away team: Segev player id as a string (Segev player key space;
+                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            type: string
+                          inRoster:
+                            description: 'Away team: 0 or 2 in the samples; meaning unverified.'
+                            type: integer
+                          jerseyNumber:
+                            description: 'Away team: Jersey number (integer).'
+                            type: integer
+                          lastName:
+                            description: 'Away team: Last name, English, upper case.'
+                            type: string
+                          lastNameLocal:
+                            description: 'Away team: Last name, Hebrew.'
+                            type: string
+                        type: object
+                      type: array
+                    shortName:
+                      description: 'Away team: Short team name, English, upper case.'
+                      type: string
+                    shortNameLocal:
+                      description: 'Away team: Short team name, Hebrew.'
+                      type: string
+                  type: object
+                competition:
+                  description: The competition.
+                  properties:
+                    name:
+                      description: 'Competition name (''Winner League'', ''Women'', ...; code table in
+                        ibba-returns.md). The reliable men''s/women''s discriminator: the Segev id space
+                        mixes every competition.'
+                      type: string
+                  type: object
+                currentQuarter:
+                  description: Current period (the last one when finished).
+                  type: integer
+                currentQuarterTime:
+                  description: Game clock remaining in the current period.
+                  properties:
+                    m:
+                      description: Minutes remaining.
+                      type: integer
+                    s:
+                      description: Seconds remaining.
+                      type: integer
+                  type: object
+                gameFinished:
+                  description: true once the game is final (the capture banks only finished games).
+                  type: boolean
+                gameId:
+                  description: Segev game id as a string (= IBBA Games `ExternalID`; the `game_id` param).
+                  type: string
+                homeTeam:
+                  description: Home team.
+                  properties:
+                    Score:
+                      description: 'Home team: Always 0 in every sample (not filled here: use getBoxScore
+                        homeScore / awayScore).'
+                      type: integer
+                    apiId:
+                      description: 'Home team: External team id: null in every sample, so its type is
+                        unconfirmed.'
+                      x-unobserved: true
+                    id:
+                      description: 'Home team: Segev team id as a string (Segev team key space, stable
+                        across seasons and competitions: Maccabi Tel Aviv = 2 in 2025-26 and 2026-27).
+                        Not an IBBA id. = getBoxScore homeTeamId / awayTeamId; actions carry it as `teamId`
+                        (integer).'
+                      type: string
+                    name:
+                      description: 'Home team: Team name, English, upper case; some women''s teams end
+                        in '' (W)'' (not all: use competition.name).'
+                      type: string
+                    nameLocal:
+                      description: 'Home team: Team name, Hebrew (Latin sponsor words kept).'
+                      type: string
+                    players:
+                      description: 'Home team: The team''s game roster.'
+                      items:
+                        properties:
+                          apiId:
+                            description: 'Home team: External player id: either empty or equal to `id`
+                              (both occur within one game); its source is unverified.'
+                            type: string
+                          firstName:
+                            description: 'Home team: First name, English, upper case.'
+                            type: string
+                          firstNameLocal:
+                            description: 'Home team: First name, Hebrew.'
+                            type: string
+                          id:
+                            description: 'Home team: Segev player id as a string (Segev player key space;
+                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            type: string
+                          inRoster:
+                            description: 'Home team: 0 or 2 in the samples; meaning unverified.'
+                            type: integer
+                          jerseyNumber:
+                            description: 'Home team: Jersey number (integer).'
+                            type: integer
+                          lastName:
+                            description: 'Home team: Last name, English, upper case.'
+                            type: string
+                          lastNameLocal:
+                            description: 'Home team: Last name, Hebrew.'
+                            type: string
+                        type: object
+                      type: array
+                    shortName:
+                      description: 'Home team: Short team name, English, upper case.'
+                      type: string
+                    shortNameLocal:
+                      description: 'Home team: Short team name, Hebrew.'
+                      type: string
+                  type: object
+                id:
+                  description: Segev game id as an integer.
+                  type: integer
+                numberOfQuarters:
+                  description: Regulation periods (4).
+                  type: integer
+                time:
+                  description: Scheduled tip-off, local Israel time, ISO 8601 without an offset ('2025-10-12T18:40:00').
+                  type: string
+              type: object
+            success:
+              description: true on success.
+              type: boolean
+          type: object
+      type: object
+    GetBoxScoreResponse:
+      properties:
+        error:
+          description: Null in every sample (all are successes). On failure an object {code, message}
+            (e.g. '-32000' game not found, '-33000' method not found), which the capture refuses.
+          x-unobserved: true
+        id:
+          description: 'JSON-RPC response id, not a data key space: ''42'' on every success (''1'' on
+            errors).'
+          type: string
+        jsonrpc:
+          description: JSON-RPC version, '2.0'.
+          type: string
+        result:
+          description: The method's payload.
+          properties:
+            boxscore:
+              description: The box score.
+              properties:
+                awayTeam:
+                  description: 'Away team: player lines, team-credited actions, team totals.'
+                  properties:
+                    players:
+                      description: Away team player lines.
+                      items:
+                        properties:
+                          and_one:
+                            description: 'Player: And-one plays (a made basket plus a foul). Inferred.'
+                            type: string
+                          ast:
+                            description: 'Player: Assists.'
+                            type: string
+                          blk:
+                            description: 'Player: Shots blocked (blocks made).'
+                            type: string
+                          blk_against:
+                            description: 'Player: Own shots that were blocked.'
+                            type: string
+                          dfl:
+                            description: 'Player: Deflections (count of deflection actions).'
+                            type: string
+                          dunk:
+                            description: 'Player: Dunks made.'
+                            type: string
+                          f:
+                            description: 'Player: Fouls committed (= IBBA fouls_for).'
+                            type: string
+                          f_drawn:
+                            description: 'Player: Fouls drawn (= IBBA fouls_against).'
+                            type: string
+                          fb:
+                            description: 'Player: Fast-break points (game 50 home total 12 = homeGameStats
+                              Pts_of_total_FBs ''12 of 6'').'
+                            type: string
+                          fd_off:
+                            description: 'Player: Offensive fouls drawn (charges taken). Inferred.'
+                            type: string
+                          fg_2m:
+                            description: 'Player: 2-point field goals made.'
+                            type: string
+                          fg_2mis:
+                            description: 'Player: 2-point field goals MISSED (not attempted: attempts
+                              = fg_2m + fg_2mis, verified against IBBA p22).'
+                            type: string
+                          fg_3m:
+                            description: 'Player: 3-point field goals made.'
+                            type: string
+                          fg_3mis:
+                            description: 'Player: 3-point field goals MISSED.'
+                            type: string
+                          ft_m:
+                            description: 'Player: Free throws made.'
+                            type: string
+                          ft_mis:
+                            description: 'Player: Free throws MISSED.'
+                            type: string
+                          jerseyNumber:
+                            description: 'Player: Jersey number as a string.'
+                            type: string
+                          minutes:
+                            description: 'Player: Minutes played ''mm:ss''.'
+                            type: string
+                          onCourt:
+                            description: 'Player: true when the player was on court when the box was last
+                              updated (the final buzzer for a finished game). Inferred.'
+                            type: boolean
+                          playerId:
+                            description: 'Player: Segev player id as a string (Segev player key space;
+                              = getGameInfo players[].id; actions carry it as an integer).'
+                            type: string
+                          plusMinus:
+                            description: 'Player: Plus-minus, string.'
+                            type: string
+                          points:
+                            description: 'Player: Points.'
+                            type: string
+                          rate:
+                            description: 'Player: Efficiency rating (= IBBA VAL).'
+                            type: string
+                          reb_d:
+                            description: 'Player: Defensive rebounds.'
+                            type: string
+                          reb_o:
+                            description: 'Player: Offensive rebounds.'
+                            type: string
+                          rec:
+                            description: 'Player: Unverified; likely loose-ball recoveries.'
+                            type: string
+                          sc:
+                            description: 'Player: Second-chance points (game 50 home total 13 = homeGameStats
+                              Second_chance_points).'
+                            type: string
+                          starter:
+                            description: 'Player: true when the player started.'
+                            type: boolean
+                          stl:
+                            description: 'Player: Steals.'
+                            type: string
+                          to:
+                            description: 'Player: Turnovers.'
+                            type: string
+                          vps:
+                            description: 'Player: A ratio with 2 decimals (''1.58''); its definition is
+                              UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                            type: string
+                        type: object
+                      type: array
+                    teamActions:
+                      description: 'Away team: actions credited to the team, not a player (team rebounds,
+                        team turnovers, bench technicals).'
+                      properties:
+                        and_one:
+                          description: 'Team-credited: And-one plays (a made basket plus a foul). Inferred.'
+                          type: string
+                        ast:
+                          description: 'Team-credited: Assists.'
+                          type: string
+                        blk:
+                          description: 'Team-credited: Shots blocked (blocks made).'
+                          type: string
+                        blk_against:
+                          description: 'Team-credited: Own shots that were blocked.'
+                          type: string
+                        dfl:
+                          description: 'Team-credited: Deflections (count of deflection actions).'
+                          type: string
+                        dunk:
+                          description: 'Team-credited: Dunks made.'
+                          type: string
+                        f:
+                          description: 'Team-credited: Fouls committed (= IBBA fouls_for).'
+                          type: string
+                        f_drawn:
+                          description: 'Team-credited: Fouls drawn (= IBBA fouls_against).'
+                          type: string
+                        fb:
+                          description: 'Team-credited: Fast-break points (game 50 home total 12 = homeGameStats
+                            Pts_of_total_FBs ''12 of 6'').'
+                          type: string
+                        fd_off:
+                          description: 'Team-credited: Offensive fouls drawn (charges taken). Inferred.'
+                          type: string
+                        fg_2m:
+                          description: 'Team-credited: 2-point field goals made.'
+                          type: string
+                        fg_2mis:
+                          description: 'Team-credited: 2-point field goals MISSED (not attempted: attempts
+                            = fg_2m + fg_2mis, verified against IBBA p22).'
+                          type: string
+                        fg_3m:
+                          description: 'Team-credited: 3-point field goals made.'
+                          type: string
+                        fg_3mis:
+                          description: 'Team-credited: 3-point field goals MISSED.'
+                          type: string
+                        ft_m:
+                          description: 'Team-credited: Free throws made.'
+                          type: string
+                        ft_mis:
+                          description: 'Team-credited: Free throws MISSED.'
+                          type: string
+                        points:
+                          description: 'Team-credited: Points.'
+                          type: string
+                        rate:
+                          description: 'Team-credited: Efficiency rating (= IBBA VAL).'
+                          type: string
+                        reb_d:
+                          description: 'Team-credited: Defensive rebounds.'
+                          type: string
+                        reb_o:
+                          description: 'Team-credited: Offensive rebounds.'
+                          type: string
+                        rec:
+                          description: 'Team-credited: Unverified; likely loose-ball recoveries.'
+                          type: string
+                        sc:
+                          description: 'Team-credited: Second-chance points (game 50 home total 13 = homeGameStats
+                            Second_chance_points).'
+                          type: string
+                        stl:
+                          description: 'Team-credited: Steals.'
+                          type: string
+                        to:
+                          description: 'Team-credited: Turnovers.'
+                          type: string
+                        vps:
+                          description: 'Team-credited: A ratio with 2 decimals (''1.58''); its definition
+                            is UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                          type: string
+                      type: object
+                    teamActionsTotal:
+                      description: Away team totals (players + teamActions) and lead/tie counters.
+                      properties:
+                        BLead:
+                          description: Biggest lead in points.
+                          type: string
+                        LeadChange:
+                          description: Lead changes (same value for both teams).
+                          type: string
+                        TimeLeading:
+                          description: Time this team led, 'mm:ss'.
+                          type: string
+                        TimesTied:
+                          description: Times the score was tied (same value for both teams).
+                          type: string
+                        and_one:
+                          description: 'Team total: And-one plays (a made basket plus a foul). Inferred.'
+                          type: string
+                        ast:
+                          description: 'Team total: Assists.'
+                          type: string
+                        blk:
+                          description: 'Team total: Shots blocked (blocks made).'
+                          type: string
+                        blk_against:
+                          description: 'Team total: Own shots that were blocked.'
+                          type: string
+                        dfl:
+                          description: 'Team total: Deflections (count of deflection actions).'
+                          type: string
+                        dunk:
+                          description: 'Team total: Dunks made.'
+                          type: string
+                        f:
+                          description: 'Team total: Fouls committed (= IBBA fouls_for).'
+                          type: string
+                        f_drawn:
+                          description: 'Team total: Fouls drawn (= IBBA fouls_against).'
+                          type: string
+                        fb:
+                          description: 'Team total: Fast-break points (game 50 home total 12 = homeGameStats
+                            Pts_of_total_FBs ''12 of 6'').'
+                          type: string
+                        fd_off:
+                          description: 'Team total: Offensive fouls drawn (charges taken). Inferred.'
+                          type: string
+                        fg_2m:
+                          description: 'Team total: 2-point field goals made.'
+                          type: string
+                        fg_2mis:
+                          description: 'Team total: 2-point field goals MISSED (not attempted: attempts
+                            = fg_2m + fg_2mis, verified against IBBA p22).'
+                          type: string
+                        fg_3m:
+                          description: 'Team total: 3-point field goals made.'
+                          type: string
+                        fg_3mis:
+                          description: 'Team total: 3-point field goals MISSED.'
+                          type: string
+                        ft_m:
+                          description: 'Team total: Free throws made.'
+                          type: string
+                        ft_mis:
+                          description: 'Team total: Free throws MISSED.'
+                          type: string
+                        points:
+                          description: 'Team total: Points.'
+                          type: string
+                        rate:
+                          description: 'Team total: Efficiency rating (= IBBA VAL).'
+                          type: string
+                        reb_d:
+                          description: 'Team total: Defensive rebounds.'
+                          type: string
+                        reb_o:
+                          description: 'Team total: Offensive rebounds.'
+                          type: string
+                        rec:
+                          description: 'Team total: Unverified; likely loose-ball recoveries.'
+                          type: string
+                        sc:
+                          description: 'Team total: Second-chance points (game 50 home total 13 = homeGameStats
+                            Second_chance_points).'
+                          type: string
+                        stl:
+                          description: 'Team total: Steals.'
+                          type: string
+                        to:
+                          description: 'Team total: Turnovers.'
+                          type: string
+                        vps:
+                          description: 'Team total: A ratio with 2 decimals (''1.58''); its definition
+                            is UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                          type: string
+                      type: object
+                  type: object
+                gameInfo:
+                  description: 'Game state: scores, timeouts, per-period scores and fouls, team game stats.'
+                  properties:
+                    awayGameStats:
+                      description: Away team team game stats; the key set changed between 2025-26 (games
+                        50, 300) and 2026-27 (game 419).
+                      properties:
+                        AS\TO:
+                          description: 'Away team: Assist-to-turnover ratio with its counts, ''ratio (assists\turnovers)''
+                            (''1.3 (19\15)''); 2026-27 key.'
+                          type: string
+                        Biggest_Lead:
+                          description: 'Away team: Biggest lead in points (2026-27 key).'
+                          type: string
+                        Biggest_Scoring_Run:
+                          description: 'Away team: Biggest scoring run and the score when it ended, ''a-b
+                            (x-y)'' (''23-0 (36-6)''); 2026-27 key. Order of the score pair unverified.'
+                          type: string
+                        Defensive_Rebound_%_:
+                          description: 'Away team: Defensive rebound share as a fraction 0-1 (''0.5'');
+                            2026-27 key. ''0.5'' for both teams in the one sample: unverified.'
+                          type: string
+                        Defensive_Stops:
+                          description: 'Away team: Defensive stops (2026-27 key). Definition unverified.'
+                          type: string
+                        Lead_Changes:
+                          description: 'Away team: Lead changes (2026-27 key).'
+                          type: string
+                        Points_from_turnovers:
+                          description: 'Away team: Points off turnovers (2025-26 key; 2026-27 uses Pts_From_Turnovers).'
+                          type: string
+                        Points_in_the_paint:
+                          description: 'Away team: Points in the paint (2025-26 key).'
+                          type: string
+                        Pts_From_Turnovers:
+                          description: 'Away team: Points off turnovers (2026-27 key).'
+                          type: string
+                        Pts_In_The_Paint:
+                          description: 'Away team: Points in the paint (2026-27 key).'
+                          type: string
+                        Pts_Of_Total_FB_Possessions:
+                          description: 'Away team: ''P of N'': P fast-break points from N fast-break possessions
+                            (2026-27 key).'
+                          type: string
+                        Pts_Of_Total_LS_Possessions:
+                          description: 'Away team: ''P of N'': P points from N ''LS'' possessions (2026-27
+                            key). LS is not expanded by the source; unverified.'
+                          type: string
+                        Pts_of_total_FBs:
+                          description: 'Away team: ''P of N'': P fast-break points from N fast breaks
+                            (2025-26 key).'
+                          type: string
+                        Second_Chance_Pts:
+                          description: 'Away team: Second-chance points (2026-27 key).'
+                          type: string
+                        Second_chance_points:
+                          description: 'Away team: Second-chance points (2025-26 key).'
+                          type: string
+                        Time_Leading:
+                          description: 'Away team: Time this team led, ''mm:ss''.'
+                          type: string
+                        Times_Tied:
+                          description: 'Away team: Times tied (2026-27 key; ''0'' in the one sample, where
+                            TimesTied is also 0).'
+                          type: string
+                        bench_points:
+                          description: 'Away team: Points scored by the bench.'
+                          type: string
+                        starting_points:
+                          description: 'Away team: Points scored by the starters.'
+                          type: string
+                      type: object
+                    awayQuarterFouls:
+                      description: 'Away team team fouls per period: 7 strings, Q1-Q4 then three overtime
+                        slots.'
+                      items:
+                        type: string
+                      type: array
+                    awayQuarterScores:
+                      description: 'Away team points per period: 7 strings, Q1-Q4 then three overtime
+                        slots (''0'' when not played).'
+                      items:
+                        type: string
+                      type: array
+                    awayScore:
+                      description: Away team final score, string.
+                      type: string
+                    awayTeamId:
+                      description: Away team Segev team id, string (= getGameInfo homeTeam.id / awayTeam.id).
+                      type: string
+                    awayTimeOut:
+                      description: 'Away team timeouts taken, string (game 50: home 1, away 2 = its timeout
+                        actions).'
+                      type: string
+                    currentQuarter:
+                      description: Current period (the last one when finished).
+                      type: integer
+                    currentQuarterTime:
+                      description: Game clock remaining in the current period.
+                      properties:
+                        m:
+                          description: Minutes remaining.
+                          type: integer
+                        s:
+                          description: Seconds remaining.
+                          type: integer
+                      type: object
+                    gameFinished:
+                      description: true once the game is final (the capture banks only finished games).
+                      type: boolean
+                    gameId:
+                      description: Segev game id as a string (= IBBA Games `ExternalID`; the `game_id`
+                        param).
+                      type: string
+                    homeGameStats:
+                      description: Home team team game stats; the key set changed between 2025-26 (games
+                        50, 300) and 2026-27 (game 419).
+                      properties:
+                        AS\TO:
+                          description: 'Home team: Assist-to-turnover ratio with its counts, ''ratio (assists\turnovers)''
+                            (''1.3 (19\15)''); 2026-27 key.'
+                          type: string
+                        Biggest_Lead:
+                          description: 'Home team: Biggest lead in points (2026-27 key).'
+                          type: string
+                        Biggest_Scoring_Run:
+                          description: 'Home team: Biggest scoring run and the score when it ended, ''a-b
+                            (x-y)'' (''23-0 (36-6)''); 2026-27 key. Order of the score pair unverified.'
+                          type: string
+                        Defensive_Rebound_%_:
+                          description: 'Home team: Defensive rebound share as a fraction 0-1 (''0.5'');
+                            2026-27 key. ''0.5'' for both teams in the one sample: unverified.'
+                          type: string
+                        Defensive_Stops:
+                          description: 'Home team: Defensive stops (2026-27 key). Definition unverified.'
+                          type: string
+                        Lead_Changes:
+                          description: 'Home team: Lead changes (2026-27 key).'
+                          type: string
+                        Points_from_turnovers:
+                          description: 'Home team: Points off turnovers (2025-26 key; 2026-27 uses Pts_From_Turnovers).'
+                          type: string
+                        Points_in_the_paint:
+                          description: 'Home team: Points in the paint (2025-26 key).'
+                          type: string
+                        Pts_From_Turnovers:
+                          description: 'Home team: Points off turnovers (2026-27 key).'
+                          type: string
+                        Pts_In_The_Paint:
+                          description: 'Home team: Points in the paint (2026-27 key).'
+                          type: string
+                        Pts_Of_Total_FB_Possessions:
+                          description: 'Home team: ''P of N'': P fast-break points from N fast-break possessions
+                            (2026-27 key).'
+                          type: string
+                        Pts_Of_Total_LS_Possessions:
+                          description: 'Home team: ''P of N'': P points from N ''LS'' possessions (2026-27
+                            key). LS is not expanded by the source; unverified.'
+                          type: string
+                        Pts_of_total_FBs:
+                          description: 'Home team: ''P of N'': P fast-break points from N fast breaks
+                            (2025-26 key).'
+                          type: string
+                        Second_Chance_Pts:
+                          description: 'Home team: Second-chance points (2026-27 key).'
+                          type: string
+                        Second_chance_points:
+                          description: 'Home team: Second-chance points (2025-26 key).'
+                          type: string
+                        Time_Leading:
+                          description: 'Home team: Time this team led, ''mm:ss''.'
+                          type: string
+                        Times_Tied:
+                          description: 'Home team: Times tied (2026-27 key; ''0'' in the one sample, where
+                            TimesTied is also 0).'
+                          type: string
+                        bench_points:
+                          description: 'Home team: Points scored by the bench.'
+                          type: string
+                        starting_points:
+                          description: 'Home team: Points scored by the starters.'
+                          type: string
+                      type: object
+                    homeQuarterFouls:
+                      description: 'Home team team fouls per period: 7 strings, Q1-Q4 then three overtime
+                        slots.'
+                      items:
+                        type: string
+                      type: array
+                    homeQuarterScores:
+                      description: 'Home team points per period: 7 strings, Q1-Q4 then three overtime
+                        slots (''0'' when not played).'
+                      items:
+                        type: string
+                      type: array
+                    homeScore:
+                      description: Home team final score, string.
+                      type: string
+                    homeTeamId:
+                      description: Home team Segev team id, string (= getGameInfo homeTeam.id / awayTeam.id).
+                      type: string
+                    homeTimeOut:
+                      description: 'Home team timeouts taken, string (game 50: home 1, away 2 = its timeout
+                        actions).'
+                      type: string
+                  type: object
+                homeTeam:
+                  description: 'Home team: player lines, team-credited actions, team totals.'
+                  properties:
+                    players:
+                      description: Home team player lines.
+                      items:
+                        properties:
+                          and_one:
+                            description: 'Player: And-one plays (a made basket plus a foul). Inferred.'
+                            type: string
+                          ast:
+                            description: 'Player: Assists.'
+                            type: string
+                          blk:
+                            description: 'Player: Shots blocked (blocks made).'
+                            type: string
+                          blk_against:
+                            description: 'Player: Own shots that were blocked.'
+                            type: string
+                          dfl:
+                            description: 'Player: Deflections (count of deflection actions).'
+                            type: string
+                          dunk:
+                            description: 'Player: Dunks made.'
+                            type: string
+                          f:
+                            description: 'Player: Fouls committed (= IBBA fouls_for).'
+                            type: string
+                          f_drawn:
+                            description: 'Player: Fouls drawn (= IBBA fouls_against).'
+                            type: string
+                          fb:
+                            description: 'Player: Fast-break points (game 50 home total 12 = homeGameStats
+                              Pts_of_total_FBs ''12 of 6'').'
+                            type: string
+                          fd_off:
+                            description: 'Player: Offensive fouls drawn (charges taken). Inferred.'
+                            type: string
+                          fg_2m:
+                            description: 'Player: 2-point field goals made.'
+                            type: string
+                          fg_2mis:
+                            description: 'Player: 2-point field goals MISSED (not attempted: attempts
+                              = fg_2m + fg_2mis, verified against IBBA p22).'
+                            type: string
+                          fg_3m:
+                            description: 'Player: 3-point field goals made.'
+                            type: string
+                          fg_3mis:
+                            description: 'Player: 3-point field goals MISSED.'
+                            type: string
+                          ft_m:
+                            description: 'Player: Free throws made.'
+                            type: string
+                          ft_mis:
+                            description: 'Player: Free throws MISSED.'
+                            type: string
+                          jerseyNumber:
+                            description: 'Player: Jersey number as a string.'
+                            type: string
+                          minutes:
+                            description: 'Player: Minutes played ''mm:ss''.'
+                            type: string
+                          onCourt:
+                            description: 'Player: true when the player was on court when the box was last
+                              updated (the final buzzer for a finished game). Inferred.'
+                            type: boolean
+                          playerId:
+                            description: 'Player: Segev player id as a string (Segev player key space;
+                              = getGameInfo players[].id; actions carry it as an integer).'
+                            type: string
+                          plusMinus:
+                            description: 'Player: Plus-minus, string.'
+                            type: string
+                          points:
+                            description: 'Player: Points.'
+                            type: string
+                          rate:
+                            description: 'Player: Efficiency rating (= IBBA VAL).'
+                            type: string
+                          reb_d:
+                            description: 'Player: Defensive rebounds.'
+                            type: string
+                          reb_o:
+                            description: 'Player: Offensive rebounds.'
+                            type: string
+                          rec:
+                            description: 'Player: Unverified; likely loose-ball recoveries.'
+                            type: string
+                          sc:
+                            description: 'Player: Second-chance points (game 50 home total 13 = homeGameStats
+                              Second_chance_points).'
+                            type: string
+                          starter:
+                            description: 'Player: true when the player started.'
+                            type: boolean
+                          stl:
+                            description: 'Player: Steals.'
+                            type: string
+                          to:
+                            description: 'Player: Turnovers.'
+                            type: string
+                          vps:
+                            description: 'Player: A ratio with 2 decimals (''1.58''); its definition is
+                              UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                            type: string
+                        type: object
+                      type: array
+                    teamActions:
+                      description: 'Home team: actions credited to the team, not a player (team rebounds,
+                        team turnovers, bench technicals).'
+                      properties:
+                        and_one:
+                          description: 'Team-credited: And-one plays (a made basket plus a foul). Inferred.'
+                          type: string
+                        ast:
+                          description: 'Team-credited: Assists.'
+                          type: string
+                        blk:
+                          description: 'Team-credited: Shots blocked (blocks made).'
+                          type: string
+                        blk_against:
+                          description: 'Team-credited: Own shots that were blocked.'
+                          type: string
+                        dfl:
+                          description: 'Team-credited: Deflections (count of deflection actions).'
+                          type: string
+                        dunk:
+                          description: 'Team-credited: Dunks made.'
+                          type: string
+                        f:
+                          description: 'Team-credited: Fouls committed (= IBBA fouls_for).'
+                          type: string
+                        f_drawn:
+                          description: 'Team-credited: Fouls drawn (= IBBA fouls_against).'
+                          type: string
+                        fb:
+                          description: 'Team-credited: Fast-break points (game 50 home total 12 = homeGameStats
+                            Pts_of_total_FBs ''12 of 6'').'
+                          type: string
+                        fd_off:
+                          description: 'Team-credited: Offensive fouls drawn (charges taken). Inferred.'
+                          type: string
+                        fg_2m:
+                          description: 'Team-credited: 2-point field goals made.'
+                          type: string
+                        fg_2mis:
+                          description: 'Team-credited: 2-point field goals MISSED (not attempted: attempts
+                            = fg_2m + fg_2mis, verified against IBBA p22).'
+                          type: string
+                        fg_3m:
+                          description: 'Team-credited: 3-point field goals made.'
+                          type: string
+                        fg_3mis:
+                          description: 'Team-credited: 3-point field goals MISSED.'
+                          type: string
+                        ft_m:
+                          description: 'Team-credited: Free throws made.'
+                          type: string
+                        ft_mis:
+                          description: 'Team-credited: Free throws MISSED.'
+                          type: string
+                        points:
+                          description: 'Team-credited: Points.'
+                          type: string
+                        rate:
+                          description: 'Team-credited: Efficiency rating (= IBBA VAL).'
+                          type: string
+                        reb_d:
+                          description: 'Team-credited: Defensive rebounds.'
+                          type: string
+                        reb_o:
+                          description: 'Team-credited: Offensive rebounds.'
+                          type: string
+                        rec:
+                          description: 'Team-credited: Unverified; likely loose-ball recoveries.'
+                          type: string
+                        sc:
+                          description: 'Team-credited: Second-chance points (game 50 home total 13 = homeGameStats
+                            Second_chance_points).'
+                          type: string
+                        stl:
+                          description: 'Team-credited: Steals.'
+                          type: string
+                        to:
+                          description: 'Team-credited: Turnovers.'
+                          type: string
+                        vps:
+                          description: 'Team-credited: A ratio with 2 decimals (''1.58''); its definition
+                            is UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                          type: string
+                      type: object
+                    teamActionsTotal:
+                      description: Home team totals (players + teamActions) and lead/tie counters.
+                      properties:
+                        BLead:
+                          description: Biggest lead in points.
+                          type: string
+                        LeadChange:
+                          description: Lead changes (same value for both teams).
+                          type: string
+                        TimeLeading:
+                          description: Time this team led, 'mm:ss'.
+                          type: string
+                        TimesTied:
+                          description: Times the score was tied (same value for both teams).
+                          type: string
+                        and_one:
+                          description: 'Team total: And-one plays (a made basket plus a foul). Inferred.'
+                          type: string
+                        ast:
+                          description: 'Team total: Assists.'
+                          type: string
+                        blk:
+                          description: 'Team total: Shots blocked (blocks made).'
+                          type: string
+                        blk_against:
+                          description: 'Team total: Own shots that were blocked.'
+                          type: string
+                        dfl:
+                          description: 'Team total: Deflections (count of deflection actions).'
+                          type: string
+                        dunk:
+                          description: 'Team total: Dunks made.'
+                          type: string
+                        f:
+                          description: 'Team total: Fouls committed (= IBBA fouls_for).'
+                          type: string
+                        f_drawn:
+                          description: 'Team total: Fouls drawn (= IBBA fouls_against).'
+                          type: string
+                        fb:
+                          description: 'Team total: Fast-break points (game 50 home total 12 = homeGameStats
+                            Pts_of_total_FBs ''12 of 6'').'
+                          type: string
+                        fd_off:
+                          description: 'Team total: Offensive fouls drawn (charges taken). Inferred.'
+                          type: string
+                        fg_2m:
+                          description: 'Team total: 2-point field goals made.'
+                          type: string
+                        fg_2mis:
+                          description: 'Team total: 2-point field goals MISSED (not attempted: attempts
+                            = fg_2m + fg_2mis, verified against IBBA p22).'
+                          type: string
+                        fg_3m:
+                          description: 'Team total: 3-point field goals made.'
+                          type: string
+                        fg_3mis:
+                          description: 'Team total: 3-point field goals MISSED.'
+                          type: string
+                        ft_m:
+                          description: 'Team total: Free throws made.'
+                          type: string
+                        ft_mis:
+                          description: 'Team total: Free throws MISSED.'
+                          type: string
+                        points:
+                          description: 'Team total: Points.'
+                          type: string
+                        rate:
+                          description: 'Team total: Efficiency rating (= IBBA VAL).'
+                          type: string
+                        reb_d:
+                          description: 'Team total: Defensive rebounds.'
+                          type: string
+                        reb_o:
+                          description: 'Team total: Offensive rebounds.'
+                          type: string
+                        rec:
+                          description: 'Team total: Unverified; likely loose-ball recoveries.'
+                          type: string
+                        sc:
+                          description: 'Team total: Second-chance points (game 50 home total 13 = homeGameStats
+                            Second_chance_points).'
+                          type: string
+                        stl:
+                          description: 'Team total: Steals.'
+                          type: string
+                        to:
+                          description: 'Team total: Turnovers.'
+                          type: string
+                        vps:
+                          description: 'Team total: A ratio with 2 decimals (''1.58''); its definition
+                            is UNVERIFIED (it matches neither points per shot nor rate per minute).'
+                          type: string
+                      type: object
+                  type: object
+              type: object
+            success:
+              description: true on success.
+              type: boolean
+          type: object
+      type: object
+    GetGameInfoResponse:
+      properties:
+        error:
+          description: Null in every sample (all are successes). On failure an object {code, message}
+            (e.g. '-32000' game not found, '-33000' method not found), which the capture refuses.
+          x-unobserved: true
+        id:
+          description: 'JSON-RPC response id, not a data key space: ''42'' on every success (''1'' on
+            errors).'
+          type: string
+        jsonrpc:
+          description: JSON-RPC version, '2.0'.
+          type: string
+        result:
+          description: The method's payload.
+          properties:
+            gameInfo:
+              description: Game header.
+              properties:
+                apiId:
+                  description: External game id; empty in every sample.
+                  type: string
+                awayTeam:
+                  description: Away team.
+                  properties:
+                    Score:
+                      description: 'Away team: Always 0 in every sample (not filled here: use getBoxScore
+                        homeScore / awayScore).'
+                      type: integer
+                    apiId:
+                      description: 'Away team: External team id: null in every sample, so its type is
+                        unconfirmed.'
+                      x-unobserved: true
+                    id:
+                      description: 'Away team: Segev team id as a string (Segev team key space, stable
+                        across seasons and competitions: Maccabi Tel Aviv = 2 in 2025-26 and 2026-27).
+                        Not an IBBA id. = getBoxScore homeTeamId / awayTeamId; actions carry it as `teamId`
+                        (integer).'
+                      type: string
+                    name:
+                      description: 'Away team: Team name, English, upper case; some women''s teams end
+                        in '' (W)'' (not all: use competition.name).'
+                      type: string
+                    nameLocal:
+                      description: 'Away team: Team name, Hebrew (Latin sponsor words kept).'
+                      type: string
+                    players:
+                      description: 'Away team: The team''s game roster.'
+                      items:
+                        properties:
+                          apiId:
+                            description: 'Away team: External player id: either empty or equal to `id`
+                              (both occur within one game); its source is unverified.'
+                            type: string
+                          firstName:
+                            description: 'Away team: First name, English, upper case.'
+                            type: string
+                          firstNameLocal:
+                            description: 'Away team: First name, Hebrew.'
+                            type: string
+                          id:
+                            description: 'Away team: Segev player id as a string (Segev player key space;
+                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            type: string
+                          inRoster:
+                            description: 'Away team: 0 or 2 in the samples; meaning unverified.'
+                            type: integer
+                          jerseyNumber:
+                            description: 'Away team: Jersey number (integer).'
+                            type: integer
+                          lastName:
+                            description: 'Away team: Last name, English, upper case.'
+                            type: string
+                          lastNameLocal:
+                            description: 'Away team: Last name, Hebrew.'
+                            type: string
+                        type: object
+                      type: array
+                    shortName:
+                      description: 'Away team: Short team name, English, upper case.'
+                      type: string
+                    shortNameLocal:
+                      description: 'Away team: Short team name, Hebrew.'
+                      type: string
+                  type: object
+                competition:
+                  description: The competition.
+                  properties:
+                    name:
+                      description: 'Competition name (''Winner League'', ''Women'', ...; code table in
+                        ibba-returns.md). The reliable men''s/women''s discriminator: the Segev id space
+                        mixes every competition.'
+                      type: string
+                  type: object
+                currentQuarter:
+                  description: Current period (the last one when finished).
+                  type: integer
+                currentQuarterTime:
+                  description: Game clock remaining in the current period.
+                  properties:
+                    m:
+                      description: Minutes remaining.
+                      type: integer
+                    s:
+                      description: Seconds remaining.
+                      type: integer
+                  type: object
+                gameFinished:
+                  description: true once the game is final (the capture banks only finished games).
+                  type: boolean
+                gameId:
+                  description: Segev game id as a string (= IBBA Games `ExternalID`; the `game_id` param).
+                  type: string
+                homeTeam:
+                  description: Home team.
+                  properties:
+                    Score:
+                      description: 'Home team: Always 0 in every sample (not filled here: use getBoxScore
+                        homeScore / awayScore).'
+                      type: integer
+                    apiId:
+                      description: 'Home team: External team id: null in every sample, so its type is
+                        unconfirmed.'
+                      x-unobserved: true
+                    id:
+                      description: 'Home team: Segev team id as a string (Segev team key space, stable
+                        across seasons and competitions: Maccabi Tel Aviv = 2 in 2025-26 and 2026-27).
+                        Not an IBBA id. = getBoxScore homeTeamId / awayTeamId; actions carry it as `teamId`
+                        (integer).'
+                      type: string
+                    name:
+                      description: 'Home team: Team name, English, upper case; some women''s teams end
+                        in '' (W)'' (not all: use competition.name).'
+                      type: string
+                    nameLocal:
+                      description: 'Home team: Team name, Hebrew (Latin sponsor words kept).'
+                      type: string
+                    players:
+                      description: 'Home team: The team''s game roster.'
+                      items:
+                        properties:
+                          apiId:
+                            description: 'Home team: External player id: either empty or equal to `id`
+                              (both occur within one game); its source is unverified.'
+                            type: string
+                          firstName:
+                            description: 'Home team: First name, English, upper case.'
+                            type: string
+                          firstNameLocal:
+                            description: 'Home team: First name, Hebrew.'
+                            type: string
+                          id:
+                            description: 'Home team: Segev player id as a string (Segev player key space;
+                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            type: string
+                          inRoster:
+                            description: 'Home team: 0 or 2 in the samples; meaning unverified.'
+                            type: integer
+                          jerseyNumber:
+                            description: 'Home team: Jersey number (integer).'
+                            type: integer
+                          lastName:
+                            description: 'Home team: Last name, English, upper case.'
+                            type: string
+                          lastNameLocal:
+                            description: 'Home team: Last name, Hebrew.'
+                            type: string
+                        type: object
+                      type: array
+                    shortName:
+                      description: 'Home team: Short team name, English, upper case.'
+                      type: string
+                    shortNameLocal:
+                      description: 'Home team: Short team name, Hebrew.'
+                      type: string
+                  type: object
+                id:
+                  description: Segev game id as an integer.
+                  type: integer
+                numberOfQuarters:
+                  description: Regulation periods (4).
+                  type: integer
+                time:
+                  description: Scheduled tip-off, local Israel time, ISO 8601 without an offset ('2025-10-12T18:40:00').
+                  type: string
+              type: object
+            success:
+              description: true on success.
+              type: boolean
+          type: object
+      type: object
+    RpcError:
+      description: 'Failure envelope (HTTP 200): result.success false and an error object.'
+      properties:
+        error:
+          description: The error.
+          properties:
+            code:
+              description: '''-32000'' game not found; ''-33000'' method not found.'
+              type: string
+            message:
+              description: '''game not found'' or ''method not found''.'
+              type: string
+          type: object
+        id:
+          description: '''1'' on errors.'
+          type: string
+        jsonrpc:
+          description: JSON-RPC version, '2.0'.
+          type: string
+        result:
+          description: '{success: false}.'
+          properties:
+            success:
+              description: false.
+              type: boolean
+          type: object
+      type: object
+info:
+  description: 'Reverse-engineered, unofficial; keyless. Live-stats vendor behind basket.co.il game pages
+    from 2025-26: Winner League, Winner Cup, women''s league, Leumit, youth, school, pre-season. Segev
+    shot frame (one half court; both teams'' shots are drawn toward the same basket): x runs across the
+    court from sideline to sideline, 0 to 1470, basket at x ~= 735; y runs from the baseline out toward
+    midcourt, the rim at y ~= 112-140 (every dunk in the samples sits at x 630-780, y 112-140), deepest
+    observed y = 1176. Values sit on a 15 (x) by 28 (y) grid (floats with rounding noise, e.g. 134.99999999999994).
+    The metric scale (pixels per metre in each axis) is UNVERIFIED. The same frame holds in 2025-26 (games
+    50, 300) and 2026-27 (game 419).'
+  title: Segev Stats real-time stats JSON-RPC (Israeli basketball)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /api/:
+    get:
+      description: 'JSON-RPC over GET. getGameInfo: Game header: time, competition, both rosters (Segev
+        player ids, names in English and Hebrew) | getBoxScore: Box score: per-player and team lines,
+        quarter scores and fouls, team game stats | getActions: Play-by-play actions with shot coordinates,
+        plus the game header. `game_id` = IBBA Games `ExternalID` (2025-26 onward; the id space mixes
+        every competition, men''s and women''s: read competition.name). Errors are HTTP 200 with an error
+        envelope.'
+      operationId: segevApi
+      parameters:
+      - description: The RPC method; the response schema follows it (x-response-by-method).
+        example: getActions
+        in: query
+        name: method
+        required: true
+        schema:
+          enum:
+          - getGameInfo
+          - getBoxScore
+          - getActions
+          type: string
+      - description: Segev game id (= IBBA Games ExternalID).
+        example: 50
+        in: query
+        name: game_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/GetGameInfoResponse'
+                - $ref: '#/components/schemas/GetBoxScoreResponse'
+                - $ref: '#/components/schemas/GetActionsResponse'
+                - $ref: '#/components/schemas/RpcError'
+          description: JSON with a text/html content type. The schema is the one x-response-by-method
+            names for `method`, or RpcError.
+      summary: 'Segev Stats game data: header, box score or play-by-play (by `method`)'
+      x-response-by-method:
+        getActions: '#/components/schemas/GetActionsResponse'
+        getBoxScore: '#/components/schemas/GetBoxScoreResponse'
+        getGameInfo: '#/components/schemas/GetGameInfoResponse'
+servers:
+- url: https://stats.segevstats.com/realtimestat_heb
