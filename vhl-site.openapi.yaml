@@ -2,34 +2,21 @@ components:
   schemas:
     VhlCalendar:
       properties:
-        clubs:
-          description: Clubs of this tournament (the club filter <select name=club>).
-          items:
-            properties:
-              club_id:
-                description: 'Per-season club id: the club filter of /calendar/{tn}/0/{club_id}/ and /stats/players/{tn}/all/{club_id}/.
-                  A new id every season (Metallurg = 15017 in 1374). Not a team page id (report *_team_id)
-                  and not a logo-server id (calendar *_khl_id).'
-                type: integer
-              name:
-                description: Club name (Latin) as the calendar's club filter lists it.
-                type: string
-            type: object
-          type: array
         games:
           description: Every game of the tournament, latest day first (992 for tn 1374).
           items:
             properties:
+              away_club_id:
+                description: 'Away club id. Club id (khl/ terminology): stable across seasons (Toros =
+                  192 in both 1374 and 1430); the {id} of the img.khl.ru logo path /teams/ru/{tn}/{id}/60.png.
+                  Not the team page id (*_team_page_id) and not a team-season id.'
+                type: integer
               away_score:
                 description: Away goals including the shootout winner goal; null before the game.
                 type: integer
               away_team:
-                description: Away team name (Latin).
+                description: Away team name (Latin, FULL form, like home_team).
                 type: string
-              away_team_khl_id:
-                description: Away team id on the img.khl.ru logo server (the KHL stats database team id).
-                  Not the /teams/{team_id}/ page id.
-                type: integer
               city:
                 description: City of the home team's arena (English).
                 type: string
@@ -48,16 +35,18 @@ components:
               game_number:
                 description: Official game number within the tournament (from '№986').
                 type: integer
+              home_club_id:
+                description: 'Home club id. Club id (khl/ terminology): stable across seasons (Toros =
+                  192 in both 1374 and 1430); the {id} of the img.khl.ru logo path /teams/ru/{tn}/{id}/60.png.
+                  Not the team page id (*_team_page_id) and not a team-season id.'
+                type: integer
               home_score:
                 description: Home goals including the shootout winner goal; null before the game.
                 type: integer
               home_team:
-                description: Home team name (Latin).
+                description: 'Home team name (Latin, FULL form: ''Kristall S''; standings, stats and the
+                  team page use the short ''Kristall'').'
                 type: string
-              home_team_khl_id:
-                description: Home team id on the img.khl.ru logo server (/teams/ru/{tn}/{id}/60.png),
-                  i.e. the KHL stats database team id (Toros = 192). Not the /teams/{team_id}/ page id.
-                type: integer
               online_url:
                 description: Text-broadcast URL (online.vhlru.ru/online/{game_id}.html).
                 type: string
@@ -74,6 +63,22 @@ components:
                 description: 'Winning side from the win-home / win-visitor class: home or away; null before
                   the game.'
                 type: string
+            type: object
+          type: array
+        team_seasons:
+          description: Teams of this tournament with their team-season ids (the club filter <select name=club>).
+          items:
+            properties:
+              name:
+                description: 'Team name (Latin, SHORT form: ''Kristall'') as the calendar''s club filter
+                  lists it.'
+                type: string
+              team_season_id:
+                description: 'Team-season id (khl/ terminology): one id per team per tournament, from
+                  the KHL''s sequence (khl/: Spartak = 14934 in 1369; here Metallurg = 15017 in 1374).
+                  The {id} of /calendar/{tn}/0/{id}/ and /stats/players/{tn}/all/{id}/. Not the stable
+                  club id (*_club_id) and not the team page id.'
+                type: integer
             type: object
           type: array
         tournament:
@@ -131,11 +136,12 @@ components:
               description: 'Away team short name: the header of the goals table''s away on-ice column.'
               type: string
             away_team:
-              description: Away team full name (Latin).
+              description: Away team name (Latin, FULL form).
               type: string
-            away_team_id:
-              description: 'Away team page id: the {team_id} of /en/teams/{team_id}/. Not the calendar''s
-                logo-server *_khl_id, not a club_id.'
+            away_team_page_id:
+              description: 'Away team page id. Team page id (vhlru.ru only): the {team_id} of /en/teams/{team_id}/
+                (Toros = 390). Neither a club id nor a team-season id; it joins nothing else (bridge:
+                the calendar row of the same game_id).'
               type: integer
             date:
               description: Game date, ISO 'YYYY-MM-DD', parsed from date_text.
@@ -165,11 +171,13 @@ components:
                 used to assign team_side.'
               type: string
             home_team:
-              description: Home team full name (Latin; 'Kristall S' where tables say 'Kristall').
+              description: 'Home team name (Latin, FULL form: ''Kristall S''; the report''s tables use
+                the short ''Kristall'').'
               type: string
-            home_team_id:
-              description: 'Home team page id: the {team_id} of /en/teams/{team_id}/ (Toros = 390). Not
-                the calendar''s logo-server *_khl_id, not a club_id.'
+            home_team_page_id:
+              description: 'Home team page id. Team page id (vhlru.ru only): the {team_id} of /en/teams/{team_id}/
+                (Toros = 390). Neither a club id nor a team-season id; it joins nothing else (bridge:
+                the calendar row of the same game_id).'
               type: integer
             linesmen:
               description: 'Linesmen: sweater number and name.'
@@ -251,7 +259,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               save_pct:
                 description: Save percentage (%Sv); 0-100 scale (93.8 = 93.8 %); null when the page shows
@@ -344,8 +353,9 @@ components:
                 description: Scorer name.
                 type: string
               scorer_id:
-                description: Player id of the scorer. the {player_id} of /en/players/{player_id}/, stable
-                  across seasons and teams (photos use the same id on img.khl.ru).
+                description: 'Player id of the scorer: the {player_id} of /en/players/{player_id}/, stable
+                  across seasons and teams; also the photo id on img.khl.ru. Same numeric sequence as
+                  khl.ru player ids; whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               scorer_jersey:
                 description: Scorer jersey number.
@@ -463,7 +473,9 @@ components:
               period:
                 description: Period label as printed ('1-st period', '2-d period', '3-d period', 'Overtime');
                   null on the totals row.
-                type: string
+                type:
+                - string
+                - 'null'
             type: object
           type: array
         skaters:
@@ -505,7 +517,7 @@ components:
                 description: Goals (G).
                 type: integer
               hits:
-                description: Hits (Hits).
+                description: Body checks delivered (Hits).
                 type: integer
               jersey:
                 description: Jersey number (integer).
@@ -521,7 +533,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               plus_minus:
                 description: Plus/minus (+/-).
@@ -565,46 +578,64 @@ components:
           items:
             properties:
               empty_net:
-                description: Empty-net goals (EN).
+                description: Empty-net goals conceded (EN).
                 type: integer
               g_3v3:
-                description: Goals scored with 3 skaters against 3 (the '3 x 3' column).
+                description: Goals conceded while the row's team had 3 skaters and the opponent 3 (the
+                  '3 x 3' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_3v4:
-                description: Goals scored with 3 skaters against 4 (the '3 x 4' column).
+                description: Goals conceded while the row's team had 3 skaters and the opponent 4 (the
+                  '3 x 4' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_3v5:
-                description: Goals scored with 3 skaters against 5 (the '3 x 5' column).
+                description: Goals conceded while the row's team had 3 skaters and the opponent 5 (the
+                  '3 x 5' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_4v3:
-                description: Goals scored with 4 skaters against 3 (the '4 x 3' column).
+                description: Goals conceded while the row's team had 4 skaters and the opponent 3 (the
+                  '4 x 3' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_4v4:
-                description: Goals scored with 4 skaters against 4 (the '4 x 4' column).
+                description: Goals conceded while the row's team had 4 skaters and the opponent 4 (the
+                  '4 x 4' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_4v5:
-                description: Goals scored with 4 skaters against 5 (the '4 x 5' column).
+                description: Goals conceded while the row's team had 4 skaters and the opponent 5 (the
+                  '4 x 5' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_5v3:
-                description: Goals scored with 5 skaters against 3 (the '5 x 3' column).
+                description: Goals conceded while the row's team had 5 skaters and the opponent 3 (the
+                  '5 x 3' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_5v4:
-                description: Goals scored with 5 skaters against 4 (the '5 x 4' column).
+                description: Goals conceded while the row's team had 5 skaters and the opponent 4 (the
+                  '5 x 4' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               g_5v5:
-                description: Goals scored with 5 skaters against 5 (the '5 x 5' column).
+                description: Goals conceded while the row's team had 5 skaters and the opponent 5 (the
+                  '5 x 5' column; the row team's own count comes first in both tables, so 4 x 5 here =
+                  a power-play goal against).
                 type: integer
               games_played:
                 description: Games played (GP).
                 type: integer
               penalty_shot:
-                description: Penalty-shot goals (PS; the shootout winner counts here).
+                description: Penalty-shot goals conceded (PS; the shootout winner counts here).
                 type: integer
               team:
                 description: Team short name (Latin), as the table prints it.
                 type: string
               total:
-                description: Total goals (the unlabelled last column).
+                description: Total goals conceded (the unlabelled last column).
                 type: integer
             type: object
           type: array
@@ -613,46 +644,55 @@ components:
           items:
             properties:
               empty_net:
-                description: Empty-net goals (EN).
+                description: Empty-net goals scored (EN).
                 type: integer
               g_3v3:
-                description: Goals scored with 3 skaters against 3 (the '3 x 3' column).
+                description: Goals scored while the row's team had 3 skaters and the opponent 3 (the '3
+                  x 3' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_3v4:
-                description: Goals scored with 3 skaters against 4 (the '3 x 4' column).
+                description: Goals scored while the row's team had 3 skaters and the opponent 4 (the '3
+                  x 4' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_3v5:
-                description: Goals scored with 3 skaters against 5 (the '3 x 5' column).
+                description: Goals scored while the row's team had 3 skaters and the opponent 5 (the '3
+                  x 5' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_4v3:
-                description: Goals scored with 4 skaters against 3 (the '4 x 3' column).
+                description: Goals scored while the row's team had 4 skaters and the opponent 3 (the '4
+                  x 3' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_4v4:
-                description: Goals scored with 4 skaters against 4 (the '4 x 4' column).
+                description: Goals scored while the row's team had 4 skaters and the opponent 4 (the '4
+                  x 4' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_4v5:
-                description: Goals scored with 4 skaters against 5 (the '4 x 5' column).
+                description: Goals scored while the row's team had 4 skaters and the opponent 5 (the '4
+                  x 5' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_5v3:
-                description: Goals scored with 5 skaters against 3 (the '5 x 3' column).
+                description: Goals scored while the row's team had 5 skaters and the opponent 3 (the '5
+                  x 3' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_5v4:
-                description: Goals scored with 5 skaters against 4 (the '5 x 4' column).
+                description: Goals scored while the row's team had 5 skaters and the opponent 4 (the '5
+                  x 4' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               g_5v5:
-                description: Goals scored with 5 skaters against 5 (the '5 x 5' column).
+                description: Goals scored while the row's team had 5 skaters and the opponent 5 (the '5
+                  x 5' column; the row team's own count comes first, so 5 x 4 = a power-play goal).
                 type: integer
               games_played:
                 description: Games played (GP).
                 type: integer
               penalty_shot:
-                description: Penalty-shot goals (PS; the shootout winner counts here).
+                description: Penalty-shot goals scored (PS; the shootout winner counts here).
                 type: integer
               team:
                 description: Team short name (Latin), as the table prints it.
                 type: string
               total:
-                description: Total goals (the unlabelled last column).
+                description: Total goals scored (the unlabelled last column).
                 type: integer
             type: object
           type: array
@@ -817,9 +857,11 @@ components:
                   sums the non-blank cells).
                 type: integer
               period:
-                description: 'Tab: ''match'' (whole game) or the period number (1-3; 4 = overtime when
-                  played).'
-                type: string
+                description: 'Tab: the string ''match'' (whole game) or the integer period number (1-3;
+                  4 = overtime when played).'
+                type:
+                - integer
+                - string
               player:
                 description: Player name in CYRILLIC, 'Surname Given', with the position suffix split
                   off into position_code.
@@ -877,8 +919,8 @@ components:
                   sums the non-blank cells).
                 type: integer
               period:
-                description: 'Tab: ''match'' (whole game) or the period number (1-3; 4 = overtime when
-                  played).'
+                description: 'Tab: the string ''match'' (whole game) or the integer period number (1-3;
+                  4 = overtime when played).'
                 type:
                 - integer
                 - string
@@ -889,9 +931,6 @@ components:
               team:
                 description: Team name in CYRILLIC as the broadcast prints it.
                 type: string
-              vvsh:
-                description: Unobserved in samples (null in every capture); type and meaning unverified.
-                x-unobserved: true
             type: object
           type: array
       type: object
@@ -947,7 +986,7 @@ components:
                 description: Goals allowed (GA).
                 type: integer
               hits:
-                description: Hits (Hits).
+                description: Body checks delivered (Hits).
                 type: integer
               losses:
                 description: Goalie losses (L).
@@ -1037,7 +1076,10 @@ components:
           description: Player name, 'Surname Given' (Latin), from h1 without the number.
           type: string
         photo_url:
-          description: Photo URL on img.khl.ru (/teamplayers/{club_id}/{player_id}/320.jpg).
+          description: 'Photo URL on img.khl.ru, /teamplayers/{team_season_id}/{player_id}/320.jpg. The
+            team-season id is the one the photo was filed under, not the current team: 34526''s photo
+            uses 15424 = Magnitka in tn 1375 (25/26 playoffs, verified on /en/stats/players/1375/) while
+            his newest row is 15516 (Dynamo-Altai, 1430).'
           type: string
         player_id:
           description: Player id, read from the page's own /players/{id}/games/ tab link; equals the requested
@@ -1056,11 +1098,6 @@ components:
                 type: integer
               blocked_shots:
                 description: Blocked shots (BLS).
-                type: integer
-              club_id:
-                description: 'Per-season club id: the club filter of /calendar/{tn}/0/{club_id}/ and /stats/players/{tn}/all/{club_id}/.
-                  A new id every season (Metallurg = 15017 in 1374). Not a team page id (report *_team_id)
-                  and not a logo-server id (calendar *_khl_id).'
                 type: integer
               even_strength_goals:
                 description: Even-strength goals (ESG).
@@ -1092,7 +1129,7 @@ components:
                 description: Goals allowed (GA).
                 type: integer
               hits:
-                description: Hits (Hits).
+                description: Body checks delivered (Hits).
                 type: integer
               jersey:
                 description: Jersey number worn for that team that season (#).
@@ -1162,9 +1199,16 @@ components:
               team:
                 description: Team short name (Latin) the player played for in that season stage.
                 type: string
+              team_season_id:
+                description: 'Team-season id (khl/ terminology): one id per team per tournament, from
+                  the KHL''s sequence (khl/: Spartak = 14934 in 1369; here Metallurg = 15017 in 1374).
+                  The {id} of /calendar/{tn}/0/{id}/ and /stats/players/{tn}/all/{id}/. Not the stable
+                  club id (*_club_id) and not the team page id. With tn, the bridge from a player to every
+                  tournament team he played for.'
+                type: integer
               tn:
                 description: Tournament id (season stage; the {tn} path parameter). From the team cell's
-                  /stats/players/{tn}/all/{club_id}/ link.
+                  /stats/players/{tn}/all/{team_season_id}/ link.
                 type: integer
               toi:
                 description: Time on ice (TOI), 'mm:ss' string; minutes run past 59 over a season ('2314:48');
@@ -1218,7 +1262,7 @@ components:
                 description: Goals (G).
                 type: integer
               hits:
-                description: Hits (Hits).
+                description: Body checks delivered (Hits).
                 type: integer
               jersey:
                 description: Jersey number (#; the page legend mislabels this column 'Position').
@@ -1237,7 +1281,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               plus:
                 description: 'Plus: on-ice goals for that count toward plus/minus (+).'
@@ -1313,7 +1358,7 @@ components:
                 description: Goals (G).
                 type: integer
               hits:
-                description: Hits (Hits).
+                description: Body checks delivered (Hits).
                 type: integer
               jersey:
                 description: Jersey number (#; the page legend mislabels this column 'Position').
@@ -1332,7 +1377,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               plus:
                 description: 'Plus: on-ice goals for that count toward plus/minus (+).'
@@ -1409,7 +1455,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               save_pct:
                 description: Save percentage (%Sv); 0-100 scale (93.8 = 93.8 %); null when the page shows
@@ -1465,11 +1512,6 @@ components:
           description: Standings rows in rank order (32 teams in 1374).
           items:
             properties:
-              club_id:
-                description: 'Per-season club id: the club filter of /calendar/{tn}/0/{club_id}/ and /stats/players/{tn}/all/{club_id}/.
-                  A new id every season (Metallurg = 15017 in 1374). Not a team page id (report *_team_id)
-                  and not a logo-server id (calendar *_khl_id).'
-                type: integer
               games_played:
                 description: Games played (GP).
                 type: integer
@@ -1501,8 +1543,14 @@ components:
                 description: Shootout wins (SOW).
                 type: integer
               team:
-                description: Team short name (Latin).
+                description: 'Team name (Latin, SHORT form: ''Kristall'').'
                 type: string
+              team_season_id:
+                description: 'Team-season id (khl/ terminology): one id per team per tournament, from
+                  the KHL''s sequence (khl/: Spartak = 14934 in 1369; here Metallurg = 15017 in 1374).
+                  The {id} of /calendar/{tn}/0/{id}/ and /stats/players/{tn}/all/{id}/. Not the stable
+                  club id (*_club_id) and not the team page id.'
+                type: integer
               wins:
                 description: Regulation wins (W).
                 type: integer
@@ -1535,9 +1583,10 @@ components:
         arena_capacity:
           description: Arena capacity (seats), from the Arena tab.
           type: integer
-        calendar_club_id:
-          description: club_id of the club in that current tournament (the club filter of /calendar/{tn}/0/{club_id}/
-            and /stats/players/{tn}/all/{club_id}/.).
+        calendar_team_season_id:
+          description: Team-season id of the club in the CURRENT tournament (calendar_tn), from the 'To
+            the calendar' link /calendar/{tn}/0/{id}/. With calendar_tn, the only bridge from a team page
+            id to a team-season id, and for the current tn only.
           type: integer
         calendar_tn:
           description: 'Tournament id of the ''To the calendar'' link: the CURRENT tournament, whatever
@@ -1550,28 +1599,39 @@ components:
           description: Year of foundation.
           type: integer
         full_name:
-          description: 'Name before the comma of the h2 ''Name , City | Year of foundation: N''.'
-          type: string
-        general_manager:
-          description: Unobserved in samples (null in every capture); type and meaning unverified.
-          x-unobserved: true
-        head_coach:
-          description: Head coach name, 'Given Surname' order here.
+          description: 'Name before the comma of the h2 ''Name , City | Year of foundation: N''. Despite
+            the key, the SHORT form here too (''Kristall'').'
           type: string
         honours:
-          description: Always an empty array in samples; element shape and meaning unverified.
+          description: Club honours, one class-less <h3> each, verbatim in RUSSIAN ('Победитель Первенства
+            СССР среди команд первой лиги 1974, 1976' = winner of the USSR first-league championship);
+            empty for clubs without any (Toros).
           items:
-            x-unobserved: true
+            type: string
           type: array
         name:
-          description: Team short name (Latin), h1; checked against the expected name.
+          description: 'Team name (Latin, SHORT form: ''Kristall''; the calendar and report header say
+            ''Kristall S''), from the h1; checked against the expected name.'
           type: string
+        officials:
+          description: 'Club officials, one per ''<p>Role:<b>Name</b></p>'' line, every role kept (Toros
+            and Kristall: Director, Head Coach).'
+          items:
+            properties:
+              name:
+                description: Official's name, 'Given Surname' order on this page.
+                type: string
+              role:
+                description: 'Role label as printed (English): Director and Head Coach in the samples;
+                  President and General Manager also occur.'
+                type: string
+            type: object
+          type: array
         phone:
           description: Phone number(s) as printed (comma-separated when several).
-          type: string
-        president:
-          description: Unobserved in samples (null in every capture); type and meaning unverified.
-          x-unobserved: true
+          type:
+          - string
+          - 'null'
         roster:
           description: Current roster (the page's first table).
           items:
@@ -1592,7 +1652,8 @@ components:
                 type: string
               player_id:
                 description: 'Player id: the {player_id} of /en/players/{player_id}/, stable across seasons
-                  and teams (photos use the same id on img.khl.ru).'
+                  and teams; also the photo id on img.khl.ru. Same numeric sequence as khl.ru player ids;
+                  whether it equals the same person''s khl.ru id is unverified.'
                 type: integer
               position:
                 description: 'Position in English, lower case: goaltender, defense, forward.'
@@ -1743,8 +1804,8 @@ paths:
     get:
       description: 'text/html, parsed by capture.py into the JSON record of x-parsed-schema (English keys).
         Parsing rule: select[name=team] option[selected] (the tn); the page''s only <table> (thead header;
-        Team cell links /stats/players/{tn}/all/{club_id}/, which must carry the requested tn). Errors
-        arrive as HTTP 200 HTML (empty shells or another season); see the divergence notes.'
+        Team cell links /stats/players/{tn}/all/{team_season_id}/, which must carry the requested tn).
+        Errors arrive as HTTP 200 HTML (empty shells or another season); see the divergence notes.'
       operationId: get_vhl_standings
       parameters:
       - description: 'Tournament id: one season stage (regular season or playoffs), from the calendar''s
@@ -1766,7 +1827,8 @@ paths:
               x-parsed-schema:
                 parser: vhl/tools/capture.py parse_standings
                 rule: select[name=team] option[selected] (the tn); the page's only <table> (thead header;
-                  Team cell links /stats/players/{tn}/all/{club_id}/, which must carry the requested tn)
+                  Team cell links /stats/players/{tn}/all/{team_season_id}/, which must carry the requested
+                  tn)
                 schema:
                   $ref: '#/components/schemas/VhlStandings'
           description: Server-rendered HTML page
@@ -1812,8 +1874,8 @@ paths:
         HTTP 200 HTML (empty shells or another season); see the divergence notes.'
       operationId: get_vhl_team
       parameters:
-      - description: 'Team page id (report game.home_team_id / away_team_id). Unknown: an empty 158 KB
-          shell, HTTP 200 (probed 2026-10-12).'
+      - description: 'Team page id (report game.home_team_page_id / away_team_page_id). Unknown: an empty
+          158 KB shell, HTTP 200 (probed 2026-10-12).'
         example: 390
         in: path
         name: team_id
