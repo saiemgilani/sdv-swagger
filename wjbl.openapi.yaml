@@ -490,7 +490,8 @@ components:
               x-unobserved: true
             score_ot4:
               description: 'Unobserved: null in every sample. When filled: Points in the 4th overtime;
-                null when none.'
+                null when none. There is no score_ot5+: overtimes 5-10 appear only as play-by-play period
+                9-14 and in the /pbp/team-stats and /pbp/player-stats periods maps.'
               x-unobserved: true
             score_p1:
               description: Points scored IN the 1st quarter (not cumulative).
@@ -564,7 +565,8 @@ components:
               x-unobserved: true
             score_ot4:
               description: 'Unobserved: null in every sample. When filled: Points in the 4th overtime;
-                null when none.'
+                null when none. There is no score_ot5+: overtimes 5-10 appear only as play-by-play period
+                9-14 and in the /pbp/team-stats and /pbp/player-stats periods maps.'
               x-unobserved: true
             score_p1:
               description: Points scored IN the 1st quarter (not cumulative).
@@ -687,7 +689,8 @@ components:
             REDACTED by the capture to '[redacted]'.
           type: string
         contact_url:
-          description: Contact URL; empty string in every sample.
+          description: Contact URL; empty string in every sample (the capture redacts any filled key naming
+            a contact).
           type: string
         cs_url:
           description: Cable/satellite (CS) broadcast URL; empty string in every sample.
@@ -748,12 +751,12 @@ components:
             ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
             = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
             and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-            (''25-26'' -> 2026).'
+            (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000).'
           type: integer
         league_title:
           description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
-            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
-            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+            END year 2026; END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000); also ''Wリーグオールスター2025-26''
+            = All-Star game, ''オータムカップ2021'' = Autumn Cup, ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
           type: string
         live_link:
           description: Live-stream URL; empty when none.
@@ -797,8 +800,9 @@ components:
             = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the separator varies by era).'
           type: string
         started_at:
-          description: Actual tip-off 'HH:MM', JST, as recorded ('15:01'); junk on some old games ('05:06'
-            for a 19:00 game, 2013-14).
+          description: 'Actual tip-off ''HH:MM'', JST, as recorded (''15:01''); junk on 2013-14 games
+            (''05:06'' for a 19:00 game, and it CHANGES between requests: 05:06 / 05:16 / 05:25 for game
+            4243), so ignore it there.'
           type: string
         sub_referee_name1:
           description: First umpire (副審 / ファーストアンパイア), Japanese name; empty when not recorded.
@@ -835,12 +839,12 @@ components:
               ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'',
               47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
               and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-              (''25-26'' -> 2026).'
+              (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000).'
             type: integer
           league_title:
             description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
-              END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
-              ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+              END year 2026; END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000); also ''Wリーグオールスター2025-26''
+              = All-Star game, ''オータムカップ2021'' = Autumn Cup, ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
             type: string
         type: object
       type: array
@@ -911,7 +915,9 @@ components:
                 type: integer
               home_away:
                 description: 'Side of the acting team: 1 = home, 2 = away; null on period/game-end lines.'
-                type: integer
+                type:
+                - integer
+                - 'null'
               'no':
                 description: 'Play sequence number, ascending, 1 = first; numbers can skip (deleted plays:
                   443 numbers for 439 rows on 7987).'
@@ -928,16 +934,18 @@ components:
                   Empty on period and game-end lines.'
                 type: string
               player_id1:
-                description: 'First actor (the player going OUT on a substitution): Player id player_id
-                  (key space: W League persons, STABLE across seasons and teams). The player_id of /player
-                  and the pi= of the site''s /player/detail?pi=; joins the play-by-play player_id1 / player_id2.
-                  Null on team and period lines.'
-                type: integer
+                description: 'First actor (the player going OUT on a substitution): Player id (key space:
+                  W League persons, STABLE across seasons and teams). Joins /boxscore home/away.players[].player_id
+                  and the player_id of /player (the pi= of the site''s /player/detail?pi=). Null on team
+                  and period lines.'
+                type:
+                - integer
+                - 'null'
               player_id2:
                 description: 'Second actor, filled on substitutions only (the player coming IN; verified
-                  89/89 on game 7987): Player id player_id (key space: W League persons, STABLE across
-                  seasons and teams). The player_id of /player and the pi= of the site''s /player/detail?pi=;
-                  joins the play-by-play player_id1 / player_id2.'
+                  89/89 on game 7987): Player id (key space: W League persons, STABLE across seasons and
+                  teams). Joins /boxscore home/away.players[].player_id and the player_id of /player (the
+                  pi= of the site''s /player/detail?pi=). Null otherwise.'
                 type:
                 - integer
                 - 'null'
@@ -969,7 +977,9 @@ components:
                   Sunflowers; all-star sides have their own ids, e.g. 591). The team_id of /team/roster
                   and of the site''s /team/roster/?team_id=. Not season_team_id. Null on period/game-end
                   lines.'
-                type: integer
+                type:
+                - integer
+                - 'null'
               team_name:
                 description: Acting team name, Japanese (may contain a full-width space and differ from
                   the box score's spelling); empty on period/game-end lines.
@@ -1198,12 +1208,12 @@ components:
             ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
             = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
             and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-            (''25-26'' -> 2026).'
+            (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000).'
           type: integer
         league_title:
           description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
-            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
-            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+            END year 2026; END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000); also ''Wリーグオールスター2025-26''
+            = All-Star game, ''オータムカップ2021'' = Autumn Cup, ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
           type: string
         seasons:
           additionalProperties:
@@ -1352,12 +1362,12 @@ components:
             ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
             = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
             and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-            (''25-26'' -> 2026).'
+            (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000).'
           type: integer
         league_title:
           description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
-            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
-            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+            END year 2026; END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000); also ''Wリーグオールスター2025-26''
+            = All-Star game, ''オータムカップ2021'' = Autumn Cup, ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
           type: string
         players:
           description: Players in shirt-number order; the sample keeps 3.
@@ -1450,12 +1460,13 @@ components:
             W League competitions; sequential, ONE id per season of the league AND per all-star game,
             cup or camp: 45 = ''25-26 Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26).
             The league_id parameter of /play-schedules and /play-schedule-months; enumerate with /leagues.
-            The sdv season is the END year of league_title (''25-26'' -> 2026).'
+            The sdv season is the END year of league_title (END = 2000 + the second YY: ''25-26'' -> 2026,
+            ''99-00'' -> 2000).'
           type: integer
         league_title:
           description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
-            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
-            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+            END year 2026; END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000); also ''Wリーグオールスター2025-26''
+            = All-Star game, ''オータムカップ2021'' = Autumn Cup, ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
           type: string
         seasons:
           additionalProperties:
@@ -1493,7 +1504,8 @@ components:
                         or ''/assets/img/team/...png'').'
                       type: string
                     away_team_score:
-                      description: Away final points (integer); null before the game.
+                      description: Away final points (integer). Null on unplayed games, as for home_team_score
+                        (not in the finished samples).
                       type: integer
                     box_flg:
                       description: Box-score flag (integer). 1 on every sampled game, scheduled ones included,
@@ -1554,7 +1566,8 @@ components:
                         or ''/assets/img/team/...png'').'
                       type: string
                     home_team_score:
-                      description: Home final points (integer); null before the game.
+                      description: Home final points (integer). Every sampled game is finished, so null
+                        is not in the type; unplayed games (2026-27 'scheduled') carry null.
                       type: integer
                     live_link:
                       description: Live-stream URL; empty when none.
@@ -1592,8 +1605,9 @@ components:
                         separator varies by era).'
                       type: string
                     started_at:
-                      description: Actual tip-off 'HH:MM', JST, as recorded ('15:01'); junk on some old
-                        games ('05:06' for a 19:00 game, 2013-14).
+                      description: 'Actual tip-off ''HH:MM'', JST, as recorded (''15:01''); junk on 2013-14
+                        games (''05:06'' for a 19:00 game, and it CHANGES between requests: 05:06 / 05:16
+                        / 05:25 for game 4243), so ignore it there.'
                       type: string
                     ticket_url:
                       description: Ticket sale URL; empty string in every sample.
@@ -2101,7 +2115,8 @@ paths:
           sequential, ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26
           Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
           and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-          (''25-26'' -> 2026). Not a number -> error E003. Omitted on /play-schedules: the newest league_id.'
+          (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000). Not a number -> error E003.
+          Omitted on /play-schedules: the newest league_id.'
         example: 45
         in: query
         name: league_id
@@ -2123,7 +2138,8 @@ paths:
   /play-schedule/detail:
     get:
       description: 'Game header: both teams and the score by period. score_p1..p4 are per-quarter, not
-        cumulative; score_ot1-4 null when unused.'
+        cumulative; score_ot1-4 null when unused. Only four overtimes have score columns; overtimes 5+
+        are only in the /pbp/* routes (period 9-14 and the periods maps).'
       operationId: get_wjbl_detail
       parameters:
       - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
@@ -2161,7 +2177,8 @@ paths:
           sequential, ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26
           Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
           and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
-          (''25-26'' -> 2026). Not a number -> error E003. Omitted on /play-schedules: the newest league_id.'
+          (END = 2000 + the second YY: ''25-26'' -> 2026, ''99-00'' -> 2000). Not a number -> error E003.
+          Omitted on /play-schedules: the newest league_id.'
         example: 45
         in: query
         name: league_id
