@@ -1,0 +1,2356 @@
+components:
+  schemas:
+    WjblBoxscore:
+      description: 'Box score: per side, the player rows, the team line, the totals line and shooting
+        percentages.'
+      properties:
+        away:
+          description: Away side box score.
+          properties:
+            percentage:
+              description: Shooting percentages of the side's total line.
+              properties:
+                fgp:
+                  description: Field-goal percentage (2PT + 3PT), 0-100, one decimal, as a string ('39.3').
+                  type: string
+                ftp:
+                  description: Free-throw percentage, 0-100, one decimal, as a string ('75.0').
+                  type: string
+                p2p:
+                  description: Two-point percentage of the side's TOTAL line, 0-100 with one decimal,
+                    as a STRING ('39.5').
+                  type: string
+                p3p:
+                  description: Three-point percentage, 0-100, one decimal, as a string ('39.1').
+                  type: string
+              type: object
+            players:
+              description: One row per player who dressed (12 max), in shirt-number order; the sample
+                keeps 3.
+              items:
+                properties:
+                  ast:
+                    description: Assists. Integer.
+                    type: integer
+                  blk:
+                    description: Blocked shots (made by this player / team). Integer.
+                    type: integer
+                  def:
+                    description: Defensive rebounds. Integer.
+                    type: integer
+                  f:
+                    description: Personal fouls committed. Integer.
+                    type: integer
+                  fta:
+                    description: Free throws attempted. Integer.
+                    type: integer
+                  ftm:
+                    description: Free throws made. Integer.
+                    type: integer
+                  gs:
+                    description: 'Game started: 1 = starter, 0 = bench (integer).'
+                    type: integer
+                  min:
+                    description: Minutes played 'mm:ss' ('22:19'), a string.
+                    type: string
+                  'off':
+                    description: Offensive rebounds. Integer.
+                    type: integer
+                  p2a:
+                    description: Two-point field goals attempted. Integer.
+                    type: integer
+                  p2m:
+                    description: Two-point field goals made. Integer.
+                    type: integer
+                  p3a:
+                    description: Three-point field goals attempted. Integer.
+                    type: integer
+                  p3m:
+                    description: Three-point field goals made. Integer.
+                    type: integer
+                  player_id:
+                    description: 'Player id player_id (key space: W League persons, STABLE across seasons
+                      and teams). The player_id of /player and the pi= of the site''s /player/detail?pi=;
+                      joins the play-by-play player_id1 / player_id2.'
+                    type: integer
+                  player_name:
+                    description: Player name in Japanese, 'SURNAME GIVEN' with a space (foreign players
+                      in katakana).
+                    type: string
+                  player_number:
+                    description: Shirt number, a string.
+                    type: string
+                  pts:
+                    description: Points. Integer.
+                    type: integer
+                  stl:
+                    description: Steals. Integer.
+                    type: integer
+                  to:
+                    description: Turnovers. Integer.
+                    type: integer
+                  tot:
+                    description: Total rebounds (off + def). Integer.
+                    type: integer
+                type: object
+              type: array
+            season_team_name:
+              description: 'Away team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Away team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team:
+              description: 'Team line (チーム): stats credited to the team, not a player (team rebounds,
+                team turnovers); pts and shooting are 0.'
+              properties:
+                ast:
+                  description: Assists. Integer.
+                  type: integer
+                blk:
+                  description: Blocked shots (made by this player / team). Integer.
+                  type: integer
+                def:
+                  description: Defensive rebounds. Integer.
+                  type: integer
+                f:
+                  description: Personal fouls committed. Integer.
+                  type: integer
+                fta:
+                  description: Free throws attempted. Integer.
+                  type: integer
+                ftm:
+                  description: Free throws made. Integer.
+                  type: integer
+                min:
+                  description: Always '00:00' on the team line.
+                  type: string
+                'off':
+                  description: Offensive rebounds. Integer.
+                  type: integer
+                p2a:
+                  description: Two-point field goals attempted. Integer.
+                  type: integer
+                p2m:
+                  description: Two-point field goals made. Integer.
+                  type: integer
+                p3a:
+                  description: Three-point field goals attempted. Integer.
+                  type: integer
+                p3m:
+                  description: Three-point field goals made. Integer.
+                  type: integer
+                player_id:
+                  description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                    (Null on a team line.)'
+                  x-unobserved: true
+                pts:
+                  description: Points. Integer.
+                  type: integer
+                stl:
+                  description: Steals. Integer.
+                  type: integer
+                to:
+                  description: Turnovers. Integer.
+                  type: integer
+                tot:
+                  description: Total rebounds (off + def). Integer.
+                  type: integer
+              type: object
+            team_id:
+              description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Away team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+            total:
+              description: Side totals (合計) = players + team line.
+              properties:
+                ast:
+                  description: Assists. Integer.
+                  type: integer
+                blk:
+                  description: Blocked shots (made by this player / team). Integer.
+                  type: integer
+                def:
+                  description: Defensive rebounds. Integer.
+                  type: integer
+                f:
+                  description: Personal fouls committed. Integer.
+                  type: integer
+                fta:
+                  description: Free throws attempted. Integer.
+                  type: integer
+                ftm:
+                  description: Free throws made. Integer.
+                  type: integer
+                min:
+                  description: Summed minutes 'mmm:ss' ('200:00' = 5 x 40:00; '225:00' with one 5-minute
+                    overtime).
+                  type: string
+                'off':
+                  description: Offensive rebounds. Integer.
+                  type: integer
+                p2a:
+                  description: Two-point field goals attempted. Integer.
+                  type: integer
+                p2m:
+                  description: Two-point field goals made. Integer.
+                  type: integer
+                p3a:
+                  description: Three-point field goals attempted. Integer.
+                  type: integer
+                p3m:
+                  description: Three-point field goals made. Integer.
+                  type: integer
+                player_id:
+                  description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                    (Null on the totals line.)'
+                  x-unobserved: true
+                pts:
+                  description: Points. Integer.
+                  type: integer
+                stl:
+                  description: Steals. Integer.
+                  type: integer
+                to:
+                  description: Turnovers. Integer.
+                  type: integer
+                tot:
+                  description: Total rebounds (off + def). Integer.
+                  type: integer
+              type: object
+          type: object
+        game_status:
+          description: 'Game state: ''fixed'' = final (confirmed result), ''scheduled'' = not played yet
+            (seen on 26-27 games); the site''s JS also handles ''live'', ''canceled'' and ''delayed''.
+            The capture banks only ''fixed'' games.'
+          type: string
+        home:
+          description: Home side box score.
+          properties:
+            percentage:
+              description: Shooting percentages of the side's total line.
+              properties:
+                fgp:
+                  description: Field-goal percentage (2PT + 3PT), 0-100, one decimal, as a string ('39.3').
+                  type: string
+                ftp:
+                  description: Free-throw percentage, 0-100, one decimal, as a string ('75.0').
+                  type: string
+                p2p:
+                  description: Two-point percentage of the side's TOTAL line, 0-100 with one decimal,
+                    as a STRING ('39.5').
+                  type: string
+                p3p:
+                  description: Three-point percentage, 0-100, one decimal, as a string ('39.1').
+                  type: string
+              type: object
+            players:
+              description: One row per player who dressed (12 max), in shirt-number order; the sample
+                keeps 3.
+              items:
+                properties:
+                  ast:
+                    description: Assists. Integer.
+                    type: integer
+                  blk:
+                    description: Blocked shots (made by this player / team). Integer.
+                    type: integer
+                  def:
+                    description: Defensive rebounds. Integer.
+                    type: integer
+                  f:
+                    description: Personal fouls committed. Integer.
+                    type: integer
+                  fta:
+                    description: Free throws attempted. Integer.
+                    type: integer
+                  ftm:
+                    description: Free throws made. Integer.
+                    type: integer
+                  gs:
+                    description: 'Game started: 1 = starter, 0 = bench (integer).'
+                    type: integer
+                  min:
+                    description: Minutes played 'mm:ss' ('22:19'), a string.
+                    type: string
+                  'off':
+                    description: Offensive rebounds. Integer.
+                    type: integer
+                  p2a:
+                    description: Two-point field goals attempted. Integer.
+                    type: integer
+                  p2m:
+                    description: Two-point field goals made. Integer.
+                    type: integer
+                  p3a:
+                    description: Three-point field goals attempted. Integer.
+                    type: integer
+                  p3m:
+                    description: Three-point field goals made. Integer.
+                    type: integer
+                  player_id:
+                    description: 'Player id player_id (key space: W League persons, STABLE across seasons
+                      and teams). The player_id of /player and the pi= of the site''s /player/detail?pi=;
+                      joins the play-by-play player_id1 / player_id2.'
+                    type: integer
+                  player_name:
+                    description: Player name in Japanese, 'SURNAME GIVEN' with a space (foreign players
+                      in katakana).
+                    type: string
+                  player_number:
+                    description: Shirt number, a string.
+                    type: string
+                  pts:
+                    description: Points. Integer.
+                    type: integer
+                  stl:
+                    description: Steals. Integer.
+                    type: integer
+                  to:
+                    description: Turnovers. Integer.
+                    type: integer
+                  tot:
+                    description: Total rebounds (off + def). Integer.
+                    type: integer
+                type: object
+              type: array
+            season_team_name:
+              description: 'Home team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Home team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team:
+              description: 'Team line (チーム): stats credited to the team, not a player (team rebounds,
+                team turnovers); pts and shooting are 0.'
+              properties:
+                ast:
+                  description: Assists. Integer.
+                  type: integer
+                blk:
+                  description: Blocked shots (made by this player / team). Integer.
+                  type: integer
+                def:
+                  description: Defensive rebounds. Integer.
+                  type: integer
+                f:
+                  description: Personal fouls committed. Integer.
+                  type: integer
+                fta:
+                  description: Free throws attempted. Integer.
+                  type: integer
+                ftm:
+                  description: Free throws made. Integer.
+                  type: integer
+                min:
+                  description: Always '00:00' on the team line.
+                  type: string
+                'off':
+                  description: Offensive rebounds. Integer.
+                  type: integer
+                p2a:
+                  description: Two-point field goals attempted. Integer.
+                  type: integer
+                p2m:
+                  description: Two-point field goals made. Integer.
+                  type: integer
+                p3a:
+                  description: Three-point field goals attempted. Integer.
+                  type: integer
+                p3m:
+                  description: Three-point field goals made. Integer.
+                  type: integer
+                player_id:
+                  description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                    (Null on a team line.)'
+                  x-unobserved: true
+                pts:
+                  description: Points. Integer.
+                  type: integer
+                stl:
+                  description: Steals. Integer.
+                  type: integer
+                to:
+                  description: Turnovers. Integer.
+                  type: integer
+                tot:
+                  description: Total rebounds (off + def). Integer.
+                  type: integer
+              type: object
+            team_id:
+              description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Home team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+            total:
+              description: Side totals (合計) = players + team line.
+              properties:
+                ast:
+                  description: Assists. Integer.
+                  type: integer
+                blk:
+                  description: Blocked shots (made by this player / team). Integer.
+                  type: integer
+                def:
+                  description: Defensive rebounds. Integer.
+                  type: integer
+                f:
+                  description: Personal fouls committed. Integer.
+                  type: integer
+                fta:
+                  description: Free throws attempted. Integer.
+                  type: integer
+                ftm:
+                  description: Free throws made. Integer.
+                  type: integer
+                min:
+                  description: Summed minutes 'mmm:ss' ('200:00' = 5 x 40:00; '225:00' with one 5-minute
+                    overtime).
+                  type: string
+                'off':
+                  description: Offensive rebounds. Integer.
+                  type: integer
+                p2a:
+                  description: Two-point field goals attempted. Integer.
+                  type: integer
+                p2m:
+                  description: Two-point field goals made. Integer.
+                  type: integer
+                p3a:
+                  description: Three-point field goals attempted. Integer.
+                  type: integer
+                p3m:
+                  description: Three-point field goals made. Integer.
+                  type: integer
+                player_id:
+                  description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                    (Null on the totals line.)'
+                  x-unobserved: true
+                pts:
+                  description: Points. Integer.
+                  type: integer
+                stl:
+                  description: Steals. Integer.
+                  type: integer
+                to:
+                  description: Turnovers. Integer.
+                  type: integer
+                tot:
+                  description: Total rebounds (off + def). Integer.
+                  type: integer
+              type: object
+          type: object
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+      type: object
+    WjblDetail:
+      description: 'Game header: both teams with result and score by period.'
+      properties:
+        away:
+          description: Away team (アウェイ) and its score by period.
+          properties:
+            free_text:
+              description: Free-text team label used when the slot has no team (e.g. 'winner of game X');
+                empty string in every sample.
+              type: string
+            score:
+              description: Final points.
+              type: integer
+            score_ot1:
+              description: Points scored in the 1st overtime (5 min); null when there was none.
+              type:
+              - integer
+              - 'null'
+            score_ot2:
+              description: 'Unobserved: null in every sample. When filled: Points in the 2nd overtime;
+                null when none.'
+              x-unobserved: true
+            score_ot3:
+              description: 'Unobserved: null in every sample. When filled: Points in the 3rd overtime;
+                null when none.'
+              x-unobserved: true
+            score_ot4:
+              description: 'Unobserved: null in every sample. When filled: Points in the 4th overtime;
+                null when none.'
+              x-unobserved: true
+            score_p1:
+              description: Points scored IN the 1st quarter (not cumulative).
+              type: integer
+            score_p2:
+              description: Points scored in the 2nd quarter.
+              type: integer
+            score_p3:
+              description: Points scored in the 3rd quarter.
+              type: integer
+            score_p4:
+              description: Points scored in the 4th quarter.
+              type: integer
+            season_team_area:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed. (By
+                the site''s standings JS: 0 = East, 1 = West conference when season_league_flg = 2.)'
+              x-unobserved: true
+            season_team_name:
+              description: 'Away team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Away team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team_entry_flg:
+              description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member team (the
+                site links its roster), 0 = not (guest or all-star side). Integer.'
+              type: integer
+            team_id:
+              description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Away team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+            winner_flg:
+              description: 'Result for this side: 1 = won, -1 = lost (integer; a 0 tie code is unobserved).'
+              type: integer
+          type: object
+        game_status:
+          description: 'Game state: ''fixed'' = final (confirmed result), ''scheduled'' = not played yet
+            (seen on 26-27 games); the site''s JS also handles ''live'', ''canceled'' and ''delayed''.
+            The capture banks only ''fixed'' games.'
+          type: string
+        home:
+          description: Home team (ホーム) and its score by period.
+          properties:
+            free_text:
+              description: Free-text team label used when the slot has no team (e.g. 'winner of game X');
+                empty string in every sample.
+              type: string
+            score:
+              description: Final points.
+              type: integer
+            score_ot1:
+              description: Points scored in the 1st overtime (5 min); null when there was none.
+              type:
+              - integer
+              - 'null'
+            score_ot2:
+              description: 'Unobserved: null in every sample. When filled: Points in the 2nd overtime;
+                null when none.'
+              x-unobserved: true
+            score_ot3:
+              description: 'Unobserved: null in every sample. When filled: Points in the 3rd overtime;
+                null when none.'
+              x-unobserved: true
+            score_ot4:
+              description: 'Unobserved: null in every sample. When filled: Points in the 4th overtime;
+                null when none.'
+              x-unobserved: true
+            score_p1:
+              description: Points scored IN the 1st quarter (not cumulative).
+              type: integer
+            score_p2:
+              description: Points scored in the 2nd quarter.
+              type: integer
+            score_p3:
+              description: Points scored in the 3rd quarter.
+              type: integer
+            score_p4:
+              description: Points scored in the 4th quarter.
+              type: integer
+            season_team_area:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed. (By
+                the site''s standings JS: 0 = East, 1 = West conference when season_league_flg = 2.)'
+              x-unobserved: true
+            season_team_name:
+              description: 'Home team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Home team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team_entry_flg:
+              description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member team (the
+                site links its roster), 0 = not (guest or all-star side). Integer.'
+              type: integer
+            team_id:
+              description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Home team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+            winner_flg:
+              description: 'Result for this side: 1 = won, -1 = lost (integer; a 0 tie code is unobserved).'
+              type: integer
+          type: object
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+      type: object
+    WjblError:
+      description: Body of a bad or missing parameter, still HTTP 200.
+      properties:
+        error:
+          description: Error object.
+          properties:
+            error_code:
+              description: Error code ('E003' = invalid parameter).
+              type: string
+            error_message:
+              description: 'Message in Japanese, ''パラメータに誤りがあります。：<param>'' = ''the parameter is invalid:
+                <param>''.'
+              type: string
+          type: object
+      type: object
+    WjblGame:
+      description: 'Game information: competition, venue, times, referees, broadcast links, Japanese free
+        text.'
+      properties:
+        allow_shoes_on:
+          description: 'Outdoor shoes allowed in the arena (土足): 1 = not stated, 2 = yes (◯), 3 or 4 =
+            no (×). Integer.'
+          type: integer
+        allow_shoes_on_others:
+          description: Extra note on outdoor shoes; empty string in every sample.
+          type: string
+        away:
+          description: Away team.
+          properties:
+            free_text:
+              description: Free-text team label used when the slot has no team (e.g. 'winner of game X');
+                empty string in every sample.
+              type: string
+            season_team_name:
+              description: 'Away team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Away team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team_id:
+              description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Away team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+          type: object
+        box_flg:
+          description: Box-score flag (integer). 1 on every sampled game, scheduled ones included, so
+            it does NOT prove a box score exists.
+          type: integer
+        bs_url:
+          description: Satellite-TV (BS) broadcast URL; empty string in every sample.
+          type: string
+        cancel_flg:
+          description: 'Cancelled flag: 1 = cancelled, 0 = not.'
+          type: integer
+        comment:
+          description: 'Officials block, Japanese free text: ''クルーチーフ：'' crew chief, ''ファーストアンパイア：'' first
+            umpire, ''セカンドアンパイア：'' second umpire, 2013-14 ''主審'' referee / ''副審'' umpires / ''コミッショナー''
+            commissioner; CRLF or <br> separated.'
+          type: string
+        contact:
+          description: Organiser contact (phone numbers, e-mail, ticket outlets; Japanese, may hold HTML).
+            REDACTED by the capture to '[redacted]'.
+          type: string
+        contact_url:
+          description: Contact URL; empty string in every sample.
+          type: string
+        cs_url:
+          description: Cable/satellite (CS) broadcast URL; empty string in every sample.
+          type: string
+        delay_flg:
+          description: 'Postponed flag: 1 = postponed, 0 = not.'
+          type: integer
+        event_info:
+          description: Event-day information (gate times, food, shoes, tip-off), Japanese free text with
+            CRLF line breaks.
+          type: string
+        game_date:
+          description: Game date in Japanese, 'YYYY年M月D日(曜)' ('2026年4月4日(土)' = Saturday 4 April 2026).
+          type: string
+        game_icon:
+          description: 'Icon code shown next to the game: 0 = none, 1 = home-game icon (home.svg), 2 =
+            neutral-site icon (neutral.svg).'
+          type: integer
+        game_start_time:
+          description: Scheduled tip-off 'HH:MM', Japan time (JST, UTC+9).
+          type: string
+        game_status:
+          description: 'Game state: ''fixed'' = final (confirmed result), ''scheduled'' = not played yet
+            (seen on 26-27 games); the site''s JS also handles ''live'', ''canceled'' and ''delayed''.
+            The capture banks only ''fixed'' games.'
+          type: string
+        ground_url:
+          description: Terrestrial-TV broadcast URL; empty string in every sample.
+          type: string
+        home:
+          description: Home team (no score here; see /play-schedule/detail).
+          properties:
+            free_text:
+              description: Free-text team label used when the slot has no team (e.g. 'winner of game X');
+                empty string in every sample.
+              type: string
+            season_team_name:
+              description: 'Home team name: Team name as registered for the season, in Japanese (company
+                + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+              type: string
+            season_team_short_name:
+              description: 'Home team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                = Toyota).'
+              type: string
+            team_id:
+              description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE across
+                seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+                /team/roster/?team_id=. Not season_team_id.'
+              type: integer
+            team_logo_image:
+              description: 'Home team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                or ''/assets/img/team/...png'').'
+              type: string
+          type: object
+        league_id:
+          description: 'Competition-edition id league_id (key space: W League competitions; sequential,
+            ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
+            = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+            and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+            (''25-26'' -> 2026).'
+          type: integer
+        league_title:
+          description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
+            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
+            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+          type: string
+        live_link:
+          description: Live-stream URL; empty when none.
+          type: string
+        opening_time:
+          description: Doors-open time 'HH:MM', JST; empty when not published.
+          type: string
+        other_url:
+          description: Other broadcast URL; empty string in every sample.
+          type: string
+        pbp_flg:
+          description: 'Play-by-play flag: 1 = /pbp/* routes have data (2018-19 onward), 0 = not (they
+            answer []).'
+          type: integer
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+        referee_name:
+          description: Crew chief (主審 / クルーチーフ), 'SURNAME GIVEN' in Japanese; empty on 2013-14 (names
+            are in comment); placeholder '審判01' (= 'referee 01') on game 5533.
+          type: string
+        report:
+          description: Game report (quarter-by-quarter narrative) in Japanese HTML; filled on 2013-14,
+            empty on the newer samples.
+          type: string
+        season_full_name:
+          description: 'league_title + phase (+ division) in Japanese: ''25-26 Wリーグ レギュラーシーズン プレミア'' =
+            2025-26 regular season, Premier division (''フューチャー'' = Future division, from 2024-25).'
+          type: string
+        season_id:
+          description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g. 169 = 25-26
+            regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26 playoff final). Not
+            a year: one league_id has several season_ids. The season_ids parameter of /team-standings
+            and /team-ranking and the season_id of /team/roster.'
+          type: integer
+        season_title:
+          description: 'Phase title in Japanese: ''レギュラーシーズン'' = regular season, ''プレーオフ　ファイナル'' / ''プレーオフ／ファイナル''
+            = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the separator varies by era).'
+          type: string
+        started_at:
+          description: Actual tip-off 'HH:MM', JST, as recorded ('15:01'); junk on some old games ('05:06'
+            for a 19:00 game, 2013-14).
+          type: string
+        sub_referee_name1:
+          description: First umpire (副審 / ファーストアンパイア), Japanese name; empty when not recorded.
+          type: string
+        sub_referee_name2:
+          description: Second umpire (セカンドアンパイア), Japanese name; empty when not recorded.
+          type: string
+        ticket_info:
+          description: Ticket information, Japanese free text with CRLF line breaks and HTML links.
+          type: string
+        ticket_url:
+          description: Ticket sale URL; empty string in every sample.
+          type: string
+        venue:
+          description: Arena name, Japanese.
+          type: string
+        venue_address:
+          description: Arena postal address, Japanese.
+          type: string
+        venue_others:
+          description: Access directions to the arena (nearest station, walking time), Japanese free text.
+          type: string
+        vod_link:
+          description: Video-on-demand URL (Basketball LIVE / W-TV); empty when none.
+          type: string
+      type: object
+    WjblLeagues:
+      description: 'List of competition editions (league_id), newest first: every W League season back
+        to 1999-2000 plus all-star games, cups and camps.'
+      items:
+        properties:
+          league_id:
+            description: 'Competition-edition id league_id (key space: W League competitions; sequential,
+              ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'',
+              47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+              and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+              (''25-26'' -> 2026).'
+            type: integer
+          league_title:
+            description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
+              END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
+              ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+            type: string
+        type: object
+      type: array
+    WjblMonths:
+      description: Months with games in one league_id, newest first.
+      properties:
+        game_months:
+          description: Months with games in the league, NEWEST first. Each is one page of /play-schedules.
+          items:
+            properties:
+              game_month:
+                description: 'Month ''YYYY-MM'': the game_month parameter of /play-schedules.'
+                type: string
+              game_month_jpn:
+                description: The month in Japanese, 'YYYY年M月' ('2026年4月' = April 2026).
+                type: string
+            type: object
+          type: array
+        league_id:
+          description: The league_id asked for, echoed as a STRING ('45'; integer everywhere else).
+          type: string
+      type: object
+    WjblPbp:
+      description: Play-by-play of one game, chronological.
+      properties:
+        current_period:
+          description: 'Last period played (integer): 4 for a regulation game, 5 after one overtime.'
+          type: integer
+        game_status:
+          description: 'Game state: ''fixed'' = final (confirmed result), ''scheduled'' = not played yet
+            (seen on 26-27 games); the site''s JS also handles ''live'', ''canceled'' and ''delayed''.
+            The capture banks only ''fixed'' games.'
+          type: string
+        max_period:
+          description: 'Regulation periods (integer): 4 on every sample, overtime games included.'
+          type: integer
+        play_by_plays:
+          description: Every play, CHRONOLOGICAL (no ascending); 400-450 per game. The sample keeps 3.
+          items:
+            properties:
+              action1:
+                description: 'Action in Japanese (vocabulary of 8 full games, 2018-19 to 2025-26): ''プレイヤーイン''
+                  = player in (the starting five at the start of the game), ''プレイヤーインアウト'' = substitution
+                  (player_id1 OUT, player_id2 IN), ''2Pシュート アウトサイドペイント○'' / ''×'' = two-point shot outside
+                  the paint made / missed (''インサイドペイント'' inside-the-paint is not in the sample games),
+                  ''3Pシュート○'' / ''×'' = three-point shot made / missed, ''フリースロー○'' / ''×'' = free throw
+                  made / missed, ''アシスト'' = assist, ''オフェンスリバウンド'' = offensive rebound, ''ディフェンスリバウンド''
+                  = defensive rebound, ''チームオフェンスリバウンド'' / ''チームディフェンスリバウンド'' = team offensive / defensive
+                  rebound, ''スティール'' = steal, ''ブロックショット'' = blocked shot, ''ターンオーバー'' = turnover, ''チームターンオーバー''
+                  = team turnover, ''パーソナルファウル'' = personal foul, ''オフェンスファウル'' = offensive foul, ''アンスポーツマンファウル''
+                  = unsportsmanlike foul, ''タイムアウト'' = timeout, ''クォーターエンド'' = end of period (quarter
+                  or overtime), ''試合終了'' = end of game. ○ = made, × = missed.'
+                type: string
+              action2:
+                description: 'Sub-action in Japanese: ''ジャンプショット'' = jump shot (on field-goal attempts),
+                  ''フリースローオンファウルN'' = free throws awarded on this foul, N = 0-3; '''' otherwise.'
+                type: string
+              action3:
+                description: 'Second qualifier in Japanese: ''シュートファウル'' = shooting foul; '''' otherwise.'
+                type: string
+              end_game_flg:
+                description: 'End-of-game flag: 1 on the final ''試合終了'' line only (the site skips that
+                  row), else 0.'
+                type: integer
+              end_period_flg:
+                description: End-of-period flag (integer); 0 on every observed row, the period end is
+                  the 'クォーターエンド' action instead.
+                type: integer
+              home_away:
+                description: 'Side of the acting team: 1 = home, 2 = away; null on period/game-end lines.'
+                type: integer
+              'no':
+                description: 'Play sequence number, ascending, 1 = first; numbers can skip (deleted plays:
+                  443 numbers for 439 rows on 7987).'
+                type: integer
+              period:
+                description: 'Period: 1-4 = quarters, 5-14 = overtime 1-10 (the site''s tab map). Integer.'
+                type: integer
+              play_text:
+                description: 'Display text in Japanese: ''#11 岡本 2Pシュート○(2点)''. Bracketed running counts:
+                  shots ''(N点)'' = the player''s points so far, assists/steals/blocks/turnovers ''(N本)''
+                  = count so far, rebounds ''(o-d-t)'' = the player''s offensive-defensive-total so far,
+                  fouls ''(a-b:c)'' = a the player''s personal fouls, b the team''s fouls in the period,
+                  c free throws awarded (verified on 7987), substitution ''#15 A → #7 B'' = A out, B in.
+                  Empty on period and game-end lines.'
+                type: string
+              player_id1:
+                description: 'First actor (the player going OUT on a substitution): Player id player_id
+                  (key space: W League persons, STABLE across seasons and teams). The player_id of /player
+                  and the pi= of the site''s /player/detail?pi=; joins the play-by-play player_id1 / player_id2.
+                  Null on team and period lines.'
+                type: integer
+              player_id2:
+                description: 'Second actor, filled on substitutions only (the player coming IN; verified
+                  89/89 on game 7987): Player id player_id (key space: W League persons, STABLE across
+                  seasons and teams). The player_id of /player and the pi= of the site''s /player/detail?pi=;
+                  joins the play-by-play player_id1 / player_id2.'
+                type:
+                - integer
+                - 'null'
+              player_name1:
+                description: Name of the first actor, Japanese; '' on team and period lines.
+                type: string
+              player_name2:
+                description: Name of the second actor (substitution in), Japanese; '' otherwise.
+                type: string
+              player_number1:
+                description: Shirt number of the first actor (the player going OUT on a substitution),
+                  a string; '' on team and period lines.
+                type: string
+              player_number2:
+                description: Shirt number of the second actor (the player coming IN on a substitution),
+                  a string; '' otherwise.
+                type: string
+              rest_time:
+                description: Game clock REMAINING in the period, 'm:ss' without a leading zero ('9:38';
+                  '10:00' at the start, 5:00 in overtime).
+                type: string
+              score:
+                description: Score 'HOME-AWAY' after the play ('4-3'); filled on scoring plays and period/game-end
+                  lines, '' otherwise.
+                type: string
+              team_id:
+                description: 'Acting team: Franchise id team_id (key space: W League franchises, STABLE
+                  across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS
+                  Sunflowers; all-star sides have their own ids, e.g. 591). The team_id of /team/roster
+                  and of the site''s /team/roster/?team_id=. Not season_team_id. Null on period/game-end
+                  lines.'
+                type: integer
+              team_name:
+                description: Acting team name, Japanese (may contain a full-width space and differ from
+                  the box score's spelling); empty on period/game-end lines.
+                type: string
+            type: object
+          type: array
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+      type: object
+    WjblPlayer:
+      description: Profile of one player.
+      properties:
+        player_affiliation_history:
+          description: Career path, Japanese, '→'-separated (mini-basketball club → junior high → high
+            school → university → team).
+          type: string
+        player_appeal:
+          description: Self-introduction text; empty string in the sample.
+          type: string
+        player_awards:
+          description: Awards and honours, Japanese free text.
+          type: string
+        player_birthday:
+          description: Date of birth 'YYYY/MM/DD' (public player bio).
+          type: string
+        player_blood:
+          description: Blood type. REDACTED by the capture to '[redacted]'.
+          type: string
+        player_championships:
+          description: Championships text; empty string in the sample.
+          type: string
+        player_coach_history:
+          description: Coaching history (for players who became coaches); empty string in the sample.
+          type: string
+        player_coach_record:
+          description: Coaching record; empty string in the sample.
+          type: string
+        player_early_entry:
+          description: 'Early-entry player (アーリーエントリー, a student who joined before graduating): 1 = yes,
+            0 = no.'
+          type: integer
+        player_facebook_url:
+          description: Facebook URL; empty string in the sample.
+          type: string
+        player_foreign_national_flg:
+          description: 'Foreign national (外国籍 icon): 1 = yes, 0 = no.'
+          type: integer
+        player_furigana:
+          description: Name reading in hiragana ('おかもと みゆう').
+          type: string
+        player_height:
+          description: Height with unit, a string ('179cm').
+          type: string
+        player_home_town:
+          description: Home prefecture, Japanese ('北海道' = Hokkaido).
+          type: string
+        player_id:
+          description: 'Player id player_id (key space: W League persons, STABLE across seasons and teams).
+            The player_id of /player and the pi= of the site''s /player/detail?pi=; joins the play-by-play
+            player_id1 / player_id2.'
+          type: integer
+        player_independent_flg:
+          description: 'Retired flag (the site greys the team and hides the number): 1 = retired / no
+            longer registered, 0 = active.'
+          type: integer
+        player_instagram_url:
+          description: Instagram URL; empty string in the sample.
+          type: string
+        player_name:
+          description: Name in Japanese, 'SURNAME GIVEN'.
+          type: string
+        player_name_en:
+          description: Name in romaji, uppercase, 'SURNAME GIVEN' ('OKAMOTO MIYUU').
+          type: string
+        player_national_team:
+          description: National-team history, Japanese free text ('ユニバ' = Universiade).
+          type: string
+        player_naturalized_flg:
+          description: 'Naturalised player (帰化 icon): 1 = yes, 0 = no.'
+          type: integer
+        player_nickname:
+          description: Nickname, Japanese.
+          type: string
+        player_picture:
+          description: Photo path relative to https://www.wjbl.org.
+          type: string
+        player_position:
+          description: Playing position code ('PG', 'SG', 'SF', 'PF', 'C').
+          type: string
+        player_rookie:
+          description: 'Rookie (ルーキー icon): 1 = yes, 0 = no.'
+          type: integer
+        player_twitter_url:
+          description: X (Twitter) URL; empty string in the sample.
+          type: string
+        player_url:
+          description: Personal website URL; empty string in the sample.
+          type: string
+        player_weight:
+          description: Weight with unit, a string ('77kg').
+          type: string
+        player_wjbl_flg:
+          description: 1 = a W League player (0 presumably for others; unverified).
+          type: integer
+        season_team_name:
+          description: 'Team name as registered for the season, in Japanese (company + nickname: ''トヨタ自動車
+            アンテロープス'' = Toyota Antelopes).'
+          type: string
+        season_team_player_number:
+          description: Shirt number this season, a string.
+          type: string
+        season_team_short_name:
+          description: Short team name for that season, Japanese ('トヨタ自動車' = Toyota).
+          type: string
+        team_id:
+          description: 'Current (or last) team: Franchise id team_id (key space: W League franchises,
+            STABLE across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS
+            Sunflowers; all-star sides have their own ids, e.g. 591). The team_id of /team/roster and
+            of the site''s /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+        team_logo_image:
+          description: Team logo path, relative to https://www.wjbl.org ('/static/images/base_team/...png'
+            or '/assets/img/team/...png').
+          type: string
+        team_url:
+          description: Team's own website URL.
+          type: string
+      type: object
+    WjblPlayerstats:
+      description: Per-side leaders of one game by period category.
+      properties:
+        away_team_id:
+          description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE across
+            seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+            all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+            /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+        away_team_name:
+          description: Away team name, Japanese (the play-by-play spelling).
+          type: string
+        current_period:
+          description: 'Last period played (integer): 4 for a regulation game, 5 after one overtime.'
+          type: integer
+        home_team_id:
+          description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE across
+            seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+            all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+            /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+        home_team_name:
+          description: Home team name, Japanese (the play-by-play spelling).
+          type: string
+        max_period:
+          description: 'Regulation periods (integer): 4 on every sample, overtime games included.'
+          type: integer
+        periods:
+          additionalProperties:
+            description: One period category (map key = the category as a string).
+            properties:
+              away_assist_player:
+                description: Away assist leader(s), '#NUMBER NAME', ties joined with ' , '.
+                type: string
+              away_assist_value:
+                description: Their assists with the counter 本 ('2本'), ' , '-joined for ties.
+                type: string
+              away_point_player:
+                description: Away points leader(s) in the period as '#NUMBER NAME' (Japanese); ties are
+                  joined with ' , '.
+                type: string
+              away_point_value:
+                description: Their points with the counter 点 ('5点'); ties joined with ' , ' in the same
+                  order.
+                type: string
+              away_rebound_player:
+                description: Away rebound leader(s), '#NUMBER NAME', ties joined with ' , '.
+                type: string
+              away_rebound_value:
+                description: Their rebounds 'offensive-defensive-total' ('0-3-3'), ' , '-joined for ties.
+                type: string
+              home_assist_player:
+                description: Home assist leader(s), '#NUMBER NAME', ties joined with ' , '.
+                type: string
+              home_assist_value:
+                description: Their assists with the counter 本 ('2本'), ' , '-joined for ties.
+                type: string
+              home_point_player:
+                description: Home points leader(s) in the period as '#NUMBER NAME' (Japanese); ties are
+                  joined with ' , '.
+                type: string
+              home_point_value:
+                description: Their points with the counter 点 ('5点'); ties joined with ' , ' in the same
+                  order.
+                type: string
+              home_rebound_player:
+                description: Home rebound leader(s), '#NUMBER NAME', ties joined with ' , '.
+                type: string
+              home_rebound_value:
+                description: Their rebounds 'offensive-defensive-total' ('0-3-3'), ' , '-joined for ties.
+                type: string
+              periodCategory:
+                description: The period category again, as an integer (camelCase here, period_category
+                  on /pbp/team-stats).
+                type: integer
+            type: object
+          description: 'Stats by period, an object keyed by period category (string keys): ''1''-''4''
+            = quarters, ''5''-''14'' = overtime 1-10, ''15'' = first half, ''16'' = second half, ''17''
+            = all overtime, ''18'' = whole game (15/16/18 verified by summing the quarters on 7987; 17
+            equals period 5 on the one-overtime game 7360). Kept whole in the samples.'
+          type: object
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+      type: object
+    WjblRanking:
+      description: League tables (順位表) with team averages of the requested season phases.
+      properties:
+        league_id:
+          description: 'Competition-edition id league_id (key space: W League competitions; sequential,
+            ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
+            = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+            and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+            (''25-26'' -> 2026).'
+          type: integer
+        league_title:
+          description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
+            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
+            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+          type: string
+        seasons:
+          additionalProperties:
+            description: One season phase (map key = its season_id).
+            properties:
+              season_full_name:
+                description: 'league_title + phase (+ division) in Japanese: ''25-26 Wリーグ レギュラーシーズン プレミア''
+                  = 2025-26 regular season, Premier division (''フューチャー'' = Future division, from 2024-25).'
+                type: string
+              season_id:
+                description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g. 169
+                  = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26 playoff
+                  final). Not a year: one league_id has several season_ids. The season_ids parameter of
+                  /team-standings and /team-ranking and the season_id of /team/roster.'
+                type: integer
+              season_league_flg:
+                description: 'Division layout flag: 1 = one table per division (Premier / Future), 2 =
+                  split by season_team_area (East / West, by the site''s JS), 0 = cup / group stage.'
+                type: integer
+              season_league_img:
+                description: Division badge image path relative to https://www.wjbl.org.
+                type: string
+              season_league_name:
+                description: 'Phase / division label in Japanese: ''プレミア'' = Premier, ''フューチャー'' = Future,
+                  ''グループステージ'' = group stage, ''2次ラウンド 下位リーグ'' = second round, lower league; empty for
+                  a single-table phase.'
+                type: string
+              season_title:
+                description: 'Phase title in Japanese: ''レギュラーシーズン'' = regular season, ''プレーオフ　ファイナル''
+                  / ''プレーオフ／ファイナル'' = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the separator
+                  varies by era).'
+                type: string
+              season_tournament_text:
+                description: Tournament text (HTML); empty in every sample.
+                type: string
+              teams:
+                additionalProperties:
+                  description: One team (map key = its rank).
+                  properties:
+                    apg:
+                      description: Assists per game, a string.
+                      type: string
+                    bpg:
+                      description: Blocks per game, a string.
+                      type: string
+                    fg:
+                      description: Field-goal percentage 0-100 with a '%' sign, a string ('41.99%').
+                      type: string
+                    gpd:
+                      description: 'Point differential summed over the season (GPD), NOT per game: (ppg
+                        - opp) x games (''193.00''), a string.'
+                      type: string
+                    lost:
+                      description: Losses (負), integer.
+                      type: integer
+                    opp:
+                      description: Opponent points per game (OPP), a string with two decimals.
+                      type: string
+                    opp_fg:
+                      description: Opponents' field-goal percentage 0-100 with '%', a string.
+                      type: string
+                    p3pg:
+                      description: Three-pointers made per game (3PPG), a string.
+                      type: string
+                    position:
+                      description: Rank (順位) as a string.
+                      type: string
+                    ppg:
+                      description: Points per game, a string with two decimals.
+                      type: string
+                    rpg:
+                      description: Rebounds per game, a string.
+                      type: string
+                    season_team_area:
+                      description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                        (By the site''s standings JS: 0 = East, 1 = West conference when season_league_flg
+                        = 2.)'
+                      x-unobserved: true
+                    season_team_name:
+                      description: 'Team name as registered for the season, in Japanese (company + nickname:
+                        ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+                      type: string
+                    season_team_short_name:
+                      description: Short team name for that season, Japanese ('トヨタ自動車' = Toyota).
+                      type: string
+                    spg:
+                      description: Steals per game, a string.
+                      type: string
+                    team_entry_flg:
+                      description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member
+                        team (the site links its roster), 0 = not (guest or all-star side). Integer.'
+                      type: integer
+                    team_id:
+                      description: 'Franchise id team_id (key space: W League franchises, STABLE across
+                        seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS
+                        Sunflowers; all-star sides have their own ids, e.g. 591). The team_id of /team/roster
+                        and of the site''s /team/roster/?team_id=. Not season_team_id.'
+                      type: integer
+                    tpg:
+                      description: Turnovers per game, a string.
+                      type: string
+                    unsatisfied:
+                      description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                        (By the site''s JS: a column shown only when filled; meaning unverified.)'
+                      x-unobserved: true
+                    win:
+                      description: Wins (勝), integer.
+                      type: integer
+                    win_point:
+                      description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                        (By the site''s JS: league points, a column shown only when filled.)'
+                      x-unobserved: true
+                    winning_rate:
+                      description: Winning percentage as a FRACTION 0-1 with three decimals, a string
+                        ('0.821').
+                      type: string
+                  type: object
+                description: The table, an object keyed by RANK ('1' = first; string keys); the sample
+                  keeps 3.
+                type: object
+              update_info:
+                description: As-of note in Japanese, 'YYYY年M月D日現在' ('2026年2月8日現在' = as of 8 Feb 2026).
+                type: string
+            type: object
+          description: One table per requested season_id, an object keyed by season_id (string keys).
+          type: object
+      type: object
+    WjblRoster:
+      description: Roster of one team in one season phase.
+      properties:
+        coach_id:
+          description: 'Head-coach id (key space: W League coaches; the coach_id of /coach and of the
+            site''s /coach/?coach_id=).'
+          type: integer
+        coach_name:
+          description: Head coach name, Japanese.
+          type: string
+        coach_picture:
+          description: Head-coach photo path relative to https://www.wjbl.org.
+          type: string
+        comment:
+          description: Roster note in Japanese HTML ('【キャプテン】<br>#23 ...' = captain).
+          type: string
+        league_id:
+          description: 'Competition-edition id league_id (key space: W League competitions; sequential,
+            ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26 Wリーグ'', 47
+            = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+            and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+            (''25-26'' -> 2026).'
+          type: integer
+        league_title:
+          description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
+            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
+            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+          type: string
+        players:
+          description: Players in shirt-number order; the sample keeps 3.
+          items:
+            properties:
+              captain_flg:
+                description: 'Captain: 1 = yes, 0 = no.'
+                type: integer
+              early_entry:
+                description: 'Early-entry player (アーリーエントリー, a student who joined before graduating):
+                  1 = yes, 0 = no.'
+                type: integer
+              foreign_national_flg:
+                description: 'Foreign national (外国籍 icon): 1 = yes, 0 = no.'
+                type: integer
+              naturalized_flg:
+                description: 'Naturalised player (帰化 icon): 1 = yes, 0 = no.'
+                type: integer
+              picture:
+                description: Player photo path relative to https://www.wjbl.org.
+                type: string
+              player_id:
+                description: 'Player id player_id (key space: W League persons, STABLE across seasons
+                  and teams). The player_id of /player and the pi= of the site''s /player/detail?pi=;
+                  joins the play-by-play player_id1 / player_id2.'
+                type: integer
+              player_name:
+                description: Player name, Japanese.
+                type: string
+              player_number:
+                description: Shirt number, a string.
+                type: string
+              position:
+                description: Playing position (G / F / C style code); empty string in every sample row.
+                type: string
+              rookie:
+                description: 'Rookie (ルーキー icon): 1 = yes, 0 = no.'
+                type: integer
+              sub_captain_flg:
+                description: 'Vice-captain: 1 = yes, 0 = no.'
+                type: integer
+              transfer_flg:
+                description: 'Transferred in this season (移籍 icon): 1 = yes, 0 = no.'
+                type: integer
+            type: object
+          type: array
+        season_full_name:
+          description: 'league_title + phase (+ division) in Japanese: ''25-26 Wリーグ レギュラーシーズン プレミア'' =
+            2025-26 regular season, Premier division (''フューチャー'' = Future division, from 2024-25).'
+          type: string
+        season_id:
+          description: 'The season_id asked for: Season-phase id season_id (key space: phases WITHIN a
+            league_id, e.g. 169 = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176
+            = 25-26 playoff final). Not a year: one league_id has several season_ids. The season_ids parameter
+            of /team-standings and /team-ranking and the season_id of /team/roster.'
+          type: integer
+        season_team_id:
+          description: 'Team-season registration id (key space: one per team per season phase; 1343 =
+            Toyota in season 169). Not team_id.'
+          type: integer
+        staffs:
+          description: Staff other than the head coach; the sample keeps 3.
+          items:
+            properties:
+              position:
+                description: 'Staff role in Japanese: ''アソシエイトヘッドコーチ'' = associate head coach, ''アシスタントコーチ''
+                  = assistant coach, ''ゼネラルマネージャー'' = general manager, ''総括'' = team director, ''サポートスタッフ''
+                  = support staff.'
+                type: string
+              staff_name:
+                description: Staff member name, Japanese.
+                type: string
+              url:
+                description: Staff profile URL; empty string in every sample.
+                type: string
+            type: object
+          type: array
+        team_id:
+          description: 'The team_id asked for: Franchise id team_id (key space: W League franchises, STABLE
+            across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+            all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+            /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+      type: object
+    WjblSchedules:
+      description: One month of a league_id's games, grouped by season phase (season_id).
+      properties:
+        league_id:
+          description: 'The league_id asked for (integer): Competition-edition id league_id (key space:
+            W League competitions; sequential, ONE id per season of the league AND per all-star game,
+            cup or camp: 45 = ''25-26 Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26).
+            The league_id parameter of /play-schedules and /play-schedule-months; enumerate with /leagues.
+            The sdv season is the END year of league_title (''25-26'' -> 2026).'
+          type: integer
+        league_title:
+          description: 'Competition-edition title in Japanese: ''25-26 Wリーグ'' = 2025-26 W League (sdv
+            END year 2026); also ''Wリーグオールスター2025-26'' = All-Star game, ''オータムカップ2021'' = Autumn Cup,
+            ''サマーキャンプ2019'' = Summer Camp, ''WリーグSUPERGAMES''.'
+          type: string
+        seasons:
+          additionalProperties:
+            description: One phase (map key = its season_id as a string).
+            properties:
+              play_schedules:
+                description: 'Games of this phase in the requested month (all of them: the month is the
+                  page).'
+                items:
+                  properties:
+                    away_season_team_name:
+                      description: 'Away team name: Team name as registered for the season, in Japanese
+                        (company + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+                      type: string
+                    away_season_team_short_name:
+                      description: 'Away team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                        = Toyota).'
+                      type: string
+                    away_team_entry_flg:
+                      description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member
+                        team (the site links its roster), 0 = not (guest or all-star side). Integer.'
+                      type: integer
+                    away_team_free_text:
+                      description: Free-text team label used when the slot has no team (e.g. 'winner of
+                        game X'); empty string in every sample.
+                      type: string
+                    away_team_id:
+                      description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE
+                        across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8
+                        = ENEOS Sunflowers; all-star sides have their own ids, e.g. 591). The team_id
+                        of /team/roster and of the site''s /team/roster/?team_id=. Not season_team_id.'
+                      type: integer
+                    away_team_logo_image:
+                      description: 'Away team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                        or ''/assets/img/team/...png'').'
+                      type: string
+                    away_team_score:
+                      description: Away final points (integer); null before the game.
+                      type: integer
+                    box_flg:
+                      description: Box-score flag (integer). 1 on every sampled game, scheduled ones included,
+                        so it does NOT prove a box score exists.
+                      type: integer
+                    cancel_flg:
+                      description: 'Cancelled flag: 1 = cancelled, 0 = not.'
+                      type: integer
+                    delay_flg:
+                      description: 'Postponed flag: 1 = postponed, 0 = not.'
+                      type: integer
+                    game_date:
+                      description: Game day 'MM.DD' ('04.04'); with game_year it is the date, Japan time.
+                      type: string
+                    game_date_week_day_name:
+                      description: 'Weekday in Japanese, one character: 月 Mon, 火 Tue, 水 Wed, 木 Thu, 金
+                        Fri, 土 Sat, 日 Sun.'
+                      type: string
+                    game_icon:
+                      description: 'Icon code shown next to the game: 0 = none, 1 = home-game icon (home.svg),
+                        2 = neutral-site icon (neutral.svg).'
+                      type: integer
+                    game_start_time:
+                      description: Scheduled tip-off 'HH:MM', Japan time (JST, UTC+9).
+                      type: string
+                    game_status:
+                      description: 'Game state: ''fixed'' = final (confirmed result), ''scheduled'' =
+                        not played yet (seen on 26-27 games); the site''s JS also handles ''live'', ''canceled''
+                        and ''delayed''. The capture banks only ''fixed'' games.'
+                      type: string
+                    game_year:
+                      description: Calendar year of the game, 'YYYY' string (not the season).
+                      type: string
+                    home_season_team_name:
+                      description: 'Home team name: Team name as registered for the season, in Japanese
+                        (company + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+                      type: string
+                    home_season_team_short_name:
+                      description: 'Home team short name: Short team name for that season, Japanese (''トヨタ自動車''
+                        = Toyota).'
+                      type: string
+                    home_team_entry_flg:
+                      description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member
+                        team (the site links its roster), 0 = not (guest or all-star side). Integer.'
+                      type: integer
+                    home_team_free_text:
+                      description: Free-text team label used when the slot has no team (e.g. 'winner of
+                        game X'); empty string in every sample.
+                      type: string
+                    home_team_id:
+                      description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE
+                        across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8
+                        = ENEOS Sunflowers; all-star sides have their own ids, e.g. 591). The team_id
+                        of /team/roster and of the site''s /team/roster/?team_id=. Not season_team_id.'
+                      type: integer
+                    home_team_logo_image:
+                      description: 'Home team logo: Team logo path, relative to https://www.wjbl.org (''/static/images/base_team/...png''
+                        or ''/assets/img/team/...png'').'
+                      type: string
+                    home_team_score:
+                      description: Home final points (integer); null before the game.
+                      type: integer
+                    live_link:
+                      description: Live-stream URL; empty when none.
+                      type: string
+                    opening_time:
+                      description: Doors-open time 'HH:MM', JST; empty when not published.
+                      type: string
+                    ot_flg:
+                      description: 'Overtime flag: 1 = the game went to overtime, 0 = not.'
+                      type: integer
+                    pbp_flg:
+                      description: 'Play-by-play flag: 1 = /pbp/* routes have data (2018-19 onward), 0
+                        = not (they answer []).'
+                      type: integer
+                    play_schedule_id:
+                      description: 'Game id play_schedule_id (key space: W League games, ONE global sequence
+                        across every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final).
+                        The play_schedule_id parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+                        pages.'
+                      type: integer
+                    season_full_name:
+                      description: 'league_title + phase (+ division) in Japanese: ''25-26 Wリーグ レギュラーシーズン
+                        プレミア'' = 2025-26 regular season, Premier division (''フューチャー'' = Future division,
+                        from 2024-25).'
+                      type: string
+                    season_id:
+                      description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g.
+                        169 = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26
+                        playoff final). Not a year: one league_id has several season_ids. The season_ids
+                        parameter of /team-standings and /team-ranking and the season_id of /team/roster.'
+                      type: integer
+                    season_title:
+                      description: 'Phase title in Japanese: ''レギュラーシーズン'' = regular season, ''プレーオフ　ファイナル''
+                        / ''プレーオフ／ファイナル'' = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the
+                        separator varies by era).'
+                      type: string
+                    started_at:
+                      description: Actual tip-off 'HH:MM', JST, as recorded ('15:01'); junk on some old
+                        games ('05:06' for a 19:00 game, 2013-14).
+                      type: string
+                    ticket_url:
+                      description: Ticket sale URL; empty string in every sample.
+                      type: string
+                    venue:
+                      description: Arena name, Japanese.
+                      type: string
+                    venue_address:
+                      description: Arena postal address, Japanese.
+                      type: string
+                    vod_link:
+                      description: Video-on-demand URL (Basketball LIVE / W-TV); empty when none.
+                      type: string
+                  type: object
+                type: array
+              season_full_name:
+                description: 'league_title + phase (+ division) in Japanese: ''25-26 Wリーグ レギュラーシーズン プレミア''
+                  = 2025-26 regular season, Premier division (''フューチャー'' = Future division, from 2024-25).'
+                type: string
+              season_id:
+                description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g. 169
+                  = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26 playoff
+                  final). Not a year: one league_id has several season_ids. The season_ids parameter of
+                  /team-standings and /team-ranking and the season_id of /team/roster.'
+                type: integer
+              season_title:
+                description: 'Phase title in Japanese: ''レギュラーシーズン'' = regular season, ''プレーオフ　ファイナル''
+                  / ''プレーオフ／ファイナル'' = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the separator
+                  varies by era).'
+                type: string
+            type: object
+          description: Games of the month grouped by phase, as an object keyed by season_id (string keys).
+            Payload order, not sorted.
+          type: object
+      type: object
+    WjblStandings:
+      description: Results grid (星取表) of the requested season phases.
+      items:
+        properties:
+          league_name:
+            description: Division name, Japanese ('プレミア' = Premier).
+            type: string
+          season_id:
+            description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g. 169 =
+              25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26 playoff final).
+              Not a year: one league_id has several season_ids. The season_ids parameter of /team-standings
+              and /team-ranking and the season_id of /team/roster.'
+            type: integer
+          season_league_flg:
+            description: 'Division layout flag: 1 = one table per division (Premier / Future), 2 = split
+              by season_team_area (East / West, by the site''s JS), 0 = cup / group stage.'
+            type: integer
+          season_league_name:
+            description: 'Phase / division label in Japanese: ''プレミア'' = Premier, ''フューチャー'' = Future,
+              ''グループステージ'' = group stage, ''2次ラウンド 下位リーグ'' = second round, lower league; empty for a single-table
+              phase.'
+            type: string
+          season_title:
+            description: 'Phase title in Japanese: ''レギュラーシーズン'' = regular season, ''プレーオフ　ファイナル'' / ''プレーオフ／ファイナル''
+              = playoff final, ''プレーオフ／セミファイナル'' = playoff semifinal (the separator varies by era).'
+            type: string
+          teams:
+            additionalProperties:
+              description: One team (map key = its rank as a string).
+              properties:
+                position:
+                  description: Rank as a string ('1'), equal to the map key.
+                  type: string
+                season_team_area:
+                  description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
+                    (By the site''s standings JS: 0 = East, 1 = West conference when season_league_flg
+                    = 2.)'
+                  x-unobserved: true
+                season_team_name:
+                  description: 'Team name as registered for the season, in Japanese (company + nickname:
+                    ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+                  type: string
+                season_team_short_name:
+                  description: Short team name for that season, Japanese ('トヨタ自動車' = Toyota).
+                  type: string
+                team_entry_flg:
+                  description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member team
+                    (the site links its roster), 0 = not (guest or all-star side). Integer.'
+                  type: integer
+                team_id:
+                  description: 'Franchise id team_id (key space: W League franchises, STABLE across seasons
+                    and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+                    all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the
+                    site''s /team/roster/?team_id=. Not season_team_id.'
+                  type: integer
+                vs_teams:
+                  additionalProperties:
+                    description: One opponent (map key = the opponent's rank).
+                    properties:
+                      position:
+                        description: Opponent rank as a string.
+                        type: string
+                      scores:
+                        description: Games between the row team and this opponent in the phase (empty
+                          for itself); the sample keeps 3.
+                        items:
+                          properties:
+                            losg:
+                              description: The OPPONENT's points, a string. Key name sic ('losg').
+                              type: string
+                            result:
+                              description: '''○ 63-56'' = row team won, ''● 56-63'' = lost (row team''s
+                                points first); ''○ 20-0'' is a forfeit win (FIBA forfeit score).'
+                              type: string
+                            win:
+                              description: 'The ROW team''s points in that game, a string (despite the
+                                name: ''56'' on a loss).'
+                              type: string
+                          type: object
+                        type: array
+                      season_team_name:
+                        description: 'Opponent name: Team name as registered for the season, in Japanese
+                          (company + nickname: ''トヨタ自動車 アンテロープス'' = Toyota Antelopes).'
+                        type: string
+                      season_team_short_name:
+                        description: 'Opponent short name: Short team name for that season, Japanese (''トヨタ自動車''
+                          = Toyota).'
+                        type: string
+                      team_entry_flg:
+                        description: 'Official-league participant flag (公式戦参加フラグ): 1 = a W League member
+                          team (the site links its roster), 0 = not (guest or all-star side). Integer.'
+                        type: integer
+                      team_id:
+                        description: 'Opponent: Franchise id team_id (key space: W League franchises,
+                          STABLE across seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso
+                          Iris, 8 = ENEOS Sunflowers; all-star sides have their own ids, e.g. 591). The
+                          team_id of /team/roster and of the site''s /team/roster/?team_id=. Not season_team_id.'
+                        type: integer
+                    type: object
+                  description: 'The results grid row: one entry per team of the phase (itself included,
+                    with no scores), keyed by that team''s RANK; the sample keeps 3.'
+                  type: object
+                win_lost:
+                  description: Record in Japanese, 'N勝M負' ('23勝5負' = 23 wins, 5 losses).
+                  type: string
+              type: object
+            description: Teams of the phase, an object keyed by RANK ('1' = first; string keys); the sample
+              keeps 3.
+            type: object
+          update_date:
+            description: As-of date in Japanese, 'YYYY年M月D日(曜)'.
+            type: string
+        type: object
+      type: array
+    WjblStandingsSeasons:
+      description: Every standings-capable season phase, grouped by competition phase, newest first.
+      items:
+        properties:
+          season_full_name:
+            description: Phase group label in Japanese (league_title + phase, e.g. '26-27 Wリーグ レギュラーシーズン');
+              newest first, back to 1999-2000.
+            type: string
+          seasons:
+            additionalProperties:
+              description: One season phase (map key = its season_id).
+              properties:
+                season_id:
+                  description: 'Season-phase id season_id (key space: phases WITHIN a league_id, e.g.
+                    169 = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26
+                    playoff final). Not a year: one league_id has several season_ids. The season_ids parameter
+                    of /team-standings and /team-ranking and the season_id of /team/roster.'
+                  type: integer
+                season_league_name:
+                  description: 'Phase / division label in Japanese: ''プレミア'' = Premier, ''フューチャー'' = Future,
+                    ''グループステージ'' = group stage, ''2次ラウンド 下位リーグ'' = second round, lower league; empty for
+                    a single-table phase.'
+                  type: string
+                season_tournament_text:
+                  description: Tournament text (HTML) for knockout phases; empty in every sample.
+                  type: string
+                season_tournament_text_flg:
+                  description: 1 = the phase shows a tournament text instead of a table, 0 = not; 0 in
+                    every sample.
+                  type: integer
+                team_standings_flg:
+                  description: 1 = the phase has a standings grid (/team-standings), 0 = not (cups, all-star
+                    games, phases not started).
+                  type: integer
+              type: object
+            description: Its season_ids, an object keyed by season_id (string keys).
+            type: object
+        type: object
+      type: array
+    WjblTeams:
+      description: Every franchise id with its name.
+      items:
+        properties:
+          team_id:
+            description: 'Franchise id team_id (key space: W League franchises, STABLE across seasons
+              and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers; all-star
+              sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s /team/roster/?team_id=.
+              Not season_team_id.'
+            type: integer
+          team_name:
+            description: Franchise name, Japanese or English ('富士通レッドウェーブ' = Fujitsu Red Wave; 'TEAM シリウス'
+              = all-star side Team Sirius).
+            type: string
+        type: object
+      type: array
+    WjblTeamstats:
+      description: Team stat summary of one game by period category.
+      properties:
+        away_team_id:
+          description: 'Away team: Franchise id team_id (key space: W League franchises, STABLE across
+            seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+            all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+            /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+        away_team_name:
+          description: Away team name, Japanese (the play-by-play spelling).
+          type: string
+        current_period:
+          description: 'Last period played (integer): 4 for a regulation game, 5 after one overtime.'
+          type: integer
+        home_team_id:
+          description: 'Home team: Franchise id team_id (key space: W League franchises, STABLE across
+            seasons and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers;
+            all-star sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s
+            /team/roster/?team_id=. Not season_team_id.'
+          type: integer
+        home_team_name:
+          description: Home team name, Japanese (the play-by-play spelling).
+          type: string
+        max_period:
+          description: 'Regulation periods (integer): 4 on every sample, overtime games included.'
+          type: integer
+        periods:
+          additionalProperties:
+            description: One period category (map key = the category as a string).
+            properties:
+              away_assist:
+                description: Away assists (integer).
+                type: integer
+              away_ftr:
+                description: Away free-throw percentage, 0-100, number (0 when no attempts).
+                type: number
+              away_max_difference:
+                description: Away team's largest lead in the period, points (integer).
+                type: integer
+              away_pt2r:
+                description: Away two-point percentage, 0-100, number.
+                type: number
+              away_pt3r:
+                description: Away three-point percentage, 0-100, number.
+                type: number
+              away_ptr:
+                description: Away field-goal percentage (2PT + 3PT) in the period, 0-100, a NUMBER with
+                  up to one decimal (61.5; whole values come as integers).
+                type: number
+              away_rebound:
+                description: Away rebounds 'offensive-defensive-total' ('3-4-7'), a string.
+                type: string
+              away_trun_over:
+                description: Away turnovers with the Japanese counter 本 ('6本' = 6), a string. Key name
+                  sic ('trun').
+                type: string
+              home_assist:
+                description: Home assists (integer).
+                type: integer
+              home_ftr:
+                description: Home free-throw percentage, 0-100, number (0 when no attempts).
+                type: number
+              home_max_differenct:
+                description: Home team's largest lead in the period, points (integer). Key name sic ('differenct';
+                  the away key is spelled correctly).
+                type: integer
+              home_pt2r:
+                description: Home two-point percentage, 0-100, number.
+                type: number
+              home_pt3r:
+                description: Home three-point percentage, 0-100, number.
+                type: number
+              home_ptr:
+                description: Home field-goal percentage (2PT + 3PT) in the period, 0-100, a NUMBER with
+                  up to one decimal (61.5; whole values come as integers).
+                type: number
+              home_rebound:
+                description: Home rebounds 'offensive-defensive-total' ('3-4-7'), a string.
+                type: string
+              home_trun_over:
+                description: Home turnovers with the Japanese counter 本 ('6本' = 6), a string. Key name
+                  sic ('trun').
+                type: string
+              lead_count:
+                description: Lead changes with the counter 回 ('0回' = 0 times), a string.
+                type: string
+              period_category:
+                description: The period category again, as an integer (see periods).
+                type: integer
+              tie_count:
+                description: Times the score was tied, with the counter 回 ('4回'), a string.
+                type: string
+            type: object
+          description: 'Stats by period, an object keyed by period category (string keys): ''1''-''4''
+            = quarters, ''5''-''14'' = overtime 1-10, ''15'' = first half, ''16'' = second half, ''17''
+            = all overtime, ''18'' = whole game (15/16/18 verified by summing the quarters on 7987; 17
+            equals period 5 on the one-overtime game 7360). Kept whole in the samples.'
+          type: object
+        play_schedule_id:
+          description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+            every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+            parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+            pages.'
+          type: integer
+      type: object
+info:
+  description: JSON backend of www.wjbl.org, the Women's Japan Basketball League (Wリーグ). Keyless, no headers.
+    Schedules by competition edition (league_id) and month, game header, box score (2013-14 onward at
+    least), Japanese play-by-play and period summaries (2018-19 onward), standings grids and tables, rosters
+    and player profiles. Seasons are keyed by league_id with a title such as '25-26 Wリーグ' (sdv END year
+    2026). Every answer is HTTP 200, errors included. Texts are Japanese (translated in the descriptions).
+    Site terms (/kiyaku/) forbid reproducing site content without permission (copyright). Shapes from
+    captures of 2026-10-12; x-unobserved = null in every sample. Not official or supported.
+  title: W League (Japan women's basketball) API (api.wjbl.01core.app)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /boxscore:
+    get:
+      description: 'Box score: per-player, team and total lines plus shooting percentages per side. Each
+        side has players[], a team line (team rebounds/turnovers) and total = players + team. Percentages
+        are strings; counts are integers; min is ''mm:ss''. Served back to 2013-14 at least (game 4243).'
+      operationId: get_wjbl_boxscore
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblBoxscore'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: 'Box score: per-player, team and total lines plus shooting percentages per side'
+  /leagues:
+    get:
+      description: 'Competitions (league_id) with a schedule: every W League season, all-star game, cup
+        and camp. No echo of target, so the body cannot be scope-checked (UNSCOPED). league_title strings:
+        ''25-26 Wリーグ'' -> sdv END year 2026; non-league editions (all-star, cup, camp) carry no season
+        key.'
+      operationId: get_wjbl_leagues
+      parameters:
+      - description: Purpose filter. 'play_schedule' = competitions with a schedule (all 37); the site's
+          leaders page uses official_flg=1&target=player_ranking (league seasons only).
+        example: play_schedule
+        in: query
+        name: target
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblLeagues'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: 'Competitions (league_id) with a schedule: every W League season, all-star game, cup and
+        camp'
+  /pbp/play-by-play:
+    get:
+      description: 'Play-by-play (2018-19 onward), chronological, Japanese action vocabulary. 2018-19
+        onward; earlier games answer [] (pbp_flg 0). All text is Japanese; see action1 for the glossary.
+        No shot coordinates. Substitution rows carry two players: player_id1 out, player_id2 in.'
+      operationId: get_wjbl_pbp
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblPbp'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Play-by-play (2018-19 onward), chronological, Japanese action vocabulary
+  /pbp/player-stats:
+    get:
+      description: Per-team leaders (points, assists, rebounds) per period, half and game (2018-19 onward).
+        Leaders are display strings '#NUMBER NAME' with values '5点' / '2本' / 'o-d-t'; ties are ' , '-joined.
+        The category key is periodCategory here, period_category on /pbp/team-stats.
+      operationId: get_wjbl_playerstats
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblPlayerstats'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Per-team leaders (points, assists, rebounds) per period, half and game (2018-19 onward)
+  /pbp/team-stats:
+    get:
+      description: 'Team stat summary per period, half and game (2018-19 onward). periods is keyed by
+        category: 1-4 quarters, 5-14 OT, 15/16 halves, 17 all OT, 18 game. Percentages are numbers, counts
+        carry Japanese counters (本, 回) as strings; two key names are misspelt (trun_over, max_differenct).'
+      operationId: get_wjbl_teamstats
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblTeamstats'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Team stat summary per period, half and game (2018-19 onward)
+  /play-schedule:
+    get:
+      description: 'Game information: venue, times, referees, broadcast links, Japanese game report. Free-text
+        fields carry HTML and CRLF; the officials sit in referee_name / sub_referee_name1/2 from the late
+        2010s and only in comment before. contact is redacted in the samples.'
+      operationId: get_wjbl_game
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblGame'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: 'Game information: venue, times, referees, broadcast links, Japanese game report'
+  /play-schedule-months:
+    get:
+      description: 'Months (game_month) that have games in a league_id. league_id is echoed as a STRING
+        here and as an integer everywhere else. An unknown league_id answers {league_id, game_months:
+        []} (refused).'
+      operationId: get_wjbl_months
+      parameters:
+      - description: 'Competition edition: Competition-edition id league_id (key space: W League competitions;
+          sequential, ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26
+          Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+          and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+          (''25-26'' -> 2026). Not a number -> error E003. Omitted on /play-schedules: the newest league_id.'
+        example: 45
+        in: query
+        name: league_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblMonths'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Months (game_month) that have games in a league_id
+  /play-schedule/detail:
+    get:
+      description: 'Game header: both teams and the score by period. score_p1..p4 are per-quarter, not
+        cumulative; score_ot1-4 null when unused.'
+      operationId: get_wjbl_detail
+      parameters:
+      - description: 'Game id play_schedule_id (key space: W League games, ONE global sequence across
+          every league_id and season, e.g. 4243 = 2013-14 final, 7987 = 2025-26 final). The play_schedule_id
+          parameter of every game route and of the site''s /schedule_result/detail/*?play_schedule_id=
+          pages. Unknown id -> 200 with []; missing -> 200 {error: {error_code: E003}}.'
+        example: 7987
+        in: query
+        name: play_schedule_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblDetail'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: 'Game header: both teams and the score by period'
+  /play-schedules:
+    get:
+      description: 'Games of a league_id in ONE month (game_month; default = the league''s latest month).
+        ONE month per request: without game_month only the latest month comes back. Enumerate months with
+        /play-schedule-months. Games are grouped under seasons keyed by season_id; a month can span two
+        phases (regular season Premier + Future). Dates are split: game_year ''YYYY'' + game_date ''MM.DD'';
+        times are JST strings. box_flg is 1 even on unplayed games; pbp_flg is 1 from 2018-19.'
+      operationId: get_wjbl_schedules
+      parameters:
+      - description: 'Competition edition: Competition-edition id league_id (key space: W League competitions;
+          sequential, ONE id per season of the league AND per all-star game, cup or camp: 45 = ''25-26
+          Wリーグ'', 47 = ''26-27'', 20 = ''13-14'', 46 = All-Star 2025-26). The league_id parameter of /play-schedules
+          and /play-schedule-months; enumerate with /leagues. The sdv season is the END year of league_title
+          (''25-26'' -> 2026). Not a number -> error E003. Omitted on /play-schedules: the newest league_id.'
+        example: 45
+        in: query
+        name: league_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Month ''YYYY-MM'' from /play-schedule-months. OMITTED = the league''s LATEST month
+          only (not the whole season): page through every month to get all games.'
+        example: 2026-04
+        in: query
+        name: game_month
+        required: false
+        schema:
+          type: string
+      - description: 'Only games involving this team (home or away): Franchise id team_id (key space:
+          W League franchises, STABLE across seasons and sponsor renames: 13 = Toyota Antelopes, 12 =
+          Denso Iris, 8 = ENEOS Sunflowers; all-star sides have their own ids, e.g. 591). The team_id
+          of /team/roster and of the site''s /team/roster/?team_id=. Not season_team_id.'
+        example: 13
+        in: query
+        name: team_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblSchedules'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Games of a league_id in ONE month (game_month; default = the league's latest month)
+  /player:
+    get:
+      description: Player profile (current team, bio, career notes). player_blood is redacted in the sample;
+        player_birthday is the public bio date.
+      operationId: get_wjbl_player
+      parameters:
+      - description: 'Player id player_id (key space: W League persons, STABLE across seasons and teams).
+          The player_id of /player and the pi= of the site''s /player/detail?pi=; joins the play-by-play
+          player_id1 / player_id2. Unknown id -> 200 with [].'
+        example: 9799
+        in: query
+        name: player_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblPlayer'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Player profile (current team, bio, career notes)
+  /seasons/standings:
+    get:
+      description: Every season phase (season_id) with its standings flags. No parameters and no echo
+        (UNSCOPED). 70 groups back to 1999-2000.
+      operationId: get_wjbl_standings_seasons
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblStandingsSeasons'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Every season phase (season_id) with its standings flags
+  /team-ranking:
+    get:
+      description: League table with team averages of one or more season_ids. Averages are strings; fg
+        has a '%' sign, winning_rate is a 0-1 fraction, gpd a season total.
+      operationId: get_wjbl_ranking
+      parameters:
+      - description: Comma-separated season_ids (kept unencoded). Omitted = the current phases (26-27
+          on 2026-10-12).
+        example: 169,170
+        in: query
+        name: season_ids
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblRanking'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: League table with team averages of one or more season_ids
+  /team-standings:
+    get:
+      description: 'Head-to-head results grid (hoshitori-hyo) of one or more season_ids. Maps keyed by
+        rank, not team: re-key on team_id. scores win/losg are the row team''s and the opponent''s points,
+        strings.'
+      operationId: get_wjbl_standings
+      parameters:
+      - description: Comma-separated season_ids (kept unencoded). Omitted = the current phases (26-27
+          on 2026-10-12).
+        example: 169,170
+        in: query
+        name: season_ids
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblStandings'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Head-to-head results grid (hoshitori-hyo) of one or more season_ids
+  /team/roster:
+    get:
+      description: 'Roster of a team in a season phase: players, head coach, staff. Head coach is in coach_*;
+        staffs[] holds the rest (names and roles only).'
+      operationId: get_wjbl_roster
+      parameters:
+      - description: 'Team: Franchise id team_id (key space: W League franchises, STABLE across seasons
+          and sponsor renames: 13 = Toyota Antelopes, 12 = Denso Iris, 8 = ENEOS Sunflowers; all-star
+          sides have their own ids, e.g. 591). The team_id of /team/roster and of the site''s /team/roster/?team_id=.
+          Not season_team_id.'
+        example: 13
+        in: query
+        name: team_id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season phase: Season-phase id season_id (key space: phases WITHIN a league_id, e.g.
+          169 = 25-26 regular season Premier, 170 = 25-26 regular season Future, 176 = 25-26 playoff final).
+          Not a year: one league_id has several season_ids. The season_ids parameter of /team-standings
+          and /team-ranking and the season_id of /team/roster. Omitted = the team''s current phase.'
+        example: 169
+        in: query
+        name: season_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblRoster'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: 'Roster of a team in a season phase: players, head coach, staff'
+  /teams/base:
+    get:
+      description: Every franchise (team_id) the site knows, all-star sides included. No parameters and
+        no echo (UNSCOPED); all 69 rows in one answer (no paging).
+      operationId: get_wjbl_teams
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WjblTeams'
+          description: 'Data. Errors are ALSO HTTP 200: an unknown id answers [] and a bad or missing
+            parameter answers WjblError ({error: {error_code, error_message}}).'
+          x-error-schema:
+            $ref: '#/components/schemas/WjblError'
+      security: []
+      summary: Every franchise (team_id) the site knows, all-star sides included
+servers:
+- url: https://api.wjbl.01core.app/api
