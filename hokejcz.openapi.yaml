@@ -806,7 +806,7 @@ components:
       type: object
     VisualizationEventsMatchId:
       properties:
-        home:
+        home: &id001
           properties:
             goals:
               items:
@@ -822,8 +822,17 @@ components:
                 type: object
               type: array
             powerplay:
+              additionalProperties:
+                properties:
+                  end:
+                    type: number
+                  start:
+                    type: number
+                type: object
               items: {}
-              type: array
+              type:
+              - array
+              - object
             score:
               type: integer
             shots:
@@ -839,33 +848,7 @@ components:
           type: object
         startDate:
           type: string
-        visitor:
-          properties:
-            goals:
-              items: {}
-              type: array
-            powerplay:
-              additionalProperties:
-                properties:
-                  end:
-                    type: number
-                  start:
-                    type: number
-                type: object
-              type: object
-            score:
-              type: integer
-            shots:
-              additionalProperties:
-                type: integer
-              type: object
-            shotsOnGoal:
-              additionalProperties:
-                type: integer
-              type: object
-            teamName:
-              type: string
-          type: object
+        visitor: *id001
       type: object
     VisualizationShotsMatchId:
       properties:
@@ -938,13 +921,13 @@ info:
     and `global_id` differ), shots use hokej.cz ids; see hokejcz-returns.md. Shapes from committed captures
     (2026-10-12; one completed 2026-27 game, one 2016-17 game) in hokejcz/captures/. Season key = START
     year. Not official or supported.'
-  title: hokej.cz S3 bucket + eSports scoreboard (Czech Tipsport Extraliga)
+  title: hokej.cz S3 bucket + eSports Media scoreboard (Czech Tipsport Extraliga)
   version: '2026-10-12'
 openapi: 3.1.0
 paths:
   /:
     get:
-      description: 'Captured for: 2026-27.'
+      description: 'Whole bucket; this sample is one page. Captured for: 2026-27.'
       operationId: list_objects
       parameters:
       - description: Key prefix, e.g. `match/2026/full/` or `visualization/shots/`.
@@ -1010,11 +993,12 @@ paths:
         - IsTruncated
         - Contents[].Key
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
   /match/{season}/full/{match_id}.json:
     get:
-      description: 'Captured for: 2026-27, 2016-17.'
+      description: 'Coverage: 2014-15 on (`match/2013/` holds one stray object). Captured for: 2026-27,
+        2016-17.'
       operationId: match_season_full_match_id
       parameters:
       - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
@@ -1045,11 +1029,11 @@ paths:
           description: 'S3 NoSuchKey XML: no such key (a game without that file).'
       summary: Play-by-play commentary, every entry (goal/penalty details, on-ice players)
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
   /match/{season}/mobile/{match_id}.json:
     get:
-      description: 'Captured for: 2026-27, 2016-17.'
+      description: 'Coverage: 2014-15 on (first written 2014-10). Captured for: 2026-27, 2016-17.'
       operationId: match_season_mobile_match_id
       parameters:
       - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
@@ -1080,11 +1064,11 @@ paths:
           description: 'S3 NoSuchKey XML: no such key (a game without that file).'
       summary: Play-by-play commentary, flat mobile form (no structured details)
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
   /match/{season}/short/{match_id}.json:
     get:
-      description: 'Captured for: 2026-27, 2016-17.'
+      description: 'Coverage: 2014-15 on. Captured for: 2026-27, 2016-17.'
       operationId: match_season_short_match_id
       parameters:
       - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
@@ -1115,11 +1099,12 @@ paths:
           description: 'S3 NoSuchKey XML: no such key (a game without that file).'
       summary: Play-by-play commentary, latest 20 entries (same shape as full)
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
   /scoreboard/{date}.json:
     get:
-      description: 'Captured for: 2026-27.'
+      description: 'Coverage: rolling window of recent days only; cannot be backfilled. Captured for:
+        2026-27.'
       operationId: scoreboard_date
       parameters:
       - description: 'Day `YYYY-MM-DD`. Rolling window: on 2026-10-12, 2026-09-20 to 2026-10-11 answered;
@@ -1146,7 +1131,7 @@ paths:
       url: https://json.esports.cz/hokejcz
   /visualization/events/{match_id}.json:
     get:
-      description: 'Captured for: 2026-27.'
+      description: 'Coverage: 2017-18 on (first written 2017-09). Captured for: 2026-27.'
       operationId: visualization_events_match_id
       parameters:
       - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
@@ -1169,11 +1154,11 @@ paths:
           description: 'S3 NoSuchKey XML: no such key (a game without that file).'
       summary: Per-minute cumulative shots and shots on goal, goals, power plays
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
   /visualization/shots/{match_id}.json:
     get:
-      description: 'Captured for: 2026-27, 2016-17.'
+      description: 'Coverage: 2016-17 on (first written 2016-10). Captured for: 2026-27, 2016-17.'
       operationId: visualization_shots_match_id
       parameters:
       - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
@@ -1196,10 +1181,10 @@ paths:
           description: 'S3 NoSuchKey XML: no such key (a game without that file).'
       summary: Shots with rink coordinates, plus faceoff win % by period
     servers:
-    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
       url: https://s3-eu-west-1.amazonaws.com/hokej.cz
 servers:
-- description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+- description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media data).
   url: https://s3-eu-west-1.amazonaws.com/hokej.cz
 - description: eSports Media scoreboard JSON (rolling window of recent days).
   url: https://json.esports.cz/hokejcz
