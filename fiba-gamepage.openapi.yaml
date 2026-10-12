@@ -3,1070 +3,1611 @@ components:
     GamePage:
       properties:
         game:
+          description: 'Game header: the schedule-row shape of getgdapgamesbycompetitionid (plus competition)'
           properties:
             chrono:
+              description: Game clock of the current period, 'mm:ss' ('00:00' when finished)
               type: string
             competition:
+              description: Competition (the getGdapCompetitionById shape)
               properties:
                 ageCategory:
+                  description: Age category (Senior, Under 16...)
                   type: string
                 competitionCategory:
+                  description: Category of the competition
                   properties:
                     ageType:
+                      description: 'Age type code: S senior, U16...'
                       type: string
                     code:
+                      description: Category code (WC World Cup, OLY Olympic Tournament, CCC-1 continental
+                        club tier 1)
                       type: string
                     isLeague:
+                      description: True for league-format club competitions
                       type: boolean
                     name:
+                      description: Category name
                       type: string
                   type: object
                 competitionCode:
+                  description: Competition code (WMM men's World Cup, WOLYM, BCL, ELW...)
                   type: string
                 competitionId:
+                  description: 'FIBA competition id (GDAP key space): one per edition (2023 World Cup
+                    = 208182, BCL 2024-25 = 208850); gdapCompetitionId'
                   type: integer
                 competitionMarketingName:
+                  description: Competition family (marketing name), shared by every edition
                   properties:
                     code:
-                      type:
-                      - 'null'
+                      description: Family code; null in every sample
+                      x-unobserved: true
                     competitionMarketingNameId:
+                      description: Competition family id (201 = World Cup, 112 = BCL tier 1, 211 = EuroLeague
+                        Women); the <histId> of /en/history/ pages
                       type: integer
                     marketingName:
+                      description: Competition family name; slugified it is the <histSlug> of /en/history/
+                        pages
                       type: string
                   type: object
                 competitionType:
+                  description: National Teams or Clubs
                   type: string
                 discipline:
+                  description: Discipline (Basketball; 3x3 is a separate platform)
                   type: string
                 end:
+                  description: Last day, YYYY-MM-DD
                   type: string
                 fibaZone:
+                  description: FIBA zone the competition belongs to (World, Europe, Americas...)
                   type: string
                 gender:
+                  description: Men or Women
                   type: string
                 official:
+                  description: Official-status label
                   type: string
                 officialFlagItemCode:
+                  description: 'Official-status code: O = official'
                   type: string
                 officialFlagItemName:
+                  description: Official-status label
                   type: string
                 officialName:
+                  description: Edition title (FIBA Basketball World Cup; Paris 2024 Men's Olympic Basketball
+                    Tournament)
                   type: string
                 season:
+                  description: 'Season key, three rules: the END year for club competitions (BCL 2024-25
+                    = 2025) and the event year for national-team events (World Cup 2023 = 2023), both
+                    equal to the sdv season key; qualifiers carry the TARGET tournament year, not the
+                    year played (World Cup 2027 qualifiers played in 2025 = 2027, EuroBasket 2029 pre-qualifiers
+                    = 2029), whose sdv mapping is an open Phase B decision'
                   type: integer
                 start:
+                  description: First day, YYYY-MM-DD
                   type: string
                 status:
+                  description: 'Competition status: In Progress, Completed, Closed'
                   type: string
                 zoneInformation:
+                  description: FIBA zone of the competition
                   properties:
                     topZoneCode:
-                      type:
-                      - 'null'
+                      description: Parent zone code; always null in the samples, values unverified
+                      x-unobserved: true
                     topZoneId:
-                      type:
-                      - 'null'
+                      description: Parent zone id; null for top zones
+                      x-unobserved: true
                     topZoneOfficialName:
-                      type:
-                      - 'null'
+                      description: Parent zone name; always null in the samples, values unverified
+                      x-unobserved: true
                     zoneCode:
+                      description: Zone code (W, E, AF, AM, AS, OC)
                       type: string
                     zoneId:
+                      description: FIBA zone id (1 = World, 23 = Europe; zone table key space)
                       type: integer
                     zoneOfficialName:
+                      description: Zone name
                       type: string
                   type: object
               type: object
             currentPeriod:
+              description: Last period reached ('Q4', 'OT1')
               type: string
             currentPeriodStatus:
+              description: 'State of the current period: E = ended (the only value sampled)'
               type: string
             gameDateTime:
+              description: Tip-off in venue-local wall-clock time, ISO 8601 without offset (T00:00:00
+                when hasTimeGameDateTime is false)
               type: string
             gameDateTimeUTC:
+              description: Tip-off in UTC, ISO 8601 without the Z
               type: string
             gameId:
+              description: 'FIBA game id, global across competitions (GDAP key space): gdapGameId, the
+                <gameId> of a game-page URL'
               type: integer
             gameName:
+              description: Technical game name '<roundId>-<groupPairingCode>-<gameNumber>'
               type: string
             gameNumber:
+              description: 'Game number within the round or pairing (a string: ''1'', ''A'')'
               type: string
             gamePlayByPlayStatusCode:
+              description: 'Play-by-play availability flag: VALID or EMPTY. UNRELIABLE: World Cup 2014
+                and EuroBasket 2017 say EMPTY but their game pages carry full play-by-play; always check
+                the page'
               type: string
             gameResultAdditionalInformation:
+              description: Free-text result note (forfeit, overtime remark); null when none
               type: string
             gameResultStatusCode:
+              description: 'Result validation status: VALID'
               type: string
             gameStatisticStatusCode:
+              description: 'Box-score validation status: VALID'
               type: string
             groupId:
+              description: Group id (GDAP key space)
               type: string
               x-numeric-string: true
             groupPairingCode:
+              description: Group letter (group play) or pairing number (knockout bracket slot)
               type: string
             hasTimeGameDateTime:
+              description: False when only the date is known (the time part is then 00:00:00)
               type: boolean
             hostCity:
+              description: City of the venue
               type: string
             hostCountry:
+              description: Country of the venue (name; a FIBA code in getgdapgameswithleaderdetailsbyteamid)
               type: string
             hostCountryCode:
+              description: FIBA code of the venue's country
               type: string
             ianaTimeZone:
+              description: IANA time zone of the venue
               type: string
             isLive:
+              description: True while the game is being played
               type: boolean
             isPlayedBehindClosedDoors:
+              description: True when played without spectators
               type: boolean
             isPostponed:
+              description: True when the game was postponed
               type: boolean
             liveGameStatus:
+              description: 'Live state code: 999 on every finished game; 5 seen on a finished 2024 youth
+                game; mapping unverified'
               type: integer
             round:
+              description: Round the game belongs to
               properties:
                 endDate:
+                  description: Round end, local date-time (23:59:59.9999999 on the last day)
                   type: string
                 gameSystem:
+                  description: Pairing system label (Single, Home and Away, Best of 3)
                   type: string
                 gameSystemCode:
+                  description: 'Pairing system code: S single game, HA home and away, BOF3 best of three'
                   type: string
                 roundCode:
+                  description: Round code (GP group phase, QF, SF, F final, RS regular season, CL17-32
+                    classification...)
                   type: string
                 roundId:
+                  description: Round id (GDAP key space, unique across competitions); the first segment
+                    of gameName
                   type: integer
                 roundKind:
+                  description: Standard Round or Qualifiers
                   type: string
                 roundName:
+                  description: Round label (Group Phase, Quarter-Finals, Final...)
                   type: string
                 roundNumber:
+                  description: Round number within the competition (1-based)
                   type: integer
                 roundOrder:
+                  description: Display order of the round
                   type: integer
                 roundStatusCode:
+                  description: 'Round status: COMPL completed, PROGR in progress, CLOS closed'
                   type: string
                 roundType:
+                  description: 'Round type label: Group Round, Non Group Round, Super Round (getgdapgamesbycompetitionid
+                    uses the code G/NG here)'
                   type: string
                 startDate:
+                  description: Round start, local date-time
                   type: string
               type: object
             spectators:
+              description: Attendance
               type: integer
             statisticSystem:
+              description: 'Live-stats system that scored the game: OVR (FIBA''s Olympic/World Cup system),
+                FLS (FIBA LiveStats), null before about 2006'
               type: string
             statusCode:
+              description: 'Game status code: VALID (validated result), CLOS (closed, pre-2000 rows)'
               type: string
             teamA:
+              description: 'Team A: listed first (the home side when there is one)'
               properties:
                 code:
+                  description: 'Team code (national: FIBA country code; club: a club abbreviation such
+                    as OOST)'
                   type: string
                 officialName:
+                  description: Team name
                   type: string
                 organisationId:
+                  description: 'Organisation id, stable across competitions and seasons: the national
+                    federation for a national team (64 = Germany), the club for a club team (396 = Filou
+                    Oostende). Same key space as nationalFederationId, clubId, play-by-play oId and the
+                    game page''s T_<id>'
                   type: integer
                 shortName:
+                  description: Short team name
                   type: string
                 teamId:
+                  description: 'Competition team id: one per team per competition (Germany = 279569 at
+                    the 2023 World Cup, 281545 at Paris 2024). Joins getgdapcompetitionteamrosterbyteamid
+                    / getgdapcompetitionteamstatisticsbyteamid gdapTeamId; not an organisationId'
                   type: integer
               type: object
             teamAFrom:
+              description: How team A qualified for this slot ('Winner of Game 87', '1st of group C');
+                null in group play
               type:
               - string
               - 'null'
             teamAScore:
+              description: Final score of team A
               type: integer
             teamB:
+              description: 'Team B: listed second'
               properties:
                 code:
+                  description: 'Team code (national: FIBA country code; club: a club abbreviation such
+                    as NANT)'
                   type: string
                 officialName:
+                  description: Team name
                   type: string
                 organisationId:
+                  description: 'Organisation id, stable across competitions and seasons: the national
+                    federation for a national team (64 = Germany), the club for a club team (396 = Filou
+                    Oostende). Same key space as nationalFederationId, clubId, play-by-play oId and the
+                    game page''s T_<id>'
                   type: integer
                 shortName:
+                  description: Short team name
                   type: string
                 teamId:
+                  description: 'Competition team id: one per team per competition (Germany = 279569 at
+                    the 2023 World Cup, 281545 at Paris 2024). Joins getgdapcompetitionteamrosterbyteamid
+                    / getgdapcompetitionteamstatisticsbyteamid gdapTeamId; not an organisationId'
                   type: integer
               type: object
             teamBFrom:
+              description: How team B qualified for this slot ('Winner of Game 88', '2nd of group A');
+                null in group play
               type:
               - string
               - 'null'
             teamBScore:
+              description: Final score of team B
               type: integer
             utcOffset:
+              description: Venue UTC offset at tip-off, hours
               type: integer
             venueCapacity:
+              description: Venue capacity (0 = unknown)
               type: integer
             venueId:
+              description: Venue id (GDAP key space; 0 = unknown)
               type: integer
             venueName:
+              description: Arena name
               type: string
             windowCode:
-              type:
-              - 'null'
+              description: Qualifier window code; null otherwise
+              x-unobserved: true
             windowName:
-              type:
-              - 'null'
+              description: Qualifier window name; null otherwise
+              x-unobserved: true
           type: object
         gameDetails:
+          description: Box score
           properties:
             CurrentPeriod:
+              description: Last period reached
               type: string
             CurrentPeriodStatus:
+              description: E = ended
               type: string
             RC:
+              description: Game clock 'mm:ss' ('00:00' finished)
               type: string
             Stats:
+              description: Game-level figures
               properties:
                 A_LC:
+                  description: Lead changes
                   type: integer
                 A_TT:
+                  description: Times tied
                   type: integer
                 DUR:
+                  description: Game duration, 'h:mm' string
                   type: string
                 SPECT:
+                  description: Attendance
                   type: integer
               type: object
             c:
+              description: 'Teams: [team A, team B]'
               items:
                 properties:
                   Children:
+                    description: Players
                     items:
                       properties:
                         Id:
+                          description: '''P_<personId>'''
                           type: string
                         Stats:
+                          description: Player box line
                           properties:
                             AS:
+                              description: Assists
                               type: integer
                             BS:
+                              description: Blocked shots (blocks made)
                               type: integer
                             BSR:
+                              description: Own shots blocked by the opponent (blocks received)
                               type: integer
                             CB:
+                              description: Boolean flag, false on every sampled player; meaning unverified
                               type: boolean
                             DR:
+                              description: Defensive rebounds
                               type: integer
                             EFF:
+                              description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals
+                                + blocks - missed field goals - missed free throws - turnovers)'
                               type: integer
                             FD:
+                              description: Fouls drawn
                               type: integer
                             FG2A:
+                              description: Two-point field goals attempted
                               type: integer
                             FG2M:
+                              description: Two-point field goals made
                               type: integer
                             FG2P:
+                              description: Two-point field-goal percentage, 0-100
                               type: number
                             FG3A:
+                              description: Three-point field goals attempted
                               type: integer
                             FG3M:
+                              description: Three-point field goals made
                               type: integer
                             FG3P:
+                              description: Three-point field-goal percentage, 0-100
                               type: number
                             FGA:
+                              description: Field goals attempted (2 + 3 points)
                               type: integer
                             FGIA:
+                              description: Field goals attempted in the paint
                               type: integer
                             FGIM:
+                              description: Field goals made in the paint (team A_PIP = 2 x FGIM on every
+                                sampled game)
                               type: integer
                             FGIP:
+                              description: Field-goal percentage in the paint, 0-100
                               type: number
                             FGM:
+                              description: Field goals made (2 + 3 points)
                               type: integer
                             FGP:
+                              description: Field-goal percentage, 0-100
                               type: number
                             FTA:
+                              description: Free throws attempted
                               type: integer
                             FTM:
+                              description: Free throws made
                               type: integer
                             FTP:
+                              description: Free-throw percentage, 0-100
                               type: number
                             HasPlayed:
+                              description: True when the player got on the court
                               type: boolean
                             OR:
+                              description: Offensive rebounds
                               type: integer
                             PF:
+                              description: 'Personal fouls (team row: includes team fouls T_PF)'
                               type: integer
                             PM:
+                              description: 'Plus/minus: team point differential while on court'
                               type: integer
                             PTS:
+                              description: Points
                               type: integer
                             REB:
+                              description: 'Total rebounds (team row: includes team rebounds T_REB)'
                               type: integer
                             ST:
+                              description: Steals
                               type: integer
                             Starter:
+                              description: True for the starting five
                               type: boolean
                             TO:
+                              description: 'Turnovers (team row: includes team turnovers T_TO)'
                               type: integer
                             TP:
+                              description: Minutes played, 'm:ss' string ('0:0' = did not play)
                               type: string
                           type: object
                       type: object
                     type: array
                   Id:
+                    description: '''T_<organisationId>'''
                     type: string
                   Officials:
+                    description: Officials of the game
                     items:
                       properties:
                         Id:
+                          description: '''O_<personId>'' of an official'
                           type: string
                       type: object
                     type: array
                   Periods:
+                    description: Points by period
                     items:
                       properties:
                         HalfTimeScore:
+                          description: Team points in the first five minutes of the period (matches play-by-play
+                            except free throws on the 5:00 boundary)
                           type:
                           - integer
                           - 'null'
                         Id:
+                          description: Period name (Q1...OT1)
                           type: string
                         Score:
+                          description: Team points scored in the period
                           type: integer
                       type: object
                     type: array
                   Score:
+                    description: Final score
                     type: integer
                   Stats:
+                    description: Team box line
                     properties:
                       AS:
+                        description: Assists
                         type: integer
                       A_ACT:
+                        description: Always 0 in the samples; meaning unverified
                         type: integer
                       A_BL:
+                        description: Biggest lead, points
                         type: integer
                       A_BLS:
+                        description: 'Score when the biggest lead was reached, ''A-B'' string (spacing
+                          varies: ''67-55'', ''20 - 27''; '''' when never led)'
                         type: string
                       A_BR:
+                        description: Biggest scoring run, points
                         type: integer
                       A_BRS:
+                        description: Score of the biggest scoring run, 'x-y' string; exact meaning unverified
                         type: string
                       A_FBP:
+                        description: Fast-break points
                         type: integer
                       A_FOUL:
+                        description: Always 0 in the samples; meaning unverified
                         type: integer
                       A_PAT:
+                        description: Points after (from) turnovers
                         type: integer
                       A_PFB:
+                        description: Points from the bench (= sum of non-starters' PTS)
                         type: integer
                       A_PIP:
+                        description: Points in the paint (= 2 x FGIM)
                         type: integer
                       A_SCP:
+                        description: Second-chance points
                         type: integer
                       A_TOD:
+                        description: Always 0 in the samples; meaning unverified
                         type: integer
                       A_TOT:
+                        description: Always 0 in the samples; meaning unverified
                         type: integer
                       BS:
+                        description: Blocked shots (blocks made)
                         type: integer
                       DR:
+                        description: Defensive rebounds
                         type: integer
                       EFF:
+                        description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals + blocks
+                          - missed field goals - missed free throws - turnovers)'
                         type: integer
                       FD:
+                        description: Fouls drawn
                         type: integer
                       FG2A:
+                        description: Two-point field goals attempted
                         type: integer
                       FG2M:
+                        description: Two-point field goals made
                         type: integer
                       FG2P:
+                        description: Two-point field-goal percentage, 0-100
                         type: number
                       FG3A:
+                        description: Three-point field goals attempted
                         type: integer
                       FG3M:
+                        description: Three-point field goals made
                         type: integer
                       FG3P:
+                        description: Three-point field-goal percentage, 0-100
                         type: number
                       FGA:
+                        description: Field goals attempted (2 + 3 points)
                         type: integer
                       FGIA:
+                        description: Field goals attempted in the paint
                         type: integer
                       FGIM:
+                        description: Field goals made in the paint (team A_PIP = 2 x FGIM on every sampled
+                          game)
                         type: integer
                       FGIP:
+                        description: Field-goal percentage in the paint, 0-100
                         type: number
                       FGM:
+                        description: Field goals made (2 + 3 points)
                         type: integer
                       FGP:
+                        description: Field-goal percentage, 0-100
                         type: number
                       FTA:
+                        description: Free throws attempted
                         type: integer
                       FTM:
+                        description: Free throws made
                         type: integer
                       FTP:
+                        description: Free-throw percentage, 0-100
                         type: number
                       Leaders:
+                        description: Team leaders of the game
                         properties:
                           Assists:
+                            description: Team's assists leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s assists leader'
                                 type: string
                               Value:
+                                description: Leader's assists value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                           BestPerformer:
+                            description: Team's efficiency (best performer) leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s efficiency (best performer)
+                                  leader'
                                 type: string
                               Value:
+                                description: Leader's efficiency (best performer) value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                           Blocks:
+                            description: Team's blocks leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s blocks leader'
                                 type: string
                               Value:
+                                description: Leader's blocks value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                           Points:
+                            description: Team's points leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s points leader'
                                 type: string
                               Value:
+                                description: Leader's points value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                           Rebounds:
+                            description: Team's rebounds leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s rebounds leader'
                                 type: string
                               Value:
+                                description: Leader's rebounds value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                           Steals:
+                            description: Team's steals leader
                             properties:
                               Id:
+                                description: '''P_<personId>'' of the team''s steals leader'
                                 type: string
                               Value:
+                                description: Leader's steals value (a numeric string)
                                 type: string
                                 x-numeric-string: true
                             type: object
                         type: object
                       OR:
+                        description: Offensive rebounds
                         type: integer
                       PF:
+                        description: 'Personal fouls (team row: includes team fouls T_PF)'
                         type: integer
                       PTS:
+                        description: Points
                         type: integer
                       REB:
+                        description: 'Total rebounds (team row: includes team rebounds T_REB)'
                         type: integer
                       ST:
+                        description: Steals
                         type: integer
                       TO:
+                        description: 'Turnovers (team row: includes team turnovers T_TO)'
                         type: integer
                       T_DR:
+                        description: Team defensive rebounds (credited to no player)
                         type: integer
                       T_OR:
+                        description: Team offensive rebounds (credited to no player)
                         type: integer
                       T_PF:
+                        description: Team (bench/coach) fouls (= PF minus the players' sum)
                         type: integer
                       T_PFB:
+                        description: Bench points in FLS games (= A_PFB); 0 in OVR games
                         type: integer
                       T_REB:
+                        description: Team rebounds (= REB minus the players' sum)
                         type: integer
                       T_TL:
+                        description: Time the team led, 'mm:ss' string
                         type: string
                       T_TO:
+                        description: Team turnovers (= TO minus the players' sum)
                         type: integer
                     type: object
                 type: object
               type: array
             id:
+              description: 'FIBA game id, global across competitions (GDAP key space): gdapGameId, the
+                <gameId> of a game-page URL'
               type: integer
             quartersScores:
+              description: Points by period for both teams
               items:
                 properties:
                   period:
+                    description: Period name
                     type: string
                   teamA:
+                    description: Team A points in the period
                     type: integer
                   teamB:
+                    description: Team B points in the period
                     type: integer
                 type: object
               type: array
             scoreList:
+              description: Every score change, by period
               items:
                 properties:
                   items:
+                    description: Score changes
                     items:
                       properties:
                         SA:
+                          description: Team A score after the change
                           type: integer
                         SB:
+                          description: Team B score after the change
                           type: integer
                         Time:
+                          description: Game clock at the change, time remaining 'm:ss'
                           type: string
                       type: object
                     type: array
                   period:
+                    description: Period name
                     type: string
                 type: object
               type: array
             status:
+              description: Live state code (= liveGameStatus; 999 finished)
               type: integer
             teamA:
+              description: 'Team A box: same objects as c[0] (flight back-references resolved)'
               properties:
                 Children:
+                  description: Players (= c[0].Children)
                   items:
                     properties:
                       Id:
+                        description: '''P_<personId>'''
                         type: string
                       Stats:
+                        description: Player box line
                         properties:
                           AS:
+                            description: Assists
                             type: integer
                           BS:
+                            description: Blocked shots (blocks made)
                             type: integer
                           BSR:
+                            description: Own shots blocked by the opponent (blocks received)
                             type: integer
                           CB:
+                            description: Boolean flag, false on every sampled player; meaning unverified
                             type: boolean
                           DR:
+                            description: Defensive rebounds
                             type: integer
                           EFF:
+                            description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals +
+                              blocks - missed field goals - missed free throws - turnovers)'
                             type: integer
                           FD:
+                            description: Fouls drawn
                             type: integer
                           FG2A:
+                            description: Two-point field goals attempted
                             type: integer
                           FG2M:
+                            description: Two-point field goals made
                             type: integer
                           FG2P:
+                            description: Two-point field-goal percentage, 0-100
                             type: number
                           FG3A:
+                            description: Three-point field goals attempted
                             type: integer
                           FG3M:
+                            description: Three-point field goals made
                             type: integer
                           FG3P:
+                            description: Three-point field-goal percentage, 0-100
                             type: number
                           FGA:
+                            description: Field goals attempted (2 + 3 points)
                             type: integer
                           FGIA:
+                            description: Field goals attempted in the paint
                             type: integer
                           FGIM:
+                            description: Field goals made in the paint (team A_PIP = 2 x FGIM on every
+                              sampled game)
                             type: integer
                           FGIP:
+                            description: Field-goal percentage in the paint, 0-100
                             type: number
                           FGM:
+                            description: Field goals made (2 + 3 points)
                             type: integer
                           FGP:
+                            description: Field-goal percentage, 0-100
                             type: number
                           FTA:
+                            description: Free throws attempted
                             type: integer
                           FTM:
+                            description: Free throws made
                             type: integer
                           FTP:
+                            description: Free-throw percentage, 0-100
                             type: number
                           HasPlayed:
+                            description: True when the player got on the court
                             type: boolean
                           OR:
+                            description: Offensive rebounds
                             type: integer
                           PF:
+                            description: 'Personal fouls (team row: includes team fouls T_PF)'
                             type: integer
                           PM:
+                            description: 'Plus/minus: team point differential while on court'
                             type: integer
                           PTS:
+                            description: Points
                             type: integer
                           REB:
+                            description: 'Total rebounds (team row: includes team rebounds T_REB)'
                             type: integer
                           ST:
+                            description: Steals
                             type: integer
                           Starter:
+                            description: True for the starting five
                             type: boolean
                           TO:
+                            description: 'Turnovers (team row: includes team turnovers T_TO)'
                             type: integer
                           TP:
+                            description: Minutes played, 'm:ss' string ('0:0' = did not play)
                             type: string
                         type: object
                     type: object
                   type: array
                 Id:
+                  description: '''T_<organisationId>'''
                   type: string
                 Score:
+                  description: Final score
                   type: integer
                 Stats:
+                  description: Team box line (= c[0].Stats)
                   properties:
                     AS:
+                      description: Assists
                       type: integer
                     A_ACT:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_BL:
+                      description: Biggest lead, points
                       type: integer
                     A_BLS:
+                      description: 'Score when the biggest lead was reached, ''A-B'' string (spacing varies:
+                        ''67-55'', ''20 - 27''; '''' when never led)'
                       type: string
                     A_BR:
+                      description: Biggest scoring run, points
                       type: integer
                     A_BRS:
+                      description: Score of the biggest scoring run, 'x-y' string; exact meaning unverified
                       type: string
                     A_FBP:
+                      description: Fast-break points
                       type: integer
                     A_FOUL:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_PAT:
+                      description: Points after (from) turnovers
                       type: integer
                     A_PFB:
+                      description: Points from the bench (= sum of non-starters' PTS)
                       type: integer
                     A_PIP:
+                      description: Points in the paint (= 2 x FGIM)
                       type: integer
                     A_SCP:
+                      description: Second-chance points
                       type: integer
                     A_TOD:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_TOT:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     BS:
+                      description: Blocked shots (blocks made)
                       type: integer
                     DR:
+                      description: Defensive rebounds
                       type: integer
                     EFF:
+                      description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals + blocks
+                        - missed field goals - missed free throws - turnovers)'
                       type: integer
                     FD:
+                      description: Fouls drawn
                       type: integer
                     FG2A:
+                      description: Two-point field goals attempted
                       type: integer
                     FG2M:
+                      description: Two-point field goals made
                       type: integer
                     FG2P:
+                      description: Two-point field-goal percentage, 0-100
                       type: number
                     FG3A:
+                      description: Three-point field goals attempted
                       type: integer
                     FG3M:
+                      description: Three-point field goals made
                       type: integer
                     FG3P:
+                      description: Three-point field-goal percentage, 0-100
                       type: number
                     FGA:
+                      description: Field goals attempted (2 + 3 points)
                       type: integer
                     FGIA:
+                      description: Field goals attempted in the paint
                       type: integer
                     FGIM:
+                      description: Field goals made in the paint (team A_PIP = 2 x FGIM on every sampled
+                        game)
                       type: integer
                     FGIP:
+                      description: Field-goal percentage in the paint, 0-100
                       type: number
                     FGM:
+                      description: Field goals made (2 + 3 points)
                       type: integer
                     FGP:
+                      description: Field-goal percentage, 0-100
                       type: number
                     FTA:
+                      description: Free throws attempted
                       type: integer
                     FTM:
+                      description: Free throws made
                       type: integer
                     FTP:
+                      description: Free-throw percentage, 0-100
                       type: number
                     Leaders:
+                      description: Team leaders of the game
                       properties:
                         Assists:
+                          description: Team's assists leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s assists leader'
                               type: string
                             Value:
+                              description: Leader's assists value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         BestPerformer:
+                          description: Team's efficiency (best performer) leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s efficiency (best performer)
+                                leader'
                               type: string
                             Value:
+                              description: Leader's efficiency (best performer) value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Blocks:
+                          description: Team's blocks leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s blocks leader'
                               type: string
                             Value:
+                              description: Leader's blocks value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Points:
+                          description: Team's points leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s points leader'
                               type: string
                             Value:
+                              description: Leader's points value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Rebounds:
+                          description: Team's rebounds leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s rebounds leader'
                               type: string
                             Value:
+                              description: Leader's rebounds value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Steals:
+                          description: Team's steals leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s steals leader'
                               type: string
                             Value:
+                              description: Leader's steals value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                       type: object
                     OR:
+                      description: Offensive rebounds
                       type: integer
                     PF:
+                      description: 'Personal fouls (team row: includes team fouls T_PF)'
                       type: integer
                     PTS:
+                      description: Points
                       type: integer
                     REB:
+                      description: 'Total rebounds (team row: includes team rebounds T_REB)'
                       type: integer
                     ST:
+                      description: Steals
                       type: integer
                     TO:
+                      description: 'Turnovers (team row: includes team turnovers T_TO)'
                       type: integer
                     T_DR:
+                      description: Team defensive rebounds (credited to no player)
                       type: integer
                     T_OR:
+                      description: Team offensive rebounds (credited to no player)
                       type: integer
                     T_PF:
+                      description: Team (bench/coach) fouls (= PF minus the players' sum)
                       type: integer
                     T_PFB:
+                      description: Bench points in FLS games (= A_PFB); 0 in OVR games
                       type: integer
                     T_REB:
+                      description: Team rebounds (= REB minus the players' sum)
                       type: integer
                     T_TL:
+                      description: Time the team led, 'mm:ss' string
                       type: string
                     T_TO:
+                      description: Team turnovers (= TO minus the players' sum)
                       type: integer
                   type: object
               type: object
             teamB:
+              description: 'Team B box: same objects as c[1]'
               properties:
                 Children:
+                  description: Players (= c[1].Children)
                   items:
                     properties:
                       Id:
+                        description: '''P_<personId>'''
                         type: string
                       Stats:
+                        description: Player box line
                         properties:
                           AS:
+                            description: Assists
                             type: integer
                           BS:
+                            description: Blocked shots (blocks made)
                             type: integer
                           BSR:
+                            description: Own shots blocked by the opponent (blocks received)
                             type: integer
                           CB:
+                            description: Boolean flag, false on every sampled player; meaning unverified
                             type: boolean
                           DR:
+                            description: Defensive rebounds
                             type: integer
                           EFF:
+                            description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals +
+                              blocks - missed field goals - missed free throws - turnovers)'
                             type: integer
                           FD:
+                            description: Fouls drawn
                             type: integer
                           FG2A:
+                            description: Two-point field goals attempted
                             type: integer
                           FG2M:
+                            description: Two-point field goals made
                             type: integer
                           FG2P:
+                            description: Two-point field-goal percentage, 0-100
                             type: number
                           FG3A:
+                            description: Three-point field goals attempted
                             type: integer
                           FG3M:
+                            description: Three-point field goals made
                             type: integer
                           FG3P:
+                            description: Three-point field-goal percentage, 0-100
                             type: number
                           FGA:
+                            description: Field goals attempted (2 + 3 points)
                             type: integer
                           FGIA:
+                            description: Field goals attempted in the paint
                             type: integer
                           FGIM:
+                            description: Field goals made in the paint (team A_PIP = 2 x FGIM on every
+                              sampled game)
                             type: integer
                           FGIP:
+                            description: Field-goal percentage in the paint, 0-100
                             type: number
                           FGM:
+                            description: Field goals made (2 + 3 points)
                             type: integer
                           FGP:
+                            description: Field-goal percentage, 0-100
                             type: number
                           FTA:
+                            description: Free throws attempted
                             type: integer
                           FTM:
+                            description: Free throws made
                             type: integer
                           FTP:
+                            description: Free-throw percentage, 0-100
                             type: number
                           HasPlayed:
+                            description: True when the player got on the court
                             type: boolean
                           OR:
+                            description: Offensive rebounds
                             type: integer
                           PF:
+                            description: 'Personal fouls (team row: includes team fouls T_PF)'
                             type: integer
                           PM:
+                            description: 'Plus/minus: team point differential while on court'
                             type: integer
                           PTS:
+                            description: Points
                             type: integer
                           REB:
+                            description: 'Total rebounds (team row: includes team rebounds T_REB)'
                             type: integer
                           ST:
+                            description: Steals
                             type: integer
                           Starter:
+                            description: True for the starting five
                             type: boolean
                           TO:
+                            description: 'Turnovers (team row: includes team turnovers T_TO)'
                             type: integer
                           TP:
+                            description: Minutes played, 'm:ss' string ('0:0' = did not play)
                             type: string
                         type: object
                     type: object
                   type: array
                 Id:
+                  description: '''T_<organisationId>'''
                   type: string
                 Score:
+                  description: Final score
                   type: integer
                 Stats:
+                  description: Team box line (= c[1].Stats)
                   properties:
                     AS:
+                      description: Assists
                       type: integer
                     A_ACT:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_BL:
+                      description: Biggest lead, points
                       type: integer
                     A_BLS:
+                      description: 'Score when the biggest lead was reached, ''A-B'' string (spacing varies:
+                        ''67-55'', ''20 - 27''; '''' when never led)'
                       type: string
                     A_BR:
+                      description: Biggest scoring run, points
                       type: integer
                     A_BRS:
+                      description: Score of the biggest scoring run, 'x-y' string; exact meaning unverified
                       type: string
                     A_FBP:
+                      description: Fast-break points
                       type: integer
                     A_FOUL:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_PAT:
+                      description: Points after (from) turnovers
                       type: integer
                     A_PFB:
+                      description: Points from the bench (= sum of non-starters' PTS)
                       type: integer
                     A_PIP:
+                      description: Points in the paint (= 2 x FGIM)
                       type: integer
                     A_SCP:
+                      description: Second-chance points
                       type: integer
                     A_TOD:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     A_TOT:
+                      description: Always 0 in the samples; meaning unverified
                       type: integer
                     BS:
+                      description: Blocked shots (blocks made)
                       type: integer
                     DR:
+                      description: Defensive rebounds
                       type: integer
                     EFF:
+                      description: 'Efficiency (FIBA EFF: points + rebounds + assists + steals + blocks
+                        - missed field goals - missed free throws - turnovers)'
                       type: integer
                     FD:
+                      description: Fouls drawn
                       type: integer
                     FG2A:
+                      description: Two-point field goals attempted
                       type: integer
                     FG2M:
+                      description: Two-point field goals made
                       type: integer
                     FG2P:
+                      description: Two-point field-goal percentage, 0-100
                       type: number
                     FG3A:
+                      description: Three-point field goals attempted
                       type: integer
                     FG3M:
+                      description: Three-point field goals made
                       type: integer
                     FG3P:
+                      description: Three-point field-goal percentage, 0-100
                       type: number
                     FGA:
+                      description: Field goals attempted (2 + 3 points)
                       type: integer
                     FGIA:
+                      description: Field goals attempted in the paint
                       type: integer
                     FGIM:
+                      description: Field goals made in the paint (team A_PIP = 2 x FGIM on every sampled
+                        game)
                       type: integer
                     FGIP:
+                      description: Field-goal percentage in the paint, 0-100
                       type: number
                     FGM:
+                      description: Field goals made (2 + 3 points)
                       type: integer
                     FGP:
+                      description: Field-goal percentage, 0-100
                       type: number
                     FTA:
+                      description: Free throws attempted
                       type: integer
                     FTM:
+                      description: Free throws made
                       type: integer
                     FTP:
+                      description: Free-throw percentage, 0-100
                       type: number
                     Leaders:
+                      description: Team leaders of the game
                       properties:
                         Assists:
+                          description: Team's assists leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s assists leader'
                               type: string
                             Value:
+                              description: Leader's assists value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         BestPerformer:
+                          description: Team's efficiency (best performer) leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s efficiency (best performer)
+                                leader'
                               type: string
                             Value:
+                              description: Leader's efficiency (best performer) value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Blocks:
+                          description: Team's blocks leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s blocks leader'
                               type: string
                             Value:
+                              description: Leader's blocks value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Points:
+                          description: Team's points leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s points leader'
                               type: string
                             Value:
+                              description: Leader's points value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Rebounds:
+                          description: Team's rebounds leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s rebounds leader'
                               type: string
                             Value:
+                              description: Leader's rebounds value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                         Steals:
+                          description: Team's steals leader
                           properties:
                             Id:
+                              description: '''P_<personId>'' of the team''s steals leader'
                               type: string
                             Value:
+                              description: Leader's steals value (a numeric string)
                               type: string
                               x-numeric-string: true
                           type: object
                       type: object
                     OR:
+                      description: Offensive rebounds
                       type: integer
                     PF:
+                      description: 'Personal fouls (team row: includes team fouls T_PF)'
                       type: integer
                     PTS:
+                      description: Points
                       type: integer
                     REB:
+                      description: 'Total rebounds (team row: includes team rebounds T_REB)'
                       type: integer
                     ST:
+                      description: Steals
                       type: integer
                     TO:
+                      description: 'Turnovers (team row: includes team turnovers T_TO)'
                       type: integer
                     T_DR:
+                      description: Team defensive rebounds (credited to no player)
                       type: integer
                     T_OR:
+                      description: Team offensive rebounds (credited to no player)
                       type: integer
                     T_PF:
+                      description: Team (bench/coach) fouls (= PF minus the players' sum)
                       type: integer
                     T_PFB:
+                      description: Bench points in FLS games (= A_PFB); 0 in OVR games
                       type: integer
                     T_REB:
+                      description: Team rebounds (= REB minus the players' sum)
                       type: integer
                     T_TL:
+                      description: Time the team led, 'mm:ss' string
                       type: string
                     T_TO:
+                      description: Team turnovers (= TO minus the players' sum)
                       type: integer
                   type: object
               type: object
             technicalName:
+              description: Technical game name '<roundId>-<groupPairingCode>-<gameNumber>'
               type: string
           type: object
         playByPlay:
+          description: Play-by-play of the game, every action with clock, score and shot x/y
           properties:
             gameTechnicalName:
+              description: gameId (an integer despite the name)
               type: integer
             gameTechnicalNameOrGameId:
+              description: gameId
               type: integer
             items:
               additionalProperties:
+                description: One period (Q1-Q4, OT1...)
                 properties:
                   items:
+                    description: Actions of the period, in order
                     items:
                       properties:
                         GT:
+                          description: Wall-clock time of the action, Unix epoch milliseconds
                           type: integer
                         Id:
+                          description: 'Action id: ''<n>:<seq>'' in OVR games, a sequence number (string)
+                            in FLS games'
                           type: string
                         SA:
+                          description: Team A score after the action
                           type: integer
                         SB:
+                          description: Team B score after the action
                           type: integer
                         Time:
+                          description: Game clock, time remaining in the period 'm:ss' (counts down from
+                            10:00)
                           type: string
                         ac:
+                          description: 'Action code: P2 two-point shot, P3 three-point shot, FT free throw,
+                            REB rebound, TREB team rebound, ASS assist, ST steal, BS block, TO turnover,
+                            TTO team turnover, FOUL foul, RFOUL foul drawn (the fouled player), SUBST
+                            substitution, TIMO timeout, JB jump ball, JS jump-ball situation / possession
+                            arrow, VTR video review, STARTG/ENDG game start/end, STARTP/ENDP period start/end'
                           type: string
                         act:
+                          description: 'Action family: shot, subst, timeout, periods, and ''unknwown''
+                            (FIBA''s spelling) for every other action'
                           type: string
                         in:
+                          description: 'Substitution direction: IN or OUT'
                           type: string
                         made:
+                          description: True when the shot went in (P2/P3/FT only)
                           type: boolean
                         oId:
+                          description: organisationId of the acting team (organisationId key space; =
+                            gameDetails T_<id>); null on period events
                           type:
                           - integer
                           - 'null'
                         order:
+                          description: 'Sort key within the period (OVR: 1, 2, ...; FLS: 1000, 2000, ...);
+                            null on some period events'
                           type:
                           - integer
                           - 'null'
                         p2Id:
+                          description: personId of the second player on a substitution (FLS games); null
+                            otherwise
                           type:
                           - integer
                           - 'null'
                         pId:
+                          description: personId of the acting player (= box P_<id>, roster personId);
+                            null on team actions
                           type:
                           - integer
                           - 'null'
                         pts:
+                          description: Points the attempt was worth (2, 3, 1), made or not
                           type: integer
                         txt:
+                          description: English action text ('3pt jump shot missed', 'defensive rebound');
+                            null on most OVR actions
                           type:
                           - string
                           - 'null'
                         x:
+                          description: Shot x, integer px on a half-court image, across the court width
+                            (observed 0-278, basket near x=139). Present only on P2/P3/FT rows (absent
+                            on every other action); FT rows are always 0,0. Which sideline is x=0 is UNVERIFIED,
+                            and so is the scale (about 18.5-19 px/m inferred from the 3-point arc)
                           type: integer
                         y:
+                          description: Shot y, integer px from the baseline (y=0) towards midcourt (observed
+                            0-224, basket near y=25); both teams' shots are drawn on one basket. Present
+                            only on P2/P3/FT rows; FT rows are 0,0. Scale UNVERIFIED
                           type: integer
                       type: object
                     type: array
                   name:
+                    description: Period name (Q1...OT1)
                     type: string
                   scoreA:
+                    description: 'Team A cumulative score at the end of the period (bcl2027: 16, 39, 61,
+                      82); the Women''s World Cup 2022 final sends 0 in every period (a placeholder)'
                     type: integer
                   scoreB:
+                    description: Team B cumulative score at the end of the period; the Women's World Cup
+                      2022 final sends 0 in every period (a placeholder)
                     type: integer
                 type: object
+              description: Actions by period
               type: object
               x-map-key: period
           type: object
         playersTeamA:
+          description: Team A lineup card
           items:
             properties:
               firstName:
+                description: Given name(s) as registered with FIBA
                 type: string
               isCaptain:
+                description: True for the team captain
                 type: boolean
               lastName:
+                description: 'Last name (officials: upper case)'
                 type: string
               personId:
+                description: 'FIBA person id, global across competitions and roles (player, coach, official):
+                  roster personId = play-by-play pId = game-page P_<id> = gdapPlayerId'
                 type: integer
               position:
+                description: Playing position code (PG, SG, SF, PF, C)
                 type: string
               uniformNumber:
+                description: Jersey number (a string)
                 type: string
                 x-numeric-string: true
             type: object
           type: array
         playersTeamB:
+          description: Team B lineup card
           items:
             properties:
               firstName:
+                description: Given name(s) as registered with FIBA
                 type: string
               isCaptain:
+                description: True for the team captain
                 type: boolean
               lastName:
+                description: 'Last name (officials: upper case)'
                 type: string
               personId:
+                description: 'FIBA person id, global across competitions and roles (player, coach, official):
+                  roster personId = play-by-play pId = game-page P_<id> = gdapPlayerId'
                 type: integer
               position:
+                description: Playing position code (PG, SG, SF, PF, C)
                 type: string
               uniformNumber:
+                description: Jersey number (a string)
                 type: string
                 x-numeric-string: true
             type: object
