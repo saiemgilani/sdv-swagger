@@ -7,9 +7,9 @@ components:
             description: Arena name
             type: string
           awayTeamCoach:
-            description: Away head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Away head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           awayTeamId:
             description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -47,13 +47,13 @@ components:
             description: Broadcast on MySports
             type: boolean
           highlightVimeoVideoId:
-            description: Vimeo id of the highlight video
-            type:
-            - 'null'
+            description: 'Vimeo id of the highlight video; unobserved: null, absent or empty in every
+              sampled row'
+            x-unobserved: true
           homeTeamCoach:
-            description: Home head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Home head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           homeTeamId:
             description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -99,13 +99,15 @@ components:
             description: 'Game state: finished, canceled, beforeStartOfPlay (others appear live)'
             type: string
           tvPartner:
-            description: Broadcaster logo image URLs
-            items: {}
+            description: 'Broadcaster logo image URLs; unobserved: null, absent or empty in every sampled
+              row'
+            items:
+              x-unobserved: true
             type: array
           vimeoVideoId:
-            description: Vimeo id of the full-game video, a digit string
-            type:
-            - 'null'
+            description: 'Vimeo id of the full-game video, a digit string; unobserved: null, absent or
+              empty in every sampled row'
+            x-unobserved: true
         type: object
       type: array
     GamesCurrent:
@@ -115,9 +117,9 @@ components:
             description: Arena name
             type: string
           awayTeamCoach:
-            description: Away head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Away head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           awayTeamId:
             description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -155,13 +157,13 @@ components:
             description: Broadcast on MySports
             type: boolean
           highlightVimeoVideoId:
-            description: Vimeo id of the highlight video
-            type:
-            - 'null'
+            description: 'Vimeo id of the highlight video; unobserved: null, absent or empty in every
+              sampled row'
+            x-unobserved: true
           homeTeamCoach:
-            description: Home head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Home head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           homeTeamId:
             description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -192,17 +194,18 @@ components:
             description: Game went to a shootout
             type: boolean
           referees:
-            description: Officials as '#<number> <name>' strings (referees and linesmen; one entry in
-              some games)
-            items: {}
+            description: 'Officials as ''#<number> <name>'' strings (referees and linesmen; one entry
+              in some games); unobserved: null, absent or empty in every sampled row'
+            items:
+              x-unobserved: true
             type: array
           showGameTime:
             description: 'App flag: show gameTime'
             type: boolean
           spectators:
-            description: Attendance, a number sent as a string; null before the game
-            type:
-            - 'null'
+            description: 'Attendance, a number sent as a string; null before the game; unobserved: null,
+              absent or empty in every sampled row'
+            x-unobserved: true
           status:
             description: 'Game state: finished, canceled, beforeStartOfPlay (others appear live)'
             type: string
@@ -212,9 +215,9 @@ components:
               type: string
             type: array
           vimeoVideoId:
-            description: Vimeo id of the full-game video, a digit string
-            type:
-            - 'null'
+            description: 'Vimeo id of the full-game video, a digit string; unobserved: null, absent or
+              empty in every sampled row'
+            x-unobserved: true
         type: object
       type: array
     GamesGameId:
@@ -232,6 +235,12 @@ components:
                       description: 'Event type: goal, foul (penalty), in / out (goaltender enters / leaves),
                         revokedGoal'
                       type: string
+                      x-observed-values:
+                      - goal
+                      - foul
+                      - in
+                      - out
+                      - revokedGoal
                     assist1FirstName:
                       description: 'First assist: first name'
                       type:
@@ -306,8 +315,7 @@ components:
                       type: boolean
                     reviewSuccessful:
                       description: 'Video-review outcome; unobserved: null or empty in every sampled row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     revokedGoalSubType:
                       description: Revoked-goal reason code (1 on the revoked goal, 0 elsewhere)
                       type: integer
@@ -362,6 +370,12 @@ components:
               line:
                 description: 'Line label: ''goalkeeper'' or ''1''-''4'''
                 type: string
+                x-observed-values: &id001
+                - goalkeeper
+                - '1'
+                - '2'
+                - '3'
+                - '4'
               players:
                 description: Players on the line
                 items:
@@ -384,6 +398,12 @@ components:
                     line:
                       description: Line number, an integer (goalkeepers 1-2 = first / backup)
                       type: integer
+                      x-observed-values: &id002
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
                     number:
                       description: Sweater number, a string
                       type: string
@@ -395,6 +415,10 @@ components:
                     position:
                       description: goalkeeper, defender or forwarder (sic)
                       type: string
+                      x-observed-values: &id003
+                      - goalkeeper
+                      - defender
+                      - forwarder
                   type: object
                 type: array
             type: object
@@ -406,6 +430,7 @@ components:
               line:
                 description: 'Line label: ''goalkeeper'' or ''1''-''4'''
                 type: string
+                x-observed-values: *id001
               players:
                 description: Players on the line
                 items:
@@ -428,6 +453,7 @@ components:
                     line:
                       description: Line number, an integer (goalkeepers 1-2 = first / backup)
                       type: integer
+                      x-observed-values: *id002
                     number:
                       description: Sweater number, a string
                       type: string
@@ -439,6 +465,7 @@ components:
                     position:
                       description: goalkeeper, defender or forwarder (sic)
                       type: string
+                      x-observed-values: *id003
                   type: object
                 type: array
             type: object
@@ -450,7 +477,7 @@ components:
               description: Arena name
               type: string
             awayTeamCoach:
-              description: Away head coach name; null in the season lists
+              description: Away head coach name; filled in a game's `overview`, null in the season lists
               type: string
             awayTeamId:
               description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
@@ -489,11 +516,11 @@ components:
               description: Broadcast on MySports
               type: boolean
             highlightVimeoVideoId:
-              description: Vimeo id of the highlight video
-              type:
-              - 'null'
+              description: 'Vimeo id of the highlight video; unobserved: null, absent or empty in every
+                sampled row'
+              x-unobserved: true
             homeTeamCoach:
-              description: Home head coach name; null in the season lists
+              description: Home head coach name; filled in a game's `overview`, null in the season lists
               type: string
             homeTeamId:
               description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
@@ -551,7 +578,8 @@ components:
         penalties:
           description: 'Penalty list; unobserved: null or empty in every sampled row (penalties appear
             as `foul` actions)'
-          items: {}
+          items:
+            x-unobserved: true
           type: array
         playerStatsAway:
           description: Away box score, one row per dressed player; rows carry no playerId
@@ -577,7 +605,7 @@ components:
                 type: integer
               foPercentage:
                 description: Faceoff win percentage, 0-100; -1 with no faceoffs
-                type: integer
+                type: number
               fol:
                 description: Faceoffs lost
                 type: integer
@@ -621,6 +649,7 @@ components:
               position:
                 description: goalkeeper, defender or forwarder (sic)
                 type: string
+                x-observed-values: *id003
               pts:
                 description: Points (goals + assists)
                 type: integer
@@ -686,7 +715,7 @@ components:
                 type: integer
               foPercentage:
                 description: Faceoff win percentage, 0-100; -1 with no faceoffs
-                type: integer
+                type: number
               fol:
                 description: Faceoffs lost
                 type: integer
@@ -730,6 +759,7 @@ components:
               position:
                 description: goalkeeper, defender or forwarder (sic)
                 type: string
+                x-observed-values: *id003
               pts:
                 description: Points (goals + assists)
                 type: integer
@@ -777,8 +807,7 @@ components:
             awayAggregatedScore:
               description: 'Away aggregate over a two-legged tie; unobserved: null or empty in every sampled
                 row'
-              type:
-              - 'null'
+              x-unobserved: true
             awayTeamFirstResult:
               description: Away goals in the 1st period
               type: integer
@@ -809,8 +838,7 @@ components:
             homeAggregatedScore:
               description: 'Home aggregate over a two-legged tie; unobserved: null or empty in every sampled
                 row'
-              type:
-              - 'null'
+              x-unobserved: true
             homeTeamFirstResult:
               description: Home goals in the 1st period
               type: integer
@@ -857,9 +885,9 @@ components:
                 type: number
               posY:
                 description: 'Distance in metres from the end boards of the attacked end, 0-60 (rink length).
-                  Shots are mirrored to one attacking end: 469 of 475 shots in four games (2022-2026)
-                  have posY <= 30, the rest are long shots from beyond centre (max 54.8); the goal line
-                  is 4 m out. Inferred'
+                  Shots are mirrored to one attacking end: 469 of 475 shots in four games (one each from
+                  2022, 2023, 2024 and 2026: 124 + 134 + 112 + 105) have posY <= 30, the rest are long
+                  shots from beyond centre (max 54.8); the goal line is 4 m out. Inferred'
                 type: number
               posYPercentage:
                 description: posY / 24, the depth of the app's zone drawing (verified on 475 shots); above
@@ -871,12 +899,22 @@ components:
               sit:
                 description: 'Strength: EQ (even), PP (power play), PK (shorthanded)'
                 type: string
+                x-observed-values: &id004
+                - EQ
+                - PP
+                - PK
               time:
                 description: Game clock elapsed in seconds (period 2 starts at 1200)
                 type: integer
               type:
                 description: 'Outcome: SOG (saved shot on goal), MISS, POST, BLOCK, GOAL'
                 type: string
+                x-observed-values: &id005
+                - SOG
+                - MISS
+                - POST
+                - BLOCK
+                - GOAL
               unix:
                 description: Wall-clock time of the shot, Unix epoch seconds
                 type: integer
@@ -887,9 +925,10 @@ components:
                 description: Seconds into the game video (= unix - unixStart; verified on 475 shots)
                 type: integer
               xg:
-                description: 'Expected goals of this shot, 0-1. 0 on every BLOCK and non-zero on every
-                  other type from season 2023 (2022/23) on (346 shots, 3 games); all 0 before: game 20221105000100
-                  all 0, 20211105000106 all 0'
+                description: 'Expected goals of this shot, 0-1. Start season based on one sampled game
+                  per season: every shot is 0 in the 2021 (20211105000106) and 2022 (20221105000100) games;
+                  in the 2023, 2024 and 2026 games (134 + 112 + 105 = 351 shots) xg is 0 on every BLOCK
+                  and non-zero on every other type. xG may have started part-way through a season'
                 type: number
               xgSum:
                 description: Running sum of this team's xg up to and including this shot
@@ -914,9 +953,9 @@ components:
                 type: number
               posY:
                 description: 'Distance in metres from the end boards of the attacked end, 0-60 (rink length).
-                  Shots are mirrored to one attacking end: 469 of 475 shots in four games (2022-2026)
-                  have posY <= 30, the rest are long shots from beyond centre (max 54.8); the goal line
-                  is 4 m out. Inferred'
+                  Shots are mirrored to one attacking end: 469 of 475 shots in four games (one each from
+                  2022, 2023, 2024 and 2026: 124 + 134 + 112 + 105) have posY <= 30, the rest are long
+                  shots from beyond centre (max 54.8); the goal line is 4 m out. Inferred'
                 type: number
               posYPercentage:
                 description: posY / 24, the depth of the app's zone drawing (verified on 475 shots); above
@@ -928,12 +967,14 @@ components:
               sit:
                 description: 'Strength: EQ (even), PP (power play), PK (shorthanded)'
                 type: string
+                x-observed-values: *id004
               time:
                 description: Game clock elapsed in seconds (period 2 starts at 1200)
                 type: integer
               type:
                 description: 'Outcome: SOG (saved shot on goal), MISS, POST, BLOCK, GOAL'
                 type: string
+                x-observed-values: *id005
               unix:
                 description: Wall-clock time of the shot, Unix epoch seconds
                 type: integer
@@ -944,9 +985,10 @@ components:
                 description: Seconds into the game video (= unix - unixStart; verified on 475 shots)
                 type: integer
               xg:
-                description: 'Expected goals of this shot, 0-1. 0 on every BLOCK and non-zero on every
-                  other type from season 2023 (2022/23) on (346 shots, 3 games); all 0 before: game 20221105000100
-                  all 0, 20211105000106 all 0'
+                description: 'Expected goals of this shot, 0-1. Start season based on one sampled game
+                  per season: every shot is 0 in the 2021 (20211105000106) and 2022 (20221105000100) games;
+                  in the 2023, 2024 and 2026 games (134 + 112 + 105 = 351 shots) xg is 0 on every BLOCK
+                  and non-zero on every other type. xG may have started part-way through a season'
                 type: number
               xgSum:
                 description: Running sum of this team's xg up to and including this shot
@@ -1213,9 +1255,9 @@ components:
                         description: Arena name
                         type: string
                       awayTeamCoach:
-                        description: Away head coach name; null in the season lists
-                        type:
-                        - 'null'
+                        description: 'Away head coach name; filled in a game''s `overview`, null in the
+                          season lists; unobserved: null, absent or empty in every sampled row'
+                        x-unobserved: true
                       awayTeamId:
                         description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos):
                           the same key space as the sihf/ table team cell `id` (an integer there). Joins
@@ -1256,9 +1298,9 @@ components:
                         description: Vimeo id of the highlight video
                         type: string
                       homeTeamCoach:
-                        description: Home head coach name; null in the season lists
-                        type:
-                        - 'null'
+                        description: 'Home head coach name; filled in a game''s `overview`, null in the
+                          season lists; unobserved: null, absent or empty in every sampled row'
+                        x-unobserved: true
                       homeTeamId:
                         description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos):
                           the same key space as the sihf/ table team cell `id` (an integer there). Joins
@@ -1369,9 +1411,9 @@ components:
                         description: Arena name
                         type: string
                       awayTeamCoach:
-                        description: Away head coach name; null in the season lists
-                        type:
-                        - 'null'
+                        description: 'Away head coach name; filled in a game''s `overview`, null in the
+                          season lists; unobserved: null, absent or empty in every sampled row'
+                        x-unobserved: true
                       awayTeamId:
                         description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos):
                           the same key space as the sihf/ table team cell `id` (an integer there). Joins
@@ -1412,9 +1454,9 @@ components:
                         description: Vimeo id of the highlight video
                         type: string
                       homeTeamCoach:
-                        description: Home head coach name; null in the season lists
-                        type:
-                        - 'null'
+                        description: 'Home head coach name; filled in a game''s `overview`, null in the
+                          season lists; unobserved: null, absent or empty in every sampled row'
+                        x-unobserved: true
                       homeTeamId:
                         description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos):
                           the same key space as the sihf/ table team cell `id` (an integer there). Joins
@@ -1503,9 +1545,9 @@ components:
             description: Arena name
             type: string
           awayTeamCoach:
-            description: Away head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Away head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           awayTeamId:
             description: 'Away team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -1543,13 +1585,13 @@ components:
             description: Broadcast on MySports
             type: boolean
           highlightVimeoVideoId:
-            description: Vimeo id of the highlight video
-            type:
-            - 'null'
+            description: 'Vimeo id of the highlight video; unobserved: null, absent or empty in every
+              sampled row'
+            x-unobserved: true
           homeTeamCoach:
-            description: Home head coach name; null in the season lists
-            type:
-            - 'null'
+            description: 'Home head coach name; filled in a game''s `overview`, null in the season lists;
+              unobserved: null, absent or empty in every sampled row'
+            x-unobserved: true
           homeTeamId:
             description: 'Home team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
               key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -1595,469 +1637,24 @@ components:
             description: 'Game state: finished, canceled, beforeStartOfPlay (others appear live)'
             type: string
           tvPartner:
-            description: Broadcaster logo image URLs
-            items: {}
+            description: 'Broadcaster logo image URLs; unobserved: null, absent or empty in every sampled
+              row'
+            items:
+              x-unobserved: true
             type: array
           vimeoVideoId:
-            description: Vimeo id of the full-game video, a digit string
-            type:
-            - 'null'
+            description: 'Vimeo id of the full-game video, a digit string; unobserved: null, absent or
+              empty in every sampled row'
+            x-unobserved: true
         type: object
       type: array
     Player:
       items:
-        properties:
-          a1:
-            description: First assists
-            type: integer
-          a2:
-            description: Second assists
-            type: integer
-          aeq:
-            description: Even-strength assists
-            type: integer
-          apk:
-            description: Shorthanded assists
-            type: integer
-          app:
-            description: Power-play assists
-            type: integer
-          assists:
-            description: Assists (a1 + a2; verified on every 2026 row)
-            type: integer
-          birth:
-            description: Date of birth, YYYY-MM-DD
-            type: string
-          bks:
-            description: Opponent shots blocked
-            type: integer
-          bksPerGame:
-            description: Blocked shots per game
-            type: integer
-          chf:
-            description: 'CHF credited for the player''s points: 300 * points on every 2026 row (PostFinance
-              youth-fund scheme; inferred)'
-            type: integer
-          faceOffs:
-            description: Faceoffs taken (fow + fol; verified)
-            type: integer
-          faceOffsPerGamePercentage:
-            description: Not determined; 0 on the sampled rows
-            type: integer
-          faceOffsPercentage:
-            description: Faceoff win percentage, 0-100; -1 with no faceoffs
-            type: integer
-          firstGoalkeeper:
-            description: Team's first-choice goaltender
-            type: boolean
-          firstName:
-            description: First name
-            type: string
-          fk:
-            description: 'Games started in goal (inferred: fk <= gp; 42 of 44 for the 2026 games-played
-              leader)'
-            type: integer
-          fo:
-            description: 'Penalties taken (fo2 + fo5 + fo10 + gm + mp; verified). Not faceoffs: see faceOffs'
-            type: integer
-          fo10:
-            description: 10-minute misconducts
-            type: integer
-          fo2:
-            description: Minor (2-minute) penalties
-            type: integer
-          fo5:
-            description: Major (5-minute) penalties
-            type: integer
-          fogp:
-            description: Faceoffs taken per game
-            type: integer
-          fol:
-            description: Faceoffs lost
-            type: integer
-          folPerGame:
-            description: Faceoffs lost per game
-            type: integer
-          foldz:
-            description: Defensive-zone faceoffs lost
-            type: integer
-          folnz:
-            description: Neutral-zone faceoffs lost
-            type: integer
-          foloz:
-            description: Offensive-zone faceoffs lost
-            type: integer
-          fopdz:
-            description: Defensive-zone faceoff win percentage, 0-100
-            type: integer
-          fopnz:
-            description: Neutral-zone faceoff win percentage, 0-100
-            type: integer
-          fopoz:
-            description: Offensive-zone faceoff win percentage, 0-100
-            type: integer
-          fot:
-            description: Faceoffs taken (fow + fol)
-            type: integer
-          fow:
-            description: Faceoffs won
-            type: integer
-          fowPerGame:
-            description: Faceoffs won per game
-            type: integer
-          fowdz:
-            description: Defensive-zone faceoffs won
-            type: integer
-          fownz:
-            description: Neutral-zone faceoffs won
-            type: integer
-          fowoz:
-            description: Offensive-zone faceoffs won
-            type: integer
-          g:
-            description: Goals
-            type: integer
-          ga:
-            description: Goals against
-            type: integer
-          gaPerGame:
-            description: Goals against per game (ga / gp; verified)
-            type: number
-          geq:
-            description: Even-strength goals
-            type: integer
-          gl:
-            description: Goaltender losses (incl. overtime and shootout)
-            type: integer
-          glit:
-            description: Losses in regulation time (gl = glit + overtime/shootout losses; verified)
-            type: integer
-          gm:
-            description: Game misconducts
-            type: integer
-          goalEfficiency:
-            description: Shooting percentage, 100 * g / sog (verified); -1 with no shots
-            type: integer
-          got:
-            description: Overtime goals (a subset of g)
-            type: integer
-          gp:
-            description: Games played
-            type: integer
-          gpk:
-            description: Shorthanded goals
-            type: integer
-          gpp:
-            description: Power-play goals
-            type: integer
-          gw:
-            description: Goaltender wins (incl. overtime and shootout)
-            type: integer
-          gwShutout:
-            description: Not determined; equals gw on goaltender rows
-            type: integer
-          gwg:
-            description: Game-winning goals
-            type: integer
-          gwgk:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          gwit:
-            description: Wins in regulation time (gw = gwit + overtime/shootout wins; verified)
-            type: integer
-          ha:
-            description: Hat tricks (inferred; at most 2 in 2026)
-            type: integer
-          hand:
-            description: 'Shooting or catching hand; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          height:
-            description: 'Height; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          isCaptain:
-            description: Team captain
-            type: boolean
-          isTopscorer:
-            description: Wears the team's PostFinance Top Scorer jersey (one per team)
-            type: boolean
-          lastName:
-            description: Last name
-            type: string
-          lcrid:
-            description: Not determined (small integer, 0-4 in 2026)
-            type: integer
-          mi:
-            description: 'Minus count: on ice for a goal against'
-            type: integer
-          mip:
-            description: Goaltender time played, hundredths of a minute (6000 = 60:00; = seconds / 0.6)
-            type: integer
-          mp:
-            description: Match penalties
-            type: integer
-          nationality:
-            description: 'Nationality; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          noc:
-            description: Not determined (small integer, 0-2 in 2026)
-            type: integer
-          number:
-            description: Sweater number, a string
-            type: string
-          otA:
-            description: Overtime assists; 0 on every 2026 row
-            type: integer
-          otA1:
-            description: Overtime first assists; 0 on every 2026 row
-            type: integer
-          otA2:
-            description: Overtime second assists; 0 on every 2026 row
-            type: integer
-          otG:
-            description: Overtime goals in the overtime table; 0 on every 2026 row
-            type: integer
-          otP:
-            description: Overtime points; 0 on every 2026 row
-            type: integer
-          otRank:
-            description: Overtime-scoring rank; 0 on the 2026 rows (filled in 2027)
-            type: integer
-          otToi:
-            description: Overtime time on ice, seconds; 0 on every 2026 row
-            type: integer
-          otl:
-            description: Goaltender overtime or shootout losses
-            type: integer
-          otw:
-            description: Goaltender overtime or shootout wins
-            type: integer
-          pg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          pim:
-            description: Penalty minutes
-            type: integer
-          pl:
-            description: 'Plus count: on ice for an even-strength or shorthanded goal for'
-            type: integer
-          playerId:
-            description: 'SIHF licence number, a digit string: the player id of this API and the sihf/
-              licence number (`players[].id`, every `*LicenceNr`; 305519 = Tobias Geisser in both).'
-            type: string
-          plusMinus:
-            description: Plus/minus (pl - mi; verified)
-            type: integer
-          pm:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          points:
-            description: Points (g + assists; verified)
-            type: integer
-          pointsPerGame:
-            description: Points per game
-            type: number
-          position:
-            description: goalkeeper, defender or forwarder (sic)
-            type: string
-          ps:
-            description: Shootout shots taken
-            type: integer
-          psPercentage:
-            description: Shootout success percentage, 0-100
-            type: integer
-          psag:
-            description: Shootout goals against (equals ps on goaltender rows)
-            type: integer
-          psg:
-            description: Shootout goals
-            type: integer
-          psgwg:
-            description: Game-deciding shootout goals; 0 on every 2026 row
-            type: integer
-          psm:
-            description: Shootout misses (inferred; ps = psg + psm fails for 67 of 447 skaters)
-            type: integer
-          pssvs:
-            description: Shootout saves
-            type: integer
-          pssvsPercentage:
-            description: Shootout save percentage, 0-100; -1 with no shootout shots faced
-            type: number
-          pswg:
-            description: Shootout winners (inferred)
-            type: integer
-          pwg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          sa:
-            description: Shots on goal against
-            type: integer
-          saPerGame:
-            description: Shots on goal against per game
-            type: number
-          sab:
-            description: Shots against that were blocked
-            type: integer
-          sag:
-            description: Shots on goal against that were saved (= svs on every 2026 goaltender row)
-            type: integer
-          sago:
-            description: Shots on goal against that went in (= ga on every 2026 goaltender row)
-            type: integer
-          sagoslot:
-            description: Slot shots against that went in
-            type: integer
-          sam:
-            description: Shots against that missed the net
-            type: integer
-          samgp:
-            description: Missed shots against per game
-            type: number
-          sap:
-            description: Shots against that hit the post
-            type: integer
-          sapgp:
-            description: Post hits against per game
-            type: number
-          saslot:
-            description: Slot shots against
-            type: integer
-          saslotgp:
-            description: Slot shots against per game
-            type: number
-          savePercentage:
-            description: Save percentage, 0-100
-            type: number
-          sep:
-            description: Goaltender time played, seconds
-            type: integer
-          sgo:
-            description: Not determined. Equals gff + gfd on every team row; skater values are close to
-              but not always g
-            type: integer
-          shb:
-            description: Own shots blocked by an opponent
-            type: integer
-          shi:
-            description: Shifts
-            type: integer
-          shigp:
-            description: Shifts per game
-            type: integer
-          shm:
-            description: Shots that missed the net
-            type: integer
-          shmPerGame:
-            description: Missed shots per game
-            type: integer
-          showRank:
-            description: 'App flag: show the row''s rank'
-            type: boolean
-          shp:
-            description: Shots that hit the post
-            type: integer
-          shpPerGame:
-            description: Post hits per game
-            type: integer
-          so:
-            description: Shutouts
-            type: integer
-          sog:
-            description: Shots on goal
-            type: integer
-          sogPerGame:
-            description: Shots on goal per game
-            type: integer
-          sogslot:
-            description: Shots on goal from the slot
-            type: integer
-          sogslotPerGame:
-            description: Slot shots on goal per game
-            type: integer
-          svs:
-            description: Saves
-            type: integer
-          svsPerGame:
-            description: Saves per game
-            type: number
-          svsPslot:
-            description: Slot save percentage, 100 * (saslot - sagoslot) / saslot
-            type: number
-          teamId:
-            description: 'Player''s team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the
-              same key space as the sihf/ table team cell `id` (an integer there). Joins every teamId
-              / homeTeamId / awayTeamId in this API.'
-            type: string
-          teamName:
-            description: Team display name
-            type: string
-          teamShortName:
-            description: Team abbreviation
-            type: string
-          teamStats:
-            description: 'Per-team split for a player who changed teams; unobserved: null or empty in
-              every sampled row'
-            type:
-            - 'null'
-          tgs:
-            description: Team's total game time, seconds (about 3600 per game incl. overtime)
-            type: integer
-          toi:
-            description: Time on ice, seconds
-            type: integer
-          toiAverage:
-            description: Time on ice per game, seconds
-            type: integer
-          toiEq:
-            description: Even-strength time on ice, seconds
-            type: integer
-          toiEqPerGame:
-            description: Even-strength time on ice per game, seconds
-            type: integer
-          toiPercentage:
-            description: Share of the team's game time in goal, 100 * sep / tgs (verified)
-            type: number
-          toiPk:
-            description: Shorthanded time on ice, seconds
-            type: integer
-          toiPkPerGame:
-            description: Shorthanded time on ice per game, seconds
-            type: integer
-          toiPpPerGame:
-            description: Power-play time on ice per game, seconds
-            type: integer
-          toipp:
-            description: Power-play time on ice, seconds (lower-case pp, unlike the box score's toiPp)
-            type: integer
-          toishi:
-            description: Time on ice per shift, seconds
-            type: integer
-          topscorerAmount:
-            description: CHF amount credited to the team's Top Scorer jersey holder (non-zero for 14 players,
-              one per team)
-            type: integer
-          topscorerMarketValue:
-            description: PostFinance Top Scorer game market value
-            type: integer
-          topscorerMarketValueTrend:
-            description: 'Market-value trend: 1 up, 0 flat, -1 down'
-            type: integer
-          topscorerPointAverage:
-            description: PostFinance Top Scorer game score per game
-            type: integer
-          topscorerPoints:
-            description: PostFinance Top Scorer game score (an app fantasy rating, not on-ice points)
-            type: integer
-          weight:
-            description: 'Weight; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-        type: object
+        $ref: '#/components/schemas/PlayerRow'
       type: array
     PlayerPlayerId:
+      $ref: '#/components/schemas/PlayerRow'
+    PlayerRow:
       properties:
         a1:
           description: First assists
@@ -2095,10 +1692,10 @@ components:
           type: integer
         faceOffsPerGamePercentage:
           description: Not determined; 0 on the sampled rows
-          type: integer
+          type: number
         faceOffsPercentage:
           description: Faceoff win percentage, 0-100; -1 with no faceoffs
-          type: integer
+          type: number
         firstGoalkeeper:
           description: Team's first-choice goaltender
           type: boolean
@@ -2123,13 +1720,13 @@ components:
           type: integer
         fogp:
           description: Faceoffs taken per game
-          type: integer
+          type: number
         fol:
           description: Faceoffs lost
           type: integer
         folPerGame:
           description: Faceoffs lost per game
-          type: integer
+          type: number
         foldz:
           description: Defensive-zone faceoffs lost
           type: integer
@@ -2141,13 +1738,13 @@ components:
           type: integer
         fopdz:
           description: Defensive-zone faceoff win percentage, 0-100
-          type: integer
+          type: number
         fopnz:
           description: Neutral-zone faceoff win percentage, 0-100
-          type: integer
+          type: number
         fopoz:
           description: Offensive-zone faceoff win percentage, 0-100
-          type: integer
+          type: number
         fot:
           description: Faceoffs taken (fow + fol)
           type: integer
@@ -2156,7 +1753,7 @@ components:
           type: integer
         fowPerGame:
           description: Faceoffs won per game
-          type: integer
+          type: number
         fowdz:
           description: Defensive-zone faceoffs won
           type: integer
@@ -2174,7 +1771,7 @@ components:
           type: integer
         gaPerGame:
           description: Goals against per game (ga / gp; verified)
-          type: integer
+          type: number
         geq:
           description: Even-strength goals
           type: integer
@@ -2222,12 +1819,10 @@ components:
           type: integer
         hand:
           description: 'Shooting or catching hand; unobserved: null or empty in every sampled row'
-          type:
-          - 'null'
+          x-unobserved: true
         height:
           description: 'Height; unobserved: null or empty in every sampled row'
-          type:
-          - 'null'
+          x-unobserved: true
         isCaptain:
           description: Team captain
           type: boolean
@@ -2251,8 +1846,7 @@ components:
           type: integer
         nationality:
           description: 'Nationality; unobserved: null or empty in every sampled row'
-          type:
-          - 'null'
+          x-unobserved: true
         noc:
           description: Not determined (small integer, 0-2 in 2026)
           type: integer
@@ -2312,14 +1906,22 @@ components:
           description: Points per game
           type: number
         position:
-          description: goalkeeper, defender or forwarder (sic)
-          type: string
+          description: goalkeeper, defender or forwarder (sic); one of 502 rows in the full 2026 body
+            has the integer 0
+          type:
+          - integer
+          - string
+          x-observed-values:
+          - goalkeeper
+          - defender
+          - forwarder
+          - 0
         ps:
           description: Shootout shots taken
           type: integer
         psPercentage:
           description: Shootout success percentage, 0-100
-          type: integer
+          type: number
         psag:
           description: Shootout goals against (equals ps on goaltender rows)
           type: integer
@@ -2337,7 +1939,7 @@ components:
           type: integer
         pssvsPercentage:
           description: Shootout save percentage, 0-100; -1 with no shootout shots faced
-          type: integer
+          type: number
         pswg:
           description: Shootout winners (inferred)
           type: integer
@@ -2349,7 +1951,7 @@ components:
           type: integer
         saPerGame:
           description: Shots on goal against per game
-          type: integer
+          type: number
         sab:
           description: Shots against that were blocked
           type: integer
@@ -2367,22 +1969,22 @@ components:
           type: integer
         samgp:
           description: Missed shots against per game
-          type: integer
+          type: number
         sap:
           description: Shots against that hit the post
           type: integer
         sapgp:
           description: Post hits against per game
-          type: integer
+          type: number
         saslot:
           description: Slot shots against
           type: integer
         saslotgp:
           description: Slot shots against per game
-          type: integer
+          type: number
         savePercentage:
           description: Save percentage, 0-100
-          type: integer
+          type: number
         sep:
           description: Goaltender time played, seconds
           type: integer
@@ -2434,10 +2036,10 @@ components:
           type: integer
         svsPerGame:
           description: Saves per game
-          type: integer
+          type: number
         svsPslot:
           description: Slot save percentage, 100 * (saslot - sagoslot) / saslot
-          type: integer
+          type: number
         teamId:
           description: 'Player''s team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the same
             key space as the sihf/ table team cell `id` (an integer there). Joins every teamId / homeTeamId
@@ -2452,8 +2054,11 @@ components:
         teamStats:
           description: 'Per-team split for a player who changed teams; unobserved: null or empty in every
             sampled row'
-          items: {}
-          type: array
+          items:
+            x-unobserved: true
+          type:
+          - array
+          - 'null'
         tgs:
           description: Team's total game time, seconds (about 3600 per game incl. overtime)
           type: integer
@@ -2471,7 +2076,7 @@ components:
           type: number
         toiPercentage:
           description: Share of the team's game time in goal, 100 * sep / tgs (verified)
-          type: integer
+          type: number
         toiPk:
           description: Shorthanded time on ice, seconds
           type: integer
@@ -2505,914 +2110,15 @@ components:
           type: integer
         weight:
           description: 'Weight; unobserved: null or empty in every sampled row'
-          type:
-          - 'null'
+          x-unobserved: true
       type: object
     PlayerTeamTeamId:
       items:
-        properties:
-          a1:
-            description: First assists
-            type: integer
-          a2:
-            description: Second assists
-            type: integer
-          aeq:
-            description: Even-strength assists
-            type: integer
-          apk:
-            description: Shorthanded assists
-            type: integer
-          app:
-            description: Power-play assists
-            type: integer
-          assists:
-            description: Assists (a1 + a2; verified on every 2026 row)
-            type: integer
-          birth:
-            description: Date of birth, YYYY-MM-DD
-            type: string
-          bks:
-            description: Opponent shots blocked
-            type: integer
-          bksPerGame:
-            description: Blocked shots per game
-            type: number
-          chf:
-            description: 'CHF credited for the player''s points: 300 * points on every 2026 row (PostFinance
-              youth-fund scheme; inferred)'
-            type: integer
-          faceOffs:
-            description: Faceoffs taken (fow + fol; verified)
-            type: integer
-          faceOffsPerGamePercentage:
-            description: Not determined; 0 on the sampled rows
-            type: integer
-          faceOffsPercentage:
-            description: Faceoff win percentage, 0-100; -1 with no faceoffs
-            type: integer
-          firstGoalkeeper:
-            description: Team's first-choice goaltender
-            type: boolean
-          firstName:
-            description: First name
-            type: string
-          fk:
-            description: 'Games started in goal (inferred: fk <= gp; 42 of 44 for the 2026 games-played
-              leader)'
-            type: integer
-          fo:
-            description: 'Penalties taken (fo2 + fo5 + fo10 + gm + mp; verified). Not faceoffs: see faceOffs'
-            type: integer
-          fo10:
-            description: 10-minute misconducts
-            type: integer
-          fo2:
-            description: Minor (2-minute) penalties
-            type: integer
-          fo5:
-            description: Major (5-minute) penalties
-            type: integer
-          fogp:
-            description: Faceoffs taken per game
-            type: integer
-          fol:
-            description: Faceoffs lost
-            type: integer
-          folPerGame:
-            description: Faceoffs lost per game
-            type: integer
-          foldz:
-            description: Defensive-zone faceoffs lost
-            type: integer
-          folnz:
-            description: Neutral-zone faceoffs lost
-            type: integer
-          foloz:
-            description: Offensive-zone faceoffs lost
-            type: integer
-          fopdz:
-            description: Defensive-zone faceoff win percentage, 0-100
-            type: integer
-          fopnz:
-            description: Neutral-zone faceoff win percentage, 0-100
-            type: integer
-          fopoz:
-            description: Offensive-zone faceoff win percentage, 0-100
-            type: integer
-          fot:
-            description: Faceoffs taken (fow + fol)
-            type: integer
-          fow:
-            description: Faceoffs won
-            type: integer
-          fowPerGame:
-            description: Faceoffs won per game
-            type: integer
-          fowdz:
-            description: Defensive-zone faceoffs won
-            type: integer
-          fownz:
-            description: Neutral-zone faceoffs won
-            type: integer
-          fowoz:
-            description: Offensive-zone faceoffs won
-            type: integer
-          g:
-            description: Goals
-            type: integer
-          ga:
-            description: Goals against
-            type: integer
-          gaPerGame:
-            description: Goals against per game (ga / gp; verified)
-            type: number
-          geq:
-            description: Even-strength goals
-            type: integer
-          gl:
-            description: Goaltender losses (incl. overtime and shootout)
-            type: integer
-          glit:
-            description: Losses in regulation time (gl = glit + overtime/shootout losses; verified)
-            type: integer
-          gm:
-            description: Game misconducts
-            type: integer
-          goalEfficiency:
-            description: Shooting percentage, 100 * g / sog (verified); -1 with no shots
-            type: integer
-          got:
-            description: Overtime goals (a subset of g)
-            type: integer
-          gp:
-            description: Games played
-            type: integer
-          gpk:
-            description: Shorthanded goals
-            type: integer
-          gpp:
-            description: Power-play goals
-            type: integer
-          gw:
-            description: Goaltender wins (incl. overtime and shootout)
-            type: integer
-          gwShutout:
-            description: Not determined; equals gw on goaltender rows
-            type: integer
-          gwg:
-            description: Game-winning goals
-            type: integer
-          gwgk:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          gwit:
-            description: Wins in regulation time (gw = gwit + overtime/shootout wins; verified)
-            type: integer
-          ha:
-            description: Hat tricks (inferred; at most 2 in 2026)
-            type: integer
-          hand:
-            description: 'Shooting or catching hand; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          height:
-            description: 'Height; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          isCaptain:
-            description: Team captain
-            type: boolean
-          isTopscorer:
-            description: Wears the team's PostFinance Top Scorer jersey (one per team)
-            type: boolean
-          lastName:
-            description: Last name
-            type: string
-          lcrid:
-            description: Not determined (small integer, 0-4 in 2026)
-            type: integer
-          mi:
-            description: 'Minus count: on ice for a goal against'
-            type: integer
-          mip:
-            description: Goaltender time played, hundredths of a minute (6000 = 60:00; = seconds / 0.6)
-            type: integer
-          mp:
-            description: Match penalties
-            type: integer
-          nationality:
-            description: 'Nationality; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          noc:
-            description: Not determined (small integer, 0-2 in 2026)
-            type: integer
-          number:
-            description: Sweater number, a string
-            type: string
-          otA:
-            description: Overtime assists; 0 on every 2026 row
-            type: integer
-          otA1:
-            description: Overtime first assists; 0 on every 2026 row
-            type: integer
-          otA2:
-            description: Overtime second assists; 0 on every 2026 row
-            type: integer
-          otG:
-            description: Overtime goals in the overtime table; 0 on every 2026 row
-            type: integer
-          otP:
-            description: Overtime points; 0 on every 2026 row
-            type: integer
-          otRank:
-            description: Overtime-scoring rank; 0 on the 2026 rows (filled in 2027)
-            type: integer
-          otToi:
-            description: Overtime time on ice, seconds; 0 on every 2026 row
-            type: integer
-          otl:
-            description: Goaltender overtime or shootout losses
-            type: integer
-          otw:
-            description: Goaltender overtime or shootout wins
-            type: integer
-          pg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          pim:
-            description: Penalty minutes
-            type: integer
-          pl:
-            description: 'Plus count: on ice for an even-strength or shorthanded goal for'
-            type: integer
-          playerId:
-            description: 'SIHF licence number, a digit string: the player id of this API and the sihf/
-              licence number (`players[].id`, every `*LicenceNr`; 305519 = Tobias Geisser in both).'
-            type: string
-          plusMinus:
-            description: Plus/minus (pl - mi; verified)
-            type: integer
-          pm:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          points:
-            description: Points (g + assists; verified)
-            type: integer
-          pointsPerGame:
-            description: Points per game
-            type: number
-          position:
-            description: goalkeeper, defender or forwarder (sic)
-            type: string
-          ps:
-            description: Shootout shots taken
-            type: integer
-          psPercentage:
-            description: Shootout success percentage, 0-100
-            type: integer
-          psag:
-            description: Shootout goals against (equals ps on goaltender rows)
-            type: integer
-          psg:
-            description: Shootout goals
-            type: integer
-          psgwg:
-            description: Game-deciding shootout goals; 0 on every 2026 row
-            type: integer
-          psm:
-            description: Shootout misses (inferred; ps = psg + psm fails for 67 of 447 skaters)
-            type: integer
-          pssvs:
-            description: Shootout saves
-            type: integer
-          pssvsPercentage:
-            description: Shootout save percentage, 0-100; -1 with no shootout shots faced
-            type: number
-          pswg:
-            description: Shootout winners (inferred)
-            type: integer
-          pwg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          sa:
-            description: Shots on goal against
-            type: integer
-          saPerGame:
-            description: Shots on goal against per game
-            type: number
-          sab:
-            description: Shots against that were blocked
-            type: integer
-          sag:
-            description: Shots on goal against that were saved (= svs on every 2026 goaltender row)
-            type: integer
-          sago:
-            description: Shots on goal against that went in (= ga on every 2026 goaltender row)
-            type: integer
-          sagoslot:
-            description: Slot shots against that went in
-            type: integer
-          sam:
-            description: Shots against that missed the net
-            type: integer
-          samgp:
-            description: Missed shots against per game
-            type: number
-          sap:
-            description: Shots against that hit the post
-            type: integer
-          sapgp:
-            description: Post hits against per game
-            type: number
-          saslot:
-            description: Slot shots against
-            type: integer
-          saslotgp:
-            description: Slot shots against per game
-            type: number
-          savePercentage:
-            description: Save percentage, 0-100
-            type: number
-          sep:
-            description: Goaltender time played, seconds
-            type: integer
-          sgo:
-            description: Not determined. Equals gff + gfd on every team row; skater values are close to
-              but not always g
-            type: integer
-          shb:
-            description: Own shots blocked by an opponent
-            type: integer
-          shi:
-            description: Shifts
-            type: integer
-          shigp:
-            description: Shifts per game
-            type: number
-          shm:
-            description: Shots that missed the net
-            type: integer
-          shmPerGame:
-            description: Missed shots per game
-            type: number
-          showRank:
-            description: 'App flag: show the row''s rank'
-            type: boolean
-          shp:
-            description: Shots that hit the post
-            type: integer
-          shpPerGame:
-            description: Post hits per game
-            type: number
-          so:
-            description: Shutouts
-            type: integer
-          sog:
-            description: Shots on goal
-            type: integer
-          sogPerGame:
-            description: Shots on goal per game
-            type: number
-          sogslot:
-            description: Shots on goal from the slot
-            type: integer
-          sogslotPerGame:
-            description: Slot shots on goal per game
-            type: number
-          svs:
-            description: Saves
-            type: integer
-          svsPerGame:
-            description: Saves per game
-            type: number
-          svsPslot:
-            description: Slot save percentage, 100 * (saslot - sagoslot) / saslot
-            type: number
-          teamId:
-            description: 'Player''s team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the
-              same key space as the sihf/ table team cell `id` (an integer there). Joins every teamId
-              / homeTeamId / awayTeamId in this API.'
-            type: string
-          teamName:
-            description: Team display name
-            type: string
-          teamShortName:
-            description: Team abbreviation
-            type: string
-          teamStats:
-            description: 'Per-team split for a player who changed teams; unobserved: null or empty in
-              every sampled row'
-            type:
-            - 'null'
-          tgs:
-            description: Team's total game time, seconds (about 3600 per game incl. overtime)
-            type: integer
-          toi:
-            description: Time on ice, seconds
-            type: integer
-          toiAverage:
-            description: Time on ice per game, seconds
-            type: number
-          toiEq:
-            description: Even-strength time on ice, seconds
-            type: integer
-          toiEqPerGame:
-            description: Even-strength time on ice per game, seconds
-            type: number
-          toiPercentage:
-            description: Share of the team's game time in goal, 100 * sep / tgs (verified)
-            type: number
-          toiPk:
-            description: Shorthanded time on ice, seconds
-            type: integer
-          toiPkPerGame:
-            description: Shorthanded time on ice per game, seconds
-            type: number
-          toiPpPerGame:
-            description: Power-play time on ice per game, seconds
-            type: number
-          toipp:
-            description: Power-play time on ice, seconds (lower-case pp, unlike the box score's toiPp)
-            type: integer
-          toishi:
-            description: Time on ice per shift, seconds
-            type: number
-          topscorerAmount:
-            description: CHF amount credited to the team's Top Scorer jersey holder (non-zero for 14 players,
-              one per team)
-            type: integer
-          topscorerMarketValue:
-            description: PostFinance Top Scorer game market value
-            type: integer
-          topscorerMarketValueTrend:
-            description: 'Market-value trend: 1 up, 0 flat, -1 down'
-            type: integer
-          topscorerPointAverage:
-            description: PostFinance Top Scorer game score per game
-            type: integer
-          topscorerPoints:
-            description: PostFinance Top Scorer game score (an app fantasy rating, not on-ice points)
-            type: integer
-          weight:
-            description: 'Weight; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-        type: object
+        $ref: '#/components/schemas/PlayerRow'
       type: array
     PlayerTopscorer:
       items:
-        properties:
-          a1:
-            description: First assists
-            type: integer
-          a2:
-            description: Second assists
-            type: integer
-          aeq:
-            description: Even-strength assists
-            type: integer
-          apk:
-            description: Shorthanded assists
-            type: integer
-          app:
-            description: Power-play assists
-            type: integer
-          assists:
-            description: Assists (a1 + a2; verified on every 2026 row)
-            type: integer
-          birth:
-            description: Date of birth, YYYY-MM-DD
-            type: string
-          bks:
-            description: Opponent shots blocked
-            type: integer
-          bksPerGame:
-            description: Blocked shots per game
-            type: number
-          chf:
-            description: 'CHF credited for the player''s points: 300 * points on every 2026 row (PostFinance
-              youth-fund scheme; inferred)'
-            type: integer
-          faceOffs:
-            description: Faceoffs taken (fow + fol; verified)
-            type: integer
-          faceOffsPerGamePercentage:
-            description: Not determined; 0 on the sampled rows
-            type: integer
-          faceOffsPercentage:
-            description: Faceoff win percentage, 0-100; -1 with no faceoffs
-            type: number
-          firstGoalkeeper:
-            description: Team's first-choice goaltender
-            type: boolean
-          firstName:
-            description: First name
-            type: string
-          fk:
-            description: 'Games started in goal (inferred: fk <= gp; 42 of 44 for the 2026 games-played
-              leader)'
-            type: integer
-          fo:
-            description: 'Penalties taken (fo2 + fo5 + fo10 + gm + mp; verified). Not faceoffs: see faceOffs'
-            type: integer
-          fo10:
-            description: 10-minute misconducts
-            type: integer
-          fo2:
-            description: Minor (2-minute) penalties
-            type: integer
-          fo5:
-            description: Major (5-minute) penalties
-            type: integer
-          fogp:
-            description: Faceoffs taken per game
-            type: number
-          fol:
-            description: Faceoffs lost
-            type: integer
-          folPerGame:
-            description: Faceoffs lost per game
-            type: number
-          foldz:
-            description: Defensive-zone faceoffs lost
-            type: integer
-          folnz:
-            description: Neutral-zone faceoffs lost
-            type: integer
-          foloz:
-            description: Offensive-zone faceoffs lost
-            type: integer
-          fopdz:
-            description: Defensive-zone faceoff win percentage, 0-100
-            type: number
-          fopnz:
-            description: Neutral-zone faceoff win percentage, 0-100
-            type: number
-          fopoz:
-            description: Offensive-zone faceoff win percentage, 0-100
-            type: number
-          fot:
-            description: Faceoffs taken (fow + fol)
-            type: integer
-          fow:
-            description: Faceoffs won
-            type: integer
-          fowPerGame:
-            description: Faceoffs won per game
-            type: integer
-          fowdz:
-            description: Defensive-zone faceoffs won
-            type: integer
-          fownz:
-            description: Neutral-zone faceoffs won
-            type: integer
-          fowoz:
-            description: Offensive-zone faceoffs won
-            type: integer
-          g:
-            description: Goals
-            type: integer
-          ga:
-            description: Goals against
-            type: integer
-          gaPerGame:
-            description: Goals against per game (ga / gp; verified)
-            type: integer
-          geq:
-            description: Even-strength goals
-            type: integer
-          gl:
-            description: Goaltender losses (incl. overtime and shootout)
-            type: integer
-          glit:
-            description: Losses in regulation time (gl = glit + overtime/shootout losses; verified)
-            type: integer
-          gm:
-            description: Game misconducts
-            type: integer
-          goalEfficiency:
-            description: Shooting percentage, 100 * g / sog (verified); -1 with no shots
-            type: number
-          got:
-            description: Overtime goals (a subset of g)
-            type: integer
-          gp:
-            description: Games played
-            type: integer
-          gpk:
-            description: Shorthanded goals
-            type: integer
-          gpp:
-            description: Power-play goals
-            type: integer
-          gw:
-            description: Goaltender wins (incl. overtime and shootout)
-            type: integer
-          gwShutout:
-            description: Not determined; equals gw on goaltender rows
-            type: integer
-          gwg:
-            description: Game-winning goals
-            type: integer
-          gwgk:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          gwit:
-            description: Wins in regulation time (gw = gwit + overtime/shootout wins; verified)
-            type: integer
-          ha:
-            description: Hat tricks (inferred; at most 2 in 2026)
-            type: integer
-          hand:
-            description: 'Shooting or catching hand; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          height:
-            description: 'Height; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          isCaptain:
-            description: Team captain
-            type: boolean
-          isTopscorer:
-            description: Wears the team's PostFinance Top Scorer jersey (one per team)
-            type: boolean
-          lastName:
-            description: Last name
-            type: string
-          lcrid:
-            description: Not determined (small integer, 0-4 in 2026)
-            type: integer
-          mi:
-            description: 'Minus count: on ice for a goal against'
-            type: integer
-          mip:
-            description: Goaltender time played, hundredths of a minute (6000 = 60:00; = seconds / 0.6)
-            type: integer
-          mp:
-            description: Match penalties
-            type: integer
-          nationality:
-            description: 'Nationality; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-          noc:
-            description: Not determined (small integer, 0-2 in 2026)
-            type: integer
-          number:
-            description: Sweater number, a string
-            type: string
-          otA:
-            description: Overtime assists; 0 on every 2026 row
-            type: integer
-          otA1:
-            description: Overtime first assists; 0 on every 2026 row
-            type: integer
-          otA2:
-            description: Overtime second assists; 0 on every 2026 row
-            type: integer
-          otG:
-            description: Overtime goals in the overtime table; 0 on every 2026 row
-            type: integer
-          otP:
-            description: Overtime points; 0 on every 2026 row
-            type: integer
-          otRank:
-            description: Overtime-scoring rank; 0 on the 2026 rows (filled in 2027)
-            type: integer
-          otToi:
-            description: Overtime time on ice, seconds; 0 on every 2026 row
-            type: integer
-          otl:
-            description: Goaltender overtime or shootout losses
-            type: integer
-          otw:
-            description: Goaltender overtime or shootout wins
-            type: integer
-          pg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          pim:
-            description: Penalty minutes
-            type: integer
-          pl:
-            description: 'Plus count: on ice for an even-strength or shorthanded goal for'
-            type: integer
-          playerId:
-            description: 'SIHF licence number, a digit string: the player id of this API and the sihf/
-              licence number (`players[].id`, every `*LicenceNr`; 305519 = Tobias Geisser in both).'
-            type: string
-          plusMinus:
-            description: Plus/minus (pl - mi; verified)
-            type: integer
-          pm:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          points:
-            description: Points (g + assists; verified)
-            type: integer
-          pointsPerGame:
-            description: Points per game
-            type: number
-          position:
-            description: goalkeeper, defender or forwarder (sic)
-            type: string
-          ps:
-            description: Shootout shots taken
-            type: integer
-          psPercentage:
-            description: Shootout success percentage, 0-100
-            type: integer
-          psag:
-            description: Shootout goals against (equals ps on goaltender rows)
-            type: integer
-          psg:
-            description: Shootout goals
-            type: integer
-          psgwg:
-            description: Game-deciding shootout goals; 0 on every 2026 row
-            type: integer
-          psm:
-            description: Shootout misses (inferred; ps = psg + psm fails for 67 of 447 skaters)
-            type: integer
-          pssvs:
-            description: Shootout saves
-            type: integer
-          pssvsPercentage:
-            description: Shootout save percentage, 0-100; -1 with no shootout shots faced
-            type: integer
-          pswg:
-            description: Shootout winners (inferred)
-            type: integer
-          pwg:
-            description: Not determined; 0 on every 2026 row
-            type: integer
-          sa:
-            description: Shots on goal against
-            type: integer
-          saPerGame:
-            description: Shots on goal against per game
-            type: integer
-          sab:
-            description: Shots against that were blocked
-            type: integer
-          sag:
-            description: Shots on goal against that were saved (= svs on every 2026 goaltender row)
-            type: integer
-          sago:
-            description: Shots on goal against that went in (= ga on every 2026 goaltender row)
-            type: integer
-          sagoslot:
-            description: Slot shots against that went in
-            type: integer
-          sam:
-            description: Shots against that missed the net
-            type: integer
-          samgp:
-            description: Missed shots against per game
-            type: integer
-          sap:
-            description: Shots against that hit the post
-            type: integer
-          sapgp:
-            description: Post hits against per game
-            type: integer
-          saslot:
-            description: Slot shots against
-            type: integer
-          saslotgp:
-            description: Slot shots against per game
-            type: integer
-          savePercentage:
-            description: Save percentage, 0-100
-            type: integer
-          sep:
-            description: Goaltender time played, seconds
-            type: integer
-          sgo:
-            description: Not determined. Equals gff + gfd on every team row; skater values are close to
-              but not always g
-            type: integer
-          shb:
-            description: Own shots blocked by an opponent
-            type: integer
-          shi:
-            description: Shifts
-            type: integer
-          shigp:
-            description: Shifts per game
-            type: number
-          shm:
-            description: Shots that missed the net
-            type: integer
-          shmPerGame:
-            description: Missed shots per game
-            type: number
-          showRank:
-            description: 'App flag: show the row''s rank'
-            type: boolean
-          shp:
-            description: Shots that hit the post
-            type: integer
-          shpPerGame:
-            description: Post hits per game
-            type: number
-          so:
-            description: Shutouts
-            type: integer
-          sog:
-            description: Shots on goal
-            type: integer
-          sogPerGame:
-            description: Shots on goal per game
-            type: number
-          sogslot:
-            description: Shots on goal from the slot
-            type: integer
-          sogslotPerGame:
-            description: Slot shots on goal per game
-            type: number
-          svs:
-            description: Saves
-            type: integer
-          svsPerGame:
-            description: Saves per game
-            type: integer
-          svsPslot:
-            description: Slot save percentage, 100 * (saslot - sagoslot) / saslot
-            type: integer
-          teamId:
-            description: 'Player''s team. SIHF team id, a digit string (e.g. `101151` = HC Davos): the
-              same key space as the sihf/ table team cell `id` (an integer there). Joins every teamId
-              / homeTeamId / awayTeamId in this API.'
-            type: string
-          teamName:
-            description: Team display name
-            type: string
-          teamShortName:
-            description: Team abbreviation
-            type: string
-          teamStats:
-            description: 'Per-team split for a player who changed teams; unobserved: null or empty in
-              every sampled row'
-            type:
-            - 'null'
-          tgs:
-            description: Team's total game time, seconds (about 3600 per game incl. overtime)
-            type: integer
-          toi:
-            description: Time on ice, seconds
-            type: integer
-          toiAverage:
-            description: Time on ice per game, seconds
-            type: number
-          toiEq:
-            description: Even-strength time on ice, seconds
-            type: integer
-          toiEqPerGame:
-            description: Even-strength time on ice per game, seconds
-            type: number
-          toiPercentage:
-            description: Share of the team's game time in goal, 100 * sep / tgs (verified)
-            type: integer
-          toiPk:
-            description: Shorthanded time on ice, seconds
-            type: integer
-          toiPkPerGame:
-            description: Shorthanded time on ice per game, seconds
-            type: number
-          toiPpPerGame:
-            description: Power-play time on ice per game, seconds
-            type: number
-          toipp:
-            description: Power-play time on ice, seconds (lower-case pp, unlike the box score's toiPp)
-            type: integer
-          toishi:
-            description: Time on ice per shift, seconds
-            type: number
-          topscorerAmount:
-            description: CHF amount credited to the team's Top Scorer jersey holder (non-zero for 14 players,
-              one per team)
-            type: integer
-          topscorerMarketValue:
-            description: PostFinance Top Scorer game market value
-            type: integer
-          topscorerMarketValueTrend:
-            description: 'Market-value trend: 1 up, 0 flat, -1 down'
-            type: integer
-          topscorerPointAverage:
-            description: PostFinance Top Scorer game score per game
-            type: integer
-          topscorerPoints:
-            description: PostFinance Top Scorer game score (an app fantasy rating, not on-ice points)
-            type: integer
-          weight:
-            description: 'Weight; unobserved: null or empty in every sampled row'
-            type:
-            - 'null'
-        type: object
+        $ref: '#/components/schemas/PlayerRow'
       type: array
     Teams:
       items:
@@ -3532,7 +2238,7 @@ components:
             description: Shorthanded goals against per game
             type: number
           gasow:
-            description: Shootout losses again (= glpe on every 2026 row)
+            description: Shootout losses; duplicate of glpe (equal on every 2026 row)
             type: integer
           geq:
             description: Even-strength goals (geq + gpp + gpk can fall short of g)
@@ -3602,7 +2308,7 @@ components:
             description: Power-play goals
             type: integer
           gsow:
-            description: Shootout wins again (= gwpe on every 2026 row)
+            description: Shootout wins; duplicate of gwpe (equal on every 2026 row)
             type: integer
           gw:
             description: Wins, all kinds
@@ -3681,7 +2387,7 @@ components:
             description: Power-play opportunities per game
             type: number
           ps:
-            description: Shootout shots taken
+            description: Shootout attempts taken
             type: integer
           psPercentage:
             description: Shootout success percentage, 0-100
@@ -3696,7 +2402,7 @@ components:
             description: Shootout goals against
             type: integer
           psm:
-            description: Shootout misses (inferred; ps = psg + psm fails for 67 of 447 skaters)
+            description: Shootout misses (ps = psg + psm on every 2026 team row)
             type: integer
           pssvs:
             description: Shootout saves
@@ -3714,22 +2420,22 @@ components:
             description: Shots on goal against
             type: integer
           sab:
-            description: Shots against that were blocked
+            description: Shots against that were blocked; 0 on every 2026 team row
             type: integer
           sag:
-            description: Shots on goal against that were saved (= svs on every 2026 goaltender row)
+            description: Shots on goal against that were saved; 0 on every 2026 team row (use sa)
             type: integer
           sago:
-            description: Shots on goal against that went in (= ga on every 2026 goaltender row)
+            description: Shots on goal against that went in; 0 on every 2026 team row (use ga)
             type: integer
           sagp:
             description: Shots on goal against per game
             type: number
           sam:
-            description: Shots against that missed the net
+            description: Shots against that missed the net; 0 on every 2026 team row
             type: integer
           sap:
-            description: Shots against that hit the post
+            description: Shots against that hit the post; 0 on every 2026 team row
             type: integer
           saslot:
             description: Slot shots against
@@ -3804,8 +2510,11 @@ components:
           description: Club page fields
           properties:
             apiKey:
-              description: Club backend key; replaced with '<redacted>' by capture.py, never banked
+              description: Club backend key, a string in the live body. capture.py replaces the value
+                with '<redacted>' (x-redacted), so the sample never holds it and its type is declared,
+                not inferred from the placeholder
               type: string
+              x-redacted: true
             apiName:
               description: Club key in the app's backend (e.g. 'evz')
               type: string
@@ -3814,7 +2523,8 @@ components:
               type: string
             grid:
               description: 'Page layout blocks; unobserved: null or empty in every sampled row'
-              items: {}
+              items:
+                x-unobserved: true
               type: array
             logo:
               description: Club logo media record
@@ -3836,12 +2546,12 @@ components:
                       properties:
                         crops:
                           description: 'Crop presets; unobserved: null or empty in every sampled row'
-                          items: {}
+                          items:
+                            x-unobserved: true
                           type: array
                         focalPoint:
                           description: 'Crop focal point; unobserved: null or empty in every sampled row'
-                          type:
-                          - 'null'
+                          x-unobserved: true
                         src:
                           description: Site path of the file
                           type: string
@@ -3867,8 +2577,7 @@ components:
                   type: string
                 urlSegment:
                   description: 'URL slug; unobserved: null or empty in every sampled row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
               type: object
             overridenName:
               description: Display-name override (sic); empty string in the sample
@@ -4047,10 +2756,11 @@ paths:
         required: true
         schema:
           type: string
-      - description: 'Season END year: `2026` = 2025/26. Diffing 2026 vs 2027 changes every list, and
-          /player/{playerId} gp (51 vs 7), so it scopes. Lists are served for 2019-2027 (the app''s season
-          picker, /api/content/metadata `seasons`) and patchily before: 2012 and 2017 answered, 2010/2014/2015/2016/2018
-          answered `[]` (probed 2026-10-12).'
+      - description: 'Optional and has no effect: the game id already fixes the season, and dropping `season`
+          served the same game. Season END year: `2026` = 2025/26. Diffing 2026 vs 2027 changes every
+          list, and /player/{playerId} gp (51 vs 7), so it scopes. Lists are served for 2019-2027 (the
+          app''s season picker, /api/content/metadata `seasons`) and patchily before: 2012 and 2017 answered,
+          2010/2014/2015/2016/2018 answered `[]` (probed 2026-10-12).'
         example: 2026
         in: query
         name: season
@@ -4120,9 +2830,9 @@ paths:
         required: false
         schema:
           type: integer
-      - description: 'SIHF phase id (see x-phase-ids). Omitted = the regular season: `/player?season=2026`
-          and `phase=4940` answer byte-identical bodies, `phase=5297` (playoffs) a different one (max
-          gp 19 vs 52). Phase ids change every season; whether the metadata ids apply to 2027 is unverified.'
+      - description: SIHF phase id (see x-phase-ids). On /player, omitting it served the regular season
+          (byte-identical to phase=4940); that default is assumed but unverified on this route. Phase
+          ids change every season; whether the metadata ids apply to 2027 is unverified.
         example: 4940
         in: query
         name: phase
@@ -4158,9 +2868,9 @@ paths:
         required: false
         schema:
           type: integer
-      - description: 'SIHF phase id (see x-phase-ids). Omitted = the regular season: `/player?season=2026`
-          and `phase=4940` answer byte-identical bodies, `phase=5297` (playoffs) a different one (max
-          gp 19 vs 52). Phase ids change every season; whether the metadata ids apply to 2027 is unverified.'
+      - description: SIHF phase id (see x-phase-ids). On /player, omitting it served the regular season
+          (byte-identical to phase=4940); that default is assumed but unverified on this route. Phase
+          ids change every season; whether the metadata ids apply to 2027 is unverified.
         example: 4940
         in: query
         name: phase
@@ -4187,19 +2897,20 @@ paths:
         required: true
         schema:
           type: string
-      - description: 'Season END year: `2026` = 2025/26. Diffing 2026 vs 2027 changes every list, and
-          /player/{playerId} gp (51 vs 7), so it scopes. Lists are served for 2019-2027 (the app''s season
-          picker, /api/content/metadata `seasons`) and patchily before: 2012 and 2017 answered, 2010/2014/2015/2016/2018
-          answered `[]` (probed 2026-10-12).'
+      - description: 'Omitted = the current season: /player/305519 without it answered 2027 (gp 7; 51
+          for season=2026). Season END year: `2026` = 2025/26. Diffing 2026 vs 2027 changes every list,
+          and /player/{playerId} gp (51 vs 7), so it scopes. Lists are served for 2019-2027 (the app''s
+          season picker, /api/content/metadata `seasons`) and patchily before: 2012 and 2017 answered,
+          2010/2014/2015/2016/2018 answered `[]` (probed 2026-10-12).'
         example: 2026
         in: query
         name: season
         required: false
         schema:
           type: integer
-      - description: 'SIHF phase id (see x-phase-ids). Omitted = the regular season: `/player?season=2026`
-          and `phase=4940` answer byte-identical bodies, `phase=5297` (playoffs) a different one (max
-          gp 19 vs 52). Phase ids change every season; whether the metadata ids apply to 2027 is unverified.'
+      - description: SIHF phase id (see x-phase-ids). On /player, omitting it served the regular season
+          (byte-identical to phase=4940); that default is assumed but unverified on this route. Phase
+          ids change every season; whether the metadata ids apply to 2027 is unverified.
         example: 4940
         in: query
         name: phase
@@ -4228,9 +2939,9 @@ paths:
         required: false
         schema:
           type: integer
-      - description: 'SIHF phase id (see x-phase-ids). Omitted = the regular season: `/player?season=2026`
-          and `phase=4940` answer byte-identical bodies, `phase=5297` (playoffs) a different one (max
-          gp 19 vs 52). Phase ids change every season; whether the metadata ids apply to 2027 is unverified.'
+      - description: SIHF phase id (see x-phase-ids). On /player, omitting it served the regular season
+          (byte-identical to phase=4940); that default is assumed but unverified on this route. Phase
+          ids change every season; whether the metadata ids apply to 2027 is unverified.
         example: 4940
         in: query
         name: phase
