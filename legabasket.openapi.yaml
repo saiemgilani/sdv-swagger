@@ -1,0 +1,4737 @@
+components:
+  schemas:
+    GetChampionshipMatchesShotsById:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        match:
+          properties:
+            additional_time:
+              type: integer
+            championship_id:
+              type: integer
+            championships_day_id:
+              type: integer
+            competition_name:
+              type: string
+            competition_serie:
+              type: string
+            competition_serie_id:
+              type: integer
+            competition_type:
+              type: string
+            competition_type_code:
+              type: string
+            competition_type_id:
+              type: integer
+            day_code:
+              type: string
+            day_name:
+              type: string
+            day_phase_id:
+              type: integer
+            day_serial:
+              type: integer
+            game_status:
+              type: string
+            h_team_enabled:
+              type: boolean
+            h_team_id:
+              type: integer
+            h_team_name:
+              type: string
+            has_streaming:
+              type: integer
+            home_coach_code:
+              type: string
+            home_coach_fullname:
+              type: string
+            home_coach_id:
+              type: integer
+            home_final_score:
+              type: integer
+            home_logo_key:
+              type:
+              - string
+              - 'null'
+            id:
+              type: integer
+            live_match_data:
+              type:
+              - 'null'
+            match_datetime:
+              type: string
+            match_hh:
+              type: integer
+            match_hw:
+              type: integer
+            match_mm:
+              type: integer
+            match_serie:
+              type: string
+            match_vw:
+              type: integer
+            number:
+              type: integer
+            ot_hs:
+              type: integer
+            ot_vs:
+              type: integer
+            plant_id:
+              type: integer
+            plant_name:
+              type: string
+            q1_hs:
+              type: integer
+            q1_vs:
+              type: integer
+            q2_hs:
+              type: integer
+            q2_vs:
+              type: integer
+            q3_hs:
+              type: integer
+            q3_vs:
+              type: integer
+            q4_hs:
+              type: integer
+            q4_vs:
+              type: integer
+            quarter:
+              type: string
+            spectators:
+              type: integer
+            target_score:
+              type:
+              - 'null'
+            ticketing_url:
+              type:
+              - string
+              - 'null'
+            updated_at:
+              type: string
+            v_logo_key:
+              type:
+              - string
+              - 'null'
+            v_team_enabled:
+              type: boolean
+            v_team_id:
+              type: integer
+            v_team_name:
+              type: string
+            visitor_coach_code:
+              type: string
+            visitor_coach_fullname:
+              type: string
+            visitor_coach_id:
+              type: integer
+            visitor_final_score:
+              type: integer
+            websocket_match_id:
+              type: string
+            year:
+              type: integer
+          type: object
+        shots:
+          properties:
+            ht:
+              additionalProperties:
+                properties:
+                  num:
+                    type: string
+                  opacity:
+                    type: integer
+                  perc:
+                    type: number
+                  precision:
+                    type: integer
+                type: object
+              type: object
+            timestamp:
+              type: integer
+            vt:
+              additionalProperties:
+                properties:
+                  num:
+                    type: string
+                  opacity:
+                    type: integer
+                  perc:
+                    type: number
+                  precision:
+                    type: integer
+                type: object
+              type: object
+          type: object
+      type: object
+    GetChampionshipRanking:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        competition:
+          properties:
+            background_key:
+              type:
+              - 'null'
+            championship_series_id:
+              type: integer
+            championship_type_id:
+              type: integer
+            code:
+              type: string
+            cover_key:
+              type:
+              - 'null'
+            ctype_code:
+              type: string
+            ctype_name:
+              type: string
+            focus_on:
+              type: boolean
+            full_name:
+              type: string
+            homepage_calendar:
+              type: boolean
+            homepage_slider:
+              type: boolean
+            id:
+              type: integer
+            logo_key:
+              type:
+              - string
+              - 'null'
+            name:
+              type: string
+            scoreboard_live:
+              type: boolean
+            seo_meta_description:
+              type:
+              - string
+              - 'null'
+            seo_meta_title:
+              type:
+              - string
+              - 'null'
+            serie_code:
+              type: string
+            serie_name:
+              type: string
+            show_cover_image_homepage:
+              type: boolean
+            show_detail_teams_logo:
+              type: boolean
+            status:
+              type: integer
+            year:
+              type: integer
+          type: object
+        filters:
+          properties:
+            days:
+              items:
+                properties:
+                  code:
+                    type: string
+                  event_serial:
+                    type: integer
+                  focus_on:
+                    type: boolean
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                type: object
+              type: array
+          type: object
+        penalizations:
+          items: {}
+          type: array
+        standings:
+          items:
+            properties:
+              avg_points_made:
+                type: number
+              avg_points_suffered:
+                type: number
+              away_avg_points_made:
+                type: number
+              away_avg_points_suffered:
+                type: number
+              away_defeats:
+                type: integer
+              away_game_played:
+                type: integer
+              away_max_points_made:
+                type:
+                - integer
+                - 'null'
+              away_points_made:
+                type: integer
+              away_points_suffered:
+                type: integer
+              away_ties:
+                type: integer
+              away_wins:
+                type: integer
+              away_wins_percent:
+                type:
+                - string
+                - 'null'
+              championships_day_id:
+                type: integer
+              club_code:
+                type:
+                - string
+                - 'null'
+              ctp:
+                type: integer
+              ctp_description:
+                type:
+                - 'null'
+              ctp_symbol:
+                type:
+                - 'null'
+              day_code:
+                type: integer
+              day_name:
+                type: string
+              defeats:
+                type: integer
+              game_played:
+                type: integer
+              home_avg_points_made:
+                type: number
+              home_avg_points_suffered:
+                type: number
+              home_defeats:
+                type: integer
+              home_game_played:
+                type: integer
+              home_max_points_made:
+                type:
+                - integer
+                - 'null'
+              home_points_made:
+                type: integer
+              home_points_suffered:
+                type: integer
+              home_ties:
+                type: integer
+              home_wins:
+                type: integer
+              home_wins_percent:
+                type:
+                - string
+                - 'null'
+              id:
+                type: integer
+              logo_key:
+                type:
+                - string
+                - 'null'
+              lp:
+                type:
+                - 'null'
+              lpf:
+                type:
+                - 'null'
+              lps:
+                type:
+                - 'null'
+              lqp:
+                type:
+                - 'null'
+              lv:
+                type:
+                - 'null'
+              max_points_made:
+                type:
+                - integer
+                - 'null'
+              movement:
+                type:
+                - string
+                - 'null'
+              penalty_points:
+                type: integer
+              play_off_qualified:
+                type:
+                - boolean
+                - 'null'
+              points:
+                type: integer
+              points_made:
+                type: integer
+              points_suffered:
+                type: integer
+              position:
+                type: integer
+              qp:
+                type: integer
+              relegation:
+                type:
+                - boolean
+                - 'null'
+              season:
+                type: integer
+              team_id:
+                type: integer
+              team_name:
+                type: string
+              ties:
+                type: integer
+              updated_at:
+                type: string
+              wins:
+                type: integer
+              wins_percent:
+                type:
+                - string
+                - 'null'
+              year:
+                type: integer
+            type: object
+          type: array
+        teams_matches_series:
+          additionalProperties:
+            items:
+              properties:
+                hs:
+                  type: integer
+                match_id:
+                  type: integer
+                match_result:
+                  type: integer
+                side:
+                  type: string
+                vs:
+                  type: integer
+              type: object
+            type: array
+          type: object
+      type: object
+    GetChampionships:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        competitions:
+          items:
+            properties:
+              championship_series_id:
+                type: integer
+              championship_type_id:
+                type: integer
+              cserie_code:
+                type: string
+              cserie_name:
+                type: string
+              ctype_code:
+                type: string
+              ctype_name:
+                type: string
+              focus_on:
+                type: boolean
+              full_name:
+                type: string
+              id:
+                type: integer
+              logo_key:
+                type:
+                - string
+                - 'null'
+              name:
+                type: string
+              status:
+                type: integer
+              year:
+                type: integer
+            type: object
+          type: array
+        pagination:
+          properties:
+            count:
+              type: integer
+            first_url:
+              type: string
+            from:
+              type: integer
+            in:
+              type: integer
+            items:
+              type: integer
+            last:
+              type: integer
+            last_url:
+              type: string
+            next:
+              type:
+              - 'null'
+            next_url:
+              type: string
+            page:
+              type: integer
+            page_url:
+              type: string
+            pages:
+              type: integer
+            prev:
+              type:
+              - 'null'
+            prev_url:
+              type: string
+            to:
+              type: integer
+          type: object
+      type: object
+    GetChampionshipsCalendarById:
+      properties:
+        broadcasters:
+          additionalProperties:
+            items:
+              properties:
+                logo:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+              type: object
+            type: array
+          type: object
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        competition:
+          properties:
+            background_key:
+              type:
+              - 'null'
+            championship_series_id:
+              type: integer
+            championship_type_id:
+              type: integer
+            code:
+              type: string
+            cover_key:
+              type:
+              - 'null'
+            ctype_code:
+              type: string
+            ctype_name:
+              type: string
+            focus_on:
+              type: boolean
+            full_name:
+              type: string
+            homepage_calendar:
+              type: boolean
+            homepage_slider:
+              type: boolean
+            id:
+              type: integer
+            logo_key:
+              type:
+              - string
+              - 'null'
+            name:
+              type: string
+            scoreboard_live:
+              type: boolean
+            seo_meta_description:
+              type:
+              - string
+              - 'null'
+            seo_meta_title:
+              type:
+              - string
+              - 'null'
+            serie_code:
+              type: string
+            serie_name:
+              type: string
+            show_cover_image_homepage:
+              type: boolean
+            show_detail_teams_logo:
+              type: boolean
+            status:
+              type: integer
+            year:
+              type: integer
+          type: object
+        filters:
+          properties:
+            days:
+              items:
+                properties:
+                  code:
+                    type: string
+                  event_serial:
+                    type: integer
+                  focus_on:
+                    type: boolean
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                type: object
+              type: array
+            phases:
+              items:
+                properties:
+                  data_sort:
+                    type: string
+                  id:
+                    type: integer
+                  phase_code:
+                    type: string
+                  phase_name:
+                    type: string
+                type: object
+              type: array
+          type: object
+        matches:
+          items:
+            properties:
+              additional_time:
+                type: integer
+              championship_id:
+                type: integer
+              championships_day_id:
+                type: integer
+              day_code:
+                type: string
+              day_name:
+                type: string
+              day_serial:
+                type: integer
+              game_status:
+                type: string
+              h_club_code:
+                type:
+                - string
+                - 'null'
+              h_team_enabled:
+                type: boolean
+              h_team_id:
+                type: integer
+              h_team_name:
+                type: string
+              has_streaming:
+                type: integer
+              home_final_score:
+                type: integer
+              home_logo_key:
+                type:
+                - string
+                - 'null'
+              id:
+                type: integer
+              match_datetime:
+                type: string
+              match_hh:
+                type: integer
+              match_mm:
+                type: integer
+              match_serie_key:
+                type: string
+              number:
+                type: integer
+              plant_id:
+                type: integer
+              plant_name:
+                type: string
+              target_score:
+                type:
+                - 'null'
+              ticketing_url:
+                type:
+                - string
+                - 'null'
+              town_id:
+                type: integer
+              town_name:
+                type: string
+              updated_at:
+                type: string
+              v_club_code:
+                type:
+                - string
+                - 'null'
+              v_logo_key:
+                type:
+                - string
+                - 'null'
+              v_team_enabled:
+                type: boolean
+              v_team_id:
+                type: integer
+              v_team_name:
+                type: string
+              visitor_final_score:
+                type: integer
+              websocket_match_id:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+        referees:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        videos:
+          properties: {}
+          type: object
+      type: object
+    GetChampionshipsMatchesById:
+      properties:
+        broadcasters:
+          items:
+            properties:
+              logo:
+                type:
+                - string
+                - 'null'
+              name:
+                type: string
+            type: object
+          type: array
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        coaches_extra:
+          properties:
+            home:
+              properties:
+                coach_picture_key:
+                  type: string
+                code:
+                  type: string
+                end_date:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+                start_date:
+                  type: string
+                surname:
+                  type: string
+              type: object
+            visitor:
+              properties:
+                coach_picture_key:
+                  type: string
+                code:
+                  type: string
+                end_date:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+                start_date:
+                  type: string
+                surname:
+                  type: string
+              type: object
+          type: object
+        match:
+          properties:
+            additional_time:
+              type: integer
+            championship_id:
+              type: integer
+            championships_day_id:
+              type: integer
+            competition_name:
+              type: string
+            competition_serie:
+              type: string
+            competition_serie_id:
+              type: integer
+            competition_type:
+              type: string
+            competition_type_code:
+              type: string
+            competition_type_id:
+              type: integer
+            day_code:
+              type: string
+            day_name:
+              type: string
+            day_phase_id:
+              type: integer
+            day_serial:
+              type: integer
+            game_status:
+              type: string
+            h_team_enabled:
+              type: boolean
+            h_team_id:
+              type: integer
+            h_team_name:
+              type: string
+            has_streaming:
+              type: integer
+            home_coach_code:
+              type: string
+            home_coach_fullname:
+              type: string
+            home_coach_id:
+              type: integer
+            home_final_score:
+              type: integer
+            home_logo_key:
+              type:
+              - string
+              - 'null'
+            id:
+              type: integer
+            live_match_data:
+              type:
+              - 'null'
+            match_datetime:
+              type: string
+            match_hh:
+              type: integer
+            match_hw:
+              type: integer
+            match_mm:
+              type: integer
+            match_serie:
+              type: string
+            match_vw:
+              type: integer
+            number:
+              type: integer
+            ot_hs:
+              type: integer
+            ot_vs:
+              type: integer
+            plant_id:
+              type: integer
+            plant_name:
+              type: string
+            q1_hs:
+              type:
+              - integer
+              - 'null'
+            q1_vs:
+              type:
+              - integer
+              - 'null'
+            q2_hs:
+              type:
+              - integer
+              - 'null'
+            q2_vs:
+              type:
+              - integer
+              - 'null'
+            q3_hs:
+              type: integer
+            q3_vs:
+              type: integer
+            q4_hs:
+              type: integer
+            q4_vs:
+              type: integer
+            quarter:
+              type: string
+            spectators:
+              type: integer
+            target_score:
+              type:
+              - 'null'
+            ticketing_url:
+              type:
+              - string
+              - 'null'
+            updated_at:
+              type: string
+            v_logo_key:
+              type:
+              - string
+              - 'null'
+            v_team_enabled:
+              type: boolean
+            v_team_id:
+              type: integer
+            v_team_name:
+              type: string
+            visitor_coach_code:
+              type: string
+            visitor_coach_fullname:
+              type: string
+            visitor_coach_id:
+              type: integer
+            visitor_final_score:
+              type: integer
+            websocket_match_id:
+              type: string
+            year:
+              type: integer
+          type: object
+        prev_matches:
+          items:
+            properties:
+              code:
+                type: string
+              day_id:
+                type: integer
+              home_final_score:
+                type: integer
+              id:
+                type:
+                - 'null'
+              match_datetime:
+                type: string
+              match_id:
+                type: integer
+              match_result:
+                type: integer
+              side:
+                type: string
+              target_score:
+                type:
+                - 'null'
+              team_id:
+                type: integer
+              visitor_final_score:
+                type: integer
+            type: object
+          type: array
+        quarters:
+          items:
+            type: string
+          type: array
+        referees:
+          items:
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              surname:
+                type: string
+            type: object
+          type: array
+        scores:
+          properties:
+            ht:
+              properties:
+                rows:
+                  items:
+                    properties:
+                      ass:
+                        type: integer
+                      falli_c:
+                        type: integer
+                      falli_fla:
+                        type:
+                        - integer
+                        - 'null'
+                      falli_sf:
+                        type: integer
+                      falli_tc1:
+                        type:
+                        - integer
+                        - 'null'
+                      min:
+                        type: integer
+                      palle_p:
+                        type: integer
+                      palle_r:
+                        type: integer
+                      player_code:
+                        type: string
+                      player_id:
+                        type: integer
+                      player_name:
+                        type: string
+                      player_num:
+                        type: integer
+                      player_p_key:
+                        type:
+                        - string
+                        - 'null'
+                      player_surname:
+                        type: string
+                      plus_minus:
+                        type: integer
+                      pun:
+                        type: integer
+                      rimbalzi_d:
+                        type: integer
+                      rimbalzi_o:
+                        type: integer
+                      rimbalzi_t:
+                        type: integer
+                      sc:
+                        type: integer
+                      sec:
+                        type: integer
+                      sf:
+                        type: string
+                      stoppate_dat:
+                        type: integer
+                      stoppate_sub:
+                        type: integer
+                      t2_perc:
+                        type: number
+                      t2_r:
+                        type: integer
+                      t2_t:
+                        type: integer
+                      t3_perc:
+                        type: number
+                      t3_r:
+                        type: integer
+                      t3_t:
+                        type: integer
+                      tl_perc:
+                        type: number
+                      tl_r:
+                        type: integer
+                      tl_t:
+                        type: integer
+                      val_lega:
+                        type: integer
+                      val_oer:
+                        type: number
+                    type: object
+                  type: array
+                team:
+                  properties:
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type: integer
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                  type: object
+                totals:
+                  properties:
+                    ass:
+                      type: integer
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type:
+                      - integer
+                      - 'null'
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type:
+                      - integer
+                      - 'null'
+                    min:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    sc:
+                      type: integer
+                    sec:
+                      type: integer
+                    stoppate_dat:
+                      type: integer
+                    stoppate_sub:
+                      type: integer
+                    t2_perc:
+                      type: number
+                    t2_r:
+                      type: integer
+                    t2_t:
+                      type: integer
+                    t3_perc:
+                      type: number
+                    t3_r:
+                      type: integer
+                    t3_t:
+                      type: integer
+                    tl_perc:
+                      type: number
+                    tl_r:
+                      type: integer
+                    tl_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                    val_oer:
+                      type: number
+                  type: object
+              type: object
+            quarter:
+              type:
+              - 'null'
+            timestamp:
+              type: integer
+            vt:
+              properties:
+                rows:
+                  items:
+                    properties:
+                      ass:
+                        type: integer
+                      falli_c:
+                        type: integer
+                      falli_fla:
+                        type:
+                        - integer
+                        - 'null'
+                      falli_sf:
+                        type: integer
+                      falli_tc1:
+                        type:
+                        - integer
+                        - 'null'
+                      min:
+                        type: integer
+                      palle_p:
+                        type: integer
+                      palle_r:
+                        type: integer
+                      player_code:
+                        type: string
+                      player_id:
+                        type: integer
+                      player_name:
+                        type: string
+                      player_num:
+                        type: integer
+                      player_p_key:
+                        type:
+                        - string
+                        - 'null'
+                      player_surname:
+                        type: string
+                      plus_minus:
+                        type: integer
+                      pun:
+                        type: integer
+                      rimbalzi_d:
+                        type: integer
+                      rimbalzi_o:
+                        type: integer
+                      rimbalzi_t:
+                        type: integer
+                      sc:
+                        type: integer
+                      sec:
+                        type: integer
+                      sf:
+                        type: string
+                      stoppate_dat:
+                        type: integer
+                      stoppate_sub:
+                        type: integer
+                      t2_perc:
+                        type: number
+                      t2_r:
+                        type: integer
+                      t2_t:
+                        type: integer
+                      t3_perc:
+                        type: number
+                      t3_r:
+                        type: integer
+                      t3_t:
+                        type: integer
+                      tl_perc:
+                        type: number
+                      tl_r:
+                        type: integer
+                      tl_t:
+                        type: integer
+                      val_lega:
+                        type: integer
+                      val_oer:
+                        type: number
+                    type: object
+                  type: array
+                team:
+                  properties:
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type: integer
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                  type: object
+                totals:
+                  properties:
+                    ass:
+                      type: integer
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type:
+                      - integer
+                      - 'null'
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type:
+                      - integer
+                      - 'null'
+                    min:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    sc:
+                      type: integer
+                    sec:
+                      type: integer
+                    stoppate_dat:
+                      type: integer
+                    stoppate_sub:
+                      type: integer
+                    t2_perc:
+                      type: number
+                    t2_r:
+                      type: integer
+                    t2_t:
+                      type: integer
+                    t3_perc:
+                      type: number
+                    t3_r:
+                      type: integer
+                    t3_t:
+                      type: integer
+                    tl_perc:
+                      type: number
+                    tl_r:
+                      type: integer
+                    tl_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                    val_oer:
+                      type: number
+                  type: object
+              type: object
+          type: object
+        tabs:
+          items:
+            type: string
+          type: array
+        teams_series:
+          additionalProperties:
+            items:
+              properties:
+                hs:
+                  type: integer
+                match_id:
+                  type: integer
+                match_result:
+                  type: integer
+                side:
+                  type: string
+                vs:
+                  type: integer
+              type: object
+            type: array
+          type: object
+      type: object
+    GetChampionshipsMatchesPlayByPlay:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        legend:
+          additionalProperties:
+            type: string
+          type: object
+        match:
+          properties:
+            additional_time:
+              type: integer
+            championship_id:
+              type: integer
+            championships_day_id:
+              type: integer
+            competition_name:
+              type: string
+            competition_serie:
+              type: string
+            competition_serie_id:
+              type: integer
+            competition_type:
+              type: string
+            competition_type_code:
+              type: string
+            competition_type_id:
+              type: integer
+            day_code:
+              type: string
+            day_name:
+              type: string
+            day_phase_id:
+              type: integer
+            day_serial:
+              type: integer
+            game_status:
+              type: string
+            h_team_enabled:
+              type: boolean
+            h_team_id:
+              type: integer
+            h_team_name:
+              type: string
+            has_streaming:
+              type: integer
+            home_coach_code:
+              type: string
+            home_coach_fullname:
+              type: string
+            home_coach_id:
+              type: integer
+            home_final_score:
+              type: integer
+            home_logo_key:
+              type:
+              - string
+              - 'null'
+            id:
+              type: integer
+            live_match_data:
+              type:
+              - 'null'
+            match_datetime:
+              type: string
+            match_hh:
+              type: integer
+            match_hw:
+              type: integer
+            match_mm:
+              type: integer
+            match_serie:
+              type: string
+            match_vw:
+              type: integer
+            number:
+              type: integer
+            ot_hs:
+              type: integer
+            ot_vs:
+              type: integer
+            plant_id:
+              type: integer
+            plant_name:
+              type: string
+            q1_hs:
+              type: integer
+            q1_vs:
+              type: integer
+            q2_hs:
+              type: integer
+            q2_vs:
+              type: integer
+            q3_hs:
+              type: integer
+            q3_vs:
+              type: integer
+            q4_hs:
+              type: integer
+            q4_vs:
+              type: integer
+            quarter:
+              type: string
+            spectators:
+              type: integer
+            target_score:
+              type:
+              - 'null'
+            ticketing_url:
+              type:
+              - string
+              - 'null'
+            updated_at:
+              type: string
+            v_logo_key:
+              type:
+              - string
+              - 'null'
+            v_team_enabled:
+              type: boolean
+            v_team_id:
+              type: integer
+            v_team_name:
+              type: string
+            visitor_coach_code:
+              type: string
+            visitor_coach_fullname:
+              type: string
+            visitor_coach_id:
+              type: integer
+            visitor_final_score:
+              type: integer
+            websocket_match_id:
+              type: string
+            year:
+              type: integer
+          type: object
+        pbp:
+          properties:
+            actions:
+              items:
+                properties:
+                  action_1_qualifier_code:
+                    type:
+                    - string
+                    - 'null'
+                  action_1_qualifier_description:
+                    type:
+                    - string
+                    - 'null'
+                  action_2_qualifier_code:
+                    type:
+                    - string
+                    - 'null'
+                  action_2_qualifier_description:
+                    type:
+                    - string
+                    - 'null'
+                  action_id:
+                    type: integer
+                  description:
+                    type: string
+                  dunk:
+                    type: integer
+                  home_club:
+                    type: integer
+                  id:
+                    type:
+                    - 'null'
+                  in_area:
+                    type: boolean
+                  linked_action_id:
+                    type:
+                    - integer
+                    - 'null'
+                  minute:
+                    type: integer
+                  order:
+                    type: integer
+                  period:
+                    type: integer
+                  player_id:
+                    type: integer
+                  player_name:
+                    type: string
+                  player_number:
+                    type: string
+                  player_surname:
+                    type: string
+                  print_time:
+                    type:
+                    - string
+                    - 'null'
+                  score:
+                    type:
+                    - string
+                    - 'null'
+                  seconds:
+                    type: integer
+                  side:
+                    type:
+                    - integer
+                    - 'null'
+                  side_area_code:
+                    type:
+                    - string
+                    - 'null'
+                  side_area_zone:
+                    type:
+                    - string
+                    - 'null'
+                  team_id:
+                    type: integer
+                  team_name:
+                    type: string
+                  x:
+                    type: integer
+                  y:
+                    type: integer
+                type: object
+              type: array
+            ht_id:
+              type: integer
+            start_score:
+              type:
+              - 'null'
+            vt_id:
+              type: integer
+          type: object
+      type: object
+    GetChampionshipsMatchesScoresById:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        coaches_extra:
+          properties:
+            home:
+              properties:
+                coach_picture_key:
+                  type: string
+                code:
+                  type: string
+                end_date:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+                start_date:
+                  type: string
+                surname:
+                  type: string
+              type: object
+            visitor:
+              properties:
+                coach_picture_key:
+                  type: string
+                code:
+                  type: string
+                end_date:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+                start_date:
+                  type: string
+                surname:
+                  type: string
+              type: object
+          type: object
+        match:
+          properties:
+            additional_time:
+              type: integer
+            championship_id:
+              type: integer
+            championships_day_id:
+              type: integer
+            competition_name:
+              type: string
+            competition_serie:
+              type: string
+            competition_serie_id:
+              type: integer
+            competition_type:
+              type: string
+            competition_type_code:
+              type: string
+            competition_type_id:
+              type: integer
+            day_code:
+              type: string
+            day_name:
+              type: string
+            day_phase_id:
+              type: integer
+            day_serial:
+              type: integer
+            game_status:
+              type: string
+            h_team_enabled:
+              type: boolean
+            h_team_id:
+              type: integer
+            h_team_name:
+              type: string
+            has_streaming:
+              type: integer
+            home_coach_code:
+              type: string
+            home_coach_fullname:
+              type: string
+            home_coach_id:
+              type: integer
+            home_final_score:
+              type: integer
+            home_logo_key:
+              type:
+              - string
+              - 'null'
+            id:
+              type: integer
+            live_match_data:
+              type:
+              - 'null'
+            match_datetime:
+              type: string
+            match_hh:
+              type: integer
+            match_hw:
+              type: integer
+            match_mm:
+              type: integer
+            match_serie:
+              type: string
+            match_vw:
+              type: integer
+            number:
+              type: integer
+            ot_hs:
+              type: integer
+            ot_vs:
+              type: integer
+            plant_id:
+              type: integer
+            plant_name:
+              type: string
+            q1_hs:
+              type:
+              - integer
+              - 'null'
+            q1_vs:
+              type:
+              - integer
+              - 'null'
+            q2_hs:
+              type:
+              - integer
+              - 'null'
+            q2_vs:
+              type:
+              - integer
+              - 'null'
+            q3_hs:
+              type: integer
+            q3_vs:
+              type: integer
+            q4_hs:
+              type: integer
+            q4_vs:
+              type: integer
+            quarter:
+              type: string
+            spectators:
+              type: integer
+            target_score:
+              type:
+              - 'null'
+            ticketing_url:
+              type:
+              - string
+              - 'null'
+            updated_at:
+              type: string
+            v_logo_key:
+              type:
+              - string
+              - 'null'
+            v_team_enabled:
+              type: boolean
+            v_team_id:
+              type: integer
+            v_team_name:
+              type: string
+            visitor_coach_code:
+              type: string
+            visitor_coach_fullname:
+              type: string
+            visitor_coach_id:
+              type: integer
+            visitor_final_score:
+              type: integer
+            websocket_match_id:
+              type: string
+            year:
+              type: integer
+          type: object
+        quarters:
+          items:
+            type: string
+          type: array
+        scores:
+          properties:
+            ht:
+              properties:
+                rows:
+                  items:
+                    properties:
+                      ass:
+                        type: integer
+                      falli_c:
+                        type: integer
+                      falli_fla:
+                        type:
+                        - integer
+                        - 'null'
+                      falli_sf:
+                        type: integer
+                      falli_tc1:
+                        type:
+                        - integer
+                        - 'null'
+                      min:
+                        type: integer
+                      palle_p:
+                        type: integer
+                      palle_r:
+                        type: integer
+                      player_code:
+                        type: string
+                      player_id:
+                        type: integer
+                      player_name:
+                        type: string
+                      player_num:
+                        type: integer
+                      player_p_key:
+                        type:
+                        - string
+                        - 'null'
+                      player_surname:
+                        type: string
+                      plus_minus:
+                        type: integer
+                      pun:
+                        type: integer
+                      rimbalzi_d:
+                        type: integer
+                      rimbalzi_o:
+                        type: integer
+                      rimbalzi_t:
+                        type: integer
+                      sc:
+                        type: integer
+                      sec:
+                        type: integer
+                      sf:
+                        type: string
+                      stoppate_dat:
+                        type: integer
+                      stoppate_sub:
+                        type: integer
+                      t2_perc:
+                        type: number
+                      t2_r:
+                        type: integer
+                      t2_t:
+                        type: integer
+                      t3_perc:
+                        type: number
+                      t3_r:
+                        type: integer
+                      t3_t:
+                        type: integer
+                      tl_perc:
+                        type: number
+                      tl_r:
+                        type: integer
+                      tl_t:
+                        type: integer
+                      val_lega:
+                        type: integer
+                      val_oer:
+                        type: number
+                    type: object
+                  type: array
+                team:
+                  properties:
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type: integer
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                  type: object
+                totals:
+                  properties:
+                    ass:
+                      type: integer
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type:
+                      - integer
+                      - 'null'
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type:
+                      - integer
+                      - 'null'
+                    min:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    sc:
+                      type: integer
+                    sec:
+                      type: integer
+                    stoppate_dat:
+                      type: integer
+                    stoppate_sub:
+                      type: integer
+                    t2_perc:
+                      type: number
+                    t2_r:
+                      type: integer
+                    t2_t:
+                      type: integer
+                    t3_perc:
+                      type: number
+                    t3_r:
+                      type: integer
+                    t3_t:
+                      type: integer
+                    tl_perc:
+                      type: number
+                    tl_r:
+                      type: integer
+                    tl_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                    val_oer:
+                      type: number
+                  type: object
+              type: object
+            quarter:
+              type:
+              - 'null'
+            timestamp:
+              type: integer
+            vt:
+              properties:
+                rows:
+                  items:
+                    properties:
+                      ass:
+                        type: integer
+                      falli_c:
+                        type: integer
+                      falli_fla:
+                        type:
+                        - integer
+                        - 'null'
+                      falli_sf:
+                        type: integer
+                      falli_tc1:
+                        type:
+                        - integer
+                        - 'null'
+                      min:
+                        type: integer
+                      palle_p:
+                        type: integer
+                      palle_r:
+                        type: integer
+                      player_code:
+                        type: string
+                      player_id:
+                        type: integer
+                      player_name:
+                        type: string
+                      player_num:
+                        type: integer
+                      player_p_key:
+                        type:
+                        - string
+                        - 'null'
+                      player_surname:
+                        type: string
+                      plus_minus:
+                        type: integer
+                      pun:
+                        type: integer
+                      rimbalzi_d:
+                        type: integer
+                      rimbalzi_o:
+                        type: integer
+                      rimbalzi_t:
+                        type: integer
+                      sc:
+                        type: integer
+                      sec:
+                        type: integer
+                      sf:
+                        type: string
+                      stoppate_dat:
+                        type: integer
+                      stoppate_sub:
+                        type: integer
+                      t2_perc:
+                        type: number
+                      t2_r:
+                        type: integer
+                      t2_t:
+                        type: integer
+                      t3_perc:
+                        type: number
+                      t3_r:
+                        type: integer
+                      t3_t:
+                        type: integer
+                      tl_perc:
+                        type: number
+                      tl_r:
+                        type: integer
+                      tl_t:
+                        type: integer
+                      val_lega:
+                        type: integer
+                      val_oer:
+                        type: number
+                    type: object
+                  type: array
+                team:
+                  properties:
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type: integer
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                  type: object
+                totals:
+                  properties:
+                    ass:
+                      type: integer
+                    falli_c:
+                      type: integer
+                    falli_fla:
+                      type:
+                      - integer
+                      - 'null'
+                    falli_sf:
+                      type: integer
+                    falli_tc1:
+                      type:
+                      - integer
+                      - 'null'
+                    min:
+                      type: integer
+                    palle_p:
+                      type: integer
+                    palle_r:
+                      type: integer
+                    pun:
+                      type: integer
+                    rimbalzi_d:
+                      type: integer
+                    rimbalzi_o:
+                      type: integer
+                    rimbalzi_t:
+                      type: integer
+                    sc:
+                      type: integer
+                    sec:
+                      type: integer
+                    stoppate_dat:
+                      type: integer
+                    stoppate_sub:
+                      type: integer
+                    t2_perc:
+                      type: number
+                    t2_r:
+                      type: integer
+                    t2_t:
+                      type: integer
+                    t3_perc:
+                      type: number
+                    t3_r:
+                      type: integer
+                    t3_t:
+                      type: integer
+                    tl_perc:
+                      type: number
+                    tl_r:
+                      type: integer
+                    tl_t:
+                      type: integer
+                    val_lega:
+                      type: integer
+                    val_oer:
+                      type: number
+                  type: object
+              type: object
+          type: object
+      type: object
+    GetPlayerById:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        player:
+          properties:
+            birth_date:
+              type: string
+            code:
+              type: string
+            end_date:
+              type: string
+            ext_code:
+              type: string
+            fullbody_picture_key:
+              type:
+              - 'null'
+            height:
+              type: integer
+            id:
+              type: integer
+            name:
+              type: string
+            photo_picture_key:
+              type: string
+            place_of_birth:
+              type: string
+            player_alpha3:
+              type: string
+            player_country:
+              type: string
+            player_country_name:
+              type: string
+            player_number:
+              type: string
+            player_role_description:
+              type: string
+            seo_meta_description:
+              type:
+              - 'null'
+            seo_meta_title:
+              type:
+              - 'null'
+            start_date:
+              type: string
+            surname:
+              type: string
+            team_code:
+              type: string
+            team_id:
+              type: integer
+            team_logo_key:
+              type: string
+            team_name:
+              type: string
+            uefa_ratio:
+              type: string
+            updated_at:
+              type: string
+            weight:
+              type: integer
+            year:
+              type: integer
+          type: object
+        stats:
+          properties:
+            avg_rs:
+              properties:
+                assists_avg:
+                  type: string
+                avg_points_avg:
+                  type: string
+                ball_stop_given_avg:
+                  type: string
+                ball_stop_received_avg:
+                  type: string
+                championship_serie_code:
+                  type: string
+                defensive_rebound_avg:
+                  type: string
+                done_fouls_avg:
+                  type: string
+                free_throws_realized_avg:
+                  type: string
+                free_throws_total_avg:
+                  type: string
+                id:
+                  type:
+                  - 'null'
+                lost_balls_avg:
+                  type: string
+                offensive_rebound_avg:
+                  type: string
+                played_matches_avg:
+                  type: string
+                played_minutes_avg:
+                  type: string
+                player_id:
+                  type: number
+                points_avg:
+                  type: string
+                quintet_avg:
+                  type: string
+                rating_lega_avg:
+                  type: string
+                rating_oer_avg:
+                  type: number
+                regain_balls_avg:
+                  type: string
+                shots_2p_realized_avg:
+                  type: string
+                shots_2p_total_avg:
+                  type: string
+                shots_3p_realized_avg:
+                  type: string
+                shots_3p_total_avg:
+                  type: string
+                slam_dunk_avg:
+                  type: string
+                suffered_fouls_avg:
+                  type: string
+                total_matches_avg:
+                  type: string
+              type: object
+            played_matches:
+              type: integer
+            totals_highs_rs:
+              properties:
+                adp_max:
+                  type: integer
+                assists_max:
+                  type: integer
+                assists_sum:
+                  type: integer
+                avg_points_max:
+                  type: number
+                avg_points_sum:
+                  type: number
+                ball_stop_given_max:
+                  type: integer
+                ball_stop_given_sum:
+                  type: integer
+                ball_stop_received_max:
+                  type: integer
+                ball_stop_received_sum:
+                  type: integer
+                championship_serie_code:
+                  type: string
+                defensive_rebound_max:
+                  type: integer
+                defensive_rebound_sum:
+                  type: integer
+                done_fouls_max:
+                  type: integer
+                done_fouls_sum:
+                  type: integer
+                free_throws_perc_max:
+                  type: number
+                free_throws_realized_max:
+                  type: integer
+                free_throws_realized_sum:
+                  type: integer
+                free_throws_total_max:
+                  type: integer
+                free_throws_total_sum:
+                  type: integer
+                id:
+                  type:
+                  - 'null'
+                lost_balls_max:
+                  type: integer
+                lost_balls_sum:
+                  type: integer
+                offensive_rebound_max:
+                  type: integer
+                offensive_rebound_sum:
+                  type: integer
+                played_matches_sum:
+                  type: integer
+                played_minutes_max:
+                  type: integer
+                played_minutes_sum:
+                  type: integer
+                player_id:
+                  type: integer
+                points_max:
+                  type: integer
+                points_sum:
+                  type: integer
+                quintet_max:
+                  type: integer
+                quintet_sum:
+                  type: integer
+                rating_lega_max:
+                  type: integer
+                rating_lega_sum:
+                  type: integer
+                rating_oer_max:
+                  type: number
+                rating_oer_sum:
+                  type: number
+                regain_balls_max:
+                  type: integer
+                regain_balls_sum:
+                  type: integer
+                shots_2p_perc_max:
+                  type: number
+                shots_2p_realized_max:
+                  type: integer
+                shots_2p_realized_sum:
+                  type: integer
+                shots_2p_total_max:
+                  type: integer
+                shots_2p_total_sum:
+                  type: integer
+                shots_3p_perc_max:
+                  type: number
+                shots_3p_realized_max:
+                  type: integer
+                shots_3p_realized_sum:
+                  type: integer
+                shots_3p_total_max:
+                  type: integer
+                shots_3p_total_sum:
+                  type: integer
+                slam_dunk_max:
+                  type: integer
+                slam_dunk_sum:
+                  type: integer
+                suffered_fouls_max:
+                  type: integer
+                suffered_fouls_sum:
+                  type: integer
+                total_matches_sum:
+                  type: integer
+                total_rebounds_max:
+                  type: integer
+              type: object
+          type: object
+      type: object
+    GetPlayerMatches:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        filters:
+          properties:
+            competitions:
+              items:
+                properties:
+                  championship_series_id:
+                    type: integer
+                  championship_type_id:
+                    type: integer
+                  cserie_code:
+                    type: string
+                  cserie_name:
+                    type: string
+                  ctype_code:
+                    type: string
+                  ctype_name:
+                    type: string
+                  focus_on:
+                    type: boolean
+                  full_name:
+                    type: string
+                  id:
+                    type: integer
+                  logo_key:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                  status:
+                    type: integer
+                  year:
+                    type: integer
+                type: object
+              type: array
+            seasons:
+              items:
+                type: integer
+              type: array
+            stats_orby:
+              items:
+                properties:
+                  label:
+                    type: string
+                  val:
+                    type: string
+                type: object
+              type: array
+          type: object
+        matches_stats:
+          properties:
+            data:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  avg_points:
+                    type: number
+                  ball_stop_given:
+                    type: integer
+                  ball_stop_received:
+                    type: integer
+                  captain:
+                    type: boolean
+                  championship_day_name:
+                    type: string
+                  championship_id:
+                    type: integer
+                  championship_match_id:
+                    type: integer
+                  championships_match_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  defensive_rebound:
+                    type: integer
+                  deleted_at:
+                    type:
+                    - 'null'
+                  done_fouls:
+                    type: integer
+                  ext_code:
+                    type: string
+                  fouls_first_category:
+                    type:
+                    - integer
+                    - 'null'
+                  fouls_flagrant:
+                    type:
+                    - integer
+                    - 'null'
+                  free_throws_perc:
+                    type: number
+                  free_throws_realized:
+                    type: integer
+                  free_throws_total:
+                    type: integer
+                  home_match_result:
+                    type:
+                    - string
+                    - 'null'
+                  home_score:
+                    type: integer
+                  home_team_id:
+                    type: integer
+                  home_team_logo_key:
+                    type:
+                    - string
+                    - 'null'
+                  home_team_name:
+                    type: string
+                  id:
+                    type: integer
+                  lost_balls:
+                    type: integer
+                  match_adp:
+                    type: integer
+                  match_date:
+                    type: string
+                  match_hh:
+                    type: integer
+                  match_mm:
+                    type: integer
+                  minute5_fouls:
+                    type: integer
+                  number:
+                    type: integer
+                  offensive_rebound:
+                    type: integer
+                  order:
+                    type: integer
+                  phase_description:
+                    type: string
+                  played_minutes:
+                    type: number
+                  player_id:
+                    type: integer
+                  player_role_id:
+                    type: integer
+                  player_team_code:
+                    type: string
+                  player_team_id:
+                    type: integer
+                  player_team_name:
+                    type: string
+                  points:
+                    type: integer
+                  quintet:
+                    type: integer
+                  rating_lega:
+                    type: integer
+                  rating_oer:
+                    type: number
+                  regain_balls:
+                    type: integer
+                  restricted_area_p1:
+                    type:
+                    - 'null'
+                  restricted_area_p2:
+                    type:
+                    - 'null'
+                  restricted_area_p3:
+                    type:
+                    - 'null'
+                  shots_2p_perc:
+                    type: number
+                  shots_2p_realized:
+                    type: integer
+                  shots_2p_total:
+                    type: integer
+                  shots_3p_perc:
+                    type: number
+                  shots_3p_realized:
+                    type: integer
+                  shots_3p_total:
+                    type: integer
+                  slam_dunk:
+                    type: integer
+                  suffered_fouls:
+                    type: integer
+                  team_id:
+                    type: integer
+                  technical_fouls:
+                    type:
+                    - 'null'
+                  time5_fouls:
+                    type: integer
+                  total_rebound:
+                    type: integer
+                  updated_at:
+                    type: string
+                  visitor_match_result:
+                    type:
+                    - string
+                    - 'null'
+                  visitor_score:
+                    type: integer
+                  visitor_team_id:
+                    type: integer
+                  visitor_team_logo_key:
+                    type:
+                    - string
+                    - 'null'
+                  visitor_team_name:
+                    type: string
+                  wp_id:
+                    type:
+                    - 'null'
+                type: object
+              type: array
+            summary:
+              properties:
+                averages:
+                  properties:
+                    aplus_dp:
+                      type: number
+                    assists:
+                      type: number
+                    avg_points:
+                      type: number
+                    ball_stop_given:
+                      type: number
+                    ball_stop_received:
+                      type: number
+                    defensive_rebound:
+                      type: number
+                    done_fouls:
+                      type: number
+                    free_throws_realized:
+                      type: number
+                    free_throws_total:
+                      type: number
+                    lost_balls:
+                      type: number
+                    lost_matches:
+                      type: number
+                    offensive_rebound:
+                      type: number
+                    played_minutes:
+                      type: number
+                    points:
+                      type: number
+                    quintet:
+                      type: number
+                    rating_lega:
+                      type: number
+                    rating_oer:
+                      type: number
+                    regain_balls:
+                      type: number
+                    shots_2p_realized:
+                      type: number
+                    shots_2p_total:
+                      type: number
+                    shots_3p_realized:
+                      type: number
+                    shots_3p_total:
+                      type: number
+                    slam_dunk:
+                      type: number
+                    suffered_fouls:
+                      type: number
+                    total_rebound:
+                      type: number
+                    won_matches:
+                      type: number
+                  type: object
+                highs:
+                  properties:
+                    aplus_dp:
+                      type: integer
+                    assists:
+                      type: integer
+                    avg_points:
+                      type: number
+                    ball_stop_given:
+                      type: integer
+                    ball_stop_received:
+                      type: integer
+                    defensive_rebound:
+                      type: integer
+                    done_fouls:
+                      type: integer
+                    free_throws_realized:
+                      type: integer
+                    free_throws_total:
+                      type: integer
+                    lost_balls:
+                      type: integer
+                    offensive_rebound:
+                      type: integer
+                    played_minutes:
+                      type: number
+                    points:
+                      type: integer
+                    rating_lega:
+                      type: integer
+                    rating_oer:
+                      type: number
+                    rebounds:
+                      type: integer
+                    regain_balls:
+                      type: integer
+                    shots_2p_realized:
+                      type: integer
+                    shots_2p_total:
+                      type: integer
+                    shots_3p_realized:
+                      type: integer
+                    shots_3p_total:
+                      type: integer
+                    slam_dunk:
+                      type: integer
+                    suffered_fouls:
+                      type: integer
+                  type: object
+                totals:
+                  properties:
+                    aplus_dp:
+                      type: integer
+                    assists:
+                      type: integer
+                    avg_points:
+                      type: number
+                    ball_stop_given:
+                      type: integer
+                    ball_stop_received:
+                      type: integer
+                    defensive_rebound:
+                      type: integer
+                    done_fouls:
+                      type: integer
+                    free_throws_realized:
+                      type: integer
+                    free_throws_total:
+                      type: integer
+                    lost_balls:
+                      type: integer
+                    lost_matches:
+                      type: number
+                    offensive_rebound:
+                      type: integer
+                    played_minutes:
+                      type: number
+                    points:
+                      type: integer
+                    quintet:
+                      type: integer
+                    rating_lega:
+                      type: integer
+                    rating_oer:
+                      type: number
+                    regain_balls:
+                      type: integer
+                    shots_2p_realized:
+                      type: integer
+                    shots_2p_total:
+                      type: integer
+                    shots_3p_realized:
+                      type: integer
+                    shots_3p_total:
+                      type: integer
+                    slam_dunk:
+                      type: integer
+                    suffered_fouls:
+                      type: integer
+                    won_matches:
+                      type: number
+                  type: object
+              type: object
+          type: object
+        player:
+          properties:
+            birth_date:
+              type: string
+            code:
+              type: string
+            end_date:
+              type: string
+            ext_code:
+              type: string
+            fullbody_picture_key:
+              type:
+              - 'null'
+            height:
+              type: integer
+            id:
+              type: integer
+            name:
+              type: string
+            photo_picture_key:
+              type:
+              - string
+              - 'null'
+            place_of_birth:
+              type: string
+            player_alpha3:
+              type: string
+            player_country:
+              type: string
+            player_country_name:
+              type: string
+            player_number:
+              type: string
+            player_role_description:
+              type: string
+            seo_meta_description:
+              type:
+              - 'null'
+            seo_meta_title:
+              type:
+              - 'null'
+            start_date:
+              type: string
+            surname:
+              type: string
+            team_code:
+              type: string
+            team_id:
+              type: integer
+            team_logo_key:
+              type:
+              - string
+              - 'null'
+            team_name:
+              type: string
+            uefa_ratio:
+              type: string
+            updated_at:
+              type: string
+            weight:
+              type: integer
+            year:
+              type: integer
+          type: object
+      type: object
+    GetPlayerStats:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        filters:
+          properties:
+            competitions:
+              items:
+                properties:
+                  cs_id:
+                    type: integer
+                  name:
+                    type: string
+                type: object
+              type: array
+            seasons:
+              items:
+                type: integer
+              type: array
+          type: object
+        player:
+          properties:
+            birth_date:
+              type: string
+            code:
+              type: string
+            end_date:
+              type: string
+            ext_code:
+              type: string
+            fullbody_picture_key:
+              type:
+              - 'null'
+            height:
+              type: integer
+            id:
+              type: integer
+            name:
+              type: string
+            photo_picture_key:
+              type: string
+            place_of_birth:
+              type: string
+            player_alpha3:
+              type: string
+            player_country:
+              type: string
+            player_country_name:
+              type: string
+            player_number:
+              type: string
+            player_role_description:
+              type: string
+            seo_meta_description:
+              type:
+              - 'null'
+            seo_meta_title:
+              type:
+              - 'null'
+            start_date:
+              type: string
+            surname:
+              type: string
+            team_code:
+              type: string
+            team_id:
+              type: integer
+            team_logo_key:
+              type: string
+            team_name:
+              type: string
+            uefa_ratio:
+              type: string
+            updated_at:
+              type: string
+            weight:
+              type: integer
+            year:
+              type: integer
+          type: object
+        stats:
+          properties:
+            data:
+              properties:
+                avg:
+                  items:
+                    properties:
+                      aplus_dp:
+                        type: number
+                      assists:
+                        type: number
+                      avg_points:
+                        type: number
+                      ball_stop_given:
+                        type: number
+                      ball_stop_received:
+                        type: number
+                      championship_name:
+                        type: string
+                      championship_position:
+                        type: integer
+                      championship_year:
+                        type: integer
+                      defensive_rebound:
+                        type: number
+                      done_fouls:
+                        type: number
+                      free_throws_realized:
+                        type: number
+                      free_throws_total:
+                        type: number
+                      lost_balls:
+                        type: number
+                      offensive_rebound:
+                        type: number
+                      played_matches:
+                        type: integer
+                      played_minutes:
+                        type: number
+                      points:
+                        type: number
+                      quintet:
+                        type: number
+                      rating_lega:
+                        type: number
+                      rating_oer:
+                        type: number
+                      regain_balls:
+                        type: number
+                      shots_2p_realized:
+                        type: number
+                      shots_2p_total:
+                        type: number
+                      shots_3p_realized:
+                        type: number
+                      shots_3p_total:
+                        type: number
+                      slam_dunk:
+                        type: number
+                      suffered_fouls:
+                        type: number
+                      team_name:
+                        type: string
+                      total_matches:
+                        type: integer
+                      total_rebound:
+                        type: number
+                    type: object
+                  type: array
+                max:
+                  items:
+                    properties:
+                      aplus_dp:
+                        type: integer
+                      assists:
+                        type: integer
+                      avg_points:
+                        type: number
+                      ball_stop_given:
+                        type: integer
+                      ball_stop_received:
+                        type: integer
+                      championship_name:
+                        type: string
+                      championship_position:
+                        type: integer
+                      championship_year:
+                        type: integer
+                      defensive_rebound:
+                        type: integer
+                      done_fouls:
+                        type: integer
+                      free_throws_realized:
+                        type: integer
+                      free_throws_total:
+                        type: integer
+                      lost_balls:
+                        type: integer
+                      offensive_rebound:
+                        type: integer
+                      played_matches:
+                        type: integer
+                      played_minutes:
+                        type: number
+                      points:
+                        type: integer
+                      quintet:
+                        type: integer
+                      rating_lega:
+                        type: integer
+                      rating_oer:
+                        type: number
+                      regain_balls:
+                        type: integer
+                      shots_2p_realized:
+                        type: integer
+                      shots_2p_total:
+                        type: integer
+                      shots_3p_realized:
+                        type: integer
+                      shots_3p_total:
+                        type: integer
+                      slam_dunk:
+                        type: integer
+                      suffered_fouls:
+                        type: integer
+                      team_name:
+                        type: string
+                      total_matches:
+                        type: integer
+                      total_rebound:
+                        type: integer
+                    type: object
+                  type: array
+                sum:
+                  items:
+                    properties:
+                      aplus_dp:
+                        type:
+                        - 'null'
+                      assists:
+                        type: integer
+                      avg_points:
+                        type: number
+                      ball_stop_given:
+                        type: integer
+                      ball_stop_received:
+                        type: integer
+                      championship_name:
+                        type: string
+                      championship_position:
+                        type: integer
+                      championship_year:
+                        type: integer
+                      defensive_rebound:
+                        type: integer
+                      done_fouls:
+                        type: integer
+                      free_throws_realized:
+                        type: integer
+                      free_throws_total:
+                        type: integer
+                      lost_balls:
+                        type: integer
+                      offensive_rebound:
+                        type: integer
+                      played_matches:
+                        type: integer
+                      played_minutes:
+                        type: number
+                      points:
+                        type: integer
+                      quintet:
+                        type: integer
+                      rating_lega:
+                        type: integer
+                      rating_oer:
+                        type: number
+                      regain_balls:
+                        type: integer
+                      shots_2p_realized:
+                        type: integer
+                      shots_2p_total:
+                        type: integer
+                      shots_3p_realized:
+                        type: integer
+                      shots_3p_total:
+                        type: integer
+                      slam_dunk:
+                        type: integer
+                      suffered_fouls:
+                        type: integer
+                      team_name:
+                        type: string
+                      total_matches:
+                        type: integer
+                    type: object
+                  type: array
+              type: object
+            summary:
+              properties:
+                avg:
+                  properties:
+                    aplus_dp:
+                      type: string
+                    assists_avg:
+                      type: string
+                    avg_points_avg:
+                      type: string
+                    ball_stop_given_avg:
+                      type: string
+                    ball_stop_received_avg:
+                      type: string
+                    defensive_rebound_avg:
+                      type: string
+                    done_fouls_avg:
+                      type: string
+                    free_throws_realized_avg:
+                      type: string
+                    free_throws_total_avg:
+                      type: string
+                    id:
+                      type:
+                      - 'null'
+                    lost_balls_avg:
+                      type: string
+                    offensive_rebound_avg:
+                      type: string
+                    played_matches_avg:
+                      type: string
+                    played_minutes_avg:
+                      type: string
+                    player_id:
+                      type: number
+                    points_avg:
+                      type: string
+                    quintet_avg:
+                      type: string
+                    rating_lega_avg:
+                      type: string
+                    rating_oer_avg:
+                      type: number
+                    regain_balls_avg:
+                      type: string
+                    shots_2p_realized_avg:
+                      type: string
+                    shots_2p_total_avg:
+                      type: string
+                    shots_3p_realized_avg:
+                      type: string
+                    shots_3p_total_avg:
+                      type: string
+                    slam_dunk_avg:
+                      type: string
+                    suffered_fouls_avg:
+                      type: string
+                    total_matches_avg:
+                      type: string
+                  type: object
+                max:
+                  properties:
+                    aplus_dp:
+                      type: integer
+                    assists:
+                      type: integer
+                    avg_points:
+                      type: number
+                    ball_stop_given:
+                      type: integer
+                    ball_stop_received:
+                      type: integer
+                    defensive_rebound:
+                      type: integer
+                    done_fouls:
+                      type: integer
+                    free_throws_realized:
+                      type: integer
+                    free_throws_total:
+                      type: integer
+                    lost_balls:
+                      type: integer
+                    offensive_rebound:
+                      type: integer
+                    played_matches:
+                      type: integer
+                    played_minutes:
+                      type: number
+                    points:
+                      type: integer
+                    quintet:
+                      type: integer
+                    rating_lega:
+                      type: integer
+                    rating_oer_avg:
+                      type: number
+                    regain_balls:
+                      type: integer
+                    shots_2p_realized:
+                      type: integer
+                    shots_2p_total:
+                      type: integer
+                    shots_3p_realized:
+                      type: integer
+                    shots_3p_total:
+                      type: integer
+                    slam_dunk:
+                      type: integer
+                    suffered_fouls:
+                      type: integer
+                    total_matches:
+                      type: integer
+                    total_rebounds:
+                      type: integer
+                  type: object
+                sum:
+                  properties:
+                    aplus_dp:
+                      type: integer
+                    assists:
+                      type: integer
+                    avg_points:
+                      type: number
+                    ball_stop_given:
+                      type: integer
+                    ball_stop_received:
+                      type: integer
+                    defensive_rebound:
+                      type: integer
+                    done_fouls:
+                      type: integer
+                    free_throws_realized:
+                      type: integer
+                    free_throws_total:
+                      type: integer
+                    lost_balls:
+                      type: integer
+                    offensive_rebound:
+                      type: integer
+                    played_matches:
+                      type: integer
+                    played_minutes:
+                      type: number
+                    points:
+                      type: integer
+                    quintet:
+                      type: integer
+                    rating_lega:
+                      type: integer
+                    rating_oer_avg:
+                      type: number
+                    rating_oer_sum:
+                      type: number
+                    regain_balls:
+                      type: integer
+                    shots_2p_realized:
+                      type: integer
+                    shots_2p_total:
+                      type: integer
+                    shots_3p_realized:
+                      type: integer
+                    shots_3p_total:
+                      type: integer
+                    slam_dunk:
+                      type: integer
+                    suffered_fouls:
+                      type: integer
+                    total_matches:
+                      type: integer
+                  type: object
+              type: object
+          type: object
+      type: object
+    GetPlayers:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        pagination:
+          properties:
+            count:
+              type: integer
+            first_url:
+              type: string
+            from:
+              type: integer
+            in:
+              type: integer
+            items:
+              type: integer
+            last:
+              type: integer
+            last_url:
+              type: string
+            next:
+              type: integer
+            next_url:
+              type: string
+            page:
+              type: integer
+            page_url:
+              type: string
+            pages:
+              type: integer
+            prev:
+              type:
+              - 'null'
+            prev_url:
+              type: string
+            to:
+              type: integer
+          type: object
+        players:
+          items:
+            properties:
+              code:
+                type: string
+              id:
+                type: integer
+              name:
+                type: string
+              player_picture_key:
+                type:
+                - string
+                - 'null'
+              surname:
+                type: string
+              team_name:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+      type: object
+    GetPlayersStatistics:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        filters:
+          properties:
+            categories:
+              items:
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                type: object
+              type: array
+            order_by:
+              items:
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                type: object
+              type: array
+          type: object
+        stats:
+          items:
+            properties:
+              attempts:
+                type: integer
+              category:
+                type: string
+              category_filter_total:
+                type: integer
+              minutes:
+                type: string
+              name:
+                type: string
+              player_id:
+                type: integer
+              player_photo_key:
+                type:
+                - string
+                - 'null'
+              presences:
+                type: integer
+              score:
+                type: string
+              score_40_min:
+                type: number
+              surname:
+                type: string
+              team_id:
+                type: integer
+              team_name:
+                type: string
+              tv_name:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+      type: object
+    GetTeamPlayersStats:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        filters:
+          properties:
+            competitions:
+              items:
+                properties:
+                  code:
+                    type: string
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                type: object
+              type: array
+            seasons:
+              items:
+                type: integer
+              type: array
+            stats_orby:
+              items:
+                properties:
+                  label:
+                    type: string
+                  val:
+                    type: string
+                type: object
+              type: array
+            stats_types:
+              items:
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                type: object
+              type: array
+          type: object
+        players:
+          items:
+            properties:
+              aplus_dp_sum:
+                type: integer
+              assists_sum:
+                type: integer
+              ball_stop_given_sum:
+                type: integer
+              ball_stop_received_sum:
+                type: integer
+              defensive_rebound_sum:
+                type: integer
+              done_fouls_sum:
+                type: integer
+              free_throws_perc_sum:
+                type: number
+              free_throws_realized_sum:
+                type: integer
+              free_throws_total_sum:
+                type: integer
+              lost_balls_sum:
+                type: integer
+              offensive_rebound_sum:
+                type: integer
+              played_matches:
+                type: integer
+              played_minutes_sum:
+                type: integer
+              player_id:
+                type: integer
+              player_name:
+                type: string
+              player_photo_key:
+                type:
+                - string
+                - 'null'
+              player_season:
+                type: integer
+              player_surname:
+                type: string
+              plus_minus_sum:
+                type: integer
+              points_sum:
+                type: integer
+              rating_lega_sum:
+                type: integer
+              rating_oer_sum:
+                type: number
+              regain_balls_sum:
+                type: integer
+              shots_2p_perc_sum:
+                type: number
+              shots_2p_realized_sum:
+                type: integer
+              shots_2p_total_sum:
+                type: integer
+              shots_3p_perc_sum:
+                type: number
+              shots_3p_realized_sum:
+                type: integer
+              shots_3p_total_sum:
+                type: integer
+              slam_dunk_sum:
+                type: integer
+              start_formation:
+                type: integer
+              suffered_fouls_sum:
+                type: integer
+              total_matches:
+                type: integer
+              total_rebound_sum:
+                type: integer
+            type: object
+          type: array
+        ranking:
+          items:
+            properties:
+              championship_series_name:
+                type: string
+              championship_type_name:
+                type: string
+              championships_name:
+                type: string
+              id:
+                type: integer
+              result:
+                type: string
+              team_id:
+                type: integer
+              team_name:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+        rnk_sum:
+          properties:
+            cat:
+              properties:
+                assists:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+                points:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+                total_rebound:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+              type: object
+            r_s:
+              properties:
+                ml:
+                  type: integer
+                mw:
+                  type: integer
+                points:
+                  type: integer
+                pos:
+                  type: integer
+              type: object
+          type: object
+        team:
+          properties:
+            club_code:
+              type: string
+            club_id:
+              type: integer
+            id:
+              type: integer
+            logo_key:
+              type:
+              - string
+              - 'null'
+            name:
+              type: string
+            updated_at:
+              type: string
+            year:
+              type: integer
+          type: object
+      type: object
+    GetTeamRoster:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        coach:
+          properties:
+            birth_date:
+              type: string
+            coach_picture_key:
+              type:
+              - string
+              - 'null'
+            coach_type_code:
+              type: string
+            coach_type_description:
+              type: string
+            coach_type_id:
+              type: integer
+            id:
+              type: integer
+            name:
+              type: string
+            place_of_birth:
+              type: string
+            surname:
+              type: string
+            team_logo_key:
+              type:
+              - string
+              - 'null'
+            team_name:
+              type: string
+          type: object
+        players:
+          items:
+            properties:
+              birth_date:
+                type: string
+              code:
+                type: string
+              country:
+                type:
+                - string
+                - 'null'
+              end_date:
+                type: string
+              height:
+                type: integer
+              id:
+                type: integer
+              name:
+                type: string
+              place_of_birth:
+                type: string
+              player_number:
+                type: string
+              player_picture_key:
+                type:
+                - string
+                - 'null'
+              player_role:
+                type: string
+              player_role_id:
+                type: integer
+              start_date:
+                type: string
+              surname:
+                type: string
+              team_logo_key:
+                type:
+                - string
+                - 'null'
+              team_name:
+                type: string
+              uefa_ratio:
+                type: string
+              weight:
+                type: integer
+              year:
+                type: integer
+            type: object
+          type: array
+        ranking:
+          items:
+            properties:
+              championship_series_name:
+                type: string
+              championship_type_name:
+                type: string
+              championships_name:
+                type: string
+              id:
+                type: integer
+              result:
+                type: string
+              team_id:
+                type: integer
+              team_name:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+        rnk_sum:
+          properties:
+            cat:
+              properties:
+                assists:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+                points:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+                total_rebound:
+                  properties:
+                    avg:
+                      type: number
+                    pos:
+                      type: integer
+                  type: object
+              type: object
+            r_s:
+              properties:
+                ml:
+                  type: integer
+                mw:
+                  type: integer
+                points:
+                  type: integer
+                pos:
+                  type: integer
+              type: object
+          type: object
+        team:
+          properties:
+            club_code:
+              type: string
+            club_id:
+              type: integer
+            id:
+              type: integer
+            logo_key:
+              type:
+              - string
+              - 'null'
+            name:
+              type: string
+            updated_at:
+              type: string
+            year:
+              type: integer
+          type: object
+      type: object
+    GetTeams:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        pagination:
+          properties:
+            count:
+              type: integer
+            first_url:
+              type: string
+            from:
+              type: integer
+            in:
+              type: integer
+            items:
+              type: integer
+            last:
+              type: integer
+            last_url:
+              type: string
+            next:
+              type:
+              - 'null'
+            next_url:
+              type: string
+            page:
+              type: integer
+            page_url:
+              type: string
+            pages:
+              type: integer
+            prev:
+              type:
+              - 'null'
+            prev_url:
+              type: string
+            to:
+              type: integer
+          type: object
+        teams:
+          items:
+            properties:
+              club_code:
+                type: string
+              club_id:
+                type: integer
+              id:
+                type: integer
+              logo_key:
+                type:
+                - string
+                - 'null'
+              name:
+                type: string
+              updated_at:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+      type: object
+    GetTeamsStatisticsByType:
+      properties:
+        cache_key:
+          type: string
+        cdn_url:
+          type: string
+        filters:
+          properties:
+            categories:
+              items:
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                type: object
+              type: array
+            order_by:
+              items:
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                type: object
+              type: array
+          type: object
+        stats:
+          items:
+            properties:
+              attempts:
+                type: integer
+              category:
+                type: string
+              logo_key:
+                type:
+                - string
+                - 'null'
+              minutes:
+                type: number
+              name:
+                type: string
+              score:
+                type: number
+              score_40_min:
+                type: number
+              short_name:
+                type: string
+              sponsor_name:
+                type:
+                - string
+                - 'null'
+              team_id:
+                type: integer
+              total_played_matches:
+                type: integer
+              total_points:
+                type: integer
+              tv_name:
+                type: string
+              year:
+                type: integer
+            type: object
+          type: array
+      type: object
+info:
+  description: 'The JSON routes behind legabasket.it (Lega Basket Serie A, Italy). Keyless; robots.txt
+    asks for `Crawl-delay: 2`. Routes and query params come from the site''s JS; shapes from committed
+    captures in legabasket/captures/ (2026-27, 2017-18, 1995-96). `year` / `s` are the season START year
+    (2026 = 2026-27, sdv END year 2027). Championship ids are per season and phase (Regular Season and
+    Play Off differ); game and player ids are global; team ids are re-issued every season. Every body
+    carries `cache_key` and `cdn_url` (image keys resolve under `cdn_url`). The ToS forbid copying data
+    without written consent. Not official or supported.'
+  title: LBA Serie A site API (www.legabasket.it/api)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /championships/get-championship-ranking:
+    get:
+      description: 'Standings after a round, with each team''s recent results (`teams_matches_series`).
+        Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: championships_get_championship_ranking
+      parameters:
+      - description: Championship id (Regular Season ids carry standings).
+        example: '602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Standings after this round (`filters.days[].event_serial`). REQUIRED in practice
+          for a finished championship: without it `standings` and `teams_matches_series` are null (probed
+          for 1995-96, 2017-18 to 2023-24 and 2025-26); the current season answers without it.'
+        example: '3'
+        in: query
+        name: d
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipRanking'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Standings of a championship after a round
+  /championships/get-championships:
+    get:
+      description: 'One row per championship: a season has one per phase (Regular Season `RS`, Play Off
+        `PO`, sometimes a relegation play-out). Serie A history starts with 1948 in the unfiltered list;
+        `cs_id=1` lists 85 championships, 1974-2026. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: championships_get_championships
+      parameters:
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons. Without `s`, every season is listed (310 championships, paged).'
+        example: '2026'
+        in: query
+        name: s
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship series: 1 = Serie A (others seen in the site filters: 5 = Coppa Italia).
+          Probed with 1. Without it, every series (A, A2, cups) is listed.'
+        example: '1'
+        in: query
+        name: cs_id
+        required: false
+        schema:
+          type: integer
+      - description: Page size (default 25). 1000 returns any season in one page.
+        example: '1000'
+        in: query
+        name: items
+        required: false
+        schema:
+          type: integer
+      - description: Page number, 1-based (see `pagination`).
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionships'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Championships (one per phase) of a season
+  /championships/get-championships-calendar-by-id:
+    get:
+      description: 'One round of games with the round and phase filters. Box scores exist back to 1995-96
+        at least. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: championships_get_championships_calendar_by_id
+      parameters:
+      - description: Championship id (one season and phase; from get-championships `competitions[].id`).
+        example: '602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Round (`filters.days[].event_serial`). Without it: the current round (the last played
+          one for a finished championship). Probed.'
+        example: '1'
+        in: query
+        name: d
+        required: false
+        schema:
+          type: integer
+      - description: 'Team id: only that team''s games. From the site JS; not probed.'
+        in: query
+        name: t_id
+        required: false
+        schema:
+          type: integer
+      - description: Phase id (`filters.phases[].id`). From the site JS; not probed.
+        in: query
+        name: ph_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipsCalendarById'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Games of one round of a championship
+  /championships/get-championships-matches-by-id:
+    get:
+      description: 'The game page payload: header, referees, head-to-head, recent form, coaches and (with
+        `sc=1`) the box score of the scores route. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: championships_get_championships_matches_by_id
+      parameters:
+      - description: Game id (global across seasons; from the calendar `matches[].id`).
+        example: '25602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: '`1` adds the box score (`scores`) as the site does. Probed with 1 only.'
+        example: '1'
+        in: query
+        name: sc
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipsMatchesById'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: 'Game header: teams, venue, quarter scores, referees, box score'
+  /championships/get-championships-matches-play-by-play:
+    get:
+      description: 'Actions with Italian event names, clock, score, player, team, court x/y, zone and
+        qualifier codes, plus the `legend` code table. Empty (`actions: []`) before 2017-18 and for some
+        2017-18 games; the shape changes by era (see the eras table). Captured for: 2026-27, 2017-18.'
+      operationId: championships_get_championships_matches_play_by_play
+      parameters:
+      - description: Game id (global across seasons; from the calendar `matches[].id`).
+        example: '25602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: '`true` fills `match` with the game header; without it `match` is `{}` (probed).'
+        example: 'true'
+        in: query
+        name: info
+        required: false
+        schema:
+          enum:
+          - 'true'
+          - 'false'
+          type: string
+      - description: '`asc` = chronological, `desc` = newest first (probed: the same actions reversed).'
+        example: asc
+        in: query
+        name: sort
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipsMatchesPlayByPlay'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Play-by-play of a game, with x/y and the code legend
+  /championships/get-championships-matches-scores-by-id:
+    get:
+      description: 'Box score in Italian abbreviations: one `rows[]` entry per player, a `team` row (team
+        rebounds, team turnovers) and `totals`. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: championships_get_championships_matches_scores_by_id
+      parameters:
+      - description: Game id (global across seasons; from the calendar `matches[].id`).
+        example: '25602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: '`true` fills `match` with the game header; without it `match` is `{}` (probed).'
+        example: 'true'
+        in: query
+        name: info
+        required: false
+        schema:
+          enum:
+          - 'true'
+          - 'false'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipsMatchesScoresById'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Box score of a game (players, team, totals)
+  /matches/get-championship-matches-shots-by-id:
+    get:
+      description: 'Shooting per court zone per team, as made/attempted strings. Aggregates only: shot
+        x/y is in the play-by-play. Captured for: 2026-27, 2017-18.'
+      operationId: matches_get_championship_matches_shots_by_id
+      parameters:
+      - description: Game id (global across seasons; from the calendar `matches[].id`).
+        example: '25602'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: '`1` fills `match` with the game header.'
+        example: '1'
+        in: query
+        name: info
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChampionshipMatchesShotsById'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Shooting by court zone per team (aggregates only)
+  /players/get-player-by-id:
+    get:
+      description: 'Player bio; with `stats=1` the current regular season''s totals, highs and averages.
+        Captured for: 2026-27.'
+      operationId: players_get_player_by_id
+      parameters:
+      - description: 'Player id (global: one id for a whole career).'
+        example: '969'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: '`1` adds `stats` (current-season totals, highs and averages).'
+        example: '1'
+        in: query
+        name: stats
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlayerById'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Player bio plus current-season totals, highs and averages
+  /players/get-player-matches:
+    get:
+      description: 'Game log of one season with season averages, highs and totals. Captured for: 2026-27,
+        1995-96.'
+      operationId: players_get_player_matches
+      parameters:
+      - description: Player id (global).
+        example: '969'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: s
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship series: 1 = Serie A (others seen in the site filters: 5 = Coppa Italia).
+          Probed with 1.'
+        example: '1'
+        in: query
+        name: cs_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship type id: 4 = Regular Season, 2 = Play Off. From the site JS; not probed.'
+        in: query
+        name: ct_id
+        required: false
+        schema:
+          type: integer
+      - description: Games filter. From the site JS; not probed.
+        in: query
+        name: ms
+        required: false
+        schema:
+          type: string
+      - description: Result filter (wins / losses). From the site JS; not probed.
+        in: query
+        name: mr
+        required: false
+        schema:
+          type: string
+      - description: First round of a round range. From the site JS; not probed.
+        in: query
+        name: esf
+        required: false
+        schema:
+          type: integer
+      - description: Last round of a round range. From the site JS; not probed.
+        in: query
+        name: est
+        required: false
+        schema:
+          type: integer
+      - description: Order by a stat (see `filters.stats_orby`). From the site JS; not probed.
+        in: query
+        name: ob
+        required: false
+        schema:
+          type: string
+      - description: Phase id (1 = Andata / first half, 2 = Ritorno / second half). From the site JS;
+          not probed.
+        in: query
+        name: ph_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlayerMatches'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Game log of a player in a season
+  /players/get-player-stats:
+    get:
+      description: 'Career table: one row per season, competition and team, as per-game averages, single-game
+        highs and totals. Captured for: 2026-27.'
+      operationId: players_get_player_stats
+      parameters:
+      - description: Player id (global).
+        example: '969'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlayerStats'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Career stats of a player by championship (averages, highs, totals)
+  /players/get-players:
+    get:
+      description: 'Players of a season, paged (`pagination`). Captured for: 2026-27, 1995-96.'
+      operationId: players_get_players
+      parameters:
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: year
+        required: false
+        schema:
+          type: integer
+      - description: Page size (default 50 on the site).
+        example: '50'
+        in: query
+        name: items
+        required: false
+        schema:
+          type: integer
+      - description: Page number, 1-based (see `pagination`).
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - description: Name search. From the site JS; not probed.
+        in: query
+        name: q
+        required: false
+        schema:
+          type: string
+      - description: '`1` = extended rows. From the site JS; not probed.'
+        in: query
+        name: full
+        required: false
+        schema:
+          type: string
+      - description: Role id. From the site JS; not probed.
+        in: query
+        name: r_id
+        required: false
+        schema:
+          type: integer
+      - description: Team id. From the site JS; not probed.
+        in: query
+        name: t_id
+        required: false
+        schema:
+          type: integer
+      - description: Sort column. From the site JS; not probed.
+        in: query
+        name: ob
+        required: false
+        schema:
+          type: string
+      - description: Sort direction. From the site JS; not probed.
+        in: query
+        name: sb
+        required: false
+        schema:
+          type: string
+      - description: Country code filter. From the site JS; not probed.
+        in: query
+        name: ic_id
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlayers'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Players of a season (paged)
+  /statistics/get-players-statistics:
+    get:
+      description: 'League leaderboard for one category (50 rows), with the value as total, average and
+        per-40-minutes. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: statistics_get_players_statistics
+      parameters:
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: s
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship series: 1 = Serie A (others seen in the site filters: 5 = Coppa Italia).
+          Probed with 1.'
+        example: '1'
+        in: query
+        name: cs_id
+        required: false
+        schema:
+          type: integer
+      - description: Category, e.g. `points`, `rating_lega`, `total_rebound`, `assists`, `shots_3p_perc`
+          (see `filters.categories`). Probed with `points`.
+        example: points
+        in: query
+        name: cat
+        required: false
+        schema:
+          type: string
+      - description: First season of a season range (START year). From the site JS; not probed.
+        in: query
+        name: sf
+        required: false
+        schema:
+          type: integer
+      - description: Last season of a season range (START year). From the site JS; not probed.
+        in: query
+        name: st
+        required: false
+        schema:
+          type: integer
+      - description: Championship id (one phase). From the site JS; not probed.
+        in: query
+        name: c_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship type id: 4 = Regular Season, 2 = Play Off. From the site JS; not probed.'
+        in: query
+        name: ct_id
+        required: false
+        schema:
+          type: integer
+      - description: Round (`event_serial`). From the site JS; not probed.
+        in: query
+        name: es
+        required: false
+        schema:
+          type: integer
+      - description: 'Order: `sum` (totals), `avg` (per game, the default) or `40_perc` (per 40 minutes
+          / percentage); see `filters.order_by`. From the site JS; not probed.'
+        in: query
+        name: ob
+        required: false
+        schema:
+          type: string
+      - description: Games filter. From the site JS; not probed.
+        in: query
+        name: ms
+        required: false
+        schema:
+          type: string
+      - description: Result filter (wins / losses). From the site JS; not probed.
+        in: query
+        name: mr
+        required: false
+        schema:
+          type: string
+      - description: Phase filter (first / second half of the season). From the site JS; not probed.
+        in: query
+        name: turn
+        required: false
+        schema:
+          type: string
+      - description: Round filter. From the site JS; not probed.
+        in: query
+        name: round
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlayersStatistics'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Season player leaderboard for one category
+  /statistics/get-teams-statistics-by-type:
+    get:
+      description: 'Team leaderboards, offensive (`teams_offensive`) or allowed (`teams_defensive`), one
+        row per category and team. Captured for: 2026-27, 2017-18, 1995-96.'
+      operationId: statistics_get_teams_statistics_by_type
+      parameters:
+      - description: '`teams_offensive` or `teams_defensive` (probed both). Missing or other values answer
+          HTTP 500.'
+        example: teams_offensive
+        in: query
+        name: type
+        required: true
+        schema:
+          enum:
+          - teams_offensive
+          - teams_defensive
+          type: string
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: s
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship series: 1 = Serie A (others seen in the site filters: 5 = Coppa Italia).
+          Probed with 1.'
+        example: '1'
+        in: query
+        name: cs_id
+        required: false
+        schema:
+          type: integer
+      - description: Category (see `filters.categories`); without it every category is returned (85 rows
+          for 2026-27). From the site JS; not probed.
+        in: query
+        name: cat
+        required: false
+        schema:
+          type: string
+      - description: First season of a season range (START year). From the site JS; not probed.
+        in: query
+        name: sf
+        required: false
+        schema:
+          type: integer
+      - description: Last season of a season range (START year). From the site JS; not probed.
+        in: query
+        name: st
+        required: false
+        schema:
+          type: integer
+      - description: Championship id (one phase). From the site JS; not probed.
+        in: query
+        name: c_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship type id: 4 = Regular Season, 2 = Play Off. From the site JS; not probed.'
+        in: query
+        name: ct_id
+        required: false
+        schema:
+          type: integer
+      - description: Round (`event_serial`). From the site JS; not probed.
+        in: query
+        name: es
+        required: false
+        schema:
+          type: integer
+      - description: 'Order: `sum` (totals), `avg` (per game, the default) or `40_perc` (per 40 minutes
+          / percentage); see `filters.order_by`. From the site JS; not probed.'
+        in: query
+        name: ob
+        required: false
+        schema:
+          type: string
+      - description: Games filter. From the site JS; not probed.
+        in: query
+        name: ms
+        required: false
+        schema:
+          type: string
+      - description: Result filter (wins / losses). From the site JS; not probed.
+        in: query
+        name: mr
+        required: false
+        schema:
+          type: string
+      - description: Phase filter (first / second half of the season). From the site JS; not probed.
+        in: query
+        name: turn
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTeamsStatisticsByType'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Season team leaderboards, offensive or defensive
+  /teams/get-team-players-stats:
+    get:
+      description: 'One row per player of the team for the season (totals by default). Captured for: 2026-27,
+        1995-96.'
+      operationId: teams_get_team_players_stats
+      parameters:
+      - description: Team id (one season).
+        example: '1764'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: s
+        required: false
+        schema:
+          type: integer
+      - description: 'Championship series: 1 = Serie A (others seen in the site filters: 5 = Coppa Italia).
+          Probed with 1.'
+        example: '1'
+        in: query
+        name: cs_id
+        required: false
+        schema:
+          type: integer
+      - description: 'Stats type: `sum` (totals, the site default), `avg` or `max` (see `filters.stats_types`).
+          From the site JS; not probed.'
+        in: query
+        name: st
+        required: false
+        schema:
+          type: string
+      - description: 'Championship type id: 4 = Regular Season, 2 = Play Off. From the site JS; not probed.'
+        in: query
+        name: ct_id
+        required: false
+        schema:
+          type: integer
+      - description: Games filter. From the site JS; not probed.
+        in: query
+        name: ms
+        required: false
+        schema:
+          type: string
+      - description: Result filter (wins / losses). From the site JS; not probed.
+        in: query
+        name: mr
+        required: false
+        schema:
+          type: string
+      - description: First round of a round range. From the site JS; not probed.
+        in: query
+        name: esf
+        required: false
+        schema:
+          type: integer
+      - description: Last round of a round range. From the site JS; not probed.
+        in: query
+        name: est
+        required: false
+        schema:
+          type: integer
+      - description: Order by a stat (see `filters.stats_orby`). From the site JS; not probed.
+        in: query
+        name: ob
+        required: false
+        schema:
+          type: string
+      - description: Phase id (1 = Andata / first half, 2 = Ritorno / second half). From the site JS;
+          not probed.
+        in: query
+        name: ph_id
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTeamPlayersStats'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Season totals of each player of a team
+  /teams/get-team-roster:
+    get:
+      description: 'Players and head coach of one team-season, plus its final placing. Captured for: 2026-27,
+        1995-96.'
+      operationId: teams_get_team_roster
+      parameters:
+      - description: 'Team id (one season: team ids are re-issued every season).'
+        example: '1764'
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTeamRoster'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Roster and coach of a team-season
+  /teams/get-teams:
+    get:
+      description: 'The teams of a season. Team ids are new every season; `club_id` is stable. Captured
+        for: 2026-27, 2017-18, 1995-96.'
+      operationId: teams_get_teams
+      parameters:
+      - description: 'Season START year (2026 = 2026-27; sdv END year = s + 1). Probed: 2026, 2017 and
+          1995 return different seasons.'
+        example: '2026'
+        in: query
+        name: year
+        required: false
+        schema:
+          type: integer
+      - description: Page size (default 25; the site sends 50).
+        example: '50'
+        in: query
+        name: items
+        required: false
+        schema:
+          type: integer
+      - description: Page number, 1-based (see `pagination`).
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTeams'
+          description: OK
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'Unknown or missing id (or a missing required param): `Internal Server Error` as
+            text/plain, not JSON.'
+      summary: Teams of a season
+servers:
+- url: https://www.legabasket.it/api
