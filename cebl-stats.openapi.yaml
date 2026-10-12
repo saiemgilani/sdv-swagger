@@ -1,0 +1,2414 @@
+openapi: 3.1.0
+info:
+  title: CEBL stats API (api.data.cebl.ca)
+  version: '2026-10-12'
+  description: 'The Canadian Elite Basketball League''s own stats service (Django Ninja), which feeds
+    the CEBL Stats Hub and cebl.ca: seasons, standings, franchises, rosters, team and player stat tables,
+    leaders, player profiles, season and career stats, game logs, the schedule with results, and news.
+    Paths, parameters and schemas are the service''s own `/openapi.json` (banked in cebl/upstream/); descriptions,
+    examples, errors and divergence notes come from captures (cebl/captures/, 2026-10-12). Seasons are
+    calendar years (May-August) = the sdv END year. Box scores and play-by-play are not here: `GameSchema.stats_url_en`
+    carries the Genius match id, the join to genius-livestats/ (org CEBL). x-unobserved = never present
+    in a sample. Not official or supported for third parties; see the README for the key caveat.'
+  x-upstream-info:
+    title: NinjaAPI
+    version: 1.0.0
+    description: ''
+servers:
+- url: https://api.data.cebl.ca
+  description: CEBL stats API
+security:
+- APIKeyAuth: []
+paths:
+  /seasons/:
+    get:
+      operationId: apps_stats_seasons_views_list_seasons
+      summary: List Seasons
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SeasonSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: Every season, with the active and live flags.
+  /teams/{season}/:
+    get:
+      operationId: apps_stats_teams_views_list_team_standings
+      summary: List Team Standings
+      parameters:
+      - in: path
+        name: season
+        schema:
+          title: Season
+          type: string
+        required: true
+        description: 'Season: the calendar year the season is played in (May-August), which is also the
+          sdv END year. A 4-digit string in the path. A season with no data (1999) answers 200 `[]`.'
+        example: '2019'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TeamStandingSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: 'Standings of a season, one row per team, with the team''s links. No body field echoes
+        `season`: the request is their only guard. An unknown season answers 200 `[]`.'
+  /teams/:
+    get:
+      operationId: apps_stats_teams_views_list_teams
+      summary: List Teams
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TeamSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: Every franchise, past and present.
+  /teams/{team_id}/roster/{season}/:
+    get:
+      operationId: apps_stats_teams_views_list_team_rosters
+      summary: List Team Rosters
+      parameters:
+      - in: path
+        name: team_id
+        schema:
+          title: Team Id
+          type: integer
+        required: true
+        description: CEBL team id (see /teams/). An unknown id answers 200 `[]`; the body does not echo
+          it.
+        example: 14
+      - in: path
+        name: season
+        schema:
+          title: Season
+          type: string
+        required: true
+        description: 'Season: the calendar year the season is played in (May-August), which is also the
+          sdv END year. A 4-digit string in the path. A season with no data (1999) answers 200 `[]`.'
+        example: '2019'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PlayerTeamRosterSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: 'A team''s roster in one season. No body field echoes `team_id`, `season`: the request
+        is their only guard. An unknown team or an unknown season answers 200 `[]`.'
+  /teams/statistics/aggregated/:
+    get:
+      operationId: apps_stats_teams_views_list_aggregated_team_statistics
+      summary: List Aggregated Team Statistics
+      parameters:
+      - in: query
+        name: mode
+        schema:
+          title: Mode
+          type: string
+          enum:
+          - TOTALS
+          - PER_GAME
+        required: true
+        description: 'TOTALS (sums over the selected games) or PER_GAME (per-game averages). Required:
+          missing answers 422; any other value answers 200 with no rows.'
+        example: TOTALS
+      - in: query
+        name: competition
+        schema:
+          title: Competition
+          type: string
+          enum:
+          - REGULAR
+          - FINALS
+        required: false
+        description: REGULAR (regular season) or FINALS (the playoffs). Omitted = both.
+        example: REGULAR
+      - in: query
+        name: season
+        schema:
+          title: Season
+          type: integer
+        required: false
+        description: 'Season: the calendar year (May-August) = the sdv END year. Omitted = every season
+          combined (the hub''s All-Time). An unknown year answers 200 with no rows.'
+        example: 2019
+      - in: query
+        name: segment
+        schema:
+          title: Segment
+          type: string
+          enum:
+          - HOME
+          - AWAY
+          - L7D
+          - L5G
+          - L10G
+          - MAY
+          - JUNE
+          - JULY
+          - AUGUST
+        required: false
+        description: 'Game subset: HOME = home games; AWAY = away games; L7D = games in the last 7 days;
+          L5G = the last 5 games; L10G = the last 10 games; MAY = games played in May; JUNE = games played
+          in June; JULY = games played in July; AUGUST = games played in August. Omitted = all games.
+          Values from the CEBL Stats Hub bundle.'
+        example: HOME
+      - in: query
+        name: vs_team_id
+        schema:
+          title: Vs Team Id
+          type: integer
+        required: false
+        description: 'CEBL team id of the opponent: only games against that team count.'
+      - in: query
+        name: vs_conference
+        schema:
+          title: Vs Conference
+          type: string
+          enum:
+          - EAST
+          - WEST
+        required: false
+        description: 'EAST or WEST: only games against that conference''s teams count.'
+        example: EAST
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AggregatedTeamStatisticSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '422':
+          description: A required query param is missing (Django Ninja validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+      security:
+      - APIKeyAuth: []
+      description: 'Team statistic table (totals or per game), plus a league row. No body field echoes
+        `mode`, `season`, `competition`, `segment`, `vs_team_id`, `vs_conference`: the request is their
+        only guard. A mode other than TOTALS or PER_GAME or an unknown season answers 200 `[]`.'
+  /games/{season}/:
+    get:
+      operationId: apps_stats_games_views_list_season_games
+      summary: List Season Games
+      parameters:
+      - in: path
+        name: season
+        schema:
+          title: Season
+          type: string
+        required: true
+        description: 'Season: the calendar year the season is played in (May-August), which is also the
+          sdv END year. A 4-digit string in the path. A season with no data (1999) answers 200 `[]`.'
+        example: '2019'
+      - in: query
+        name: team_id
+        schema:
+          title: Team Id
+          type: integer
+        required: false
+        description: 'CEBL team id (see /teams/): only that team''s games. Every row then has it as `home_team_id`
+          or `away_team_id`.'
+        example: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GameSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: Every game of a season (schedule and results), optionally one team's. An unknown season
+        or an unknown team answers 200 `[]`.
+  /players/statistics/aggregated/:
+    get:
+      operationId: apps_stats_players_views_list_aggregated_player_statistics
+      summary: List Aggregated Player Statistics
+      parameters:
+      - in: query
+        name: mode
+        schema:
+          title: Mode
+          type: string
+          enum:
+          - TOTALS
+          - PER_GAME
+        required: true
+        description: 'TOTALS (sums over the selected games) or PER_GAME (per-game averages). Required:
+          missing answers 422; any other value answers 200 with no rows.'
+        example: TOTALS
+      - in: query
+        name: competition
+        schema:
+          title: Competition
+          type: string
+          enum:
+          - REGULAR
+          - FINALS
+        required: false
+        description: REGULAR (regular season) or FINALS (the playoffs). Omitted = both.
+        example: FINALS
+      - in: query
+        name: season
+        schema:
+          title: Season
+          type: integer
+        required: false
+        description: 'Season: the calendar year (May-August) = the sdv END year. Omitted = every season
+          combined (the hub''s All-Time). An unknown year answers 200 with no rows.'
+        example: 2019
+      - in: query
+        name: segment
+        schema:
+          title: Segment
+          type: string
+          enum:
+          - HOME
+          - AWAY
+          - L7D
+          - L5G
+          - L10G
+          - MAY
+          - JUNE
+          - JULY
+          - AUGUST
+        required: false
+        description: 'Game subset, as on /teams/statistics/aggregated/: HOME, AWAY, L7D, L5G, L10G, MAY,
+          JUNE, JULY, AUGUST. Omitted = all games.'
+      - in: query
+        name: team_id
+        schema:
+          title: Team Id
+          type: integer
+        required: false
+        description: CEBL team id (see /teams/). Limits the rows to that team's players. The rows echo
+          it in `team_id`.
+        example: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AggregatedPlayerStatisticSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '422':
+          description: A required query param is missing (Django Ninja validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+      security:
+      - APIKeyAuth: []
+      description: 'Player statistic table (totals or per game). No body field echoes `mode`, `season`,
+        `competition`, `segment`: the request is their only guard. A mode other than TOTALS or PER_GAME,
+        an unknown season or an unknown team answers 200 `[]`.'
+  /players/statistics/leaders/:
+    get:
+      operationId: apps_stats_players_views_list_player_statistic_leaders
+      summary: List Player Statistic Leaders
+      parameters:
+      - in: query
+        name: statistics
+        schema:
+          title: Statistics
+          type: string
+        required: true
+        description: 'Comma-separated statistic names; the body has one key per name. Names the CEBL Stats
+          Hub sends: POINTS, REBOUNDS, ASSISTS, BLOCKS, STEALS, TARGET_SCORES, FIELD_GOAL_PERCENTAGE,
+          THREE_POINTS_MADE, THREE_POINT_PERCENTAGE, FREE_THROW_PERCENTAGE, FOULS, TURNOVERS, MINUTES.'
+        example: POINTS,REBOUNDS,ASSISTS,TARGET_SCORES
+      - in: query
+        name: mode
+        schema:
+          title: Mode
+          type: string
+          enum:
+          - TOTALS
+          - PER_GAME
+        required: true
+        description: 'TOTALS (sums over the selected games) or PER_GAME (per-game averages). Required:
+          missing answers 422; any other value answers 200 with no rows.'
+        example: TOTALS
+      - in: query
+        name: competition
+        schema:
+          title: Competition
+          type: string
+          enum:
+          - REGULAR
+          - FINALS
+        required: false
+        description: REGULAR (regular season) or FINALS (the playoffs). Omitted = both.
+      - in: query
+        name: season
+        schema:
+          title: Season
+          type: integer
+        required: false
+        description: 'Season: the calendar year (May-August) = the sdv END year. Omitted = every season
+          combined (the hub''s All-Time). An unknown year answers 200 with no rows.'
+        example: 2019
+      - in: query
+        name: team_id
+        schema:
+          title: Team Id
+          type: integer
+        required: false
+        description: CEBL team id (see /teams/). Limits the rows to that team's players. The rows echo
+          it in `team_id`.
+        example: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    $ref: '#/components/schemas/PlayerStatisticLeaderSchema'
+                  type: array
+                title: Response
+                type: object
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '422':
+          description: A required query param is missing (Django Ninja validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+      security:
+      - APIKeyAuth: []
+      description: 'Top players per requested statistic. No body field echoes `mode`, `season`, `competition`:
+        the request is their only guard. A mode other than TOTALS or PER_GAME, an unknown season, an unknown
+        team or an unknown statistic name answers 200 with an object mapping each requested name to `[]`.'
+  /players/{player_id}/statistics/:
+    get:
+      operationId: apps_stats_players_views_list_individual_player_statistics
+      summary: List Individual Player Statistics
+      parameters:
+      - in: path
+        name: player_id
+        schema:
+          title: Player Id
+          type: integer
+        required: true
+        description: CEBL player id. The rows echo it in `id`. An unknown id answers 200 `[]`.
+        example: 570965
+      - in: query
+        name: mode
+        schema:
+          title: Mode
+          type: string
+          enum:
+          - TOTALS
+          - PER_GAME
+        required: true
+        description: 'TOTALS (sums over the selected games) or PER_GAME (per-game averages). Required:
+          missing answers 422; any other value answers 200 with no rows.'
+        example: PER_GAME
+      - in: query
+        name: career_only
+        schema:
+          title: Career Only
+          type: boolean
+        required: true
+        description: 'true: only the career row (`season` null). false: one row per season, then the career
+          row.'
+        example: false
+      - in: query
+        name: competition
+        schema:
+          title: Competition
+          type: string
+          enum:
+          - REGULAR
+          - FINALS
+        required: false
+        description: REGULAR (regular season) or FINALS (the playoffs). Omitted = both.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IndividualPlayerStatisticSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '422':
+          description: A required query param is missing (Django Ninja validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+      security:
+      - APIKeyAuth: []
+      description: 'One player''s per-season rows and career row. No body field echoes `mode`, `competition`:
+        the request is their only guard. An unknown player or a mode other than TOTALS or PER_GAME answers
+        200 `[]`.'
+  /players/{player_id}/:
+    get:
+      operationId: apps_stats_players_views_list_player_profile
+      summary: List Player Profile
+      parameters:
+      - in: path
+        name: player_id
+        schema:
+          title: Player Id
+          type: integer
+        required: true
+        description: CEBL player id. The body echoes it in `id`. An unknown id answers 200 with every
+          field null (never banked).
+        example: 570965
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerSchema'
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: One player's profile and current team. An unknown player answers 200 with every field
+        null.
+  /players/{player_id}/gamelog/:
+    get:
+      operationId: apps_stats_players_views_list_player_game_log
+      summary: List Player Game Log
+      parameters:
+      - in: path
+        name: player_id
+        schema:
+          title: Player Id
+          type: integer
+        required: true
+        description: CEBL player id. The rows do not echo it.
+        example: 530
+      - in: query
+        name: season
+        schema:
+          title: Season
+          type: integer
+        required: false
+        description: Season (calendar year = sdv END year). Omitted = every season. Every row's `game_date`
+          falls in that year.
+        example: 2019
+      - in: query
+        name: competition
+        schema:
+          title: Competition
+          type: string
+          enum:
+          - REGULAR
+          - FINALS
+        required: false
+        description: REGULAR (regular season) or FINALS (the playoffs). Omitted = both.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PlayerGameLogSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: 'One player''s game log. No body field echoes `player_id`, `competition`: the request
+        is their only guard. An unknown player or an unknown season answers 200 `[]`.'
+  /news/articles/{language}/:
+    get:
+      operationId: apps_feeds_news_views_list_news_articles
+      summary: List News Articles
+      parameters:
+      - in: path
+        name: language
+        schema:
+          title: Language
+          type: string
+        required: true
+        description: Language code; `en` and `fr` are the site's languages. Every value probed (en, fr,
+          EN, en-ca, fr-ca, english) answered 200 `[]` on 2026-10-12.
+        example: en
+      - in: query
+        name: team_source_id
+        schema:
+          title: Team Source Id
+          type: integer
+        required: false
+        description: Team filter, by an id the empty answers never show (unverified key space; 14 answered
+          `[]`).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/NewsArticleSchema'
+                title: Response
+                type: array
+        '401':
+          description: 'No X-Api-Key header, or a wrong one: `{"detail": "Unauthorized"}`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      security:
+      - APIKeyAuth: []
+      description: 'News articles in one language. Answered `[]` on every probe, so its row schema is
+        unobserved. No body field echoes `language`, `team_source_id`: the request is their only guard.'
+components:
+  schemas:
+    SeasonSchema:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: ID
+          description: 'CEBL season row id (1 = 2019 ... 8 = 2026). No route takes it: routes take `year`.'
+        year:
+          title: Year
+          type: integer
+          description: 'Season: the calendar year it is played in (May-August) = the sdv END year. The
+            key every route''s `season` param takes.'
+        is_active:
+          default: false
+          title: Is Active
+          type: boolean
+          description: 'True for the current season (one row: 2026 on 2026-10-12).'
+        is_live:
+          default: false
+          title: Is Live
+          type: boolean
+          description: 'True while the current season is in progress or open for live data (true for 2026
+            on 2026-10-12, after its last game: the exact meaning is unverified).'
+      required:
+      - year
+      title: SeasonSchema
+      type: object
+      description: A season row of /seasons/.
+    TeamStandingSchema:
+      properties:
+        id:
+          title: Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits).'
+        name:
+          deprecated: true
+          title: Name
+          type: string
+          description: 'Deprecated upstream (`deprecated: true`): equal to `name_en` in every sample.'
+        name_en:
+          title: Name En
+          type: string
+          description: Team full name in English ('Niagara River Lions').
+        short_name_en:
+          title: Short Name En
+          type: string
+          description: Team short name in English, usually the city ('Niagara').
+        name_fr:
+          title: Name Fr
+          type: string
+          description: Team full name in French ('River Lions de Niagara').
+        short_name_fr:
+          title: Short Name Fr
+          type: string
+          description: Team short name in French, usually the city.
+        conference:
+          title: Conference
+          type: string
+          description: 'Conference: EAST or WEST.'
+        logo_url:
+          title: Logo Url
+          type: string
+          description: Team logo URL (icon with the team name) on Google Cloud Storage.
+        icon_url:
+          title: Icon Url
+          type: string
+          description: Team icon URL (without the team name) on Google Cloud Storage.
+        tickets_url_en:
+          title: Tickets Url En
+          type: string
+          description: Ticket-sales page for the team's home games (English).
+        tickets_url_fr:
+          title: Tickets Url Fr
+          type: string
+          description: Ticket-sales page for the team's home games (French).
+        website_url_en:
+          title: Website Url En
+          type: string
+          description: The team's own website (English).
+        website_url_fr:
+          title: Website Url Fr
+          type: string
+          description: The team's own website (French).
+        shop_url_en:
+          title: Shop Url En
+          type: string
+          description: The team's merchandise shop (English).
+        shop_url_fr:
+          title: Shop Url Fr
+          type: string
+          description: The team's merchandise shop (French).
+        stats_url_en:
+          title: Stats Url En
+          type: string
+          description: The team's stats page on cebl.ca (`https://cebl.ca/stats/{slug}`).
+        stats_url_fr:
+          title: Stats Url Fr
+          type: string
+          description: The team's stats page on the French cebl.ca (`https://cebl.ca/fr-ca/stats/{slug}`).
+        position:
+          title: Position
+          type: integer
+          description: Rank in the team's conference standings (1 = first), not a playing position.
+        played:
+          title: Played
+          type: integer
+          description: Regular-season games played (24 a team in 2025).
+        wins:
+          title: Wins
+          type: integer
+          description: Regular-season games won.
+        win_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Win Percentage
+          description: Wins / games played, 0-1 with 3 decimals ('0.583'). A string.
+        home_wins:
+          title: Home Wins
+          type: integer
+          description: Regular-season home games won.
+        away_wins:
+          title: Away Wins
+          type: integer
+          description: Regular-season away games won.
+        losses:
+          title: Losses
+          type: integer
+          description: Regular-season games lost.
+        home_losses:
+          title: Home Losses
+          type: integer
+          description: Regular-season home games lost.
+        away_losses:
+          title: Away Losses
+          type: integer
+          description: Regular-season away games lost.
+        games_behind:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Games Behind
+          description: Games behind the conference leader, 1 decimal ('2.0'; the leader '0.0'). A string.
+        points_difference:
+          title: Points Difference
+          type: integer
+          description: Points scored minus points allowed over the season. An integer.
+        last_five:
+          maxLength: 3
+          title: Last Five
+          type: string
+          description: Record in the last 5 games, 'W-L' ('4-1').
+        streak:
+          maxLength: 4
+          title: Streak
+          type: string
+          description: 'Current streak: W or L and its length (''W4'', ''L1'').'
+      required:
+      - position
+      - played
+      - wins
+      - win_percentage
+      - home_wins
+      - away_wins
+      - losses
+      - home_losses
+      - away_losses
+      - games_behind
+      - points_difference
+      - last_five
+      - streak
+      title: TeamStandingSchema
+      type: object
+      description: A team's standings row of /teams/{season}/, with the team's identity and links.
+    TeamSchema:
+      properties:
+        name_en:
+          title: Name En
+          type: string
+          description: Team full name in English ('Niagara River Lions').
+        short_name_en:
+          title: Short Name En
+          type: string
+          description: Team short name in English, usually the city ('Niagara').
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: ID
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits).'
+        is_active:
+          default: true
+          title: Is Active
+          type: boolean
+          description: True for a team in the current league; false for a former identity (Guelph Nighthawks,
+            Hamilton Honey Badgers, Fraser Valley Bandits, Saskatchewan Rattlers, Newfoundland Growlers).
+        name_fr:
+          maxLength: 100
+          title: Name Fr
+          type: string
+          description: Team full name in French ('River Lions de Niagara').
+        short_name_fr:
+          maxLength: 30
+          title: Short Name Fr
+          type: string
+          description: Team short name in French, usually the city.
+        logo_url:
+          description: 'Team logo URL (icon with the team name; upstream: ''Should include the icon and
+            team name'').'
+          maxLength: 200
+          title: Logo Url
+          type: string
+        icon_url:
+          description: 'Team icon URL (upstream: ''Should not include the team name'').'
+          maxLength: 200
+          title: Icon Url
+          type: string
+      required:
+      - name_fr
+      - short_name_fr
+      - logo_url
+      - icon_url
+      title: TeamSchema
+      type: object
+      description: A franchise row of /teams/ (every team that has played, active or not).
+    PlayerTeamRosterSchema:
+      properties:
+        id:
+          title: Id
+          type: integer
+          description: CEBL player id (its own key space). Joins /players/{player_id}/ and `id` in the
+            other player rows. Genius LiveStats `data.json` carries no person id, so the join to Genius
+            play-by-play is by name, team and jersey number (unverified).
+        full_name:
+          title: Full Name
+          type: string
+          description: Player's full name.
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+          description: 'Nationality: an upper-case English country name (''CANADA'', ''UNITED STATES'',
+            ''SOUTH SUDAN''); null when unknown.'
+        birth_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Birth Date
+          description: Date of birth, YYYY-MM-DD (players' public bio field); null when unknown.
+        photo_url:
+          title: Photo Url
+          type: string
+          description: Player headshot URL on the Genius Sports image CDN (images.statsengine.playbyplay.api.geniussports.com).
+        position:
+          anyOf:
+          - maxLength: 10
+            type: string
+          - type: 'null'
+          title: Position
+          description: 'Playing position: G (guard), F (forward), C (center), or a combination such as
+            ''C/F''; null when unknown.'
+        jersey_number:
+          anyOf:
+          - maxLength: 2
+            type: string
+          - type: 'null'
+          title: Jersey Number
+          description: Jersey number, as a string of up to 2 characters ('0', '00' and '1' are distinct);
+            null when unknown.
+      title: PlayerTeamRosterSchema
+      type: object
+      description: A player row of /teams/{team_id}/roster/{season}/.
+    AggregatedTeamStatisticSchema:
+      properties:
+        id:
+          title: Id
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). Null on the league row.'
+          anyOf:
+          - type: integer
+          - type: 'null'
+          x-upstream-schema:
+            type: integer
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        name_en:
+          title: Name En
+          description: Team full name in English ('Niagara River Lions'). Null on the league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        short_name_en:
+          title: Short Name En
+          description: Team short name in English, usually the city ('Niagara'). Null on the league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        name_fr:
+          title: Name Fr
+          description: Team full name in French ('River Lions de Niagara'). Null on the league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        short_name_fr:
+          title: Short Name Fr
+          description: Team short name in French, usually the city. Null on the league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        logo_url:
+          title: Logo Url
+          description: Team logo URL (icon with the team name) on Google Cloud Storage. Null on the league
+            row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        icon_url:
+          title: Icon Url
+          description: Team icon URL (without the team name) on Google Cloud Storage. Null on the league
+            row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        stats_url_en:
+          title: Stats Url En
+          description: The team's stats page on cebl.ca (`https://cebl.ca/stats/{slug}`). Null on the
+            league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        stats_url_fr:
+          title: Stats Url Fr
+          description: The team's stats page on the French cebl.ca (`https://cebl.ca/fr-ca/stats/{slug}`).
+            Null on the league row.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null on the league row, which upstream declares non-null
+        played:
+          title: Played
+          type: integer
+          description: 'Games played (a count in both modes). On the league row: team-games (twice the
+            games).'
+        wins:
+          title: Wins
+          type: integer
+          description: Wins (a count in both modes).
+        win_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Win Percentage
+          description: Wins / games played, 0-1 with 3 decimals ('0.625'). A string.
+        losses:
+          title: Losses
+          type: integer
+          description: Losses (a count in both modes).
+        points:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Points
+          description: 'Points scored. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        points_against:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Points Against
+          description: 'Points allowed. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        point_difference:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Point Difference
+          description: 'Points scored minus points allowed. TOTALS: the sum over the selected games; PER_GAME:
+            the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Made
+          description: 'Field goals made (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Attempted
+          description: 'Field goals attempted (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goal_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goal Percentage
+          description: 'Field-goal percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        three_points_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Made
+          description: 'Three-pointers made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_points_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Attempted
+          description: 'Three-pointers attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_point_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Point Percentage
+          description: 'Three-point percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        free_throws_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Made
+          description: 'Free throws made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throws_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Attempted
+          description: 'Free throws attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throw_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throw Percentage
+          description: 'Free-throw percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        offensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Offensive Rebounds
+          description: 'Offensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        defensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Defensive Rebounds
+          description: 'Defensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Rebounds
+          description: 'Total rebounds (offensive + defensive). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        assists:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Assists
+          description: 'Assists. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        turn_overs:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Turn Overs
+          description: 'Turnovers. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        steals:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Steals
+          description: 'Steals. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        blocks:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Blocks
+          description: 'Shots blocked. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        fouls:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Fouls
+          description: 'Personal fouls committed. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        fouls_drawn:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Fouls Drawn
+          description: 'Fouls drawn (committed by opponents). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        efficiency:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Efficiency
+          description: 'Efficiency rating (EFF); CEBL does not publish its formula (unverified: the usual
+            Genius / FIBA EFF is PTS + REB + AST + STL + BLK - missed FG - missed FT - TO). TOTALS: the
+            sum over the selected games; PER_GAME: the per-game average, 1 decimal. A decimal sent as
+            a string (''2256.0'', ''12.7'').'
+      required:
+      - played
+      - wins
+      - win_percentage
+      - losses
+      - points
+      - points_against
+      - point_difference
+      - field_goals_made
+      - field_goals_attempted
+      - field_goal_percentage
+      - three_points_made
+      - three_points_attempted
+      - three_point_percentage
+      - free_throws_made
+      - free_throws_attempted
+      - free_throw_percentage
+      - offensive_rebounds
+      - defensive_rebounds
+      - rebounds
+      - assists
+      - turn_overs
+      - steals
+      - blocks
+      - fouls
+      - fouls_drawn
+      - efficiency
+      title: AggregatedTeamStatisticSchema
+      type: object
+      description: A team row of /teams/statistics/aggregated/, plus one league row (`id` and every name
+        and URL null) holding the whole league's figures.
+    GameSchema:
+      properties:
+        home_team_id:
+          title: Home Team Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). The home team.'
+        home_team_name:
+          title: Home Team Name
+          type: string
+          description: Home team full English name.
+        home_team_logo_url:
+          title: Home Team Logo Url
+          type: string
+          description: Home team logo URL.
+        home_team_stats_url_en:
+          title: Home Team Stats Url En
+          type: string
+          description: Home team's cebl.ca stats page (English).
+        home_team_stats_url_fr:
+          title: Home Team Stats Url Fr
+          type: string
+          description: Home team's cebl.ca stats page (French).
+        away_team_id:
+          title: Away Team Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). The away team.'
+        away_team_name:
+          title: Away Team Name
+          type: string
+          description: Away team full English name.
+        away_team_logo_url:
+          title: Away Team Logo Url
+          type: string
+          description: Away team logo URL.
+        away_team_stats_url_en:
+          title: Away Team Stats Url En
+          type: string
+          description: Away team's cebl.ca stats page (English).
+        away_team_stats_url_fr:
+          title: Away Team Stats Url Fr
+          type: string
+          description: Away team's cebl.ca stats page (French).
+        stats_url_en:
+          title: Stats Url En
+          type: string
+          description: 'Genius LiveStats box-score page, `https://fibalivestats.dcd.shared.geniussports.com/u/CEBL/{matchId}/`.
+            The segment after `/u/CEBL/` is the Genius match id: the join to genius-livestats/ (org CEBL),
+            whose `data/{matchId}/data.json` holds the box score, play-by-play and shot chart. Only match
+            2600563 is banked there; the others are derived, and cancelled (CANELLED) games carry a filled-in
+            URL whose `data.json` is unverified.'
+        stats_url_fr:
+          title: Stats Url Fr
+          type: string
+          description: The same Genius LiveStats page in French (`.../u/CEBL/{matchId}/index_fr_FR.html`).
+        cebl_stats_url_en:
+          title: Cebl Stats Url En
+          type: string
+          description: 'The game page on cebl.ca, `https://www.cebl.ca/game?id={matchId}`: `id` is the
+            Genius match id, not this row''s `id`.'
+        cebl_stats_url_fr:
+          title: Cebl Stats Url Fr
+          type: string
+          description: The French cebl.ca game page (`https://www.cebl.ca/fr-ca/game?id={matchId}`).
+        tickets_url_en:
+          title: Tickets Url En
+          type: string
+          description: Ticket-sales page for the game (English).
+        tickets_url_fr:
+          title: Tickets Url Fr
+          type: string
+          description: Ticket-sales page for the game (French).
+        broadcast_partner_logo_urls:
+          items:
+            type: string
+          title: Broadcast Partner Logo Urls
+          type: array
+          description: Logo URLs of the game's broadcasters (TSN+, CEBL+, ...); 2 to 7 per game.
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: ID
+          description: 'CEBL game id (its own key space: 568 in 2019, 8 digits from 2025, e.g. 14708701).
+            No route is keyed by it; the Genius match id is in `stats_url_en`.'
+        start_time_utc:
+          format: date-time
+          title: Start Time Utc
+          type: string
+          description: Scheduled tip-off, ISO 8601 in UTC ('2025-05-11T22:00:00Z').
+        home_team_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Home Team Score
+          description: 'Home team final score. On the 3 cancelled games: null, 0 or a partial score; before
+            tip-off unobserved.'
+        away_team_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Away Team Score
+          description: 'Away team final score. On the 3 cancelled games: null, 0 or a partial score; before
+            tip-off unobserved.'
+        competition:
+          maxLength: 9
+          title: Competition
+          type: string
+          description: REGULAR (regular season) or FINALS (playoffs).
+        status:
+          maxLength: 11
+          title: Status
+          type: string
+          description: 'Game status. Observed: COMPLETE (final) and CANELLED (sic: cancelled; 1 game in
+            2025, 2 in 2026). The Stats Hub also knows SCHEDULED, IN_PROGRESS, DELAYED and FINISHED.'
+        venue_name:
+          maxLength: 100
+          title: Venue Name
+          type: string
+          description: Arena name ('Edmonton EXPO Centre').
+        period:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Period
+          description: 'Current period while a game is live; null on every finished game. Counted over
+            the full 2025 and 2026 season bodies (257 games, probed 2026-10-12; the samples keep 3 rows):
+            non-null on 1, a cancelled game, at 3.'
+      required:
+      - stats_url_en
+      - stats_url_fr
+      - cebl_stats_url_en
+      - cebl_stats_url_fr
+      - tickets_url_en
+      - tickets_url_fr
+      - broadcast_partner_logo_urls
+      - start_time_utc
+      - competition
+      - status
+      - venue_name
+      title: GameSchema
+      type: object
+      description: 'A game row of /games/{season}/: teams, start time, result, status and the box-score
+        links.'
+    AggregatedPlayerStatisticSchema:
+      properties:
+        id:
+          title: Id
+          type: integer
+          description: CEBL player id (its own key space). Joins /players/{player_id}/ and `id` in the
+            other player rows. Genius LiveStats `data.json` carries no person id, so the join to Genius
+            play-by-play is by name, team and jersey number (unverified).
+        full_name:
+          title: Full Name
+          type: string
+          description: Player's full name.
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+          description: 'Nationality: an upper-case English country name (''CANADA'', ''UNITED STATES'',
+            ''SOUTH SUDAN''); null when unknown.'
+        team_id:
+          title: Team Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits).'
+        team_name_en:
+          title: Team Name En
+          type: string
+          description: Full English name of the player's team.
+        team_short_name_en:
+          title: Team Short Name En
+          type: string
+          description: Short English name (city) of the player's team.
+        team_name_fr:
+          title: Team Name Fr
+          type: string
+          description: Full French name of the player's team.
+        team_short_name_fr:
+          title: Team Short Name Fr
+          type: string
+          description: Short French name (city) of the player's team.
+        team_logo_url:
+          title: Team Logo Url
+          type: string
+          description: Logo URL (icon with the name) of the player's team.
+        played:
+          title: Played
+          type: integer
+          description: Games played (a count in both modes).
+        started:
+          title: Started
+          type: integer
+          description: Games started (a count in both modes).
+        minutes:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Minutes
+          description: 'Minutes played, decimal minutes (not mm:ss). TOTALS: the sum (''1281.7''); PER_GAME:
+            the per-game average (''29.5''). A string.'
+        points:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Points
+          description: 'Points scored. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Made
+          description: 'Field goals made (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Attempted
+          description: 'Field goals attempted (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goal_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goal Percentage
+          description: 'Field-goal percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        three_points_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Made
+          description: 'Three-pointers made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_points_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Attempted
+          description: 'Three-pointers attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_point_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Point Percentage
+          description: 'Three-point percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        free_throws_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Made
+          description: 'Free throws made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throws_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Attempted
+          description: 'Free throws attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throw_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throw Percentage
+          description: 'Free-throw percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        offensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Offensive Rebounds
+          description: 'Offensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        defensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Defensive Rebounds
+          description: 'Defensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Rebounds
+          description: 'Total rebounds (offensive + defensive). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        assists:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Assists
+          description: 'Assists. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        turn_overs:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Turn Overs
+          description: 'Turnovers. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        steals:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Steals
+          description: 'Steals. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        blocks:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Blocks
+          description: 'Shots blocked. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        fouls:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Fouls
+          description: 'Personal fouls committed. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        double_doubles:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Double Doubles
+          description: 'Double-doubles: games with 10 or more in two of points, rebounds, assists, steals,
+            blocks. TOTALS: the sum over the selected games; PER_GAME: the per-game average, 1 decimal.
+            A decimal sent as a string (''2256.0'', ''12.7'').'
+        triple_doubles:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Triple Doubles
+          description: 'Triple-doubles: games with 10 or more in three of those. TOTALS: the sum over
+            the selected games; PER_GAME: the per-game average, 1 decimal. A decimal sent as a string
+            (''2256.0'', ''12.7'').'
+        target_scores:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          default: 0
+          title: Target Scores
+          description: 'Target-score baskets: games in which the player made the basket that reached the
+            Elam Ending target score and ended the game (CEBL has used the Elam Ending since 2020, so
+            2019 is 0). TOTALS: the sum over the selected games; PER_GAME: the per-game average, 1 decimal.
+            A decimal sent as a string (''2256.0'', ''12.7'').'
+      required:
+      - played
+      - started
+      - minutes
+      - points
+      - field_goals_made
+      - field_goals_attempted
+      - field_goal_percentage
+      - three_points_made
+      - three_points_attempted
+      - three_point_percentage
+      - free_throws_made
+      - free_throws_attempted
+      - free_throw_percentage
+      - offensive_rebounds
+      - defensive_rebounds
+      - rebounds
+      - assists
+      - turn_overs
+      - steals
+      - blocks
+      - fouls
+      - double_doubles
+      - triple_doubles
+      title: AggregatedPlayerStatisticSchema
+      type: object
+      description: A player row of /players/statistics/aggregated/.
+    PlayerStatisticLeaderSchema:
+      properties:
+        id:
+          title: Id
+          type: integer
+          description: CEBL player id (its own key space). Joins /players/{player_id}/ and `id` in the
+            other player rows. Genius LiveStats `data.json` carries no person id, so the join to Genius
+            play-by-play is by name, team and jersey number (unverified).
+        full_name:
+          title: Full Name
+          type: string
+          description: Player's full name.
+        photo_url:
+          title: Photo Url
+          type: string
+          description: Player headshot URL on the Genius Sports image CDN (images.statsengine.playbyplay.api.geniussports.com).
+        team_id:
+          title: Team Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits).'
+        team_name_en:
+          title: Team Name En
+          type: string
+          description: Full English name of the player's team.
+        team_short_name_en:
+          title: Team Short Name En
+          type: string
+          description: Short English name (city) of the player's team.
+        team_abbreviated_name:
+          title: Team Abbreviated Name
+          type: string
+          description: Three-letter code of the player's team ('OTT', 'VAN').
+        team_name_fr:
+          title: Team Name Fr
+          type: string
+          description: Full French name of the player's team.
+        team_short_name_fr:
+          title: Team Short Name Fr
+          type: string
+          description: Short French name (city) of the player's team.
+        team_logo_url:
+          title: Team Logo Url
+          type: string
+          description: Logo URL (icon with the name) of the player's team.
+        value:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Value
+          description: The player's figure for the statistic this list is keyed by, in the requested mode
+            (TOTALS sum or PER_GAME average; percentages 0-100). A decimal string ('25.9').
+        ranking:
+          title: Ranking
+          type: integer
+          description: Rank in this statistic, 1 = best; ties share a rank and skip the next (1, 1, 1,
+            4). The list is the top 5 rows, no more.
+      required:
+      - value
+      - ranking
+      title: PlayerStatisticLeaderSchema
+      type: object
+      description: A leader row of /players/statistics/leaders/ (one list per requested statistic).
+    IndividualPlayerStatisticSchema:
+      properties:
+        id:
+          title: Id
+          type: integer
+          description: 'CEBL player id: the `player_id` of the request, on every row. Joins /players/{player_id}/
+            and `id` in the other player rows. Genius LiveStats `data.json` carries no person id, so the
+            join to Genius play-by-play is by name, team and jersey number (unverified).'
+        season:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Season
+          description: Season (calendar year = sdv END year); null on the career row.
+        team_id:
+          title: Team Id
+          type: integer
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). The player''s team that season
+            (on the career row, his latest).'
+        team_name_en:
+          title: Team Name En
+          type: string
+          description: Full English name of the player's team.
+        team_short_name_en:
+          title: Team Short Name En
+          type: string
+          description: Short English name (city) of the player's team.
+        team_name_fr:
+          title: Team Name Fr
+          type: string
+          description: Full French name of the player's team.
+        team_short_name_fr:
+          title: Team Short Name Fr
+          type: string
+          description: Short French name (city) of the player's team.
+        team_logo_url:
+          title: Team Logo Url
+          type: string
+          description: Logo URL (icon with the name) of the player's team.
+        played:
+          title: Played
+          type: integer
+          description: Games played (a count in both modes).
+        started:
+          title: Started
+          type: integer
+          description: Games started (a count in both modes).
+        minutes:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Minutes
+          description: 'Minutes played, decimal minutes (not mm:ss). TOTALS: the sum (''1281.7''); PER_GAME:
+            the per-game average (''29.5''). A string.'
+        points:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Points
+          description: 'Points scored. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Made
+          description: 'Field goals made (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goals_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goals Attempted
+          description: 'Field goals attempted (2- and 3-pointers). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        field_goal_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goal Percentage
+          description: 'Field-goal percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        three_points_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Made
+          description: 'Three-pointers made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_points_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Points Attempted
+          description: 'Three-pointers attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        three_point_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Point Percentage
+          description: 'Three-point percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        free_throws_made:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Made
+          description: 'Free throws made. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throws_attempted:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throws Attempted
+          description: 'Free throws attempted. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        free_throw_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throw Percentage
+          description: 'Free-throw percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the selected games (the same in both modes). A string.'
+        offensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Offensive Rebounds
+          description: 'Offensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        defensive_rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Defensive Rebounds
+          description: 'Defensive rebounds. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Rebounds
+          description: 'Total rebounds (offensive + defensive). TOTALS: the sum over the selected games;
+            PER_GAME: the per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        assists:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Assists
+          description: 'Assists. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        turn_overs:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Turn Overs
+          description: 'Turnovers. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        steals:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Steals
+          description: 'Steals. TOTALS: the sum over the selected games; PER_GAME: the per-game average,
+            1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        blocks:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Blocks
+          description: 'Shots blocked. TOTALS: the sum over the selected games; PER_GAME: the per-game
+            average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        fouls:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Fouls
+          description: 'Personal fouls committed. TOTALS: the sum over the selected games; PER_GAME: the
+            per-game average, 1 decimal. A decimal sent as a string (''2256.0'', ''12.7'').'
+        double_doubles:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Double Doubles
+          description: 'Double-doubles: games with 10 or more in two of points, rebounds, assists, steals,
+            blocks. TOTALS: the sum over the selected games; PER_GAME: the per-game average, 1 decimal.
+            A decimal sent as a string (''2256.0'', ''12.7'').'
+        triple_doubles:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Triple Doubles
+          description: 'Triple-doubles: games with 10 or more in three of those. TOTALS: the sum over
+            the selected games; PER_GAME: the per-game average, 1 decimal. A decimal sent as a string
+            (''2256.0'', ''12.7'').'
+        target_scores:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          default: 0
+          title: Target Scores
+          description: 'Target-score baskets: games in which the player made the basket that reached the
+            Elam Ending target score and ended the game (CEBL has used the Elam Ending since 2020, so
+            2019 is 0). TOTALS: the sum over the selected games; PER_GAME: the per-game average, 1 decimal.
+            A decimal sent as a string (''2256.0'', ''12.7'').'
+      required:
+      - played
+      - started
+      - minutes
+      - points
+      - field_goals_made
+      - field_goals_attempted
+      - field_goal_percentage
+      - three_points_made
+      - three_points_attempted
+      - three_point_percentage
+      - free_throws_made
+      - free_throws_attempted
+      - free_throw_percentage
+      - offensive_rebounds
+      - defensive_rebounds
+      - rebounds
+      - assists
+      - turn_overs
+      - steals
+      - blocks
+      - fouls
+      - double_doubles
+      - triple_doubles
+      title: IndividualPlayerStatisticSchema
+      type: object
+      description: A season row, or the career row, of /players/{player_id}/statistics/.
+    PlayerSchema:
+      properties:
+        id:
+          title: Id
+          description: CEBL player id (its own key space). Joins /players/{player_id}/ and `id` in the
+            other player rows. Genius LiveStats `data.json` carries no person id, so the join to Genius
+            play-by-play is by name, team and jersey number (unverified).
+          anyOf:
+          - type: integer
+          - type: 'null'
+          x-upstream-schema:
+            type: integer
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        full_name:
+          title: Full Name
+          description: Player's full name.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+          description: 'Nationality: an upper-case English country name (''CANADA'', ''UNITED STATES'',
+            ''SOUTH SUDAN''); null when unknown.'
+        birth_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Birth Date
+          description: Date of birth, YYYY-MM-DD (players' public bio field); null when unknown.
+        age:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Age
+          description: Age in whole years on the day of the request (computed by the API); null when the
+            birth date is unknown.
+        photo_url:
+          title: Photo Url
+          description: Player headshot URL on the Genius Sports image CDN (images.statsengine.playbyplay.api.geniussports.com).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_id:
+          title: Team Id
+          description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
+            `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
+            params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
+            Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
+            Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). The player''s latest team.'
+          anyOf:
+          - type: integer
+          - type: 'null'
+          x-upstream-schema:
+            type: integer
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_name_en:
+          title: Team Name En
+          description: Full English name of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_short_name_en:
+          title: Team Short Name En
+          description: Short English name (city) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_name_fr:
+          title: Team Name Fr
+          description: Full French name of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_short_name_fr:
+          title: Team Short Name Fr
+          description: Short French name (city) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_icon_url:
+          title: Team Icon Url
+          description: Icon URL (without the name) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_stats_url_en:
+          title: Team Stats Url En
+          description: cebl.ca stats page of the player's team (English).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        team_stats_url_fr:
+          title: Team Stats Url Fr
+          description: cebl.ca stats page of the player's team (French).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
+        position:
+          anyOf:
+          - maxLength: 10
+            type: string
+          - type: 'null'
+          title: Position
+          description: 'Playing position: G (guard), F (forward), C (center), or a combination such as
+            ''C/F''; null when unknown.'
+        jersey_number:
+          anyOf:
+          - maxLength: 2
+            type: string
+          - type: 'null'
+          title: Jersey Number
+          description: Jersey number, as a string of up to 2 characters ('0', '00' and '1' are distinct);
+            null when unknown.
+      title: PlayerSchema
+      type: object
+      description: The profile object of /players/{player_id}/.
+    PlayerGameLogSchema:
+      properties:
+        game_date:
+          format: date-time
+          title: Game Date
+          type: string
+          description: Tip-off of the game, ISO 8601 in UTC (same as the game's `start_time_utc`).
+        game_stats_url_en:
+          title: Game Stats Url En
+          type: string
+          description: 'cebl.ca game page, `https://www.cebl.ca/game?id={matchId}`: `id` is the Genius
+            match id (the join to genius-livestats/).'
+        game_stats_url_fr:
+          title: Game Stats Url Fr
+          type: string
+          description: French cebl.ca game page (`https://www.cebl.ca/fr-ca/game?id={matchId}`).
+        team_stats_url_en:
+          title: Team Stats Url En
+          type: string
+          description: cebl.ca stats page of the player's team in that game (English).
+        team_stats_url_fr:
+          title: Team Stats Url Fr
+          type: string
+          description: cebl.ca stats page of the player's team in that game (French).
+        team_abbreviated_name:
+          title: Team Abbreviated Name
+          type: string
+          description: Three-letter code of the player's team in that game ('OTT').
+        matchup:
+          title: Matchup
+          type: string
+          description: '''{TEAM} {team score} {vs or @} {opponent score} {OPP}'': the player''s team code
+            and score first; `vs` = a home game, `@` = an away game (''OTT 91 @ 95 BHB'').'
+        field_goal_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Field Goal Percentage
+          description: 'Field-goal percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the game. A string.'
+        three_point_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Three Point Percentage
+          description: 'Three-point percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the game. A string.'
+        free_throw_percentage:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Free Throw Percentage
+          description: 'Free-throw percentage, 0-100 with 1 decimal (''44.7''): made / attempted over
+            the game. A string.'
+        rebounds:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Rebounds
+          description: Total rebounds in the game (offensive + defensive). A string ('2'), unlike the
+            other counts.
+        minutes:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          title: Minutes
+          description: 'Minutes played in the game, decimal minutes (not mm:ss): ''35.4''. A string.'
+        points:
+          title: Points
+          type: integer
+          description: Points scored in the game. An integer.
+        field_goals_made:
+          title: Field Goals Made
+          type: integer
+          description: Field goals made (2- and 3-pointers) in the game. An integer.
+        field_goals_attempted:
+          title: Field Goals Attempted
+          type: integer
+          description: Field goals attempted (2- and 3-pointers) in the game. An integer.
+        three_points_made:
+          title: Three Points Made
+          type: integer
+          description: Three-pointers made in the game. An integer.
+        three_points_attempted:
+          title: Three Points Attempted
+          type: integer
+          description: Three-pointers attempted in the game. An integer.
+        free_throws_made:
+          title: Free Throws Made
+          type: integer
+          description: Free throws made in the game. An integer.
+        free_throws_attempted:
+          title: Free Throws Attempted
+          type: integer
+          description: Free throws attempted in the game. An integer.
+        offensive_rebounds:
+          title: Offensive Rebounds
+          type: integer
+          description: Offensive rebounds in the game. An integer.
+        defensive_rebounds:
+          title: Defensive Rebounds
+          type: integer
+          description: Defensive rebounds in the game. An integer.
+        assists:
+          title: Assists
+          type: integer
+          description: Assists in the game. An integer.
+        turn_overs:
+          title: Turn Overs
+          type: integer
+          description: Turnovers in the game. An integer.
+        steals:
+          title: Steals
+          type: integer
+          description: Steals in the game. An integer.
+        blocks:
+          title: Blocks
+          type: integer
+          description: Shots blocked in the game. An integer.
+        fouls:
+          title: Fouls
+          type: integer
+          description: Personal fouls committed in the game. An integer.
+        is_target_scorer:
+          default: false
+          title: Is Target Scorer
+          type: boolean
+          description: True when the player made the basket that reached the Elam Ending target score
+            and ended the game.
+      required:
+      - matchup
+      - field_goal_percentage
+      - three_point_percentage
+      - free_throw_percentage
+      - rebounds
+      - minutes
+      - points
+      - field_goals_made
+      - field_goals_attempted
+      - three_points_made
+      - three_points_attempted
+      - free_throws_made
+      - free_throws_attempted
+      - offensive_rebounds
+      - defensive_rebounds
+      - assists
+      - turn_overs
+      - steals
+      - blocks
+      - fouls
+      title: PlayerGameLogSchema
+      type: object
+      description: A game row of /players/{player_id}/gamelog/, from the player's side.
+    NewsArticleSchema:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: ID
+          x-unobserved: true
+          description: 'Unobserved: /news/articles/{language}/ answered `[]` on every probe (2026-10-12),
+            so no sample carries it; the type is the upstream declaration, unconfirmed. Upstream title:
+            ''ID''.'
+        title:
+          maxLength: 200
+          title: Title
+          type: string
+          x-unobserved: true
+          description: 'Unobserved: /news/articles/{language}/ answered `[]` on every probe (2026-10-12),
+            so no sample carries it; the type is the upstream declaration, unconfirmed. Upstream title:
+            ''Title''.'
+        image_url:
+          maxLength: 300
+          title: Image Url
+          type: string
+          x-unobserved: true
+          description: 'Unobserved: /news/articles/{language}/ answered `[]` on every probe (2026-10-12),
+            so no sample carries it; the type is the upstream declaration, unconfirmed. Upstream title:
+            ''Image Url''.'
+        html_content:
+          title: Html Content
+          type: string
+          x-unobserved: true
+          description: 'Unobserved: /news/articles/{language}/ answered `[]` on every probe (2026-10-12),
+            so no sample carries it; the type is the upstream declaration, unconfirmed. Upstream title:
+            ''Html Content''.'
+        published_at_utc:
+          format: date-time
+          title: Published At Utc
+          type: string
+          x-unobserved: true
+          description: 'Unobserved: /news/articles/{language}/ answered `[]` on every probe (2026-10-12),
+            so no sample carries it; the type is the upstream declaration, unconfirmed. Upstream title:
+            ''Published At Utc''.'
+      required:
+      - title
+      - image_url
+      - html_content
+      - published_at_utc
+      title: NewsArticleSchema
+      type: object
+      description: 'An article row of /news/articles/{language}/ (never observed: every probe answered
+        `[]`).'
+    Unauthorized:
+      type: object
+      description: The 401 body.
+      properties:
+        detail:
+          type: string
+          description: '''Unauthorized''.'
+    ValidationError:
+      type: object
+      description: 'The 422 body: one entry per invalid or missing param.'
+      properties:
+        detail:
+          type: array
+          description: Validation errors.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Error kind ('missing').
+              loc:
+                type: array
+                items:
+                  type: string
+                description: 'Where: the param location and name ([''query'', ''mode'']).'
+              msg:
+                type: string
+                description: Message ('Field required').
+  securitySchemes:
+    APIKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: The public key `800chyzv2hvur3z0ogh39cve2zok0c`, hard-coded in the first-party CEBL
+        Stats Hub bundle (https://cebl-stats-hub.web.app, `static/chunks/601-*.js`, the axios instance
+        of webpack module 5300). Header names are case-insensitive (the hub sends `X-Api-Key`).
