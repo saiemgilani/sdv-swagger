@@ -56,9 +56,10 @@ components:
                 description: Dunks made (v1 only; the site sorts on it as PT2DUNK).
                 type: integer
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
+                description: 'Points in the paint (2 x inside-the-paint 2PT made): B1/B2 2018-19 (2988:
+                  14 of 14 non-zero rows equal 2 x the made ActionCD1 4 shots) and the 2016-17 embed.
+                  0 on B3, whose 2PT shots are never split by paint (codes 3 / 5 only). A count on the
+                  v2 feed.'
                 type: integer
               PT2M:
                 description: 2PT field goals made.
@@ -87,14 +88,16 @@ components:
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: Minutes played 'mm:ss'; 'DNP' = did not play (always on the team row, Category
+                  2). Totals rows hold 5 x the period length ('50:00' per quarter, '100:00' per half,
+                  '200:00' for the game).
                 type: string
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  On the team row (Category 2) it is the HEAD COACH''s id; NULL on totals rows (Category
+                  3).'
                 type:
                 - integer
                 - 'null'
@@ -102,8 +105,7 @@ components:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; on the team row (Category 2) the head coach's name.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -135,8 +137,7 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: Starter flag, boolean (true = started).
                 type: boolean
               TO:
                 description: Turnovers.
@@ -145,8 +146,8 @@ components:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. Present on every
+                  row, totals included.'
                 type: integer
               TeamNameE:
                 description: Team name in English, uppercase ('ALVARK TOKYO').
@@ -257,8 +258,7 @@ components:
               description: Technical commissioner's name in English (v1; '' on the samples).
               type: string
             CommissionerNameJ:
-              description: Technical commissioner's name in Japanese ('' on the v1 samples, null on every
-                v2 sample).
+              description: Technical commissioner's name in Japanese; '' (not filled) on the samples.
               type: string
             ConventionClass:
               description: 'Competition class code: 1 on every sample (meaning unverified).'
@@ -398,7 +398,7 @@ components:
                 name: the season record going into or out of the game; v1).'
               x-unobserved: true
             Humidity:
-              description: Relative humidity at the venue, percent (55.0, 99); null on B3 (v1).
+              description: Relative humidity at the venue, percent (55.0, 99) (v1 shape).
               type: number
             InterleagueFlg:
               description: 'Interleague game flag (v1): true on the 2016-17 and 2018-19 B1 samples, false
@@ -446,7 +446,7 @@ components:
               type: string
             ScheduleConference:
               description: 'Unobserved: null in every sample. When filled: Conference / group code of
-                the schedule (v1): 9 on the B3 sample, null otherwise; meaning unverified.'
+                the schedule, integer (v1 shape); meaning unverified.'
               x-unobserved: true
             ScheduleKey:
               description: 'ScheduleKey (key space: B.LEAGUE games, ONE global sequence across B1, B2,
@@ -490,11 +490,10 @@ components:
               description: Umpire 2's name in Japanese.
               type: string
             Temperature:
-              description: Temperature at the venue, by value degrees Celsius (20.1, 24.5); null on B3
-                (v1).
+              description: Temperature at the venue, by value degrees Celsius (20.1, 24.5) (v1 shape).
               type: number
             Weather:
-              description: 'Weather code (v1): 3 and 1 on the samples, null on B3; code meanings unverified.'
+              description: 'Weather code (v1 shape): 3 and 1 on the samples; code meanings unverified.'
               type: integer
             Year:
               description: Season START year (2025 = 2025-26). The sdv season key is the END year = Year
@@ -556,9 +555,10 @@ components:
                 description: Dunks made (v1 only; the site sorts on it as PT2DUNK).
                 type: integer
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
+                description: 'Points in the paint (2 x inside-the-paint 2PT made): B1/B2 2018-19 (2988:
+                  14 of 14 non-zero rows equal 2 x the made ActionCD1 4 shots) and the 2016-17 embed.
+                  0 on B3, whose 2PT shots are never split by paint (codes 3 / 5 only). A count on the
+                  v2 feed.'
                 type: integer
               PT2M:
                 description: 2PT field goals made.
@@ -587,14 +587,16 @@ components:
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: Minutes played 'mm:ss'; 'DNP' = did not play (always on the team row, Category
+                  2). Totals rows hold 5 x the period length ('50:00' per quarter, '100:00' per half,
+                  '200:00' for the game).
                 type: string
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  On the team row (Category 2) it is the HEAD COACH''s id; NULL on totals rows (Category
+                  3).'
                 type:
                 - integer
                 - 'null'
@@ -602,8 +604,7 @@ components:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; on the team row (Category 2) the head coach's name.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -635,8 +636,7 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: Starter flag, boolean (true = started).
                 type: boolean
               TO:
                 description: Turnovers.
@@ -645,8 +645,8 @@ components:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. Present on every
+                  row, totals included.'
                 type: integer
               TeamNameE:
                 description: Team name in English, uppercase ('ALVARK TOKYO').
@@ -681,9 +681,8 @@ components:
                 type: integer
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.'
                 type: integer
               PlayerNameJ:
                 description: Player name in Japanese (full-width space between surname and given name).
@@ -742,27 +741,27 @@ components:
                 type: integer
               ActionCD2:
                 description: 'Secondary qualifier (shot type on field goals, free throws awarded on fouls,
-                  scoring context on free throws, 24 s on team turnovers). Qualifier codes, one code space
-                  shared by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット),
-                  28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the
-                  foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers);
-                  35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance
-                  (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break + second chance,
-                  48 = points off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out
-                  (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
+                  scoring context on free throws, 24 s on team turnovers); null when the row has none.
+                  Qualifier codes, one code space shared by ActionCD2 and ActionCD3 (gloss from PlayText):
+                  27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 =
+                  free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation
+                  (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー),
+                  37 = second chance (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break
+                  + second chance, 48 = points off turnover + second chance; 39 = shooting foul (シュートファウル),
+                  40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
                 type:
                 - integer
                 - 'null'
               ActionCD3:
                 description: 'Tertiary qualifier (scoring context on made field goals, shooting foul /
-                  foul-out on fouls). Qualifier codes, one code space shared by ActionCD2 and ActionCD3
-                  (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク);
-                  30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34
-                  = 24-second violation (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points
-                  off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス), 38 = fast break + points
-                  off turnover, 47 = fast break + second chance, 48 = points off turnover + second chance;
-                  39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト;
-                  kind unverified).'
+                  foul-out on fouls); null when the row has none. Qualifier codes, one code space shared
+                  by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup
+                  (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1
+                  / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers); 35 = fast
+                  break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス),
+                  38 = fast break + points off turnover, 47 = fast break + second chance, 48 = points
+                  off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト);
+                  90 = on timeout rows (タイムアウト; kind unverified).'
                 type:
                 - integer
                 - 'null'
@@ -775,9 +774,11 @@ components:
                   false on EVERY v2 row, the 81 row included. Use ActionCD1 81 instead.
                 type: boolean
               HomeAway:
-                description: 'Side of the acting team: 1 = home, 2 = away. Absent on game-level rows (start/end,
-                  period, clock).'
-                type: integer
+                description: 'Side of the acting team: 1 = home, 2 = away. NULL on game-level rows (game
+                  end, period end) and on timeouts without a team (official timeouts).'
+                type:
+                - integer
+                - 'null'
               'No':
                 description: Event sequence number, ascending in game order (the list is chronological).
                   v2 counts in steps of 1000 (1000, 2000, ...; inserted corrections may take values in
@@ -800,22 +801,27 @@ components:
               PlayerID1:
                 description: 'Primary actor: PlayerID (key space: B.LEAGUE persons, stable across seasons
                   and clubs: Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081'').
-                  STRING on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the
-                  head coach''s id). The roster_detail/?PlayerID= value. Not a TeamID. Null on team and
-                  game-level rows.'
-                type: integer
+                  A STRING on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value.
+                  Not a TeamID. On TEAM rows (team rebounds 18 / 19, team turnovers, team timeouts 88)
+                  it is the team''s HEAD COACH (the same id as the box score''s Category 2 row: 2988 Akita
+                  = 12520). NULL on game-level rows (start / end, period, clock) and timeouts without
+                  a team (official timeouts).'
+                type:
+                - integer
+                - 'null'
               PlayerID2:
                 description: 'Second actor, v1 only: the INCOMING player on substitution rows (ActionCD1
-                  89). PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs: Makoto
-                  Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING on v2
-                  (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  89); NULL on every other row. PlayerID (key space: B.LEAGUE persons, stable across seasons
+                  and clubs: Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081'').
+                  A STRING on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value.
+                  Not a TeamID.'
                 type:
                 - integer
                 - 'null'
               PlayerNameJ1:
-                description: Primary actor's name in Japanese (katakana for foreign players); '' on team
-                  and game-level rows.
+                description: Primary actor's name in Japanese (katakana for foreign players); the head
+                  coach's name on team rows; '' on game-level rows (start / end, period, clock) and timeouts
+                  without a team (official timeouts).
                 type: string
               PlayerNameJ2:
                 description: Second actor's name in Japanese (v1 substitution rows); '' otherwise.
@@ -834,8 +840,8 @@ components:
                   as a string.'
                 type: string
               RecordEditDateTime:
-                description: When the event was last edited, same format as RecordDateTime; null when
-                  never edited (v2).
+                description: 'When the event was last edited, same format as RecordDateTime; present on
+                  every row (equal to RecordDateTime on most: 485 of 530 rows of 2988).'
                 type: string
               RestTime:
                 description: Game clock REMAINING in the period at the event, 'mm:ss' (counts down from
@@ -849,19 +855,22 @@ components:
                   every row must equal the request (the capture refuses otherwise).'
                 type: integer
               Score:
-                description: Running score 'home-away' after the event ('0-0'). Absent on v2 player-in
-                  rows (ActionCD1 86).
+                description: Running score 'home-away' after the event ('0-0'); present on every row.
                 type: string
               TeamID:
                 description: 'Acting team: TeamID (key space: B.LEAGUE clubs; stable across seasons AND
                   club renames: 703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING
                   on the v2 feed and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17
                   embed (706). The club_detail/?TeamID= and schedule club= value. Not a player id. Null
-                  on game-level rows.'
-                type: integer
+                  on game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).'
+                type:
+                - integer
+                - 'null'
               TeamNameJ:
                 description: Acting team name in Japanese (official name, e.g. アルバルク東京 = Alvark Tokyo);
-                  null on game-level rows.
+                  '' (empty string, not null) on game-level rows (start / end, period, clock) and timeouts
+                  without a team (official timeouts).
                 type: string
             type: object
           type: array
@@ -944,12 +953,12 @@ components:
                   meaning unverified.
                 type: integer
               AwayTeamLeadLastAway:
-                description: Away score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Away score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               AwayTeamLeadLastHome:
-                description: Away score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Away score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               AwayTeamMaxDifference:
                 description: Away largest lead in the period category (0 if never led).
@@ -995,7 +1004,7 @@ components:
                 description: Away field goals made.
                 type: integer
               AwayTeamPTPFT:
-                description: Away points off turnovers (absent from v2 box rows; filled here).
+                description: Away points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               AwayTeamPTR:
                 description: 'Away field-goal percentage, 0-100 (number, one decimal: 33.3).'
@@ -1054,12 +1063,12 @@ components:
                   meaning unverified.
                 type: integer
               HomeTeamLeadLastAway:
-                description: Home score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Home score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               HomeTeamLeadLastHome:
-                description: Home score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Home score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               HomeTeamMaxDifference:
                 description: Home largest lead in the period category (0 if never led).
@@ -1105,7 +1114,7 @@ components:
                 description: Home field goals made.
                 type: integer
               HomeTeamPTPFT:
-                description: Home points off turnovers (absent from v2 box rows; filled here).
+                description: Home points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               HomeTeamPTR:
                 description: 'Home field-goal percentage, 0-100 (number, one decimal: 33.3).'
@@ -1361,7 +1370,8 @@ components:
           items:
             properties:
               away_score:
-                description: Away points (integer); null before the game.
+                description: Away points (integer; the parser emits null before the game, and every sampled
+                  game was played).
                 type: integer
               away_team:
                 description: Away club short name in Japanese.
@@ -1376,7 +1386,8 @@ components:
                 description: Game date, ISO 'YYYY-MM-DD' (months 7-12 in the START year, 1-6 in the next).
                 type: string
               home_score:
-                description: Home points (integer); null before the game.
+                description: Home points (integer; the parser emits null before the game, and every sampled
+                  game was played).
                 type: integer
               home_team:
                 description: Home club short name in Japanese.
@@ -1389,11 +1400,12 @@ components:
                   from the short name through the club select (refused if unmapped).'
                 type: string
               prefecture:
-                description: Venue prefecture in Japanese (大阪府 = Osaka Prefecture); null when the cell
-                  has no 'prefecture | venue' split.
+                description: Venue prefecture in Japanese (大阪府 = Osaka Prefecture); the parser emits null
+                  when the cell has no 'prefecture | venue' split (every sampled cell had one).
                 type: string
               round:
-                description: Round number parsed from 第N節; null for other labels (playoff rounds).
+                description: Round number parsed from 第N節 (the parser emits null for other labels, such
+                  as playoff rounds; every sampled label was 第N節).
                 type: integer
               round_label:
                 description: Round label verbatim (第1節 = round 1).
@@ -1406,7 +1418,8 @@ components:
                   (the list item id; checked against its game_detail link).'
                 type: integer
               state:
-                description: 'Game state label verbatim: ''FINAL'' once played; null when absent.'
+                description: 'Game state label verbatim: ''FINAL'' once played (the parser emits null
+                  when the page shows no state; every sampled game showed FINAL).'
                 type: string
               tip_time:
                 description: Tip-off 'HH:MM', Japan time (JST).
@@ -1445,11 +1458,13 @@ components:
                 type: string
               division_title:
                 description: 'Unobserved: null in every sample. When filled: The 地区優勝 (division title)
-                  cell; ''--'' on every sampled row, emitted as null; meaning of other values unverified.'
+                  cell; the placeholder ''--'' is emitted as null. Meaning of other values unverified.'
                 x-unobserved: true
               games_behind:
                 description: Games behind the table leader (差); null for the leader ('--').
-                type: number
+                type:
+                - number
+                - 'null'
               home_record:
                 description: Home record 'W-L' (ホーム).
                 type: string
@@ -1579,9 +1594,10 @@ components:
                 description: Dunks made (v1 only; the site sorts on it as PT2DUNK).
                 type: integer
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
+                description: 'Points in the paint (2 x inside-the-paint 2PT made): B1/B2 2018-19 (2988:
+                  14 of 14 non-zero rows equal 2 x the made ActionCD1 4 shots) and the 2016-17 embed.
+                  0 on B3, whose 2PT shots are never split by paint (codes 3 / 5 only). A count on the
+                  v2 feed.'
                 type: integer
               PT2M:
                 description: 2PT field goals made.
@@ -1610,14 +1626,16 @@ components:
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: Minutes played 'mm:ss'; 'DNP' = did not play (always on the team row, Category
+                  2). Totals rows hold 5 x the period length ('50:00' per quarter, '100:00' per half,
+                  '200:00' for the game).
                 type: string
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  On the team row (Category 2) it is the HEAD COACH''s id; NULL on totals rows (Category
+                  3).'
                 type:
                 - integer
                 - 'null'
@@ -1625,8 +1643,7 @@ components:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; on the team row (Category 2) the head coach's name.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -1658,8 +1675,7 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: Starter flag, boolean (true = started).
                 type: boolean
               TO:
                 description: Turnovers.
@@ -1668,8 +1684,8 @@ components:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. Present on every
+                  row, totals included.'
                 type: integer
               TeamNameE:
                 description: Team name in English, uppercase ('ALVARK TOKYO').
@@ -1777,8 +1793,7 @@ components:
               description: Technical commissioner's name in English (v1; '' on the samples).
               type: string
             CommissionerNameJ:
-              description: Technical commissioner's name in Japanese ('' on the v1 samples, null on every
-                v2 sample).
+              description: Technical commissioner's name in Japanese; '' (not filled) on the samples.
               type: string
             ConventionClass:
               description: 'Competition class code: 1 on every sample (meaning unverified).'
@@ -1967,8 +1982,8 @@ components:
               description: Schedule class short name in Japanese (v1); '' on the samples.
               type: string
             ScheduleConference:
-              description: 'Conference / group code of the schedule (v1): 9 on the B3 sample, null otherwise;
-                meaning unverified.'
+              description: Conference / group code of the schedule, integer; meaning unverified (9 on
+                the B3 2025-26 sample, null on the 2018-19 B1 game).
               type:
               - integer
               - 'null'
@@ -2081,9 +2096,10 @@ components:
                 description: Dunks made (v1 only; the site sorts on it as PT2DUNK).
                 type: integer
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
+                description: 'Points in the paint (2 x inside-the-paint 2PT made): B1/B2 2018-19 (2988:
+                  14 of 14 non-zero rows equal 2 x the made ActionCD1 4 shots) and the 2016-17 embed.
+                  0 on B3, whose 2PT shots are never split by paint (codes 3 / 5 only). A count on the
+                  v2 feed.'
                 type: integer
               PT2M:
                 description: 2PT field goals made.
@@ -2112,14 +2128,16 @@ components:
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: Minutes played 'mm:ss'; 'DNP' = did not play (always on the team row, Category
+                  2). Totals rows hold 5 x the period length ('50:00' per quarter, '100:00' per half,
+                  '200:00' for the game).
                 type: string
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  On the team row (Category 2) it is the HEAD COACH''s id; NULL on totals rows (Category
+                  3).'
                 type:
                 - integer
                 - 'null'
@@ -2127,8 +2145,7 @@ components:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; on the team row (Category 2) the head coach's name.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -2160,8 +2177,7 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: Starter flag, boolean (true = started).
                 type: boolean
               TO:
                 description: Turnovers.
@@ -2170,8 +2186,8 @@ components:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. Present on every
+                  row, totals included.'
                 type: integer
               TeamNameE:
                 description: Team name in English, uppercase ('ALVARK TOKYO').
@@ -2206,9 +2222,8 @@ components:
                 type: integer
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.'
                 type: integer
               PlayerNameJ:
                 description: Player name in Japanese (full-width space between surname and given name).
@@ -2267,27 +2282,27 @@ components:
                 type: integer
               ActionCD2:
                 description: 'Secondary qualifier (shot type on field goals, free throws awarded on fouls,
-                  scoring context on free throws, 24 s on team turnovers). Qualifier codes, one code space
-                  shared by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット),
-                  28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the
-                  foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers);
-                  35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance
-                  (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break + second chance,
-                  48 = points off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out
-                  (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
+                  scoring context on free throws, 24 s on team turnovers); null when the row has none.
+                  Qualifier codes, one code space shared by ActionCD2 and ActionCD3 (gloss from PlayText):
+                  27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 =
+                  free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation
+                  (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー),
+                  37 = second chance (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break
+                  + second chance, 48 = points off turnover + second chance; 39 = shooting foul (シュートファウル),
+                  40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
                 type:
                 - integer
                 - 'null'
               ActionCD3:
                 description: 'Tertiary qualifier (scoring context on made field goals, shooting foul /
-                  foul-out on fouls). Qualifier codes, one code space shared by ActionCD2 and ActionCD3
-                  (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク);
-                  30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34
-                  = 24-second violation (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points
-                  off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス), 38 = fast break + points
-                  off turnover, 47 = fast break + second chance, 48 = points off turnover + second chance;
-                  39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト;
-                  kind unverified).'
+                  foul-out on fouls); null when the row has none. Qualifier codes, one code space shared
+                  by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup
+                  (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1
+                  / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers); 35 = fast
+                  break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス),
+                  38 = fast break + points off turnover, 47 = fast break + second chance, 48 = points
+                  off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト);
+                  90 = on timeout rows (タイムアウト; kind unverified).'
                 type:
                 - integer
                 - 'null'
@@ -2300,9 +2315,11 @@ components:
                   false on EVERY v2 row, the 81 row included. Use ActionCD1 81 instead.
                 type: boolean
               HomeAway:
-                description: 'Side of the acting team: 1 = home, 2 = away. Absent on game-level rows (start/end,
-                  period, clock).'
-                type: integer
+                description: 'Side of the acting team: 1 = home, 2 = away. NULL on game-level rows (game
+                  end, period end) and on timeouts without a team (official timeouts).'
+                type:
+                - integer
+                - 'null'
               'No':
                 description: Event sequence number, ascending in game order (the list is chronological).
                   v2 counts in steps of 1000 (1000, 2000, ...; inserted corrections may take values in
@@ -2325,22 +2342,27 @@ components:
               PlayerID1:
                 description: 'Primary actor: PlayerID (key space: B.LEAGUE persons, stable across seasons
                   and clubs: Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081'').
-                  STRING on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the
-                  head coach''s id). The roster_detail/?PlayerID= value. Not a TeamID. Null on team and
-                  game-level rows.'
-                type: integer
+                  A STRING on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value.
+                  Not a TeamID. On TEAM rows (team rebounds 18 / 19, team turnovers, team timeouts 88)
+                  it is the team''s HEAD COACH (the same id as the box score''s Category 2 row: 2988 Akita
+                  = 12520). NULL on game-level rows (start / end, period, clock) and timeouts without
+                  a team (official timeouts).'
+                type:
+                - integer
+                - 'null'
               PlayerID2:
                 description: 'Second actor, v1 only: the INCOMING player on substitution rows (ActionCD1
-                  89). PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs: Makoto
-                  Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING on v2
-                  (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  89); NULL on every other row. PlayerID (key space: B.LEAGUE persons, stable across seasons
+                  and clubs: Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081'').
+                  A STRING on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value.
+                  Not a TeamID.'
                 type:
                 - integer
                 - 'null'
               PlayerNameJ1:
-                description: Primary actor's name in Japanese (katakana for foreign players); '' on team
-                  and game-level rows.
+                description: Primary actor's name in Japanese (katakana for foreign players); the head
+                  coach's name on team rows; '' on game-level rows (start / end, period, clock) and timeouts
+                  without a team (official timeouts).
                 type: string
               PlayerNameJ2:
                 description: Second actor's name in Japanese (v1 substitution rows); '' otherwise.
@@ -2359,8 +2381,8 @@ components:
                   as a string.'
                 type: string
               RecordEditDateTime:
-                description: When the event was last edited, same format as RecordDateTime; null when
-                  never edited (v2).
+                description: 'When the event was last edited, same format as RecordDateTime; present on
+                  every row (equal to RecordDateTime on most: 485 of 530 rows of 2988).'
                 type: string
               RestTime:
                 description: Game clock REMAINING in the period at the event, 'mm:ss' (counts down from
@@ -2374,19 +2396,22 @@ components:
                   every row must equal the request (the capture refuses otherwise).'
                 type: integer
               Score:
-                description: Running score 'home-away' after the event ('0-0'). Absent on v2 player-in
-                  rows (ActionCD1 86).
+                description: Running score 'home-away' after the event ('0-0'); present on every row.
                 type: string
               TeamID:
                 description: 'Acting team: TeamID (key space: B.LEAGUE clubs; stable across seasons AND
                   club renames: 703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING
                   on the v2 feed and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17
                   embed (706). The club_detail/?TeamID= and schedule club= value. Not a player id. Null
-                  on game-level rows.'
-                type: integer
+                  on game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).'
+                type:
+                - integer
+                - 'null'
               TeamNameJ:
                 description: Acting team name in Japanese (official name, e.g. アルバルク東京 = Alvark Tokyo);
-                  null on game-level rows.
+                  '' (empty string, not null) on game-level rows (start / end, period, clock) and timeouts
+                  without a team (official timeouts).
                 type: string
             type: object
           type: array
@@ -2458,12 +2483,12 @@ components:
                   meaning unverified.
                 type: integer
               AwayTeamLeadLastAway:
-                description: Away score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Away score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               AwayTeamLeadLastHome:
-                description: Away score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Away score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               AwayTeamMaxDifference:
                 description: Away largest lead in the period category (0 if never led).
@@ -2509,7 +2534,7 @@ components:
                 description: Away field goals made.
                 type: integer
               AwayTeamPTPFT:
-                description: Away points off turnovers (absent from v2 box rows; filled here).
+                description: Away points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               AwayTeamPTR:
                 description: 'Away field-goal percentage, 0-100 (number, one decimal: 33.3).'
@@ -2568,12 +2593,12 @@ components:
                   meaning unverified.
                 type: integer
               HomeTeamLeadLastAway:
-                description: Home score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Home score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               HomeTeamLeadLastHome:
-                description: Home score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
+                description: 'Home score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
                 type: integer
               HomeTeamMaxDifference:
                 description: Home largest lead in the period category (0 if never led).
@@ -2619,7 +2644,7 @@ components:
                 description: Home field goals made.
                 type: integer
               HomeTeamPTPFT:
-                description: Home points off turnovers (absent from v2 box rows; filled here).
+                description: Home points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               HomeTeamPTR:
                 description: 'Home field-goal percentage, 0-100 (number, one decimal: 33.3).'
@@ -2669,17 +2694,30 @@ components:
           items:
             properties:
               AS:
-                description: Assists.
-                type: integer
+                description: Assists. v2 sends '' (a placeholder, not 0) on the team row (Category 2)
+                  of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               AST_TO:
-                description: Assist-to-turnover ratio (number; 0 when no turnovers).
-                type: number
+                description: Assist-to-turnover ratio (number; 0 when no turnovers). 2022-23+ only (absent
+                  before); '' on half rows (15 / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               BS:
-                description: Blocks made.
-                type: integer
+                description: Blocks made. v2 sends '' (a placeholder, not 0) on the team row (Category
+                  2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               BSON:
-                description: Shots of this player that were blocked (被ブロック, BSR).
-                type: integer
+                description: Shots of this player that were blocked (被ブロック, BSR). v2 sends '' (a placeholder,
+                  not 0) on the team row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               Category:
                 description: 'Row category: 1 = player, 2 = TEAM / COACHES row (team-credited stats; on
                   v1 it names the head coach), 3 = team totals (合計). The site''s JS treats a missing value
@@ -2690,93 +2728,150 @@ components:
                   on every v1 sample; meaning unverified (joins nothing captured).'
                 type: integer
               DEFRTG:
-                description: Defensive rating; only on team / totals rows, 0 or '' in every sample (never
-                  filled).
-                type: number
+                description: Defensive rating. 2022-23+ only; ABSENT on player rows; on team / totals
+                  rows 0 or '' (half rows) in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               EFF:
                 description: 'Efficiency (貢献度), era-dependent, both verified on every player row of the
                   samples: v2 = points + rebounds + assists + steals + blocks + fouls drawn - missed FG
                   - missed FT - turnovers - fouls - shots blocked (PIR; 73/73 rows); v1 and the 2016-17
                   embed = points + rebounds + assists + steals + blocks - missed FG - missed FT - turnovers
-                  (23/23 rows).'
-                type: integer
+                  (23/23 rows). v2 sends '''' (a placeholder, not 0) on the team row (Category 2) of each
+                  quarter (PeriodCategory 1-4).'
+                type:
+                - integer
+                - string
               EFG:
                 description: Effective field-goal percentage as a FRACTION 0-1 (0.5 = 50 %; 3PT weighted
-                  1.5x). The site multiplies by 100.
-                type: number
+                  1.5x); the site multiplies by 100. 2022-23+ only (absent before); '' on half rows (15
+                  / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               FOUL:
                 description: Fouls committed (F).
                 type: integer
               FOULON:
-                description: Fouls drawn (被ファウル, FD).
-                type: integer
+                description: Fouls drawn (被ファウル, FD). v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               FTA:
-                description: Free throws attempted.
-                type: integer
+                description: Free throws attempted. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               FTM:
-                description: Free throws made.
-                type: integer
+                description: Free throws made. v2 sends '' (a placeholder, not 0) on the team row (Category
+                  2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               NETRTG:
-                description: Net rating; only on team / totals rows, 0 or '' in every sample (never filled).
-                type: number
+                description: Net rating. 2022-23+ only; ABSENT on player rows; on team / totals rows 0
+                  or '' in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               OFFRTG:
-                description: Offensive rating; only on team / totals rows, where it is 0 or '' in every
-                  sample (never filled).
-                type: number
+                description: Offensive rating. 2022-23+ only; ABSENT on player rows; on team / totals
+                  rows 0 or '' (half rows) in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               PLUSMINUS:
                 description: 'Plus/minus: team point difference while the player was on court (signed
-                  integer).'
-                type: integer
+                  integer). 2022-23+ only (ABSENT on every row before); ABSENT on totals rows; '''' on
+                  half rows (PeriodCategory 15 / 16) and on team rows of quarters and halves.'
+                type:
+                - integer
+                - string
+                x-absent-in-some-rows: true
               POSS:
-                description: Possessions; only on team / totals rows, 0 or '' in every sample (never filled).
-                type: number
+                description: Possessions. 2022-23+ only; ABSENT on player rows; on team / totals rows
+                  0 or '' in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               PT2A:
-                description: 2PT field goals attempted.
-                type: integer
+                description: 2PT field goals attempted. v2 sends '' (a placeholder, not 0) on the team
+                  row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
-                type: integer
+                description: Inside-the-paint 2PT MADE, a COUNT (504734 home players sum to 13 while Summaries
+                  PT2IN = 26 points). v2 sends '' (a placeholder, not 0) on the team row (Category 2)
+                  of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2M:
-                description: 2PT field goals made.
-                type: integer
+                description: 2PT field goals made. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2ND:
                 description: 'Second-chance figure (セカンドチャンス). On v2 it is smaller than the Summaries
                   second-chance points (504734 home: players 5, Summaries 9), so likely made baskets;
-                  unverified.'
-                type: integer
+                  unverified. v2 sends '''' (a placeholder, not 0) on the team row (Category 2) of each
+                  quarter (PeriodCategory 1-4).'
+                type:
+                - integer
+                - string
               PT3A:
-                description: 3PT field goals attempted.
-                type: integer
+                description: 3PT field goals attempted. v2 sends '' (a placeholder, not 0) on the team
+                  row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT3M:
-                description: 3PT field goals made.
-                type: integer
+                description: 3PT field goals made. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PTFB:
                 description: 'Fast-break figure (ファストブレイク): equal to the Summaries fast-break points on
-                  the 504734 home side (2); whether it counts points or baskets is unverified.'
-                type: integer
+                  the 504734 home side (2); whether it counts points or baskets is unverified. v2 sends
+                  '''' (a placeholder, not 0) on the team row (Category 2) of each quarter (PeriodCategory
+                  1-4).'
+                type:
+                - integer
+                - string
               PeriodCategory:
                 description: 'Period category of the row: 1-4 = quarters 1-4, 15 = first half, 16 = second
                   half, 18 = whole game (the site''s default). Verified by summing points (15 = Q1 + Q2,
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Totals rows (Category
+                  3) hold 5 x the period length (''50:00'' per quarter, ''100:00'' per half, ''200:00''
+                  for the game). Team rows (Category 2): '''' on quarter rows, ''DNP'' on half rows and,
+                  from 2022-23, ABSENT on the game row (PeriodCategory 18; ''DNP'' there in 2020-21).'
                 type: string
+                x-absent-in-some-rows: true
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  '''' (empty string) on team (Category 2) and totals (Category 3) rows.'
                 type: string
               PlayerNameE:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; '' on team and totals rows.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -2789,8 +2884,11 @@ components:
                 - boolean
                 - string
               Point:
-                description: Points.
-                type: integer
+                description: Points. v2 sends '' (a placeholder, not 0) on the team row (Category 2) of
+                  each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               RB_DEF:
                 description: Defensive rebounds (DR).
                 type: integer
@@ -2801,8 +2899,11 @@ components:
                 description: Total rebounds (TR).
                 type: integer
               ST:
-                description: Steals.
-                type: integer
+                description: Steals. v2 sends '' (a placeholder, not 0) on the team row (Category 2) of
+                  each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               ScheduleKey:
                 description: 'ScheduleKey (key space: B.LEAGUE games, ONE global sequence across B1, B2,
                   B3 and every season: 1 = the 2016-17 opener, 5856 in 2020-21, 500017 in 2022-23, 504734
@@ -2810,23 +2911,27 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: 'Starter flag: 1 = started, NULL = bench; '''' on team and totals rows.'
                 type:
                 - integer
                 - string
+                - 'null'
               TO:
                 description: Turnovers.
                 type: integer
               TS:
-                description: True-shooting percentage as a FRACTION 0-1. The site multiplies by 100.
-                type: number
+                description: True-shooting percentage as a FRACTION 0-1; the site multiplies by 100. 2022-23+
+                  only (absent before); '' on half rows (15 / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               TeamID:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. NULL on totals rows
+                  (Category 3).'
                 type:
                 - string
                 - 'null'
@@ -2837,8 +2942,13 @@ components:
                 description: Team name in Japanese.
                 type: string
               USG:
-                description: Usage rate in PERCENT 0-100 (number, e.g. 13.29); null before 2022-23.
-                type: number
+                description: 'Usage rate in PERCENT 0-100 (number, e.g. 13.29). 2022-23+ only: ABSENT
+                  on every row before, and ABSENT on totals rows (Category 3); '''' on half rows (15 /
+                  16) and on team rows of quarters and halves.'
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
             type: object
           type: array
         Game:
@@ -2892,7 +3002,7 @@ components:
               x-unobserved: true
             CommissionerNameJ:
               description: 'Unobserved: null in every sample. When filled: Technical commissioner''s name
-                in Japanese ('''' on the v1 samples, null on every v2 sample).'
+                in Japanese.'
               x-unobserved: true
             ConventionClass:
               description: 'Competition class code: 1 on every sample (meaning unverified).'
@@ -3016,17 +3126,30 @@ components:
           items:
             properties:
               AS:
-                description: Assists.
-                type: integer
+                description: Assists. v2 sends '' (a placeholder, not 0) on the team row (Category 2)
+                  of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               AST_TO:
-                description: Assist-to-turnover ratio (number; 0 when no turnovers).
-                type: number
+                description: Assist-to-turnover ratio (number; 0 when no turnovers). 2022-23+ only (absent
+                  before); '' on half rows (15 / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               BS:
-                description: Blocks made.
-                type: integer
+                description: Blocks made. v2 sends '' (a placeholder, not 0) on the team row (Category
+                  2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               BSON:
-                description: Shots of this player that were blocked (被ブロック, BSR).
-                type: integer
+                description: Shots of this player that were blocked (被ブロック, BSR). v2 sends '' (a placeholder,
+                  not 0) on the team row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               Category:
                 description: 'Row category: 1 = player, 2 = TEAM / COACHES row (team-credited stats; on
                   v1 it names the head coach), 3 = team totals (合計). The site''s JS treats a missing value
@@ -3037,93 +3160,150 @@ components:
                   on every v1 sample; meaning unverified (joins nothing captured).'
                 type: integer
               DEFRTG:
-                description: Defensive rating; only on team / totals rows, 0 or '' in every sample (never
-                  filled).
-                type: number
+                description: Defensive rating. 2022-23+ only; ABSENT on player rows; on team / totals
+                  rows 0 or '' (half rows) in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               EFF:
                 description: 'Efficiency (貢献度), era-dependent, both verified on every player row of the
                   samples: v2 = points + rebounds + assists + steals + blocks + fouls drawn - missed FG
                   - missed FT - turnovers - fouls - shots blocked (PIR; 73/73 rows); v1 and the 2016-17
                   embed = points + rebounds + assists + steals + blocks - missed FG - missed FT - turnovers
-                  (23/23 rows).'
-                type: integer
+                  (23/23 rows). v2 sends '''' (a placeholder, not 0) on the team row (Category 2) of each
+                  quarter (PeriodCategory 1-4).'
+                type:
+                - integer
+                - string
               EFG:
                 description: Effective field-goal percentage as a FRACTION 0-1 (0.5 = 50 %; 3PT weighted
-                  1.5x). The site multiplies by 100.
-                type: number
+                  1.5x); the site multiplies by 100. 2022-23+ only (absent before); '' on half rows (15
+                  / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               FOUL:
                 description: Fouls committed (F).
                 type: integer
               FOULON:
-                description: Fouls drawn (被ファウル, FD).
-                type: integer
+                description: Fouls drawn (被ファウル, FD). v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               FTA:
-                description: Free throws attempted.
-                type: integer
+                description: Free throws attempted. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               FTM:
-                description: Free throws made.
-                type: integer
+                description: Free throws made. v2 sends '' (a placeholder, not 0) on the team row (Category
+                  2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               NETRTG:
-                description: Net rating; only on team / totals rows, 0 or '' in every sample (never filled).
-                type: number
+                description: Net rating. 2022-23+ only; ABSENT on player rows; on team / totals rows 0
+                  or '' in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               OFFRTG:
-                description: Offensive rating; only on team / totals rows, where it is 0 or '' in every
-                  sample (never filled).
-                type: number
+                description: Offensive rating. 2022-23+ only; ABSENT on player rows; on team / totals
+                  rows 0 or '' (half rows) in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               PLUSMINUS:
                 description: 'Plus/minus: team point difference while the player was on court (signed
-                  integer).'
-                type: integer
+                  integer). 2022-23+ only (ABSENT on every row before); ABSENT on totals rows; '''' on
+                  half rows (PeriodCategory 15 / 16) and on team rows of quarters and halves.'
+                type:
+                - integer
+                - string
+                x-absent-in-some-rows: true
               POSS:
-                description: Possessions; only on team / totals rows, 0 or '' in every sample (never filled).
-                type: number
+                description: Possessions. 2022-23+ only; ABSENT on player rows; on team / totals rows
+                  0 or '' in every sample, never filled.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               PT2A:
-                description: 2PT field goals attempted.
-                type: integer
+                description: 2PT field goals attempted. v2 sends '' (a placeholder, not 0) on the team
+                  row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2IN:
-                description: 'Paint scoring, era-dependent: v2 = inside-the-paint 2PT MADE (a count; 504734
-                  home players sum to 13 while Summaries PT2IN = 26 points); 2016-17 embed = points in
-                  the paint (2 x made). 0 on B3, whose 2PT shots are never split by paint (codes 3/5 only).'
-                type: integer
+                description: Inside-the-paint 2PT MADE, a COUNT (504734 home players sum to 13 while Summaries
+                  PT2IN = 26 points). v2 sends '' (a placeholder, not 0) on the team row (Category 2)
+                  of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2M:
-                description: 2PT field goals made.
-                type: integer
+                description: 2PT field goals made. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT2ND:
                 description: 'Second-chance figure (セカンドチャンス). On v2 it is smaller than the Summaries
                   second-chance points (504734 home: players 5, Summaries 9), so likely made baskets;
-                  unverified.'
-                type: integer
+                  unverified. v2 sends '''' (a placeholder, not 0) on the team row (Category 2) of each
+                  quarter (PeriodCategory 1-4).'
+                type:
+                - integer
+                - string
               PT3A:
-                description: 3PT field goals attempted.
-                type: integer
+                description: 3PT field goals attempted. v2 sends '' (a placeholder, not 0) on the team
+                  row (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PT3M:
-                description: 3PT field goals made.
-                type: integer
+                description: 3PT field goals made. v2 sends '' (a placeholder, not 0) on the team row
+                  (Category 2) of each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               PTFB:
                 description: 'Fast-break figure (ファストブレイク): equal to the Summaries fast-break points on
-                  the 504734 home side (2); whether it counts points or baskets is unverified.'
-                type: integer
+                  the 504734 home side (2); whether it counts points or baskets is unverified. v2 sends
+                  '''' (a placeholder, not 0) on the team row (Category 2) of each quarter (PeriodCategory
+                  1-4).'
+                type:
+                - integer
+                - string
               PeriodCategory:
                 description: 'Period category of the row: 1-4 = quarters 1-4, 15 = first half, 16 = second
                   half, 18 = whole game (the site''s default). Verified by summing points (15 = Q1 + Q2,
                   18 = final score). Overtime codes unverified (no OT sample).'
                 type: integer
               PlayTime:
-                description: Minutes played 'mm:ss' ('200:00' on totals rows = 5 x 40:00); 'DNP' = did
-                  not play; null on v2 team rows.
+                description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Totals rows (Category
+                  3) hold 5 x the period length (''50:00'' per quarter, ''100:00'' per half, ''200:00''
+                  for the game). Team rows (Category 2): '''' on quarter rows, ''DNP'' on half rows and,
+                  from 2022-23, ABSENT on the game row (PeriodCategory 18; ''DNP'' there in 2020-21).'
                 type: string
+                x-absent-in-some-rows: true
               PlayerID:
                 description: 'PlayerID (key space: B.LEAGUE persons, stable across seasons and clubs:
-                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). STRING
-                  on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the head coach''s
-                  id). The roster_detail/?PlayerID= value. Not a TeamID.'
+                  Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081''). A STRING
+                  on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value. Not a TeamID.
+                  '''' (empty string) on team (Category 2) and totals (Category 3) rows.'
                 type: string
               PlayerNameE:
                 description: Player name in English ('Makoto Hiejima'); '' on team / totals rows.
                 type: string
               PlayerNameJ:
-                description: 'Player name in Japanese (v1 team row: the head coach''s name; '''' on v2
-                  team / totals rows).'
+                description: Player name in Japanese; '' on team and totals rows.
                 type: string
               PlayerNo:
                 description: Shirt number as a string; '' on team / totals rows.
@@ -3136,8 +3316,11 @@ components:
                 - boolean
                 - string
               Point:
-                description: Points.
-                type: integer
+                description: Points. v2 sends '' (a placeholder, not 0) on the team row (Category 2) of
+                  each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               RB_DEF:
                 description: Defensive rebounds (DR).
                 type: integer
@@ -3148,8 +3331,11 @@ components:
                 description: Total rebounds (TR).
                 type: integer
               ST:
-                description: Steals.
-                type: integer
+                description: Steals. v2 sends '' (a placeholder, not 0) on the team row (Category 2) of
+                  each quarter (PeriodCategory 1-4).
+                type:
+                - integer
+                - string
               ScheduleKey:
                 description: 'ScheduleKey (key space: B.LEAGUE games, ONE global sequence across B1, B2,
                   B3 and every season: 1 = the 2016-17 opener, 5856 in 2020-21, 500017 in 2022-23, 504734
@@ -3157,23 +3343,27 @@ components:
                   S3 routes and of game_detail/?ScheduleKey=; the schedule page''s list-item id. Integer.'
                 type: integer
               StartingFlg:
-                description: 'Starter flag. v2: 1 = started, null = bench, '''' on team / totals rows.
-                  v1 and the embed: boolean.'
+                description: 'Starter flag: 1 = started, NULL = bench; '''' on team and totals rows.'
                 type:
                 - integer
                 - string
+                - 'null'
               TO:
                 description: Turnovers.
                 type: integer
               TS:
-                description: True-shooting percentage as a FRACTION 0-1. The site multiplies by 100.
-                type: number
+                description: True-shooting percentage as a FRACTION 0-1; the site multiplies by 100. 2022-23+
+                  only (absent before); '' on half rows (15 / 16) and on team rows of quarters and halves.
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
               TeamID:
                 description: 'TeamID (key space: B.LEAGUE clubs; stable across seasons AND club renames:
                   703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING on the v2 feed
                   and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17 embed (706).
-                  The club_detail/?TeamID= and schedule club= value. Not a player id. Null on v2 totals
-                  rows (Category 3).'
+                  The club_detail/?TeamID= and schedule club= value. Not a player id. NULL on totals rows
+                  (Category 3).'
                 type:
                 - string
                 - 'null'
@@ -3184,8 +3374,13 @@ components:
                 description: Team name in Japanese.
                 type: string
               USG:
-                description: Usage rate in PERCENT 0-100 (number, e.g. 13.29); null before 2022-23.
-                type: number
+                description: 'Usage rate in PERCENT 0-100 (number, e.g. 13.29). 2022-23+ only: ABSENT
+                  on every row before, and ABSENT on totals rows (Category 3); '''' on half rows (15 /
+                  16) and on team rows of quarters and halves.'
+                type:
+                - number
+                - string
+                x-absent-in-some-rows: true
             type: object
           type: array
         PlayByPlays:
@@ -3213,26 +3408,30 @@ components:
                 type: integer
               ActionCD2:
                 description: 'Secondary qualifier (shot type on field goals, free throws awarded on fouls,
-                  scoring context on free throws, 24 s on team turnovers). Qualifier codes, one code space
-                  shared by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット),
-                  28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the
-                  foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers);
-                  35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance
-                  (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break + second chance,
-                  48 = points off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out
-                  (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
-                type: integer
+                  scoring context on free throws, 24 s on team turnovers); null when the row has none.
+                  Qualifier codes, one code space shared by ActionCD2 and ActionCD3 (gloss from PlayText):
+                  27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 =
+                  free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation
+                  (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー),
+                  37 = second chance (セカンドチャンス), 38 = fast break + points off turnover, 47 = fast break
+                  + second chance, 48 = points off turnover + second chance; 39 = shooting foul (シュートファウル),
+                  40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト; kind unverified).'
+                type:
+                - integer
+                - 'null'
               ActionCD3:
                 description: 'Tertiary qualifier (scoring context on made field goals, shooting foul /
-                  foul-out on fouls). Qualifier codes, one code space shared by ActionCD2 and ActionCD3
-                  (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup (レイアップ), 29 = dunk (ダンク);
-                  30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1 / 2 / 3 (フリースローオンファウルN); 34
-                  = 24-second violation (24秒, on team turnovers); 35 = fast break (ファストブレイク), 36 = points
-                  off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス), 38 = fast break + points
-                  off turnover, 47 = fast break + second chance, 48 = points off turnover + second chance;
-                  39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト); 90 = on timeout rows (タイムアウト;
-                  kind unverified).'
-                type: integer
+                  foul-out on fouls); null when the row has none. Qualifier codes, one code space shared
+                  by ActionCD2 and ActionCD3 (gloss from PlayText): 27 = jump shot (ジャンプショット), 28 = layup
+                  (レイアップ), 29 = dunk (ダンク); 30 / 31 / 32 / 33 = free throws awarded on the foul 0 / 1
+                  / 2 / 3 (フリースローオンファウルN); 34 = 24-second violation (24秒, on team turnovers); 35 = fast
+                  break (ファストブレイク), 36 = points off turnover (ポインツオフターンオーバー), 37 = second chance (セカンドチャンス),
+                  38 = fast break + points off turnover, 47 = fast break + second chance, 48 = points
+                  off turnover + second chance; 39 = shooting foul (シュートファウル), 40 = foul-out (ファウルアウト);
+                  90 = on timeout rows (タイムアウト; kind unverified).'
+                type:
+                - integer
+                - 'null'
               AreaCD:
                 description: 'Shot zone (verified 2022-23+ on shot rows; zones read from the site''s shot-chart
                   SVG data-area and checked against the x/y): 1 = restricted area, 2 = rest of the paint,
@@ -3243,6 +3442,7 @@ components:
                   on turnover and foul rows (the zone of the event). Absent on rows without a location
                   and on every row before 2022-23.'
                 type: integer
+                x-absent-in-some-rows: true
               Code:
                 description: 'Feed/organisation code repeated on every row: 546 on every v2 sample, 6
                   on every v1 sample; meaning unverified (joins nothing captured).'
@@ -3252,9 +3452,11 @@ components:
                   false on EVERY v2 row, the 81 row included. Use ActionCD1 81 instead.
                 type: boolean
               HomeAway:
-                description: 'Side of the acting team: 1 = home, 2 = away. Absent on game-level rows (start/end,
-                  period, clock).'
+                description: 'Side of the acting team: 1 = home, 2 = away. ABSENT (key missing) on game-level
+                  rows (start / end, period, clock start / stop) and on timeouts without a team (official
+                  timeouts).'
                 type: integer
+                x-absent-in-some-rows: true
               'No':
                 description: Event sequence number, ascending in game order (the list is chronological).
                   v2 counts in steps of 1000 (1000, 2000, ...; inserted corrections may take values in
@@ -3277,13 +3479,17 @@ components:
               PlayerID1:
                 description: 'Primary actor: PlayerID (key space: B.LEAGUE persons, stable across seasons
                   and clubs: Makoto Hiejima = ''8589''; newer ids are longer, ''51000209'', ''5100000081'').
-                  STRING on v2 (''''  on team / totals rows), INTEGER on v1 (on the team row it is the
-                  head coach''s id). The roster_detail/?PlayerID= value. Not a TeamID. Null on team and
-                  game-level rows.'
-                type: string
+                  A STRING on v2, an INTEGER on v1 and the embed. The roster_detail/?PlayerID= value.
+                  Not a TeamID. NULL on team rows (team rebound / turnover 17-19, team timeouts 88) and
+                  on game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).'
+                type:
+                - string
+                - 'null'
               PlayerNameJ1:
                 description: Primary actor's name in Japanese (katakana for foreign players); '' on team
-                  and game-level rows.
+                  rows and game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).
                 type: string
               PlayerNo1:
                 description: Shirt number of the primary actor, a string ('00' differs from '0'); '' on
@@ -3296,9 +3502,11 @@ components:
                   as a string.'
                 type: string
               RecordEditDateTime:
-                description: When the event was last edited, same format as RecordDateTime; null when
-                  never edited (v2).
-                type: string
+                description: When the event was last edited, same format as RecordDateTime; NULL when
+                  never edited.
+                type:
+                - string
+                - 'null'
               RestTime:
                 description: Game clock REMAINING in the period at the event, 'mm:ss' (counts down from
                   10:00).
@@ -3311,33 +3519,43 @@ components:
                   every row must equal the request (the capture refuses otherwise).'
                 type: integer
               Score:
-                description: Running score 'home-away' after the event ('0-0'). Absent on v2 player-in
-                  rows (ActionCD1 86).
+                description: Running score 'home-away' after the event ('0-0'). ABSENT on player-in rows
+                  (ActionCD1 86).
                 type: string
+                x-absent-in-some-rows: true
               Side:
                 description: 'Basket the play is charted at: ''left'' = the end at X near 0, ''right''
                   = the end at X near 100 (the site mirrors the half-court chart by it). For shots it
                   is the attacking team''s end and flips at half-time; blocks carry the shooter''s end;
-                  game-level rows carry ''left'' as filler. Present on 2025-26 (504734, 505508); ABSENT
-                  on 2022-23 (500017) and earlier, where the end must be inferred from the shots'' X (the
-                  site''s JS then assumes home attacks x < 50 in periods 1-2, which 500017 matches and
-                  504734 does not).'
+                  game-level rows carry ''left'' as filler; ABSENT on player-in rows (86). Present on
+                  2025-26 (504734, 505508); ABSENT on 2022-23 (500017) and earlier, where the end must
+                  be inferred from the shots'' X (the site''s JS then assumes home attacks x < 50 in periods
+                  1-2, which 500017 matches and 504734 does not).'
                 type: string
+                x-absent-in-some-rows: true
               Success:
-                description: 'Outcome flag: 1 = made / successful, 0 = missed; set on every row with a
-                  result (1 on non-shot rows). v2 2022-23+ only; absent before.'
+                description: 'Outcome flag: 1 = made / successful, 0 = missed; 1 on non-shot rows. v2
+                  2022-23+ only: ABSENT on every row before 2022-23 and on player-in rows (ActionCD1 86)
+                  after.'
                 type: integer
+                x-absent-in-some-rows: true
               TeamID:
                 description: 'Acting team: TeamID (key space: B.LEAGUE clubs; stable across seasons AND
                   club renames: 703 = Tochigi Brex in 2016-17 and Utsunomiya Brex in 2025-26). STRING
                   on the v2 feed and the HTML records (''706''), INTEGER on the v1 feed and the 2016-17
                   embed (706). The club_detail/?TeamID= and schedule club= value. Not a player id. Null
-                  on game-level rows.'
-                type: string
+                  on game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).'
+                type:
+                - string
+                - 'null'
               TeamNameJ:
                 description: Acting team name in Japanese (official name, e.g. アルバルク東京 = Alvark Tokyo);
-                  null on game-level rows.
-                type: string
+                  NULL on game-level rows (start / end, period, clock) and timeouts without a team (official
+                  timeouts).
+                type:
+                - string
+                - 'null'
               X:
                 description: 'Event x: PERCENT (0-100) of the court LENGTH from the ''left'' baseline
                   (float). The baskets sit near X = 5 and X = 95 (closest shots: depth 3-5); Y = 50 is
@@ -3346,11 +3564,13 @@ components:
                   the left basket). Metres (X / 100 x 28) are an inference. Absent on rows without a location
                   and before 2022-23 (5856, 7440, 8726: zero rows).'
                 type: number
+                x-absent-in-some-rows: true
               Y:
                 description: 'Event y: PERCENT (0-100) of the court WIDTH (float); the baskets are at
                   Y = 50. Which sideline is Y = 0 is unverified (the site only draws half-courts). Absent
                   where X is absent.'
                 type: number
+                x-absent-in-some-rows: true
             type: object
           type: array
         Summaries:
@@ -3392,13 +3612,17 @@ components:
                   meaning unverified.
                 type: integer
               AwayTeamLeadLastAway:
-                description: Away score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
-                type: string
+                description: 'Away score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
+                type:
+                - integer
+                - string
               AwayTeamLeadLastHome:
-                description: Away score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
-                type: string
+                description: 'Away score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
+                type:
+                - integer
+                - string
               AwayTeamMaxDifference:
                 description: Away largest lead in the period category (0 if never led).
                 type: integer
@@ -3443,7 +3667,7 @@ components:
                 description: Away field goals made.
                 type: integer
               AwayTeamPTPFT:
-                description: Away points off turnovers (absent from v2 box rows; filled here).
+                description: Away points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               AwayTeamPTR:
                 description: 'Away field-goal percentage, 0-100 (number, one decimal: 33.3).'
@@ -3502,13 +3726,17 @@ components:
                   meaning unverified.
                 type: integer
               HomeTeamLeadLastAway:
-                description: Home score-like value of the away side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
-                type: string
+                description: 'Home score-like value of the away side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
+                type:
+                - integer
+                - string
               HomeTeamLeadLastHome:
-                description: Home score-like value of the home side tied to LeadLast, meaning unverified
-                  (string on v2, integer on v1).
-                type: string
+                description: 'Home score-like value of the home side tied to LeadLast, meaning unverified.
+                  v2: a string on quarter and game rows, an integer on half rows (15 / 16); v1: an integer.'
+                type:
+                - integer
+                - string
               HomeTeamMaxDifference:
                 description: Home largest lead in the period category (0 if never led).
                 type: integer
@@ -3553,7 +3781,7 @@ components:
                 description: Home field goals made.
                 type: integer
               HomeTeamPTPFT:
-                description: Home points off turnovers (absent from v2 box rows; filled here).
+                description: Home points off turnovers (the v2 box rows do not carry it; this table does).
                 type: integer
               HomeTeamPTR:
                 description: 'Home field-goal percentage, 0-100 (number, one decimal: 33.3).'
