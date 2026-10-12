@@ -5113,7 +5113,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=goalkeeper&...` (or `/table`, same payload).'
       operationId: cache300_goalkeeper
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: goalkeeper
         in: query
         name: alias
@@ -5206,7 +5207,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=goalkeeperShootout&...` (or `/table`, same payload).'
       operationId: cache300_goalkeeperShootout
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: goalkeeperShootout
         in: query
         name: alias
@@ -5277,7 +5279,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=goalkeeperShotDetail&...` (or `/table`, same payload).'
       operationId: cache300_goalkeeperShotDetail
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: goalkeeperShotDetail
         in: query
         name: alias
@@ -5348,7 +5351,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=goalkeeperWin&...` (or `/table`, same payload).'
       operationId: cache300_goalkeeperWin
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: goalkeeperWin
         in: query
         name: alias
@@ -5419,7 +5423,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=player&...` (or `/table`, same payload).'
       operationId: cache300_player
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: player
         in: query
         name: alias
@@ -5490,7 +5495,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerFaceoff&...` (or `/table`, same payload).'
       operationId: cache300_playerFaceoff
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerFaceoff
         in: query
         name: alias
@@ -5561,7 +5567,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerFaceoffZone&...` (or `/table`, same payload).'
       operationId: cache300_playerFaceoffZone
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerFaceoffZone
         in: query
         name: alias
@@ -5632,7 +5639,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerFaceoffZoneGame&...` (or `/table`, same payload).'
       operationId: cache300_playerFaceoffZoneGame
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerFaceoffZoneGame
         in: query
         name: alias
@@ -5703,7 +5711,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerFoul&...` (or `/table`, same payload).'
       operationId: cache300_playerFoul
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerFoul
         in: query
         name: alias
@@ -5774,7 +5783,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerGoalAssist&...` (or `/table`, same payload).'
       operationId: cache300_playerGoalAssist
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerGoalAssist
         in: query
         name: alias
@@ -5845,7 +5855,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerShootout&...` (or `/table`, same payload).'
       operationId: cache300_playerShootout
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerShootout
         in: query
         name: alias
@@ -5916,7 +5927,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerShotDetail&...` (or `/table`, same payload).'
       operationId: cache300_playerShotDetail
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerShotDetail
         in: query
         name: alias
@@ -5987,7 +5999,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=playerTimeOnIce&...` (or `/table`, same payload).'
       operationId: cache300_playerTimeOnIce
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: playerTimeOnIce
         in: query
         name: alias
@@ -6058,7 +6071,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=results&...` (or `/table`, same payload).'
       operationId: cache300_results
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: results
         in: query
         name: alias
@@ -6129,7 +6143,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=standing&...` (or `/table`, same payload).'
       operationId: cache300_standing
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: standing
         in: query
         name: alias
@@ -6200,7 +6215,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamFaceoff&...` (or `/table`, same payload).'
       operationId: cache300_teamFaceoff
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamFaceoff
         in: query
         name: alias
@@ -6271,7 +6287,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamFaceoffZone&...` (or `/table`, same payload).'
       operationId: cache300_teamFaceoffZone
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamFaceoffZone
         in: query
         name: alias
@@ -6342,7 +6359,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamFaceoffZoneGame&...` (or `/table`, same payload).'
       operationId: cache300_teamFaceoffZoneGame
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamFaceoffZoneGame
         in: query
         name: alias
@@ -6413,7 +6431,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamFoul&...` (or `/table`, same payload).'
       operationId: cache300_teamFoul
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamFoul
         in: query
         name: alias
@@ -6484,7 +6503,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamGoal&...` (or `/table`, same payload).'
       operationId: cache300_teamGoal
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamGoal
         in: query
         name: alias
@@ -6555,7 +6575,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamGoalPosNation&...` (or `/table`, same payload).'
       operationId: cache300_teamGoalPosNation
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamGoalPosNation
         in: query
         name: alias
@@ -6626,7 +6647,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamPk&...` (or `/table`, same payload).'
       operationId: cache300_teamPk
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamPk
         in: query
         name: alias
@@ -6697,7 +6719,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamPp&...` (or `/table`, same payload).'
       operationId: cache300_teamPp
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamPp
         in: query
         name: alias
@@ -6768,7 +6791,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamShootout&...` (or `/table`, same payload).'
       operationId: cache300_teamShootout
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamShootout
         in: query
         name: alias
@@ -6839,7 +6863,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamShotDetail&...` (or `/table`, same payload).'
       operationId: cache300_teamShotDetail
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamShotDetail
         in: query
         name: alias
@@ -6910,7 +6935,8 @@ paths:
       description: 'Wire request: `GET /cache300?alias=teamSpectator&...` (or `/table`, same payload).'
       operationId: cache300_teamSpectator
       parameters:
-      - description: 'Selects the table. An unknown alias answers 200 {"stub": true, "data": []}.'
+      - description: 'Selects the table. An unknown alias fails, but HOW drifted within 2026-10-12: an
+          empty HTTP 501 (09:35 EDT) or 200 {"stub": true, "data": []} (~07:45 EDT). Treat both as errors.'
         example: teamSpectator
         in: query
         name: alias
