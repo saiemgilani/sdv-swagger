@@ -7,11 +7,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   category:
@@ -26,8 +28,8 @@ components:
                       query params.'
                     type: integer
                   name:
-                    description: 'Seasons: ''START/END''. Competitions: the Slovenian name (glossary in
-                      kzs-returns.md).'
+                    description: Competition name, Slovenian; the sponsor name changes over the years
+                      (glossary in kzs-returns.md).
                     type: string
                   rank:
                     description: 'Tier: FIRST-FOURTH or TOURNAMENT (code table).'
@@ -56,10 +58,10 @@ components:
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -132,7 +134,7 @@ components:
               description: 'Tier: FIRST-FOURTH or TOURNAMENT (code table).'
               type: string
             season:
-              description: The season.
+              description: 'Season of the record: opaque id and ''START/END'' name.'
               properties:
                 active:
                   description: Same as `isActive`.
@@ -169,11 +171,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   average:
@@ -190,26 +194,28 @@ components:
                       route is keyed by it.'
                     type: integer
                   clubLogoUuid:
-                    description: Club logo file id.
+                    description: 'Club logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                     type: string
                   gamesPlayed:
-                    description: Games the player / team played in the competition.
+                    description: Games the player played in the competition.
                     type: integer
                   max:
                     description: Single-game best of the statsCategory.
                     type: number
                   photoUuid:
-                    description: Player photo file id.
+                    description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                     type: string
                   playerFirstname:
-                    description: Player first name.
+                    description: The player's given name as registered with KZS (lower-case n in this
+                      route).
                     type: string
                   playerId:
                     description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                       and play-by-play `playerId`.
                     type: integer
                   playerLastname:
-                    description: Player last name.
+                    description: The player's family name as registered with KZS (lower-case n in this
+                      route).
                     type: string
                   sum:
                     description: Season total of the requested statsCategory.
@@ -220,15 +226,15 @@ components:
                       params.'
                     type: integer
                   teamName:
-                    description: Team name.
+                    description: Team name for the season, sponsor included.
                     type: string
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -268,11 +274,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   average:
@@ -289,10 +297,10 @@ components:
                       route is keyed by it.'
                     type: integer
                   clubLogoUuid:
-                    description: Club logo file id.
+                    description: 'Club logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                     type: string
                   gamesPlayed:
-                    description: Games the player / team played in the competition.
+                    description: Games the team played in the competition.
                     type: integer
                   max:
                     description: Single-game best of the statsCategory.
@@ -306,15 +314,15 @@ components:
                       params.'
                     type: integer
                   teamName:
-                    description: Team name.
+                    description: Team name for the season, sponsor included.
                     type: string
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -342,11 +350,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   attendance:
@@ -369,7 +379,7 @@ components:
                               type: string
                             type: array
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -380,7 +390,7 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                       ranks:
@@ -433,7 +443,7 @@ components:
                     items:
                       properties:
                         club:
-                          description: The club.
+                          description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                           properties:
                             absoluteTeams:
                               description: 'Unobserved: null, or an empty array, in every sample, so its
@@ -444,7 +454,7 @@ components:
                               items:
                                 properties:
                                   houseNumber:
-                                    description: 'House number (a string: ''6 A'').'
+                                    description: 'Club house number: REDACTED in the captures.'
                                     type: string
                                   id:
                                     description: Address id.
@@ -465,11 +475,12 @@ components:
                                         description: Post-office town.
                                         type: string
                                       zipCode:
-                                        description: Postal code.
+                                        description: Postal code (REDACTED under a club `addresses[]`
+                                          row; kept for venues).
                                         type: string
                                     type: object
                                   street:
-                                    description: Street name of the address.
+                                    description: 'Club street address: REDACTED in the captures.'
                                     type: string
                                   type:
                                     description: 'Address kind: PRIMARY.'
@@ -481,7 +492,7 @@ components:
                               items:
                                 properties:
                                   bankName:
-                                    description: Bank name.
+                                    description: 'Club''s bank: REDACTED in the captures.'
                                     type: string
                                   iban:
                                     description: 'Club IBAN: REDACTED in the captures.'
@@ -524,7 +535,7 @@ components:
                                 business-register id.
                               type: string
                             logoUuid:
-                              description: Club logo file id.
+                              description: 'Club logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                               type: string
                             member:
                               description: True when the club is a KZS member (false on nested copies
@@ -554,7 +565,8 @@ components:
                                     description: Social-media link id.
                                     type: integer
                                   socialMediaType:
-                                    description: 'Network: FACEBOOK, INSTAGRAM, ...'
+                                    description: 'Network. Observed: FACEBOOK, INSTAGRAM, WEBPAGE (club
+                                      website), TWITTER, TIKTOK, YOUTUBE.'
                                     type: string
                                   url:
                                     description: Link.
@@ -566,7 +578,7 @@ components:
                                 type and meaning are unconfirmed.'
                               x-unobserved: true
                             status:
-                              description: 'Club status: ACTIVE, ...'
+                              description: 'Club registration status: ACTIVE (the only one observed).'
                               type: string
                             taxLiable:
                               description: True when the club is VAT-registered.
@@ -595,7 +607,7 @@ components:
                             obliged to ...').
                           type: string
                         type:
-                          description: 'Decision kind: WARNING, OTHER, ...'
+                          description: 'Decision kind. Observed: WARNING, PENALTY (a fine), OTHER.'
                           type: string
                       type: object
                     type: array
@@ -631,10 +643,10 @@ components:
                                   description: True when the person record is anonymised (GDPR).
                                   type: boolean
                                 firstName:
-                                  description: First name.
+                                  description: The official's given name.
                                   type: string
                                 fullName:
-                                  description: Full name.
+                                  description: The official's given and family name in one string.
                                   type: string
                                 gender:
                                   description: MALE or FEMALE.
@@ -645,19 +657,23 @@ components:
                                     ids.'
                                   type: integer
                                 lastName:
-                                  description: Last name.
+                                  description: The official's family name.
                                   type: string
                               type: object
                           type: object
                         reason:
-                          description: 'Why the official was (re)assigned: INITIAL (first assignment),
-                            ...'
+                          description: 'Why the official was (re)assigned. Observed: INITIAL (first assignment),
+                            DELEGATION_CHANGE (reassigned by the federation), PERSONAL (personal reasons),
+                            WORK (work commitments), AFTER_NOTIFIED_ABSENCE (after a notified absence),
+                            INTERNATIONAL_DELEGATION (called to an international game), DOUBLE_DELEGATION
+                            (assigned twice), OTHER.'
                           type: string
                         timestamp:
                           description: When the change was recorded, UTC with microseconds.
                           type: string
                         type:
-                          description: 'Role assigned: REFEREE1, REFEREE2, REFEREE3, COMMISSIONER, ...'
+                          description: 'Role assigned. Observed: REFEREE1, REFEREE2, REFEREE3, COMMISSIONER,
+                            REFEREE_CONTROLLER (referee observer).'
                           type: string
                       type: object
                     type: array
@@ -674,7 +690,8 @@ components:
                       and side). Joins to play-by-play `matchTeamId`; NOT a team id. First (home) side.'
                     type: integer
                   firstTeamLogoUuid:
-                    description: First team logo file id (served from the FMS storage host api.kzs.si).
+                    description: 'First (home) team logo: image file id, served at https://api.kzs.si/public/images/{uuid}
+                      (PNG).'
                     type: string
                   firstTeamName:
                     description: First (home) team name.
@@ -715,7 +732,7 @@ components:
                     items:
                       properties:
                         club:
-                          description: The club.
+                          description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                           properties:
                             code:
                               description: Club 3-letter code.
@@ -741,7 +758,7 @@ components:
                                 business-register id.
                               type: string
                             logoUuid:
-                              description: Club logo file id.
+                              description: 'Club logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                               type: string
                             member:
                               description: True when the club is a KZS member (false on nested copies
@@ -754,7 +771,7 @@ components:
                               description: Club short name.
                               type: string
                             status:
-                              description: 'Club status: ACTIVE, ...'
+                              description: 'Club registration status: ACTIVE (the only one observed).'
                               type: string
                             taxLiable:
                               description: True when the club is VAT-registered.
@@ -773,7 +790,8 @@ components:
                           description: Move-request id.
                           type: integer
                         moveReason:
-                          description: 'Reason code of the move request: OTHER, ...'
+                          description: 'Reason code of the move request. Observed: OTHER, PROPOSAL (a
+                            proposed new date), SPORT_HALL (venue unavailable).'
                           type: string
                         opposingTeamMustConfirm:
                           description: True when the opponent has to approve the move.
@@ -785,7 +803,7 @@ components:
                               description: Street address.
                               properties:
                                 houseNumber:
-                                  description: 'House number (a string: ''6 A'').'
+                                  description: Venue house number, a string ('6 A').
                                   type: string
                                 id:
                                   description: Address id.
@@ -806,11 +824,12 @@ components:
                                       description: Post-office town.
                                       type: string
                                     zipCode:
-                                      description: Postal code.
+                                      description: Postal code (REDACTED under a club `addresses[]` row;
+                                        kept for venues).
                                       type: string
                                   type: object
                                 street:
-                                  description: Street name of the address.
+                                  description: Venue street (a public sports hall).
                                   type: string
                               type: object
                             capacity:
@@ -857,7 +876,8 @@ components:
                                   iz strani televizije' = 'the game time is set by television').
                                 type: string
                               newStatus:
-                                description: 'Status after this step: OPEN, CONFIRMED, REJECTED.'
+                                description: 'Status after this step. Observed: OPEN, CONFIRMED, REJECTED,
+                                  CANCELLED.'
                                 type: string
                               oldStatus:
                                 description: Status before this step.
@@ -886,7 +906,7 @@ components:
                               type: string
                             type: array
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -897,7 +917,7 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                       ranks:
@@ -922,7 +942,7 @@ components:
                               type: string
                             type: array
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -933,7 +953,7 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                       ranks:
@@ -958,7 +978,7 @@ components:
                               type: string
                             type: array
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -969,7 +989,7 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                       ranks:
@@ -994,7 +1014,7 @@ components:
                               type: string
                             type: array
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -1005,7 +1025,7 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                       ranks:
@@ -1028,7 +1048,8 @@ components:
                       and side). Joins to play-by-play `matchTeamId`; NOT a team id. Second (away) side.'
                     type: integer
                   secondTeamLogoUuid:
-                    description: Second team logo file id.
+                    description: 'Second (away) team logo: image file id, served at https://api.kzs.si/public/images/{uuid}
+                      (PNG).'
                     type: string
                   secondTeamName:
                     description: Second (away) team name.
@@ -1068,7 +1089,8 @@ components:
                           description: Stream label ('' in every sample).
                           type: string
                         type:
-                          description: 'Broadcaster / platform: SPORT_TV, YOUTUBE, TV_CELJE, ...'
+                          description: 'Broadcaster / platform. Observed: SPORT_TV, SPORTKLUB, TV_CELJE
+                            (TV channels), YOUTUBE.'
                           type: string
                         url:
                           description: 'Stream reference: a YouTube video id for YOUTUBE, '''' otherwise
@@ -1079,10 +1101,10 @@ components:
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -1127,17 +1149,17 @@ components:
                     description: Top first-team (home) player for the stat.
                     properties:
                       playerFirstName:
-                        description: Player first name.
+                        description: The player's given name as registered with KZS.
                         type: string
                       playerId:
                         description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                           and play-by-play `playerId`.
                         type: integer
                       playerLastName:
-                        description: Player last name.
+                        description: The player's family name as registered with KZS.
                         type: string
                       playerPhotoUuid:
-                        description: Player photo file id (FMS storage).
+                        description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       value:
                         description: The player's value for the stat in this match.
@@ -1147,24 +1169,24 @@ components:
                     description: Top second-team (away) player for the stat.
                     properties:
                       playerFirstName:
-                        description: Player first name.
+                        description: The player's given name as registered with KZS.
                         type: string
                       playerId:
                         description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                           and play-by-play `playerId`.
                         type: integer
                       playerLastName:
-                        description: Player last name.
+                        description: The player's family name as registered with KZS.
                         type: string
                       playerPhotoUuid:
-                        description: Player photo file id (FMS storage).
+                        description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       value:
                         description: The player's value for the stat in this match.
                         type: integer
                     type: object
                   statCategory:
-                    description: 'Stat of the row: POINTS, REBOUNDS, ASSISTS, ...'
+                    description: 'Stat of the row. Observed: POINTS, REBOUNDS, ASSISTS, STEALS, BLOCKS.'
                     type: string
                 type: object
               type: array
@@ -1184,7 +1206,7 @@ components:
                         type: string
                       type: array
                     firstName:
-                      description: First name.
+                      description: The official's given name.
                       type: string
                     gender:
                       description: MALE or FEMALE.
@@ -1194,7 +1216,7 @@ components:
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The official's family name.
                       type: string
                   type: object
                 ranks:
@@ -1272,7 +1294,7 @@ components:
               items:
                 properties:
                   club:
-                    description: The club.
+                    description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                     properties:
                       absoluteTeams:
                         description: 'Unobserved: null, or an empty array, in every sample, so its type
@@ -1283,7 +1305,7 @@ components:
                         items:
                           properties:
                             houseNumber:
-                              description: 'House number (a string: ''6 A'').'
+                              description: 'Club house number: REDACTED in the captures.'
                               type: string
                             id:
                               description: Address id.
@@ -1304,11 +1326,12 @@ components:
                                   description: Post-office town.
                                   type: string
                                 zipCode:
-                                  description: Postal code.
+                                  description: Postal code (REDACTED under a club `addresses[]` row; kept
+                                    for venues).
                                   type: string
                               type: object
                             street:
-                              description: Street name of the address.
+                              description: 'Club street address: REDACTED in the captures.'
                               type: string
                             type:
                               description: 'Address kind: PRIMARY.'
@@ -1320,7 +1343,7 @@ components:
                         items:
                           properties:
                             bankName:
-                              description: Bank name.
+                              description: 'Club''s bank: REDACTED in the captures.'
                               type: string
                             iban:
                               description: 'Club IBAN: REDACTED in the captures.'
@@ -1363,7 +1386,7 @@ components:
                           id.
                         type: string
                       logoUuid:
-                        description: Club logo file id.
+                        description: 'Club logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       member:
                         description: True when the club is a KZS member (false on nested copies that omit
@@ -1391,7 +1414,7 @@ components:
                           and meaning are unconfirmed.'
                         x-unobserved: true
                       status:
-                        description: 'Club status: ACTIVE, ...'
+                        description: 'Club registration status: ACTIVE (the only one observed).'
                         type: string
                       taxLiable:
                         description: True when the club is VAT-registered.
@@ -1420,7 +1443,7 @@ components:
                       to ...').
                     type: string
                   type:
-                    description: 'Decision kind: WARNING, OTHER, ...'
+                    description: 'Decision kind. Observed: WARNING, PENALTY (a fine), OTHER.'
                     type: string
                 type: object
               type: array
@@ -1456,10 +1479,10 @@ components:
                             description: True when the person record is anonymised (GDPR).
                             type: boolean
                           firstName:
-                            description: First name.
+                            description: The official's given name.
                             type: string
                           fullName:
-                            description: Full name.
+                            description: The official's given and family name in one string.
                             type: string
                           gender:
                             description: MALE or FEMALE.
@@ -1470,18 +1493,22 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The official's family name.
                             type: string
                         type: object
                     type: object
                   reason:
-                    description: 'Why the official was (re)assigned: INITIAL (first assignment), ...'
+                    description: 'Why the official was (re)assigned. Observed: INITIAL (first assignment),
+                      DELEGATION_CHANGE (reassigned by the federation), PERSONAL (personal reasons), WORK
+                      (work commitments), AFTER_NOTIFIED_ABSENCE (after a notified absence), INTERNATIONAL_DELEGATION
+                      (called to an international game), DOUBLE_DELEGATION (assigned twice), OTHER.'
                     type: string
                   timestamp:
                     description: When the change was recorded, UTC with microseconds.
                     type: string
                   type:
-                    description: 'Role assigned: REFEREE1, REFEREE2, REFEREE3, COMMISSIONER, ...'
+                    description: 'Role assigned. Observed: REFEREE1, REFEREE2, REFEREE3, COMMISSIONER,
+                      REFEREE_CONTROLLER (referee observer).'
                     type: string
                 type: object
               type: array
@@ -1506,17 +1533,17 @@ components:
                       description: Efficiency (PIR) in the match.
                       type: integer
                     playerFirstName:
-                      description: Player first name.
+                      description: The player's given name as registered with KZS.
                       type: string
                     playerId:
                       description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                         and play-by-play `playerId`.
                       type: integer
                     playerLastName:
-                      description: Player last name.
+                      description: The player's family name as registered with KZS.
                       type: string
                     playerPhotoUuid:
-                      description: Player photo file id (FMS storage).
+                      description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                       type: string
                     points:
                       description: Points in the match.
@@ -1548,7 +1575,7 @@ components:
                   description: True when the slot is a bracket placeholder.
                   type: boolean
                 logoUuid:
-                  description: First team logo file id.
+                  description: 'First (home) team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 name:
                   description: First (home) team name; absent on 2007-08 headers.
@@ -1599,7 +1626,8 @@ components:
                     description: Move-request id.
                     type: integer
                   moveReason:
-                    description: 'Reason code of the move request: OTHER, ...'
+                    description: 'Reason code of the move request. Observed: OTHER, PROPOSAL (a proposed
+                      new date), SPORT_HALL (venue unavailable).'
                     type: string
                   opposingTeamMustConfirm:
                     description: True when the opponent has to approve the move.
@@ -1611,7 +1639,7 @@ components:
                         description: Street address.
                         properties:
                           houseNumber:
-                            description: 'House number (a string: ''6 A'').'
+                            description: Venue house number, a string ('6 A').
                             type: string
                           id:
                             description: Address id.
@@ -1632,11 +1660,12 @@ components:
                                 description: Post-office town.
                                 type: string
                               zipCode:
-                                description: Postal code.
+                                description: Postal code (REDACTED under a club `addresses[]` row; kept
+                                  for venues).
                                 type: string
                             type: object
                           street:
-                            description: Street name of the address.
+                            description: Venue street (a public sports hall).
                             type: string
                         type: object
                       capacity:
@@ -1679,7 +1708,7 @@ components:
                           description: Status-change id.
                           type: integer
                         newStatus:
-                          description: 'Status after this step: OPEN, CONFIRMED, REJECTED.'
+                          description: 'Status after this step. Observed: OPEN, CONFIRMED, REJECTED, CANCELLED.'
                           type: string
                         timestamp:
                           description: When the change was recorded, UTC with microseconds.
@@ -1703,7 +1732,7 @@ components:
                     params. The organising (home) team.'
                   type: integer
                 logoUuid:
-                  description: Logo file id (FMS storage).
+                  description: 'Logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 teamApplication:
                   description: 'The team''s registration for the season: name, code, category, hall, club.'
@@ -1712,7 +1741,7 @@ components:
                       description: 'Age category: ABSOLUTE (senior) or U8-U23 / ANY (code table in kzs-returns.md).'
                       type: string
                     club:
-                      description: The club.
+                      description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                       properties:
                         absoluteTeams:
                           description: 'Unobserved: null, or an empty array, in every sample, so its type
@@ -1801,7 +1830,7 @@ components:
                         type: string
                       type: array
                     firstName:
-                      description: First name.
+                      description: The official's given name.
                       type: string
                     gender:
                       description: MALE or FEMALE.
@@ -1811,7 +1840,7 @@ components:
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The official's family name.
                       type: string
                   type: object
                 ranks:
@@ -1835,7 +1864,7 @@ components:
                         type: string
                       type: array
                     firstName:
-                      description: First name.
+                      description: The official's given name.
                       type: string
                     gender:
                       description: MALE or FEMALE.
@@ -1845,7 +1874,7 @@ components:
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The official's family name.
                       type: string
                   type: object
                 ranks:
@@ -1869,7 +1898,7 @@ components:
                         type: string
                       type: array
                     firstName:
-                      description: First name.
+                      description: The official's given name.
                       type: string
                     gender:
                       description: MALE or FEMALE.
@@ -1879,7 +1908,7 @@ components:
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The official's family name.
                       type: string
                   type: object
                 ranks:
@@ -1903,7 +1932,7 @@ components:
                         type: string
                       type: array
                     firstName:
-                      description: First name.
+                      description: The official's given name.
                       type: string
                     gender:
                       description: MALE or FEMALE.
@@ -1913,7 +1942,7 @@ components:
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The official's family name.
                       type: string
                   type: object
                 ranks:
@@ -1939,7 +1968,8 @@ components:
                     description: Period-score row id.
                     type: integer
                   matchPart:
-                    description: 'Period: QUARTER1-QUARTER4, OT1, OT2, ...'
+                    description: 'Period: QUARTER1-QUARTER4, then OT1 for the first overtime (OT2 and
+                      on by the same pattern, unobserved).'
                     type: string
                   secondTeamScore:
                     description: Second (away) team points in the period.
@@ -1962,17 +1992,17 @@ components:
                       description: Efficiency (PIR) in the match.
                       type: integer
                     playerFirstName:
-                      description: Player first name.
+                      description: The player's given name as registered with KZS.
                       type: string
                     playerId:
                       description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                         and play-by-play `playerId`.
                       type: integer
                     playerLastName:
-                      description: Player last name.
+                      description: The player's family name as registered with KZS.
                       type: string
                     playerPhotoUuid:
-                      description: Player photo file id (FMS storage).
+                      description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                       type: string
                     points:
                       description: Points in the match.
@@ -2004,7 +2034,7 @@ components:
                   description: True when the slot is a bracket placeholder.
                   type: boolean
                 logoUuid:
-                  description: Second team logo file id.
+                  description: 'Second (away) team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 name:
                   description: Second (away) team name; absent on 2007-08 headers.
@@ -2043,7 +2073,8 @@ components:
                     description: Stream label ('' in every sample).
                     type: string
                   type:
-                    description: 'Broadcaster / platform: SPORT_TV, YOUTUBE, TV_CELJE, ...'
+                    description: 'Broadcaster / platform. Observed: SPORT_TV, SPORTKLUB, TV_CELJE (TV
+                      channels), YOUTUBE.'
                     type: string
                   url:
                     description: 'Stream reference: a YouTube video id for YOUTUBE, '''' otherwise in
@@ -2075,8 +2106,9 @@ components:
                     description: Action type (code table).
                     type: string
                   area:
-                    description: Court zone of the shot (code table); '' on non-shot rows and on every
-                      2015-16 row.
+                    description: 'Court zone of the action (code table): set on shots, and from 2020-21
+                      on located fouls and turnovers; '''' on rows without a location and on every shot
+                      of early 2015-16 games.'
                     type: string
                   clock:
                     description: 'Time remaining in the period, ''MM:SS:CC'' (minutes, seconds, hundredths):
@@ -2087,17 +2119,18 @@ components:
                       and side). Joins to play-by-play `matchTeamId`; NOT a team id.'
                     type: integer
                   matchTeamPlayerFirstName:
-                    description: Player first name.
+                    description: The acting player's given name, as entered for this match.
                     type: string
                   matchTeamPlayerId:
                     description: 'Match-player id: the player''s entry in this one match; NOT the player
-                      id.'
+                      id. No captured route is keyed by it: join on `playerId` on the same row.'
                     type: integer
                   matchTeamPlayerLastName:
-                    description: Player last name.
+                    description: The acting player's family name, as entered for this match.
                     type: string
                   part:
-                    description: 'Period label: QUARTER1-QUARTER4, OT1, ...'
+                    description: 'Period label: QUARTER1-QUARTER4, then OT1 (OT2 and on by the same pattern,
+                      unobserved).'
                     type: string
                   period:
                     description: Period number; overtime restarts at 1 with periodType OVERTIME.
@@ -2110,7 +2143,7 @@ components:
                       and play-by-play `playerId`.
                     type: integer
                   playerPhotoUuid:
-                    description: Player photo file id (FMS storage).
+                    description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                     type: string
                   qualifiers:
                     description: Semicolon-separated qualifiers ('' when none; code table).
@@ -2122,7 +2155,7 @@ components:
                     description: Second (away) team score after the action, a numeric STRING.
                     type: string
                   shirtNumber:
-                    description: Jersey number, a string.
+                    description: Shirt number worn by the acting player, sent as a string.
                     type: string
                   side:
                     description: 'Basket end: LEFT (x≈0) or RIGHT (x≈100). Absent on non-shot rows before
@@ -2142,15 +2175,15 @@ components:
                       play-by-play `teamApplicationId` is the same key space.'
                     type: integer
                   teamName:
-                    description: Team name.
+                    description: Team name for the season, sponsor included (e.g. 'Perspektiva Ilirija').
                     type: string
                   x:
-                    description: Shot location along the court length, 0-100 percent (see the coordinate
-                      section); 0.0 when the row has no location.
+                    description: 'Location along the court length, 0-100 percent (see the coordinate section):
+                      shots, and from 2020-21 fouls and turnovers; 0.0 when the row has no location.'
                     type: number
                   y:
-                    description: Shot location across the court width, 0-100 percent (see the coordinate
-                      section); 0.0 when the row has no location.
+                    description: Location across the court width, 0-100 percent (see the coordinate section);
+                      0.0 when the row has no location.
                     type: number
                 type: object
               type: array
@@ -2159,19 +2192,20 @@ components:
               items:
                 properties:
                   firstName:
-                    description: First name.
+                    description: The home player's (as in the feed) given name.
                     type: string
                   id:
                     description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                       and play-by-play `playerId`. Players listed here are the first (home) team.
                     type: integer
                   lastName:
-                    description: Last name.
+                    description: The home player's (as in the feed) family name.
                     type: string
                 type: object
               type: array
             matchParts:
-              description: 'Periods played: QUARTER1-QUARTER4, then OT1, OT2, ...'
+              description: 'Periods played: QUARTER1-QUARTER4, then OT1 for the first overtime (OT2 and
+                on by the same pattern, unobserved).'
               items:
                 type: string
               type: array
@@ -2180,14 +2214,14 @@ components:
               items:
                 properties:
                   firstName:
-                    description: First name.
+                    description: The away player's (as in the feed) given name.
                     type: string
                   id:
                     description: Player id (KZS player registry). Joins to /players/{playerId}, box-score
                       and play-by-play `playerId`. Players listed here are the second (away) team.
                     type: integer
                   lastName:
-                    description: Last name.
+                    description: The away player's (as in the feed) family name.
                     type: string
                 type: object
               type: array
@@ -2273,19 +2307,22 @@ components:
                         description: The player's fouls drawn.
                         type: integer
                       jerseyNumber:
-                        description: Jersey number, a string.
+                        description: Shirt number worn, sent as a string ('1', '55').
                         type: string
                       mVPVotes:
                         description: The player's MVP votes (0 in every sample).
                         type: integer
                       matchTeamPlayerFirstname:
-                        description: Player first name.
+                        description: The player's given name, as entered for this match (lower-case n
+                          in this route).
                         type: string
                       matchTeamPlayerLastname:
-                        description: Player last name.
+                        description: The player's family name, as entered for this match (lower-case n
+                          in this route).
                         type: string
                       matchTeamPlayerYearOfBirth:
-                        description: Player's year of birth, a string.
+                        description: Birth year from the match entry, sent as a string ('2002'); the profile
+                          `person.yearOfBirth` is an integer.
                         type: string
                       minus:
                         description: 'The player''s points allowed on court (0 in every sample: not computed).'
@@ -2309,7 +2346,7 @@ components:
                           throws + turnovers + shots blocked + fouls committed)).
                         type: integer
                       photoUuid:
-                        description: Player photo file id (FMS storage).
+                        description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       played:
                         description: True when the player got on court.
@@ -2423,7 +2460,8 @@ components:
                                 description: True when the person record is anonymised (GDPR).
                                 type: boolean
                               fullName:
-                                description: Full name.
+                                description: 'The coach''s name as the feed sends it: ''null null'' in
+                                  every sample (unusable; use the staff row''s `firstName` / `lastName`).'
                                 type: string
                               id:
                                 description: 'Person id: the federation''s person record behind a player,
@@ -2433,17 +2471,17 @@ components:
                             type: object
                         type: object
                       firstName:
-                        description: First name.
+                        description: The staff member's (as entered on the scoresheet) given name.
                         type: string
                       id:
                         description: Scoresheet staff-entry id (one per match and role).
                         type: integer
                       lastName:
-                        description: Last name.
+                        description: The staff member's (as entered on the scoresheet) family name.
                         type: string
                       type:
-                        description: 'Role on the scoresheet: HEAD_COACH, ASSISTANT_COACH1, REPRESENTATIVE,
-                          ...'
+                        description: 'Role on the scoresheet. Observed: HEAD_COACH, ASSISTANT_COACH1,
+                          REPRESENTATIVE (team representative), SUPPORT1-SUPPORT3 (bench support staff).'
                         type: string
                     type: object
                   type: array
@@ -2529,31 +2567,31 @@ components:
                       description: Players fouled out (0 in every sample).
                       type: integer
                     foulsBenchTechnical:
-                      description: Bench technical fouls.
+                      description: Technical fouls charged to the bench (not the coach).
                       type: integer
                     foulsCoachDisqualifying:
-                      description: Coach disqualifying fouls.
+                      description: Disqualifying fouls charged to the head coach.
                       type: integer
                     foulsCoachTechnical:
-                      description: Coach technical fouls.
+                      description: Technical fouls charged to the head coach.
                       type: integer
                     foulsDisqualifying:
-                      description: Disqualifying fouls.
+                      description: Disqualifying fouls by players (ejections).
                       type: integer
                     foulsOffensive:
-                      description: Offensive fouls.
+                      description: Offensive (charging) fouls by players.
                       type: integer
                     foulsOn:
                       description: Fouls drawn by the team.
                       type: integer
                     foulsPersonal:
-                      description: Personal fouls.
+                      description: Personal fouls by players, all kinds that count toward fouling out.
                       type: integer
                     foulsTeam:
                       description: Team fouls (0 in every sample).
                       type: integer
                     foulsTechnical:
-                      description: Technical fouls.
+                      description: Technical fouls by players.
                       type: integer
                     foulsTechnicalOther:
                       description: Other technical fouls (0 in every sample).
@@ -2565,7 +2603,7 @@ components:
                       description: All fouls committed.
                       type: integer
                     foulsUnsportsmanlike:
-                      description: Unsportsmanlike fouls.
+                      description: Unsportsmanlike (flagrant) fouls by players.
                       type: integer
                     leadChanges:
                       description: Lead changes in the game.
@@ -2626,10 +2664,10 @@ components:
                       description: Team rebounds (not credited to a player).
                       type: integer
                     reboundsTeamDefensive:
-                      description: Team defensive rebounds.
+                      description: Defensive rebounds credited to the team, not a player.
                       type: integer
                     reboundsTeamOffensive:
-                      description: Team offensive rebounds.
+                      description: Offensive rebounds credited to the team, not a player.
                       type: integer
                     secondChancePointsAttempted:
                       description: 'The team''s second-chance attempts (0 in every sample: not computed).'
@@ -2773,19 +2811,22 @@ components:
                         description: The player's fouls drawn.
                         type: integer
                       jerseyNumber:
-                        description: Jersey number, a string.
+                        description: Shirt number worn, sent as a string ('1', '55').
                         type: string
                       mVPVotes:
                         description: The player's MVP votes (0 in every sample).
                         type: integer
                       matchTeamPlayerFirstname:
-                        description: Player first name.
+                        description: The player's given name, as entered for this match (lower-case n
+                          in this route).
                         type: string
                       matchTeamPlayerLastname:
-                        description: Player last name.
+                        description: The player's family name, as entered for this match (lower-case n
+                          in this route).
                         type: string
                       matchTeamPlayerYearOfBirth:
-                        description: Player's year of birth, a string.
+                        description: Birth year from the match entry, sent as a string ('2002'); the profile
+                          `person.yearOfBirth` is an integer.
                         type: string
                       minus:
                         description: 'The player''s points allowed on court (0 in every sample: not computed).'
@@ -2809,7 +2850,7 @@ components:
                           throws + turnovers + shots blocked + fouls committed)).
                         type: integer
                       photoUuid:
-                        description: Player photo file id (FMS storage).
+                        description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       played:
                         description: True when the player got on court.
@@ -2923,7 +2964,8 @@ components:
                                 description: True when the person record is anonymised (GDPR).
                                 type: boolean
                               fullName:
-                                description: Full name.
+                                description: 'The coach''s name as the feed sends it: ''null null'' in
+                                  every sample (unusable; use the staff row''s `firstName` / `lastName`).'
                                 type: string
                               id:
                                 description: 'Person id: the federation''s person record behind a player,
@@ -2933,17 +2975,17 @@ components:
                             type: object
                         type: object
                       firstName:
-                        description: First name.
+                        description: The staff member's (as entered on the scoresheet) given name.
                         type: string
                       id:
                         description: Scoresheet staff-entry id (one per match and role).
                         type: integer
                       lastName:
-                        description: Last name.
+                        description: The staff member's (as entered on the scoresheet) family name.
                         type: string
                       type:
-                        description: 'Role on the scoresheet: HEAD_COACH, ASSISTANT_COACH1, REPRESENTATIVE,
-                          ...'
+                        description: 'Role on the scoresheet. Observed: HEAD_COACH, ASSISTANT_COACH1,
+                          REPRESENTATIVE (team representative), SUPPORT1-SUPPORT3 (bench support staff).'
                         type: string
                     type: object
                   type: array
@@ -3029,31 +3071,31 @@ components:
                       description: Players fouled out (0 in every sample).
                       type: integer
                     foulsBenchTechnical:
-                      description: Bench technical fouls.
+                      description: Technical fouls charged to the bench (not the coach).
                       type: integer
                     foulsCoachDisqualifying:
-                      description: Coach disqualifying fouls.
+                      description: Disqualifying fouls charged to the head coach.
                       type: integer
                     foulsCoachTechnical:
-                      description: Coach technical fouls.
+                      description: Technical fouls charged to the head coach.
                       type: integer
                     foulsDisqualifying:
-                      description: Disqualifying fouls.
+                      description: Disqualifying fouls by players (ejections).
                       type: integer
                     foulsOffensive:
-                      description: Offensive fouls.
+                      description: Offensive (charging) fouls by players.
                       type: integer
                     foulsOn:
                       description: Fouls drawn by the team.
                       type: integer
                     foulsPersonal:
-                      description: Personal fouls.
+                      description: Personal fouls by players, all kinds that count toward fouling out.
                       type: integer
                     foulsTeam:
                       description: Team fouls (0 in every sample).
                       type: integer
                     foulsTechnical:
-                      description: Technical fouls.
+                      description: Technical fouls by players.
                       type: integer
                     foulsTechnicalOther:
                       description: Other technical fouls (0 in every sample).
@@ -3065,7 +3107,7 @@ components:
                       description: All fouls committed.
                       type: integer
                     foulsUnsportsmanlike:
-                      description: Unsportsmanlike fouls.
+                      description: Unsportsmanlike (flagrant) fouls by players.
                       type: integer
                     leadChanges:
                       description: Lead changes in the game.
@@ -3126,10 +3168,10 @@ components:
                       description: Team rebounds (not credited to a player).
                       type: integer
                     reboundsTeamDefensive:
-                      description: Team defensive rebounds.
+                      description: Defensive rebounds credited to the team, not a player.
                       type: integer
                     reboundsTeamOffensive:
-                      description: Team offensive rebounds.
+                      description: Offensive rebounds credited to the team, not a player.
                       type: integer
                     secondChancePointsAttempted:
                       description: 'The team''s second-chance attempts (0 in every sample: not computed).'
@@ -3200,7 +3242,7 @@ components:
           description: Payload.
           properties:
             competition:
-              description: The competition.
+              description: Competition the table belongs to (id, name).
               properties:
                 id:
                   description: 'Competition id: one per competition per season (men''s top league 2025-26
@@ -3274,7 +3316,7 @@ components:
                     items:
                       properties:
                         competitionPhaseGroup:
-                          description: The group.
+                          description: 'Group record: id, Slovenian name, carry-over flags.'
                           properties:
                             id:
                               description: Group id within a phase (e.g. the championship and relegation
@@ -3317,7 +3359,7 @@ components:
                                 description: Home wins.
                                 type: integer
                               logoUuid:
-                                description: Team logo file id.
+                                description: 'Team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                                 type: string
                               lost:
                                 description: Losses in the phase.
@@ -3349,7 +3391,7 @@ components:
                                       `teamId` and the `teamId` query params.'
                                     type: integer
                                   name:
-                                    description: Team name.
+                                    description: Team name for the season, sponsor included.
                                     type: string
                                 type: object
                               teamId:
@@ -3358,7 +3400,7 @@ components:
                                   and the `teamId` query params.'
                                 type: integer
                               teamName:
-                                description: Team name.
+                                description: Team name for the season, sponsor included.
                                 type: string
                               won:
                                 description: Wins in the phase.
@@ -3393,7 +3435,7 @@ components:
                           description: Home wins.
                           type: integer
                         logoUuid:
-                          description: Team logo file id.
+                          description: 'Team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                           type: string
                         lost:
                           description: Losses in the phase.
@@ -3425,7 +3467,7 @@ components:
                                 `teamId` query params.'
                               type: integer
                             name:
-                              description: Team name.
+                              description: Team name for the season, sponsor included.
                               type: string
                           type: object
                         teamId:
@@ -3434,7 +3476,7 @@ components:
                             query params.'
                           type: integer
                         teamName:
-                          description: Team name.
+                          description: Team name for the season, sponsor included.
                           type: string
                         tieBreakPosition:
                           description: Final position after tie-breaks (absent on playoff-phase rows).
@@ -3493,21 +3535,21 @@ components:
               description: The person behind the player (public bio).
               properties:
                 firstName:
-                  description: First name.
+                  description: The player's given name.
                   type: string
                 id:
                   description: 'Person id: the federation''s person record behind a player, coach or official;
                     a different key space from player, coach and official ids.'
                   type: integer
                 lastName:
-                  description: Last name.
+                  description: The player's family name.
                   type: string
                 yearOfBirth:
                   description: 'Year of birth (players: public bio).'
                   type: integer
               type: object
             photoUuid:
-              description: Player photo file id (FMS storage).
+              description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
               type: string
             positions:
               description: 'Unobserved: null, or an empty array, in every sample, so its type and meaning
@@ -3614,7 +3656,7 @@ components:
                     description: Category of the competition (code table).
                     type: string
                   competitionGender:
-                    description: Gender of the competition.
+                    description: MALE or FEMALE competition.
                     type: string
                   competitionId:
                     description: 'Competition id: one per competition per season (men''s top league 2025-26
@@ -3622,7 +3664,7 @@ components:
                       query params.'
                     type: integer
                   competitionName:
-                    description: Competition name.
+                    description: Competition name, Slovenian (e.g. 'Liga OTP banka', 'Pokal Spar').
                     type: string
                   competitionRank:
                     description: Tier of the competition (code table).
@@ -3690,11 +3732,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   active:
@@ -3709,16 +3753,15 @@ components:
                     description: True for the current season only (2026/2027 on 2026-10-12).
                     type: boolean
                   name:
-                    description: 'Seasons: ''START/END''. Competitions: the Slovenian name (glossary in
-                      kzs-returns.md).'
+                    description: Season, 'START/END' (2025/2026); the sdv season is the END year.
                     type: string
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -3733,11 +3776,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   id:
@@ -3745,10 +3790,10 @@ components:
                       the player id.'
                     type: integer
                   jerseyNumber:
-                    description: Jersey number, a string.
+                    description: Shirt number worn, sent as a string ('1', '55').
                     type: string
                   player:
-                    description: The player.
+                    description: 'Player record: registry id, person, nationality, photo.'
                     properties:
                       homegrown:
                         description: True when the player counts as homegrown (domači igralec) for roster
@@ -3786,7 +3831,7 @@ components:
                         description: The person record.
                         properties:
                           firstName:
-                            description: First name.
+                            description: The player's given name.
                             type: string
                           id:
                             description: 'Person id: the federation''s person record behind a player,
@@ -3794,14 +3839,14 @@ components:
                               ids.'
                             type: integer
                           lastName:
-                            description: Last name.
+                            description: The player's family name.
                             type: string
                           yearOfBirth:
                             description: 'Year of birth (players: public bio).'
                             type: integer
                         type: object
                       photoUuid:
-                        description: Player photo file id (FMS storage).
+                        description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       positions:
                         description: 'Unobserved: null, or an empty array, in every sample, so its type
@@ -3811,10 +3856,10 @@ components:
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -3829,11 +3874,13 @@ components:
           description: Payload.
           properties:
             count:
-              description: Always 0 on a FETCH page; the row count only with requestType=COUNT (with `items`
-                []).
+              description: Always 0 on a FETCH page, so it cannot reveal the silent 150-row default; the
+                real row count comes only with requestType=COUNT (and `items` []).
               type: integer
             items:
-              description: 'Rows of this list (the whole list: samples ask for a large `limit`).'
+              description: 'Rows of this list: the WHOLE list only because samples send a large `limit`.
+                The API defaults to 150 rows with no truncation signal (`count`, `offset`, `limit` are
+                always 0), so treat len(items) == limit as cut.'
               items:
                 properties:
                   guestTeamColor:
@@ -3848,7 +3895,7 @@ components:
                       params.'
                     type: integer
                   logoUuid:
-                    description: Team logo file id.
+                    description: 'Team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                     type: string
                   teamApplication:
                     description: 'The team''s registration for the season: name, code, category, hall,
@@ -3858,7 +3905,7 @@ components:
                         description: 'Age category: ABSOLUTE (senior) or U8-U23 / ANY (code table in kzs-returns.md).'
                         type: string
                       club:
-                        description: The club.
+                        description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                         properties:
                           absoluteTeams:
                             description: 'Unobserved: null, or an empty array, in every sample, so its
@@ -3933,10 +3980,10 @@ components:
                 type: object
               type: array
             limit:
-              description: Always 0 (not the page size that was asked).
+              description: Always 0, whatever limit was sent (the default page is 150 rows).
               type: integer
             offset:
-              description: Always 0 (not the paging state).
+              description: Always 0, whatever offset was sent (not the paging state).
               type: integer
           type: object
         status:
@@ -4006,7 +4053,7 @@ components:
                 standings `teamId`, box-score `teamId` and the `teamId` query params.'
               type: integer
             logoUuid:
-              description: Logo file id (FMS storage).
+              description: 'Logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
               type: string
             personnel:
               description: Staff (coaches, team officials) with their roles.
@@ -4026,7 +4073,7 @@ components:
                         description: 'Contact email: REDACTED in the captures.'
                         type: string
                       firstName:
-                        description: First name.
+                        description: The staff member's given name.
                         type: string
                       gender:
                         description: MALE or FEMALE.
@@ -4036,14 +4083,14 @@ components:
                           or official; a different key space from player, coach and official ids.'
                         type: integer
                       lastName:
-                        description: Last name.
+                        description: The staff member's family name.
                         type: string
                       phone:
                         description: 'Contact phone: REDACTED in the captures ('''' when none).'
                         type: string
                     type: object
                   team:
-                    description: The team.
+                    description: 'Team record: id, name, club code, logo, colours.'
                     properties:
                       guestTeamColor:
                         description: Away colour, hex.
@@ -4057,7 +4104,7 @@ components:
                           query params.'
                         type: integer
                       logoUuid:
-                        description: Team logo file id.
+                        description: 'Team logo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                         type: string
                       teamApplication:
                         description: 'The team''s registration for the season: name, code, category, hall,
@@ -4068,7 +4115,7 @@ components:
                               in kzs-returns.md).'
                             type: string
                           club:
-                            description: The club.
+                            description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                             properties:
                               absoluteTeams:
                                 description: 'Unobserved: null, or an empty array, in every sample, so
@@ -4139,7 +4186,7 @@ components:
                         type: object
                     type: object
                   type:
-                    description: 'Staff role: HEAD_COACH, ...'
+                    description: 'Staff role on the team: HEAD_COACH (the only one observed).'
                     type: string
                 type: object
               type: array
@@ -4150,7 +4197,7 @@ components:
                   description: 'Age category: ABSOLUTE (senior) or U8-U23 / ANY (code table in kzs-returns.md).'
                   type: string
                 club:
-                  description: The club.
+                  description: 'Owning club: id, legal name, code, contact block (contacts redacted).'
                   properties:
                     absoluteTeams:
                       description: 'Unobserved: null, or an empty array, in every sample, so its type
@@ -4161,7 +4208,7 @@ components:
                       items:
                         properties:
                           houseNumber:
-                            description: 'House number (a string: ''6 A'').'
+                            description: 'Club house number: REDACTED in the captures.'
                             type: string
                           id:
                             description: Address id.
@@ -4182,11 +4229,12 @@ components:
                                 description: Post-office town.
                                 type: string
                               zipCode:
-                                description: Postal code.
+                                description: Postal code (REDACTED under a club `addresses[]` row; kept
+                                  for venues).
                                 type: string
                             type: object
                           street:
-                            description: Street name of the address.
+                            description: 'Club street address: REDACTED in the captures.'
                             type: string
                           type:
                             description: 'Address kind: PRIMARY.'
@@ -4276,7 +4324,7 @@ components:
                       description: Street address.
                       properties:
                         houseNumber:
-                          description: 'House number (a string: ''6 A'').'
+                          description: Venue house number, a string ('6 A').
                           type: string
                         id:
                           description: Address id.
@@ -4297,11 +4345,12 @@ components:
                               description: Post-office town.
                               type: string
                             zipCode:
-                              description: Postal code.
+                              description: Postal code (REDACTED under a club `addresses[]` row; kept
+                                for venues).
                               type: string
                           type: object
                         street:
-                          description: Street name of the address.
+                          description: Venue street (a public sports hall).
                           type: string
                       type: object
                     id:
@@ -4363,21 +4412,21 @@ components:
                   description: The person record.
                   properties:
                     firstName:
-                      description: First name.
+                      description: The player's given name.
                       type: string
                     id:
                       description: 'Person id: the federation''s person record behind a player, coach
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The player's family name.
                       type: string
                     yearOfBirth:
                       description: 'Year of birth (players: public bio).'
                       type: integer
                   type: object
                 photoUuid:
-                  description: Player photo file id (FMS storage).
+                  description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 positions:
                   description: 'Unobserved: null, or an empty array, in every sample, so its type and
@@ -4431,21 +4480,21 @@ components:
                   description: The person record.
                   properties:
                     firstName:
-                      description: First name.
+                      description: The player's given name.
                       type: string
                     id:
                       description: 'Person id: the federation''s person record behind a player, coach
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The player's family name.
                       type: string
                     yearOfBirth:
                       description: 'Year of birth (players: public bio).'
                       type: integer
                   type: object
                 photoUuid:
-                  description: Player photo file id (FMS storage).
+                  description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 positions:
                   description: 'Unobserved: null, or an empty array, in every sample, so its type and
@@ -4490,21 +4539,21 @@ components:
                   description: The person record.
                   properties:
                     firstName:
-                      description: First name.
+                      description: The player's given name.
                       type: string
                     id:
                       description: 'Person id: the federation''s person record behind a player, coach
                         or official; a different key space from player, coach and official ids.'
                       type: integer
                     lastName:
-                      description: Last name.
+                      description: The player's family name.
                       type: string
                     yearOfBirth:
                       description: 'Year of birth (players: public bio).'
                       type: integer
                   type: object
                 photoUuid:
-                  description: Player photo file id (FMS storage).
+                  description: 'Player photo: image file id, served at https://api.kzs.si/public/images/{uuid}.'
                   type: string
                 positions:
                   description: 'Unobserved: null, or an empty array, in every sample, so its type and
