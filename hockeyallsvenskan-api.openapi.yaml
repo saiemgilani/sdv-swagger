@@ -1,0 +1,2239 @@
+components:
+  schemas:
+    ApiAllPlayers:
+      properties:
+        pagination:
+          properties:
+            page:
+              type: integer
+            pageCount:
+              type: integer
+            pageSize:
+              type: integer
+            total:
+              type: integer
+          type: object
+        players:
+          items:
+            properties:
+              birthDate:
+                type: string
+              country:
+                type: string
+              documentId:
+                type: string
+              familyName:
+                type: string
+              firstName:
+                type: string
+              headshots:
+                properties:
+                  large:
+                    type: string
+                  medium:
+                    type: string
+                  small:
+                    type: string
+                  thumb:
+                    type: string
+                type:
+                - object
+                - 'null'
+              height:
+                type: string
+              id:
+                type: integer
+              isRookie:
+                type: boolean
+              jerseyNumber:
+                type: string
+              positionCode:
+                type: string
+              positionName:
+                type: string
+              shoots:
+                type: string
+              slug:
+                type: string
+              team:
+                properties:
+                  documentId:
+                    type: string
+                  id:
+                    type: integer
+                  logo:
+                    properties:
+                      documentId:
+                        type: string
+                      id:
+                        type: integer
+                      url:
+                        type: string
+                    type: object
+                  mainColorHex:
+                    type: string
+                  name:
+                    type: string
+                  shortName:
+                    type: string
+                type: object
+              teamPlayer:
+                type: string
+              weight:
+                type: string
+              youthTeam:
+                type: string
+            type: object
+          type: array
+      type: object
+    ApiAllTimeGamesStats:
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        results:
+          items:
+            properties:
+              Arena:
+                type: string
+              Attendance:
+                type: integer
+              AwayTeam:
+                type: string
+              Date:
+                type: string
+              GameResult:
+                properties:
+                  Away:
+                    type: integer
+                  Home:
+                    type: integer
+                type: object
+              GameStatistics:
+                properties:
+                  away_team:
+                    properties:
+                      expulsions_in_minutes:
+                        type: integer
+                      powerplay:
+                        properties:
+                          efficiency:
+                            type:
+                            - integer
+                            - string
+                          goals:
+                            type: integer
+                          num_pp:
+                            type: integer
+                        type: object
+                      shots:
+                        properties:
+                          efficiency:
+                            type: string
+                          goal:
+                            type: integer
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                  home_team:
+                    properties:
+                      expulsions_in_minutes:
+                        type: integer
+                      powerplay:
+                        properties:
+                          efficiency:
+                            type:
+                            - integer
+                            - string
+                          goals:
+                            type: integer
+                          num_pp:
+                            type: integer
+                        type: object
+                      shots:
+                        properties:
+                          efficiency:
+                            type: string
+                          goal:
+                            type: integer
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                type: object
+              HomeTeam:
+                type: string
+              MostPoints:
+                items:
+                  properties:
+                    player:
+                      type: string
+                    points:
+                      type: integer
+                    team:
+                      type: string
+                  type: object
+                type: array
+              PeriodScores:
+                items:
+                  properties:
+                    Away:
+                      type: integer
+                    Home:
+                      type: integer
+                  type: object
+                type: array
+              decided_in:
+                type: string
+            type: object
+          type: array
+        sort_by_options:
+          items:
+            type: string
+          type: array
+        sort_direction:
+          type: string
+        sorted_by:
+          type: string
+        teams:
+          items:
+            properties:
+              fullName:
+                type: string
+              logos:
+                properties:
+                  icon:
+                    type: string
+                  large:
+                    type: string
+                  medium:
+                    type: string
+                  small:
+                    type: string
+                  xlarge:
+                    type: string
+                type: object
+              name:
+                type: string
+              statNetId:
+                type: string
+              teamCode:
+                type: string
+            type: object
+          type: array
+        total_pages:
+          type: integer
+      type: object
+    ApiAllTimeGoalkeepersStats:
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        results:
+          items:
+            properties:
+              GA:
+                type: integer
+              GAA:
+                type: string
+              GP:
+                type: integer
+              GPI:
+                type: integer
+              L:
+                type: integer
+              MIP:
+                type: string
+              SO:
+                type: integer
+              SVS:
+                type: integer
+              SVS_perc:
+                type: string
+              T:
+                type: integer
+              ValidRanking:
+                type: integer
+              W:
+                type: integer
+              player:
+                type: string
+              rank:
+                type: integer
+              team:
+                type: string
+            type: object
+          type: array
+        sort_by_options:
+          items:
+            type: string
+          type: array
+        sort_direction:
+          type: string
+        sorted_by:
+          type: string
+        teams:
+          items:
+            properties:
+              fullName:
+                type: string
+              logos:
+                properties:
+                  icon:
+                    type: string
+                  large:
+                    type: string
+                  medium:
+                    type: string
+                  small:
+                    type: string
+                  xlarge:
+                    type: string
+                type: object
+              name:
+                type: string
+              statNetId:
+                type: string
+              teamCode:
+                type: string
+            type: object
+          type: array
+        total_pages:
+          type: integer
+      type: object
+    ApiAllTimeSkatersStats:
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        results:
+          items:
+            properties:
+              A:
+                type: integer
+              BKS:
+                type: integer
+              G:
+                type: integer
+              GP:
+                type: integer
+              GWG:
+                type: integer
+              Hits:
+                type: integer
+              Minus:
+                type: integer
+              PIM:
+                type: integer
+              PPG:
+                type: integer
+              Plus:
+                type: integer
+              PlusMinus:
+                type: integer
+              SOG:
+                type: integer
+              TOI_GP:
+                type: string
+              TP:
+                type: integer
+              TPPG:
+                type: string
+              player:
+                type: string
+              rank:
+                type: integer
+              team:
+                type: string
+            type: object
+          type: array
+        sort_by_options:
+          items:
+            type: string
+          type: array
+        sort_direction:
+          type: string
+        sorted_by:
+          type: string
+        teams:
+          items:
+            properties:
+              fullName:
+                type: string
+              logos:
+                properties:
+                  icon:
+                    type: string
+                  large:
+                    type: string
+                  medium:
+                    type: string
+                  small:
+                    type: string
+                  xlarge:
+                    type: string
+                type: object
+              name:
+                type: string
+              statNetId:
+                type: string
+              teamCode:
+                type: string
+            type: object
+          type: array
+        total_pages:
+          type: integer
+      type: object
+    ApiAllTimeTeamsStats:
+      properties:
+        data:
+          items:
+            properties:
+              G:
+                type: integer
+              GA:
+                type: integer
+              GAPG:
+                type: number
+              GFG:
+                type: integer
+              GP:
+                type: integer
+              GPG:
+                type: number
+              L:
+                type: integer
+              Leading:
+                type: integer
+              OTL:
+                type: integer
+              OTW:
+                type: integer
+              P_GP:
+                type: string
+              Points:
+                type: integer
+              SOL:
+                type: integer
+              SOW:
+                type: integer
+              Trailing:
+                type: integer
+              W:
+                type: integer
+              rank:
+                type: integer
+              team_code:
+                type: string
+            type: object
+          type: array
+        sort_by_options:
+          items:
+            type: string
+          type: array
+        sort_direction:
+          type: string
+        sorted_by:
+          type: string
+      type: object
+    ApiGame:
+      properties:
+        data:
+          items:
+            properties:
+              attendance:
+                type: string
+              awayOtScore:
+                type:
+                - 'null'
+              awayScore:
+                type: string
+              awayScoreP1:
+                type: string
+              awayScoreP2:
+                type: string
+              awayScoreP3:
+                type: string
+              awaySoScore:
+                type:
+                - 'null'
+              awayStatNetId:
+                type: string
+              awayTeam:
+                properties:
+                  alternateColorHex:
+                    type: string
+                  arenaAddress:
+                    type: string
+                  arenaLatitude:
+                    type: string
+                  arenaLongitude:
+                    type: string
+                  arenaTelephone:
+                    type:
+                    - 'null'
+                  clubMateLotteryUrl:
+                    type:
+                    - 'null'
+                  createdAt:
+                    type: string
+                  documentId:
+                    type: string
+                  id:
+                    type: integer
+                  logo:
+                    properties:
+                      alternativeText:
+                        type: string
+                      caption:
+                        type: string
+                      createdAt:
+                        type: string
+                      documentId:
+                        type: string
+                      ext:
+                        type: string
+                      focalPoint:
+                        type:
+                        - 'null'
+                      formats:
+                        properties:
+                          small:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          thumbnail:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                        type: object
+                      hash:
+                        type: string
+                      height:
+                        type: integer
+                      id:
+                        type: integer
+                      mime:
+                        type: string
+                      name:
+                        type: string
+                      previewUrl:
+                        type:
+                        - 'null'
+                      provider:
+                        type: string
+                      provider_metadata:
+                        type:
+                        - 'null'
+                      publishedAt:
+                        type: string
+                      size:
+                        type: number
+                      updatedAt:
+                        type: string
+                      url:
+                        type: string
+                      width:
+                        type: integer
+                    type: object
+                  mainColorHex:
+                    type: string
+                  name:
+                    type: string
+                  publishedAt:
+                    type: string
+                  shortName:
+                    type: string
+                  teamArena:
+                    type: string
+                  ticketsProviderUrl:
+                    type: string
+                  updatedAt:
+                    type: string
+                type: object
+              createdAt:
+                type: string
+              currentPeriod:
+                type: string
+              currentPeriodStart:
+                type:
+                - 'null'
+              decidedIn:
+                type: string
+              documentId:
+                type: string
+              endedDateTime:
+                type: string
+              gameType:
+                type: string
+              homeOtScore:
+                type:
+                - 'null'
+              homeScore:
+                type: string
+              homeScoreP1:
+                type: string
+              homeScoreP2:
+                type: string
+              homeScoreP3:
+                type: string
+              homeSoScore:
+                type:
+                - 'null'
+              homeStatNetId:
+                type: string
+              homeTeam:
+                properties:
+                  alternateColorHex:
+                    type: string
+                  arenaAddress:
+                    type: string
+                  arenaLatitude:
+                    type: string
+                  arenaLongitude:
+                    type: string
+                  arenaTelephone:
+                    type:
+                    - 'null'
+                  clubMateLotteryUrl:
+                    type:
+                    - 'null'
+                  createdAt:
+                    type: string
+                  documentId:
+                    type: string
+                  id:
+                    type: integer
+                  logo:
+                    properties:
+                      alternativeText:
+                        type: string
+                      caption:
+                        type: string
+                      createdAt:
+                        type: string
+                      documentId:
+                        type: string
+                      ext:
+                        type: string
+                      focalPoint:
+                        type:
+                        - 'null'
+                      formats:
+                        properties:
+                          small:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          thumbnail:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                        type: object
+                      hash:
+                        type: string
+                      height:
+                        type: integer
+                      id:
+                        type: integer
+                      mime:
+                        type: string
+                      name:
+                        type: string
+                      previewUrl:
+                        type:
+                        - 'null'
+                      provider:
+                        type: string
+                      provider_metadata:
+                        type:
+                        - 'null'
+                      publishedAt:
+                        type: string
+                      size:
+                        type: number
+                      updatedAt:
+                        type: string
+                      url:
+                        type: string
+                      width:
+                        type: integer
+                    type: object
+                  mainColorHex:
+                    type: string
+                  name:
+                    type: string
+                  publishedAt:
+                    type: string
+                  shortName:
+                    type: string
+                  teamArena:
+                    type: string
+                  ticketsProviderUrl:
+                    type: string
+                  updatedAt:
+                    type: string
+                type: object
+              id:
+                type: integer
+              isCompleted:
+                type: boolean
+              playOffGame:
+                type:
+                - 'null'
+              playOffGameLevel:
+                type:
+                - 'null'
+              playedDateTime:
+                type: string
+              publishedAt:
+                type: string
+              round:
+                type: string
+              scheduledDateTime:
+                type: string
+              season:
+                type: string
+              slug:
+                type: string
+              statNetGameNumber:
+                type: string
+              updatedAt:
+                type: string
+              venue:
+                type: string
+            type: object
+          type: array
+        meta:
+          properties:
+            pagination:
+              properties:
+                page:
+                  type: integer
+                pageCount:
+                  type: integer
+                pageSize:
+                  type: integer
+                total:
+                  type: integer
+              type: object
+          type: object
+      type: object
+    ApiLeagueStandingsAllTime:
+      properties:
+        standings:
+          items:
+            properties:
+              games_played:
+                type: string
+              goal_difference:
+                type: string
+              goals:
+                type: string
+              goals_against:
+                type: string
+              losses:
+                type: string
+              overtime_losses:
+                type: string
+              overtime_wins:
+                type: string
+              penalty_kill_perc:
+                type: string
+              power_play_perc:
+                type: string
+              rank:
+                type: string
+              shootouts_losses:
+                type: string
+              shootouts_wins:
+                type: string
+              statNetClubLabel:
+                type: string
+              teamCode:
+                type: string
+              ties:
+                type: string
+              total_points:
+                type: string
+              wins:
+                type: string
+            type: object
+          type: array
+      type: object
+    ApiPlayByPlay:
+      properties:
+        game_events:
+          items:
+            properties:
+              EndTime:
+                type: string
+              Events:
+                items:
+                  properties:
+                    Assist1:
+                      properties:
+                        jerseyToday:
+                          type: string
+                        name:
+                          type: string
+                        seasonAssists:
+                          type: string
+                      type: object
+                    Assist2:
+                      properties:
+                        jerseyToday:
+                          type: string
+                        name:
+                          type: string
+                        seasonAssists:
+                          type: string
+                      type: object
+                    eventDescription:
+                      type: string
+                    isEntering:
+                      type: boolean
+                    isPenaltyShot:
+                      type: string
+                    player:
+                      properties:
+                        familyName:
+                          type: string
+                        firstName:
+                          type: string
+                        jerseyNumber:
+                          type: string
+                        statNetId:
+                          type: string
+                      type: object
+                    runningScore:
+                      type: string
+                    scorerSeasonGoals:
+                      type: string
+                    team:
+                      properties:
+                        code:
+                          type: string
+                        name:
+                          type: string
+                        statNetId:
+                          type: string
+                      type: object
+                    time:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              Finisehd:
+                type: boolean
+              Period:
+                type: string
+              StartTime:
+                type: string
+              period_label:
+                type: string
+            type: object
+          type: array
+        game_info:
+          properties:
+            decided_in:
+              type: string
+            game_finished:
+              type: boolean
+            game_finished_at:
+              type: string
+            game_time:
+              properties: {}
+              type: object
+          type: object
+      type: object
+    ApiPlayerLeaderboard:
+      properties:
+        page:
+          type: integer
+        players:
+          items:
+            properties:
+              familyName:
+                type: string
+              firstName:
+                type: string
+              headshot:
+                type: string
+              headshotMedium:
+                type: string
+              headshotSmall:
+                type: string
+              jerseyNumber:
+                type: integer
+              metric:
+                type: string
+              metricValue:
+                type: string
+              player:
+                type: string
+              playerStatNetId:
+                type: string
+              position:
+                type: string
+              rank:
+                type: integer
+              slug:
+                type: string
+              teamCode:
+                type: string
+              teamID:
+                type: string
+              teamLogo:
+                type: string
+              teamMainColor:
+                type: string
+              teamName:
+                type: string
+            type: object
+          type: array
+        totalCount:
+          type: integer
+        totalPages:
+          type: integer
+      type: object
+    Error:
+      properties:
+        error:
+          type: string
+      required:
+      - error
+      type: object
+    PagesMatcher:
+      properties:
+        displayMode:
+          type: string
+        gameActions:
+          properties:
+            in:
+              properties:
+                actions:
+                  items:
+                    properties:
+                      action:
+                        type: string
+                      actionLabel:
+                        type: string
+                      id:
+                        type: integer
+                    type: object
+                  type: array
+                pageTemplateDocumentId:
+                  type: string
+              type: object
+            post:
+              properties:
+                actions:
+                  items:
+                    properties:
+                      action:
+                        type: string
+                      actionLabel:
+                        type: string
+                      id:
+                        type: integer
+                    type: object
+                  type: array
+                pageTemplateDocumentId:
+                  type: string
+              type: object
+            pre:
+              properties:
+                actions:
+                  items:
+                    properties:
+                      action:
+                        type: string
+                      actionLabel:
+                        type: string
+                      id:
+                        type: integer
+                    type: object
+                  type: array
+                pageTemplateDocumentId:
+                  type: string
+              type: object
+          type: object
+        games:
+          items:
+            properties:
+              attendance:
+                type: string
+              awayOtScore:
+                type:
+                - 'null'
+              awayScore:
+                type: string
+              awayScoreP1:
+                type: string
+              awayScoreP2:
+                type: string
+              awayScoreP3:
+                type: string
+              awaySoScore:
+                type:
+                - 'null'
+              awayStatNetId:
+                type: string
+              awayTeam:
+                properties:
+                  alternateColorHex:
+                    type: string
+                  arenaAddress:
+                    type: string
+                  arenaLatitude:
+                    type: string
+                  arenaLongitude:
+                    type: string
+                  arenaTelephone:
+                    type:
+                    - 'null'
+                  clubMateLotteryUrl:
+                    type:
+                    - 'null'
+                  createdAt:
+                    type: string
+                  documentId:
+                    type: string
+                  id:
+                    type: integer
+                  logo:
+                    properties:
+                      alternativeText:
+                        type: string
+                      caption:
+                        type: string
+                      createdAt:
+                        type: string
+                      documentId:
+                        type: string
+                      ext:
+                        type: string
+                      focalPoint:
+                        type:
+                        - 'null'
+                      formats:
+                        properties:
+                          small:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          thumbnail:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                        type: object
+                      hash:
+                        type: string
+                      height:
+                        type: integer
+                      id:
+                        type: integer
+                      mime:
+                        type: string
+                      name:
+                        type: string
+                      previewUrl:
+                        type:
+                        - 'null'
+                      provider:
+                        type: string
+                      provider_metadata:
+                        type:
+                        - 'null'
+                      publishedAt:
+                        type: string
+                      size:
+                        type: number
+                      updatedAt:
+                        type: string
+                      url:
+                        type: string
+                      width:
+                        type: integer
+                    type: object
+                  mainColorHex:
+                    type: string
+                  name:
+                    type: string
+                  publishedAt:
+                    type: string
+                  shortName:
+                    type: string
+                  teamArena:
+                    type: string
+                  ticketsProviderUrl:
+                    type: string
+                  updatedAt:
+                    type: string
+                type: object
+              createdAt:
+                type: string
+              currentPeriod:
+                type: string
+              currentPeriodStart:
+                type:
+                - 'null'
+              decidedIn:
+                type: string
+              documentId:
+                type: string
+              endedDateTime:
+                type: string
+              gameType:
+                type: string
+              homeOtScore:
+                type:
+                - 'null'
+              homeScore:
+                type: string
+              homeScoreP1:
+                type: string
+              homeScoreP2:
+                type: string
+              homeScoreP3:
+                type: string
+              homeSoScore:
+                type:
+                - 'null'
+              homeStatNetId:
+                type: string
+              homeTeam:
+                properties:
+                  alternateColorHex:
+                    type: string
+                  arenaAddress:
+                    type: string
+                  arenaLatitude:
+                    type: string
+                  arenaLongitude:
+                    type: string
+                  arenaTelephone:
+                    type:
+                    - string
+                    - 'null'
+                  clubMateLotteryUrl:
+                    type:
+                    - 'null'
+                  createdAt:
+                    type: string
+                  documentId:
+                    type: string
+                  id:
+                    type: integer
+                  logo:
+                    properties:
+                      alternativeText:
+                        type: string
+                      caption:
+                        type: string
+                      createdAt:
+                        type: string
+                      documentId:
+                        type: string
+                      ext:
+                        type: string
+                      focalPoint:
+                        type:
+                        - 'null'
+                      formats:
+                        properties:
+                          small:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          thumbnail:
+                            properties:
+                              ext:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: integer
+                              mime:
+                                type: string
+                              name:
+                                type: string
+                              path:
+                                type:
+                                - 'null'
+                              size:
+                                type: number
+                              sizeInBytes:
+                                type: integer
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                        type: object
+                      hash:
+                        type: string
+                      height:
+                        type: integer
+                      id:
+                        type: integer
+                      mime:
+                        type: string
+                      name:
+                        type: string
+                      previewUrl:
+                        type:
+                        - 'null'
+                      provider:
+                        type: string
+                      provider_metadata:
+                        type:
+                        - 'null'
+                      publishedAt:
+                        type: string
+                      size:
+                        type: number
+                      updatedAt:
+                        type: string
+                      url:
+                        type: string
+                      width:
+                        type: integer
+                    type: object
+                  mainColorHex:
+                    type: string
+                  name:
+                    type: string
+                  publishedAt:
+                    type: string
+                  shortName:
+                    type: string
+                  teamArena:
+                    type: string
+                  ticketsProviderUrl:
+                    type: string
+                  updatedAt:
+                    type: string
+                type: object
+              id:
+                type: integer
+              isCompleted:
+                type: boolean
+              playOffGame:
+                type:
+                - 'null'
+              playOffGameLevel:
+                type:
+                - 'null'
+              playedDateTime:
+                type: string
+              publishedAt:
+                type: string
+              round:
+                type: string
+              scheduledDateTime:
+                type: string
+              season:
+                type: string
+              slug:
+                type: string
+              statNetGameNumber:
+                type: string
+              updatedAt:
+                type: string
+              venue:
+                type: string
+            type: object
+          type: array
+        mqttEnvironment:
+          type: string
+        pollStartBeforeGameMinutes:
+          type: integer
+        season:
+          type: string
+        session:
+          type:
+          - 'null'
+        team:
+          type:
+          - 'null'
+        tenantTeam:
+          type:
+          - 'null'
+      type: object
+info:
+  description: 'Sweden''s second tier (HockeyAllsvenskan, sdv prefix ha). Keyless Next.js API routes of
+    hockeyallsvenskan.se (www. 301s to the apex), backed by a Strapi CMS and StatNet; not the SHL API.
+    GET /api/game and the text/html /pages/matcher (game list embedded as JSON, see x-embedded-json);
+    every stats and play-by-play route is POST with a JSON body (see requestBody). Season keys are START
+    years (2025 = 2025/26; CMS season_2026 = 2026/27). Coverage: stats and standings 2005/06 onward; game
+    records and play-by-play 2025/26 onward. phase: HA regular season, HAPlayoff playoffs, HAkval playout.
+    No shot coordinates, no on-ice players; the stats tables carry names, not player ids, except player-leaderboard
+    (playerStatNetId). Wrong or missing `categories` answers 200 with zero rows. Shapes from captures
+    of 2026-10-12. Not official or supported.'
+  title: HockeyAllsvenskan (hockeyallsvenskan.se) site API
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /api/all-players:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing required
+        fields.'
+      operationId: api_all_players
+      requestBody:
+        content:
+          application/json:
+            example:
+              leagueShortName: HA
+              orderBy: familyName
+              page: 1
+              pageSize: 100
+              scope: league
+              searchQuery: ''
+              teamShortName: AIK
+            schema:
+              properties:
+                leagueShortName:
+                  description: League short name.
+                  enum:
+                  - HA
+                  type: string
+                orderBy:
+                  description: 'Sort: familyName (default), firstName. Other values (id, slug, jerseyNumber,
+                    bogus) fall back to familyName.'
+                  type: string
+                page:
+                  description: 1-based page number.
+                  type: integer
+                pageSize:
+                  description: Rows per page, capped at 100 (500 returns 100 rows).
+                  type: integer
+                scope:
+                  description: 'Directory scope: league (the site also sends team on club pages).'
+                  type: string
+                searchQuery:
+                  description: Free-text name search; empty = everyone.
+                  type: string
+                teamShortName:
+                  description: CMS team shortName (AIK, MORA, ÖIK, ...); null = every team. Filters whatever
+                    the scope.
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - scope
+              - orderBy
+              - page
+              - pageSize
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAllPlayers'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Missing required fields
+      summary: Player directory (CMS) with headshots, one team per call (league-wide paging is unstable)
+      x-pagination:
+        params:
+        - page
+        - pageSize
+        request: 'verified: pageSize is capped at 100. Page edges overlap and skip (unstable familyName
+          order): two walks of the 386-player league gave 389 rows (386 unique) and 384 unique. Filter
+          by teamShortName for complete single pages (drop-one probed 2026-10-12)'
+        response:
+        - pagination
+        style: page
+  /api/all-time-games-stats:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}.'
+      operationId: api_all_time_games_stats
+      requestBody:
+        content:
+          application/json:
+            example:
+              against_team: all
+              all_results: all
+              categories: all
+              decided_in: all
+              game_status: all
+              league: HA
+              page: 1
+              page_size: 1000
+              phase: HA
+              season: '2025'
+              team: all
+              team_side: all
+            schema:
+              properties:
+                against_team:
+                  description: 'Opponent filter: all, or one team (values not probed).'
+                  type: string
+                all_results:
+                  description: 'Game result filter: W win, T tie, L loss.'
+                  enum: &id001
+                  - all
+                  - W
+                  - T
+                  - L
+                  type: string
+                categories:
+                  description: Ignored by this route (same 364 games with or without it); the site sends
+                    all.
+                  type: string
+                decided_in:
+                  description: 'How the game was decided: ft full time, ot overtime, so shootout, wo walkover.'
+                  enum: &id002
+                  - all
+                  - ft
+                  - ot
+                  - so
+                  - wo
+                  type: string
+                game_status:
+                  description: Game status filter.
+                  enum: &id003
+                  - all
+                  - played
+                  type: string
+                is_last_games:
+                  description: true = the last N games (lastGames) instead of a season. Sent by the site's
+                    JS; not drop-probed.
+                  type: boolean
+                lastGames:
+                  description: N for is_last_games. Sent by the site's JS; not drop-probed.
+                  type: integer
+                league:
+                  description: League code (the site offers HA only).
+                  enum: &id004
+                  - HA
+                  type: string
+                page:
+                  description: 1-based page number.
+                  type: integer
+                page_size:
+                  description: Rows per page; 1000 returns a whole season in one page (total_pages = 1).
+                  type: integer
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: &id005
+                  - HA
+                  - HAPlayoff
+                  - HAkval
+                  type: string
+                season:
+                  description: 'Season START year as a string: 2025 = 2025/26. Earliest 2005 (2004 answers
+                    zero rows).'
+                  type: string
+                sort_by:
+                  description: 'Sort column; valid values are the response''s sort_by_options. Sent by
+                    the site''s JS; not drop-probed. Captured options for the sampled category: Attendance,
+                    AwayTeam, Date, HomeTeam.'
+                  type: string
+                sort_direction:
+                  description: Sort direction. Sent by the site's JS; not drop-probed.
+                  enum: &id006
+                  - asc
+                  - desc
+                  type: string
+                team:
+                  description: 'Team filter: all, or one team from the site''s league-teams filter list
+                    (values not probed).'
+                  type: string
+                team_side:
+                  description: Home / away split.
+                  enum: &id007
+                  - all
+                  - home
+                  - away
+                  type: string
+              required: []
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAllTimeGamesStats'
+          description: OK
+      summary: 'Game results of a season: score, periods, arena, attendance, team shots/power play'
+      x-pagination:
+        params:
+        - page
+        - page_size
+        request: 'verified: page=2&page_size=3 returns the next three games; page_size=1000 returns a
+          whole season (total_pages = 1) (drop-one probed 2026-10-12)'
+        response:
+        - count
+        - page
+        - page_size
+        - total_pages
+        style: page
+  /api/all-time-goalkeepers-stats:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}.'
+      operationId: api_all_time_goalkeepers_stats
+      requestBody:
+        content:
+          application/json:
+            example:
+              against_team: all
+              all_results: all
+              categories: summary
+              decided_in: all
+              game_status: all
+              league: HA
+              page: 1
+              page_size: 1000
+              phase: HA
+              season: '2025'
+              team: all
+              team_side: all
+            schema:
+              properties:
+                against_team:
+                  description: 'Opponent filter: all, or one team (values not probed).'
+                  type: string
+                all_results:
+                  description: 'Game result filter: W win, T tie, L loss.'
+                  enum: *id001
+                  type: string
+                categories:
+                  description: Stats category (column set). Default summary. A value outside this list
+                    answers 200 with zero rows.
+                  enum:
+                  - summary
+                  - results
+                  - game_strength
+                  - defensive
+                  - shootouts
+                  type: string
+                decided_in:
+                  description: 'How the game was decided: ft full time, ot overtime, so shootout, wo walkover.'
+                  enum: *id002
+                  type: string
+                game_status:
+                  description: Game status filter.
+                  enum: *id003
+                  type: string
+                is_last_games:
+                  description: true = the last N games (lastGames) instead of a season. Sent by the site's
+                    JS; not drop-probed.
+                  type: boolean
+                lastGames:
+                  description: N for is_last_games. Sent by the site's JS; not drop-probed.
+                  type: integer
+                league:
+                  description: League code (the site offers HA only).
+                  enum: *id004
+                  type: string
+                page:
+                  description: 1-based page number.
+                  type: integer
+                page_size:
+                  description: Rows per page; 1000 returns a whole season in one page (total_pages = 1).
+                  type: integer
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: *id005
+                  type: string
+                season:
+                  description: 'Season START year as a string: 2025 = 2025/26. Earliest 2005 (2004 answers
+                    zero rows).'
+                  type: string
+                sort_by:
+                  description: 'Sort column; valid values are the response''s sort_by_options. Sent by
+                    the site''s JS; not drop-probed. Captured options for the sampled category: GA, GAA,
+                    GP, GPI, L, MIP, SO, SVS, SVS_perc, T, W.'
+                  type: string
+                sort_direction:
+                  description: Sort direction. Sent by the site's JS; not drop-probed.
+                  enum: *id006
+                  type: string
+                team:
+                  description: 'Team filter: all, or one team from the site''s league-teams filter list
+                    (values not probed).'
+                  type: string
+                team_side:
+                  description: Home / away split.
+                  enum: *id007
+                  type: string
+              required: []
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAllTimeGoalkeepersStats'
+          description: OK
+      summary: Goalkeeper stats table of a season (names, no player ids)
+      x-pagination:
+        params:
+        - page
+        - page_size
+        request: page_size=1000 returns a whole season (total_pages = 1); page= as on the games table
+          (drop-one probed 2026-10-12)
+        response:
+        - count
+        - page
+        - page_size
+        - total_pages
+        style: page
+  /api/all-time-skaters-stats:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}.'
+      operationId: api_all_time_skaters_stats
+      requestBody:
+        content:
+          application/json:
+            example:
+              against_team: all
+              ages: all
+              all_results: all
+              categories: summary
+              decided_in: all
+              game_status: all
+              league: HA
+              page: 1
+              page_size: 1000
+              phase: HA
+              position: all
+              season: '2025'
+              team: all
+              team_side: all
+            schema:
+              properties:
+                against_team:
+                  description: 'Opponent filter: all, or one team (values not probed).'
+                  type: string
+                ages:
+                  description: Age-group filter.
+                  enum:
+                  - all
+                  - junior
+                  - rookie
+                  type: string
+                all_results:
+                  description: 'Game result filter: W win, T tie, L loss.'
+                  enum: *id001
+                  type: string
+                categories:
+                  description: Stats category (column set). Default summary. A value outside this list
+                    answers 200 with zero rows.
+                  enum:
+                  - summary
+                  - points
+                  - goals
+                  - time_on_ice
+                  - power_play
+                  - penalty_kill
+                  - equal_strength
+                  - penalties
+                  - plus_minus
+                  - faceoffs
+                  - offensive
+                  - defensive
+                  - shootouts
+                  - corsi_fenwick_pdo
+                  type: string
+                decided_in:
+                  description: 'How the game was decided: ft full time, ot overtime, so shootout, wo walkover.'
+                  enum: *id002
+                  type: string
+                game_status:
+                  description: Game status filter.
+                  enum: *id003
+                  type: string
+                is_last_games:
+                  description: true = the last N games (lastGames) instead of a season. Sent by the site's
+                    JS; not drop-probed.
+                  type: boolean
+                lastGames:
+                  description: N for is_last_games. Sent by the site's JS; not drop-probed.
+                  type: integer
+                league:
+                  description: League code (the site offers HA only).
+                  enum: *id004
+                  type: string
+                page:
+                  description: 1-based page number.
+                  type: integer
+                page_size:
+                  description: Rows per page; 1000 returns a whole season in one page (total_pages = 1).
+                  type: integer
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: *id005
+                  type: string
+                position:
+                  description: Skater position filter (back = defence).
+                  enum:
+                  - all
+                  - forward
+                  - back
+                  - goalkeeper
+                  type: string
+                season:
+                  description: 'Season START year as a string: 2025 = 2025/26. Earliest 2005 (2004 answers
+                    zero rows).'
+                  type: string
+                sort_by:
+                  description: 'Sort column; valid values are the response''s sort_by_options. Sent by
+                    the site''s JS; not drop-probed. Captured options for the sampled category: A, BKS,
+                    G, GP, GWG, Hits, Minus, PIM, PPG, Plus, PlusMinus, SOG, TOI_GP, TP.'
+                  type: string
+                sort_direction:
+                  description: Sort direction. Sent by the site's JS; not drop-probed.
+                  enum: *id006
+                  type: string
+                team:
+                  description: 'Team filter: all, or one team from the site''s league-teams filter list
+                    (values not probed).'
+                  type: string
+                team_side:
+                  description: Home / away split.
+                  enum: *id007
+                  type: string
+              required: []
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAllTimeSkatersStats'
+          description: OK
+      summary: Skater stats table of a season (names, no player ids)
+      x-pagination:
+        params:
+        - page
+        - page_size
+        request: page_size=1000 returns a whole season (total_pages = 1); page= as on the games table
+          (drop-one probed 2026-10-12)
+        response:
+        - count
+        - page
+        - page_size
+        - total_pages
+        style: page
+  /api/all-time-teams-stats:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing required
+        fields: <field>; Either season or is_last_games must be provided.'
+      operationId: api_all_time_teams_stats
+      requestBody:
+        content:
+          application/json:
+            example:
+              against_team: all
+              all_results: all
+              categories: results
+              decided_in: all
+              game_status: all
+              league: HA
+              phase: HA
+              season: '2025'
+              team: all
+              team_side: all
+            schema:
+              properties:
+                against_team:
+                  description: 'Opponent filter: all, or one team (values not probed).'
+                  type: string
+                all_results:
+                  description: 'Game result filter: W win, T tie, L loss.'
+                  enum: *id001
+                  type: string
+                categories:
+                  description: Stats category (column set). Default results. A value outside this list
+                    answers 200 with zero rows.
+                  enum:
+                  - results
+                  - goals
+                  - power_play
+                  - penalty_kill
+                  - penalties
+                  - offensive
+                  - defensive
+                  - faceoffs
+                  - shootouts
+                  - corsi_fenwick_pdo
+                  - stoppage_reasons
+                  - attendance
+                  type: string
+                decided_in:
+                  description: 'How the game was decided: ft full time, ot overtime, so shootout, wo walkover.'
+                  enum: *id002
+                  type: string
+                game_status:
+                  description: Game status filter.
+                  enum: *id003
+                  type: string
+                is_last_games:
+                  description: true = the last N games (lastGames) instead of a season. Sent by the site's
+                    JS; not drop-probed.
+                  type: boolean
+                lastGames:
+                  description: N for is_last_games. Sent by the site's JS; not drop-probed.
+                  type: integer
+                league:
+                  description: League code (the site offers HA only).
+                  enum: *id004
+                  type: string
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: *id005
+                  type: string
+                season:
+                  description: 'Season START year as a string: 2025 = 2025/26. Earliest 2005 (2004 answers
+                    zero rows).'
+                  type: string
+                sort_by:
+                  description: 'Sort column; valid values are the response''s sort_by_options. Sent by
+                    the site''s JS; not drop-probed. Captured options for the sampled category: G, GA,
+                    GAPG, GFG, GP, GPG, L, Leading, OTL, OTW, P_GP, Points, SOL, SOW, Trailing, W.'
+                  type: string
+                sort_direction:
+                  description: Sort direction. Sent by the site's JS; not drop-probed.
+                  enum: *id006
+                  type: string
+                team:
+                  description: 'Team filter: all, or one team from the site''s league-teams filter list
+                    (values not probed).'
+                  type: string
+                team_side:
+                  description: Home / away split.
+                  enum: *id007
+                  type: string
+              required:
+              - league
+              - phase
+              - season
+              - team_side
+              - team
+              - against_team
+              - all_results
+              - categories
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAllTimeTeamsStats'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Missing required fields: <field>; Either season or is_last_games must be provided'
+      summary: Team stats table of a season, one category at a time
+  /api/game:
+    get:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing slug parameter.'
+      operationId: api_game
+      parameters:
+      - description: 'Game slug yyyymmdd-home-away from the /pages/matcher list (lower-case CMS short
+          names). Omitted: 400 Missing slug parameter (drop-one probed 2026-10-12).'
+        example: 20260918-aik-modo
+        in: query
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiGame'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Missing slug parameter
+      summary: One game record (Strapi) by slug yyyymmdd-home-away
+  /api/league-standings-all-time:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing league
+        or season. Also sampled: season 2005 (season-scope proof).'
+      operationId: api_league_standings_all_time
+      requestBody:
+        content:
+          application/json:
+            example:
+              league: HA
+              location: all
+              phase: HA
+              season: '2025'
+            schema:
+              properties:
+                league:
+                  description: League code (the site offers HA only).
+                  enum: *id004
+                  type: string
+                location:
+                  description: 'Home / away standings split (ignored when omitted: same 14 rows).'
+                  enum:
+                  - all
+                  - home
+                  - away
+                  type: string
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: *id005
+                  type: string
+                season:
+                  description: 'Season START year as a string: 2025 = 2025/26. Earliest 2005 (2004 answers
+                    zero rows).'
+                  type: string
+              required:
+              - league
+              - season
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiLeagueStandingsAllTime'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Missing league or season
+      summary: Standings of a season
+  /api/play-by-play:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing required
+        fields: statNetGameNumber, homeStatNetId, awayStatNetId; StatNet API error: 400 (no scheduledDateTime);
+        StatNet API error: 404 (unknown game, HTTP 404).'
+      operationId: api_play_by_play
+      requestBody:
+        content:
+          application/json:
+            example:
+              awayStatNetId: MODO
+              homeStatNetId: AIK
+              playedDateTime: '2026-09-18T17:00:00.000Z'
+              scheduledDateTime: '2026-09-18T17:00:00.000Z'
+              statNetGameNumber: '23401'
+            schema:
+              properties:
+                awayStatNetId:
+                  description: StatNet team id of the away team (CMS game `awayStatNetId`, e.g. MODO).
+                  type: string
+                homeStatNetId:
+                  description: StatNet team id of the home team (CMS game `homeStatNetId`, e.g. AIK).
+                  type: string
+                playedDateTime:
+                  description: 'CMS game `playedDateTime` (ISO 8601 UTC). Optional: the same 113 events
+                    without it.'
+                  format: date-time
+                  type: string
+                scheduledDateTime:
+                  description: 'CMS game `scheduledDateTime` (ISO 8601 UTC). Required in practice: without
+                    it StatNet answers 400.'
+                  format: date-time
+                  type: string
+                statNetGameNumber:
+                  description: StatNet game number (CMS game `statNetGameNumber`, e.g. 23401 = 2026/27
+                    game 1; 22401 = 2025/26 game 1).
+                  type: string
+              required:
+              - statNetGameNumber
+              - homeStatNetId
+              - awayStatNetId
+              - scheduledDateTime
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiPlayByPlay'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Missing required fields: statNetGameNumber, homeStatNetId, awayStatNetId; StatNet
+            API error: 400 (no scheduledDateTime); StatNet API error: 404 (unknown game, HTTP 404)'
+      summary: Play-by-play events of one game (StatNet), 2025/26 onward
+  /api/player-leaderboard:
+    post:
+      description: 'Errors are application/json {"error": "<message>"}; observed 400s: Missing required
+        fields: league, phase, metric.'
+      operationId: api_player_leaderboard
+      requestBody:
+        content:
+          application/json:
+            example:
+              isGoalkeeper: false
+              league: HA
+              metric: TP
+              page: 1
+              pageSize: 100
+              phase: HA
+              team: null
+            schema:
+              properties:
+                isGoalkeeper:
+                  description: true for a goalkeeper metric.
+                  type: boolean
+                league:
+                  description: League code (the site offers HA only).
+                  enum: *id004
+                  type: string
+                metric:
+                  description: 'Leaderboard metric. Observed on the site''s cards: TP, G, A, PlusMinus,
+                    Hits, FOPerc, TOI/GP (skaters); goalie metric names not observed.'
+                  type: string
+                page:
+                  description: 1-based page number.
+                  type: integer
+                pageSize:
+                  description: Rows per page. The board holds the top 25 only (totalCount = 25), so 100
+                    returns it whole.
+                  type: integer
+                phase:
+                  description: 'Game type: HA = regular season, HAPlayoff = playoffs, HAkval = playout
+                    (relegation series).'
+                  enum: *id005
+                  type: string
+                team:
+                  description: Team filter; null = the whole league.
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - league
+              - phase
+              - metric
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiPlayerLeaderboard'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Missing required fields: league, phase, metric'
+      summary: Current-season top-25 leaders of one metric, with playerStatNetId
+      x-pagination:
+        params:
+        - page
+        - pageSize
+        request: 'verified: pageSize=100 returns the whole top 25 (totalPages = 1) (drop-one probed 2026-10-12)'
+        response:
+        - totalCount
+        - totalPages
+        - page
+        style: page
+  /pages/matcher:
+    get:
+      description: Server-rendered text/html (~1.8 MB). The current season's game list (slug, statNetGameNumber,
+        StatNet team ids) is embedded in the React Server Components flight data; extract it per x-embedded-json.
+      operationId: pages_matcher
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-embedded-json:
+                element: games.game-calendar-<n>-<m> (the props object of that RSC element)
+                extract: re.findall(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)') -> json.loads
+                  each literal -> concatenate in document order -> re.search(r'"(games\.game-calendar-[^"]*)",')
+                  -> json.JSONDecoder().raw_decode(text, match.end()) -> props; props.games is the list
+                schema:
+                  $ref: '#/components/schemas/PagesMatcher'
+                source: 'React Server Components flight data: the JSON-encoded string argument of every
+                  self.__next_f.push([1, "..."]) script call'
+          description: Schedule page (HTML) with the game list embedded in the RSC flight data
+      summary: Schedule page (text/html); the current-season game list is embedded in the RSC flight data
+servers:
+- url: https://hockeyallsvenskan.se
