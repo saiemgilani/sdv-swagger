@@ -1,0 +1,1205 @@
+components:
+  schemas:
+    ListBucketResult:
+      properties:
+        Contents:
+          items:
+            properties:
+              ChecksumAlgorithm:
+                type: string
+              ChecksumType:
+                type: string
+              ETag:
+                type: string
+              Key:
+                type: string
+              LastModified:
+                type: string
+              Size:
+                type: integer
+              StorageClass:
+                type: string
+            type: object
+          type: array
+        IsTruncated:
+          type: boolean
+        Marker:
+          type: string
+        MaxKeys:
+          type: integer
+        Name:
+          type: string
+        Prefix:
+          type: string
+      type: object
+      xml:
+        name: ListBucketResult
+        namespace: http://s3.amazonaws.com/doc/2006-03-01/
+    MatchSeasonFullMatchId:
+      properties:
+        comments:
+          properties:
+            comment:
+              items:
+                properties:
+                  '@attributes':
+                    properties:
+                      country_code:
+                        type: string
+                      external_id:
+                        type: string
+                      id:
+                        type: string
+                      label:
+                        type: string
+                      label2:
+                        type: string
+                      last_change:
+                        type: string
+                      order:
+                        type: string
+                      relates_to:
+                        type: string
+                      score1:
+                        type: string
+                      score2:
+                        type: string
+                      shootout_score1:
+                        type: string
+                      shootout_score2:
+                        type: string
+                      type:
+                        type: string
+                      written:
+                        type: string
+                    type: object
+                  details:
+                    items: {}
+                    properties:
+                      detail:
+                        properties:
+                          '@attributes':
+                            properties:
+                              id:
+                                type: string
+                            type: object
+                          opponent:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                            type: object
+                          player1:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  no_assist:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                              penalties:
+                                properties:
+                                  penalty:
+                                    properties:
+                                      '@attributes':
+                                        properties:
+                                          length:
+                                            type: string
+                                          offense:
+                                            type: string
+                                        type: object
+                                    type: object
+                                type: object
+                            type: object
+                          player2:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                            type: object
+                          player3:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                            type: object
+                        type: object
+                      on_field:
+                        properties:
+                          '@attributes':
+                            properties:
+                              balance:
+                                type: string
+                            type: object
+                          opponent1:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                              player1:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player2:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player3:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player4:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player5:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player6:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                            type: object
+                          opponent2:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                              player1:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player2:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player3:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player4:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player5:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player6:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                            type: object
+                        type: object
+                    type:
+                    - array
+                    - object
+                  message:
+                    type: string
+                  time:
+                    properties:
+                      '@attributes':
+                        properties:
+                          period:
+                            type: string
+                        type: object
+                    type:
+                    - object
+                    - string
+                  title:
+                    items: {}
+                    type: array
+                type: object
+              type: array
+          type: object
+      type: object
+    MatchSeasonMobileMatchId:
+      properties:
+        commentEvents:
+          items:
+            properties:
+              content:
+                type: string
+              id:
+                type: integer
+              time:
+                type: integer
+              type:
+                type: string
+            type: object
+          type: array
+      type: object
+    MatchSeasonShortMatchId:
+      properties:
+        comments:
+          properties:
+            comment:
+              items:
+                properties:
+                  '@attributes':
+                    properties:
+                      country_code:
+                        type: string
+                      external_id:
+                        type: string
+                      id:
+                        type: string
+                      label:
+                        type: string
+                      label2:
+                        type: string
+                      last_change:
+                        type: string
+                      order:
+                        type: string
+                      relates_to:
+                        type: string
+                      score1:
+                        type: string
+                      score2:
+                        type: string
+                      shootout_score1:
+                        type: string
+                      shootout_score2:
+                        type: string
+                      type:
+                        type: string
+                      written:
+                        type: string
+                    type: object
+                  details:
+                    items: {}
+                    properties:
+                      detail:
+                        properties:
+                          '@attributes':
+                            properties:
+                              id:
+                                type: string
+                            type: object
+                          opponent:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                            type: object
+                          player1:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  no_assist:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                            type: object
+                          player2:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                            type: object
+                          player3:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  firstname:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  surname:
+                                    type: string
+                                type: object
+                            type: object
+                        type: object
+                      on_field:
+                        properties:
+                          '@attributes':
+                            properties:
+                              balance:
+                                type: string
+                            type: object
+                          opponent1:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                              player1:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player2:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player3:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player4:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player5:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player6:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                            type: object
+                          opponent2:
+                            properties:
+                              '@attributes':
+                                properties:
+                                  code:
+                                    type: string
+                                  global_id:
+                                    type: string
+                                  id:
+                                    type: string
+                                type: object
+                              player1:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player2:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player3:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player4:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player5:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                              player6:
+                                properties:
+                                  '@attributes':
+                                    properties:
+                                      global_id:
+                                        type: string
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                    type: object
+                                type: object
+                            type: object
+                        type: object
+                    type:
+                    - array
+                    - object
+                  message:
+                    type: string
+                  time:
+                    properties:
+                      '@attributes':
+                        properties:
+                          period:
+                            type: string
+                        type: object
+                    type:
+                    - object
+                    - string
+                  title:
+                    items: {}
+                    type: array
+                type: object
+              type: array
+          type: object
+      type: object
+    ScoreboardDate:
+      additionalProperties:
+        properties:
+          league_name:
+            type: string
+          matches:
+            items:
+              properties:
+                bets:
+                  properties:
+                    chance:
+                      properties:
+                        away_win:
+                          type: number
+                        draw:
+                          type: number
+                        home_win:
+                          type: number
+                        link:
+                          type: string
+                      type: object
+                    fortuna:
+                      properties:
+                        away_win:
+                          type:
+                          - 'null'
+                        draw:
+                          type:
+                          - 'null'
+                        home_win:
+                          type:
+                          - 'null'
+                      type: object
+                    sazkabet:
+                      properties:
+                        away_win:
+                          type:
+                          - 'null'
+                        draw:
+                          type:
+                          - 'null'
+                        home_win:
+                          type:
+                          - 'null'
+                        link:
+                          type:
+                          - 'null'
+                      type: object
+                    tipsport:
+                      properties:
+                        away_win:
+                          type: number
+                        draw:
+                          type: number
+                        home_win:
+                          type: number
+                        link:
+                          type: string
+                        link_away_win:
+                          type: string
+                        link_draw:
+                          type: string
+                        link_home_win:
+                          type: string
+                        tid:
+                          type: integer
+                      type: object
+                  type: object
+                date:
+                  type: string
+                hokejcz_id:
+                  type: integer
+                home:
+                  properties:
+                    hokejcz_id:
+                      type: integer
+                    name:
+                      type: string
+                    onlajny_id:
+                      type: integer
+                    short_name:
+                      type: string
+                    shortcut:
+                      type: string
+                  type: object
+                match_actual_time_alias:
+                  type: string
+                match_actual_time_name:
+                  type: string
+                match_status:
+                  type: string
+                onlajny_id:
+                  type: integer
+                score_home:
+                  type: integer
+                score_periods:
+                  items:
+                    type: string
+                  type: array
+                score_visitor:
+                  type: integer
+                stream_url:
+                  type: string
+                time:
+                  type: string
+                visitor:
+                  properties:
+                    hokejcz_id:
+                      type: integer
+                    name:
+                      type: string
+                    onlajny_id:
+                      type: integer
+                    short_name:
+                      type: string
+                    shortcut:
+                      type: string
+                  type: object
+              type: object
+            type: array
+        type: object
+      type: object
+    VisualizationEventsMatchId:
+      properties:
+        home:
+          properties:
+            goals:
+              items:
+                properties:
+                  assistants:
+                    type: string
+                  matchTime:
+                    type: integer
+                  scorer:
+                    type: string
+                  time:
+                    type: string
+                type: object
+              type: array
+            powerplay:
+              items: {}
+              type: array
+            score:
+              type: integer
+            shots:
+              additionalProperties:
+                type: integer
+              type: object
+            shotsOnGoal:
+              additionalProperties:
+                type: integer
+              type: object
+            teamName:
+              type: string
+          type: object
+        startDate:
+          type: string
+        visitor:
+          properties:
+            goals:
+              items: {}
+              type: array
+            powerplay:
+              additionalProperties:
+                properties:
+                  end:
+                    type: number
+                  start:
+                    type: number
+                type: object
+              type: object
+            score:
+              type: integer
+            shots:
+              additionalProperties:
+                type: integer
+              type: object
+            shotsOnGoal:
+              additionalProperties:
+                type: integer
+              type: object
+            teamName:
+              type: string
+          type: object
+      type: object
+    VisualizationShotsMatchId:
+      properties:
+        match:
+          properties:
+            date:
+              type: string
+            faceoffs:
+              properties:
+                home:
+                  items:
+                    type: number
+                  type: array
+                visitor:
+                  items:
+                    type: number
+                  type: array
+              type: object
+            home_id:
+              type: integer
+            home_name:
+              type: string
+            home_shortcut:
+              type: string
+            id:
+              type: string
+            shots:
+              items:
+                properties:
+                  coordinate_x:
+                    type:
+                    - integer
+                    - number
+                  coordinate_y:
+                    type:
+                    - integer
+                    - number
+                  first_name:
+                    type: string
+                  id:
+                    type: integer
+                  jersey:
+                    type: integer
+                  last_name:
+                    type: string
+                  match_shot_resutl_id:
+                    type: integer
+                  player_id:
+                    type: integer
+                  real_date:
+                    type: string
+                  team_id:
+                    type: integer
+                  time:
+                    type: integer
+                type: object
+              type: array
+            visitor_id:
+              type: integer
+            visitor_name:
+              type: string
+            visitor_shortcut:
+              type: string
+          type: object
+      type: object
+info:
+  description: 'Keyless JSON behind hokej.cz for the Czech Tipsport Extraliga (ELH): the public, listable
+    S3 bucket `hokej.cz` (play-by-play, shots with coordinates, per-minute shot counts) and the json.esports.cz
+    scoreboard (the hokejcz_id <-> onlajny_id map). ID TRAP: play-by-play uses onlajny ids (player `id`
+    and `global_id` differ), shots use hokej.cz ids; see hokejcz-returns.md. Shapes from committed captures
+    (2026-10-12; one completed 2026-27 game, one 2016-17 game) in hokejcz/captures/. Season key = START
+    year. Not official or supported.'
+  title: hokej.cz S3 bucket + eSports scoreboard (Czech Tipsport Extraliga)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /:
+    get:
+      description: 'Captured for: 2026-27.'
+      operationId: list_objects
+      parameters:
+      - description: Key prefix, e.g. `match/2026/full/` or `visualization/shots/`.
+        example: match/2026/full/
+        in: query
+        name: prefix
+        required: false
+        schema:
+          type: string
+      - description: '`/` groups keys below the next slash into CommonPrefixes (folder view).'
+        in: query
+        name: delimiter
+        required: false
+        schema:
+          type: string
+      - description: 'ListObjects V1 paging: the last `Key` of the previous page; repeat until `IsTruncated`
+          is false (V1 sends `NextMarker` only with a delimiter).'
+        in: query
+        name: marker
+        required: false
+        schema:
+          type: string
+      - description: Page size, at most 1000 (the default).
+        example: '3'
+        in: query
+        name: max-keys
+        required: false
+        schema:
+          type: string
+      - description: '`2` switches to ListObjectsV2 (`KeyCount`, `NextContinuationToken`); omitted = V1
+          as documented here.'
+        in: query
+        name: list-type
+        required: false
+        schema:
+          type: string
+      - description: 'V2 only (`list-type=2`): `NextContinuationToken` of the previous page.'
+        in: query
+        name: continuation-token
+        required: false
+        schema:
+          type: string
+      - description: 'V2 only (`list-type=2`): list keys after this key.'
+        in: query
+        name: start-after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListBucketResult'
+          description: OK
+        '404':
+          description: S3 error XML.
+      summary: List keys (S3 ListObjects V1 XML)
+      x-pagination:
+        request: marker = the last Contents[].Key of the previous page (V1); at most 1000 keys per page.
+          The capture holds the first page only (max-keys=3).
+        response:
+        - IsTruncated
+        - Contents[].Key
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+  /match/{season}/full/{match_id}.json:
+    get:
+      description: 'Captured for: 2026-27, 2016-17.'
+      operationId: match_season_full_match_id
+      parameters:
+      - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
+          one stray object, so play-by-play starts in 2014-15. Examples: 2026 (2026-27), 2016 (2016-17).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
+          The bucket also holds other competitions'' games, so an id alone does not tell the league. Examples:
+          2928321 (2026-27), 2508598 (2016-17).'
+        example: '2928321'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchSeasonFullMatchId'
+          description: OK
+        '404':
+          description: 'S3 NoSuchKey XML: no such key (a game without that file).'
+      summary: Play-by-play commentary, every entry (goal/penalty details, on-ice players)
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+  /match/{season}/mobile/{match_id}.json:
+    get:
+      description: 'Captured for: 2026-27, 2016-17.'
+      operationId: match_season_mobile_match_id
+      parameters:
+      - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
+          one stray object, so play-by-play starts in 2014-15. Examples: 2026 (2026-27), 2016 (2016-17).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
+          The bucket also holds other competitions'' games, so an id alone does not tell the league. Examples:
+          2928321 (2026-27), 2508598 (2016-17).'
+        example: '2928321'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchSeasonMobileMatchId'
+          description: OK
+        '404':
+          description: 'S3 NoSuchKey XML: no such key (a game without that file).'
+      summary: Play-by-play commentary, flat mobile form (no structured details)
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+  /match/{season}/short/{match_id}.json:
+    get:
+      description: 'Captured for: 2026-27, 2016-17.'
+      operationId: match_season_short_match_id
+      parameters:
+      - description: 'Season folder = START year (2026 = 2026-27). Folders 2013-2026; `match/2013/` holds
+          one stray object, so play-by-play starts in 2014-15. Examples: 2026 (2026-27), 2016 (2016-17).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
+          The bucket also holds other competitions'' games, so an id alone does not tell the league. Examples:
+          2928321 (2026-27), 2508598 (2016-17).'
+        example: '2928321'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchSeasonShortMatchId'
+          description: OK
+        '404':
+          description: 'S3 NoSuchKey XML: no such key (a game without that file).'
+      summary: Play-by-play commentary, latest 20 entries (same shape as full)
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+  /scoreboard/{date}.json:
+    get:
+      description: 'Captured for: 2026-27.'
+      operationId: scoreboard_date
+      parameters:
+      - description: 'Day `YYYY-MM-DD`. Rolling window: on 2026-10-12, 2026-09-20 to 2026-10-11 answered;
+          2026-09-01, 2026-10-12 (same day) and 2024-01-05 answered 404 text/html. Examples: 2026-10-11
+          (2026-27).'
+        example: '2026-10-11'
+        in: path
+        name: date
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreboardDate'
+          description: OK
+        '404':
+          description: 'text/html: the day is outside the rolling window.'
+      summary: 'Scoreboard of one day: every league, hokejcz_id <-> onlajny_id for games and teams'
+    servers:
+    - description: eSports Media scoreboard JSON (rolling window of recent days).
+      url: https://json.esports.cz/hokejcz
+  /visualization/events/{match_id}.json:
+    get:
+      description: 'Captured for: 2026-27.'
+      operationId: visualization_events_match_id
+      parameters:
+      - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
+          The bucket also holds other competitions'' games, so an id alone does not tell the league. Examples:
+          2928321 (2026-27).'
+        example: '2928321'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisualizationEventsMatchId'
+          description: OK
+        '404':
+          description: 'S3 NoSuchKey XML: no such key (a game without that file).'
+      summary: Per-minute cumulative shots and shots on goal, goals, power plays
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+  /visualization/shots/{match_id}.json:
+    get:
+      description: 'Captured for: 2026-27, 2016-17.'
+      operationId: visualization_shots_match_id
+      parameters:
+      - description: 'hokej.cz game id (scoreboard `hokejcz_id`), not the onlajny game id (`onlajny_id`).
+          The bucket also holds other competitions'' games, so an id alone does not tell the league. Examples:
+          2928321 (2026-27), 2508598 (2016-17).'
+        example: '2928321'
+        in: path
+        name: match_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisualizationShotsMatchId'
+          description: OK
+        '404':
+          description: 'S3 NoSuchKey XML: no such key (a game without that file).'
+      summary: Shots with rink coordinates, plus faceoff win % by period
+    servers:
+    - description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+      url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+servers:
+- description: Public, anonymously listable S3 bucket behind hokej.cz (eSports Media / APK LH data).
+  url: https://s3-eu-west-1.amazonaws.com/hokej.cz
+- description: eSports Media scoreboard JSON (rolling window of recent days).
+  url: https://json.esports.cz/hokejcz
