@@ -1,6 +1,8 @@
 components:
   schemas:
     FebBoxScore:
+      description: 'LiveStats envelope of /BoxScore/{gameId}: HEADER, TICKER and BOXSCORE filled (per-player
+        rows, team TOTAL and TEAMACTIONS per side); the other 7 blocks null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
@@ -58,12 +60,10 @@ components:
                           description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
                           type: string
                         min:
-                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
-                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26).'
                           type: string
                         minFormatted:
-                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
-                            ''200:00'').'
+                          description: Time played as 'mm:ss'.
                           type: string
                         mt:
                           description: Dunks (mates, page column MT; integer as a string).
@@ -178,16 +178,16 @@ components:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                         x-unobserved: true
                       fga:
-                        description: Field goals attempted, 2PT + 3PT (integer as a string). Team-credited
-                          (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0''): field goals attempted
+                          are not credited to the team block. Ignore.'
                         type: string
                       fgm:
-                        description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
-                          Team-credited (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0''): field goals made are
+                          not credited to the team block. Ignore.'
                         type: string
                       fgp:
-                        description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
-                          Team-credited (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0,0''): the block carries
+                          no shooting, so this is not a real field-goal percentage. Ignore.'
                         type: string
                       fouls:
                         description: Team fouls committed (integer as a string; equals pf on the samples).
@@ -212,8 +212,8 @@ components:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                         x-unobserved: true
                       minFormatted:
-                        description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').
-                          Team-credited (TEAMACTIONS block).'
+                        description: Constant PLACEHOLDER in every sample ('0:00'); the block has no playing
+                          time. Ignore.
                         type: string
                       mt:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -231,8 +231,8 @@ components:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                         x-unobserved: true
                       p1p:
-                        description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA ('77,3');
-                          '0,0' when no attempts. Team-credited (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0,0''): the block carries
+                          no shooting, so this is not a real free-throw percentage. Ignore.'
                         type: string
                       p2a:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -241,8 +241,8 @@ components:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                         x-unobserved: true
                       p2p:
-                        description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
-                          Team-credited (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0,0''): the block carries
+                          no shooting, so this is not a real two-point percentage. Ignore.'
                         type: string
                       p3a:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -251,8 +251,8 @@ components:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                         x-unobserved: true
                       p3p:
-                        description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
-                          Team-credited (TEAMACTIONS block).
+                        description: 'Constant PLACEHOLDER in every sample (''0,0''): the block carries
+                          no shooting, so this is not a real three-point percentage. Ignore.'
                         type: string
                       paint:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -362,11 +362,12 @@ components:
                         - string
                         - 'null'
                       min:
-                        description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
-                          TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                        description: 'Summed seconds of all the team''s players (integer as a string:
+                          ''12000'' = 5 x 40:00).'
                         type: string
                       minFormatted:
-                        description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                        description: Summed playing time of all players as 'mm:ss' ('200:00' = 5 x 40:00);
+                          minutes exceed 59.
                         type: string
                       mt:
                         description: Dunks (mates, page column MT; integer as a string).
@@ -673,6 +674,8 @@ components:
           type: object
       type: object
     FebCalendar:
+      description: 'Record parsed from calendario.aspx?g=&t= (text/html): page header checks, season and
+        phase selects, and every game of the first phase, round by round.'
       properties:
         competition:
           description: Competition name in the page title (span.liga), uppercase, as named that season
@@ -771,7 +774,8 @@ components:
                 type: string
               phase_id:
                 description: 'Phase-group id (key space: FEB groups per season, e.g. 89991 = Primera FEB
-                  2026-27 regular season). Integer.'
+                  2026-27 regular season). Integer. Joins nothing captured: the game routes carry only
+                  the group label (HEADER.round).'
                 type: integer
               selected:
                 description: True for the phase the page shows (the first in the list on a fresh GET).
@@ -806,6 +810,8 @@ components:
           type: array
       type: object
     FebKeyFacts:
+      description: 'LiveStats envelope of /KeyFacts/{gameId}: HEADER, SCOREBOARD, TEAMSTATS, TICKER, PLAYBYPLAY
+        (play-by-play, newest first) and BANNER filled; BOXSCORE, SHOTCHART, RANKING and OVERVIEW null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: a legacy ad banner (only KeyFacts fills it).'
@@ -1008,10 +1014,11 @@ components:
                     - string
                     - 'null'
                   idPlayer:
-                    description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                    description: 'Player id of the actor (key space: FEB persons; STABLE across seasons
                       and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in 2026-27
-                      at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY LINES[].idPlayer.
-                      Not the licence id (idLicense). String; null on team, period and 2020-21 lines.'
+                      at Palencia). Joins BOXSCORE / SCOREBOARD / SHOTCHART TEAM[].PLAYER[].id and RANKING
+                      TEAMS[].{Puntos,Rebotes,Asistencias,Faltas}[].id; the c= of the foto.aspx photo
+                      URL. Not the licence id (idLicense). String; null on team, period and 2020-21 lines.'
                     type:
                     - string
                     - 'null'
@@ -1086,7 +1093,9 @@ components:
                   logo:
                     description: Photo URL of the acting player (foto.aspx?c={idPlayer}); null on team
                       and period lines.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   num:
                     description: Play sequence number (integer as a string), 1 = first play of the game;
                       unique per game.
@@ -1109,7 +1118,9 @@ components:
                   team:
                     description: 'Side of the acting team: ''1'' = home (HEADER.TEAM[0]), ''2'' = away;
                       null on period lines. NOTE: SHOTCHART uses 0/1 for the same sides.'
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   text:
                     description: 'Play description in SPANISH: ''(TEAM) I. SURNAME: ACTION (running count)''.
                       Examples: ''TIRO DE 3 FALLADO'' = 3PT missed, ''TIRO DE 2 ANOTADO'' = 2PT made,
@@ -1117,8 +1128,18 @@ components:
                       = rebound, ''ASISTENCIA'' = assist, ''ROBO'' = steal, ''PÉRDIDA'' = turnover, ''TAPÓN''
                       = block, ''FALTA Personal'' = personal foul, ''Sustitución (Entra a pista / Sale
                       de pista)'' = substitution in / out, ''Tiempo muerto'' = timeout, ''Comienzo / Fin
-                      del Cuarto N'' = start / end of period N. On 2020-21 games the text is the only
-                      content (see divergence notes).'
+                      del Cuarto N'' = start / end of period N. 2020-21 games use an OLDER wording and
+                      are the only content there: ''Tiro en suspensión ANOTADO / FALLADO'' = jump shot
+                      made / missed (2PT), ''3Pts Tiro'' = 3PT shot, ''Tiros libres 2 de 2 ANOTADO'' =
+                      free throw 2 of 2 made, ''(15 Pts)'' = player''s running points, ''Asistencias (1
+                      As)'' = assist (running assists), ''Robo'' = steal, ''Pérdida (24 seg, 7 PER)''
+                      = turnover (shot-clock violation; running turnovers), ''Bloqueo (1 TAP)'' = block
+                      (running blocks), ''(TotReb. 6)'' after an empty action = rebound (running rebounds),
+                      ''Personal De tiro / No de tiro'' = shooting / non-shooting personal foul, ''Ofensiva''
+                      = offensive (foul/violation qualifier, unverified), ''Sustitución: (Entra / Sale)
+                      X'' = sub in / out, ''Tiempo'' = timeout. One 2020-21 line can name several actors,
+                      comma-separated (''G. BAHI BLANQUERA: 3Pts Tiro ANOTADO (9 Pts), L. PEÑA JUBANY:
+                      Asistencias (1 As)'').'
                     type: string
                   time:
                     description: Game clock REMAINING in the period when the play happened, 'mm:ss' (counts
@@ -1190,14 +1211,12 @@ components:
                           description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
                           type: string
                         min:
-                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
-                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26).'
                           type:
                           - string
                           - 'null'
                         minFormatted:
-                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
-                            ''200:00'').'
+                          description: Time played as 'mm:ss'.
                           type: string
                         mt:
                           description: Dunks (mates, page column MT; integer as a string).
@@ -1388,7 +1407,8 @@ components:
                     description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                     x-unobserved: true
                   minFormatted:
-                    description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                    description: 'Constant PLACEHOLDER ''0:00'' in every sample (min is null): the team-totals
+                      rows carry no playing time. Ignore.'
                     type: string
                   mt:
                     description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -1498,6 +1518,8 @@ components:
           type: object
       type: object
     FebOverview:
+      description: 'LiveStats envelope of /overview: only OVERVIEW filled (the latest or current game
+        day of every live FEB competition); the other 9 blocks null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
@@ -1587,7 +1609,8 @@ components:
                             claimed.'
                           x-unobserved: true
                         RoundID:
-                          description: Round id; 0 in every sample (not filled by this route).
+                          description: Round id; 0 in every sample (not filled by this route). Joins nothing
+                            captured.
                           type: integer
                         ScoreA:
                           description: Home points (integer; 0 before tip-off).
@@ -1639,10 +1662,10 @@ components:
                           description: Away team name.
                           type: string
                         TeamBClubCode:
-                          description: Away federation club code.
+                          description: Away federation club code (see clubCode).
                           type: string
                         TeamBCode:
-                          description: Away federation team code.
+                          description: Away federation team code (see teamCode).
                           type: string
                         TeamBID:
                           description: 'Away team: Team-season id (key space: FEB team registrations;
@@ -1723,6 +1746,8 @@ components:
           x-unfilled-block: true
       type: object
     FebRanking:
+      description: 'LiveStats envelope of /Ranking/{gameId}: HEADER, TICKER and RANKING (per-team leaders
+        in points, rebounds, assists, fouls) filled; the other 7 blocks null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
@@ -2137,6 +2162,8 @@ components:
           type: object
       type: object
     FebResults:
+      description: 'Record parsed from resultados.aspx?g=&t= (text/html): page header checks, CompID,
+        the latest round''s results, standings or final classification, and the next round.'
       properties:
         comp_id:
           description: Competition id (CompID) from the hidden field CodCategoriaHiddenField, a string
@@ -2239,7 +2266,8 @@ components:
                 type: string
               phase_id:
                 description: 'Phase-group id (key space: FEB groups per season, e.g. 89991 = Primera FEB
-                  2026-27 regular season). Integer.'
+                  2026-27 regular season). Integer. Joins nothing captured: the game routes carry only
+                  the group label (HEADER.round).'
                 type: integer
               selected:
                 description: True for the phase the page shows (the first in the list on a fresh GET).
@@ -2251,7 +2279,7 @@ components:
           items:
             properties:
               away_score:
-                description: Away points (integer); null before the game.
+                description: Away points (integer); the rows are played games.
                 type: integer
               away_team:
                 description: Away team name, uppercase.
@@ -2271,7 +2299,7 @@ components:
                   LiveStats route and the p= of Partido.aspx; shared by the HTML site and the API. Integer.'
                 type: integer
               home_score:
-                description: Home points (integer); null before the game.
+                description: Home points (integer); the rows are played games.
                 type: integer
               home_team:
                 description: Home team name, uppercase.
@@ -2308,7 +2336,8 @@ components:
                 description: Round label 'Jornada N(DD/MM/YYYY)'.
                 type: string
               round_id:
-                description: 'Round id (key space: FEB rounds, integer).'
+                description: 'Round id (key space: FEB rounds per phase, integer). Joins nothing captured
+                  (the calendar gives round numbers, not ids).'
                 type: integer
               selected:
                 description: True for the round whose results the page shows.
@@ -2384,6 +2413,8 @@ components:
           type: array
       type: object
     FebShotChart:
+      description: 'LiveStats envelope of /ShotChart/{gameId}: HEADER, TICKER and SHOTCHART filled (field-goal
+        attempts with x/y in percent of the court); the other 7 blocks null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
@@ -2632,14 +2663,12 @@ components:
                           description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
                           type: string
                         min:
-                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
-                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26).'
                           type:
                           - string
                           - 'null'
                         minFormatted:
-                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
-                            ''200:00'').'
+                          description: Time played as 'mm:ss'.
                           type: string
                         mt:
                           description: Dunks (mates, page column MT; integer as a string).
@@ -2795,6 +2824,8 @@ components:
           type: object
       type: object
     FebTeamStats:
+      description: 'LiveStats envelope of /TeamStats/{gameId}: HEADER, TICKER and TEAMSTATS (team totals
+        of both sides) filled; the other 7 blocks null.'
       properties:
         BANNER:
           description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
@@ -3013,7 +3044,8 @@ components:
                     description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
                     x-unobserved: true
                   minFormatted:
-                    description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                    description: 'Constant PLACEHOLDER ''0:00'' in every sample (min is null): the team-totals
+                      rows carry no playing time. Ignore.'
                     type: string
                   mt:
                     description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
