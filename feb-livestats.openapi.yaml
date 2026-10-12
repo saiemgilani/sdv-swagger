@@ -1,0 +1,3460 @@
+components:
+  schemas:
+    FebBoxScore:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: per-player and team box score.'
+          properties:
+            TEAM:
+              description: 'The two teams of BOXSCORE: [0] = home (local), [1] = away (visitante).'
+              items:
+                properties:
+                  PLAYER:
+                    description: One row per player on the team sheet (12 max; players who did not play
+                      have 0 everywhere and min '0').
+                    items:
+                      properties:
+                        assist:
+                          description: Assists (asistencias; integer as a string).
+                          type: string
+                        bs:
+                          description: Blocks made (tapones a favor, page column TF; integer as a string).
+                          type: string
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        fga:
+                          description: Field goals attempted, 2PT + 3PT (integer as a string).
+                          type: string
+                        fgm:
+                          description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                          type: string
+                        fgp:
+                          description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                          type: string
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        ind:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type: string
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        min:
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
+                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          type: string
+                        minFormatted:
+                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
+                            ''200:00'').'
+                          type: string
+                        mt:
+                          description: Dunks (mates, page column MT; integer as a string).
+                          type: string
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        p1a:
+                          description: Free throws attempted (integer as a string).
+                          type: string
+                        p1m:
+                          description: Free throws made (tiros libres; integer as a string).
+                          type: string
+                        p1p:
+                          description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA
+                            ('77,3'); '0,0' when no attempts.
+                          type: string
+                        p2a:
+                          description: Two-point field goals attempted (integer as a string).
+                          type: string
+                        p2m:
+                          description: Two-point field goals made (integer as a string).
+                          type: string
+                        p2p:
+                          description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                          type: string
+                        p3a:
+                          description: Three-point field goals attempted (integer as a string).
+                          type: string
+                        p3m:
+                          description: Three-point field goals made (integer as a string).
+                          type: string
+                        p3p:
+                          description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                          type: string
+                        pf:
+                          description: Personal fouls committed (faltas cometidas, page column FC; integer
+                            as a string).
+                          type: string
+                        pllss:
+                          description: 'Plus/minus while on court (balance, page column +/-; signed integer
+                            as a string: ''-7'').'
+                          type: string
+                        pts:
+                          description: Points (integer as a string).
+                          type: string
+                        rd:
+                          description: Defensive rebounds (rebotes defensivos; integer as a string).
+                          type: string
+                        reb:
+                          description: Total rebounds (same count as rt; integer as a string).
+                          type: string
+                        rf:
+                          description: Fouls received / drawn (faltas recibidas, page column FR; integer
+                            as a string).
+                          type: string
+                        ro:
+                          description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                          type: string
+                        rt:
+                          description: Total rebounds (rebotes totales; integer as a string).
+                          type: string
+                        st:
+                          description: Steals (balones robados, page column BR; integer as a string).
+                          type: string
+                        sta:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        tc:
+                          description: Shots of this player/team that were blocked (tapones en contra
+                            / recibidos, page column TC; integer as a string).
+                          type: string
+                        to:
+                          description: Turnovers (balones perdidos, page column BP; integer as a string).
+                          type: string
+                        val:
+                          description: 'Valoración: FEB/ACB efficiency rating (PIR: points + rebounds
+                            + assists + steals + blocks + fouls drawn - missed shots - turnovers - shots
+                            blocked - fouls committed); integer as a string.'
+                          type:
+                          - string
+                          - 'null'
+                      type: object
+                    type: array
+                  TEAMACTIONS:
+                    description: Team-credited counters block (acciones de equipo). On the samples its
+                      rebound, foul, turnover and steal counts EQUAL TOTAL's and its shooting counts are
+                      null or 0, so what it adds over TOTAL is unverified; prefer TOTAL.
+                    properties:
+                      assist:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      bench:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      bs:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      clubCode:
+                        description: 'Federation club code, 6 digits as a string (key space: clubs; the
+                          first 6 digits of teamCode). Stability across seasons is unverified. Null on
+                          the 2020-21 samples.'
+                        type:
+                        - string
+                        - 'null'
+                      fastb:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      fga:
+                        description: Field goals attempted, 2PT + 3PT (integer as a string). Team-credited
+                          (TEAMACTIONS block).
+                        type: string
+                      fgm:
+                        description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      fgp:
+                        description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      fouls:
+                        description: Team fouls committed (integer as a string; equals pf on the samples).
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      id:
+                        description: 'Team-season id (key space: FEB team registrations; a NEW id every
+                          season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i=
+                          of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                          away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not
+                          a player id.'
+                        type:
+                        - string
+                        - 'null'
+                      logo:
+                        description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older
+                          games use competiciones.feb.es/estadisticas/Imagen.aspx).
+                        type:
+                        - string
+                        - 'null'
+                      min:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      minFormatted:
+                        description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').
+                          Team-credited (TEAMACTIONS block).'
+                        type: string
+                      mt:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      name:
+                        description: 'Team name as registered for this season (sponsor name, uppercase:
+                          ''HLA ALICANTE'').'
+                        type:
+                        - string
+                        - 'null'
+                      p1a:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p1m:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p1p:
+                        description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA ('77,3');
+                          '0,0' when no attempts. Team-credited (TEAMACTIONS block).
+                        type: string
+                      p2a:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p2m:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p2p:
+                        description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      p3a:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p3m:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      p3p:
+                        description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      paint:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      pf:
+                        description: Personal fouls committed (faltas cometidas, page column FC; integer
+                          as a string). Team-credited (TEAMACTIONS block).
+                        type: string
+                      pts:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      ptsto:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      rd:
+                        description: Defensive rebounds (rebotes defensivos; integer as a string). Team-credited
+                          (TEAMACTIONS block).
+                        type: string
+                      rf:
+                        description: Fouls received / drawn (faltas recibidas, page column FR; integer
+                          as a string). Team-credited (TEAMACTIONS block).
+                        type: string
+                      ro:
+                        description: Offensive rebounds (rebotes ofensivos; integer as a string). Team-credited
+                          (TEAMACTIONS block).
+                        type: string
+                      rt:
+                        description: Total rebounds (rebotes totales; integer as a string). Team-credited
+                          (TEAMACTIONS block).
+                        type: string
+                      secpts:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      slug:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      st:
+                        description: Steals (balones robados, page column BR; integer as a string). Team-credited
+                          (TEAMACTIONS block).
+                        type: string
+                      tc:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      teamCode:
+                        description: 'Federation team code, 8 digits as a string: the 6-digit clubCode
+                          + a 2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21
+                          samples.'
+                        type:
+                        - string
+                        - 'null'
+                      to:
+                        description: Turnovers (balones perdidos, page column BP; integer as a string).
+                          Team-credited (TEAMACTIONS block).
+                        type: string
+                      val:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                    type: object
+                  TOTAL:
+                    description: Team totals row (the page's Totales line). Its id/name/logo/teamCode/clubCode
+                      are the team's.
+                    properties:
+                      assist:
+                        description: Assists (asistencias; integer as a string).
+                        type: string
+                      bench:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      bs:
+                        description: Blocks made (tapones a favor, page column TF; integer as a string).
+                        type: string
+                      clubCode:
+                        description: 'Federation club code, 6 digits as a string (key space: clubs; the
+                          first 6 digits of teamCode). Stability across seasons is unverified. Null on
+                          the 2020-21 samples.'
+                        type:
+                        - string
+                        - 'null'
+                      fastb:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      fga:
+                        description: Field goals attempted, 2PT + 3PT (integer as a string).
+                        type: string
+                      fgm:
+                        description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                        type: string
+                      fgp:
+                        description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                        type: string
+                      fouls:
+                        description: Team fouls committed (integer as a string; equals pf on the samples).
+                        type: string
+                      id:
+                        description: 'Team-season id (key space: FEB team registrations; a NEW id every
+                          season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i=
+                          of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                          away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not
+                          a player id.'
+                        type:
+                        - string
+                        - 'null'
+                      logo:
+                        description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older
+                          games use competiciones.feb.es/estadisticas/Imagen.aspx).
+                        type:
+                        - string
+                        - 'null'
+                      min:
+                        description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
+                          TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                        type: string
+                      minFormatted:
+                        description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                        type: string
+                      mt:
+                        description: Dunks (mates, page column MT; integer as a string).
+                        type: string
+                      name:
+                        description: 'Team name as registered for this season (sponsor name, uppercase:
+                          ''HLA ALICANTE'').'
+                        type: string
+                      p1a:
+                        description: Free throws attempted (integer as a string).
+                        type: string
+                      p1m:
+                        description: Free throws made (tiros libres; integer as a string).
+                        type: string
+                      p1p:
+                        description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA ('77,3');
+                          '0,0' when no attempts.
+                        type: string
+                      p2a:
+                        description: Two-point field goals attempted (integer as a string).
+                        type: string
+                      p2m:
+                        description: Two-point field goals made (integer as a string).
+                        type: string
+                      p2p:
+                        description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                        type: string
+                      p3a:
+                        description: Three-point field goals attempted (integer as a string).
+                        type: string
+                      p3m:
+                        description: Three-point field goals made (integer as a string).
+                        type: string
+                      p3p:
+                        description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                        type: string
+                      paint:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      pf:
+                        description: Personal fouls committed (faltas cometidas, page column FC; integer
+                          as a string).
+                        type: string
+                      pts:
+                        description: 'Team points: the final score when HEADER.time is FINAL, else the
+                          live score (integer as a string).'
+                        type: string
+                      ptsto:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      rd:
+                        description: Defensive rebounds (rebotes defensivos; integer as a string).
+                        type: string
+                      rf:
+                        description: Fouls received / drawn (faltas recibidas, page column FR; integer
+                          as a string).
+                        type: string
+                      ro:
+                        description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                        type: string
+                      rt:
+                        description: Total rebounds (rebotes totales; integer as a string).
+                        type: string
+                      secpts:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      slug:
+                        description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                        x-unobserved: true
+                      st:
+                        description: Steals (balones robados, page column BR; integer as a string).
+                        type: string
+                      tc:
+                        description: Shots of this player/team that were blocked (tapones en contra /
+                          recibidos, page column TC; integer as a string).
+                        type: string
+                      teamCode:
+                        description: 'Federation team code, 8 digits as a string: the 6-digit clubCode
+                          + a 2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21
+                          samples.'
+                        type:
+                        - string
+                        - 'null'
+                      to:
+                        description: Turnovers (balones perdidos, page column BP; integer as a string).
+                        type: string
+                      val:
+                        description: 'Valoración: FEB/ACB efficiency rating (PIR: points + rebounds +
+                          assists + steals + blocks + fouls drawn - missed shots - turnovers - shots blocked
+                          - fouls committed); integer as a string.'
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        HEADER:
+          description: 'Envelope block HEADER: game header (competition, round, clock, venue, referees,
+            both teams, period scores).'
+          properties:
+            CompID:
+              description: 'Competition id (CompID; key space: FEB competitions, constant across seasons):
+                115 = Primera FEB (LEB Oro), 118 = Segunda FEB, 210 = Liga Femenina Endesa, 214 = LF Challenge,
+                218 = LF-2, 111 = Tercera FEB. String. Equals the results page comp_id and the overview
+                COMPETITIONS[].id.'
+              type: string
+            QUARTERS:
+              description: Period scores wrapper.
+              properties:
+                QUARTER:
+                  description: 'One row per period played (sample: 4).'
+                  items:
+                    properties:
+                      n:
+                        description: Period number as a string ('1'..'4'; overtime numbering unverified).
+                        type: string
+                      scoreA:
+                        description: Points the HOME team (A) scored IN this period, not cumulative (integer
+                          as a string).
+                        type: string
+                      scoreB:
+                        description: Points the AWAY team (B) scored in this period (integer as a string).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            TEAM:
+              description: 'The two teams: [0] = home (local, team A), [1] = away (visitante, team B).'
+              items:
+                properties:
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fouls:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type: string
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            competition:
+              description: Competition name as printed that season, uppercase ('PRIMERA FEB'; 2020-21
+                = 'LIGA LEB ORO', the former name).
+              type: string
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            field:
+              description: Venue (pabellón) name.
+              type: string
+            logo:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            place:
+              description: Venue street address (dirección), free text.
+              type: string
+            quarter:
+              description: Current (or last played) period number; 4 for a finished regulation game (integer).
+              type: integer
+            referee1:
+              description: Crew chief (árbitro principal), 'SURNAMES, NAME'.
+              type: string
+            referee2:
+              description: First umpire (árbitro auxiliar 1), 'SURNAMES, NAME'.
+              type: string
+            referee3:
+              description: Second umpire (árbitro auxiliar 2), 'SURNAMES, NAME'; null when the game had
+                two referees.
+              type:
+              - string
+              - 'null'
+            round:
+              description: 'Group (grupo) label of the phase the game belongs to, right-padded with spaces
+                to 20 characters: ''Único'' = the single group, ''"A"'' = group A. Trim before use.'
+              type: string
+            starttime:
+              description: Tip-off in Spanish local time (Europe/Madrid), 'DD-MM-YYYY - HH:MM' ('27-09-2025
+                - 19:00').
+              type: string
+            status:
+              description: 'Game state code as a string: ''3'' = finished (statusText FINISHED). Null
+                on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            statusText:
+              description: 'Game state label (English): ''FINISHED''. Null on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            time:
+              description: 'Game clock or state: ''FINAL'' once the game is over, else the clock ''mm:ss''
+                remaining in the period.'
+              type: string
+          type: object
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: always null on this route (the capture refuses otherwise);
+            filled by /overview.'
+          type: 'null'
+          x-unfilled-block: true
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        RANKING:
+          description: 'Envelope block RANKING: always null on this route (the capture refuses otherwise);
+            filled by /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: always null on this route (the capture refuses otherwise);
+            filled by /ShotChart.'
+          type: 'null'
+          x-unfilled-block: true
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts, /TeamStats.'
+          type: 'null'
+          x-unfilled-block: true
+        TICKER:
+          description: 'Envelope block TICKER: a news-ticker object that every game route returns with
+            all fields null.'
+          properties:
+            ITEM:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            text:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+      type: object
+    FebCalendar:
+      properties:
+        competition:
+          description: Competition name in the page title (span.liga), uppercase, as named that season
+            ('PRIMERA FEB'; 2020-21 'LIGA LEB ORO').
+          type: string
+        games:
+          description: Every game of the selected phase, in round order (306 for Primera FEB 2026-27).
+            The sample keeps one played and one scheduled game.
+          items:
+            properties:
+              away_score:
+                description: Away points (integer); null before the game.
+                type:
+                - integer
+                - 'null'
+              away_team:
+                description: Away team name, uppercase.
+                type: string
+              away_team_id:
+                description: 'Away (visitante) team: Team-season id (key space: FEB team registrations;
+                  a NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              date:
+                description: 'Scheduled games only: the game date, ISO ''YYYY-MM-DD''; null once played
+                  (the calendar then shows only the score).'
+                type:
+                - string
+                - 'null'
+              game_id:
+                description: 'Game id (key space: FEB games, one global sequence): the {gameId} of every
+                  LiveStats route and the p= of Partido.aspx; shared by the HTML site and the API. Integer.'
+                type: integer
+              home_score:
+                description: Home points (integer); null before the game.
+                type:
+                - integer
+                - 'null'
+              home_team:
+                description: Home team name, uppercase.
+                type: string
+              home_team_id:
+                description: 'Home (local) team: Team-season id (key space: FEB team registrations; a
+                  NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              result_text:
+                description: 'Result cell verbatim: ''home-away'' points when played (''69-95''); before
+                  the game the calendar shows ''WEEKDAY DD/MM/YYYY HH:MM'' in Spanish (''SÁBADO 17/10/2026
+                  19:30'') and the results page shows ''*-*''.'
+                type: string
+              round:
+                description: Round number (jornada), integer.
+                type: integer
+              round_date:
+                description: The round's nominal date, ISO 'YYYY-MM-DD' (the first day of the round weekend,
+                  not each game's date); null when the header has none.
+                type: string
+              round_label:
+                description: Round header verbatim ('Jornada 1 26/09/2025'; 'Jornada 1 Olímpico' when
+                  the round has no date).
+                type: string
+              status:
+                description: played (the cell holds a score) or scheduled (anything else).
+                type: string
+              time:
+                description: 'Scheduled games only: tip-off ''HH:MM'', Spanish local time; null once played.'
+                type:
+                - string
+                - 'null'
+              weekday:
+                description: 'Scheduled games only: the weekday of the cell, translated to English (''SÁBADO''
+                  -> ''Saturday''); null once played.'
+                type:
+                - string
+                - 'null'
+            type: object
+          type: array
+        group:
+          description: The g request parameter (group code of the site menus; see the README's group table).
+            Checked against the page logo's g=.
+          type: integer
+        phases:
+          description: 'The group/phase select (gruposDropDownList): the phases and groups of this competition
+            season. The page renders the SELECTED one only; switching is an ASP.NET postback (not modelled).'
+          items:
+            properties:
+              label:
+                description: 'Phase and group in Spanish: ''Liga Regular Único'' = regular season, single
+                  group; ''Liga Regular "A"'' = group A; ''Play-offs 1/4 Final'' = playoff quarter-finals;
+                  ''Copa Princesa de Asturias'' = the cup.'
+                type: string
+              phase_id:
+                description: 'Phase-group id (key space: FEB groups per season, e.g. 89991 = Primera FEB
+                  2026-27 regular season). Integer.'
+                type: integer
+              selected:
+                description: True for the phase the page shows (the first in the list on a fresh GET).
+                type: boolean
+            type: object
+          type: array
+        playoff_series_ids:
+          description: Ids of the playoff bracket pages linked from the calendar (Series.aspx?f=), integers;
+            empty when the season has none yet.
+          items:
+            type: integer
+          type: array
+        season_label:
+          description: Season label 'START/END' ('2026/2027').
+          type: string
+        season_start:
+          description: 'The t request parameter: season START year (2026 = 2026-27; sdv END year = t +
+            1). Checked against the logo''s t=, the selected season option and season_label.'
+          type: integer
+        seasons:
+          description: Every season the season select offers, newest first (1996-97 to 2026-27 for Primera
+            FEB); the sample keeps 3.
+          items:
+            properties:
+              label:
+                description: Season label 'START/END'.
+                type: string
+              season_start:
+                description: Season START year (the option value; the t parameter of that season's page).
+                type: integer
+            type: object
+          type: array
+      type: object
+    FebKeyFacts:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: a legacy ad banner (only KeyFacts fills it).'
+          properties:
+            alt:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            file:
+              description: 'Banner file URL (a constant legacy .swf: http://baloncestoenvivo.feb.es/files/newbanner.swf).'
+              type: string
+            link:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore.'
+          type: 'null'
+          x-unfilled-block: true
+        HEADER:
+          description: 'Envelope block HEADER: game header (competition, round, clock, venue, referees,
+            both teams, period scores).'
+          properties:
+            CompID:
+              description: 'Competition id (CompID; key space: FEB competitions, constant across seasons):
+                115 = Primera FEB (LEB Oro), 118 = Segunda FEB, 210 = Liga Femenina Endesa, 214 = LF Challenge,
+                218 = LF-2, 111 = Tercera FEB. String. Equals the results page comp_id and the overview
+                COMPETITIONS[].id.'
+              type: string
+            QUARTERS:
+              description: Period scores wrapper.
+              properties:
+                QUARTER:
+                  description: 'One row per period played (sample: 4).'
+                  items:
+                    properties:
+                      n:
+                        description: Period number as a string ('1'..'4'; overtime numbering unverified).
+                        type: string
+                      scoreA:
+                        description: Points the HOME team (A) scored IN this period, not cumulative (integer
+                          as a string).
+                        type: string
+                      scoreB:
+                        description: Points the AWAY team (B) scored in this period (integer as a string).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            TEAM:
+              description: 'The two teams: [0] = home (local, team A), [1] = away (visitante, team B).'
+              items:
+                properties:
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fouls:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type: string
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            competition:
+              description: Competition name as printed that season, uppercase ('PRIMERA FEB'; 2020-21
+                = 'LIGA LEB ORO', the former name).
+              type: string
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            field:
+              description: Venue (pabellón) name.
+              type: string
+            logo:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            place:
+              description: Venue street address (dirección), free text.
+              type: string
+            quarter:
+              description: Current (or last played) period number; 4 for a finished regulation game (integer).
+              type: integer
+            referee1:
+              description: Crew chief (árbitro principal), 'SURNAMES, NAME'.
+              type: string
+            referee2:
+              description: First umpire (árbitro auxiliar 1), 'SURNAMES, NAME'.
+              type: string
+            referee3:
+              description: Second umpire (árbitro auxiliar 2), 'SURNAMES, NAME'; null when the game had
+                two referees.
+              type:
+              - string
+              - 'null'
+            round:
+              description: 'Group (grupo) label of the phase the game belongs to, right-padded with spaces
+                to 20 characters: ''Único'' = the single group, ''"A"'' = group A. Trim before use.'
+              type: string
+            starttime:
+              description: Tip-off in Spanish local time (Europe/Madrid), 'DD-MM-YYYY - HH:MM' ('27-09-2025
+                - 19:00').
+              type: string
+            status:
+              description: 'Game state code as a string: ''3'' = finished (statusText FINISHED). Null
+                on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            statusText:
+              description: 'Game state label (English): ''FINISHED''. Null on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            time:
+              description: 'Game clock or state: ''FINAL'' once the game is over, else the clock ''mm:ss''
+                remaining in the period.'
+              type: string
+          type: object
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: always null on this route (the capture refuses otherwise);
+            filled by /overview.'
+          type: 'null'
+          x-unfilled-block: true
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: the play-by-play (KeyFacts) feed.'
+          properties:
+            LINES:
+              description: 'Every play, NEWEST FIRST (num descending: the first line is ''Fin del Cuarto
+                4''). 350-560 lines per game in the samples. Reverse for chronological order.'
+              items:
+                properties:
+                  LogTime:
+                    description: Wall-clock time the play was logged, Spanish local time, 'YYYY-MM-DD
+                      HH:MM:SS'; null on the 2020-21 samples.
+                    type:
+                    - string
+                    - 'null'
+                  LogTimeUtc:
+                    description: LogTime in UTC, 'YYYY-MM-DD HH:MM:SS' (no zone suffix); null on the 2020-21
+                      samples.
+                    type:
+                    - string
+                    - 'null'
+                  Position:
+                    description: Court position of a shoot (and some foul) line as 'x|y', the SAME scale
+                      as SHOTCHART SHOTS x / y (percent of court length / width, origin top-left); ''
+                      when the action has none. Every SHOTCHART shot equals one shoot line's Position
+                      (121/121 joined on quarter + time + team + shirt number, game 2486258).
+                    type:
+                    - string
+                    - 'null'
+                  action:
+                    description: 'Action code (English): shoot (field-goal attempt), fthrow (free throw),
+                      rebound, assist, recovery (steal), lose (turnover), blockshot (block), foul, subst
+                      (substitution), timeout, period (period start/end). Null on 2020-21 games.'
+                    type:
+                    - string
+                    - 'null'
+                  deleted:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  idLicense:
+                    description: 'Licence id (key space: FEB player LICENCES, one per season registration;
+                      it CHANGES when the player re-registers: A. Jorda Rodriguez = 10901171 in 2025-26,
+                      11266668 in 2026-27). The logParam2/3/4 of most actions carry licence ids. Not the
+                      player id (idPlayer). String.'
+                    type:
+                    - string
+                    - 'null'
+                  idPlayer:
+                    description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                      and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in 2026-27
+                      at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY LINES[].idPlayer.
+                      Not the licence id (idLicense). String; null on team, period and 2020-21 lines.'
+                    type:
+                    - string
+                    - 'null'
+                  idTeam:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id. String; null on
+                      period and 2020-21 lines.'
+                    type:
+                    - string
+                    - 'null'
+                  logParam1:
+                    description: 'Action parameter 1 (string). Team and player actions: a pseudo-GUID
+                      ''00000000-0000-000{side}-0000-{gameId, 12 digits}'' (side 1 = home, 2 = away),
+                      so it carries the game id. period: the period number.'
+                    type:
+                    - string
+                    - 'null'
+                  logParam10:
+                    description: Action parameter 10 (string); '1' on almost every foul; meaning unverified.
+                    type:
+                    - string
+                    - 'null'
+                  logParam2:
+                    description: 'Action parameter 2 (string). shoot/fthrow/foul/rebound/assist/recovery/blockshot:
+                      the actor''s idLicense. period: ''0'' = start, ''1'' = end. lose: ''0''/''1'' (meaning
+                      unverified). subst: the incoming player''s licence or null.'
+                    type:
+                    - string
+                    - 'null'
+                  logParam3:
+                    description: 'Action parameter 3 (string). fthrow: ''1'' = made, ''0'' = missed. subst:
+                      the outgoing player''s licence. foul: a foul-type code (''1'' on personal fouls).
+                      Others unverified.'
+                    type:
+                    - string
+                    - 'null'
+                  logParam4:
+                    description: 'Action parameter 4 (string). shoot and fthrow: ''1'' = made, ''0'' =
+                      missed. foul: the licence of the fouled player. lose: a licence (unverified role).'
+                    type:
+                    - string
+                    - 'null'
+                  logParam5:
+                    description: Action parameter 5 (string); action-dependent, meaning unverified.
+                    type:
+                    - string
+                    - 'null'
+                  logParam6:
+                    description: 'Action parameter 6 (string). shoot: shot value ''2'' or ''3''. fthrow:
+                      ''1''. foul: free throws awarded (''0''/''1''/''2''). Others unverified.'
+                    type:
+                    - string
+                    - 'null'
+                  logParam7:
+                    description: Action parameter 7 (string); action-dependent, meaning unverified.
+                    type:
+                    - string
+                    - 'null'
+                  logParam8:
+                    description: Action parameter 8 (string); a small integer on shoot/foul/lose lines
+                      (by distribution a zone or sub-type code); unverified.
+                    type:
+                    - string
+                    - 'null'
+                  logParam9:
+                    description: Action parameter 9 (string); blank or null in every sample.
+                    type:
+                    - string
+                    - 'null'
+                  logo:
+                    description: Photo URL of the acting player (foto.aspx?c={idPlayer}); null on team
+                      and period lines.
+                    type: string
+                  num:
+                    description: Play sequence number (integer as a string), 1 = first play of the game;
+                      unique per game.
+                    type: string
+                  quarter:
+                    description: Period number as a string ('1'..'4').
+                    type: string
+                  scoreA:
+                    description: Home score AFTER the play (integer as a string); filled on scoring plays
+                      only, null otherwise.
+                    type:
+                    - string
+                    - 'null'
+                  scoreB:
+                    description: Away score AFTER the play (integer as a string); filled on scoring plays
+                      only.
+                    type:
+                    - string
+                    - 'null'
+                  team:
+                    description: 'Side of the acting team: ''1'' = home (HEADER.TEAM[0]), ''2'' = away;
+                      null on period lines. NOTE: SHOTCHART uses 0/1 for the same sides.'
+                    type: string
+                  text:
+                    description: 'Play description in SPANISH: ''(TEAM) I. SURNAME: ACTION (running count)''.
+                      Examples: ''TIRO DE 3 FALLADO'' = 3PT missed, ''TIRO DE 2 ANOTADO'' = 2PT made,
+                      ''MATE ANOTADO'' = dunk made, ''TIRO DE 1 ANOTADO'' = free throw made, ''REBOTE''
+                      = rebound, ''ASISTENCIA'' = assist, ''ROBO'' = steal, ''PÉRDIDA'' = turnover, ''TAPÓN''
+                      = block, ''FALTA Personal'' = personal foul, ''Sustitución (Entra a pista / Sale
+                      de pista)'' = substitution in / out, ''Tiempo muerto'' = timeout, ''Comienzo / Fin
+                      del Cuarto N'' = start / end of period N. On 2020-21 games the text is the only
+                      content (see divergence notes).'
+                    type: string
+                  time:
+                    description: Game clock REMAINING in the period when the play happened, 'mm:ss' (counts
+                      down from 10:00; 'Fin del Cuarto' is 00:00).
+                    type: string
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            hasExtension:
+              description: 'Boolean flag, false in every sample; meaning unverified (by name: the game
+                went to overtime).'
+              type: boolean
+          type: object
+        RANKING:
+          description: 'Envelope block RANKING: always null on this route (the capture refuses otherwise);
+            filled by /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: the live scoreboard: both teams with their player stat
+            rows (same row shape as BOXSCORE PLAYER).'
+          properties:
+            TEAM:
+              description: 'The two teams of SCOREBOARD: [0] = home (local), [1] = away (visitante).'
+              items:
+                properties:
+                  PLAYER:
+                    description: One row per player (same fields as BoxScore BOXSCORE.TEAM[].PLAYER).
+                    items:
+                      properties:
+                        assist:
+                          description: Assists (asistencias; integer as a string).
+                          type: string
+                        bs:
+                          description: Blocks made (tapones a favor, page column TF; integer as a string).
+                          type: string
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        fga:
+                          description: Field goals attempted, 2PT + 3PT (integer as a string).
+                          type: string
+                        fgm:
+                          description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                          type: string
+                        fgp:
+                          description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                          type: string
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        ind:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type: string
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        min:
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
+                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          type:
+                          - string
+                          - 'null'
+                        minFormatted:
+                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
+                            ''200:00'').'
+                          type: string
+                        mt:
+                          description: Dunks (mates, page column MT; integer as a string).
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        p1a:
+                          description: Free throws attempted (integer as a string).
+                          type: string
+                        p1m:
+                          description: Free throws made (tiros libres; integer as a string).
+                          type: string
+                        p1p:
+                          description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA
+                            ('77,3'); '0,0' when no attempts.
+                          type: string
+                        p2a:
+                          description: Two-point field goals attempted (integer as a string).
+                          type: string
+                        p2m:
+                          description: Two-point field goals made (integer as a string).
+                          type: string
+                        p2p:
+                          description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                          type: string
+                        p3a:
+                          description: Three-point field goals attempted (integer as a string).
+                          type: string
+                        p3m:
+                          description: Three-point field goals made (integer as a string).
+                          type: string
+                        p3p:
+                          description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                          type: string
+                        pf:
+                          description: Personal fouls committed (faltas cometidas, page column FC; integer
+                            as a string).
+                          type: string
+                        pllss:
+                          description: 'Plus/minus while on court (balance, page column +/-; signed integer
+                            as a string: ''-7'').'
+                          type: string
+                        pts:
+                          description: Points (integer as a string).
+                          type: string
+                        rd:
+                          description: Defensive rebounds (rebotes defensivos; integer as a string).
+                          type: string
+                        reb:
+                          description: Total rebounds (same count as rt; integer as a string).
+                          type: string
+                        rf:
+                          description: Fouls received / drawn (faltas recibidas, page column FR; integer
+                            as a string).
+                          type: string
+                        ro:
+                          description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                          type: string
+                        rt:
+                          description: Total rebounds (rebotes totales; integer as a string).
+                          type: string
+                        st:
+                          description: Steals (balones robados, page column BR; integer as a string).
+                          type: string
+                        sta:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        tc:
+                          description: Shots of this player/team that were blocked (tapones en contra
+                            / recibidos, page column TC; integer as a string).
+                          type:
+                          - string
+                          - 'null'
+                        to:
+                          description: Turnovers (balones perdidos, page column BP; integer as a string).
+                          type: string
+                        val:
+                          description: 'Valoración: FEB/ACB efficiency rating (PIR: points + rebounds
+                            + assists + steals + blocks + fouls drawn - missed shots - turnovers - shots
+                            blocked - fouls committed); integer as a string.'
+                          type:
+                          - string
+                          - 'null'
+                      type: object
+                    type: array
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: always null on this route (the capture refuses otherwise);
+            filled by /ShotChart.'
+          type: 'null'
+          x-unfilled-block: true
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: team totals of both teams (the same rows as /TeamStats).'
+          properties:
+            TEAM:
+              description: 'The two teams of TEAMSTATS: [0] = home (local), [1] = away (visitante).'
+              items:
+                properties:
+                  assist:
+                    description: Assists (asistencias; integer as a string).
+                    type: string
+                  bench:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  bs:
+                    description: Blocks made (tapones a favor, page column TF; integer as a string).
+                    type: string
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fastb:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  fga:
+                    description: Field goals attempted, 2PT + 3PT (integer as a string).
+                    type: string
+                  fgm:
+                    description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                    type: string
+                  fgp:
+                    description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                    type: string
+                  fouls:
+                    description: Team fouls committed (integer as a string; equals pf on the samples).
+                    type: string
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  min:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  minFormatted:
+                    description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                    type: string
+                  mt:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  p1a:
+                    description: Free throws attempted (integer as a string).
+                    type: string
+                  p1m:
+                    description: Free throws made (tiros libres; integer as a string).
+                    type: string
+                  p1p:
+                    description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA ('77,3');
+                      '0,0' when no attempts.
+                    type: string
+                  p2a:
+                    description: Two-point field goals attempted (integer as a string).
+                    type: string
+                  p2m:
+                    description: Two-point field goals made (integer as a string).
+                    type: string
+                  p2p:
+                    description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                    type: string
+                  p3a:
+                    description: Three-point field goals attempted (integer as a string).
+                    type: string
+                  p3m:
+                    description: Three-point field goals made (integer as a string).
+                    type: string
+                  p3p:
+                    description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                    type: string
+                  paint:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  pf:
+                    description: Personal fouls committed (faltas cometidas, page column FC; integer as
+                      a string).
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  ptsto:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  rd:
+                    description: Defensive rebounds (rebotes defensivos; integer as a string).
+                    type: string
+                  rf:
+                    description: Fouls received / drawn (faltas recibidas, page column FR; integer as
+                      a string).
+                    type: string
+                  ro:
+                    description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                    type: string
+                  rt:
+                    description: Total rebounds (rebotes totales; integer as a string).
+                    type: string
+                  secpts:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  st:
+                    description: Steals (balones robados, page column BR; integer as a string).
+                    type: string
+                  tc:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                  to:
+                    description: Turnovers (balones perdidos, page column BP; integer as a string).
+                    type: string
+                  val:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        TICKER:
+          description: 'Envelope block TICKER: a news-ticker object that every game route returns with
+            all fields null.'
+          properties:
+            ITEM:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            text:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+      type: object
+    FebOverview:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore.'
+          type: 'null'
+          x-unfilled-block: true
+        HEADER:
+          description: 'Envelope block HEADER: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore, /KeyFacts, /ShotChart, /TeamStats, /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: the home-page carousel (the latest or current game day
+            of every live FEB competition).'
+          properties:
+            COMPETITIONS:
+              description: 'One row per competition with games in the window (6 on 2026-10-12: 115, 210,
+                118, 214, 218, 111), in display order.'
+              items:
+                properties:
+                  GAMES:
+                    description: The competition's games in the window.
+                    items:
+                      properties:
+                        CompCode:
+                          description: 'Season-specific competition code (key space: competition editions;
+                            e.g. 23473 = Primera FEB 2026-27, 23467 = LF Endesa 2026-27, 23474 = Segunda
+                            FEB 2026-27). String.'
+                          type: string
+                        CompID:
+                          description: Competition id (string), equal to the parent COMPETITIONS[].id
+                            (the capture refuses otherwise).
+                          type: string
+                        Competition:
+                          description: Competition name, uppercase.
+                          type: string
+                        Duration:
+                          description: 0 in every sample; meaning unverified.
+                          type: integer
+                        GameCode:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        GameTime:
+                          description: Game clock 'mm:ss'; '00:00' in every sample (finished and scheduled
+                            games).
+                          type: string
+                        ID:
+                          description: 'Game id (key space: FEB games, one global sequence): the {gameId}
+                            of every LiveStats route and the p= of Partido.aspx; shared by the HTML site
+                            and the API. INTEGER here (the game routes'' ids are strings).'
+                          type: integer
+                        LogoA:
+                          description: Home team logo URL.
+                          type: string
+                        LogoB:
+                          description: Away team logo URL.
+                          type: string
+                        Place:
+                          description: Venue name.
+                          type: string
+                        Quarter:
+                          description: Current or last period (integer; 4 when finished).
+                          type: integer
+                        Quarters:
+                          description: Period scores, one row per period.
+                          items:
+                            properties:
+                              n:
+                                description: Period number as a string.
+                                type: string
+                              scoreA:
+                                description: Home points scored IN the period (integer as a string).
+                                type: string
+                              scoreB:
+                                description: Away points scored in the period (integer as a string).
+                                type: string
+                            type: object
+                          type: array
+                        Round:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        RoundID:
+                          description: Round id; 0 in every sample (not filled by this route).
+                          type: integer
+                        ScoreA:
+                          description: Home points (integer; 0 before tip-off).
+                          type: integer
+                        ScoreB:
+                          description: Away points (integer; 0 before tip-off).
+                          type: integer
+                        Season:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        SeasonID:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        Stage:
+                          description: Stage code as a string; '0' in every sample (meaning unverified).
+                          type: string
+                        StartTime:
+                          description: Tip-off in Spanish local time, ISO 8601 without zone ('2026-10-11T12:00:00').
+                          type: string
+                        StartTimeUTC:
+                          description: Tip-off in UTC, ISO 8601 with Z.
+                          type: string
+                        Status:
+                          description: 'Game state code (integer): 3 = finished, 1 = scheduled (seen 2026-10-12);
+                            live codes unverified.'
+                          type: integer
+                        TeamA:
+                          description: Home team name.
+                          type: string
+                        TeamAClubCode:
+                          description: Home federation club code (see clubCode).
+                          type: string
+                        TeamACode:
+                          description: Home federation team code (see teamCode).
+                          type: string
+                        TeamAID:
+                          description: 'Home team: Team-season id (key space: FEB team registrations;
+                            a NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in
+                            2026-27). The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results
+                            home_team_id / away_team_id and overview TeamAID / TeamBID. Not a club id
+                            (clubCode) and not a player id. INTEGER here.'
+                          type: integer
+                        TeamASlug:
+                          description: Home team 3-letter abbreviation ('PAL').
+                          type: string
+                        TeamB:
+                          description: Away team name.
+                          type: string
+                        TeamBClubCode:
+                          description: Away federation club code.
+                          type: string
+                        TeamBCode:
+                          description: Away federation team code.
+                          type: string
+                        TeamBID:
+                          description: 'Away team: Team-season id (key space: FEB team registrations;
+                            a NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in
+                            2026-27). The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results
+                            home_team_id / away_team_id and overview TeamAID / TeamBID. Not a club id
+                            (clubCode) and not a player id. INTEGER here.'
+                          type: integer
+                        TeamBSlug:
+                          description: Away team 3-letter abbreviation.
+                          type: string
+                        Time:
+                          description: '''FINAL'' once finished, else the clock (''00:00'' before tip-off).'
+                          type: string
+                        Timezone:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        _GameTime:
+                          description: Placeholder datetime '0001-01-01T00:00:00' in every sample; ignore.
+                          type: string
+                      type: object
+                    type: array
+                  gamescount:
+                    description: Number of games of this competition in the window (integer).
+                    type: integer
+                  id:
+                    description: 'Competition id (CompID, string; see HEADER.CompID): 115 Primera FEB,
+                      210 LF Endesa, 118 Segunda FEB, 214 LF Challenge, 218 LF-2, 111 Tercera FEB.'
+                    type: string
+                  name:
+                    description: Competition name ('Primera FEB', 'Liga Femenina Endesa', 'Segunda FEB').
+                    type: string
+                  nowplaying:
+                    description: Number of those games in progress right now (integer).
+                    type: integer
+                  order:
+                    description: Display order of the competition (integer, 1 = first).
+                    type: integer
+                type: object
+              type: array
+            activeCompID:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        RANKING:
+          description: 'Envelope block RANKING: always null on this route (the capture refuses otherwise);
+            filled by /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: always null on this route (the capture refuses otherwise);
+            filled by /ShotChart.'
+          type: 'null'
+          x-unfilled-block: true
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts, /TeamStats.'
+          type: 'null'
+          x-unfilled-block: true
+        TICKER:
+          description: 'Envelope block TICKER: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore, /KeyFacts, /ShotChart, /TeamStats, /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+      type: object
+    FebRanking:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore.'
+          type: 'null'
+          x-unfilled-block: true
+        HEADER:
+          description: 'Envelope block HEADER: game header (competition, round, clock, venue, referees,
+            both teams, period scores).'
+          properties:
+            CompID:
+              description: 'Competition id (CompID; key space: FEB competitions, constant across seasons):
+                115 = Primera FEB (LEB Oro), 118 = Segunda FEB, 210 = Liga Femenina Endesa, 214 = LF Challenge,
+                218 = LF-2, 111 = Tercera FEB. String. Equals the results page comp_id and the overview
+                COMPETITIONS[].id.'
+              type: string
+            QUARTERS:
+              description: Period scores wrapper.
+              properties:
+                QUARTER:
+                  description: 'One row per period played (sample: 4).'
+                  items:
+                    properties:
+                      n:
+                        description: Period number as a string ('1'..'4'; overtime numbering unverified).
+                        type: string
+                      scoreA:
+                        description: Points the HOME team (A) scored IN this period, not cumulative (integer
+                          as a string).
+                        type: string
+                      scoreB:
+                        description: Points the AWAY team (B) scored in this period (integer as a string).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            TEAM:
+              description: 'The two teams: [0] = home (local, team A), [1] = away (visitante, team B).'
+              items:
+                properties:
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fouls:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type: string
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            competition:
+              description: Competition name as printed that season, uppercase ('PRIMERA FEB'; 2020-21
+                = 'LIGA LEB ORO', the former name).
+              type: string
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            field:
+              description: Venue (pabellón) name.
+              type: string
+            logo:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            place:
+              description: Venue street address (dirección), free text.
+              type: string
+            quarter:
+              description: Current (or last played) period number; 4 for a finished regulation game (integer).
+              type: integer
+            referee1:
+              description: Crew chief (árbitro principal), 'SURNAMES, NAME'.
+              type: string
+            referee2:
+              description: First umpire (árbitro auxiliar 1), 'SURNAMES, NAME'.
+              type: string
+            referee3:
+              description: Second umpire (árbitro auxiliar 2), 'SURNAMES, NAME'; null when the game had
+                two referees.
+              type:
+              - string
+              - 'null'
+            round:
+              description: 'Group (grupo) label of the phase the game belongs to, right-padded with spaces
+                to 20 characters: ''Único'' = the single group, ''"A"'' = group A. Trim before use.'
+              type: string
+            starttime:
+              description: Tip-off in Spanish local time (Europe/Madrid), 'DD-MM-YYYY - HH:MM' ('27-09-2025
+                - 19:00').
+              type: string
+            status:
+              description: 'Game state code as a string: ''3'' = finished (statusText FINISHED). Null
+                on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            statusText:
+              description: 'Game state label (English): ''FINISHED''. Null on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            time:
+              description: 'Game clock or state: ''FINAL'' once the game is over, else the clock ''mm:ss''
+                remaining in the period.'
+              type: string
+          type: object
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: always null on this route (the capture refuses otherwise);
+            filled by /overview.'
+          type: 'null'
+          x-unfilled-block: true
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        RANKING:
+          description: 'Envelope block RANKING: per-team game leaders.'
+          properties:
+            TEAMS:
+              description: 'The two teams: [0] = home, [1] = away.'
+              items:
+                properties:
+                  Asistencias:
+                    description: Assist leaders (Asistencias), best first. Only assist is filled.
+                    items:
+                      properties:
+                        assist:
+                          description: Assists (asistencias; integer as a string).
+                          type: string
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type:
+                          - string
+                          - 'null'
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        pf:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        pts:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        reb:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                      type: object
+                    type: array
+                  Faltas:
+                    description: Players with the most personal fouls (Faltas), most first. Only pf is
+                      filled.
+                    items:
+                      properties:
+                        assist:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type:
+                          - string
+                          - 'null'
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        pf:
+                          description: Personal fouls committed (faltas cometidas, page column FC; integer
+                            as a string).
+                          type: string
+                        pts:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        reb:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                      type: object
+                    type: array
+                  Puntos:
+                    description: Points leaders of the team (Puntos), best first; the sample keeps 3.
+                      Only pts is filled.
+                    items:
+                      properties:
+                        assist:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type:
+                          - string
+                          - 'null'
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        pf:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        pts:
+                          description: Points (integer as a string).
+                          type: string
+                        reb:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                      type: object
+                    type: array
+                  Rebotes:
+                    description: Rebounding leaders (Rebotes), best first. Only reb is filled.
+                    items:
+                      properties:
+                        assist:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type:
+                          - string
+                          - 'null'
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        pf:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        pts:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        reb:
+                          description: Total rebounds (same count as rt; integer as a string).
+                          type: string
+                      type: object
+                    type: array
+                  clubCode:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                type: object
+              type: array
+          type: object
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: always null on this route (the capture refuses otherwise);
+            filled by /ShotChart.'
+          type: 'null'
+          x-unfilled-block: true
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts, /TeamStats.'
+          type: 'null'
+          x-unfilled-block: true
+        TICKER:
+          description: 'Envelope block TICKER: a news-ticker object that every game route returns with
+            all fields null.'
+          properties:
+            ITEM:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            text:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+      type: object
+    FebResults:
+      properties:
+        comp_id:
+          description: Competition id (CompID) from the hidden field CodCategoriaHiddenField, a string
+            ('115'); joins HEADER.CompID of the game routes.
+          type: string
+        competition:
+          description: Competition name in the page title (span.liga), uppercase, as named that season
+            ('PRIMERA FEB'; 2020-21 'LIGA LEB ORO').
+          type: string
+        final_standings:
+          description: 'Final classification (Clasificación Final: rank and team only) once the season
+            is over; empty during it.'
+          items:
+            properties:
+              position:
+                description: Final rank.
+                type: integer
+              team:
+                description: Team name.
+                type: string
+              team_id:
+                description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                  e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                  and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                  TeamAID / TeamBID. Not a club id (clubCode) and not a player id. Integer.'
+                type: integer
+            type: object
+          type: array
+        group:
+          description: The g request parameter (group code of the site menus; see the README's group table).
+            Checked against the page logo's g=.
+          type: integer
+        next_round:
+          description: Fixtures of the next round ('*-*' result cells); empty when the season is over.
+          items:
+            properties:
+              away_score:
+                description: 'Unobserved: null in every sample. When filled: Away points (integer); null
+                  before the game.'
+                x-unobserved: true
+              away_team:
+                description: Away team name, uppercase.
+                type: string
+              away_team_id:
+                description: 'Away (visitante) team: Team-season id (key space: FEB team registrations;
+                  a NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              date:
+                description: Game date, ISO 'YYYY-MM-DD'.
+                type: string
+              game_id:
+                description: 'Game id (key space: FEB games, one global sequence): the {gameId} of every
+                  LiveStats route and the p= of Partido.aspx; shared by the HTML site and the API. Integer.'
+                type: integer
+              home_score:
+                description: 'Unobserved: null in every sample. When filled: Home points (integer); null
+                  before the game.'
+                x-unobserved: true
+              home_team:
+                description: Home team name, uppercase.
+                type: string
+              home_team_id:
+                description: 'Home (local) team: Team-season id (key space: FEB team registrations; a
+                  NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              result_text:
+                description: 'Result cell verbatim: ''home-away'' points when played (''69-95''); before
+                  the game the calendar shows ''WEEKDAY DD/MM/YYYY HH:MM'' in Spanish (''SÁBADO 17/10/2026
+                  19:30'') and the results page shows ''*-*''.'
+                type: string
+              status:
+                description: played (the cell holds a score) or scheduled (anything else).
+                type: string
+              time:
+                description: Tip-off 'HH:MM', Spanish local time.
+                type: string
+            type: object
+          type: array
+        next_round_title:
+          description: Title of the next-round table ('Próxima Jornada 4 16/10/2026'); null when there
+            is none (season over).
+          type:
+          - string
+          - 'null'
+        phases:
+          description: 'The group/phase select (gruposDropDownList): the phases and groups of this competition
+            season. The page renders the SELECTED one only; switching is an ASP.NET postback (not modelled).'
+          items:
+            properties:
+              label:
+                description: 'Phase and group in Spanish: ''Liga Regular Único'' = regular season, single
+                  group; ''Liga Regular "A"'' = group A; ''Play-offs 1/4 Final'' = playoff quarter-finals;
+                  ''Copa Princesa de Asturias'' = the cup.'
+                type: string
+              phase_id:
+                description: 'Phase-group id (key space: FEB groups per season, e.g. 89991 = Primera FEB
+                  2026-27 regular season). Integer.'
+                type: integer
+              selected:
+                description: True for the phase the page shows (the first in the list on a fresh GET).
+                type: boolean
+            type: object
+          type: array
+        results:
+          description: Results of the selected (latest) round.
+          items:
+            properties:
+              away_score:
+                description: Away points (integer); null before the game.
+                type: integer
+              away_team:
+                description: Away team name, uppercase.
+                type: string
+              away_team_id:
+                description: 'Away (visitante) team: Team-season id (key space: FEB team registrations;
+                  a NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              date:
+                description: Game date, ISO 'YYYY-MM-DD'.
+                type: string
+              game_id:
+                description: 'Game id (key space: FEB games, one global sequence): the {gameId} of every
+                  LiveStats route and the p= of Partido.aspx; shared by the HTML site and the API. Integer.'
+                type: integer
+              home_score:
+                description: Home points (integer); null before the game.
+                type: integer
+              home_team:
+                description: Home team name, uppercase.
+                type: string
+              home_team_id:
+                description: 'Home (local) team: Team-season id (key space: FEB team registrations; a
+                  NEW id every season, e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27).
+                  The i= of Equipo.aspx?i= and of the logo URL; joins calendar/results home_team_id /
+                  away_team_id and overview TeamAID / TeamBID. Not a club id (clubCode) and not a player
+                  id. Integer.'
+                type: integer
+              result_text:
+                description: 'Result cell verbatim: ''home-away'' points when played (''69-95''); before
+                  the game the calendar shows ''WEEKDAY DD/MM/YYYY HH:MM'' in Spanish (''SÁBADO 17/10/2026
+                  19:30'') and the results page shows ''*-*''.'
+                type: string
+              status:
+                description: played (the cell holds a score) or scheduled (anything else).
+                type: string
+              time:
+                description: Tip-off 'HH:MM', Spanish local time.
+                type: string
+            type: object
+          type: array
+        results_title:
+          description: Title of the results table ('Resultados Jornada 3(09/10/2026)').
+          type: string
+        rounds:
+          description: The round select (jornadasDropDownList) of the shown phase; the selected one is
+            the latest round played.
+          items:
+            properties:
+              label:
+                description: Round label 'Jornada N(DD/MM/YYYY)'.
+                type: string
+              round_id:
+                description: 'Round id (key space: FEB rounds, integer).'
+                type: integer
+              selected:
+                description: True for the round whose results the page shows.
+                type: boolean
+            type: object
+          type: array
+        season_label:
+          description: Season label 'START/END' ('2026/2027').
+          type: string
+        season_start:
+          description: 'The t request parameter: season START year (2026 = 2026-27; sdv END year = t +
+            1). Checked against the logo''s t=, the selected season option and season_label.'
+          type: integer
+        seasons:
+          description: Every season the season select offers, newest first (1996-97 to 2026-27 for Primera
+            FEB); the sample keeps 3.
+          items:
+            properties:
+              label:
+                description: Season label 'START/END'.
+                type: string
+              season_start:
+                description: Season START year (the option value; the t parameter of that season's page).
+                type: integer
+            type: object
+          type: array
+        standings:
+          description: League table (Clasificación) of the shown phase, during the season; empty once
+            the season has a final classification.
+          items:
+            properties:
+              lost:
+                description: Games lost (PP).
+                type: integer
+              played:
+                description: Games played (PJ).
+                type: integer
+              point_diff:
+                description: Point difference (DIF), signed integer.
+                type: integer
+              points_against:
+                description: Points conceded (PC, puntos en contra).
+                type: integer
+              points_for:
+                description: Points scored (PF, puntos a favor).
+                type: integer
+              position:
+                description: Rank (Po), integer.
+                type: integer
+              streak:
+                description: 'Current streak (R, racha) as a signed integer: +3 = three wins in a row,
+                  -2 = two losses.'
+                type: integer
+              streak_text:
+                description: The streak cell verbatim ('+3').
+                type: string
+              team:
+                description: Team name.
+                type: string
+              team_id:
+                description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                  e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                  and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                  TeamAID / TeamBID. Not a club id (clubCode) and not a player id. Integer.'
+                type: integer
+              win_pct:
+                description: Win percentage, 0-100 (the page's '100,0%', decimal comma converted).
+                type: number
+              won:
+                description: Games won (PG).
+                type: integer
+            type: object
+          type: array
+      type: object
+    FebShotChart:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore.'
+          type: 'null'
+          x-unfilled-block: true
+        HEADER:
+          description: 'Envelope block HEADER: game header (competition, round, clock, venue, referees,
+            both teams, period scores).'
+          properties:
+            CompID:
+              description: 'Competition id (CompID; key space: FEB competitions, constant across seasons):
+                115 = Primera FEB (LEB Oro), 118 = Segunda FEB, 210 = Liga Femenina Endesa, 214 = LF Challenge,
+                218 = LF-2, 111 = Tercera FEB. String. Equals the results page comp_id and the overview
+                COMPETITIONS[].id.'
+              type: string
+            QUARTERS:
+              description: Period scores wrapper.
+              properties:
+                QUARTER:
+                  description: 'One row per period played (sample: 4).'
+                  items:
+                    properties:
+                      n:
+                        description: Period number as a string ('1'..'4'; overtime numbering unverified).
+                        type: string
+                      scoreA:
+                        description: Points the HOME team (A) scored IN this period, not cumulative (integer
+                          as a string).
+                        type: string
+                      scoreB:
+                        description: Points the AWAY team (B) scored in this period (integer as a string).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            TEAM:
+              description: 'The two teams: [0] = home (local, team A), [1] = away (visitante, team B).'
+              items:
+                properties:
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fouls:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type: string
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            competition:
+              description: Competition name as printed that season, uppercase ('PRIMERA FEB'; 2020-21
+                = 'LIGA LEB ORO', the former name).
+              type: string
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            field:
+              description: Venue (pabellón) name.
+              type: string
+            logo:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            place:
+              description: Venue street address (dirección), free text.
+              type: string
+            quarter:
+              description: Current (or last played) period number; 4 for a finished regulation game (integer).
+              type: integer
+            referee1:
+              description: Crew chief (árbitro principal), 'SURNAMES, NAME'.
+              type: string
+            referee2:
+              description: First umpire (árbitro auxiliar 1), 'SURNAMES, NAME'.
+              type: string
+            referee3:
+              description: Second umpire (árbitro auxiliar 2), 'SURNAMES, NAME'; null when the game had
+                two referees.
+              type:
+              - string
+              - 'null'
+            round:
+              description: 'Group (grupo) label of the phase the game belongs to, right-padded with spaces
+                to 20 characters: ''Único'' = the single group, ''"A"'' = group A. Trim before use.'
+              type: string
+            starttime:
+              description: Tip-off in Spanish local time (Europe/Madrid), 'DD-MM-YYYY - HH:MM' ('27-09-2025
+                - 19:00').
+              type: string
+            status:
+              description: 'Game state code as a string: ''3'' = finished (statusText FINISHED). Null
+                on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            statusText:
+              description: 'Game state label (English): ''FINISHED''. Null on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            time:
+              description: 'Game clock or state: ''FINAL'' once the game is over, else the clock ''mm:ss''
+                remaining in the period.'
+              type: string
+          type: object
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: always null on this route (the capture refuses otherwise);
+            filled by /overview.'
+          type: 'null'
+          x-unfilled-block: true
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        RANKING:
+          description: 'Envelope block RANKING: always null on this route (the capture refuses otherwise);
+            filled by /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: the shot chart.'
+          properties:
+            SHOTS:
+              description: 'Every field-goal attempt of both teams (free throws excluded): 115-125 per
+                game in the samples.'
+              items:
+                properties:
+                  m:
+                    description: 'Made flag as a string: ''1'' = made, ''0'' = missed.'
+                    type: string
+                  player:
+                    description: Shirt number (dorsal) of the shooter, a string; join to that side's PLAYER[].no.
+                      Not a player id.
+                    type: string
+                  quarter:
+                    description: Period number as a string ('1'..'4').
+                    type: string
+                  t:
+                    description: Game clock REMAINING in the period at the shot, 'mm:ss' (the PBP line's
+                      time).
+                    type: string
+                  team:
+                    description: 'Side as a string: ''0'' = home (TEAM[0]), ''1'' = away. NOTE: PLAYBYPLAY
+                      uses ''1''/''2'' for the same sides.'
+                    type: string
+                  x:
+                    description: 'Shot x as a decimal string: PERCENT (0-100) of the court LENGTH, origin
+                      at the top-left corner of a horizontal full-court image (the site draws it as CSS
+                      left:{x}%). The baskets are near x = 5 and x = 95; teams change ends at half-time
+                      (home shoots at x < 50 in periods 1-2 and x > 50 in 3-4 in game 2486258). Verified
+                      from ShotChart.js and the sample distribution; metres = x / 100 x 28 (FIBA court)
+                      is an inference.'
+                    type: string
+                  y:
+                    description: 'Shot y as a decimal string: PERCENT (0-100) of the court WIDTH from
+                      the top edge (CSS top:{y}%); the baskets sit at y = 50. Sample 21.30 = 21 % of the
+                      width from the top sideline.'
+                    type: string
+                type: object
+              type: array
+            TEAM:
+              description: 'The two teams of SHOTCHART: [0] = home (local), [1] = away (visitante).'
+              items:
+                properties:
+                  PLAYER:
+                    description: The team's player rows (same fields as BoxScore PLAYER); the chart joins
+                      shots to them by shirt number (no).
+                    items:
+                      properties:
+                        assist:
+                          description: Assists (asistencias; integer as a string).
+                          type: string
+                        bs:
+                          description: Blocks made (tapones a favor, page column TF; integer as a string).
+                          type: string
+                        captain:
+                          description: 'Captain flag: ''1'' = team captain, ''0'' = not; string. Null
+                            on the 2020-21 samples.'
+                          type:
+                          - string
+                          - 'null'
+                        fga:
+                          description: Field goals attempted, 2PT + 3PT (integer as a string).
+                          type: string
+                        fgm:
+                          description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                          type: string
+                        fgp:
+                          description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                          type: string
+                        id:
+                          description: 'Player id = idPlayer (key space: FEB persons; STABLE across seasons
+                            and clubs: A. Jorda Rodriguez = 1676991 in 2025-26 at HLA Alicante and in
+                            2026-27 at Palencia). The c= of the foto.aspx photo URL; joins PLAYBYPLAY
+                            LINES[].idPlayer. Not the licence id (idLicense).'
+                          type: string
+                        ind:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        inn:
+                          description: 'Starter flag (cinco inicial, the page''s I column): ''1'' = started,
+                            ''0'' = bench; string.'
+                          type: string
+                        logo:
+                          description: Player photo URL (imagenes.feb.es/foto.aspx?c={player id}).
+                          type: string
+                        min:
+                          description: 'Seconds played (integer as a string: ''1106'' = 18:26). On a team
+                            TOTAL row it is the summed seconds of all players (''12000'' = 5 x 40:00).'
+                          type:
+                          - string
+                          - 'null'
+                        minFormatted:
+                          description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows:
+                            ''200:00'').'
+                          type: string
+                        mt:
+                          description: Dunks (mates, page column MT; integer as a string).
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          description: Player name as 'I. SURNAME(S)', uppercase ('U. MENDICOTE RUBIO').
+                          type: string
+                        'no':
+                          description: Shirt number (dorsal), a string. The SHOTCHART SHOTS[].player of
+                            this team's shots is this value.
+                          type: string
+                        p1a:
+                          description: Free throws attempted (integer as a string).
+                          type: string
+                        p1m:
+                          description: Free throws made (tiros libres; integer as a string).
+                          type: string
+                        p1p:
+                          description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA
+                            ('77,3'); '0,0' when no attempts.
+                          type: string
+                        p2a:
+                          description: Two-point field goals attempted (integer as a string).
+                          type: string
+                        p2m:
+                          description: Two-point field goals made (integer as a string).
+                          type: string
+                        p2p:
+                          description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                          type: string
+                        p3a:
+                          description: Three-point field goals attempted (integer as a string).
+                          type: string
+                        p3m:
+                          description: Three-point field goals made (integer as a string).
+                          type: string
+                        p3p:
+                          description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                          type: string
+                        pf:
+                          description: Personal fouls committed (faltas cometidas, page column FC; integer
+                            as a string).
+                          type: string
+                        pllss:
+                          description: 'Plus/minus while on court (balance, page column +/-; signed integer
+                            as a string: ''-7'').'
+                          type: string
+                        pts:
+                          description: Points (integer as a string).
+                          type: string
+                        rd:
+                          description: Defensive rebounds (rebotes defensivos; integer as a string).
+                          type: string
+                        reb:
+                          description: Total rebounds (same count as rt; integer as a string).
+                          type: string
+                        rf:
+                          description: Fouls received / drawn (faltas recibidas, page column FR; integer
+                            as a string).
+                          type: string
+                        ro:
+                          description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                          type: string
+                        rt:
+                          description: Total rebounds (rebotes totales; integer as a string).
+                          type: string
+                        st:
+                          description: Steals (balones robados, page column BR; integer as a string).
+                          type: string
+                        sta:
+                          description: 'Unobserved: null in every sample, so no type and no meaning is
+                            claimed.'
+                          x-unobserved: true
+                        tc:
+                          description: Shots of this player/team that were blocked (tapones en contra
+                            / recibidos, page column TC; integer as a string).
+                          type:
+                          - string
+                          - 'null'
+                        to:
+                          description: Turnovers (balones perdidos, page column BP; integer as a string).
+                          type: string
+                        val:
+                          description: 'Valoración: FEB/ACB efficiency rating (PIR: points + rebounds
+                            + assists + steals + blocks + fouls drawn - missed shots - turnovers - shots
+                            blocked - fouls committed); integer as a string.'
+                          type:
+                          - string
+                          - 'null'
+                      type: object
+                    type: array
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            quarters:
+              description: Number of periods in the chart (integer; 4 in the samples).
+              type: integer
+          type: object
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts, /TeamStats.'
+          type: 'null'
+          x-unfilled-block: true
+        TICKER:
+          description: 'Envelope block TICKER: a news-ticker object that every game route returns with
+            all fields null.'
+          properties:
+            ITEM:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            text:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+      type: object
+    FebTeamStats:
+      properties:
+        BANNER:
+          description: 'Envelope block BANNER: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        BOXSCORE:
+          description: 'Envelope block BOXSCORE: always null on this route (the capture refuses otherwise);
+            filled by /BoxScore.'
+          type: 'null'
+          x-unfilled-block: true
+        HEADER:
+          description: 'Envelope block HEADER: game header (competition, round, clock, venue, referees,
+            both teams, period scores).'
+          properties:
+            CompID:
+              description: 'Competition id (CompID; key space: FEB competitions, constant across seasons):
+                115 = Primera FEB (LEB Oro), 118 = Segunda FEB, 210 = Liga Femenina Endesa, 214 = LF Challenge,
+                218 = LF-2, 111 = Tercera FEB. String. Equals the results page comp_id and the overview
+                COMPETITIONS[].id.'
+              type: string
+            QUARTERS:
+              description: Period scores wrapper.
+              properties:
+                QUARTER:
+                  description: 'One row per period played (sample: 4).'
+                  items:
+                    properties:
+                      n:
+                        description: Period number as a string ('1'..'4'; overtime numbering unverified).
+                        type: string
+                      scoreA:
+                        description: Points the HOME team (A) scored IN this period, not cumulative (integer
+                          as a string).
+                        type: string
+                      scoreB:
+                        description: Points the AWAY team (B) scored in this period (integer as a string).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            TEAM:
+              description: 'The two teams: [0] = home (local, team A), [1] = away (visitante, team B).'
+              items:
+                properties:
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fouls:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type: string
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type: array
+            competition:
+              description: Competition name as printed that season, uppercase ('PRIMERA FEB'; 2020-21
+                = 'LIGA LEB ORO', the former name).
+              type: string
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            field:
+              description: Venue (pabellón) name.
+              type: string
+            logo:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            place:
+              description: Venue street address (dirección), free text.
+              type: string
+            quarter:
+              description: Current (or last played) period number; 4 for a finished regulation game (integer).
+              type: integer
+            referee1:
+              description: Crew chief (árbitro principal), 'SURNAMES, NAME'.
+              type: string
+            referee2:
+              description: First umpire (árbitro auxiliar 1), 'SURNAMES, NAME'.
+              type: string
+            referee3:
+              description: Second umpire (árbitro auxiliar 2), 'SURNAMES, NAME'; null when the game had
+                two referees.
+              type:
+              - string
+              - 'null'
+            round:
+              description: 'Group (grupo) label of the phase the game belongs to, right-padded with spaces
+                to 20 characters: ''Único'' = the single group, ''"A"'' = group A. Trim before use.'
+              type: string
+            starttime:
+              description: Tip-off in Spanish local time (Europe/Madrid), 'DD-MM-YYYY - HH:MM' ('27-09-2025
+                - 19:00').
+              type: string
+            status:
+              description: 'Game state code as a string: ''3'' = finished (statusText FINISHED). Null
+                on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            statusText:
+              description: 'Game state label (English): ''FINISHED''. Null on the 2020-21 samples.'
+              type:
+              - string
+              - 'null'
+            time:
+              description: 'Game clock or state: ''FINAL'' once the game is over, else the clock ''mm:ss''
+                remaining in the period.'
+              type: string
+          type: object
+        OVERVIEW:
+          description: 'Envelope block OVERVIEW: always null on this route (the capture refuses otherwise);
+            filled by /overview.'
+          type: 'null'
+          x-unfilled-block: true
+        PLAYBYPLAY:
+          description: 'Envelope block PLAYBYPLAY: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        RANKING:
+          description: 'Envelope block RANKING: always null on this route (the capture refuses otherwise);
+            filled by /Ranking.'
+          type: 'null'
+          x-unfilled-block: true
+        SCOREBOARD:
+          description: 'Envelope block SCOREBOARD: always null on this route (the capture refuses otherwise);
+            filled by /KeyFacts.'
+          type: 'null'
+          x-unfilled-block: true
+        SHOTCHART:
+          description: 'Envelope block SHOTCHART: always null on this route (the capture refuses otherwise);
+            filled by /ShotChart.'
+          type: 'null'
+          x-unfilled-block: true
+        TEAMSTATS:
+          description: 'Envelope block TEAMSTATS: team totals of both teams.'
+          properties:
+            TEAM:
+              description: 'The two teams of TEAMSTATS: [0] = home (local), [1] = away (visitante).'
+              items:
+                properties:
+                  assist:
+                    description: Assists (asistencias; integer as a string).
+                    type: string
+                  bench:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  bs:
+                    description: Blocks made (tapones a favor, page column TF; integer as a string).
+                    type: string
+                  clubCode:
+                    description: 'Federation club code, 6 digits as a string (key space: clubs; the first
+                      6 digits of teamCode). Stability across seasons is unverified. Null on the 2020-21
+                      samples.'
+                    type:
+                    - string
+                    - 'null'
+                  fastb:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  fga:
+                    description: Field goals attempted, 2PT + 3PT (integer as a string).
+                    type: string
+                  fgm:
+                    description: Field goals made, 2PT + 3PT (tiros de campo; integer as a string).
+                    type: string
+                  fgp:
+                    description: Field-goal percentage, 0-100, string with a decimal comma ('51,7').
+                    type: string
+                  fouls:
+                    description: Team fouls committed (integer as a string; equals pf on the samples).
+                    type: string
+                  id:
+                    description: 'Team-season id (key space: FEB team registrations; a NEW id every season,
+                      e.g. HLA Alicante = 979989 in 2025-26 and 1008687 in 2026-27). The i= of Equipo.aspx?i=
+                      and of the logo URL; joins calendar/results home_team_id / away_team_id and overview
+                      TeamAID / TeamBID. Not a club id (clubCode) and not a player id.'
+                    type: string
+                  logo:
+                    description: Team logo URL (imagenes.feb.es/imagen.aspx?i={team id}&ti=1; older games
+                      use competiciones.feb.es/estadisticas/Imagen.aspx).
+                    type:
+                    - string
+                    - 'null'
+                  min:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  minFormatted:
+                    description: 'Time played as ''mm:ss'' (minutes may exceed 59 on team rows: ''200:00'').'
+                    type: string
+                  mt:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  name:
+                    description: 'Team name as registered for this season (sponsor name, uppercase: ''HLA
+                      ALICANTE'').'
+                    type: string
+                  p1a:
+                    description: Free throws attempted (integer as a string).
+                    type: string
+                  p1m:
+                    description: Free throws made (tiros libres; integer as a string).
+                    type: string
+                  p1p:
+                    description: Free-throw percentage, 0-100, as a string with a DECIMAL COMMA ('77,3');
+                      '0,0' when no attempts.
+                    type: string
+                  p2a:
+                    description: Two-point field goals attempted (integer as a string).
+                    type: string
+                  p2m:
+                    description: Two-point field goals made (integer as a string).
+                    type: string
+                  p2p:
+                    description: Two-point percentage, 0-100, string with a decimal comma ('54,1').
+                    type: string
+                  p3a:
+                    description: Three-point field goals attempted (integer as a string).
+                    type: string
+                  p3m:
+                    description: Three-point field goals made (integer as a string).
+                    type: string
+                  p3p:
+                    description: Three-point percentage, 0-100, string with a decimal comma ('47,6').
+                    type: string
+                  paint:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  pf:
+                    description: Personal fouls committed (faltas cometidas, page column FC; integer as
+                      a string).
+                    type: string
+                  pts:
+                    description: 'Team points: the final score when HEADER.time is FINAL, else the live
+                      score (integer as a string).'
+                    type: string
+                  ptsto:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  rd:
+                    description: Defensive rebounds (rebotes defensivos; integer as a string).
+                    type: string
+                  rf:
+                    description: Fouls received / drawn (faltas recibidas, page column FR; integer as
+                      a string).
+                    type: string
+                  ro:
+                    description: Offensive rebounds (rebotes ofensivos; integer as a string).
+                    type: string
+                  rt:
+                    description: Total rebounds (rebotes totales; integer as a string).
+                    type: string
+                  secpts:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  slug:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  st:
+                    description: Steals (balones robados, page column BR; integer as a string).
+                    type: string
+                  tc:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                  teamCode:
+                    description: 'Federation team code, 8 digits as a string: the 6-digit clubCode + a
+                      2-digit team suffix (''03058600'' = club 030586, team 00). Null on the 2020-21 samples.'
+                    type:
+                    - string
+                    - 'null'
+                  to:
+                    description: Turnovers (balones perdidos, page column BP; integer as a string).
+                    type: string
+                  val:
+                    description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                    x-unobserved: true
+                type: object
+              type: array
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+        TICKER:
+          description: 'Envelope block TICKER: a news-ticker object that every game route returns with
+            all fields null.'
+          properties:
+            ITEM:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            duration:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+            text:
+              description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+              x-unobserved: true
+          type: object
+      type: object
+    ProblemDetails:
+      description: RFC 7807 error body of a 404 (unknown game, or a game the API does not serve).
+      properties:
+        status:
+          description: HTTP status, 404.
+          type: integer
+        title:
+          description: '''Not Found''.'
+          type: string
+        traceId:
+          description: Server trace id.
+          type: string
+        type:
+          description: Problem type URI (rfc7231 section 6.5.4).
+          type: string
+      type: object
+  securitySchemes:
+    febBearer:
+      bearerFormat: JWT
+      description: 'Bearer JWT read at RUN TIME from any baloncestoenvivo.feb.es page: the hidden input
+        `#contentToken > input` (name `_ctl0:token`) of `https://baloncestoenvivo.feb.es/Partido.aspx?p={gameId}`
+        (the same token is on calendario/resultados pages). It is an RS256 JWT issued by https://intrafeb.feb.es/identity.api
+        for client_id `baloncestoenvivoapp`, scope `livestats.api`, roles OverView / TeamStats / ShotChart
+        / Ranking / KeyFacts / BoxScore, valid 24 h (exp - nbf = 86400 s). Send it as `Authorization:
+        Bearer <JWT>`. A missing, malformed or expired token answers 401 with an empty body and `WWW-Authenticate:
+        Bearer`. Never commit or log the token; captures redact any JWT-shaped string.'
+      scheme: bearer
+      type: http
+info:
+  description: Spanish Basketball Federation (FEB) game data for Primera FEB (CompID 115), Liga Femenina
+    Endesa (210), Segunda FEB (118) and the other FEB competitions. The JSON API serves per-game box score,
+    play-by-play (KeyFacts), shot chart with x/y, team stats and leaders, from 2020-21 onward (404 before);
+    every route returns the same 10-block envelope (HEADER, SCOREBOARD, TEAMSTATS, TICKER, OVERVIEW, PLAYBYPLAY,
+    BANNER, BOXSCORE, SHOTCHART, RANKING) with only the route's blocks filled. Bearer JWT required (see
+    securitySchemes.febBearer). Schedules are server-rendered HTML on baloncestoenvivo.feb.es (keyless;
+    x-parsed-schema gives the parsed record). Seasons are keyed by START year (t=2026 = 2026-27; sdv END
+    year = t + 1). Numbers are mostly strings, percentages use a decimal comma. Shapes from captures of
+    2026-10-12; x-unobserved = null in every sample. Not official or supported.
+  title: FEB LiveStats API (intrafeb.feb.es) + baloncestoenvivo.feb.es schedule pages
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /BoxScore/{gameId}:
+    get:
+      description: 'Box score: per-player and team totals. Fills the envelope blocks HEADER, TICKER, BOXSCORE;
+        the others are null. Numbers arrive as STRINGS (ids, counts, seconds) and percentages as strings
+        with a DECIMAL COMMA (''83,3''); cast at the boundary.'
+      operationId: get_feb_boxscore
+      parameters:
+      - description: 'Game id (the p= of Partido.aspx and of the calendar''s game links). The API serves
+          2020-21 onward: LF Endesa from its first 2020-21 game, Primera FEB from 2021-03-12 (2020-21
+          second phase, round 9); older games and earlier 2020-21 Primera FEB games answer 404 application/problem+json.'
+        example: 2535725
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebBoxScore'
+          description: 'LiveStats envelope; filled blocks: HEADER, TICKER, BOXSCORE (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unknown game, or a game outside the API's coverage (before 2020-21).
+      security:
+      - febBearer: []
+      summary: 'Box score: per-player and team totals'
+  /KeyFacts/{gameId}:
+    get:
+      description: Play-by-play (KeyFacts) plus scoreboard and team totals. Fills the envelope blocks
+        HEADER, SCOREBOARD, TEAMSTATS, TICKER, PLAYBYPLAY, BANNER; the others are null. Lines are NEWEST
+        FIRST; num counts up from 1 at tip-off.
+      operationId: get_feb_keyfacts
+      parameters:
+      - description: 'Game id (the p= of Partido.aspx and of the calendar''s game links). The API serves
+          2020-21 onward: LF Endesa from its first 2020-21 game, Primera FEB from 2021-03-12 (2020-21
+          second phase, round 9); older games and earlier 2020-21 Primera FEB games answer 404 application/problem+json.'
+        example: 2535725
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebKeyFacts'
+          description: 'LiveStats envelope; filled blocks: HEADER, SCOREBOARD, TEAMSTATS, TICKER, PLAYBYPLAY,
+            BANNER (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unknown game, or a game outside the API's coverage (before 2020-21).
+      security:
+      - febBearer: []
+      summary: Play-by-play (KeyFacts) plus scoreboard and team totals
+  /Ranking/{gameId}:
+    get:
+      description: Per-team game leaders (points, rebounds, assists, fouls). Fills the envelope blocks
+        HEADER, TICKER, RANKING; the others are null. Each category list holds the team's top players
+        for that stat only; the other stat fields of a leader row are null.
+      operationId: get_feb_ranking
+      parameters:
+      - description: 'Game id (the p= of Partido.aspx and of the calendar''s game links). The API serves
+          2020-21 onward: LF Endesa from its first 2020-21 game, Primera FEB from 2021-03-12 (2020-21
+          second phase, round 9); older games and earlier 2020-21 Primera FEB games answer 404 application/problem+json.'
+        example: 2535725
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebRanking'
+          description: 'LiveStats envelope; filled blocks: HEADER, TICKER, RANKING (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unknown game, or a game outside the API's coverage (before 2020-21).
+      security:
+      - febBearer: []
+      summary: Per-team game leaders (points, rebounds, assists, fouls)
+  /ShotChart/{gameId}:
+    get:
+      description: 'Shot chart: every field-goal attempt with x/y. Fills the envelope blocks HEADER, TICKER,
+        SHOTCHART; the others are null. x / y are percentages of a horizontal full-court image (origin
+        top-left), decimal strings with a POINT (''63.47''), unlike the box score''s decimal-comma percentages.
+        Sample 63.47, 21.30 = 63 % of the length from the left baseline, 21 % of the width from the top
+        sideline. Verified from the site''s ShotChart.js (CSS left:x%, top:y%) and from the distribution
+        (baskets near x 5 / 95, y 50).'
+      operationId: get_feb_shotchart
+      parameters:
+      - description: 'Game id (the p= of Partido.aspx and of the calendar''s game links). The API serves
+          2020-21 onward: LF Endesa from its first 2020-21 game, Primera FEB from 2021-03-12 (2020-21
+          second phase, round 9); older games and earlier 2020-21 Primera FEB games answer 404 application/problem+json.'
+        example: 2535725
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebShotChart'
+          description: 'LiveStats envelope; filled blocks: HEADER, TICKER, SHOTCHART (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unknown game, or a game outside the API's coverage (before 2020-21).
+      security:
+      - febBearer: []
+      summary: 'Shot chart: every field-goal attempt with x/y'
+  /TeamStats/{gameId}:
+    get:
+      description: Team totals of both teams. Fills the envelope blocks HEADER, TICKER, TEAMSTATS; the
+        others are null. The same TEAMSTATS rows also come with /KeyFacts; this route returns them alone.
+      operationId: get_feb_teamstats
+      parameters:
+      - description: 'Game id (the p= of Partido.aspx and of the calendar''s game links). The API serves
+          2020-21 onward: LF Endesa from its first 2020-21 game, Primera FEB from 2021-03-12 (2020-21
+          second phase, round 9); older games and earlier 2020-21 Primera FEB games answer 404 application/problem+json.'
+        example: 2535725
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebTeamStats'
+          description: 'LiveStats envelope; filled blocks: HEADER, TICKER, TEAMSTATS (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unknown game, or a game outside the API's coverage (before 2020-21).
+      security:
+      - febBearer: []
+      summary: Team totals of both teams
+  /calendario.aspx:
+    get:
+      description: 'text/html (ASP.NET WebForms), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys). Keyless. Parsing rule: span.liga / span.temporada / img#logoCategoriaImage (g=,
+        t= must equal the request) and the selected season option; select[name$=temporadasDropDownList]
+        and select[name$=gruposDropDownList] options; a[href*=''Series.aspx?f='']; then div#page-calendario
+        walked in order: each h1.titulo-modulo ''Jornada N [DD/MM/YYYY]'' starts a round, each table[id$=DataGrid3]
+        (header Local | Resultado | Visitante) gives its games: td.local / td.visitante a[href*=Equipo.aspx?i=],
+        the middle td a[href*=Partido.aspx?p=] and its text (score, or WEEKDAY<br>DD/MM/YYYY<br>HH:MM).
+        Redirects to /calendario/{g}/{t}; an unknown g redirects to /error (HTTP 200).'
+      operationId: get_feb_calendar
+      parameters:
+      - description: 'Group code of the site menus (integer): 1 = Primera FEB, 2 = Segunda FEB, 4 = Liga
+          Femenina Endesa, 9 / 10 = LF-2 groups, 67 = LF Challenge, 73 = Copa España, 74 = Liga U, 55
+          = Minicopa LF Endesa, 3/5/6/7/8/17/33/39/46-49/57 = Tercera FEB groups. An unknown g redirects
+          to /error with HTTP 200.'
+        example: 1
+        in: query
+        name: g
+        required: true
+        schema:
+          type: integer
+      - description: 'Season START year (integer): 2026 = 2026-27. The sdv season key is the END year
+          (t + 1). Season options go back to 1996 (1996-97).'
+        example: 2026
+        in: query
+        name: t
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: feb/tools/capture.py parse_calendar
+                rule: 'span.liga / span.temporada / img#logoCategoriaImage (g=, t= must equal the request)
+                  and the selected season option; select[name$=temporadasDropDownList] and select[name$=gruposDropDownList]
+                  options; a[href*=''Series.aspx?f='']; then div#page-calendario walked in order: each
+                  h1.titulo-modulo ''Jornada N [DD/MM/YYYY]'' starts a round, each table[id$=DataGrid3]
+                  (header Local | Resultado | Visitante) gives its games: td.local / td.visitante a[href*=Equipo.aspx?i=],
+                  the middle td a[href*=Partido.aspx?p=] and its text (score, or WEEKDAY<br>DD/MM/YYYY<br>HH:MM)'
+                schema:
+                  $ref: '#/components/schemas/FebCalendar'
+          description: Server-rendered HTML page
+      security: []
+      summary: 'Full schedule of one group (phase) of a competition season: every round and game link'
+    servers:
+    - url: https://baloncestoenvivo.feb.es
+  /overview:
+    get:
+      description: 'Today''s (or the latest) games of every live FEB competition. Fills the envelope blocks
+        OVERVIEW; the others are null. No parameters: the window is the latest or current game day across
+        competitions (2026-10-11/12 when captured), so the sample is date-sensitive.'
+      operationId: get_feb_overview
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FebOverview'
+          description: 'LiveStats envelope; filled blocks: OVERVIEW (the rest null).'
+        '401':
+          description: 'Missing, malformed or expired bearer token: empty body, `WWW-Authenticate: Bearer`.'
+      security:
+      - febBearer: []
+      summary: Today's (or the latest) games of every live FEB competition
+  /resultados.aspx:
+    get:
+      description: 'text/html (ASP.NET WebForms), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys). Keyless. Parsing rule: the same page header checks; input#CodCategoriaHiddenField
+        (CompID); select[name$=jornadasDropDownList] options; h1.titulo-modulo titles; table[id$=_jornadaDataGrid]
+        and table[id$=_proximaJornadaDataGrid] (header Equipos | Resultado | Fecha | Hora; first cell
+        = two Equipo.aspx links home - away); table[id$=_clasificacionDataGrid] (Po | Equipo | PJ | PG
+        | PP | PF | PC | DIF | % | R) or table[id$=_clasificacionFinalDataGrid] (Po | Equipo). Redirects
+        to /resultados/{g}/{t}; an unknown g redirects to /error (HTTP 200).'
+      operationId: get_feb_results
+      parameters:
+      - description: 'Group code of the site menus (integer): 1 = Primera FEB, 2 = Segunda FEB, 4 = Liga
+          Femenina Endesa, 9 / 10 = LF-2 groups, 67 = LF Challenge, 73 = Copa España, 74 = Liga U, 55
+          = Minicopa LF Endesa, 3/5/6/7/8/17/33/39/46-49/57 = Tercera FEB groups. An unknown g redirects
+          to /error with HTTP 200.'
+        example: 1
+        in: query
+        name: g
+        required: true
+        schema:
+          type: integer
+      - description: 'Season START year (integer): 2026 = 2026-27. The sdv season key is the END year
+          (t + 1). Season options go back to 1996 (1996-97).'
+        example: 2026
+        in: query
+        name: t
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: feb/tools/capture.py parse_results
+                rule: the same page header checks; input#CodCategoriaHiddenField (CompID); select[name$=jornadasDropDownList]
+                  options; h1.titulo-modulo titles; table[id$=_jornadaDataGrid] and table[id$=_proximaJornadaDataGrid]
+                  (header Equipos | Resultado | Fecha | Hora; first cell = two Equipo.aspx links home
+                  - away); table[id$=_clasificacionDataGrid] (Po | Equipo | PJ | PG | PP | PF | PC | DIF
+                  | % | R) or table[id$=_clasificacionFinalDataGrid] (Po | Equipo)
+                schema:
+                  $ref: '#/components/schemas/FebResults'
+          description: Server-rendered HTML page
+      security: []
+      summary: Latest round's results, the standings and the next round of a competition season
+    servers:
+    - url: https://baloncestoenvivo.feb.es
+servers:
+- url: https://intrafeb.feb.es/LiveStats.API/api/v1
