@@ -310,8 +310,10 @@ components:
                     type: string
                 type: object
               pointsByQuarters:
-                description: Points per period as [home, away] pairs, in competitors order; null before
-                  the game.
+                description: 'Points per period as [home, away] pairs; null before the game. The home
+                  team (isHomeCompetitor true) is listed first in `competitors` on every probed row (vtb
+                  seasons 2025 and 2026, wbc 2026: 620 of 620), and the first value of each pair summed
+                  to that team''s score on every finished one.'
                 items:
                   items:
                     type: integer

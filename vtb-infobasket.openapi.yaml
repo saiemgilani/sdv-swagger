@@ -3831,7 +3831,7 @@ components:
                     - string
                     - 'null'
                   TeamNumber:
-                    description: Side of the coach's team.
+                    description: 'Side of the coach''s team: 1 team A (home), 2 team B (away).'
                     type: integer
                 type: object
               Coaches:
@@ -3909,7 +3909,7 @@ components:
                       - string
                       - 'null'
                     TeamNumber:
-                      description: Side of the coach's team.
+                      description: 'Side of the coach''s team: 1 team A (home), 2 team B (away).'
                       type: integer
                   type: object
                 type: array
@@ -4188,7 +4188,7 @@ components:
                       - integer
                       - 'null'
                     TeamNumber:
-                      description: Side of the player's team.
+                      description: 'Side of the player''s team: 1 team A (home), 2 team B (away).'
                       type: integer
                     Turnover:
                       description: 'Turnovers. Null means zero: Infobasket sends null instead of 0 for
@@ -4587,13 +4587,16 @@ components:
                   Every play's `StartID` points at one; not a person id.
                 type: integer
               SysClientLastChanged:
-                description: Last change on the scorer's client, as a .NET JSON date '/Date(<ms since
-                  1970-01-01 UTC>)/'; ISO string in OnlinePlays.
+                description: 'When the scorer''s client recorded the play, as an ISO 8601 string with
+                  NO offset, in Moscow time (UTC+3): verified by `VideoFrom` (Unix seconds) matching it
+                  within seconds on games 921391 and 647209. Never the placeholder in the samples.'
                 type: string
               SysLastChanged:
-                description: Last change of the record, as a .NET JSON date '/Date(<ms since 1970-01-01
-                  UTC>)/' (the year-1 date '/Date(-62135596800000)/' = unset). In OnlinePlays it is an
-                  ISO string.
+                description: 'Last server-side save of the play, as an ISO 8601 string with NO offset,
+                  in Moscow time (UTC+3; inferred from the unset value below, unverified against an epoch).
+                  2022-23 plays show a 2023-10-13 re-save. ''1901-12-13T23:45:52'' = UNSET: the int32-minimum
+                  Unix time (1901-12-13T20:45:52 UTC) shown in Moscow time; every play of the 2025-26
+                  sample carries it.'
                 type: string
               SysStatus:
                 description: 'Record status in the platform: 1 active (plays with SysStatus 0 are deleted
@@ -4636,11 +4639,9 @@ components:
                 - integer
                 - 'null'
               LicenceNumber:
-                description: Federation licence number. The capture nulls it for coaches and officials
-                  (personal data).
-                type:
-                - string
-                - 'null'
+                description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.
+                  The capture nulls it for everyone (personal data, not public bio).'
+                x-unobserved: true
               OnlineStartID:
                 description: Always 0 in the samples (use StartID).
                 type: integer
@@ -8655,7 +8656,8 @@ paths:
   /Comp/GetCalendar/:
     get:
       description: 'Sampled: comps=50714&format=json; comps=39799&format=json; comps=9113&format=json.
-        No competition id in the rows; the capture checks every GameDate falls in the season.'
+        No competition id in the rows; the capture checks every GameDate falls in the season and that
+        the sampled game of that competition (921391, 647209 or 684495) is listed.'
       operationId: Comp_GetCalendar
       parameters:
       - description: One or more CompIDs, comma separated (the widget passes one). An unknown id answers
@@ -8741,7 +8743,8 @@ paths:
       summary: Season totals of every team, with players and coaches
   /Comp/GetTeamStatsForPreview/{gameId}:
     get:
-      description: 'Sampled: gameId=921391&compId=50714.'
+      description: 'Sampled: gameId=921391&compId=50714. The body does not echo `compId`, so the capture
+        cannot check it.'
       operationId: Comp_GetTeamStatsForPreview_gameId
       parameters:
       - description: Infobasket GameID (= v2 `matchId`).
@@ -8844,7 +8847,7 @@ paths:
   /Widget/CrossTable/{compId}:
     get:
       description: 'Sampled: compId=50720&format=json. Needs a round-robin stage (50720); a season-level
-        id answers MessageType 3. The body echoes nothing to scope-check against the request.'
+        id answers MessageType 3. The capture requires the stage''s anchor game (921391) among the rows.'
       operationId: Widget_CrossTable_compId
       parameters:
       - description: 'Infobasket CompID: a season-level id from /Comp/GetSeasonsForTag (50714 = 2025-26)
@@ -8989,7 +8992,8 @@ paths:
       summary: Box score and play-by-play (with shot x/y) of one game
   /Widget/GetTeamComps/{teamId}:
     get:
-      description: 'Sampled: teamId=2650&format=json&season=50714&lang=en&tag=vtb.'
+      description: 'Sampled: teamId=2650&format=json&season=50714&lang=en&tag=vtb. The body does not echo
+        `tag`, so the capture cannot check it.'
       operationId: Widget_GetTeamComps_teamId
       parameters:
       - description: Infobasket TeamID (= v2 `teamId`).
@@ -9075,7 +9079,8 @@ paths:
   /Widget/PlayOff/{compId}:
     get:
       description: 'Sampled: compId=54281&format=json. Needs a playoff stage (54281); a season-level id
-        answers MessageType 4. The body echoes nothing to scope-check against the request.'
+        answers MessageType 4. The capture requires the stage''s anchor game (1058377) in the bracket''s
+        Scores.'
       operationId: Widget_PlayOff_compId
       parameters:
       - description: 'Infobasket CompID: a season-level id from /Comp/GetSeasonsForTag (50714 = 2025-26)
@@ -9101,7 +9106,8 @@ paths:
       summary: Playoff bracket of a playoff stage
   /Widget/PlayerPage/{personId}:
     get:
-      description: 'Sampled: personId=423011&format=json&tag=vtb.'
+      description: 'Sampled: personId=423011&format=json&tag=vtb. The body does not echo `tag`, so the
+        capture cannot check it.'
       operationId: Widget_PlayerPage_personId
       parameters:
       - description: Infobasket PersonID.
@@ -9133,7 +9139,8 @@ paths:
       summary: Player profile
   /Widget/PlayerSeasonStats/{personId}:
     get:
-      description: 'Sampled: personId=423011&format=json&tag=vtb.'
+      description: 'Sampled: personId=423011&format=json&tag=vtb. The body does not echo `tag`, so the
+        capture cannot check it.'
       operationId: Widget_PlayerSeasonStats_personId
       parameters:
       - description: Infobasket PersonID.
@@ -9165,7 +9172,8 @@ paths:
       summary: A player's season-by-season totals
   /Widget/PlayerStats/{personId}:
     get:
-      description: 'Sampled: personId=423011&format=json&compId=50714&team=2650&filter=1&tag=vtb.'
+      description: 'Sampled: personId=423011&format=json&compId=50714&team=2650&filter=1&tag=vtb. The
+        body does not echo `compId`, `tag`, so the capture cannot check it.'
       operationId: Widget_PlayerStats_personId
       parameters:
       - description: Infobasket PersonID.
@@ -9215,7 +9223,8 @@ paths:
       summary: A player's game log for one competition and team
   /Widget/TeamGames/{teamId}:
     get:
-      description: 'Sampled: teamId=2650&format=json&compId=50714&tag=vtb.'
+      description: 'Sampled: teamId=2650&format=json&compId=50714&tag=vtb. The body does not echo `compId`,
+        `tag`, so the capture cannot check it.'
       operationId: Widget_TeamGames_teamId
       parameters:
       - description: Infobasket TeamID (= v2 `teamId`).
@@ -9253,7 +9262,8 @@ paths:
       summary: A club's games in one competition
   /Widget/TeamPage/{teamId}:
     get:
-      description: 'Sampled: teamId=2650&format=json&lang=en&tag=vtb.'
+      description: 'Sampled: teamId=2650&format=json&lang=en&tag=vtb. The body does not echo `tag`, so
+        the capture cannot check it.'
       operationId: Widget_TeamPage_teamId
       parameters:
       - description: Infobasket TeamID (= v2 `teamId`).
@@ -9292,7 +9302,8 @@ paths:
       summary: Club profile
   /Widget/TeamRoster/{teamId}:
     get:
-      description: 'Sampled: teamId=2650&format=json&compId=50714&lang=en&tag=vtb.'
+      description: 'Sampled: teamId=2650&format=json&compId=50714&lang=en&tag=vtb. The body does not echo
+        `compId`, `tag`, so the capture cannot check it.'
       operationId: Widget_TeamRoster_teamId
       parameters:
       - description: Infobasket TeamID (= v2 `teamId`).
@@ -9337,7 +9348,8 @@ paths:
       summary: A club's roster and coaches in one competition
   /Widget/TeamStats/{teamId}:
     get:
-      description: 'Sampled: teamId=2650&format=json&compId=50714&lang=en&tag=vtb.'
+      description: 'Sampled: teamId=2650&format=json&compId=50714&lang=en&tag=vtb. The body does not echo
+        `compId`, `tag`, so the capture cannot check it.'
       operationId: Widget_TeamStats_teamId
       parameters:
       - description: Infobasket TeamID (= v2 `teamId`).
