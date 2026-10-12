@@ -1,0 +1,3323 @@
+components:
+  schemas:
+    LklBoxScore:
+      description: 'Body of /boxscore/{gameId}: gameStatistics (team game totals keyed by team id) and
+        boxscore (per-player and team rows of each side as {value[, percentage]} cells).'
+      properties:
+        boxscore:
+          description: Box score of both sides.
+          properties:
+            away:
+              description: 'The AWAY team''s box score (side by the game page: away = teams_info.away).'
+              properties:
+                players:
+                  description: One row per away player who was on the team sheet, in the site's display
+                    order (starters first); 9-17 rows.
+                  items:
+                    properties:
+                      assists:
+                        description: 'Cell: Assists (RP, Rezultatyvūs perdavimai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      blocks:
+                        description: 'Cell: Blocks made (BL, Blokai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      blocks_received:
+                        description: 'Cell: Shots of this player/team that were blocked (GB, Gauti blokai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      defensive_rebounds:
+                        description: 'Cell: Defensive rebounds (AKG, Atkovoti kamuoliai gynyboje).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      efficiency:
+                        description: 'Cell: Efficiency rating (EF, Efektyvumas; see gameStatistics efficiency).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      fg:
+                        description: 'Cell: Field goals 2PT + 3PT (MŽ, Metimai iš žaidimo).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string (''3/6'').'
+                            type: string
+                        type: object
+                      fg2:
+                        description: 'Cell: Two-point field goals (2TŠK, Dvitaškiai metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string.'
+                            type: string
+                        type: object
+                      fg3:
+                        description: 'Cell: Three-point field goals (3TŠK, Tritaškiai metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string.'
+                            type: string
+                        type: object
+                      fouls:
+                        description: 'Cell: Personal fouls committed (AP, Asmeninės pražangos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      fouls_on:
+                        description: 'Cell: Fouls drawn (IP, Išprovokuotos pražangos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      ft:
+                        description: 'Cell: Free throws (BM, Baudų metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string; ''0/0'' when none.'
+                            type: string
+                        type: object
+                      is_active:
+                        description: False in every sample, finished games included; by name the player
+                          is on court right now (live games), unverified.
+                        type: boolean
+                      is_captain:
+                        description: True for the team captain.
+                        type: boolean
+                      is_starter:
+                        description: True for the five starters.
+                        type: boolean
+                      jersey:
+                        description: 'Cell: Shirt number, a STRING (''77''); page column # (Marškinėlių
+                          numeris).'
+                        properties:
+                          value:
+                            description: 'Shirt number, a STRING (''77''); page column # (Marškinėlių
+                              numeris).'
+                            type: string
+                        type: object
+                      name:
+                        description: 'Cell: Short name ''I. Surname'' (''M. Paliukėnas''); page column
+                          Žaidėjas (player).'
+                        properties:
+                          value:
+                            description: Short name 'I. Surname' ('M. Paliukėnas'); page column Žaidėjas
+                              (player).
+                            type: string
+                        type: object
+                      offensive_rebounds:
+                        description: 'Cell: Offensive rebounds (AKP, Atkovoti kamuoliai puolime).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      plus_minus:
+                        description: 'Cell: Plus/minus while on court (+/- rodiklis).'
+                        properties:
+                          value:
+                            description: Plus/minus while on court, signed integer.
+                            type: integer
+                        type: object
+                      points:
+                        description: 'Cell: Points (TŠK, Taškai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      slug:
+                        description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                          stable across seasons). Join key to the game page players.*[].slug (and through
+                          it to the player id).'
+                        type: string
+                      steals:
+                        description: 'Cell: Steals (PK, Perimti kamuoliai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      time:
+                        description: 'Cell: Time played ''mm:ss'' (MIN, Minutės); the team row sums all
+                          players, so minutes exceed 59 (''200:00'').'
+                        properties:
+                          value:
+                            description: Time played 'mm:ss' (MIN, Minutės); the team row sums all players,
+                              so minutes exceed 59 ('200:00').
+                            type: string
+                        type: object
+                      total_rebounds:
+                        description: 'Cell: Total rebounds (AK, Atkovoti kamuoliai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      turnovers:
+                        description: 'Cell: Turnovers (KL, Klaidos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                    type: object
+                  type: array
+                team:
+                  description: The away team totals row (Iš viso).
+                  properties:
+                    assists:
+                      description: 'Cell: Assists (RP, Rezultatyvūs perdavimai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    blocks:
+                      description: 'Cell: Blocks made (BL, Blokai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    blocks_received:
+                      description: 'Cell: Shots of this player/team that were blocked (GB, Gauti blokai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    defensive_rebounds:
+                      description: 'Cell: Defensive rebounds (AKG, Atkovoti kamuoliai gynyboje).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    efficiency:
+                      description: 'Cell: Efficiency rating (EF, Efektyvumas; see gameStatistics efficiency).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    fg:
+                      description: 'Cell: Field goals 2PT + 3PT (MŽ, Metimai iš žaidimo).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string (''3/6'').'
+                          type: string
+                      type: object
+                    fg2:
+                      description: 'Cell: Two-point field goals (2TŠK, Dvitaškiai metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string.'
+                          type: string
+                      type: object
+                    fg3:
+                      description: 'Cell: Three-point field goals (3TŠK, Tritaškiai metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string.'
+                          type: string
+                      type: object
+                    fouls:
+                      description: 'Cell: Personal fouls committed (AP, Asmeninės pražangos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    fouls_on:
+                      description: 'Cell: Fouls drawn (IP, Išprovokuotos pražangos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    ft:
+                      description: 'Cell: Free throws (BM, Baudų metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string; ''0/0'' when none.'
+                          type: string
+                      type: object
+                    offensive_rebounds:
+                      description: 'Cell: Offensive rebounds (AKP, Atkovoti kamuoliai puolime).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    plus_minus:
+                      description: 'Cell: plus/minus (+/- rodiklis). On the team totals row the cell is
+                        present but its value is null.'
+                      properties:
+                        value:
+                          description: 'Unobserved: null in every sample (the team totals row carries
+                            no plus/minus).'
+                          x-unobserved: true
+                      type: object
+                    points:
+                      description: 'Cell: Points (TŠK, Taškai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    steals:
+                      description: 'Cell: Steals (PK, Perimti kamuoliai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    time:
+                      description: 'Cell: Time played ''mm:ss'' (MIN, Minutės); the team row sums all
+                        players, so minutes exceed 59 (''200:00'').'
+                      properties:
+                        value:
+                          description: Time played 'mm:ss' (MIN, Minutės); the team row sums all players,
+                            so minutes exceed 59 ('200:00').
+                          type: string
+                      type: object
+                    total_rebounds:
+                      description: 'Cell: Total rebounds (AK, Atkovoti kamuoliai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    turnovers:
+                      description: 'Cell: Turnovers (KL, Klaidos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+            home:
+              description: 'The HOME team''s box score (side by the game page: home = teams_info.home).'
+              properties:
+                players:
+                  description: One row per home player who was on the team sheet, in the site's display
+                    order (starters first); 9-17 rows.
+                  items:
+                    properties:
+                      assists:
+                        description: 'Cell: Assists (RP, Rezultatyvūs perdavimai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      blocks:
+                        description: 'Cell: Blocks made (BL, Blokai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      blocks_received:
+                        description: 'Cell: Shots of this player/team that were blocked (GB, Gauti blokai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      defensive_rebounds:
+                        description: 'Cell: Defensive rebounds (AKG, Atkovoti kamuoliai gynyboje).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      efficiency:
+                        description: 'Cell: Efficiency rating (EF, Efektyvumas; see gameStatistics efficiency).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      fg:
+                        description: 'Cell: Field goals 2PT + 3PT (MŽ, Metimai iš žaidimo).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string (''3/6'').'
+                            type: string
+                        type: object
+                      fg2:
+                        description: 'Cell: Two-point field goals (2TŠK, Dvitaškiai metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string.'
+                            type: string
+                        type: object
+                      fg3:
+                        description: 'Cell: Three-point field goals (3TŠK, Tritaškiai metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string.'
+                            type: string
+                        type: object
+                      fouls:
+                        description: 'Cell: Personal fouls committed (AP, Asmeninės pražangos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      fouls_on:
+                        description: 'Cell: Fouls drawn (IP, Išprovokuotos pražangos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      ft:
+                        description: 'Cell: Free throws (BM, Baudų metimai).'
+                        properties:
+                          percentage:
+                            description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0'
+                              when there were no attempts.
+                            type: string
+                          value:
+                            description: '''made/attempted'' as a string; ''0/0'' when none.'
+                            type: string
+                        type: object
+                      is_active:
+                        description: False in every sample, finished games included; by name the player
+                          is on court right now (live games), unverified.
+                        type: boolean
+                      is_captain:
+                        description: True for the team captain.
+                        type: boolean
+                      is_starter:
+                        description: True for the five starters.
+                        type: boolean
+                      jersey:
+                        description: 'Cell: Shirt number, a STRING (''77''); page column # (Marškinėlių
+                          numeris).'
+                        properties:
+                          value:
+                            description: 'Shirt number, a STRING (''77''); page column # (Marškinėlių
+                              numeris).'
+                            type: string
+                        type: object
+                      name:
+                        description: 'Cell: Short name ''I. Surname'' (''M. Paliukėnas''); page column
+                          Žaidėjas (player).'
+                        properties:
+                          value:
+                            description: Short name 'I. Surname' ('M. Paliukėnas'); page column Žaidėjas
+                              (player).
+                            type: string
+                        type: object
+                      offensive_rebounds:
+                        description: 'Cell: Offensive rebounds (AKP, Atkovoti kamuoliai puolime).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      plus_minus:
+                        description: 'Cell: Plus/minus while on court (+/- rodiklis).'
+                        properties:
+                          value:
+                            description: Plus/minus while on court, signed integer.
+                            type: integer
+                        type: object
+                      points:
+                        description: 'Cell: Points (TŠK, Taškai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      slug:
+                        description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                          stable across seasons). Join key to the game page players.*[].slug (and through
+                          it to the player id).'
+                        type: string
+                      steals:
+                        description: 'Cell: Steals (PK, Perimti kamuoliai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      time:
+                        description: 'Cell: Time played ''mm:ss'' (MIN, Minutės); the team row sums all
+                          players, so minutes exceed 59 (''200:00'').'
+                        properties:
+                          value:
+                            description: Time played 'mm:ss' (MIN, Minutės); the team row sums all players,
+                              so minutes exceed 59 ('200:00').
+                            type: string
+                        type: object
+                      total_rebounds:
+                        description: 'Cell: Total rebounds (AK, Atkovoti kamuoliai).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                      turnovers:
+                        description: 'Cell: Turnovers (KL, Klaidos).'
+                        properties:
+                          value:
+                            description: The value (integer unless noted in the cell).
+                            type: integer
+                        type: object
+                    type: object
+                  type: array
+                team:
+                  description: The home team totals row (Iš viso).
+                  properties:
+                    assists:
+                      description: 'Cell: Assists (RP, Rezultatyvūs perdavimai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    blocks:
+                      description: 'Cell: Blocks made (BL, Blokai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    blocks_received:
+                      description: 'Cell: Shots of this player/team that were blocked (GB, Gauti blokai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    defensive_rebounds:
+                      description: 'Cell: Defensive rebounds (AKG, Atkovoti kamuoliai gynyboje).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    efficiency:
+                      description: 'Cell: Efficiency rating (EF, Efektyvumas; see gameStatistics efficiency).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    fg:
+                      description: 'Cell: Field goals 2PT + 3PT (MŽ, Metimai iš žaidimo).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string (''3/6'').'
+                          type: string
+                      type: object
+                    fg2:
+                      description: 'Cell: Two-point field goals (2TŠK, Dvitaškiai metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string.'
+                          type: string
+                      type: object
+                    fg3:
+                      description: 'Cell: Three-point field goals (3TŠK, Tritaškiai metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string.'
+                          type: string
+                      type: object
+                    fouls:
+                      description: 'Cell: Personal fouls committed (AP, Asmeninės pražangos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    fouls_on:
+                      description: 'Cell: Fouls drawn (IP, Išprovokuotos pražangos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    ft:
+                      description: 'Cell: Free throws (BM, Baudų metimai).'
+                      properties:
+                        percentage:
+                          description: Percentage 0-100 as a string with ONE decimal ('63.6'); '0.0' when
+                            there were no attempts.
+                          type: string
+                        value:
+                          description: '''made/attempted'' as a string; ''0/0'' when none.'
+                          type: string
+                      type: object
+                    offensive_rebounds:
+                      description: 'Cell: Offensive rebounds (AKP, Atkovoti kamuoliai puolime).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    plus_minus:
+                      description: 'Cell: plus/minus (+/- rodiklis). On the team totals row the cell is
+                        present but its value is null.'
+                      properties:
+                        value:
+                          description: 'Unobserved: null in every sample (the team totals row carries
+                            no plus/minus).'
+                          x-unobserved: true
+                      type: object
+                    points:
+                      description: 'Cell: Points (TŠK, Taškai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    steals:
+                      description: 'Cell: Steals (PK, Perimti kamuoliai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    time:
+                      description: 'Cell: Time played ''mm:ss'' (MIN, Minutės); the team row sums all
+                        players, so minutes exceed 59 (''200:00'').'
+                      properties:
+                        value:
+                          description: Time played 'mm:ss' (MIN, Minutės); the team row sums all players,
+                            so minutes exceed 59 ('200:00').
+                          type: string
+                      type: object
+                    total_rebounds:
+                      description: 'Cell: Total rebounds (AK, Atkovoti kamuoliai).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                    turnovers:
+                      description: 'Cell: Turnovers (KL, Klaidos).'
+                      properties:
+                        value:
+                          description: The value (integer unless noted in the cell).
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+          type: object
+        gameStatistics:
+          additionalProperties:
+            description: Totals of the team whose id is the key.
+            properties:
+              assists:
+                description: Team assists in the game (count).
+                type: integer
+              bench_points:
+                description: Points by players who did not start.
+                type: integer
+              biggest_lead:
+                description: This team's biggest lead in points (0 when it never led).
+                type: integer
+              biggest_scoring_run:
+                description: This team's longest unanswered scoring run, in points.
+                type: integer
+              blocks:
+                description: Blocks made.
+                type: integer
+              blocks_received:
+                description: Shots of this team that were blocked.
+                type: integer
+              created_at:
+                description: When this stats row was created, ISO 8601 UTC with microseconds ('2026-08-11T13:00:26.000000Z');
+                  the row exists from schedule time.
+                type: string
+              defensive_rebounds:
+                description: Team defensive rebounds in the game (count).
+                type: integer
+              efficiency:
+                description: 'Team efficiency rating (Efektyvumas), a PIR-style index (points + rebounds
+                  + assists + steals + blocks + fouls drawn - missed shots - turnovers - shots blocked
+                  - fouls). The exact formula is unverified: game 11590 home gives 121 where that formula
+                  gives 122.'
+                type: integer
+              fast_break_points:
+                description: Fast-break points; 0 on the 2007-08 sample.
+                type: integer
+              field_goals_2pt_percentage:
+                description: Two-point percentage, 0-100, string with two decimals.
+                type: string
+              field_goals_3pt_percentage:
+                description: Three-point percentage, 0-100, string with two decimals.
+                type: string
+              field_goals_attempted_2pt:
+                description: Two-point field goals attempted.
+                type: integer
+              field_goals_attempted_3pt:
+                description: Three-point field goals attempted.
+                type: integer
+              field_goals_attempted_total:
+                description: Field goals attempted, 2PT + 3PT.
+                type: integer
+              field_goals_made_2pt:
+                description: Two-point field goals made.
+                type: integer
+              field_goals_made_3pt:
+                description: Three-point field goals made.
+                type: integer
+              field_goals_made_total:
+                description: Field goals made, 2PT + 3PT.
+                type: integer
+              field_goals_percentage:
+                description: Field-goal percentage, 0-100, as a STRING with two decimals ('51.47').
+                type: string
+              fouls:
+                description: Fouls committed.
+                type: integer
+              fouls_on:
+                description: Fouls drawn (fouls committed on this team).
+                type: integer
+              free_throws_attempted:
+                description: Free throws attempted by the team in the game (count).
+                type: integer
+              free_throws_made:
+                description: Free throws made by the team in the game (count).
+                type: integer
+              free_throws_percentage:
+                description: Free-throw percentage, 0-100, string with two decimals.
+                type: string
+              game_id:
+                description: 'Game id (key space: LKL games on lkl.lt): the {gameId} of every /api/livestream
+                  route and of /rungtynes/{gameId}. Not sequential by season before 2018-19 (2016-17 =
+                  184-393, 2015-16 = 396-604, 2007-08 = 1984-2079); 2023-24 = 10848-11114, 2024-25 = 11116-11369,
+                  2025-26 = 11370-11574, 2026-27 from 11578. Not the Genius matchId. Integer; the capture
+                  checks it equals the request.'
+                type: integer
+              id:
+                description: 'Row id of this team-game statistics record (key space: lkl.lt team-game
+                  stat rows; joins nothing else captured).'
+                type: integer
+              lead_changes:
+                description: Lead changes in the game (the same value on both rows).
+                type: integer
+              offensive_rebounds:
+                description: Team offensive rebounds in the game (count).
+                type: integer
+              points:
+                description: 'Team points: the final score (the capture banks finished games only).'
+                type: integer
+              points_in_paint:
+                description: Points in the paint; 0 on the 2007-08 sample.
+                type: integer
+              points_off_turnovers:
+                description: Points off the opponent's turnovers; 0 on the 2007-08 sample (not tracked
+                  then).
+                type: integer
+              quarter_scores:
+                additionalProperties:
+                  description: Points in that period (integer).
+                  type: integer
+                description: Points the team scored IN each period (not cumulative), keyed by period number
+                  ('1'..'4', '5' = first overtime).
+                propertyNames:
+                  pattern: ^[0-9]+$
+                type: object
+                x-keyed-by: '{period}'
+              second_chance_points:
+                description: Second-chance points (after an offensive rebound); 0 on the 2007-08 sample.
+                type: integer
+              seconds_played:
+                description: Summed playing time of all the team's players in SECONDS (12000 = 5 x 40:00;
+                  13500 with one overtime).
+                type: integer
+              steals:
+                description: Team steals in the game (count).
+                type: integer
+              team_id:
+                description: 'Team id (key space: lkl.lt clubs, STABLE across seasons and renamings: 6
+                  = Rytas, also ''Lietuvos Rytas'' in 2007-08; 3 = Žalgiris; 60 = Gargždai). The value=
+                  of the /rezultatai team filter; joins gameStatistics keys and the game page teams_info.*.id.
+                  Not the Genius team id (hometeamId 21255 = Rytas). Integer; equals the key.'
+                type: integer
+              tie_results:
+                description: Times the score was tied (the same value on both rows).
+                type: integer
+              time_leading:
+                description: Time this team led, in SECONDS, as a STRING ('1892' = 31:32).
+                type: string
+              total_rebounds:
+                description: Team rebounds, offensive + defensive (count).
+                type: integer
+              turnovers:
+                description: Team turnovers in the game (count).
+                type: integer
+              updated_at:
+                description: When this stats row last changed, ISO 8601 UTC.
+                type: string
+            type: object
+          description: 'Team game totals keyed by TEAM ID (header-as-data: the two keys are the home and
+            away team ids, as strings; which is home is NOT marked, take it from the game page teams_info).'
+          propertyNames:
+            pattern: ^[0-9]+$
+          type: object
+          x-keyed-by: '{team_id}'
+      type: object
+    LklGamePage:
+      description: 'Record parsed from /rungtynes/{gameId} (text/html): the props of the page''s <game-info-component>
+        (JSON attributes) plus parsed start_date, start_time and attendance_count.'
+      properties:
+        attendance_count:
+          description: Attendance as an integer, parsed from game_info.attendance.
+          type: integer
+        game_id:
+          description: 'Game id (key space: LKL games on lkl.lt): the {gameId} of every /api/livestream
+            route and of /rungtynes/{gameId}. Not sequential by season before 2018-19 (2016-17 = 184-393,
+            2015-16 = 396-604, 2007-08 = 1984-2079); 2023-24 = 10848-11114, 2024-25 = 11116-11369, 2025-26
+            = 11370-11574, 2026-27 from 11578. Not the Genius matchId. Parsed from the game-id attribute
+            (a string there); the capture checks it equals the request.'
+          type: integer
+        game_info:
+          description: 'Header line: time, arena, attendance (Lithuanian text).'
+          properties:
+            arena:
+              description: Arena name.
+              type: string
+            attendance:
+              description: Attendance text '3012 žiūrovai' (= spectators). Parsed into attendance_count.
+              type: string
+            time:
+              description: 'Tip-off in Lithuanian, local time (Europe/Vilnius): ''2026  m. Spalio 3 d.,
+                16:50'' (note the double space; month in the genitive, capitalised). Parsed into start_date
+                / start_time.'
+              type: string
+          type: object
+        game_status:
+          description: 'Game state label in Lithuanian: ''Pasibaigė'' = finished (the only value banked;
+            the capture refuses anything else). Unplayed games have no component at all.'
+          type: string
+        has_actions:
+          description: True when the game has play-by-play events (2024-25 onward); false on older games.
+          type: boolean
+        is_streaming:
+          description: True while a live stream is on; false on finished games.
+          type: boolean
+        main_videos:
+          description: 'Video links: an object with highlightsVideo / commentsVideo, or an EMPTY ARRAY
+            when the game has none (2007-08).'
+          properties:
+            commentsVideo:
+              description: Coaches' comments video.
+              properties:
+                id:
+                  description: 'YouTube video id (key space: YouTube videos; https://www.youtube.com/watch?v={id}).'
+                  type: string
+                label:
+                  description: 'Lithuanian label: ''Rungtynių apžvalga'' = game highlights, ''Trenerių
+                    komentarai'' = coaches'' comments.'
+                  type: string
+                thumbnail:
+                  description: Site-relative thumbnail path.
+                  type: string
+                title:
+                  description: Video title (Lithuanian).
+                  type: string
+              type: object
+            highlightsVideo:
+              description: Highlights video.
+              properties:
+                id:
+                  description: 'YouTube video id (key space: YouTube videos; https://www.youtube.com/watch?v={id}).'
+                  type: string
+                label:
+                  description: 'Lithuanian label: ''Rungtynių apžvalga'' = game highlights, ''Trenerių
+                    komentarai'' = coaches'' comments.'
+                  type: string
+                thumbnail:
+                  description: Site-relative thumbnail path.
+                  type: string
+                title:
+                  description: Video title (Lithuanian).
+                  type: string
+              type: object
+          type:
+          - array
+          - object
+        players:
+          description: Players of each side on the team sheet, in the site's order (not sorted by shirt
+            number or name).
+          properties:
+            away:
+              description: Away players.
+              items:
+                properties:
+                  id:
+                    description: 'Player id (key space: lkl.lt persons, stable across seasons: Gytis Masiulis
+                      = 9 in 2024-25 and 2026-27). Joins /shot-chart player_id and the game page players.*[].id
+                      / players_ids. The box score, leaders and play-by-play carry the player SLUG instead;
+                      map it with the game page players list.'
+                    type: integer
+                  jersey:
+                    description: Shirt number, a string.
+                    type: string
+                  name:
+                    description: Full player name.
+                    type: string
+                  slug:
+                    description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                      stable across seasons). Join key to the game page players.*[].slug (and through
+                      it to the player id).'
+                    type: string
+                type: object
+              type: array
+            home:
+              description: Home players.
+              items:
+                properties:
+                  id:
+                    description: 'Player id (key space: lkl.lt persons, stable across seasons: Gytis Masiulis
+                      = 9 in 2024-25 and 2026-27). Joins /shot-chart player_id and the game page players.*[].id
+                      / players_ids. The box score, leaders and play-by-play carry the player SLUG instead;
+                      map it with the game page players list.'
+                    type: integer
+                  jersey:
+                    description: Shirt number, a string.
+                    type: string
+                  name:
+                    description: Full player name.
+                    type: string
+                  slug:
+                    description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                      stable across seasons). Join key to the game page players.*[].slug (and through
+                      it to the player id).'
+                    type: string
+                type: object
+              type: array
+          type: object
+        players_ids:
+          description: The same players' ids per side and all of them.
+          properties:
+            all:
+              description: Home then away player ids.
+              items:
+                type: integer
+              type: array
+            away:
+              description: Away player ids.
+              items:
+                type: integer
+              type: array
+            home:
+              description: 'Home player ids. Player id (key space: lkl.lt persons, stable across seasons:
+                Gytis Masiulis = 9 in 2024-25 and 2026-27). Joins /shot-chart player_id and the game page
+                players.*[].id / players_ids. The box score, leaders and play-by-play carry the player
+                SLUG instead; map it with the game page players list.'
+              items:
+                type: integer
+              type: array
+          type: object
+        quarters:
+          description: 'Periods played: [1, 2, 3, 4], plus 5, 6 ... for overtimes.'
+          items:
+            type: integer
+          type: array
+        referees:
+          description: 'Referee names, comma-separated, crew chief first; ''Nepaskelbta'' = not announced
+            (old games). Names only: no official''s contact or birth data is published.'
+          type: string
+        start_date:
+          description: Game date ISO 'YYYY-MM-DD' parsed from game_info.time (the capture checks it against
+            the request).
+          type: string
+        start_time:
+          description: Tip-off 'HH:MM', Europe/Vilnius, parsed from game_info.time.
+          type: string
+        teams_info:
+          description: The two teams.
+          properties:
+            away:
+              description: The away team.
+              properties:
+                assistant_coach:
+                  description: Assistant coach's full name (same caveat as coach).
+                  type: string
+                coach:
+                  description: 'Head coach''s full name as stored for the team (on old games the CURRENT
+                    coach is shown, e.g. 2007-08 Rytas = ''Nedas Pacevičius'': not historical).'
+                  type: string
+                id:
+                  description: 'Team id (key space: lkl.lt clubs, STABLE across seasons and renamings:
+                    6 = Rytas, also ''Lietuvos Rytas'' in 2007-08; 3 = Žalgiris; 60 = Gargždai). The value=
+                    of the /rezultatai team filter; joins gameStatistics keys and the game page teams_info.*.id.
+                    Not the Genius team id (hometeamId 21255 = Rytas).'
+                  type: integer
+                logo:
+                  description: Team logo URL (svg; historical_logos/*.png on old games). http, not https.
+                  type: string
+                name:
+                  description: 'Team name as of that game (historical: ''Lietuvos Rytas'' in 2007-08).'
+                  type: string
+                short_name:
+                  description: Three-letter team code ('RYT'); can be the club's current code on old games
+                    (2007-08 'Techasas' = LIE).
+                  type: string
+                slug:
+                  description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                    one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The
+                    results and standings rows carry only this; the game page teams_info gives slug +
+                    id.'
+                  type: string
+                winner:
+                  description: True for the team that won.
+                  type: boolean
+              type: object
+            home:
+              description: The home team.
+              properties:
+                assistant_coach:
+                  description: Assistant coach's full name (same caveat as coach).
+                  type: string
+                coach:
+                  description: 'Head coach''s full name as stored for the team (on old games the CURRENT
+                    coach is shown, e.g. 2007-08 Rytas = ''Nedas Pacevičius'': not historical).'
+                  type: string
+                id:
+                  description: 'Team id (key space: lkl.lt clubs, STABLE across seasons and renamings:
+                    6 = Rytas, also ''Lietuvos Rytas'' in 2007-08; 3 = Žalgiris; 60 = Gargždai). The value=
+                    of the /rezultatai team filter; joins gameStatistics keys and the game page teams_info.*.id.
+                    Not the Genius team id (hometeamId 21255 = Rytas).'
+                  type: integer
+                logo:
+                  description: Team logo URL (svg; historical_logos/*.png on old games). http, not https.
+                  type: string
+                name:
+                  description: 'Team name as of that game (historical: ''Lietuvos Rytas'' in 2007-08).'
+                  type: string
+                short_name:
+                  description: Three-letter team code ('RYT'); can be the club's current code on old games
+                    (2007-08 'Techasas' = LIE).
+                  type: string
+                slug:
+                  description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                    one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The
+                    results and standings rows carry only this; the game page teams_info gives slug +
+                    id.'
+                  type: string
+                winner:
+                  description: True for the team that won.
+                  type: boolean
+              type: object
+          type: object
+      type: object
+    LklGameScore:
+      description: 'Body of /game-score/{gameId}: final (or live) score and a clock line.'
+      properties:
+        away:
+          description: Away points.
+          type: integer
+        clock:
+          description: 'Clock line in Lithuanian: ''4 kėlinys - 00:00'' = period 4, 00:00 left; ''1 pratęsimas
+            - 00:00'' = first overtime. Old games show the constant ''1 KĖLINYS - 10:00'' (uppercase)
+            even though finished, so the clock is NOT a final-state flag; the capture checks the score
+            against the box score instead.'
+          type: string
+        home:
+          description: 'Home points: the final score (the capture banks finished games only).'
+          type: integer
+      type: object
+    LklGameStats:
+      description: 'Body of /game-stats/{gameId}: team comparison bars (shooting, main, all), biggest
+        leads, lead statistics and the per-period lead chart.'
+      properties:
+        comparison:
+          description: Team comparison blocks.
+          properties:
+            all:
+              description: 'Every bar: 13 rows (field goals, 2PT, 3PT, free throws, the counting stats
+                and the scoring splits).'
+              items:
+                properties:
+                  away:
+                    description: The away team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: shooting rows = the percentage as a string
+                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
+                          (43 vs 37 -> 53.75).'
+                        type:
+                        - number
+                        - string
+                      percentage:
+                        description: 'Shooting rows only (absent on counting rows): percentage with ONE
+                          decimal and a % sign (''71.4%'').'
+                        type: string
+                        x-absent-in-some-rows: true
+                      value:
+                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                          integer.'
+                        type:
+                        - integer
+                        - string
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  home:
+                    description: The home team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: shooting rows = the percentage as a string
+                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
+                          (43 vs 37 -> 53.75).'
+                        type:
+                        - number
+                        - string
+                      percentage:
+                        description: 'Shooting rows only (absent on counting rows): percentage with ONE
+                          decimal and a % sign (''71.4%'').'
+                        type: string
+                        x-absent-in-some-rows: true
+                      value:
+                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                          integer.'
+                        type:
+                        - integer
+                        - string
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  label:
+                    description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
+                      metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws,
+                      ''Atkovoti kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds,
+                      ''Atkovoti kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai''
+                      = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers,
+                      ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers,
+                      ''Taškai greitose atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance
+                      points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                    type: string
+                type: object
+              type: array
+            biggest_leads:
+              description: Biggest lead of each side, in points.
+              properties:
+                away:
+                  description: Away team's biggest lead.
+                  type: integer
+                home:
+                  description: Home team's biggest lead in points (0 when it never led).
+                  type: integer
+              type: object
+            leads_stats:
+              description: Three lead statistics.
+              items:
+                properties:
+                  label:
+                    description: 'Lithuanian: ''Rezultato pasikeitimai'' = lead changes, ''Rezultato lyginimas''
+                      = times tied, ''Ilgiausia atkarpa'' = biggest scoring run (points).'
+                    type: string
+                  value:
+                    description: The statistic (integer; 0 on the 2007-08 sample, not tracked then).
+                    type: integer
+                type: object
+              type: array
+            main:
+              description: 'Main bars: rebounds, assists, steals, blocks (4 rows on 2007-08; 8 on 2024-25+,
+                adding offensive / defensive rebounds, turnovers, fouls).'
+              items:
+                properties:
+                  away:
+                    description: The away team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: shooting rows = the percentage as a string
+                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
+                          (43 vs 37 -> 53.75).'
+                        type: number
+                      value:
+                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                          integer.'
+                        type: integer
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  home:
+                    description: The home team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: shooting rows = the percentage as a string
+                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
+                          (43 vs 37 -> 53.75).'
+                        type: number
+                      value:
+                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                          integer.'
+                        type: integer
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  label:
+                    description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
+                      metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws,
+                      ''Atkovoti kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds,
+                      ''Atkovoti kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai''
+                      = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers,
+                      ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers,
+                      ''Taškai greitose atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance
+                      points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                    type: string
+                type: object
+              type: array
+            shooting:
+              description: 'Shooting bars: 2PT, 3PT, free throws (3 rows).'
+              items:
+                properties:
+                  away:
+                    description: The away team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: the percentage as a string without the sign
+                          (''71.4'').'
+                        type: string
+                      percentage:
+                        description: Percentage with ONE decimal and a % sign ('71.4%').
+                        type: string
+                      value:
+                        description: '''made/attempted'' as a string (''25/35'').'
+                        type: string
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  home:
+                    description: The home team's bar.
+                    properties:
+                      graph_length:
+                        description: 'Bar length in percent: the percentage as a string without the sign
+                          (''71.4'').'
+                        type: string
+                      percentage:
+                        description: Percentage with ONE decimal and a % sign ('71.4%').
+                        type: string
+                      value:
+                        description: '''made/attempted'' as a string (''25/35'').'
+                        type: string
+                      winning:
+                        description: True when this side's bar is highlighted as the better one (both
+                          false on a tie).
+                        type: boolean
+                    type: object
+                  label:
+                    description: 'Row label in LITHUANIAN: ''Dvitaškiai metimai'' = 2PT, ''Tritaškiai
+                      metimai'' = 3PT, ''Baudų metimai'' = free throws.'
+                    type: string
+                type: object
+              type: array
+          type: object
+        leads:
+          additionalProperties:
+            description: The points of one period, in clock order.
+            items:
+              properties:
+                clock:
+                  description: 'Clock REMAINING in the period as ''mm:ss:00'' (a trailing '':00''): ''10:00:00''
+                    = period start.'
+                  type: string
+                column_height:
+                  description: 'Bar height for the chart: |diff| / maxDiff x 50 (percent of the chart;
+                    number).'
+                  type: number
+                diff:
+                  description: Home minus away score at that point (signed integer).
+                  type: integer
+                score_1:
+                  description: Home cumulative score at that point, a STRING.
+                  type: string
+                score_2:
+                  description: Away cumulative score, a string.
+                  type: string
+              type: object
+            type: array
+          description: 'Lead chart keyed by period number (''1''..''4'', ''5'' = overtime): one point
+            about every minute.'
+          propertyNames:
+            pattern: ^[0-9]+$
+          type: object
+          x-keyed-by: '{period}'
+        maxDiff:
+          description: Chart axis maximum, in points (15 on every sample).
+          type: integer
+        steps:
+          description: Chart axis ticks (7).
+          items:
+            properties:
+              label:
+                description: 'Tick label: the absolute value (integer).'
+                type: integer
+              value:
+                description: Tick position in points (signed).
+                type: integer
+            type: object
+          type: array
+      type: object
+    LklLeaders:
+      description: 'Body of /leaders/{gameId}: six stat categories, each with the leader and up to four
+        runners-up of each side.'
+      properties:
+        leaders:
+          description: Game leaders by category (fixed category keys).
+          properties:
+            assists:
+              description: 'Category assists: Rezultatyvūs perdavimai (assists).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Rezultatyvūs perdavimai' = assists).
+                  type: string
+              type: object
+            blocks:
+              description: 'Category blocks: Blokai (blocks).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Blokai' = blocks).
+                  type: string
+              type: object
+            efficiency:
+              description: 'Category efficiency: Naudingumas (efficiency rating).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Naudingumas' = efficiency rating).
+                  type: string
+              type: object
+            points:
+              description: 'Category points: Pelnomi taškai (points scored).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Pelnomi taškai' = points scored).
+                  type: string
+              type: object
+            steals:
+              description: 'Category steals: Perimti kamuoliai (steals).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Perimti kamuoliai' = steals).
+                  type: string
+              type: object
+            total_rebounds:
+              description: 'Category total_rebounds: Atkovoti kamuoliai (rebounds).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: The next players of this side in this category, best first (up to 4).
+                      items:
+                        properties:
+                          name:
+                            description: Full player name.
+                            type: string
+                          photo:
+                            description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                              http, not https).
+                            type: string
+                          slug:
+                            description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                              stable across seasons). Join key to the game page players.*[].slug (and
+                              through it to the player id).'
+                            type: string
+                          value:
+                            description: Their value in this category (integer).
+                            type: integer
+                        type: object
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Atkovoti kamuoliai' = rebounds).
+                  type: string
+              type: object
+          type: object
+      type: object
+    LklPlayByPlay:
+      description: 'Body of /play-by-play/{gameId}: every event, newest first, regulation periods keyed
+        by period number, overtime as one flat list.'
+      properties:
+        quarters:
+          description: Events by period.
+          properties:
+            overtime:
+              description: 'Every overtime event in ONE flat list, newest first (no per-overtime split:
+                separate multiple overtimes by the period start/end lines); the game-end line is here
+                when there was overtime. Empty when none.'
+              items:
+                properties:
+                  clock:
+                    description: Game clock REMAINING in the period, 'mm:ss' (counts down from 10:00,
+                      05:00 in overtime).
+                    type: string
+                  description:
+                    description: 'Event text in LITHUANIAN, one fixed phrase per type/subtype: ''N taškų
+                      metimas pataikytas / nepataikytas'' = N-point shot made / missed; ''Baudų metimas
+                      N iš M pataikytas / pramestas'' = free throw N of M made / missed; ''Atkovotas kamuolys
+                      gynyboje / puolime'' = defensive / offensive rebound; ''Rezultatyvus perdavimas''
+                      = assist; ''Perimtas kamuolys'' = steal; ''Blokas'' = block; ''Asmeninė pražanga''
+                      = personal foul; ''Pražanga puolime'' = offensive foul; ''Techninė pražanga (suoleliui)''
+                      = technical foul (on the bench); ''Išprovokuota pražanga'' = foul drawn; ''Blogas
+                      perdavimas'' = bad pass; ''Kamuolio valdymo klaida'' = ball-handling error; ''Puolimo
+                      klaida'' = offensive turnover; ''Kamuolys už aikštelės ribų'' = ball out of bounds;
+                      ''Žingsniai'' = travelling; ''Vidurio linijos pažeidimas'' = backcourt (half-court
+                      line) violation; ''Sulaikytas kamuolys'' = held ball; ''N sekundžių pažeidimas''
+                      = N-second violation; ''Įeina į aikštelę / Išeina iš aikštelės'' = substitution
+                      in / out; ''Pilna minutės pertraukėlė'' = full timeout; ''Minutės pertraukėlė''
+                      = official timeout; ''Ginčo kamuolys kėlinio pradžioje / laimėtas / pralaimėtas''
+                      = jump ball at the period start / won / lost; ''Trenerio iššūkis – pražanga (atmestas)''
+                      = coach''s challenge on a foul (rejected; ''priimtas'' = accepted); ''Kėlinys prasidėjo
+                      / baigėsi'' = period started / ended; ''Rungtynės prasidėjo / baigėsi'' = game started
+                      / ended.'
+                    type: string
+                  is_home:
+                    description: True = the home team's event (teams_info.home), false = away. Also false
+                      on game-level lines (game end).
+                    type: boolean
+                  is_points_info:
+                    description: True on lines that changed the score (made shots and free throws).
+                    type: boolean
+                  player:
+                    description: 'The acting player: always an object, but its name, slug and image are
+                      null on team / period / game lines.'
+                    properties:
+                      image:
+                        description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                          http, not https). Null on team lines.
+                        type:
+                        - string
+                        - 'null'
+                      name:
+                        description: Full player name; null on team / period / game lines.
+                        type:
+                        - string
+                        - 'null'
+                      slug:
+                        description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                          stable across seasons). Join key to the game page players.*[].slug (and through
+                          it to the player id). Null on team lines.'
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+                  score:
+                    description: Score AFTER the event (on every line, not only scoring lines).
+                    properties:
+                      away:
+                        description: Away points after the event (integer).
+                        type: integer
+                      home:
+                        description: Home points after the event (integer).
+                        type: integer
+                    type: object
+                  subtype:
+                    description: 'Event subtype (English code; '''' when none). 2pt/3pt: shot kind (jumpshot,
+                      layup, drivinglayup, reverselayup, dunk, alleyoop, alleyoopdunk, tipinlayup, tipindunk,
+                      hookshot, fadeaway, floatingjumpshot, pullupjumpshot, stepbackjumpshot, turnaroundjumpshot,
+                      eurostep). freethrow: ''NofM'' = attempt N of M (1of1, 1of2, 2of2, 1of3, 2of3, 3of3).
+                      rebound: offensive / defensive. foul: personal, offensive, technical, benchTechnical.
+                      turnover: badpass, ballhandling, offensive, outofbounds, travel, backcourt (backcourt
+                      violation), 3sec, 24sec. substitution: in / out. timeout: full (team), officials.
+                      jumpball: startperiod, won, lost, heldball. headcoachchallenge: the challenged call
+                      (foul, outofbounds). period / game: start, end.'
+                    type: string
+                  success:
+                    description: 'Shots and free throws: true = made. Every other type: always true.'
+                    type: boolean
+                  type:
+                    description: 'Event type (English code): 2pt / 3pt (field-goal attempt), freethrow,
+                      rebound, assist, steal, block, turnover, foul, foulon (foul drawn), substitution,
+                      timeout, jumpball, headcoachchallenge, period, game.'
+                    type: string
+                type: object
+              type: array
+            regular:
+              additionalProperties:
+                description: 'Events of the period, NEWEST FIRST (reverse for chronological order). The
+                  rows carry no period field: it is this key.'
+                items:
+                  properties:
+                    clock:
+                      description: Game clock REMAINING in the period, 'mm:ss' (counts down from 10:00,
+                        05:00 in overtime).
+                      type: string
+                    description:
+                      description: 'Event text in LITHUANIAN, one fixed phrase per type/subtype: ''N taškų
+                        metimas pataikytas / nepataikytas'' = N-point shot made / missed; ''Baudų metimas
+                        N iš M pataikytas / pramestas'' = free throw N of M made / missed; ''Atkovotas
+                        kamuolys gynyboje / puolime'' = defensive / offensive rebound; ''Rezultatyvus
+                        perdavimas'' = assist; ''Perimtas kamuolys'' = steal; ''Blokas'' = block; ''Asmeninė
+                        pražanga'' = personal foul; ''Pražanga puolime'' = offensive foul; ''Techninė
+                        pražanga (suoleliui)'' = technical foul (on the bench); ''Išprovokuota pražanga''
+                        = foul drawn; ''Blogas perdavimas'' = bad pass; ''Kamuolio valdymo klaida'' =
+                        ball-handling error; ''Puolimo klaida'' = offensive turnover; ''Kamuolys už aikštelės
+                        ribų'' = ball out of bounds; ''Žingsniai'' = travelling; ''Vidurio linijos pažeidimas''
+                        = backcourt (half-court line) violation; ''Sulaikytas kamuolys'' = held ball;
+                        ''N sekundžių pažeidimas'' = N-second violation; ''Įeina į aikštelę / Išeina iš
+                        aikštelės'' = substitution in / out; ''Pilna minutės pertraukėlė'' = full timeout;
+                        ''Minutės pertraukėlė'' = official timeout; ''Ginčo kamuolys kėlinio pradžioje
+                        / laimėtas / pralaimėtas'' = jump ball at the period start / won / lost; ''Trenerio
+                        iššūkis – pražanga (atmestas)'' = coach''s challenge on a foul (rejected; ''priimtas''
+                        = accepted); ''Kėlinys prasidėjo / baigėsi'' = period started / ended; ''Rungtynės
+                        prasidėjo / baigėsi'' = game started / ended.'
+                      type: string
+                    is_home:
+                      description: True = the home team's event (teams_info.home), false = away. Also
+                        false on game-level lines (game end).
+                      type: boolean
+                    is_points_info:
+                      description: True on lines that changed the score (made shots and free throws).
+                      type: boolean
+                    player:
+                      description: 'The acting player: always an object, but its name, slug and image
+                        are null on team / period / game lines.'
+                      properties:
+                        image:
+                          description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                            http, not https). Null on team lines.
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          description: Full player name; null on team / period / game lines.
+                          type:
+                          - string
+                          - 'null'
+                        slug:
+                          description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                            stable across seasons). Join key to the game page players.*[].slug (and through
+                            it to the player id). Null on team lines.'
+                          type:
+                          - string
+                          - 'null'
+                      type: object
+                    score:
+                      description: Score AFTER the event (on every line, not only scoring lines).
+                      properties:
+                        away:
+                          description: Away points after the event (integer).
+                          type: integer
+                        home:
+                          description: Home points after the event (integer).
+                          type: integer
+                      type: object
+                    subtype:
+                      description: 'Event subtype (English code; '''' when none). 2pt/3pt: shot kind (jumpshot,
+                        layup, drivinglayup, reverselayup, dunk, alleyoop, alleyoopdunk, tipinlayup, tipindunk,
+                        hookshot, fadeaway, floatingjumpshot, pullupjumpshot, stepbackjumpshot, turnaroundjumpshot,
+                        eurostep). freethrow: ''NofM'' = attempt N of M (1of1, 1of2, 2of2, 1of3, 2of3,
+                        3of3). rebound: offensive / defensive. foul: personal, offensive, technical, benchTechnical.
+                        turnover: badpass, ballhandling, offensive, outofbounds, travel, backcourt (backcourt
+                        violation), 3sec, 24sec. substitution: in / out. timeout: full (team), officials.
+                        jumpball: startperiod, won, lost, heldball. headcoachchallenge: the challenged
+                        call (foul, outofbounds). period / game: start, end.'
+                      type: string
+                    success:
+                      description: 'Shots and free throws: true = made. Every other type: always true.'
+                      type: boolean
+                    type:
+                      description: 'Event type (English code): 2pt / 3pt (field-goal attempt), freethrow,
+                        rebound, assist, steal, block, turnover, foul, foulon (foul drawn), substitution,
+                        timeout, jumpball, headcoachchallenge, period, game.'
+                      type: string
+                  type: object
+                type: array
+              description: Regulation periods keyed by period number, LAST period first ('4', '3', '2',
+                '1'). Empty array before 2024-25.
+              propertyNames:
+                pattern: ^[0-9]+$
+              type: object
+              x-keyed-by: '{period}'
+          type: object
+      type: object
+    LklResults:
+      description: 'Record parsed from every page of /loadResults?season= (text/html fragments, 10 games
+        a page): season checks, the merged game list and the season selects.'
+      properties:
+        game_count:
+          description: Games in the merged list (every played game of the season, regular season and playoffs).
+          type: integer
+        games:
+          description: Every played game of the season, newest first as the site lists them. The sample
+            keeps 3.
+          items:
+            properties:
+              arena:
+                description: Arena name ('Arena dar nežinoma' = arena not yet known, on some 2007-08 games).
+                type: string
+              away_code:
+                description: Away three-letter team code.
+                type: string
+              away_name:
+                description: Away team name as printed.
+                type: string
+              away_score:
+                description: Away points.
+                type: integer
+              away_slug:
+                description: 'Away team: Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+              city:
+                description: City, from 'Arena , City'; null when the venue line has no city (2007-08
+                  'Arena dar nežinoma').
+                type:
+                - string
+                - 'null'
+              date:
+                description: Game date ISO 'YYYY-MM-DD' from the Lithuanian day header ('2026 m. birželio
+                  13 d. (šeštadienis)'); the capture checks it falls in the season (Aug 1 START - Jul
+                  31 END).
+                type: string
+              game_id:
+                description: 'Game id (key space: LKL games on lkl.lt): the {gameId} of every /api/livestream
+                  route and of /rungtynes/{gameId}. Not sequential by season before 2018-19 (2016-17 =
+                  184-393, 2015-16 = 396-604, 2007-08 = 1984-2079); 2023-24 = 10848-11114, 2024-25 = 11116-11369,
+                  2025-26 = 11370-11574, 2026-27 from 11578. Not the Genius matchId.'
+                type: integer
+              home_code:
+                description: Home three-letter team code ('LIE').
+                type: string
+              home_name:
+                description: 'Home team name as printed (the logo alt text; the CURRENT club name even
+                  on old games: 2007-08 ''Rytas'').'
+                type: string
+              home_score:
+                description: Home points.
+                type: integer
+              home_slug:
+                description: 'Home team: Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+              time:
+                description: Tip-off 'HH:MM', Europe/Vilnius.
+                type: string
+              weekday:
+                description: Weekday of the header, translated to English ('šeštadienis' -> 'Saturday').
+                type: string
+              winner_highlighted:
+                description: 'Which side''s score the page sets in bold: home or away (the winner).'
+                type: string
+            type: object
+          type: array
+        kmt_seasons:
+          description: The King Mindaugas Cup (Karaliaus Mindaugo taurė, KMT) seasons of the second select;
+            same key space and route.
+          items:
+            properties:
+              label:
+                description: 'Label in Lithuanian: ''YYYY-YYYY m. sezonas'' = season START-END (KMT: ''KMT
+                  YYYY-YYYY m.'' or ''KMT YYYY m.'').'
+                type: string
+              season_id:
+                description: 'Results season id (key space: lkl.lt championships = Genius competition
+                  ids from 2016-17, see the README).'
+                type: integer
+            type: object
+          type: array
+        pages:
+          description: Number of 10-game pages the list had; the capture walked all of them.
+          type: integer
+        season_end_year:
+          description: 'sdv season key: the END year of season_label (2025-2026 -> 2026).'
+          type: integer
+        season_id:
+          description: 'The season request parameter: results season id (key space: lkl.lt championships;
+            LKL 2026-27 = 49436). From 2016-17 (9225) it is the Genius LiveStats competitionId (leagueId
+            110).'
+          type: integer
+        season_label:
+          description: That season's label from the /rezultatai select ('2025-2026 m. sezonas' = 2025-26
+            season).
+          type: string
+        seasons:
+          description: Every LKL season of the select, newest first (2026-27 back to 1993-94); 'all' (every
+            season) is dropped.
+          items:
+            properties:
+              label:
+                description: 'Label in Lithuanian: ''YYYY-YYYY m. sezonas'' = season START-END (KMT: ''KMT
+                  YYYY-YYYY m.'' or ''KMT YYYY m.'').'
+                type: string
+              season_id:
+                description: 'Results season id (key space: lkl.lt championships = Genius competition
+                  ids from 2016-17, see the README).'
+                type: integer
+            type: object
+          type: array
+      type: object
+    LklShotChart:
+      description: 'Body of /shot-chart/{gameId}: every field-goal attempt with x/y in percent of the
+        court, regulation keyed by period, overtime as one flat list.'
+      properties:
+        quarters:
+          description: Shots by period.
+          properties:
+            overtime:
+              description: Every overtime shot in one flat list (period tells the overtime apart). Empty
+                when none.
+              items:
+                properties:
+                  area:
+                    description: 'Court zone (English code): underbasket, inthepaint, insidecenter, insideleft
+                      / insideright (2PT mid-range), insideleftwing / insiderightwing (2PT along the baseline),
+                      outsidecenter / outsideleft / outsideright (3PT), outsideleftwing / outsiderightwing
+                      (corner 3PT), backcourt. left / right are from the SHOOTER''s view: at the LEFT
+                      basket ''*left'' zones have y < 50, at the RIGHT basket y > 50 (point-symmetric).'
+                    type: string
+                  id:
+                    description: 'Shot id (key space: lkl.lt shot events; unique, increasing within a
+                      game). Not the Genius actionNumber.'
+                    type: integer
+                  is_home:
+                    description: True = shot by the home team (teams_info.home).
+                    type: boolean
+                  period:
+                    description: Period number (integer; 5 = first overtime).
+                    type: integer
+                  period_type:
+                    description: REGULAR or OVERTIME.
+                    type: string
+                  player_id:
+                    description: 'Shooter: Player id (key space: lkl.lt persons, stable across seasons:
+                      Gytis Masiulis = 9 in 2024-25 and 2026-27). Joins /shot-chart player_id and the
+                      game page players.*[].id / players_ids. The box score, leaders and play-by-play
+                      carry the player SLUG instead; map it with the game page players list.'
+                    type: integer
+                  side:
+                    description: 'Basket half of the shot: LEFT = x < 50, RIGHT = x >= 50 (all 409 sample
+                      shots), except backcourt heaves (area backcourt: x 29 with side RIGHT = a shot at
+                      the right basket from the other half). Each team attacks one side per half and switches
+                      at half-time (home LEFT in periods 1-2 and RIGHT in 3-4, or the reverse).'
+                    type: string
+                  success:
+                    description: True = made.
+                    type: boolean
+                  type:
+                    description: 2pt or 3pt (free throws are not in the chart).
+                    type: string
+                  x:
+                    description: 'Shot x as a decimal STRING (''17.00'', whole numbers): PERCENT (0-100)
+                      of the court LENGTH from the left baseline of a horizontal full court. The baskets
+                      sit near x = 5 and x = 95 (underbasket shots: x 4-10 and 90-94); metres = x / 100
+                      x 28 (FIBA court; the 3PT arc top falls at x 31-36 / 62-69, consistent with 6.75
+                      m + 1.575 m = 29.7 %). The same points as Genius LiveStats data.json shot x, rounded
+                      to integers (124 of 125 match on game 11574 / Genius 2854496).'
+                    type: string
+                  y:
+                    description: 'Shot y as a decimal string: PERCENT (0-100) of the court WIDTH; the
+                      baskets are at y = 50; metres = y / 100 x 15 (corner 3PT shots at y 2-5 and 96-98,
+                      the 0.9 m corner strip). Sample x 17.00, y 55.00 = 4.8 m from the left baseline,
+                      0.75 m off the centre line: a paint shot at the LEFT basket. Which sideline is y
+                      = 0 (the scorer''s table side or the far side) is unverified.'
+                    type: string
+                type: object
+              type: array
+            regular:
+              additionalProperties:
+                description: Field-goal attempts of the period in game order.
+                items:
+                  properties:
+                    area:
+                      description: 'Court zone (English code): underbasket, inthepaint, insidecenter,
+                        insideleft / insideright (2PT mid-range), insideleftwing / insiderightwing (2PT
+                        along the baseline), outsidecenter / outsideleft / outsideright (3PT), outsideleftwing
+                        / outsiderightwing (corner 3PT), backcourt. left / right are from the SHOOTER''s
+                        view: at the LEFT basket ''*left'' zones have y < 50, at the RIGHT basket y >
+                        50 (point-symmetric).'
+                      type: string
+                    id:
+                      description: 'Shot id (key space: lkl.lt shot events; unique, increasing within
+                        a game). Not the Genius actionNumber.'
+                      type: integer
+                    is_home:
+                      description: True = shot by the home team (teams_info.home).
+                      type: boolean
+                    period:
+                      description: Period number (integer; 5 = first overtime).
+                      type: integer
+                    period_type:
+                      description: REGULAR or OVERTIME.
+                      type: string
+                    player_id:
+                      description: 'Shooter: Player id (key space: lkl.lt persons, stable across seasons:
+                        Gytis Masiulis = 9 in 2024-25 and 2026-27). Joins /shot-chart player_id and the
+                        game page players.*[].id / players_ids. The box score, leaders and play-by-play
+                        carry the player SLUG instead; map it with the game page players list.'
+                      type: integer
+                    side:
+                      description: 'Basket half of the shot: LEFT = x < 50, RIGHT = x >= 50 (all 409 sample
+                        shots), except backcourt heaves (area backcourt: x 29 with side RIGHT = a shot
+                        at the right basket from the other half). Each team attacks one side per half
+                        and switches at half-time (home LEFT in periods 1-2 and RIGHT in 3-4, or the reverse).'
+                      type: string
+                    success:
+                      description: True = made.
+                      type: boolean
+                    type:
+                      description: 2pt or 3pt (free throws are not in the chart).
+                      type: string
+                    x:
+                      description: 'Shot x as a decimal STRING (''17.00'', whole numbers): PERCENT (0-100)
+                        of the court LENGTH from the left baseline of a horizontal full court. The baskets
+                        sit near x = 5 and x = 95 (underbasket shots: x 4-10 and 90-94); metres = x /
+                        100 x 28 (FIBA court; the 3PT arc top falls at x 31-36 / 62-69, consistent with
+                        6.75 m + 1.575 m = 29.7 %). The same points as Genius LiveStats data.json shot
+                        x, rounded to integers (124 of 125 match on game 11574 / Genius 2854496).'
+                      type: string
+                    y:
+                      description: 'Shot y as a decimal string: PERCENT (0-100) of the court WIDTH; the
+                        baskets are at y = 50; metres = y / 100 x 15 (corner 3PT shots at y 2-5 and 96-98,
+                        the 0.9 m corner strip). Sample x 17.00, y 55.00 = 4.8 m from the left baseline,
+                        0.75 m off the centre line: a paint shot at the LEFT basket. Which sideline is
+                        y = 0 (the scorer''s table side or the far side) is unverified.'
+                      type: string
+                  type: object
+                type: array
+              description: Regulation periods keyed by period number ('1'..'4', first period first).
+              propertyNames:
+                pattern: ^[0-9]+$
+              type: object
+              x-keyed-by: '{period}'
+          type: object
+      type: object
+    LklStandings:
+      description: 'Record parsed from /loadStandings/{seasonId} (text/html fragment): the four standings
+        tables and the season select.'
+      properties:
+        away:
+          description: Away games only (tab data-id away).
+          items:
+            properties:
+              last5:
+                description: 'Last five results (Paskutinės 5) as rendered, left to right: W (green) /
+                  L (red); fewer than five early in a season.'
+                items:
+                  type: string
+                type: array
+              lost:
+                description: Losses (Pr., pralaimėjimai).
+                type: integer
+              played:
+                description: Games played (Rng., rungtynės).
+                type: integer
+              points_against_avg:
+                description: Points allowed per game (second number of Tšk. vid.).
+                type: number
+              points_for_avg:
+                description: Points scored per game (first number of Tšk. vid.).
+                type: number
+              position:
+                description: Rank (Poz.).
+                type: integer
+              team_name:
+                description: Team name as printed for that season ('Lietuvos Rytas' in 2007-08).
+                type: string
+              team_slug:
+                description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+              won:
+                description: Wins (Per., pergalės).
+                type: integer
+            type: object
+          type: array
+        final:
+          description: Final ranking after the playoffs (Poz., Komanda); EMPTY while a season runs and
+            on 2007-08 (the site shows 'Informacija ruošiama', information being prepared).
+          items:
+            properties:
+              position:
+                description: Final place.
+                type: integer
+              team_name:
+                description: Team name as printed for that season.
+                type: string
+              team_slug:
+                description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+            type: object
+          type: array
+        full:
+          description: Regular-season table, all games (tab data-id full).
+          items:
+            properties:
+              last5:
+                description: 'Last five results (Paskutinės 5) as rendered, left to right: W (green) /
+                  L (red); fewer than five early in a season.'
+                items:
+                  type: string
+                type: array
+              lost:
+                description: Losses (Pr., pralaimėjimai).
+                type: integer
+              played:
+                description: Games played (Rng., rungtynės).
+                type: integer
+              points_against_avg:
+                description: Points allowed per game (second number of Tšk. vid.).
+                type: number
+              points_for_avg:
+                description: Points scored per game (first number of Tšk. vid.).
+                type: number
+              position:
+                description: Rank (Poz.).
+                type: integer
+              streak:
+                description: 'Current streak (Serija) as a signed integer: 27 = 27 wins in a row, -1 =
+                  one loss.'
+                type: integer
+              team_name:
+                description: Team name as printed for that season ('Lietuvos Rytas' in 2007-08).
+                type: string
+              team_slug:
+                description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+              win_pct:
+                description: Win percentage 0-100 (Laim.%); null when the site prints '-' (2007-08).
+                type:
+                - number
+                - 'null'
+              won:
+                description: Wins (Per., pergalės).
+                type: integer
+            type: object
+          type: array
+        home:
+          description: Home games only (tab data-id home).
+          items:
+            properties:
+              last5:
+                description: 'Last five results (Paskutinės 5) as rendered, left to right: W (green) /
+                  L (red); fewer than five early in a season.'
+                items:
+                  type: string
+                type: array
+              lost:
+                description: Losses (Pr., pralaimėjimai).
+                type: integer
+              played:
+                description: Games played (Rng., rungtynės).
+                type: integer
+              points_against_avg:
+                description: Points allowed per game (second number of Tšk. vid.).
+                type: number
+              points_for_avg:
+                description: Points scored per game (first number of Tšk. vid.).
+                type: number
+              position:
+                description: Rank (Poz.).
+                type: integer
+              team_name:
+                description: Team name as printed for that season ('Lietuvos Rytas' in 2007-08).
+                type: string
+              team_slug:
+                description: 'Team slug (key space: lkl.lt clubs; the {slug} of https://lkl.lt/komandos/{slug};
+                  one per club, stable across renamings: ''rytas'' for Lietuvos Rytas / Rytas). The results
+                  and standings rows carry only this; the game page teams_info gives slug + id.'
+                type: string
+              won:
+                description: Wins (Per., pergalės).
+                type: integer
+            type: object
+          type: array
+        season_end_year:
+          description: 'sdv season key: the END year of season_label (2024-2025 -> 2025).'
+          type: integer
+        season_id:
+          description: 'The {seasonId} path parameter: STANDINGS season id (a separate, small key space:
+            35 = 2026-27, 34 = 2025-26, 1 = 2016-17, 24 = 1993-94; NOT the results season id).'
+          type: integer
+        season_label:
+          description: That season's label from the /turnyrine-lentele select ('2024-2025 m. sezonas'
+            = season START-END).
+          type: string
+        seasons:
+          description: Every standings season of the select (newest first). The sample keeps 3.
+          items:
+            properties:
+              label:
+                description: Label 'YYYY-YYYY m. sezonas' (= season START-END).
+                type: string
+              season_id:
+                description: Standings season id (this route's key space).
+                type: integer
+            type: object
+          type: array
+      type: object
+    LklSummary:
+      description: 'Body of /summary/{gameId}: gameStatistics (as on /boxscore), a 14-row team comparison,
+        the game leaders of each side and the broadcasters as an HTML snippet.'
+      properties:
+        broadcasts:
+          description: 'Broadcasters as an HTML snippet (logo links: BTV, Telia Play, ...); identical
+            on old games (the current broadcasters, not historical).'
+          type: string
+        comparison:
+          description: 'Team comparison (14 rows: field goals, 2PT, 3PT, free throws, the counting stats
+            and the scoring splits).'
+          items:
+            properties:
+              away:
+                description: The away team's bar.
+                properties:
+                  graph_length:
+                    description: 'Bar length in percent: shooting rows = the percentage as a string (''71.4'');
+                      counting rows = this side''s share of the two values, 0-100, a number (43 vs 37
+                      -> 53.75).'
+                    type:
+                    - number
+                    - string
+                  percentage:
+                    description: 'Shooting rows only (absent on counting rows): percentage with ONE decimal
+                      and a % sign (''71.4%'').'
+                    type: string
+                    x-absent-in-some-rows: true
+                  value:
+                    description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                      integer.'
+                    type:
+                    - integer
+                    - string
+                  winning:
+                    description: True when this side's bar is highlighted as the better one (both false
+                      on a tie).
+                    type: boolean
+                type: object
+              home:
+                description: The home team's bar.
+                properties:
+                  graph_length:
+                    description: 'Bar length in percent: shooting rows = the percentage as a string (''71.4'');
+                      counting rows = this side''s share of the two values, 0-100, a number (43 vs 37
+                      -> 53.75).'
+                    type:
+                    - number
+                    - string
+                  percentage:
+                    description: 'Shooting rows only (absent on counting rows): percentage with ONE decimal
+                      and a % sign (''71.4%'').'
+                    type: string
+                    x-absent-in-some-rows: true
+                  value:
+                    description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
+                      integer.'
+                    type:
+                    - integer
+                    - string
+                  winning:
+                    description: True when this side's bar is highlighted as the better one (both false
+                      on a tie).
+                    type: boolean
+                type: object
+              label:
+                description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
+                  metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws, ''Atkovoti
+                  kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds, ''Atkovoti
+                  kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai'' = assists, ''Perimti
+                  kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers, ''Pražangos'' =
+                  fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers, ''Taškai greitose
+                  atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance points, ''Atsarginių
+                  žaidėjų taškai'' = bench points.'
+                type: string
+            type: object
+          type: array
+        gameStatistics:
+          additionalProperties:
+            description: Totals of the team whose id is the key.
+            properties:
+              assists:
+                description: Team assists in the game (count).
+                type: integer
+              bench_points:
+                description: Points by players who did not start.
+                type: integer
+              biggest_lead:
+                description: This team's biggest lead in points (0 when it never led).
+                type: integer
+              biggest_scoring_run:
+                description: This team's longest unanswered scoring run, in points.
+                type: integer
+              blocks:
+                description: Blocks made.
+                type: integer
+              blocks_received:
+                description: Shots of this team that were blocked.
+                type: integer
+              created_at:
+                description: When this stats row was created, ISO 8601 UTC with microseconds ('2026-08-11T13:00:26.000000Z');
+                  the row exists from schedule time.
+                type: string
+              defensive_rebounds:
+                description: Team defensive rebounds in the game (count).
+                type: integer
+              efficiency:
+                description: 'Team efficiency rating (Efektyvumas), a PIR-style index (points + rebounds
+                  + assists + steals + blocks + fouls drawn - missed shots - turnovers - shots blocked
+                  - fouls). The exact formula is unverified: game 11590 home gives 121 where that formula
+                  gives 122.'
+                type: integer
+              fast_break_points:
+                description: Fast-break points; 0 on the 2007-08 sample.
+                type: integer
+              field_goals_2pt_percentage:
+                description: Two-point percentage, 0-100, string with two decimals.
+                type: string
+              field_goals_3pt_percentage:
+                description: Three-point percentage, 0-100, string with two decimals.
+                type: string
+              field_goals_attempted_2pt:
+                description: Two-point field goals attempted.
+                type: integer
+              field_goals_attempted_3pt:
+                description: Three-point field goals attempted.
+                type: integer
+              field_goals_attempted_total:
+                description: Field goals attempted, 2PT + 3PT.
+                type: integer
+              field_goals_made_2pt:
+                description: Two-point field goals made.
+                type: integer
+              field_goals_made_3pt:
+                description: Three-point field goals made.
+                type: integer
+              field_goals_made_total:
+                description: Field goals made, 2PT + 3PT.
+                type: integer
+              field_goals_percentage:
+                description: Field-goal percentage, 0-100, as a STRING with two decimals ('51.47').
+                type: string
+              fouls:
+                description: Fouls committed.
+                type: integer
+              fouls_on:
+                description: Fouls drawn (fouls committed on this team).
+                type: integer
+              free_throws_attempted:
+                description: Free throws attempted by the team in the game (count).
+                type: integer
+              free_throws_made:
+                description: Free throws made by the team in the game (count).
+                type: integer
+              free_throws_percentage:
+                description: Free-throw percentage, 0-100, string with two decimals.
+                type: string
+              game_id:
+                description: 'Game id (key space: LKL games on lkl.lt): the {gameId} of every /api/livestream
+                  route and of /rungtynes/{gameId}. Not sequential by season before 2018-19 (2016-17 =
+                  184-393, 2015-16 = 396-604, 2007-08 = 1984-2079); 2023-24 = 10848-11114, 2024-25 = 11116-11369,
+                  2025-26 = 11370-11574, 2026-27 from 11578. Not the Genius matchId. Integer; the capture
+                  checks it equals the request.'
+                type: integer
+              id:
+                description: 'Row id of this team-game statistics record (key space: lkl.lt team-game
+                  stat rows; joins nothing else captured).'
+                type: integer
+              lead_changes:
+                description: Lead changes in the game (the same value on both rows).
+                type: integer
+              offensive_rebounds:
+                description: Team offensive rebounds in the game (count).
+                type: integer
+              points:
+                description: 'Team points: the final score (the capture banks finished games only).'
+                type: integer
+              points_in_paint:
+                description: Points in the paint; 0 on the 2007-08 sample.
+                type: integer
+              points_off_turnovers:
+                description: Points off the opponent's turnovers; 0 on the 2007-08 sample (not tracked
+                  then).
+                type: integer
+              quarter_scores:
+                additionalProperties:
+                  description: Points in that period (integer).
+                  type: integer
+                description: Points the team scored IN each period (not cumulative), keyed by period number
+                  ('1'..'4', '5' = first overtime).
+                propertyNames:
+                  pattern: ^[0-9]+$
+                type: object
+                x-keyed-by: '{period}'
+              second_chance_points:
+                description: Second-chance points (after an offensive rebound); 0 on the 2007-08 sample.
+                type: integer
+              seconds_played:
+                description: Summed playing time of all the team's players in SECONDS (12000 = 5 x 40:00;
+                  13500 with one overtime).
+                type: integer
+              steals:
+                description: Team steals in the game (count).
+                type: integer
+              team_id:
+                description: 'Team id (key space: lkl.lt clubs, STABLE across seasons and renamings: 6
+                  = Rytas, also ''Lietuvos Rytas'' in 2007-08; 3 = Žalgiris; 60 = Gargždai). The value=
+                  of the /rezultatai team filter; joins gameStatistics keys and the game page teams_info.*.id.
+                  Not the Genius team id (hometeamId 21255 = Rytas). Integer; equals the key.'
+                type: integer
+              tie_results:
+                description: Times the score was tied (the same value on both rows).
+                type: integer
+              time_leading:
+                description: Time this team led, in SECONDS, as a STRING ('1892' = 31:32).
+                type: string
+              total_rebounds:
+                description: Team rebounds, offensive + defensive (count).
+                type: integer
+              turnovers:
+                description: Team turnovers in the game (count).
+                type: integer
+              updated_at:
+                description: When this stats row last changed, ISO 8601 UTC.
+                type: string
+            type: object
+          description: 'Team game totals keyed by TEAM ID (header-as-data: the two keys are the home and
+            away team ids, as strings; which is home is NOT marked, take it from the game page teams_info).'
+          propertyNames:
+            pattern: ^[0-9]+$
+          type: object
+          x-keyed-by: '{team_id}'
+        leaders:
+          description: Game leaders by category (fixed category keys).
+          properties:
+            assists:
+              description: 'Category assists: Rezultatyvūs perdavimai (assists).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Rezultatyvūs perdavimai' = assists).
+                  type: string
+              type: object
+            efficiency:
+              description: 'Category efficiency: Naudingumas (efficiency rating).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Naudingumas' = efficiency rating).
+                  type: string
+              type: object
+            points:
+              description: 'Category points: Pelnomi taškai (points scored).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Pelnomi taškai' = points scored).
+                  type: string
+              type: object
+            total_rebounds:
+              description: 'Category total_rebounds: Atkovoti kamuoliai (rebounds).'
+              properties:
+                away:
+                  description: The away team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                home:
+                  description: The home team's leader in this category.
+                  properties:
+                    name:
+                      description: Full name of the player ('Artūras Gudaitis').
+                      type: string
+                    others:
+                      description: 'Empty array in every sample: /summary carries no runners-up (use /leaders);
+                        element shape unobserved.'
+                      items:
+                        x-unobserved: true
+                      type: array
+                    photo:
+                      description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
+                        http, not https).
+                      type: string
+                    slug:
+                      description: 'Player slug (key space: lkl.lt persons; the {slug} of https://lkl.lt/zaidejai/{slug};
+                        stable across seasons). Join key to the game page players.*[].slug (and through
+                        it to the player id).'
+                      type: string
+                    value:
+                      description: The leader's value in this category (integer).
+                      type: integer
+                  type: object
+                label:
+                  description: Category label in Lithuanian ('Atkovoti kamuoliai' = rebounds).
+                  type: string
+              type: object
+          type: object
+      type: object
+info:
+  description: 'Lietuvos krepšinio lyga (LKL) game data from lkl.lt. The keyless JSON routes under /api/livestream
+    serve, per game: box score, summary, leaders, team comparison and lead chart, score line (every season
+    back to 1993-94), and play-by-play plus a shot chart with x/y (2024-25 onward). Three server-rendered
+    HTML routes are documented by the JSON record their capture parses: the game page (team and player
+    ids, date, status), the paged results list of a season and the standings. Text is Lithuanian (glossaries
+    in the descriptions). Seasons: the results list keys by an opaque season id (= the Genius LiveStats
+    competitionId from 2016-17), the standings by a separate small id; the sdv season is the END year
+    of the ''YYYY-YYYY'' label. robots.txt allows everything. Shapes from captures of 2026-10-12; x-unobserved
+    = null in every sample. Not official or supported.'
+  title: LKL (Lithuanian Basketball League) livestream API + lkl.lt game, results and standings pages
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /boxscore/{gameId}:
+    get:
+      description: 'Box score: per-player rows and team totals of both sides, plus team game totals. Sides:
+        boxscore.home / .away are the game page''s teams_info.home / .away; gameStatistics is keyed by
+        team id with no side marker.'
+      operationId: get_lkl_boxscore
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklBoxScore'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: 'Box score: per-player rows and team totals of both sides, plus team game totals'
+  /game-score/{gameId}:
+    get:
+      description: 'Score and clock line. The clock line is not a state flag: old games keep ''1 KĖLINYS
+        - 10:00'' after the final.'
+      operationId: get_lkl_game_score
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklGameScore'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: Score and clock line
+  /game-stats/{gameId}:
+    get:
+      description: 'Statistics tab: team comparison bars and the lead chart per period. 2007-08 (game
+        2000) carries 4 main rows, zero lead statistics and a flat lead chart (no event data then).'
+      operationId: get_lkl_game_stats
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklGameStats'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: 'Statistics tab: team comparison bars and the lead chart per period'
+  /leaders/{gameId}:
+    get:
+      description: 'Leaders tab: top players of each side in six categories. Players are identified by
+        slug and full name, no id.'
+      operationId: get_lkl_leaders
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklLeaders'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: 'Leaders tab: top players of each side in six categories'
+  /loadResults:
+    get:
+      description: 'text/html, parsed by capture.py into the JSON record of x-parsed-schema (English keys).
+        Keyless. Parsing rule: div.font-semibold.text-2xl day headers (''YYYY m. <month> D d. (<weekday>)'')
+        then div.result-item: div.location (time, ''arena , city''), a[href*=/komandos/] x2 (strong =
+        code, img alt = name), a[href*=/rungtynes/] (id, ''H - A'', the winner in <strong>); page links
+        loadResults?page=N. Season scoping verified 2026-10-12 by diffing 49436, 39252 and 3090 (disjoint
+        game ids; every date inside its season window, fixed at Aug 1 START - Jul 31 END). The capture
+        refuses a list whose dates leave the season, whose pages are short, or whose games repeat across
+        pages.'
+      operationId: get_lkl_results
+      parameters:
+      - description: 'Results season id = the value of the /rezultatai select (key space: lkl.lt championships;
+          49436 = 2026-27, 41936 = 2025-26, 39252 = 2024-25, 3090 = 2007-08; KMT cup seasons share it:
+          49437 = KMT 2026-27). From 2016-17 (9225) it is the Genius LiveStats competitionId (leagueId
+          110). An unknown id answers 200 with ''Informacija ruošiama'' and no games.'
+        example: 49436
+        in: query
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: 'Page number, 1-based; 10 games a page, newest first. Past the last page: 200 with
+          no games. Page size is fixed (per_page / perPage / limit are ignored).'
+        example: 1
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - description: 'Team filter: a team id or ''-'' (all). The capture sends ''-''.'
+        example: '-'
+        in: query
+        name: team
+        required: false
+        schema:
+          type: string
+      - description: 'Opponent filter: a team id or ''-'' (all). The capture sends ''-''.'
+        example: '-'
+        in: query
+        name: opponent
+        required: false
+        schema:
+          type: string
+      - description: Month filter or '-' (all). The capture sends '-'.
+        example: '-'
+        in: query
+        name: month
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: lkl/tools/capture.py results_record
+                rule: 'div.font-semibold.text-2xl day headers (''YYYY m. <month> D d. (<weekday>)'') then
+                  div.result-item: div.location (time, ''arena , city''), a[href*=/komandos/] x2 (strong
+                  = code, img alt = name), a[href*=/rungtynes/] (id, ''H - A'', the winner in <strong>);
+                  page links loadResults?page=N'
+                schema:
+                  $ref: '#/components/schemas/LklResults'
+          description: Server-rendered HTML (a full page for /rungtynes, a fragment for /loadResults and
+            /loadStandings)
+        '404':
+          description: Unknown game / standings season id (HTML 404 page).
+      security: []
+      summary: Every played game of one season (all pages of the results list, merged)
+    servers:
+    - url: https://lkl.lt
+  /loadStandings/{seasonId}:
+    get:
+      description: 'text/html, parsed by capture.py into the JSON record of x-parsed-schema (English keys).
+        Keyless. Parsing rule: div.tab-c-ins[data-id=full|home|away|final] tables: th headers checked,
+        td cells: Poz. | Komanda (a[href*=/komandos/]) | Rng. | Per. | Pr. | [Laim.% | Serija] | Tšk.
+        vid. (two span.num) | Paskutinės 5 (span.bg-green / bg-red). UNSCOPED: the fragment carries no
+        season echo; it is banked on the URL alone (capture.UNSCOPED). Partial check: every team slug
+        of the four tables must play a game in the results list of the season with the same label (walked
+        in full), or the capture refuses it.'
+      operationId: get_lkl_standings
+      parameters:
+      - description: Standings season id = the value of the /turnyrine-lentele select (35 = 2026-27 ...
+          24 = 1993-94; NOT the results season id). An unknown id answers HTTP 404.
+        example: 35
+        in: path
+        name: seasonId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: lkl/tools/capture.py parse_standings
+                rule: 'div.tab-c-ins[data-id=full|home|away|final] tables: th headers checked, td cells:
+                  Poz. | Komanda (a[href*=/komandos/]) | Rng. | Per. | Pr. | [Laim.% | Serija] | Tšk.
+                  vid. (two span.num) | Paskutinės 5 (span.bg-green / bg-red)'
+                schema:
+                  $ref: '#/components/schemas/LklStandings'
+          description: Server-rendered HTML (a full page for /rungtynes, a fragment for /loadResults and
+            /loadStandings)
+        '404':
+          description: Unknown game / standings season id (HTML 404 page).
+      security: []
+      summary: Standings tables of one season (overall, home, away, final ranking)
+    servers:
+    - url: https://lkl.lt
+  /play-by-play/{gameId}:
+    get:
+      description: 'Play-by-play (2024-25 onward), newest first, per period. ERA SPLIT: filled from 2024-25
+        (first game 11116, 2024-09-21; the last 2023-24 game 11114 is empty). Before that the body is
+        {"regular": [], "overtime": []} (regular is then an ARRAY, not an object) and the capture does
+        not request it. Genius LiveStats data.json holds pbp for 2016-17 onward (README).'
+      operationId: get_lkl_play_by_play
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklPlayByPlay'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: Play-by-play (2024-25 onward), newest first, per period
+  /rungtynes/{gameId}:
+    get:
+      description: 'text/html, parsed by capture.py into the JSON record of x-parsed-schema (English keys).
+        Keyless. Parsing rule: <game-info-component> attributes: plain ones as strings, '':''-prefixed
+        ones as JSON (HTML-unescaped); players-stats-columns / main-tabs / leaders-tabs dropped. The page
+        renders this component only for played games: an unplayed game''s page has none and is refused.'
+      operationId: get_lkl_game
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: lkl/tools/capture.py parse_game
+                rule: '<game-info-component> attributes: plain ones as strings, '':''-prefixed ones as
+                  JSON (HTML-unescaped); players-stats-columns / main-tabs / leaders-tabs dropped'
+                schema:
+                  $ref: '#/components/schemas/LklGamePage'
+          description: Server-rendered HTML (a full page for /rungtynes, a fragment for /loadResults and
+            /loadStandings)
+        '404':
+          description: Unknown game / standings season id (HTML 404 page).
+      security: []
+      summary: 'Game page: the game-info-component props (teams with ids, players with ids, date, venue,
+        status)'
+    servers:
+    - url: https://lkl.lt
+  /shot-chart/{gameId}:
+    get:
+      description: 'Shot chart (2024-25 onward): every field-goal attempt with x/y. ERA SPLIT as play-by-play:
+        2024-25 onward. Free throws are not charted.'
+      operationId: get_lkl_shot_chart
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklShotChart'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: 'Shot chart (2024-25 onward): every field-goal attempt with x/y'
+  /summary/{gameId}:
+    get:
+      description: 'Summary tab: team game totals, a team comparison, game leaders and broadcasts. gameStatistics
+        is identical to /boxscore''s. comparison here is one flat 14-row list; /game-stats splits it into
+        shooting / main / all.'
+      operationId: get_lkl_summary
+      parameters:
+      - description: 'Game id (the {id} of https://lkl.lt/rungtynes/{id}; see the README id table). Box
+          score, summary, leaders, game-stats and game-score answer for every LKL game back to 1993-94;
+          play-by-play and shot chart are filled from 2024-25 (first game 11116) and are {"regular": [],
+          "overtime": []} before. Unknown ids (6000, 9000) answer HTTP 404 text/html.'
+        example: 11590
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LklSummary'
+          description: JSON body
+        '404':
+          description: 'Unknown game id: an HTML 404 page (text/html), not JSON.'
+      security: []
+      summary: 'Summary tab: team game totals, a team comparison, game leaders and broadcasts'
+servers:
+- url: https://lkl.lt/api/livestream
