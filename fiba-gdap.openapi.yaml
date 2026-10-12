@@ -1,0 +1,3888 @@
+components:
+  schemas:
+    GetGdapCompetitionById:
+      properties:
+        ageCategory:
+          type: string
+        competitionCategory:
+          properties:
+            ageType:
+              type: string
+            code:
+              type: string
+            isLeague:
+              type: boolean
+            name:
+              type: string
+          type: object
+        competitionCode:
+          type: string
+        competitionId:
+          type: integer
+        competitionMarketingName:
+          properties:
+            code:
+              type:
+              - 'null'
+            competitionMarketingNameId:
+              type: integer
+            marketingName:
+              type: string
+          type: object
+        competitionType:
+          type: string
+        discipline:
+          type: string
+        end:
+          type: string
+        fibaZone:
+          type: string
+        gender:
+          type: string
+        hosts:
+          items:
+            properties:
+              cities:
+                items:
+                  type: string
+                type: array
+              countryCode:
+                type: string
+              countryName:
+                type: string
+            type: object
+          type: array
+        official:
+          type: string
+        officialFlagItemCode:
+          type: string
+        officialFlagItemName:
+          type: string
+        officialName:
+          type: string
+        season:
+          type: integer
+        start:
+          type: string
+        status:
+          type: string
+        zoneInformation:
+          properties:
+            topZoneCode:
+              type:
+              - 'null'
+            topZoneId:
+              type:
+              - 'null'
+            topZoneOfficialName:
+              type:
+              - 'null'
+            zoneCode:
+              type: string
+            zoneId:
+              type: integer
+            zoneOfficialName:
+              type: string
+          type: object
+      type: object
+    GetcustomgatewayCompetitionIdsBetweenTwoDates:
+      properties:
+        competitionIds:
+          items:
+            type: string
+            x-numeric-string: true
+          type: array
+      type: object
+    GetcustomgatewayFederationRanking:
+      properties:
+        asOfDate:
+          type: string
+        climbers:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              organisationId:
+                type: integer
+              organisationStatusCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+        fallers:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              organisationId:
+                type: integer
+              organisationStatusCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+        items:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              organisationId:
+                type: integer
+              organisationStatusCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+      type: object
+    Getgdapcompetitionawardsbyid:
+      items:
+        properties:
+          awardCode:
+            type: string
+          awardDate:
+            type: string
+          awardLabel:
+            type:
+            - 'null'
+          awardLevel:
+            type: string
+          awardLevelId:
+            type: integer
+          awardName:
+            type: string
+          competitionEndDate:
+            type: string
+          competitionId:
+            type: integer
+          competitionOfficialName:
+            type: string
+          competitionSeason:
+            type: integer
+          playerDateOfBirth:
+            type: string
+          playerFirstName:
+            type: string
+          playerId:
+            type: integer
+          playerLastName:
+            type: string
+          playerNationality:
+            type: string
+          teams:
+            items:
+              properties:
+                code:
+                  type: string
+                officialName:
+                  type: string
+                organisationId:
+                  type: integer
+                shortName:
+                  type: string
+                teamId:
+                  type: integer
+              type: object
+            type: array
+        type: object
+      type: array
+    Getgdapcompetitionfinalstandingbycompetitionid:
+      properties:
+        competition:
+          properties:
+            ageCategory:
+              type: string
+            competitionCategory:
+              properties:
+                ageType:
+                  type: string
+                code:
+                  type: string
+                isLeague:
+                  type: boolean
+                name:
+                  type: string
+              type: object
+            competitionCode:
+              type: string
+            competitionId:
+              type: integer
+            competitionMarketingName:
+              properties:
+                code:
+                  type:
+                  - 'null'
+                competitionMarketingNameId:
+                  type: integer
+                marketingName:
+                  type: string
+              type: object
+            competitionType:
+              type: string
+            discipline:
+              type: string
+            end:
+              type: string
+            fibaZone:
+              type: string
+            gender:
+              type: string
+            official:
+              type: string
+            officialFlagItemCode:
+              type: string
+            officialFlagItemName:
+              type: string
+            officialName:
+              type: string
+            season:
+              type: integer
+            start:
+              type: string
+            status:
+              type: string
+            zoneInformation:
+              properties:
+                topZoneCode:
+                  type:
+                  - 'null'
+                topZoneId:
+                  type:
+                  - 'null'
+                topZoneOfficialName:
+                  type:
+                  - 'null'
+                zoneCode:
+                  type: string
+                zoneId:
+                  type: integer
+                zoneOfficialName:
+                  type: string
+              type: object
+          type: object
+        standings:
+          items:
+            properties:
+              finalRank:
+                type: integer
+              team:
+                properties:
+                  organisationId:
+                    type: integer
+                  profile:
+                    type:
+                    - 'null'
+                  shortName:
+                    type: string
+                  statusCode:
+                    type:
+                    - 'null'
+                  statusName:
+                    type:
+                    - 'null'
+                  teamCode:
+                    type: string
+                  teamId:
+                    type: integer
+                type: object
+            type: object
+          type: array
+      type: object
+    Getgdapcompetitionnominationsbyid:
+      items:
+        properties:
+          affiliatedNationalFederation:
+            properties:
+              countryCode:
+                type: string
+              countryName:
+                type: string
+            type: object
+          competitionLevel:
+            type: string
+          competitionLevelId:
+            type: integer
+          competitionRole:
+            type:
+            - 'null'
+          contactDetails:
+            properties:
+              emails:
+                items:
+                  properties:
+                    categoryCode:
+                      type: string
+                    categoryName:
+                      type: string
+                    emailAddress:
+                      type: string
+                    order:
+                      type: integer
+                  type: object
+                type: array
+              mobile:
+                type: string
+              phone:
+                type: string
+              preferredAirportName:
+                type:
+                - 'null'
+              skype:
+                type:
+                - string
+                - 'null'
+              socialMedia:
+                properties:
+                  facebook:
+                    type:
+                    - 'null'
+                  instagram:
+                    type:
+                    - 'null'
+                  twitter:
+                    type:
+                    - 'null'
+                  website:
+                    type:
+                    - 'null'
+                  youtube:
+                    type:
+                    - 'null'
+                type: object
+              socialNetworks:
+                items: {}
+                type: array
+            type: object
+          dateOfBirth:
+            type: string
+          firstName:
+            type: string
+          gameAssignmentRole:
+            type:
+            - 'null'
+          gameAssignmentRoleCode:
+            type:
+            - 'null'
+          gameAssignmentRoleOrder:
+            type:
+            - 'null'
+          gender:
+            type: string
+          lastName:
+            type: string
+          licenseNationality:
+            type: string
+          nationalities:
+            items:
+              properties:
+                countryCode:
+                  type: string
+                countryId:
+                  type: integer
+                countryName:
+                  type: string
+                fibaCode:
+                  type: string
+                iocCode:
+                  type: string
+                isActive:
+                  type: boolean
+                isDefault:
+                  type: boolean
+                isTerritory:
+                  type: boolean
+                iso2Code:
+                  type: string
+                logoUrl:
+                  type: string
+                officialName:
+                  type: string
+                shortName:
+                  type: string
+                zones:
+                  items: {}
+                  type: array
+              type: object
+            type: array
+          personId:
+            type: integer
+          role:
+            type: string
+          roleCode:
+            type: string
+        type: object
+      type: array
+    Getgdapcompetitionroundgamedaysbyid:
+      properties:
+        competition:
+          properties:
+            ageCategory:
+              type: string
+            competitionCategory:
+              properties:
+                ageType:
+                  type: string
+                code:
+                  type: string
+                isLeague:
+                  type: boolean
+                name:
+                  type: string
+              type: object
+            competitionCode:
+              type: string
+            competitionId:
+              type: integer
+            competitionMarketingName:
+              properties:
+                code:
+                  type:
+                  - 'null'
+                competitionMarketingNameId:
+                  type: integer
+                marketingName:
+                  type: string
+              type: object
+            competitionType:
+              type: string
+            discipline:
+              type: string
+            end:
+              type: string
+            fibaZone:
+              type: string
+            gender:
+              type: string
+            official:
+              type: string
+            officialFlagItemCode:
+              type: string
+            officialFlagItemName:
+              type: string
+            officialName:
+              type: string
+            season:
+              type: integer
+            start:
+              type: string
+            status:
+              type: string
+            zoneInformation:
+              properties:
+                topZoneCode:
+                  type:
+                  - 'null'
+                topZoneId:
+                  type:
+                  - 'null'
+                topZoneOfficialName:
+                  type:
+                  - 'null'
+                zoneCode:
+                  type: string
+                zoneId:
+                  type: integer
+                zoneOfficialName:
+                  type: string
+              type: object
+          type: object
+        rounds:
+          items:
+            properties:
+              gamedays:
+                items:
+                  type: integer
+                type: array
+              round:
+                properties:
+                  endDate:
+                    type: string
+                  gameSystem:
+                    type:
+                    - string
+                    - 'null'
+                  gameSystemCode:
+                    type:
+                    - string
+                    - 'null'
+                  groupStandings:
+                    properties:
+                      groups:
+                        items: {}
+                        type: array
+                    type: object
+                  hasTeamsAssigned:
+                    type: boolean
+                  parentRoundId:
+                    type:
+                    - integer
+                    - 'null'
+                  qualifiedTeamInformation:
+                    type:
+                    - 'null'
+                  roundCode:
+                    type: string
+                  roundId:
+                    type: integer
+                  roundKind:
+                    type: string
+                  roundName:
+                    type: string
+                  roundNumber:
+                    type: integer
+                  roundOrder:
+                    type: integer
+                  roundStatusCode:
+                    type: string
+                  roundType:
+                    type: string
+                  roundTypeCode:
+                    type: string
+                  standingHeaderCode:
+                    type: string
+                  standingHeaderName:
+                    type: string
+                  startDate:
+                    type: string
+                type: object
+            type: object
+          type: array
+      type: object
+    Getgdapcompetitionsbyseasonsandcompetitionmarketingname:
+      items:
+        properties:
+          ageCategory:
+            type: string
+          competitionCategory:
+            properties:
+              ageType:
+                type: string
+              code:
+                type: string
+              isLeague:
+                type: boolean
+              name:
+                type: string
+            type: object
+          competitionCode:
+            type: string
+          competitionId:
+            type: integer
+          competitionMarketingName:
+            properties:
+              code:
+                type:
+                - 'null'
+              competitionMarketingNameId:
+                type: integer
+              marketingName:
+                type: string
+            type: object
+          competitionType:
+            type: string
+          discipline:
+            type: string
+          end:
+            type: string
+          fibaZone:
+            type: string
+          gender:
+            type: string
+          hosts:
+            items:
+              properties:
+                cities:
+                  items:
+                    type: string
+                  type: array
+                countryCode:
+                  type: string
+                countryName:
+                  type: string
+              type: object
+            type: array
+          official:
+            type: string
+          officialFlagItemCode:
+            type: string
+          officialFlagItemName:
+            type: string
+          officialName:
+            type: string
+          season:
+            type: integer
+          start:
+            type: string
+          status:
+            type: string
+          zoneInformation:
+            properties:
+              topZoneCode:
+                type:
+                - 'null'
+              topZoneId:
+                type:
+                - 'null'
+              topZoneOfficialName:
+                type:
+                - 'null'
+              zoneCode:
+                type: string
+              zoneId:
+                type: integer
+              zoneOfficialName:
+                type: string
+            type: object
+        type: object
+      type: array
+    Getgdapcompetitionteamlatestrosterbyteamid:
+      properties:
+        averageAgeOfTeam:
+          type: number
+        averageHeightInCm:
+          type: number
+        averageHeightInFeetInches:
+          type: string
+        coaches:
+          items:
+            properties:
+              coachDisplayOrder:
+                type:
+                - integer
+                - 'null'
+              coachLicense:
+                properties:
+                  countryCode:
+                    type: string
+                  organisationName:
+                    type: string
+                type:
+                - object
+                - 'null'
+              dateOfBirth:
+                type: string
+              finalRosterMemberStatusCode:
+                type:
+                - string
+                - 'null'
+              firstName:
+                type: string
+              function:
+                type: string
+              gender:
+                type: string
+              isAccompanyingCoach:
+                type:
+                - 'null'
+              isAssistantCoach:
+                type:
+                - integer
+                - 'null'
+              isHeadCoach:
+                type:
+                - integer
+                - 'null'
+              isOnFinalRoster:
+                type: boolean
+              lastName:
+                type: string
+              nationalities:
+                items:
+                  properties:
+                    countryCode:
+                      type: string
+                    countryId:
+                      type: integer
+                    countryName:
+                      type: string
+                    fibaCode:
+                      type: string
+                    iocCode:
+                      type: string
+                    isActive:
+                      type: boolean
+                    isDefault:
+                      type: boolean
+                    isTerritory:
+                      type: boolean
+                    iso2Code:
+                      type: string
+                    logoUrl:
+                      type: string
+                    officialName:
+                      type: string
+                    shortName:
+                      type: string
+                    zones:
+                      items: {}
+                      type: array
+                  type: object
+                type: array
+              personId:
+                type: integer
+            type: object
+          type: array
+        code:
+          type: string
+        competitionId:
+          type: integer
+        competitionShortName:
+          type: string
+        finalRosterId:
+          type: integer
+        finalRosterStatusCode:
+          type: string
+        name:
+          type: string
+        players:
+          items:
+            properties:
+              clubCountryFIBACode:
+                type: string
+              clubId:
+                type: integer
+              clubName:
+                type: string
+              countryFIBACode:
+                type: string
+              dateOfBirth:
+                type: string
+              finalRosterMemberStatusCode:
+                type: string
+              firstName:
+                type: string
+              gamesPlayed:
+                type: integer
+              gender:
+                type: string
+              heightInCm:
+                type: integer
+              heightInFeetInches:
+                type: string
+              isCaptain:
+                type: boolean
+              isOnFinalRoster:
+                type: boolean
+              isPlayerFreeAgent:
+                type: boolean
+              lastName:
+                type: string
+              nationality:
+                type: string
+              personId:
+                type: integer
+              position:
+                type: string
+              uniformName:
+                type: string
+              uniformNumber:
+                type: string
+                x-numeric-string: true
+            type: object
+          type: array
+        preliminaryRosterId:
+          type: integer
+        teamId:
+          type: integer
+        teamOrganisationId:
+          type: integer
+        technicalMeetingId:
+          type:
+          - 'null'
+        technicalMeetingStatusCode:
+          type:
+          - 'null'
+      type: object
+    Getgdapcompetitionteamrosterbyteamid:
+      properties:
+        averageAgeOfTeam:
+          type: number
+        averageHeightInCm:
+          type: number
+        averageHeightInFeetInches:
+          type: string
+        coaches:
+          items:
+            properties:
+              coachDisplayOrder:
+                type:
+                - integer
+                - 'null'
+              coachLicense:
+                properties:
+                  countryCode:
+                    type: string
+                  organisationName:
+                    type: string
+                type: object
+              dateOfBirth:
+                type: string
+              finalRosterMemberStatusCode:
+                type: string
+              firstName:
+                type: string
+              function:
+                type: string
+              gender:
+                type: string
+              isAccompanyingCoach:
+                type:
+                - 'null'
+              isAssistantCoach:
+                type:
+                - integer
+                - 'null'
+              isHeadCoach:
+                type:
+                - integer
+                - 'null'
+              isOnFinalRoster:
+                type: boolean
+              lastName:
+                type: string
+              nationalities:
+                items:
+                  properties:
+                    countryCode:
+                      type: string
+                    countryId:
+                      type: integer
+                    countryName:
+                      type: string
+                    fibaCode:
+                      type: string
+                    iocCode:
+                      type: string
+                    isActive:
+                      type: boolean
+                    isDefault:
+                      type: boolean
+                    isTerritory:
+                      type: boolean
+                    iso2Code:
+                      type: string
+                    logoUrl:
+                      type: string
+                    officialName:
+                      type: string
+                    shortName:
+                      type: string
+                    zones:
+                      items: {}
+                      type: array
+                  type: object
+                type: array
+              personId:
+                type: integer
+            type: object
+          type: array
+        code:
+          type: string
+        competitionId:
+          type: integer
+        competitionShortName:
+          type:
+          - 'null'
+        finalRosterId:
+          type: integer
+        finalRosterStatusCode:
+          type: string
+        name:
+          type: string
+        players:
+          items:
+            properties:
+              clubCountryFIBACode:
+                type: string
+              clubId:
+                type: integer
+              clubName:
+                type: string
+              countryFIBACode:
+                type: string
+              dateOfBirth:
+                type: string
+              finalRosterMemberStatusCode:
+                type: string
+              firstName:
+                type: string
+              gamesPlayed:
+                type: integer
+              gender:
+                type: string
+              heightInCm:
+                type: integer
+              heightInFeetInches:
+                type: string
+              isCaptain:
+                type: boolean
+              isOnFinalRoster:
+                type: boolean
+              isPlayerFreeAgent:
+                type: boolean
+              lastName:
+                type: string
+              nationality:
+                type: string
+              personId:
+                type: integer
+              position:
+                type: string
+              uniformName:
+                type: string
+              uniformNumber:
+                type: string
+                x-numeric-string: true
+            type: object
+          type: array
+        preliminaryRosterId:
+          type: integer
+        teamId:
+          type: integer
+        teamOrganisationId:
+          type: integer
+        technicalMeetingId:
+          type:
+          - 'null'
+        technicalMeetingStatusCode:
+          type: string
+      type: object
+    Getgdapcompetitionteamsbycompetitionid:
+      items:
+        properties:
+          organisationId:
+            type: integer
+          profile:
+            properties:
+              assistsPerGame:
+                type: number
+              code:
+                type: string
+              competitionId:
+                type: integer
+              countryCode:
+                type: string
+              countryName:
+                type: string
+              email:
+                type: string
+                x-always-empty: true
+              facebook:
+                type:
+                - 'null'
+              finalRanking:
+                type: integer
+              gender:
+                type: string
+              instagram:
+                type:
+                - 'null'
+              name:
+                type: string
+              organisationId:
+                type: integer
+              pointsPerGame:
+                type: number
+              rankAssistsPerGame:
+                type: integer
+              rankPointsPerGame:
+                type: integer
+              rankReboundsPerGame:
+                type: integer
+              reboundsPerGame:
+                type: number
+              socialNetworks:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                type: array
+              teamId:
+                type: integer
+              totalGamesLost:
+                type: integer
+              totalGamesWon:
+                type: integer
+              twitter:
+                type:
+                - 'null'
+              website:
+                type: string
+              youTube:
+                type:
+                - 'null'
+            type: object
+          shortName:
+            type: string
+          statusCode:
+            type: string
+          statusName:
+            type: string
+          teamCode:
+            type: string
+          teamId:
+            type: integer
+        type: object
+      type: array
+    Getgdapcompetitionteamstatisticsbyteamid:
+      properties:
+        assistsPerGame:
+          type: number
+        benchStatistics:
+          properties:
+            foulsPerGame:
+              type: number
+            reboundsDefensivePerGame:
+              type: number
+            reboundsOffensivePerGame:
+              type: number
+            reboundsPerGame:
+              type: number
+            totalFouls:
+              type: integer
+            totalGamesPlayed:
+              type: integer
+            totalRebounds:
+              type: integer
+            totalReboundsDefensive:
+              type: integer
+            totalReboundsOffensive:
+              type: integer
+            totalTurnovers:
+              type: integer
+            turnoversPerGame:
+              type: number
+          type: object
+        biggestLead:
+          type: integer
+        blocksPerGame:
+          type: number
+        competitionId:
+          type: integer
+        efficiencyPerGame:
+          type: number
+        fastBreakPointsPerGame:
+          type: number
+        fieldGoalsAttemptedPerGame:
+          type: number
+        fieldGoalsMadePerGame:
+          type: number
+        fieldGoalsPercentage:
+          type: number
+        foulsPerGame:
+          type: number
+        freeThrowsAttemptedPerGame:
+          type: number
+        freeThrowsMadePerGame:
+          type: number
+        freeThrowsPercentage:
+          type: number
+        fromBenchPointsPerGame:
+          type: number
+        playTimeInSecondsPerGame:
+          type: number
+        playerInCompetitionTeamStatistics:
+          items:
+            properties:
+              assistsPerGame:
+                type: number
+              blocksPerGame:
+                type: number
+              efficiencyPerGame:
+                type: number
+              fastBreakPointsPerGame:
+                type: number
+              fieldGoalsAttemptedPerGame:
+                type: number
+              fieldGoalsMadePerGame:
+                type: number
+              fieldGoalsPercentage:
+                type: number
+              firstName:
+                type: string
+              foulsPerGame:
+                type: number
+              freeThrowsAttemptedPerGame:
+                type: number
+              freeThrowsMadePerGame:
+                type: number
+              freeThrowsPercentage:
+                type: number
+              lastName:
+                type: string
+              playTimeInSecondsPerGame:
+                type: number
+              playerId:
+                type: integer
+              plusMinusPerGame:
+                type: number
+              pointsFromTurnoversPerGame:
+                type: number
+              pointsInThePaintPerGame:
+                type: number
+              pointsPerGame:
+                type: number
+              rank:
+                type: integer
+              reboundsDefensivePerGame:
+                type: number
+              reboundsOffensivePerGame:
+                type: number
+              reboundsPerGame:
+                type: number
+              secondChancePointsPerGame:
+                type: number
+              stealsPerGame:
+                type: number
+              teamId:
+                type: integer
+              threePointsAttemptedPerGame:
+                type: number
+              threePointsMadePerGame:
+                type: number
+              threePointsPercentage:
+                type: number
+              totalAssists:
+                type: integer
+              totalBlocks:
+                type: integer
+              totalDoubleDoubles:
+                type: integer
+              totalEfficiency:
+                type: integer
+              totalFastBreakPoints:
+                type: integer
+              totalFieldGoalsAttempted:
+                type: integer
+              totalFieldGoalsMade:
+                type: integer
+              totalFouls:
+                type: integer
+              totalFreeThrowsAttempted:
+                type: integer
+              totalFreeThrowsMade:
+                type: integer
+              totalGamesLost:
+                type: integer
+              totalGamesPlayed:
+                type: integer
+              totalGamesWon:
+                type: integer
+              totalPlayTimeInSeconds:
+                type: integer
+              totalPlusMinus:
+                type: integer
+              totalPoints:
+                type: integer
+              totalPointsFromTurnovers:
+                type: integer
+              totalPointsInThePaint:
+                type: integer
+              totalQuadrupleDoubles:
+                type: integer
+              totalQuintupleDoubles:
+                type: integer
+              totalRebounds:
+                type: integer
+              totalReboundsDefensive:
+                type: integer
+              totalReboundsOffensive:
+                type: integer
+              totalSecondChancePoints:
+                type: integer
+              totalSteals:
+                type: integer
+              totalThreePointsAttempted:
+                type: integer
+              totalThreePointsMade:
+                type: integer
+              totalTripleDoubles:
+                type: integer
+              totalTurnovers:
+                type: integer
+              totalTwoPointsAttempted:
+                type: integer
+              totalTwoPointsMade:
+                type: integer
+              turnoversPerGame:
+                type: number
+              twoPointsAttemptedPerGame:
+                type: number
+              twoPointsMadePerGame:
+                type: number
+              twoPointsPercentage:
+                type: number
+              uniformNumber:
+                type: string
+                x-numeric-string: true
+            type: object
+          type: array
+        plusMinusPerGame:
+          type: number
+        pointsFromTurnoversPerGame:
+          type: number
+        pointsInThePaintPerGame:
+          type: number
+        pointsPerGame:
+          type: number
+        reboundsDefensivePerGame:
+          type: number
+        reboundsOffensivePerGame:
+          type: number
+        reboundsPerGame:
+          type: number
+        secondChancePointsPerGame:
+          type: number
+        stealsPerGame:
+          type: number
+        teamId:
+          type: integer
+        threePointsAttemptedPerGame:
+          type: number
+        threePointsMadePerGame:
+          type: number
+        threePointsPercentage:
+          type: number
+        totalAssists:
+          type: integer
+        totalBlocks:
+          type: integer
+        totalDoubleDoubles:
+          type: integer
+        totalEfficiency:
+          type: integer
+        totalFastBreakPoints:
+          type: integer
+        totalFieldGoalsAttempted:
+          type: integer
+        totalFieldGoalsMade:
+          type: integer
+        totalFouls:
+          type: integer
+        totalFreeThrowsAttempted:
+          type: integer
+        totalFreeThrowsMade:
+          type: integer
+        totalFromBenchPoints:
+          type: integer
+        totalGamesLost:
+          type: integer
+        totalGamesPlayed:
+          type: integer
+        totalGamesWon:
+          type: integer
+        totalPlayTimeInSeconds:
+          type: integer
+        totalPlusMinus:
+          type: integer
+        totalPoints:
+          type: integer
+        totalPointsFromTurnovers:
+          type: integer
+        totalPointsInThePaint:
+          type: integer
+        totalQuadrupleDoubles:
+          type: integer
+        totalQuintupleDoubles:
+          type: integer
+        totalRebounds:
+          type: integer
+        totalReboundsDefensive:
+          type: integer
+        totalReboundsOffensive:
+          type: integer
+        totalSecondChancePoints:
+          type: integer
+        totalSteals:
+          type: integer
+        totalThreePointsAttempted:
+          type: integer
+        totalThreePointsMade:
+          type: integer
+        totalTripleDoubles:
+          type: integer
+        totalTurnovers:
+          type: integer
+        totalTwoPointsAttempted:
+          type: integer
+        totalTwoPointsMade:
+          type: integer
+        turnoversPerGame:
+          type: number
+        twoPointsAttemptedPerGame:
+          type: number
+        twoPointsMadePerGame:
+          type: number
+        twoPointsPercentage:
+          type: number
+      type: object
+    Getgdapfederationgamesbyfederationid:
+      items:
+        properties:
+          chrono:
+            type: string
+          competition:
+            properties:
+              ageCategory:
+                type: string
+              competitionCategory:
+                properties:
+                  ageType:
+                    type: string
+                  code:
+                    type: string
+                  isLeague:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              competitionCode:
+                type: string
+              competitionId:
+                type: integer
+              competitionMarketingName:
+                type:
+                - 'null'
+              competitionType:
+                type: string
+              discipline:
+                type: string
+              end:
+                type: string
+              fibaZone:
+                type: string
+              gender:
+                type: string
+              official:
+                type: string
+              officialFlagItemCode:
+                type: string
+              officialFlagItemName:
+                type: string
+              officialName:
+                type: string
+              season:
+                type: integer
+              start:
+                type: string
+              status:
+                type: string
+              zoneInformation:
+                properties:
+                  topZoneCode:
+                    type:
+                    - 'null'
+                  topZoneId:
+                    type:
+                    - 'null'
+                  topZoneOfficialName:
+                    type:
+                    - 'null'
+                  zoneCode:
+                    type: string
+                  zoneId:
+                    type: integer
+                  zoneOfficialName:
+                    type: string
+                type: object
+            type: object
+          currentPeriod:
+            type: string
+          currentPeriodStatus:
+            type: string
+          gameDateTime:
+            type: string
+          gameDateTimeUTC:
+            type: string
+          gameId:
+            type: integer
+          gameName:
+            type: string
+          gameNumber:
+            type: string
+          gamePlayByPlayStatusCode:
+            type: string
+          gameResultAdditionalInformation:
+            type: string
+          gameResultStatusCode:
+            type: string
+          gameStatisticStatusCode:
+            type: string
+          groupId:
+            type: string
+            x-numeric-string: true
+          groupPairingCode:
+            type: string
+          hasTimeGameDateTime:
+            type: boolean
+          hostCity:
+            type: string
+          hostCountry:
+            type: string
+          hostCountryCode:
+            type: string
+          ianaTimeZone:
+            type: string
+          isLive:
+            type: boolean
+          isPlayedBehindClosedDoors:
+            type: boolean
+          isPostponed:
+            type: boolean
+          liveGameStatus:
+            type: integer
+          round:
+            properties:
+              endDate:
+                type: string
+              gameSystem:
+                type: string
+              gameSystemCode:
+                type: string
+              roundCode:
+                type: string
+              roundId:
+                type: integer
+              roundKind:
+                type: string
+              roundName:
+                type: string
+              roundNumber:
+                type: integer
+              roundOrder:
+                type: integer
+              roundStatusCode:
+                type: string
+              roundType:
+                type: string
+              startDate:
+                type: string
+            type: object
+          spectators:
+            type: integer
+          statisticSystem:
+            type: string
+          statusCode:
+            type: string
+          teamA:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamAFrom:
+            type:
+            - string
+            - 'null'
+          teamAScore:
+            type: integer
+          teamB:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamBFrom:
+            type:
+            - string
+            - 'null'
+          teamBScore:
+            type: integer
+          utcOffset:
+            type: integer
+          venueCapacity:
+            type: integer
+          venueId:
+            type: integer
+          venueName:
+            type: string
+          windowCode:
+            type:
+            - 'null'
+          windowName:
+            type:
+            - 'null'
+        type: object
+      type: array
+    Getgdapfederationsranking:
+      properties:
+        asOfDate:
+          type: string
+        climbers:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+        fallers:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+        isDiscount:
+          type: boolean
+        items:
+          items:
+            properties:
+              comments:
+                type:
+                - 'null'
+              countryName:
+                type: string
+              currentPoints:
+                type: number
+              fibaCode:
+                type: string
+              iocCode:
+                type: string
+              worldRank:
+                type: integer
+              worldRankVariation:
+                type: integer
+              zoneRank:
+                type: integer
+            type: object
+          type: array
+        zoneRankingCode:
+          type: string
+        zoneRankingOfficialName:
+          type: string
+      type: object
+    Getgdapgamebyid:
+      properties:
+        chrono:
+          type: string
+        currentPeriod:
+          type: string
+        currentPeriodStatus:
+          type: string
+        gameDateTime:
+          type: string
+        gameDateTimeUTC:
+          type: string
+        gameDay:
+          type: integer
+        gameId:
+          type: integer
+        gameNumber:
+          type: string
+        gamePlayByPlayStatusCode:
+          type: string
+        gameResultAdditionalInformation:
+          type: string
+        gameResultStatusCode:
+          type: string
+        gameStatisticStatusCode:
+          type: string
+        groupPairingCode:
+          type: string
+        hasTimeGameDateTime:
+          type: boolean
+        hostCity:
+          type: string
+        hostCountry:
+          type: string
+        hostCountryCode:
+          type: string
+        ianaTimeZone:
+          type: string
+        isLive:
+          type: boolean
+        isPlayedBehindClosedDoors:
+          type: boolean
+        isPostponed:
+          type: boolean
+        liveGameStatus:
+          type: integer
+        nominations:
+          items:
+            properties:
+              dateOfBirth:
+                type: string
+              defaultNationality:
+                type:
+                - string
+                - 'null'
+              firstName:
+                type: string
+              gender:
+                type: string
+              lastName:
+                type: string
+              licenseNationality:
+                type:
+                - string
+                - 'null'
+              personId:
+                type: integer
+              roleCode:
+                type: string
+              roleName:
+                type: string
+              roleOrder:
+                type:
+                - string
+                - 'null'
+                x-numeric-string: true
+            type: object
+          type: array
+        periods:
+          items:
+            properties:
+              name:
+                type: string
+              number:
+                type: integer
+              teamAFrom:
+                type: string
+              teamAScore:
+                type: integer
+              teamBFrom:
+                type: string
+              teamBScore:
+                type: integer
+            type: object
+          type: array
+        roundName:
+          type: string
+        roundType:
+          type: string
+        spectators:
+          type: integer
+        statusCode:
+          type: string
+        teamA:
+          properties:
+            code:
+              type: string
+            officialName:
+              type: string
+            organisationId:
+              type: integer
+            shortName:
+              type: string
+            teamId:
+              type: integer
+          type: object
+        teamAAggregatedScore:
+          type: integer
+        teamAFrom:
+          type: string
+        teamAScore:
+          type: integer
+        teamB:
+          properties:
+            code:
+              type: string
+            officialName:
+              type: string
+            organisationId:
+              type: integer
+            shortName:
+              type: string
+            teamId:
+              type: integer
+          type: object
+        teamBAggregatedScore:
+          type: integer
+        teamBFrom:
+          type: string
+        teamBScore:
+          type: integer
+        technicalName:
+          type: string
+        utcOffset:
+          type: integer
+        venueCapacity:
+          type: integer
+        venueId:
+          type: integer
+        venueName:
+          type: string
+        windowCode:
+          type:
+          - 'null'
+        windowId:
+          type:
+          - 'null'
+        windowName:
+          type:
+          - 'null'
+      type: object
+    Getgdapgamesbetweentwodates:
+      items:
+        properties:
+          chrono:
+            type: string
+          competition:
+            properties:
+              ageCategory:
+                type: string
+              competitionCategory:
+                properties:
+                  ageType:
+                    type: string
+                  code:
+                    type: string
+                  isLeague:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              competitionCode:
+                type: string
+              competitionId:
+                type: integer
+              competitionMarketingName:
+                type:
+                - 'null'
+              competitionType:
+                type: string
+              discipline:
+                type: string
+              end:
+                type: string
+              fibaZone:
+                type: string
+              gender:
+                type: string
+              official:
+                type: string
+              officialFlagItemCode:
+                type: string
+              officialFlagItemName:
+                type: string
+              officialName:
+                type: string
+              season:
+                type: integer
+              start:
+                type: string
+              status:
+                type: string
+              zoneInformation:
+                properties:
+                  topZoneCode:
+                    type:
+                    - 'null'
+                  topZoneId:
+                    type:
+                    - 'null'
+                  topZoneOfficialName:
+                    type:
+                    - 'null'
+                  zoneCode:
+                    type: string
+                  zoneId:
+                    type: integer
+                  zoneOfficialName:
+                    type: string
+                type: object
+            type: object
+          currentPeriod:
+            type: string
+          currentPeriodStatus:
+            type: string
+          gameDateTime:
+            type: string
+          gameDateTimeUTC:
+            type: string
+          gameId:
+            type: integer
+          gameName:
+            type: string
+          gameNumber:
+            type: string
+          gamePlayByPlayStatusCode:
+            type: string
+          gameResultAdditionalInformation:
+            type: string
+          gameResultStatusCode:
+            type: string
+          gameStatisticStatusCode:
+            type: string
+          groupId:
+            type: string
+            x-numeric-string: true
+          groupPairingCode:
+            type: string
+            x-numeric-string: true
+          hasTimeGameDateTime:
+            type: boolean
+          hostCity:
+            type: string
+          hostCountry:
+            type: string
+          hostCountryCode:
+            type: string
+          ianaTimeZone:
+            type: string
+          isLive:
+            type: boolean
+          isPlayedBehindClosedDoors:
+            type: boolean
+          isPostponed:
+            type: boolean
+          liveGameStatus:
+            type: integer
+          round:
+            properties:
+              endDate:
+                type: string
+              gameSystem:
+                type: string
+              gameSystemCode:
+                type: string
+              roundCode:
+                type: string
+              roundId:
+                type: integer
+              roundKind:
+                type: string
+              roundName:
+                type: string
+              roundNumber:
+                type: integer
+              roundOrder:
+                type: integer
+              roundStatusCode:
+                type: string
+              roundType:
+                type: string
+              startDate:
+                type: string
+            type: object
+          spectators:
+            type: integer
+          statisticSystem:
+            type: string
+          statusCode:
+            type: string
+          teamA:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamAFrom:
+            type: string
+          teamAScore:
+            type: integer
+          teamB:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamBFrom:
+            type: string
+          teamBScore:
+            type: integer
+          utcOffset:
+            type: integer
+          venueCapacity:
+            type: integer
+          venueId:
+            type: integer
+          venueName:
+            type: string
+          windowCode:
+            type:
+            - 'null'
+          windowName:
+            type:
+            - 'null'
+        type: object
+      type: array
+    Getgdapgamesbycompetitionid:
+      items:
+        properties:
+          chrono:
+            type:
+            - string
+            - 'null'
+          competition:
+            properties:
+              ageCategory:
+                type: string
+              competitionCategory:
+                properties:
+                  ageType:
+                    type: string
+                  code:
+                    type: string
+                  isLeague:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              competitionCode:
+                type: string
+              competitionId:
+                type: integer
+              competitionMarketingName:
+                properties:
+                  code:
+                    type:
+                    - 'null'
+                  competitionMarketingNameId:
+                    type: integer
+                  marketingName:
+                    type: string
+                type: object
+              competitionType:
+                type: string
+              discipline:
+                type: string
+              end:
+                type: string
+              fibaZone:
+                type: string
+              gender:
+                type: string
+              official:
+                type: string
+              officialFlagItemCode:
+                type: string
+              officialFlagItemName:
+                type: string
+              officialName:
+                type: string
+              season:
+                type: integer
+              start:
+                type: string
+              status:
+                type: string
+              zoneInformation:
+                properties:
+                  topZoneCode:
+                    type:
+                    - 'null'
+                  topZoneId:
+                    type:
+                    - 'null'
+                  topZoneOfficialName:
+                    type:
+                    - 'null'
+                  zoneCode:
+                    type: string
+                  zoneId:
+                    type: integer
+                  zoneOfficialName:
+                    type: string
+                type: object
+            type: object
+          currentPeriod:
+            type: string
+          currentPeriodStatus:
+            type:
+            - string
+            - 'null'
+          gameDateTime:
+            type: string
+          gameDateTimeUTC:
+            type: string
+          gameId:
+            type: integer
+          gameName:
+            type: string
+          gameNumber:
+            type: string
+          gamePlayByPlayStatusCode:
+            type: string
+          gameResultAdditionalInformation:
+            type: string
+          gameResultStatusCode:
+            type: string
+          gameStatisticStatusCode:
+            type: string
+          groupId:
+            type: string
+            x-numeric-string: true
+          groupPairingCode:
+            type: string
+          hasTimeGameDateTime:
+            type: boolean
+          hostCity:
+            type:
+            - string
+            - 'null'
+          hostCountry:
+            type:
+            - string
+            - 'null'
+          hostCountryCode:
+            type:
+            - string
+            - 'null'
+          ianaTimeZone:
+            type:
+            - string
+            - 'null'
+          isLive:
+            type: boolean
+          isPlayedBehindClosedDoors:
+            type: boolean
+          isPostponed:
+            type: boolean
+          liveGameStatus:
+            type: integer
+          round:
+            properties:
+              endDate:
+                type: string
+              gameSystem:
+                type: string
+              gameSystemCode:
+                type: string
+              roundCode:
+                type: string
+              roundId:
+                type: integer
+              roundKind:
+                type: string
+              roundName:
+                type: string
+              roundNumber:
+                type: integer
+              roundOrder:
+                type: integer
+              roundStatusCode:
+                type: string
+              roundType:
+                type: string
+              startDate:
+                type: string
+            type: object
+          spectators:
+            type: integer
+          statisticSystem:
+            type:
+            - string
+            - 'null'
+          statusCode:
+            type: string
+          teamA:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamAFrom:
+            type:
+            - string
+            - 'null'
+          teamAScore:
+            type: integer
+          teamB:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamBFrom:
+            type:
+            - string
+            - 'null'
+          teamBScore:
+            type: integer
+          utcOffset:
+            type:
+            - integer
+            - 'null'
+          venueCapacity:
+            type: integer
+          venueId:
+            type: integer
+          venueName:
+            type:
+            - string
+            - 'null'
+          windowCode:
+            type:
+            - 'null'
+          windowName:
+            type:
+            - 'null'
+        type: object
+      type: array
+    Getgdapgameswithleaderdetailsbyteamid:
+      items:
+        properties:
+          buyTicketsURL:
+            type: string
+            x-always-empty: true
+          gameDateTime:
+            type: string
+          gameDateTimeUTC:
+            type: string
+          gameDay:
+            type: integer
+          gameId:
+            type: integer
+          gameNumber:
+            type: string
+          gamePlayByPlayStatusCode:
+            type: string
+          gameResultAdditionalInformation:
+            type: string
+          gameResultStatusCode:
+            type: string
+          gameStatisticStatusCode:
+            type: string
+          hasTimeGameDateTime:
+            type: boolean
+          hostCity:
+            type: string
+          hostCountry:
+            type: string
+          hostCountryCode:
+            type:
+            - 'null'
+          ianaTimeZone:
+            type: string
+          isLive:
+            type: boolean
+          isPlayedBehindClosedDoors:
+            type: boolean
+          isPostponed:
+            type: boolean
+          leaders:
+            properties:
+              teamAAssistsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type: string
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+              teamAPointsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type: string
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+              teamAReboundsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type: string
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+              teamBAssistsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type:
+                    - string
+                    - 'null'
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+              teamBPointsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type: string
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+              teamBReboundsLeader:
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  nationality:
+                    type: string
+                  playerId:
+                    type: integer
+                  rank:
+                    type: integer
+                  statisticsValue:
+                    type: integer
+                type: object
+            type: object
+          periods:
+            items:
+              properties:
+                name:
+                  type: string
+                number:
+                  type: integer
+                teamAFrom:
+                  type:
+                  - 'null'
+                teamAScore:
+                  type: integer
+                teamBFrom:
+                  type:
+                  - 'null'
+                teamBScore:
+                  type: integer
+              type: object
+            type: array
+          roundName:
+            type: string
+          spectators:
+            type: integer
+          status:
+            type: string
+          statusCode:
+            type: string
+          teamA:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamAFrom:
+            type: string
+          teamAScore:
+            type: integer
+          teamB:
+            properties:
+              code:
+                type: string
+              officialName:
+                type: string
+              organisationId:
+                type: integer
+              shortName:
+                type: string
+              teamId:
+                type: integer
+            type: object
+          teamBFrom:
+            type: string
+          teamBScore:
+            type: integer
+          utcOffset:
+            type: integer
+          venueCapacity:
+            type: integer
+          venueId:
+            type: integer
+          venueName:
+            type: string
+          watchURL:
+            type: string
+            x-always-empty: true
+        type: object
+      type: array
+    Getgdapmedalcount:
+      items:
+        properties:
+          fibaCode:
+            type: string
+          organisationId:
+            type: integer
+          rank:
+            type: integer
+          teamName:
+            type: string
+          teamZoneCode:
+            type: string
+          totalFirstRank:
+            type: integer
+          totalParticipations:
+            type: integer
+          totalSecondRank:
+            type: integer
+          totalThirdRank:
+            type: integer
+        type: object
+      type: array
+    Getgdapnationalteams:
+      items:
+        properties:
+          countryFIBACode:
+            type: string
+          countryId:
+            type: integer
+          countryName:
+            type: string
+          displayName:
+            type: string
+          membershipStatusCode:
+            type: string
+          nationalFederationId:
+            type: integer
+          officialName:
+            type: string
+          organisationStatusCode:
+            type: string
+          zoneId:
+            type: integer
+          zoneName:
+            type: string
+        type: object
+      type: array
+    Getgdapplayercompetitionstatisticsbyplayerid:
+      properties:
+        assistsPerGame:
+          type: number
+        blocksPerGame:
+          type: number
+        competitionId:
+          type: integer
+        efficiencyPerGame:
+          type: number
+        fastBreakPointsPerGame:
+          type: number
+        fieldGoalsAttemptedPerGame:
+          type: number
+        fieldGoalsMadePerGame:
+          type: number
+        fieldGoalsPercentage:
+          type: number
+        foulsPerGame:
+          type: number
+        freeThrowsAttemptedPerGame:
+          type: number
+        freeThrowsMadePerGame:
+          type: number
+        freeThrowsPercentage:
+          type: number
+        playTimeInSecondsPerGame:
+          type: number
+        playerId:
+          type: integer
+        plusMinusPerGame:
+          type: number
+        pointsFromTurnoversPerGame:
+          type: number
+        pointsInThePaintPerGame:
+          type: number
+        pointsPerGame:
+          type: number
+        rankAssistsPerGame:
+          type: integer
+        rankPointsPerGame:
+          type: integer
+        rankReboundsPerGame:
+          type: integer
+        reboundsDefensivePerGame:
+          type: number
+        reboundsOffensivePerGame:
+          type: number
+        reboundsPerGame:
+          type: number
+        secondChancePointsPerGame:
+          type: number
+        stealsPerGame:
+          type: number
+        threePointsAttemptedPerGame:
+          type: number
+        threePointsMadePerGame:
+          type: number
+        threePointsPercentage:
+          type: number
+        totalAssists:
+          type: integer
+        totalBlocks:
+          type: integer
+        totalDoubleDoubles:
+          type: integer
+        totalEfficiency:
+          type: integer
+        totalFastBreakPoints:
+          type: integer
+        totalFieldGoalsAttempted:
+          type: integer
+        totalFieldGoalsMade:
+          type: integer
+        totalFouls:
+          type: integer
+        totalFreeThrowsAttempted:
+          type: integer
+        totalFreeThrowsMade:
+          type: integer
+        totalGamesLost:
+          type: integer
+        totalGamesPlayed:
+          type: integer
+        totalGamesWon:
+          type: integer
+        totalPlayTimeInSeconds:
+          type: integer
+        totalPlusMinus:
+          type: integer
+        totalPoints:
+          type: integer
+        totalPointsFromTurnovers:
+          type: integer
+        totalPointsInThePaint:
+          type: integer
+        totalQuadrupleDoubles:
+          type: integer
+        totalQuintupleDoubles:
+          type: integer
+        totalRebounds:
+          type: integer
+        totalReboundsDefensive:
+          type: integer
+        totalReboundsOffensive:
+          type: integer
+        totalSecondChancePoints:
+          type: integer
+        totalSteals:
+          type: integer
+        totalThreePointsAttempted:
+          type: integer
+        totalThreePointsMade:
+          type: integer
+        totalTripleDoubles:
+          type: integer
+        totalTurnovers:
+          type: integer
+        totalTwoPointsAttempted:
+          type: integer
+        totalTwoPointsMade:
+          type: integer
+        turnoversPerGame:
+          type: number
+        twoPointsAttemptedPerGame:
+          type: number
+        twoPointsMadePerGame:
+          type: number
+        twoPointsPercentage:
+          type: number
+      type: object
+    Getgdapplayergamestatisticsbyplayerid:
+      properties:
+        accumulatedStatistics:
+          properties:
+            fieldGoalsPercentage:
+              type: number
+            freeThrowsPercentage:
+              type: number
+            threePointsPercentage:
+              type: number
+            totalAssists:
+              type: integer
+            totalBlockedShots:
+              type: integer
+            totalDefensiveRebounds:
+              type: integer
+            totalEfficiency:
+              type: integer
+            totalFieldGoalsAttempted:
+              type: integer
+            totalFieldGoalsMade:
+              type: integer
+            totalFreeThrowsAttempted:
+              type: integer
+            totalFreeThrowsMade:
+              type: integer
+            totalGamesPlayed:
+              type: integer
+            totalOffensiveRebounds:
+              type: integer
+            totalPersonalFouls:
+              type: integer
+            totalPlayDurationInSeconds:
+              type: integer
+            totalPlusMinus:
+              type: integer
+            totalPoints:
+              type: integer
+            totalRebounds:
+              type: integer
+            totalSteals:
+              type: integer
+            totalThreePointsAttempted:
+              type: integer
+            totalThreePointsMade:
+              type: integer
+            totalTurnovers:
+              type: integer
+            totalTwoPointsAttempted:
+              type: integer
+            totalTwoPointsMade:
+              type: integer
+            twoPointsPercentage:
+              type: number
+          type: object
+        competitionId:
+          type: integer
+        gameStatistics:
+          items:
+            properties:
+              assists:
+                type: integer
+              blockedShots:
+                type: integer
+              defensiveRebounds:
+                type: integer
+              efficiency:
+                type: integer
+              fieldGoalsAttempted:
+                type: integer
+              fieldGoalsMade:
+                type: integer
+              fieldGoalsPercentage:
+                type: number
+              freeThrowsAttempted:
+                type: integer
+              freeThrowsMade:
+                type: integer
+              freeThrowsPercentage:
+                type:
+                - number
+                - 'null'
+              gameDay:
+                type: integer
+              gameId:
+                type: integer
+              offensiveRebounds:
+                type: integer
+              personalFouls:
+                type: integer
+              playDurationInSeconds:
+                type: integer
+              plusMinus:
+                type: integer
+              points:
+                type: integer
+              rebounds:
+                type: integer
+              roundCode:
+                type: string
+              roundId:
+                type: integer
+              roundName:
+                type: string
+              steals:
+                type: integer
+              teamCode:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+              teamOrganisationId:
+                type: integer
+              threePointsAttempted:
+                type: integer
+              threePointsMade:
+                type: integer
+              threePointsPercentage:
+                type: number
+              turnovers:
+                type: integer
+              twoPointsAttempted:
+                type: integer
+              twoPointsMade:
+                type: integer
+              twoPointsPercentage:
+                type:
+                - number
+                - 'null'
+              versusTeamCode:
+                type: string
+              versusTeamId:
+                type: integer
+              versusTeamName:
+                type: string
+              versusTeamOrganisationId:
+                type: integer
+            type: object
+          type: array
+        playerId:
+          type: integer
+      type: object
+    Getgdapplayerinfobycompetitionid:
+      properties:
+        assistsPerGame:
+          type: number
+        assistsPerGamePerCompetitionCategory:
+          type: number
+        birthDate:
+          type: string
+        clubCode:
+          type:
+          - 'null'
+        clubName:
+          type: string
+        competitionId:
+          type: integer
+        competitionTeamId:
+          type: integer
+        firstName:
+          type: string
+        heightCm:
+          type: integer
+        heightFtIn:
+          type: string
+        isPlayerFreeAgent:
+          type: boolean
+        lastName:
+          type: string
+        nationalities:
+          items:
+            type: string
+          type: array
+        organisationId:
+          type: integer
+        playerId:
+          type: integer
+        pointsPerGame:
+          type: number
+        pointsPerGamePerCompetitionCategory:
+          type: number
+        rankAssistsPerGame:
+          type: integer
+        rankPointsPerGame:
+          type: integer
+        rankReboundsPerGame:
+          type: integer
+        reboundsPerGame:
+          type: number
+        reboundsPerGamePerCompetitionCategory:
+          type: number
+        socialMedia:
+          properties:
+            facebook:
+              type:
+              - 'null'
+            instagram:
+              type:
+              - 'null'
+            twitter:
+              type:
+              - 'null'
+            website:
+              type:
+              - 'null'
+            youtube:
+              type:
+              - 'null'
+          type: object
+        socialNetworks:
+          items:
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+            type: object
+          type: array
+      type: object
+    Getgdaprankingzones:
+      items:
+        properties:
+          code:
+            type: string
+          officialName:
+            type: string
+          zoneRankingId:
+            type: integer
+        type: object
+      type: array
+    Getgdaproundsbycompetitionid:
+      items:
+        properties:
+          endDate:
+            type: string
+          gameSystem:
+            type: string
+          gameSystemCode:
+            type: string
+          groupStandings:
+            properties:
+              groups:
+                items:
+                  properties:
+                    groupName:
+                      type: string
+                    numberOfTeamsQualifying:
+                      type:
+                      - 'null'
+                    qualifiedTeamsPerGroup:
+                      type: integer
+                    statusCode:
+                      type: string
+                    teams:
+                      items:
+                        properties:
+                          drawPoints:
+                            type:
+                            - integer
+                            - 'null'
+                          finalPosition:
+                            type: integer
+                          gamesLost:
+                            type: integer
+                          gamesPlayed:
+                            type: integer
+                          gamesWon:
+                            type: integer
+                          groupGameResults:
+                            items:
+                              properties:
+                                finalScore:
+                                  type:
+                                  - 'null'
+                                gameDateTime:
+                                  type: string
+                                gameDateTimeUTC:
+                                  type: string
+                                gameId:
+                                  type: integer
+                                gameNumber:
+                                  type: string
+                                gamePlayByPlayStatusCode:
+                                  type:
+                                  - 'null'
+                                gameResultAdditionalInformation:
+                                  type:
+                                  - 'null'
+                                gameResultStatusCode:
+                                  type:
+                                  - 'null'
+                                gameStatisticStatusCode:
+                                  type:
+                                  - 'null'
+                                hostCity:
+                                  type:
+                                  - 'null'
+                                hostCountry:
+                                  type:
+                                  - 'null'
+                                hostCountryCode:
+                                  type:
+                                  - 'null'
+                                ianaTimeZone:
+                                  type:
+                                  - 'null'
+                                incorporatedFlag:
+                                  type: boolean
+                                isHomeTeam:
+                                  type: boolean
+                                isValidated:
+                                  type: boolean
+                                teamA:
+                                  type:
+                                  - 'null'
+                                teamAFrom:
+                                  type:
+                                  - string
+                                  - 'null'
+                                teamB:
+                                  type:
+                                  - 'null'
+                                teamBFrom:
+                                  type:
+                                  - string
+                                  - 'null'
+                                teamIdAgainst:
+                                  type: integer
+                                utcOffset:
+                                  type: integer
+                                venueName:
+                                  type:
+                                  - 'null'
+                              type: object
+                            type: array
+                          penaltyPoints:
+                            type:
+                            - integer
+                            - 'null'
+                          plusMinus:
+                            type: integer
+                          points:
+                            type: integer
+                          pointsAgainst:
+                            type: integer
+                          pointsFor:
+                            type: integer
+                          rank:
+                            type: integer
+                          startingPosition:
+                            type: integer
+                          team:
+                            properties:
+                              code:
+                                type: string
+                              officialName:
+                                type: string
+                              organisationId:
+                                type: integer
+                              shortName:
+                                type: string
+                              teamId:
+                                type: integer
+                            type: object
+                        type: object
+                      type: array
+                    tiedTeamsResults:
+                      items: {}
+                      type: array
+                  type: object
+                type: array
+            type: object
+          hasTeamsAssigned:
+            type: boolean
+          parentRoundId:
+            type:
+            - integer
+            - 'null'
+          qualifiedTeamInformation:
+            type:
+            - 'null'
+          roundCode:
+            type: string
+          roundId:
+            type: integer
+          roundKind:
+            type: string
+          roundName:
+            type: string
+          roundNumber:
+            type: integer
+          roundOrder:
+            type: integer
+          roundStatusCode:
+            type: string
+          roundType:
+            type: string
+          roundTypeCode:
+            type: string
+          standingHeaderCode:
+            type: string
+          standingHeaderName:
+            type: string
+          startDate:
+            type: string
+        type: object
+      type: array
+    Getgdapteamstaffbycompetitionid:
+      items:
+        properties:
+          coaches:
+            items:
+              properties:
+                coachDisplayOrder:
+                  type:
+                  - integer
+                  - 'null'
+                coachLicense:
+                  properties:
+                    countryCode:
+                      type: string
+                    organisationName:
+                      type: string
+                  type: object
+                dateOfBirth:
+                  type: string
+                finalRosterMemberStatusCode:
+                  type:
+                  - 'null'
+                firstName:
+                  type: string
+                function:
+                  type: string
+                gender:
+                  type: string
+                isAccompanyingCoach:
+                  type:
+                  - 'null'
+                isAssistantCoach:
+                  type:
+                  - integer
+                  - 'null'
+                isHeadCoach:
+                  type:
+                  - integer
+                  - 'null'
+                isOnFinalRoster:
+                  type: boolean
+                lastName:
+                  type: string
+                nationalities:
+                  items:
+                    properties:
+                      countryCode:
+                        type: string
+                      countryId:
+                        type: integer
+                      countryName:
+                        type: string
+                      fibaCode:
+                        type: string
+                      iocCode:
+                        type: string
+                      isActive:
+                        type: boolean
+                      isDefault:
+                        type: boolean
+                      isTerritory:
+                        type: boolean
+                      iso2Code:
+                        type: string
+                      logoUrl:
+                        type: string
+                      officialName:
+                        type: string
+                      shortName:
+                        type: string
+                      zones:
+                        items: {}
+                        type: array
+                    type: object
+                  type: array
+                personId:
+                  type: integer
+              type: object
+            type: array
+          teamCode:
+            type: string
+          teamId:
+            type: integer
+          teamName:
+            type: string
+        type: object
+      type: array
+  securitySchemes:
+    subscriptionKey:
+      description: Public key from the page env; 898cd5e7389140028ecb42943c47eb74 on 2026-10-12
+      in: header
+      name: Ocp-Apim-Subscription-Key
+      type: apiKey
+info:
+  description: 'Azure API Management front of FIBA''s GDAP data platform, as called by the fiba.basketball
+    and championsleague.basketball Next.js sites. GET only, JSON. Every call needs the `Ocp-Apim-Subscription-Key`
+    header; the key is public, shipped in every page as NEXT_CLIENT_APIM_SUBSCRIPTION_KEY (`898cd5e7389140028ecb42943c47eb74`
+    on 2026-10-12; read it from the page at run time). No Referer/Origin gate, no rate limit seen at 1
+    request/s. Covers every FIBA national-team event back to 1950 and FIBA''s club competitions (BCL,
+    FIBA Europe Cup, BCL Americas/Asia, EuroLeague Women, EuroCup Women). Box scores and play-by-play
+    are not here: see fiba-gamepage.openapi.yaml. Shapes from committed captures in fiba/captures/; contact
+    fields are redacted there. Terms: see fiba/README.md (owner ruling 2026-10-12). Not official or supported.'
+  title: FIBA digital API (GDAP, digital-api.fiba.basketball/hapi)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /getGdapCompetitionById:
+    get:
+      description: 'Samples: `gdap__getGdapCompetitionById__wc2023.json`, `gdap__getGdapCompetitionById__wc1994.json`.'
+      operationId: getGdapCompetitionById
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetGdapCompetitionById'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: 'One competition: season, dates, hosts, zone, category, marketing-name family'
+  /getcustomgateway:
+    get:
+      description: 'Samples: `gdap__getcustomgateway__federationRanking-men-world.json`, `gdap__getcustomgateway__competitionIdsBetweenTwoDates-2025-01-14.json`.'
+      operationId: getcustomgateway
+      parameters:
+      - description: 'Gateway function: federationRanking or competitionIdsBetweenTwoDates (the two the
+          site calls)'
+        example: federationRanking
+        in: query
+        name: fibaFunction
+        required: true
+        schema:
+          enum:
+          - competitionIdsBetweenTwoDates
+          - federationRanking
+          type: string
+      - description: 'federationRanking: men or women (= gdapCategory)'
+        example: men
+        in: query
+        name: gender
+        required: false
+        schema:
+          type: string
+      - description: 'federationRanking: ranking zone id (= zoneRankingId)'
+        example: 1
+        in: query
+        name: zoneId
+        required: false
+        schema:
+          type: integer
+      - description: 'Ranking as of this date, ISO 8601: the latest ranking published on or before it
+          (2026-03-10 answers the 2026-03-03 ranking). Omitted = the latest ranking'
+        example: '2025-09-15'
+        in: query
+        name: asOfDate
+        required: false
+        schema:
+          type: string
+      - description: 'competitionIdsBetweenTwoDates: window start, ISO 8601'
+        example: '2025-01-14T00:00:00.000Z'
+        in: query
+        name: startDate
+        required: false
+        schema:
+          type: string
+      - description: 'competitionIdsBetweenTwoDates: window end, ISO 8601'
+        example: '2025-01-16T00:00:00.000Z'
+        in: query
+        name: endDate
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/GetcustomgatewayFederationRanking'
+                - $ref: '#/components/schemas/GetcustomgatewayCompetitionIdsBetweenTwoDates'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Server-side gateway functions (federationRanking with climbers/fallers; competitionIdsBetweenTwoDates)
+  /getgdapcompetitionawardsbyid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionawardsbyid__wc2023.json`.'
+      operationId: getgdapcompetitionawardsbyid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      - description: Optional; the site passes its discipline format. 5x5 answers the same as omitting
+          it (verified on awards and rosters)
+        in: query
+        name: disciplineFormat
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionawardsbyid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Awards (MVP, All-Star Five, ...)
+  /getgdapcompetitionfinalstandingbycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionfinalstandingbycompetitionid__wc2023.json`.'
+      operationId: getgdapcompetitionfinalstandingbycompetitionid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      - description: true adds the per-team profile object; false sends profile null. Required (500 without)
+        example: 'true'
+        in: query
+        name: profile
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionfinalstandingbycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Final ranking of a competition
+  /getgdapcompetitionnominationsbyid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionnominationsbyid__wc2023.json`.'
+      operationId: getgdapcompetitionnominationsbyid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      - description: competition = officials nominated for the whole competition (the only value the site
+          sends)
+        example: competition
+        in: query
+        name: level
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionnominationsbyid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Officials nominated for a competition (referees, table officials, statisticians, technical
+        delegates)
+  /getgdapcompetitionroundgamedaysbyid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionroundgamedaysbyid__wc2023.json`.'
+      operationId: getgdapcompetitionroundgamedaysbyid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionroundgamedaysbyid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Rounds and their game days
+  /getgdapcompetitionsbyseasonsandcompetitionmarketingname:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionsbyseasonsandcompetitionmarketingname__world-cup-1950-2027.json`,
+        `gdap__getgdapcompetitionsbyseasonsandcompetitionmarketingname__bcl-2025.json`.'
+      operationId: getgdapcompetitionsbyseasonsandcompetitionmarketingname
+      parameters:
+      - description: 'Competition family id (competitionMarketingName.competitionMarketingNameId): 201
+          = World Cup, 112 = BCL tier 1, 211 = EuroLeague Women. Also the <histId> of /en/history/ pages'
+        example: 201
+        in: query
+        name: competitionMarketingNameId
+        required: true
+        schema:
+          type: integer
+      - description: 'First season, inclusive (competition.season: END year for club competitions, event
+          year for national-team events)'
+        example: 1950
+        in: query
+        name: fromSeason
+        required: false
+        schema:
+          type: integer
+      - description: Last season, inclusive (same key as fromSeason)
+        example: 2027
+        in: query
+        name: toSeason
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionsbyseasonsandcompetitionmarketingname'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Every edition of a competition family between two seasons
+  /getgdapcompetitionteamlatestrosterbyteamid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionteamlatestrosterbyteamid__bcl2025-oostende.json`.'
+      operationId: getgdapcompetitionteamlatestrosterbyteamid
+      parameters:
+      - description: 'Competition team id: one per team per competition (teamA.teamId of a game row; Germany
+          is 279569 at the 2023 World Cup and 281545 at Paris 2024). Not the federation organisationId'
+        example: 282183
+        in: query
+        name: gdapTeamId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionteamlatestrosterbyteamid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Latest roster of a team (same shape as the roster)
+  /getgdapcompetitionteamrosterbyteamid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionteamrosterbyteamid__wc2023-ger.json`.'
+      operationId: getgdapcompetitionteamrosterbyteamid
+      parameters:
+      - description: 'Competition team id: one per team per competition (teamA.teamId of a game row; Germany
+          is 279569 at the 2023 World Cup and 281545 at Paris 2024). Not the federation organisationId'
+        example: 279569
+        in: query
+        name: gdapTeamId
+        required: true
+        schema:
+          type: integer
+      - description: Optional; the site passes its discipline format. 5x5 answers the same as omitting
+          it (verified on awards and rosters)
+        in: query
+        name: disciplineFormat
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionteamrosterbyteamid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Team roster with player bios and coaches
+  /getgdapcompetitionteamsbycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionteamsbycompetitionid__wc2023.json`.'
+      operationId: getgdapcompetitionteamsbycompetitionid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      - description: true adds the per-team profile object; false sends profile null. Required (500 without)
+        example: 'true'
+        in: query
+        name: profile
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionteamsbycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Teams of a competition, with profile (final ranking, per-game averages)
+  /getgdapcompetitionteamstatisticsbyteamid:
+    get:
+      description: 'Samples: `gdap__getgdapcompetitionteamstatisticsbyteamid__wc2023-ger.json`.'
+      operationId: getgdapcompetitionteamstatisticsbyteamid
+      parameters:
+      - description: 'Competition team id: one per team per competition (teamA.teamId of a game row; Germany
+          is 279569 at the 2023 World Cup and 281545 at Paris 2024). Not the federation organisationId'
+        example: 279569
+        in: query
+        name: gdapTeamId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapcompetitionteamstatisticsbyteamid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Team per-game averages plus per-player averages and bench totals
+  /getgdapfederationgamesbyfederationid:
+    get:
+      description: 'Samples: `gdap__getgdapfederationgamesbyfederationid__ger.json`.'
+      operationId: getgdapfederationgamesbyfederationid
+      parameters:
+      - description: Federation organisationId, stable across competitions (64 = Germany; teamA.organisationId)
+        example: 64
+        in: query
+        name: gdapFederationId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapfederationgamesbyfederationid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: A federation's recent and upcoming national-team games
+  /getgdapfederationsranking:
+    get:
+      description: 'Samples: `gdap__getgdapfederationsranking__men-world-2025-09-15.json`.'
+      operationId: getgdapfederationsranking
+      parameters:
+      - description: 'Ranking category: men or women (the site also knows boys/girls)'
+        example: men
+        in: query
+        name: gdapCategory
+        required: false
+        schema:
+          type: string
+      - description: Ranking zone id from getgdaprankingzones (1 = World, 2 = Africa, 3 = Americas, 4
+          = Asia, 5 = Europe)
+        example: 1
+        in: query
+        name: zoneRankingId
+        required: false
+        schema:
+          type: integer
+      - description: 'Ranking as of this date, ISO 8601: the latest ranking published on or before it
+          (2026-03-10 answers the 2026-03-03 ranking). Omitted = the latest ranking'
+        example: '2025-09-15T00:00:00.000Z'
+        in: query
+        name: asOfDate
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapfederationsranking'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: FIBA world ranking of national teams
+  /getgdapgamebyid:
+    get:
+      description: 'Samples: `gdap__getgdapgamebyid__wc2023-final.json`, `gdap__getgdapgamebyid__paris2024-final.json`,
+        `gdap__getgdapgamebyid__bcl2025.json`, `gdap__getgdapgamebyid__elw2025.json`, `gdap__getgdapgamebyid__wwc2022-final.json`.'
+      operationId: getgdapgamebyid
+      parameters:
+      - description: 'FIBA game id (global GDAP key space): gameId of a schedule row; the <gameId> of
+          a game page URL'
+        example: 100720
+        in: query
+        name: gdapGameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapgamebyid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: 'Game header: teams, period scores, officials, attendance, status codes (no box score,
+        no play-by-play)'
+  /getgdapgamesbetweentwodates:
+    get:
+      description: 'Samples: `gdap__getgdapgamesbetweentwodates__wc2023-final-weekend.json`.'
+      operationId: getgdapgamesbetweentwodates
+      parameters:
+      - description: 'Window start, ISO 8601. Compared with the venue-local gameDateTime, not gameDateTimeUTC:
+          a trailing Z or offset is ignored. Required'
+        example: '2023-09-08T00:00:00Z'
+        in: query
+        name: dateFrom
+        required: true
+        schema:
+          type: string
+      - description: 'Window end (exclusive), same local-time comparison: dateFrom=dateTo=2023-09-10 returns
+          nothing. Required (500 without)'
+        example: '2023-09-11T00:00:00Z'
+        in: query
+        name: dateTo
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapgamesbetweentwodates'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Games of every FIBA competition in a local-time window (how competitions are discovered)
+  /getgdapgamesbycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdapgamesbycompetitionid__wc2023.json`, `gdap__getgdapgamesbycompetitionid__paris2024-men.json`,
+        `gdap__getgdapgamesbycompetitionid__bcl2025.json`, `gdap__getgdapgamesbycompetitionid__elw2025.json`,
+        `gdap__getgdapgamesbycompetitionid__wwc2022.json`, `gdap__getgdapgamesbycompetitionid__wc1994.json`.'
+      operationId: getgdapgamesbycompetitionid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapgamesbycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: A competition's full schedule and results
+  /getgdapgameswithleaderdetailsbyteamid:
+    get:
+      description: 'Samples: `gdap__getgdapgameswithleaderdetailsbyteamid__wc2023-ger.json`.'
+      operationId: getgdapgameswithleaderdetailsbyteamid
+      parameters:
+      - description: 'Competition team id: one per team per competition (teamA.teamId of a game row; Germany
+          is 279569 at the 2023 World Cup and 281545 at Paris 2024). Not the federation organisationId'
+        example: 279569
+        in: query
+        name: gdapTeamId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapgameswithleaderdetailsbyteamid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: A team's games with its per-game leaders
+  /getgdapmedalcount:
+    get:
+      description: 'Samples: `gdap__getgdapmedalcount__world-cup.json`.'
+      operationId: getgdapmedalcount
+      parameters:
+      - description: 'Competition family id (competitionMarketingName.competitionMarketingNameId): 201
+          = World Cup, 112 = BCL tier 1, 211 = EuroLeague Women. Also the <histId> of /en/history/ pages'
+        example: 201
+        in: query
+        name: competitionMarketingNameId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapmedalcount'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: All-time medal table of a competition family
+  /getgdapnationalteams:
+    get:
+      description: 'Samples: `gdap__getgdapnationalteams__all.json`.'
+      operationId: getgdapnationalteams
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapnationalteams'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Every national federation (260 rows)
+  /getgdapplayercompetitionstatisticsbyplayerid:
+    get:
+      description: 'Samples: `gdap__getgdapplayercompetitionstatisticsbyplayerid__wc2023-bonga.json`.'
+      operationId: getgdapplayercompetitionstatisticsbyplayerid
+      parameters:
+      - description: 'FIBA person id (global): personId of a roster row, pId in play-by-play, P_<id> in
+          the game-page box'
+        example: 211501
+        in: query
+        name: gdapPlayerId
+        required: true
+        schema:
+          type: integer
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapplayercompetitionstatisticsbyplayerid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Player per-game averages, totals and highs in a competition
+  /getgdapplayergamestatisticsbyplayerid:
+    get:
+      description: 'Samples: `gdap__getgdapplayergamestatisticsbyplayerid__wc2023-bonga.json`.'
+      operationId: getgdapplayergamestatisticsbyplayerid
+      parameters:
+      - description: 'FIBA person id (global): personId of a roster row, pId in play-by-play, P_<id> in
+          the game-page box'
+        example: 211501
+        in: query
+        name: gdapPlayerId
+        required: true
+        schema:
+          type: integer
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapplayergamestatisticsbyplayerid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Player game log (full box lines) in a competition
+  /getgdapplayerinfobycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdapplayerinfobycompetitionid__wc2023-bonga.json`.'
+      operationId: getgdapplayerinfobycompetitionid
+      parameters:
+      - description: 'FIBA person id (global): personId of a roster row, pId in play-by-play, P_<id> in
+          the game-page box'
+        example: 211501
+        in: query
+        name: gdapPlayerId
+        required: true
+        schema:
+          type: integer
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapplayerinfobycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Player bio and per-game averages with ranks in a competition
+  /getgdaprankingzones:
+    get:
+      description: 'Samples: `gdap__getgdaprankingzones__all.json`.'
+      operationId: getgdaprankingzones
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdaprankingzones'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: FIBA world ranking zones
+  /getgdaproundsbycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdaproundsbycompetitionid__wc2023.json`, `gdap__getgdaproundsbycompetitionid__bcl2025.json`.'
+      operationId: getgdaproundsbycompetitionid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdaproundsbycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Rounds with group standings and per-group game results
+  /getgdapteamstaffbycompetitionid:
+    get:
+      description: 'Samples: `gdap__getgdapteamstaffbycompetitionid__wc2023.json`.'
+      operationId: getgdapteamstaffbycompetitionid
+      parameters:
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: query
+        name: gdapCompetitionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Getgdapteamstaffbycompetitionid'
+          description: OK. An unknown id answers 200 with {} or [] (never banked).
+        '401':
+          description: 'Missing or wrong subscription key: {statusCode, message}'
+        '500':
+          description: A required parameter is missing (empty body)
+      summary: Coaches of every team of a competition
+security:
+- subscriptionKey: []
+servers:
+- url: https://digital-api.fiba.basketball/hapi

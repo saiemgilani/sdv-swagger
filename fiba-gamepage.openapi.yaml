@@ -1,0 +1,1269 @@
+components:
+  schemas:
+    GamePage:
+      properties:
+        game:
+          properties:
+            chrono:
+              type: string
+            competition:
+              properties:
+                ageCategory:
+                  type: string
+                competitionCategory:
+                  properties:
+                    ageType:
+                      type: string
+                    code:
+                      type: string
+                    isLeague:
+                      type: boolean
+                    name:
+                      type: string
+                  type: object
+                competitionCode:
+                  type: string
+                competitionId:
+                  type: integer
+                competitionMarketingName:
+                  properties:
+                    code:
+                      type:
+                      - 'null'
+                    competitionMarketingNameId:
+                      type: integer
+                    marketingName:
+                      type: string
+                  type: object
+                competitionType:
+                  type: string
+                discipline:
+                  type: string
+                end:
+                  type: string
+                fibaZone:
+                  type: string
+                gender:
+                  type: string
+                official:
+                  type: string
+                officialFlagItemCode:
+                  type: string
+                officialFlagItemName:
+                  type: string
+                officialName:
+                  type: string
+                season:
+                  type: integer
+                start:
+                  type: string
+                status:
+                  type: string
+                zoneInformation:
+                  properties:
+                    topZoneCode:
+                      type:
+                      - 'null'
+                    topZoneId:
+                      type:
+                      - 'null'
+                    topZoneOfficialName:
+                      type:
+                      - 'null'
+                    zoneCode:
+                      type: string
+                    zoneId:
+                      type: integer
+                    zoneOfficialName:
+                      type: string
+                  type: object
+              type: object
+            currentPeriod:
+              type: string
+            currentPeriodStatus:
+              type: string
+            gameDateTime:
+              type: string
+            gameDateTimeUTC:
+              type: string
+            gameId:
+              type: integer
+            gameName:
+              type: string
+            gameNumber:
+              type: string
+            gamePlayByPlayStatusCode:
+              type: string
+            gameResultAdditionalInformation:
+              type: string
+            gameResultStatusCode:
+              type: string
+            gameStatisticStatusCode:
+              type: string
+            groupId:
+              type: string
+              x-numeric-string: true
+            groupPairingCode:
+              type: string
+            hasTimeGameDateTime:
+              type: boolean
+            hostCity:
+              type: string
+            hostCountry:
+              type: string
+            hostCountryCode:
+              type: string
+            ianaTimeZone:
+              type: string
+            isLive:
+              type: boolean
+            isPlayedBehindClosedDoors:
+              type: boolean
+            isPostponed:
+              type: boolean
+            liveGameStatus:
+              type: integer
+            round:
+              properties:
+                endDate:
+                  type: string
+                gameSystem:
+                  type: string
+                gameSystemCode:
+                  type: string
+                roundCode:
+                  type: string
+                roundId:
+                  type: integer
+                roundKind:
+                  type: string
+                roundName:
+                  type: string
+                roundNumber:
+                  type: integer
+                roundOrder:
+                  type: integer
+                roundStatusCode:
+                  type: string
+                roundType:
+                  type: string
+                startDate:
+                  type: string
+              type: object
+            spectators:
+              type: integer
+            statisticSystem:
+              type: string
+            statusCode:
+              type: string
+            teamA:
+              properties:
+                code:
+                  type: string
+                officialName:
+                  type: string
+                organisationId:
+                  type: integer
+                shortName:
+                  type: string
+                teamId:
+                  type: integer
+              type: object
+            teamAFrom:
+              type:
+              - string
+              - 'null'
+            teamAScore:
+              type: integer
+            teamB:
+              properties:
+                code:
+                  type: string
+                officialName:
+                  type: string
+                organisationId:
+                  type: integer
+                shortName:
+                  type: string
+                teamId:
+                  type: integer
+              type: object
+            teamBFrom:
+              type:
+              - string
+              - 'null'
+            teamBScore:
+              type: integer
+            utcOffset:
+              type: integer
+            venueCapacity:
+              type: integer
+            venueId:
+              type: integer
+            venueName:
+              type: string
+            windowCode:
+              type:
+              - 'null'
+            windowName:
+              type:
+              - 'null'
+          type: object
+        gameDetails:
+          properties:
+            CurrentPeriod:
+              type: string
+            CurrentPeriodStatus:
+              type: string
+            RC:
+              type: string
+            Stats:
+              properties:
+                A_LC:
+                  type: integer
+                A_TT:
+                  type: integer
+                DUR:
+                  type: string
+                SPECT:
+                  type: integer
+              type: object
+            c:
+              items:
+                properties:
+                  Children:
+                    items:
+                      properties:
+                        Id:
+                          type: string
+                        Stats:
+                          properties:
+                            AS:
+                              type: integer
+                            BS:
+                              type: integer
+                            BSR:
+                              type: integer
+                            CB:
+                              type: boolean
+                            DR:
+                              type: integer
+                            EFF:
+                              type: integer
+                            FD:
+                              type: integer
+                            FG2A:
+                              type: integer
+                            FG2M:
+                              type: integer
+                            FG2P:
+                              type: number
+                            FG3A:
+                              type: integer
+                            FG3M:
+                              type: integer
+                            FG3P:
+                              type: number
+                            FGA:
+                              type: integer
+                            FGIA:
+                              type: integer
+                            FGIM:
+                              type: integer
+                            FGIP:
+                              type: number
+                            FGM:
+                              type: integer
+                            FGP:
+                              type: number
+                            FTA:
+                              type: integer
+                            FTM:
+                              type: integer
+                            FTP:
+                              type: number
+                            HasPlayed:
+                              type: boolean
+                            OR:
+                              type: integer
+                            PF:
+                              type: integer
+                            PM:
+                              type: integer
+                            PTS:
+                              type: integer
+                            REB:
+                              type: integer
+                            ST:
+                              type: integer
+                            Starter:
+                              type: boolean
+                            TO:
+                              type: integer
+                            TP:
+                              type: string
+                          type: object
+                      type: object
+                    type: array
+                  Id:
+                    type: string
+                  Officials:
+                    items:
+                      properties:
+                        Id:
+                          type: string
+                      type: object
+                    type: array
+                  Periods:
+                    items:
+                      properties:
+                        HalfTimeScore:
+                          type:
+                          - integer
+                          - 'null'
+                        Id:
+                          type: string
+                        Score:
+                          type: integer
+                      type: object
+                    type: array
+                  Score:
+                    type: integer
+                  Stats:
+                    properties:
+                      AS:
+                        type: integer
+                      A_ACT:
+                        type: integer
+                      A_BL:
+                        type: integer
+                      A_BLS:
+                        type: string
+                      A_BR:
+                        type: integer
+                      A_BRS:
+                        type: string
+                      A_FBP:
+                        type: integer
+                      A_FOUL:
+                        type: integer
+                      A_PAT:
+                        type: integer
+                      A_PFB:
+                        type: integer
+                      A_PIP:
+                        type: integer
+                      A_SCP:
+                        type: integer
+                      A_TOD:
+                        type: integer
+                      A_TOT:
+                        type: integer
+                      BS:
+                        type: integer
+                      DR:
+                        type: integer
+                      EFF:
+                        type: integer
+                      FD:
+                        type: integer
+                      FG2A:
+                        type: integer
+                      FG2M:
+                        type: integer
+                      FG2P:
+                        type: number
+                      FG3A:
+                        type: integer
+                      FG3M:
+                        type: integer
+                      FG3P:
+                        type: number
+                      FGA:
+                        type: integer
+                      FGIA:
+                        type: integer
+                      FGIM:
+                        type: integer
+                      FGIP:
+                        type: number
+                      FGM:
+                        type: integer
+                      FGP:
+                        type: number
+                      FTA:
+                        type: integer
+                      FTM:
+                        type: integer
+                      FTP:
+                        type: number
+                      Leaders:
+                        properties:
+                          Assists:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                          BestPerformer:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                          Blocks:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                          Points:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                          Rebounds:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                          Steals:
+                            properties:
+                              Id:
+                                type: string
+                              Value:
+                                type: string
+                                x-numeric-string: true
+                            type: object
+                        type: object
+                      OR:
+                        type: integer
+                      PF:
+                        type: integer
+                      PTS:
+                        type: integer
+                      REB:
+                        type: integer
+                      ST:
+                        type: integer
+                      TO:
+                        type: integer
+                      T_DR:
+                        type: integer
+                      T_OR:
+                        type: integer
+                      T_PF:
+                        type: integer
+                      T_PFB:
+                        type: integer
+                      T_REB:
+                        type: integer
+                      T_TL:
+                        type: string
+                      T_TO:
+                        type: integer
+                    type: object
+                type: object
+              type: array
+            id:
+              type: integer
+            quartersScores:
+              items:
+                properties:
+                  period:
+                    type: string
+                  teamA:
+                    type: integer
+                  teamB:
+                    type: integer
+                type: object
+              type: array
+            scoreList:
+              items:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        SA:
+                          type: integer
+                        SB:
+                          type: integer
+                        Time:
+                          type: string
+                      type: object
+                    type: array
+                  period:
+                    type: string
+                type: object
+              type: array
+            status:
+              type: integer
+            teamA:
+              properties:
+                Children:
+                  items:
+                    properties:
+                      Id:
+                        type: string
+                      Stats:
+                        properties:
+                          AS:
+                            type: integer
+                          BS:
+                            type: integer
+                          BSR:
+                            type: integer
+                          CB:
+                            type: boolean
+                          DR:
+                            type: integer
+                          EFF:
+                            type: integer
+                          FD:
+                            type: integer
+                          FG2A:
+                            type: integer
+                          FG2M:
+                            type: integer
+                          FG2P:
+                            type: number
+                          FG3A:
+                            type: integer
+                          FG3M:
+                            type: integer
+                          FG3P:
+                            type: number
+                          FGA:
+                            type: integer
+                          FGIA:
+                            type: integer
+                          FGIM:
+                            type: integer
+                          FGIP:
+                            type: number
+                          FGM:
+                            type: integer
+                          FGP:
+                            type: number
+                          FTA:
+                            type: integer
+                          FTM:
+                            type: integer
+                          FTP:
+                            type: number
+                          HasPlayed:
+                            type: boolean
+                          OR:
+                            type: integer
+                          PF:
+                            type: integer
+                          PM:
+                            type: integer
+                          PTS:
+                            type: integer
+                          REB:
+                            type: integer
+                          ST:
+                            type: integer
+                          Starter:
+                            type: boolean
+                          TO:
+                            type: integer
+                          TP:
+                            type: string
+                        type: object
+                    type: object
+                  type: array
+                Id:
+                  type: string
+                Score:
+                  type: integer
+                Stats:
+                  properties:
+                    AS:
+                      type: integer
+                    A_ACT:
+                      type: integer
+                    A_BL:
+                      type: integer
+                    A_BLS:
+                      type: string
+                    A_BR:
+                      type: integer
+                    A_BRS:
+                      type: string
+                    A_FBP:
+                      type: integer
+                    A_FOUL:
+                      type: integer
+                    A_PAT:
+                      type: integer
+                    A_PFB:
+                      type: integer
+                    A_PIP:
+                      type: integer
+                    A_SCP:
+                      type: integer
+                    A_TOD:
+                      type: integer
+                    A_TOT:
+                      type: integer
+                    BS:
+                      type: integer
+                    DR:
+                      type: integer
+                    EFF:
+                      type: integer
+                    FD:
+                      type: integer
+                    FG2A:
+                      type: integer
+                    FG2M:
+                      type: integer
+                    FG2P:
+                      type: number
+                    FG3A:
+                      type: integer
+                    FG3M:
+                      type: integer
+                    FG3P:
+                      type: number
+                    FGA:
+                      type: integer
+                    FGIA:
+                      type: integer
+                    FGIM:
+                      type: integer
+                    FGIP:
+                      type: number
+                    FGM:
+                      type: integer
+                    FGP:
+                      type: number
+                    FTA:
+                      type: integer
+                    FTM:
+                      type: integer
+                    FTP:
+                      type: number
+                    Leaders:
+                      properties:
+                        Assists:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        BestPerformer:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Blocks:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Points:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Rebounds:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Steals:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                      type: object
+                    OR:
+                      type: integer
+                    PF:
+                      type: integer
+                    PTS:
+                      type: integer
+                    REB:
+                      type: integer
+                    ST:
+                      type: integer
+                    TO:
+                      type: integer
+                    T_DR:
+                      type: integer
+                    T_OR:
+                      type: integer
+                    T_PF:
+                      type: integer
+                    T_PFB:
+                      type: integer
+                    T_REB:
+                      type: integer
+                    T_TL:
+                      type: string
+                    T_TO:
+                      type: integer
+                  type: object
+              type: object
+            teamB:
+              properties:
+                Children:
+                  items:
+                    properties:
+                      Id:
+                        type: string
+                      Stats:
+                        properties:
+                          AS:
+                            type: integer
+                          BS:
+                            type: integer
+                          BSR:
+                            type: integer
+                          CB:
+                            type: boolean
+                          DR:
+                            type: integer
+                          EFF:
+                            type: integer
+                          FD:
+                            type: integer
+                          FG2A:
+                            type: integer
+                          FG2M:
+                            type: integer
+                          FG2P:
+                            type: number
+                          FG3A:
+                            type: integer
+                          FG3M:
+                            type: integer
+                          FG3P:
+                            type: number
+                          FGA:
+                            type: integer
+                          FGIA:
+                            type: integer
+                          FGIM:
+                            type: integer
+                          FGIP:
+                            type: number
+                          FGM:
+                            type: integer
+                          FGP:
+                            type: number
+                          FTA:
+                            type: integer
+                          FTM:
+                            type: integer
+                          FTP:
+                            type: number
+                          HasPlayed:
+                            type: boolean
+                          OR:
+                            type: integer
+                          PF:
+                            type: integer
+                          PM:
+                            type: integer
+                          PTS:
+                            type: integer
+                          REB:
+                            type: integer
+                          ST:
+                            type: integer
+                          Starter:
+                            type: boolean
+                          TO:
+                            type: integer
+                          TP:
+                            type: string
+                        type: object
+                    type: object
+                  type: array
+                Id:
+                  type: string
+                Score:
+                  type: integer
+                Stats:
+                  properties:
+                    AS:
+                      type: integer
+                    A_ACT:
+                      type: integer
+                    A_BL:
+                      type: integer
+                    A_BLS:
+                      type: string
+                    A_BR:
+                      type: integer
+                    A_BRS:
+                      type: string
+                    A_FBP:
+                      type: integer
+                    A_FOUL:
+                      type: integer
+                    A_PAT:
+                      type: integer
+                    A_PFB:
+                      type: integer
+                    A_PIP:
+                      type: integer
+                    A_SCP:
+                      type: integer
+                    A_TOD:
+                      type: integer
+                    A_TOT:
+                      type: integer
+                    BS:
+                      type: integer
+                    DR:
+                      type: integer
+                    EFF:
+                      type: integer
+                    FD:
+                      type: integer
+                    FG2A:
+                      type: integer
+                    FG2M:
+                      type: integer
+                    FG2P:
+                      type: number
+                    FG3A:
+                      type: integer
+                    FG3M:
+                      type: integer
+                    FG3P:
+                      type: number
+                    FGA:
+                      type: integer
+                    FGIA:
+                      type: integer
+                    FGIM:
+                      type: integer
+                    FGIP:
+                      type: number
+                    FGM:
+                      type: integer
+                    FGP:
+                      type: number
+                    FTA:
+                      type: integer
+                    FTM:
+                      type: integer
+                    FTP:
+                      type: number
+                    Leaders:
+                      properties:
+                        Assists:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        BestPerformer:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Blocks:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Points:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Rebounds:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                        Steals:
+                          properties:
+                            Id:
+                              type: string
+                            Value:
+                              type: string
+                              x-numeric-string: true
+                          type: object
+                      type: object
+                    OR:
+                      type: integer
+                    PF:
+                      type: integer
+                    PTS:
+                      type: integer
+                    REB:
+                      type: integer
+                    ST:
+                      type: integer
+                    TO:
+                      type: integer
+                    T_DR:
+                      type: integer
+                    T_OR:
+                      type: integer
+                    T_PF:
+                      type: integer
+                    T_PFB:
+                      type: integer
+                    T_REB:
+                      type: integer
+                    T_TL:
+                      type: string
+                    T_TO:
+                      type: integer
+                  type: object
+              type: object
+            technicalName:
+              type: string
+          type: object
+        playByPlay:
+          properties:
+            gameTechnicalName:
+              type: integer
+            gameTechnicalNameOrGameId:
+              type: integer
+            items:
+              additionalProperties:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        GT:
+                          type: integer
+                        Id:
+                          type: string
+                        SA:
+                          type: integer
+                        SB:
+                          type: integer
+                        Time:
+                          type: string
+                        ac:
+                          type: string
+                        act:
+                          type: string
+                        in:
+                          type: string
+                        made:
+                          type: boolean
+                        oId:
+                          type:
+                          - integer
+                          - 'null'
+                        order:
+                          type:
+                          - integer
+                          - 'null'
+                        p2Id:
+                          type:
+                          - integer
+                          - 'null'
+                        pId:
+                          type:
+                          - integer
+                          - 'null'
+                        pts:
+                          type: integer
+                        txt:
+                          type:
+                          - string
+                          - 'null'
+                        x:
+                          type: integer
+                        y:
+                          type: integer
+                      type: object
+                    type: array
+                  name:
+                    type: string
+                  scoreA:
+                    type: integer
+                  scoreB:
+                    type: integer
+                type: object
+              type: object
+              x-map-key: period
+          type: object
+        playersTeamA:
+          items:
+            properties:
+              firstName:
+                type: string
+              isCaptain:
+                type: boolean
+              lastName:
+                type: string
+              personId:
+                type: integer
+              position:
+                type: string
+              uniformNumber:
+                type: string
+                x-numeric-string: true
+            type: object
+          type: array
+        playersTeamB:
+          items:
+            properties:
+              firstName:
+                type: string
+              isCaptain:
+                type: boolean
+              lastName:
+                type: string
+              personId:
+                type: integer
+              position:
+                type: string
+              uniformNumber:
+                type: string
+                x-numeric-string: true
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Box score, play-by-play (with shot x/y) and lineups of FIBA games are only server-rendered:
+    GET the game page with the header `RSC: 1` and parse the `text/x-component` flight payload. GamePage
+    documents the objects extracted from it (game header, playByPlay, gameDetails box, playersTeamA/B)
+    after resolving flight tokens ($undefined -> null, $<chunk>:props:<key>:<path> back-references ->
+    the referenced value). The payload format can change with any site deploy. Keyless; robots.txt disallows
+    only auth routes. Terms: see fiba/README.md. Not official or supported.'
+  title: FIBA game pages (fiba.basketball / championsleague.basketball RSC payload)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /en/events/{eventSlug}/games/{gameId}-{teamACode}-{teamBCode}:
+    get:
+      description: 'Samples: `page__events__paris2024-final.json`, `page__events__elw2025.json`. The body
+        is a Next.js flight payload (`<hex id>:<JSON or text>` rows). The `x-sdv-extracted` schema documents
+        the JSON objects fiba/tools/capture.py cuts out of it. **A wrong slug, wrong team-code order or
+        wrong history slug still answers 200** with a 120-150 KB not-found shell that has no `game` header:
+        check the header''s gameId.'
+      operationId: gamePage_events
+      parameters:
+      - description: Ask Next.js for the React Server Components flight payload instead of HTML
+        in: header
+        name: RSC
+        required: true
+        schema:
+          enum:
+          - '1'
+          type: string
+      - description: Event slug from /en/events-sitemap_index.xml, or from the Location of the 307 that
+          /en/history/<histId>-<histSlug>/<competitionId> answers when the competition has an event page
+        example: mens-olympic-basketball-tournament-paris-2024
+        in: path
+        name: eventSlug
+        required: true
+        schema:
+          type: string
+      - description: FIBA game id (global GDAP key space)
+        example: 122608
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      - description: teamA.code of the game row (upper case, teamA first)
+        example: FRA
+        in: path
+        name: teamACode
+        required: true
+        schema:
+          type: string
+      - description: teamB.code of the game row
+        example: USA
+        in: path
+        name: teamBCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/x-component:
+              schema:
+                type: string
+          description: Flight payload (text/x-component)
+          x-sdv-extracted:
+            $ref: '#/components/schemas/GamePage'
+      summary: Game page of a competition that has an event page (most from 2024, plus every competition
+        whose history URL 307s to /en/events/)
+    servers:
+    - url: https://www.fiba.basketball
+  /en/games/{gameId}-{teamACode}-{teamBCode}:
+    get:
+      description: 'Samples: `page__bcl__bcl2027-current.json`. The body is a Next.js flight payload (`<hex
+        id>:<JSON or text>` rows). The `x-sdv-extracted` schema documents the JSON objects fiba/tools/capture.py
+        cuts out of it. **A wrong slug, wrong team-code order or wrong history slug still answers 200**
+        with a 120-150 KB not-found shell that has no `game` header: check the header''s gameId.'
+      operationId: gamePage_bcl
+      parameters:
+      - description: Ask Next.js for the React Server Components flight payload instead of HTML
+        in: header
+        name: RSC
+        required: true
+        schema:
+          enum:
+          - '1'
+          type: string
+      - description: FIBA game id (global GDAP key space)
+        example: 136223
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      - description: teamA.code of the game row (upper case, teamA first)
+        example: VILN
+        in: path
+        name: teamACode
+        required: true
+        schema:
+          type: string
+      - description: teamB.code of the game row
+        example: SAB
+        in: path
+        name: teamBCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/x-component:
+              schema:
+                type: string
+          description: Flight payload (text/x-component)
+          x-sdv-extracted:
+            $ref: '#/components/schemas/GamePage'
+      summary: Game page of the current Basketball Champions League season (championsleague.basketball
+        serves only the current season)
+    servers:
+    - url: https://www.championsleague.basketball
+  /en/history/{histId}-{histSlug}/{competitionId}/games/{gameId}-{teamACode}-{teamBCode}:
+    get:
+      description: 'Samples: `page__history__wc2023-final.json`, `page__history__wwc2022-final.json`,
+        `page__history__bcl2025.json`. The body is a Next.js flight payload (`<hex id>:<JSON or text>`
+        rows). The `x-sdv-extracted` schema documents the JSON objects fiba/tools/capture.py cuts out
+        of it. **A wrong slug, wrong team-code order or wrong history slug still answers 200** with a
+        120-150 KB not-found shell that has no `game` header: check the header''s gameId.'
+      operationId: gamePage_history
+      parameters:
+      - description: Ask Next.js for the React Server Components flight payload instead of HTML
+        in: header
+        name: RSC
+        required: true
+        schema:
+          enum:
+          - '1'
+          type: string
+      - description: competitionMarketingName.competitionMarketingNameId of the competition (201 = World
+          Cup)
+        example: 201
+        in: path
+        name: histId
+        required: true
+        schema:
+          type: integer
+      - description: Slug of competitionMarketingName.marketingName (lower-case, apostrophes dropped,
+          other non-alphanumerics -> '-'); must match /en/history-sitemap_index.xml exactly
+        example: fiba-basketball-world-cup
+        in: path
+        name: histSlug
+        required: true
+        schema:
+          type: string
+      - description: 'FIBA competition id (GDAP key space): competition.competitionId of any game row,
+          e.g. 208182 = World Cup 2023'
+        example: 208182
+        in: path
+        name: competitionId
+        required: true
+        schema:
+          type: integer
+      - description: FIBA game id (global GDAP key space)
+        example: 100720
+        in: path
+        name: gameId
+        required: true
+        schema:
+          type: integer
+      - description: teamA.code of the game row (upper case, teamA first)
+        example: GER
+        in: path
+        name: teamACode
+        required: true
+        schema:
+          type: string
+      - description: teamB.code of the game row
+        example: SRB
+        in: path
+        name: teamBCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/x-component:
+              schema:
+                type: string
+          description: Flight payload (text/x-component)
+          x-sdv-extracted:
+            $ref: '#/components/schemas/GamePage'
+      summary: Game page of an archived competition (schedules back to 1950; box from about 2006, play-by-play
+        from about 2012)
+    servers:
+    - url: https://www.fiba.basketball
