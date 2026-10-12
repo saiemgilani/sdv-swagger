@@ -1,0 +1,5348 @@
+components:
+  schemas:
+    Games:
+      properties:
+        currentPage:
+          type: integer
+        items:
+          items:
+            properties:
+              bettingOdds:
+                items: {}
+                type: array
+              coachComments:
+                items:
+                  properties:
+                    content:
+                      type: string
+                    seasonCoach:
+                      properties:
+                        firstName:
+                          type: string
+                        id:
+                          type: string
+                        imageUrl:
+                          type: string
+                        isHeadCoach:
+                          type: boolean
+                        lastName:
+                          type: string
+                        seasonTeam:
+                          properties:
+                            id:
+                              type: string
+                            logoUrl:
+                              type: string
+                            name:
+                              type: string
+                          type: object
+                      type: object
+                  type: object
+                type: array
+              commissioner:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: string
+                type:
+                - object
+                - 'null'
+              competition:
+                type: string
+              gameTime:
+                type: string
+              guestTeam:
+                properties:
+                  foreignLink:
+                    type: string
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              homeTeam:
+                properties:
+                  foreignLink:
+                    type: string
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              id:
+                type: string
+              isFreeTV:
+                type: boolean
+              isHidden:
+                type: integer
+              isTBD:
+                type: boolean
+              linkLiveStream:
+                type: string
+              matchDay:
+                type: integer
+              referee1:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              referee2:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              referee3:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              result:
+                properties:
+                  guestTeamFinalScore:
+                    type: integer
+                  guestTeamOT1Score:
+                    type: integer
+                  guestTeamOT2Score:
+                    type: integer
+                  guestTeamOT3Score:
+                    type: integer
+                  guestTeamOT4Score:
+                    type: integer
+                  guestTeamOT5Score:
+                    type:
+                    - integer
+                    - 'null'
+                  guestTeamOT6Score:
+                    type:
+                    - integer
+                    - 'null'
+                  guestTeamOT7Score:
+                    type:
+                    - integer
+                    - 'null'
+                  guestTeamOT8Score:
+                    type:
+                    - integer
+                    - 'null'
+                  guestTeamOT9Score:
+                    type:
+                    - integer
+                    - 'null'
+                  guestTeamQ1Score:
+                    type: integer
+                  guestTeamQ2Score:
+                    type: integer
+                  guestTeamQ3Score:
+                    type: integer
+                  guestTeamQ4Score:
+                    type: integer
+                  homeTeamFinalScore:
+                    type: integer
+                  homeTeamOT1Score:
+                    type: integer
+                  homeTeamOT2Score:
+                    type: integer
+                  homeTeamOT3Score:
+                    type: integer
+                  homeTeamOT4Score:
+                    type: integer
+                  homeTeamOT5Score:
+                    type:
+                    - integer
+                    - 'null'
+                  homeTeamOT6Score:
+                    type:
+                    - integer
+                    - 'null'
+                  homeTeamOT7Score:
+                    type:
+                    - integer
+                    - 'null'
+                  homeTeamOT8Score:
+                    type:
+                    - integer
+                    - 'null'
+                  homeTeamOT9Score:
+                    type:
+                    - integer
+                    - 'null'
+                  homeTeamQ1Score:
+                    type: integer
+                  homeTeamQ2Score:
+                    type: integer
+                  homeTeamQ3Score:
+                    type: integer
+                  homeTeamQ4Score:
+                    type: integer
+                  latestPeriod:
+                    type:
+                    - string
+                    - 'null'
+                  spectators:
+                    type: integer
+                type: object
+              scheduledTime:
+                type: string
+              seasonId:
+                type: integer
+              sourceId:
+                type: integer
+              stage:
+                type: string
+              status:
+                type: string
+              topScore:
+                type:
+                - integer
+                - 'null'
+              topScorer:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  height:
+                    type: number
+                  id:
+                    type: string
+                  imageUrl:
+                    type: string
+                  isActive:
+                    type: boolean
+                  isAllStar:
+                    type: boolean
+                  isVisible:
+                    type: boolean
+                  isYoung:
+                    type: boolean
+                  lastName:
+                    type: string
+                  nationalities:
+                    items:
+                      type:
+                      - string
+                      - 'null'
+                    type: array
+                  playerId:
+                    type:
+                    - integer
+                    - string
+                  playerSourceId:
+                    type: integer
+                  position:
+                    type:
+                    - string
+                    - 'null'
+                  previousTeams:
+                    items: {}
+                    type: array
+                  realPlayerId:
+                    type: integer
+                  seasonId:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  shirtNumber:
+                    type: integer
+                  socialMediaLinks:
+                    items:
+                      type: string
+                    type: array
+                  weight:
+                    type: integer
+                  yearJoinedBBL:
+                    type: string
+                type:
+                - object
+                - 'null'
+              tvChannel:
+                items:
+                  properties:
+                    channelId:
+                      type: integer
+                    logo:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type:
+                - array
+                - string
+              tvType:
+                type: string
+              venue:
+                properties:
+                  address:
+                    type: string
+                  capacity:
+                    type: integer
+                  id:
+                    type: string
+                  isMain:
+                    type: boolean
+                  name:
+                    type: string
+                type:
+                - object
+                - 'null'
+              videos:
+                items:
+                  properties:
+                    height:
+                      type: number
+                    hlsManifestUrl:
+                      type: string
+                    imageURL:
+                      type: string
+                    type:
+                      type: string
+                    width:
+                      type: integer
+                  type: object
+                type: array
+            type: object
+          type: array
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+      type: object
+    GamesGameId:
+      properties:
+        bettingOdds:
+          items: {}
+          type: array
+        coachComments:
+          items:
+            properties:
+              content:
+                type: string
+              seasonCoach:
+                properties:
+                  firstName:
+                    type: string
+                  id:
+                    type: string
+                  imageUrl:
+                    type: string
+                  isHeadCoach:
+                    type: boolean
+                  lastName:
+                    type: string
+                  seasonTeam:
+                    properties:
+                      id:
+                        type: string
+                      logoUrl:
+                        type: string
+                      name:
+                        type: string
+                    type: object
+                type: object
+            type: object
+          type: array
+        commissioner:
+          properties:
+            birthDate:
+              type: string
+            firstName:
+              type: string
+            imageUrl:
+              type: string
+            lastName:
+              type: string
+            officialFunction:
+              type: string
+            participations:
+              type: integer
+            profession:
+              type: string
+            refId:
+              type: string
+            salutation:
+              type: string
+            yearJoinedBBL:
+              type: string
+          type: object
+        competition:
+          type: string
+        gameProgress:
+          type:
+          - string
+          - 'null'
+        gameTime:
+          type: string
+        guestTeam:
+          properties:
+            foreignLink:
+              type:
+              - string
+              - 'null'
+            isForeign:
+              type: boolean
+            last10Losses:
+              type: integer
+            last10Outcomes:
+              items:
+                type: string
+              type: array
+            last10Victories:
+              type: integer
+            logoUrl:
+              type: string
+            magentaSportId:
+              type: string
+            name:
+              type: string
+            rank:
+              type: integer
+            seasonTeamId:
+              type: string
+            streak:
+              type: string
+            streakCount:
+              type: integer
+            teamId:
+              type: string
+            ticketPhone:
+              type:
+              - string
+              - 'null'
+            ticketUrl:
+              type:
+              - string
+              - 'null'
+            tlc:
+              type: string
+            totalGames:
+              type: string
+          type: object
+        homeTeam:
+          properties:
+            foreignLink:
+              type:
+              - string
+              - 'null'
+            isForeign:
+              type: boolean
+            last10Losses:
+              type: integer
+            last10Outcomes:
+              items:
+                type: string
+              type: array
+            last10Victories:
+              type: integer
+            logoUrl:
+              type: string
+            magentaSportId:
+              type: string
+            name:
+              type: string
+            rank:
+              type: integer
+            seasonTeamId:
+              type: string
+            streak:
+              type: string
+            streakCount:
+              type: integer
+            teamId:
+              type: string
+            ticketPhone:
+              type:
+              - string
+              - 'null'
+            ticketUrl:
+              type:
+              - string
+              - 'null'
+            tlc:
+              type: string
+            totalGames:
+              type: string
+          type: object
+        id:
+          type: string
+        isFreeTV:
+          type: boolean
+        isHidden:
+          type: boolean
+        isTBD:
+          type: boolean
+        linkLiveStream:
+          type:
+          - string
+          - 'null'
+        matchDay:
+          type: integer
+        referee1:
+          properties:
+            birthDate:
+              type: string
+            firstName:
+              type: string
+            imageUrl:
+              type: string
+            lastName:
+              type: string
+            officialFunction:
+              type: string
+            participations:
+              type: integer
+            profession:
+              type: string
+            refId:
+              type: string
+            salutation:
+              type: string
+            yearJoinedBBL:
+              type: integer
+          type: object
+        referee2:
+          properties:
+            birthDate:
+              type: string
+            firstName:
+              type: string
+            imageUrl:
+              type: string
+            lastName:
+              type: string
+            officialFunction:
+              type: string
+            participations:
+              type: integer
+            profession:
+              type: string
+            refId:
+              type: string
+            salutation:
+              type: string
+            yearJoinedBBL:
+              type: integer
+          type: object
+        referee3:
+          properties:
+            birthDate:
+              type: string
+            firstName:
+              type: string
+            imageUrl:
+              type: string
+            lastName:
+              type: string
+            officialFunction:
+              type: string
+            participations:
+              type: integer
+            profession:
+              type: string
+            refId:
+              type: string
+            salutation:
+              type: string
+            yearJoinedBBL:
+              type: integer
+          type: object
+        result:
+          properties:
+            guestTeamFinalScore:
+              type: integer
+            guestTeamOT1Score:
+              type: integer
+            guestTeamOT2Score:
+              type: integer
+            guestTeamOT3Score:
+              type: integer
+            guestTeamOT4Score:
+              type: integer
+            guestTeamOT5Score:
+              type:
+              - integer
+              - 'null'
+            guestTeamOT6Score:
+              type:
+              - integer
+              - 'null'
+            guestTeamOT7Score:
+              type:
+              - integer
+              - 'null'
+            guestTeamOT8Score:
+              type:
+              - integer
+              - 'null'
+            guestTeamOT9Score:
+              type:
+              - integer
+              - 'null'
+            guestTeamQ1Score:
+              type: integer
+            guestTeamQ2Score:
+              type: integer
+            guestTeamQ3Score:
+              type: integer
+            guestTeamQ4Score:
+              type: integer
+            homeTeamFinalScore:
+              type: integer
+            homeTeamOT1Score:
+              type: integer
+            homeTeamOT2Score:
+              type: integer
+            homeTeamOT3Score:
+              type: integer
+            homeTeamOT4Score:
+              type: integer
+            homeTeamOT5Score:
+              type:
+              - integer
+              - 'null'
+            homeTeamOT6Score:
+              type:
+              - integer
+              - 'null'
+            homeTeamOT7Score:
+              type:
+              - integer
+              - 'null'
+            homeTeamOT8Score:
+              type:
+              - integer
+              - 'null'
+            homeTeamOT9Score:
+              type:
+              - integer
+              - 'null'
+            homeTeamQ1Score:
+              type: integer
+            homeTeamQ2Score:
+              type: integer
+            homeTeamQ3Score:
+              type: integer
+            homeTeamQ4Score:
+              type: integer
+            latestPeriod:
+              type:
+              - string
+              - 'null'
+            spectators:
+              type: integer
+          type: object
+        scheduledTime:
+          type: string
+        seasonId:
+          type: integer
+        sourceId:
+          type: integer
+        stage:
+          type: string
+        statstatus:
+          type: string
+        status:
+          type: string
+        topScore:
+          type: integer
+        topScorer:
+          properties:
+            birthDate:
+              type: string
+            firstName:
+              type: string
+            height:
+              type: number
+            id:
+              type: string
+            imageUrl:
+              type: string
+            isActive:
+              type: boolean
+            isAllStar:
+              type: boolean
+            isVisible:
+              type: boolean
+            isYoung:
+              type: boolean
+            lastName:
+              type: string
+            nationalities:
+              items:
+                type:
+                - string
+                - 'null'
+              type: array
+            playerId:
+              type: string
+            playerSourceId:
+              type: integer
+            position:
+              type:
+              - string
+              - 'null'
+            previousTeams:
+              items: {}
+              type: array
+            realPlayerId:
+              type: integer
+            seasonId:
+              type: integer
+            seasonTeamId:
+              type: string
+            shirtNumber:
+              type: integer
+            socialMediaLinks:
+              items:
+                type: string
+              type: array
+            weight:
+              type: integer
+            yearJoinedBBL:
+              type: string
+          type: object
+        tvChannel:
+          items:
+            properties:
+              channelId:
+                type: integer
+              logo:
+                type: string
+              name:
+                type: string
+              url:
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+        tvType:
+          type:
+          - string
+          - 'null'
+        venue:
+          properties:
+            address:
+              type: string
+            capacity:
+              type: integer
+            id:
+              type: integer
+            isMain:
+              type: boolean
+            name:
+              type: string
+          type: object
+        videos:
+          items:
+            properties:
+              height:
+                type: number
+              hlsManifestUrl:
+                type: string
+              imageURL:
+                type: string
+              type:
+                type: string
+              width:
+                type: integer
+            type: object
+          type: array
+      type: object
+    GamesGameIdStats:
+      properties:
+        actions:
+          items:
+            properties:
+              actionIdentifier:
+                type: string
+              assistingSeasonPlayerId:
+                type: string
+              coordinates:
+                properties:
+                  x:
+                    type: integer
+                  y:
+                    type: integer
+                type: object
+              gameTime:
+                type: string
+              guestTeamPoints:
+                type: integer
+              homeTeamPoints:
+                type: integer
+              id:
+                type: integer
+              isSuccessful:
+                type: boolean
+              orderId:
+                type: integer
+              period:
+                type: integer
+              qualifiers:
+                items:
+                  type: string
+                type: array
+              realTime:
+                type: string
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+        bettingOdds:
+          items: {}
+          type: array
+        boxScorePDFUrl:
+          type: string
+        gameId:
+          type: string
+        guestTeam:
+          properties:
+            coachStat:
+              properties:
+                assists:
+                  type: integer
+                blocks:
+                  type: integer
+                defensiveRebounds:
+                  type: string
+                efficiency:
+                  type: string
+                fieldGoalsAttempted:
+                  type: integer
+                fieldGoalsMade:
+                  type: integer
+                fieldGoalsSuccessPercent:
+                  type: number
+                firstName:
+                  type: string
+                foulsCommitted:
+                  type: string
+                freeThrowsAttempted:
+                  type: integer
+                freeThrowsMade:
+                  type: integer
+                freeThrowsSuccessPercent:
+                  type: number
+                lastName:
+                  type: string
+                offensiveRebounds:
+                  type: string
+                plusMinus:
+                  type: integer
+                points:
+                  type: integer
+                secondsPlayed:
+                  type: integer
+                steals:
+                  type: integer
+                threePointShotSuccessPercent:
+                  type: number
+                threePointShotsAttempted:
+                  type: integer
+                threePointShotsMade:
+                  type: integer
+                totalRebounds:
+                  type: integer
+                turnovers:
+                  type: string
+                twoPointShotSuccessPercent:
+                  type: number
+                twoPointShotsAttempted:
+                  type: integer
+                twoPointShotsMade:
+                  type: integer
+              type: object
+            gameStat:
+              properties:
+                assists:
+                  type: integer
+                blocks:
+                  type: integer
+                competition:
+                  type: string
+                defensiveRebounds:
+                  type: integer
+                efficiency:
+                  type: integer
+                fieldGoalsAttempted:
+                  type: integer
+                fieldGoalsMade:
+                  type: integer
+                fieldGoalsSuccessPercent:
+                  type: number
+                foulsCommitted:
+                  type: integer
+                freeThrowsAttempted:
+                  type: integer
+                freeThrowsMade:
+                  type: integer
+                freeThrowsSuccessPercent:
+                  type: number
+                gameId:
+                  type: string
+                offensiveRebounds:
+                  type: integer
+                plusMinus:
+                  type: integer
+                points:
+                  type: integer
+                scheduledTime:
+                  type: string
+                seasonTeam:
+                  properties:
+                    logoUrl:
+                      type: string
+                    name:
+                      type: string
+                    seasonId:
+                      type: integer
+                    seasonTeamId:
+                      type: string
+                    teamId:
+                      type: string
+                    tlc:
+                      type: string
+                  type: object
+                secondsPlayed:
+                  type: string
+                stage:
+                  type: string
+                steals:
+                  type: integer
+                threePointShotSuccessPercent:
+                  type: number
+                threePointShotsAttempted:
+                  type: integer
+                threePointShotsMade:
+                  type: integer
+                totalRebounds:
+                  type: integer
+                turnovers:
+                  type: integer
+                twoPointShotSuccessPercent:
+                  type: number
+                twoPointShotsAttempted:
+                  type: integer
+                twoPointShotsMade:
+                  type: integer
+              type: object
+            headCoachName:
+              type:
+              - string
+              - 'null'
+            id:
+              type: string
+            playerStats:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  blocks:
+                    type: integer
+                  defensiveRebounds:
+                    type: integer
+                  doubleDouble:
+                    type: integer
+                  efficiency:
+                    type: integer
+                  fieldGoalsAttempted:
+                    type: integer
+                  fieldGoalsMade:
+                    type: integer
+                  fieldGoalsSuccessPercent:
+                    type: number
+                  foulsCommitted:
+                    type: integer
+                  foulsReceived:
+                    type: integer
+                  freeThrowsAttempted:
+                    type: integer
+                  freeThrowsMade:
+                    type: integer
+                  freeThrowsSuccessPercent:
+                    type: number
+                  gameId:
+                    type: string
+                  isStartingFive:
+                    type: boolean
+                  offensiveRebounds:
+                    type: integer
+                  opponentTeamName:
+                    type: string
+                  plusMinus:
+                    type:
+                    - integer
+                    - string
+                  points:
+                    type: integer
+                  seasonPlayer:
+                    properties:
+                      firstName:
+                        type: string
+                      foreignLink:
+                        type:
+                        - 'null'
+                      id:
+                        type: string
+                      imageUrl:
+                        type: string
+                      lastName:
+                        type: string
+                      playerId:
+                        type: string
+                      position:
+                        type: string
+                      realPlayerId:
+                        type: integer
+                      shirtNumber:
+                        type:
+                        - integer
+                        - string
+                    type: object
+                  seasonTeam:
+                    properties:
+                      logoUrl:
+                        type: string
+                      name:
+                        type: string
+                      seasonId:
+                        type: integer
+                      seasonTeamId:
+                        type: string
+                      teamId:
+                        type: string
+                      tlc:
+                        type: string
+                    type: object
+                  secondsPlayed:
+                    type:
+                    - integer
+                    - 'null'
+                  shirtNumber:
+                    type:
+                    - integer
+                    - string
+                  steals:
+                    type: integer
+                  threePointShotSuccessPercent:
+                    type: number
+                  threePointShotsAttempted:
+                    type: integer
+                  threePointShotsMade:
+                    type: integer
+                  totalRebounds:
+                    type: integer
+                  tripleDouble:
+                    type: integer
+                  turnovers:
+                    type: integer
+                  twoPointShotSuccessPercent:
+                    type: number
+                  twoPointShotsAttempted:
+                    type: integer
+                  twoPointShotsMade:
+                    type: integer
+                type: object
+              type: array
+          type: object
+        homeTeam:
+          properties:
+            coachStat:
+              properties:
+                assists:
+                  type: integer
+                blocks:
+                  type: integer
+                defensiveRebounds:
+                  type: string
+                efficiency:
+                  type: string
+                fieldGoalsAttempted:
+                  type: integer
+                fieldGoalsMade:
+                  type: integer
+                fieldGoalsSuccessPercent:
+                  type: number
+                firstName:
+                  type: string
+                foulsCommitted:
+                  type: string
+                freeThrowsAttempted:
+                  type: integer
+                freeThrowsMade:
+                  type: integer
+                freeThrowsSuccessPercent:
+                  type: number
+                lastName:
+                  type: string
+                offensiveRebounds:
+                  type: string
+                plusMinus:
+                  type: integer
+                points:
+                  type: integer
+                secondsPlayed:
+                  type: integer
+                steals:
+                  type: integer
+                threePointShotSuccessPercent:
+                  type: number
+                threePointShotsAttempted:
+                  type: integer
+                threePointShotsMade:
+                  type: integer
+                totalRebounds:
+                  type: integer
+                turnovers:
+                  type: string
+                twoPointShotSuccessPercent:
+                  type: number
+                twoPointShotsAttempted:
+                  type: integer
+                twoPointShotsMade:
+                  type: integer
+              type: object
+            gameStat:
+              properties:
+                assists:
+                  type: integer
+                blocks:
+                  type: integer
+                competition:
+                  type: string
+                defensiveRebounds:
+                  type: integer
+                efficiency:
+                  type: integer
+                fieldGoalsAttempted:
+                  type: integer
+                fieldGoalsMade:
+                  type: integer
+                fieldGoalsSuccessPercent:
+                  type: number
+                foulsCommitted:
+                  type: integer
+                freeThrowsAttempted:
+                  type: integer
+                freeThrowsMade:
+                  type: integer
+                freeThrowsSuccessPercent:
+                  type: number
+                gameId:
+                  type: string
+                offensiveRebounds:
+                  type: integer
+                plusMinus:
+                  type: integer
+                points:
+                  type: integer
+                scheduledTime:
+                  type: string
+                seasonTeam:
+                  properties:
+                    logoUrl:
+                      type: string
+                    name:
+                      type: string
+                    seasonId:
+                      type: integer
+                    seasonTeamId:
+                      type: string
+                    teamId:
+                      type: string
+                    tlc:
+                      type: string
+                  type: object
+                secondsPlayed:
+                  type: string
+                stage:
+                  type: string
+                steals:
+                  type: integer
+                threePointShotSuccessPercent:
+                  type: number
+                threePointShotsAttempted:
+                  type: integer
+                threePointShotsMade:
+                  type: integer
+                totalRebounds:
+                  type: integer
+                turnovers:
+                  type: integer
+                twoPointShotSuccessPercent:
+                  type: number
+                twoPointShotsAttempted:
+                  type: integer
+                twoPointShotsMade:
+                  type: integer
+              type: object
+            headCoachName:
+              type:
+              - string
+              - 'null'
+            id:
+              type: string
+            playerStats:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  blocks:
+                    type: integer
+                  defensiveRebounds:
+                    type: integer
+                  doubleDouble:
+                    type: integer
+                  efficiency:
+                    type: integer
+                  fieldGoalsAttempted:
+                    type: integer
+                  fieldGoalsMade:
+                    type: integer
+                  fieldGoalsSuccessPercent:
+                    type: number
+                  foulsCommitted:
+                    type: integer
+                  foulsReceived:
+                    type: integer
+                  freeThrowsAttempted:
+                    type: integer
+                  freeThrowsMade:
+                    type: integer
+                  freeThrowsSuccessPercent:
+                    type: number
+                  gameId:
+                    type: string
+                  isStartingFive:
+                    type: boolean
+                  offensiveRebounds:
+                    type: integer
+                  opponentTeamName:
+                    type: string
+                  plusMinus:
+                    type:
+                    - integer
+                    - string
+                  points:
+                    type: integer
+                  seasonPlayer:
+                    properties:
+                      firstName:
+                        type: string
+                      foreignLink:
+                        type:
+                        - 'null'
+                      id:
+                        type: string
+                      imageUrl:
+                        type: string
+                      lastName:
+                        type: string
+                      playerId:
+                        type: string
+                      position:
+                        type: string
+                      realPlayerId:
+                        type: integer
+                      shirtNumber:
+                        type:
+                        - integer
+                        - string
+                    type: object
+                  seasonTeam:
+                    properties:
+                      logoUrl:
+                        type: string
+                      name:
+                        type: string
+                      seasonId:
+                        type: integer
+                      seasonTeamId:
+                        type: string
+                      teamId:
+                        type: string
+                      tlc:
+                        type: string
+                    type: object
+                  secondsPlayed:
+                    type:
+                    - integer
+                    - 'null'
+                  shirtNumber:
+                    type:
+                    - integer
+                    - string
+                  steals:
+                    type: integer
+                  threePointShotSuccessPercent:
+                    type: number
+                  threePointShotsAttempted:
+                    type: integer
+                  threePointShotsMade:
+                    type: integer
+                  totalRebounds:
+                    type: integer
+                  tripleDouble:
+                    type: integer
+                  turnovers:
+                    type: integer
+                  twoPointShotSuccessPercent:
+                    type: number
+                  twoPointShotsAttempted:
+                    type: integer
+                  twoPointShotsMade:
+                    type: integer
+                type: object
+              type: array
+          type: object
+        playByPlayPDFUrl:
+          type: string
+        scheduledTime:
+          type: string
+        status:
+          type: string
+      type: object
+    GamesRecent:
+      properties:
+        future:
+          items:
+            properties:
+              actper:
+                type:
+                - 'null'
+              bettingOdds:
+                items: {}
+                type: array
+              coachComments:
+                items: {}
+                type: array
+              commissioner:
+                type:
+                - 'null'
+              competition:
+                type: string
+              curper:
+                type:
+                - 'null'
+              gameProgress:
+                type:
+                - 'null'
+              gameTime:
+                type: string
+              guestTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              homeTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              id:
+                type: string
+              isFreeTV:
+                type: boolean
+              isHidden:
+                type: boolean
+              isTBD:
+                type: boolean
+              linkLiveStream:
+                type:
+                - 'null'
+              matchDay:
+                type: integer
+              pltime:
+                type:
+                - 'null'
+              referee1:
+                type:
+                - 'null'
+              referee2:
+                type:
+                - 'null'
+              referee3:
+                type:
+                - 'null'
+              result:
+                type:
+                - 'null'
+              scheduledTime:
+                type: string
+              seasonId:
+                type: integer
+              sourceId:
+                type: integer
+              stage:
+                type: string
+              statstatus:
+                type:
+                - 'null'
+              status:
+                type: string
+              topScore:
+                type:
+                - 'null'
+              topScorer:
+                type:
+                - 'null'
+              tvChannel:
+                items:
+                  properties:
+                    channelId:
+                      type: integer
+                    logo:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type:
+                - array
+                - 'null'
+              tvType:
+                type:
+                - 'null'
+              venue:
+                properties:
+                  address:
+                    type: string
+                  capacity:
+                    type: integer
+                  id:
+                    type: integer
+                  isMain:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              videos:
+                items: {}
+                type: array
+            type: object
+          type: array
+        past:
+          items:
+            properties:
+              actper:
+                type: string
+              bettingOdds:
+                items: {}
+                type: array
+              coachComments:
+                items:
+                  properties:
+                    content:
+                      type: string
+                    seasonCoach:
+                      properties:
+                        firstName:
+                          type: string
+                        id:
+                          type: string
+                        imageUrl:
+                          type: string
+                        isHeadCoach:
+                          type: boolean
+                        lastName:
+                          type: string
+                        seasonTeam:
+                          properties:
+                            id:
+                              type: string
+                            logoUrl:
+                              type: string
+                            name:
+                              type: string
+                          type: object
+                      type: object
+                  type: object
+                type: array
+              commissioner:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: string
+                type:
+                - object
+                - 'null'
+              competition:
+                type: string
+              curper:
+                type: string
+              gameProgress:
+                type: string
+              gameTime:
+                type: string
+              guestTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              homeTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type: array
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              id:
+                type: string
+              isFreeTV:
+                type: boolean
+              isHidden:
+                type: boolean
+              isTBD:
+                type: boolean
+              linkLiveStream:
+                type: string
+              matchDay:
+                type: integer
+              pltime:
+                type: string
+              referee1:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              referee2:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              referee3:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  imageUrl:
+                    type: string
+                  lastName:
+                    type: string
+                  officialFunction:
+                    type: string
+                  participations:
+                    type: integer
+                  profession:
+                    type: string
+                  refId:
+                    type: string
+                  salutation:
+                    type: string
+                  yearJoinedBBL:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              result:
+                properties:
+                  guestTeamFinalScore:
+                    type: integer
+                  guestTeamOT1Score:
+                    type: integer
+                  guestTeamOT2Score:
+                    type: integer
+                  guestTeamOT3Score:
+                    type: integer
+                  guestTeamOT4Score:
+                    type: integer
+                  guestTeamOT5Score:
+                    type: integer
+                  guestTeamOT6Score:
+                    type: integer
+                  guestTeamOT7Score:
+                    type: integer
+                  guestTeamOT8Score:
+                    type: integer
+                  guestTeamOT9Score:
+                    type: integer
+                  guestTeamQ1Score:
+                    type: integer
+                  guestTeamQ2Score:
+                    type: integer
+                  guestTeamQ3Score:
+                    type: integer
+                  guestTeamQ4Score:
+                    type: integer
+                  homeTeamFinalScore:
+                    type: integer
+                  homeTeamOT1Score:
+                    type: integer
+                  homeTeamOT2Score:
+                    type: integer
+                  homeTeamOT3Score:
+                    type: integer
+                  homeTeamOT4Score:
+                    type: integer
+                  homeTeamOT5Score:
+                    type: integer
+                  homeTeamOT6Score:
+                    type: integer
+                  homeTeamOT7Score:
+                    type: integer
+                  homeTeamOT8Score:
+                    type: integer
+                  homeTeamOT9Score:
+                    type: integer
+                  homeTeamQ1Score:
+                    type: integer
+                  homeTeamQ2Score:
+                    type: integer
+                  homeTeamQ3Score:
+                    type: integer
+                  homeTeamQ4Score:
+                    type: integer
+                  latestPeriod:
+                    type: integer
+                  spectators:
+                    type: integer
+                type: object
+              scheduledTime:
+                type: string
+              seasonId:
+                type: integer
+              sourceId:
+                type: integer
+              stage:
+                type: string
+              statstatus:
+                type: string
+              status:
+                type: string
+              topScore:
+                type:
+                - integer
+                - 'null'
+              topScorer:
+                properties:
+                  birthDate:
+                    type: string
+                  firstName:
+                    type: string
+                  height:
+                    type: number
+                  id:
+                    type:
+                    - integer
+                    - string
+                  imageUrl:
+                    type: string
+                  isActive:
+                    type: boolean
+                  isAllStar:
+                    type: boolean
+                  isVisible:
+                    type: boolean
+                  isYoung:
+                    type: boolean
+                  lastName:
+                    type: string
+                  nationalities:
+                    items:
+                      type: string
+                    type: array
+                  playerId:
+                    type: string
+                  playerSourceId:
+                    type: integer
+                  position:
+                    type: string
+                  previousTeams:
+                    items: {}
+                    type: array
+                  realPlayerId:
+                    type: integer
+                  seasonId:
+                    type: integer
+                  seasonTeamId:
+                    type: string
+                  shirtNumber:
+                    type: integer
+                  socialMediaLinks:
+                    items:
+                      type: string
+                    type: array
+                  weight:
+                    type: integer
+                  yearJoinedBBL:
+                    type: string
+                type:
+                - object
+                - 'null'
+              tvChannel:
+                items:
+                  properties:
+                    channelId:
+                      type: integer
+                    logo:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type:
+                - array
+                - string
+              tvType:
+                type:
+                - string
+                - 'null'
+              venue:
+                properties:
+                  address:
+                    type: string
+                  capacity:
+                    type: integer
+                  id:
+                    type: integer
+                  isMain:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              videos:
+                items:
+                  properties:
+                    height:
+                      type: number
+                    hlsManifestUrl:
+                      type: string
+                    imageURL:
+                      type: string
+                    type:
+                      type: string
+                    width:
+                      type: integer
+                  type: object
+                type: array
+            type: object
+          type: array
+        present:
+          items:
+            properties:
+              actper:
+                type:
+                - string
+                - 'null'
+              bettingOdds:
+                items: {}
+                type: array
+              coachComments:
+                items: {}
+                type: array
+              commissioner:
+                type:
+                - 'null'
+              competition:
+                type: string
+              curper:
+                type:
+                - string
+                - 'null'
+              gameProgress:
+                type:
+                - string
+                - 'null'
+              gameTime:
+                type: string
+              guestTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type:
+                    - array
+                    - 'null'
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type:
+                    - integer
+                    - 'null'
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              homeTeam:
+                properties:
+                  foreignLink:
+                    type:
+                    - string
+                    - 'null'
+                  isForeign:
+                    type: boolean
+                  last10Losses:
+                    type: integer
+                  last10Outcomes:
+                    items:
+                      type: string
+                    type:
+                    - array
+                    - 'null'
+                  last10Victories:
+                    type: integer
+                  logoUrl:
+                    type: string
+                  magentaSportId:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type:
+                    - integer
+                    - 'null'
+                  seasonTeamId:
+                    type: string
+                  streak:
+                    type: string
+                  streakCount:
+                    type: integer
+                  teamId:
+                    type: string
+                  ticketPhone:
+                    type:
+                    - string
+                    - 'null'
+                  ticketUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tlc:
+                    type: string
+                  totalGames:
+                    type: string
+                type: object
+              id:
+                type: string
+              isFreeTV:
+                type: boolean
+              isHidden:
+                type: boolean
+              isTBD:
+                type: boolean
+              linkLiveStream:
+                type:
+                - 'null'
+              matchDay:
+                type: integer
+              pltime:
+                type:
+                - string
+                - 'null'
+              referee1:
+                type:
+                - 'null'
+              referee2:
+                type:
+                - 'null'
+              referee3:
+                type:
+                - 'null'
+              result:
+                properties:
+                  guestTeamFinalScore:
+                    type: integer
+                  guestTeamOT1Score:
+                    type: integer
+                  guestTeamOT2Score:
+                    type: integer
+                  guestTeamOT3Score:
+                    type: integer
+                  guestTeamOT4Score:
+                    type: integer
+                  guestTeamOT5Score:
+                    type: integer
+                  guestTeamOT6Score:
+                    type: integer
+                  guestTeamOT7Score:
+                    type: integer
+                  guestTeamOT8Score:
+                    type: integer
+                  guestTeamOT9Score:
+                    type: integer
+                  guestTeamQ1Score:
+                    type: integer
+                  guestTeamQ2Score:
+                    type: integer
+                  guestTeamQ3Score:
+                    type: integer
+                  guestTeamQ4Score:
+                    type: integer
+                  homeTeamFinalScore:
+                    type: integer
+                  homeTeamOT1Score:
+                    type: integer
+                  homeTeamOT2Score:
+                    type: integer
+                  homeTeamOT3Score:
+                    type: integer
+                  homeTeamOT4Score:
+                    type: integer
+                  homeTeamOT5Score:
+                    type: integer
+                  homeTeamOT6Score:
+                    type: integer
+                  homeTeamOT7Score:
+                    type: integer
+                  homeTeamOT8Score:
+                    type: integer
+                  homeTeamOT9Score:
+                    type: integer
+                  homeTeamQ1Score:
+                    type: integer
+                  homeTeamQ2Score:
+                    type: integer
+                  homeTeamQ3Score:
+                    type: integer
+                  homeTeamQ4Score:
+                    type: integer
+                  latestPeriod:
+                    type: integer
+                  spectators:
+                    type: integer
+                type:
+                - object
+                - 'null'
+              scheduledTime:
+                type: string
+              seasonId:
+                type: integer
+              sourceId:
+                type: integer
+              stage:
+                type: string
+              statstatus:
+                type:
+                - string
+                - 'null'
+              status:
+                type: string
+              topScore:
+                type:
+                - 'null'
+              topScorer:
+                type:
+                - 'null'
+              tvChannel:
+                items:
+                  properties:
+                    channelId:
+                      type: integer
+                    logo:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type:
+                - array
+                - 'null'
+              tvType:
+                type:
+                - string
+                - 'null'
+              venue:
+                properties:
+                  address:
+                    type: string
+                  capacity:
+                    type: integer
+                  id:
+                    type: integer
+                  isMain:
+                    type: boolean
+                  name:
+                    type: string
+                type: object
+              videos:
+                items: {}
+                type: array
+            type: object
+          type: array
+      type: object
+    RecordsPerGameSeasonId:
+      properties:
+        allTimeRecords:
+          properties:
+            assists:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            blocks:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            efficiency:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            freeThrowsMade:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            freeThrowsSuccessPercentage:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    items:
+                      type: string
+                    type: array
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            points:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            rebounds:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            steals:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            threePointShotsMade:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            turnovers:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+          type: object
+        seasonId:
+          type: string
+        seasonRecords:
+          properties:
+            assists:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            blocks:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            efficiency:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            freeThrowsMade:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            freeThrowsSuccessPercentage:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type: integer
+                  allTimePlace:
+                    type: integer
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    items:
+                      type: string
+                    type: array
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            points:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            rebounds:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            steals:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            threePointShotsMade:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+            turnovers:
+              items:
+                properties:
+                  allTimeOrderId:
+                    type:
+                    - integer
+                    - 'null'
+                  allTimePlace:
+                    type:
+                    - integer
+                    - 'null'
+                  firstName:
+                    type: string
+                  gameId:
+                    type: string
+                  guestTeamTLC:
+                    type: string
+                  homeTeamTLC:
+                    type: string
+                  lastName:
+                    type: string
+                  orderId:
+                    type: integer
+                  place:
+                    type: integer
+                  playerId:
+                    type: string
+                  ratio:
+                    type:
+                    - 'null'
+                  realPlayerId:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  seasonPlayerId:
+                    type: string
+                  seasonTeamId:
+                    type: string
+                  seasonTeamName:
+                    type: string
+                  teamTLC:
+                    type: string
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              type: array
+          type: object
+      type: object
+    RecordsSeasonAverages:
+      properties:
+        assistAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        blockAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        efficiencyAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        foulAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        freeThrowsSuccessPercentage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                items:
+                  type: string
+                type: array
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        pointsAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        reboundAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        stealAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        threePointShotAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                items:
+                  type: string
+                type: array
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+        turnoverAverage:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              orderId:
+                type: integer
+              place:
+                type: integer
+              playerId:
+                type: string
+              ratio:
+                type:
+                - 'null'
+              realPlayerId:
+                type: integer
+              seasonId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+              seasonTeamName:
+                type: string
+              teamTLC:
+                type: string
+              type:
+                type: string
+              value:
+                type: number
+            type: object
+          type: array
+      type: object
+    Referees:
+      properties:
+        currentPage:
+          type: integer
+        items:
+          items:
+            properties:
+              birthDate:
+                type: string
+              firstName:
+                type: string
+              id:
+                type: string
+              imageUrl:
+                type: string
+              lastName:
+                type: string
+              officialFunction:
+                type: string
+              participations:
+                type: integer
+              profession:
+                type: string
+              refId:
+                type: string
+              yearJoinedBBL:
+                type: integer
+            type: object
+          type: array
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+      type: object
+    SeasonPlayersSeasonPlayerId:
+      properties:
+        activeSeasonPlayerId:
+          type: string
+        bblGamesPlayed:
+          type: integer
+        birthDate:
+          type: string
+        firstName:
+          type: string
+        foreignLink:
+          type:
+          - 'null'
+        hasChangedTeams:
+          type: boolean
+        height:
+          type: number
+        id:
+          type: string
+        imageUrl:
+          type: string
+        isAllStar:
+          type: boolean
+        isYoung:
+          type: boolean
+        lastName:
+          type: string
+        nationalities:
+          items:
+            type: string
+          type: array
+        position:
+          type: string
+        previousTeams:
+          items:
+            type: string
+          type: array
+        realPlayerId:
+          type: integer
+        seasonIds:
+          items:
+            type: integer
+          type: array
+        shirtNumber:
+          type:
+          - integer
+          - string
+        socialMediaLinks:
+          items:
+            type: string
+          type: array
+        team:
+          properties:
+            homepageUrl:
+              type: string
+            id:
+              type: string
+            logoUrl:
+              type: string
+            name:
+              type: string
+          type: object
+        weight:
+          type: integer
+      type: object
+    Seasons:
+      items:
+        properties:
+          id:
+            type: integer
+          isActive:
+            type: boolean
+        type: object
+      type: array
+    SeasonsSeasonId:
+      properties:
+        championshipWinnerId:
+          type:
+          - 'null'
+        cupWinnerId:
+          type:
+          - 'null'
+        id:
+          type: integer
+        isActive:
+          type: boolean
+        nationalities:
+          items:
+            type: string
+          type: array
+        players:
+          items:
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              playerId:
+                type: string
+              realPlayerId:
+                type: integer
+              seasonPlayerId:
+                type: string
+              seasonTeamId:
+                type: string
+            type: object
+          type: array
+        teams:
+          items:
+            properties:
+              logoUrl:
+                type: string
+              name:
+                type: string
+              seasonTeamId:
+                type: string
+              teamId:
+                type: string
+              tlc:
+                type: string
+            type: object
+          type: array
+      type: object
+    SeasonsSeasonIdPlayerStatistics:
+      items:
+        properties:
+          aggregation:
+            type: string
+          assists:
+            type: integer
+          assistsPerGame:
+            type: number
+          blocks:
+            type: integer
+          blocksPerGame:
+            type: number
+          competition:
+            type: string
+          defensiveRebounds:
+            type: integer
+          defensiveReboundsPerGame:
+            type: number
+          doubleDouble:
+            type: integer
+          doubleDoublePerGame:
+            type: number
+          efficiency:
+            type: integer
+          efficiencyPerGame:
+            type: number
+          fieldGoalsAttempted:
+            type: integer
+          fieldGoalsAttemptedPerGame:
+            type: number
+          fieldGoalsMade:
+            type: integer
+          fieldGoalsMadePerGame:
+            type: number
+          fieldGoalsSuccessPercent:
+            type: number
+          fieldGoalsSuccessPercentPerGame:
+            type: number
+          foulsCommitted:
+            type: integer
+          foulsCommittedPerGame:
+            type: number
+          foulsReceived:
+            type: integer
+          foulsReceivedPerGame:
+            type: number
+          freeThrowsAttempted:
+            type: integer
+          freeThrowsAttemptedPerGame:
+            type: number
+          freeThrowsMade:
+            type: integer
+          freeThrowsMadePerGame:
+            type: number
+          freeThrowsSuccessPercent:
+            type: number
+          gamesPlayed:
+            type: integer
+          gamesStarted:
+            type: integer
+          offensiveRebounds:
+            type: integer
+          offensiveReboundsPerGame:
+            type: number
+          overall:
+            type: boolean
+          plusMinus:
+            type: integer
+          plusMinusPerGame:
+            type: number
+          points:
+            type: integer
+          pointsPerGame:
+            type: number
+          roundCode:
+            type: integer
+          seasonPlayer:
+            properties:
+              firstName:
+                type: string
+              foreignLink:
+                type:
+                - 'null'
+              id:
+                type: string
+              imageUrl:
+                type: string
+              lastName:
+                type: string
+              playerId:
+                type: string
+              position:
+                type: string
+              realPlayerId:
+                type: integer
+              shirtNumber:
+                type: integer
+            type: object
+          seasonTeam:
+            properties:
+              logoUrl:
+                type: string
+              name:
+                type: string
+              seasonTeamId:
+                type: string
+              teamId:
+                type: string
+              tlc:
+                type: string
+            type: object
+          secondsPerGame:
+            type: number
+          secondsPlayed:
+            type: integer
+          stage:
+            type: string
+          steals:
+            type: integer
+          stealsPerGame:
+            type: number
+          threePointShotSuccessPercent:
+            type: number
+          threePointShotsAttempted:
+            type: integer
+          threePointShotsAttemptedPerGame:
+            type: number
+          threePointShotsMade:
+            type: integer
+          threePointShotsMadePerGame:
+            type: number
+          totalRebounds:
+            type: integer
+          totalReboundsPerGame:
+            type: number
+          tripleDouble:
+            type: integer
+          tripleDoublePerGame:
+            type: number
+          turnovers:
+            type: integer
+          turnoversPerGame:
+            type: number
+          twoPointShotSuccessPercent:
+            type: number
+          twoPointShotsAttempted:
+            type: integer
+          twoPointShotsAttemptedPerGame:
+            type: number
+          twoPointShotsMade:
+            type: integer
+          twoPointShotsMadePerGame:
+            type: number
+        type: object
+      type: array
+    SeasonsSeasonIdPlayoffTree:
+      properties:
+        finals:
+          properties:
+            games:
+              items:
+                properties:
+                  gameId:
+                    type: integer
+                  gameWinnerId:
+                    type: integer
+                  guestTeamId:
+                    type: integer
+                  homeTeamId:
+                    type: integer
+                  pointsTeamA:
+                    type: integer
+                  pointsTeamB:
+                    type: integer
+                  scheduledTime:
+                    type: string
+                  timestamp:
+                    type: integer
+                type: object
+              type: array
+            isMatchFinished:
+              type: boolean
+            matchWinnerId:
+              type: integer
+            teamA:
+              properties:
+                logoUrl:
+                  type: string
+                name:
+                  type: string
+                rank:
+                  type: integer
+                seasonTeamId:
+                  type: integer
+                tlc:
+                  type: string
+              type: object
+            teamAVictories:
+              type: integer
+            teamB:
+              properties:
+                logoUrl:
+                  type: string
+                name:
+                  type: string
+                rank:
+                  type: integer
+                seasonTeamId:
+                  type: integer
+                tlc:
+                  type: string
+              type: object
+            teamBVictories:
+              type: integer
+          type: object
+        quarterFinals:
+          items:
+            properties:
+              games:
+                items:
+                  properties:
+                    gameId:
+                      type: integer
+                    gameWinnerId:
+                      type: integer
+                    guestTeamId:
+                      type: integer
+                    homeTeamId:
+                      type: integer
+                    pointsTeamA:
+                      type: integer
+                    pointsTeamB:
+                      type: integer
+                    scheduledTime:
+                      type: string
+                    timestamp:
+                      type: integer
+                  type: object
+                type: array
+              isMatchFinished:
+                type: boolean
+              matchWinnerId:
+                type: integer
+              teamA:
+                properties:
+                  logoUrl:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: integer
+                  tlc:
+                    type: string
+                type: object
+              teamAVictories:
+                type: integer
+              teamB:
+                properties:
+                  logoUrl:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: integer
+                  tlc:
+                    type: string
+                type: object
+              teamBVictories:
+                type: integer
+            type: object
+          type: array
+        seasonId:
+          type: integer
+        semiFinals:
+          items:
+            properties:
+              games:
+                items:
+                  properties:
+                    gameId:
+                      type: integer
+                    gameWinnerId:
+                      type: integer
+                    guestTeamId:
+                      type: integer
+                    homeTeamId:
+                      type: integer
+                    pointsTeamA:
+                      type: integer
+                    pointsTeamB:
+                      type: integer
+                    scheduledTime:
+                      type: string
+                    timestamp:
+                      type: integer
+                  type: object
+                type: array
+              isMatchFinished:
+                type: boolean
+              matchWinnerId:
+                type: integer
+              teamA:
+                properties:
+                  logoUrl:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: integer
+                  tlc:
+                    type: string
+                type: object
+              teamAVictories:
+                type: integer
+              teamB:
+                properties:
+                  logoUrl:
+                    type: string
+                  name:
+                    type: string
+                  rank:
+                    type: integer
+                  seasonTeamId:
+                    type: integer
+                  tlc:
+                    type: string
+                type: object
+              teamBVictories:
+                type: integer
+            type: object
+          type: array
+      type: object
+    SeasonsSeasonIdTeamStatistics:
+      items:
+        properties:
+          aggregation:
+            type: string
+          assists:
+            type: integer
+          assistsPerGame:
+            type: number
+          blocks:
+            type: integer
+          blocksPerGame:
+            type: number
+          competition:
+            type: string
+          defensiveRebounds:
+            type: integer
+          defensiveReboundsPerGame:
+            type: number
+          doubleDouble:
+            type: integer
+          doubleDoublePerGame:
+            type: number
+          efficiency:
+            type: integer
+          efficiencyPerGame:
+            type: number
+          fieldGoalsAttempted:
+            type: integer
+          fieldGoalsAttemptedPerGame:
+            type: number
+          fieldGoalsMade:
+            type: integer
+          fieldGoalsMadePerGame:
+            type: number
+          fieldGoalsSuccessPercent:
+            type: number
+          fieldGoalsSuccessPercentPerGame:
+            type: number
+          foulsCommitted:
+            type: integer
+          foulsCommittedPerGame:
+            type: number
+          freeThrowsAttempted:
+            type: integer
+          freeThrowsAttemptedPerGame:
+            type: number
+          freeThrowsMade:
+            type: integer
+          freeThrowsMadePerGame:
+            type: number
+          freeThrowsSuccessPercent:
+            type: number
+          gamesPlayed:
+            type: integer
+          offensiveRebounds:
+            type: integer
+          offensiveReboundsPerGame:
+            type: number
+          plusMinus:
+            type: integer
+          plusMinusPerGame:
+            type: number
+          points:
+            type: integer
+          pointsPerGame:
+            type: number
+          roundCode:
+            type: integer
+          seasonTeam:
+            properties:
+              logoUrl:
+                type: string
+              name:
+                type: string
+              seasonId:
+                type: integer
+              seasonTeamId:
+                type: string
+              teamId:
+                type: string
+              tlc:
+                type: string
+            type: object
+          secondsPerGame:
+            type: number
+          secondsPlayed:
+            type: integer
+          steals:
+            type: integer
+          stealsPerGame:
+            type: number
+          threePointShotSuccessPercent:
+            type: number
+          threePointShotsAttempted:
+            type: integer
+          threePointShotsAttemptedPerGame:
+            type: number
+          threePointShotsMade:
+            type: integer
+          threePointShotsMadePerGame:
+            type: number
+          totalRebounds:
+            type: integer
+          totalReboundsPerGame:
+            type: number
+          turnovers:
+            type: integer
+          turnoversPerGame:
+            type: number
+          twoPointShotSuccessPercent:
+            type: number
+          twoPointShotsAttempted:
+            type: integer
+          twoPointShotsAttemptedPerGame:
+            type: number
+          twoPointShotsMade:
+            type: integer
+          twoPointShotsMadePerGame:
+            type: number
+        type: object
+      type: array
+    Standings:
+      items:
+        properties:
+          awayGoalDifference:
+            type: integer
+          awayGoalsAgainst:
+            type: integer
+          awayGoalsMade:
+            type: integer
+          awayLast10Losses:
+            type: integer
+          awayLast10Victories:
+            type: integer
+          awayLast10VictoryPercentage:
+            type: number
+          awayLosses:
+            type: integer
+          awayStreak:
+            type: string
+          awayStreakCount:
+            type: integer
+          awayVictories:
+            type: integer
+          awayVictoryPercentage:
+            type: number
+          competition:
+            type: string
+          homeGoalDifference:
+            type: integer
+          homeGoalsAgainst:
+            type: integer
+          homeGoalsMade:
+            type: integer
+          homeLast10Losses:
+            type: integer
+          homeLast10Victories:
+            type: integer
+          homeLast10VictoryPercentage:
+            type: number
+          homeLosses:
+            type: integer
+          homeStreak:
+            type: string
+          homeStreakCount:
+            type: integer
+          homeVictories:
+            type: integer
+          homeVictoryPercentage:
+            type: number
+          id:
+            type: string
+          last10Losses:
+            type: integer
+          last10Outcomes:
+            items:
+              type: string
+            type: array
+          last10Percentage:
+            type: number
+          last10Victories:
+            type: integer
+          pointCorrections:
+            items: {}
+            type: array
+          rank:
+            type: integer
+          rankingComparisonInfo:
+            items:
+              properties:
+                gameResults:
+                  items:
+                    properties:
+                      gameId:
+                        type: integer
+                      guestSeasonTeamId:
+                        type: integer
+                      homeSeasonTeamId:
+                        type: integer
+                      seasonTeamId:
+                        type: integer
+                      tlc:
+                        type: string
+                      totalGames:
+                        type: integer
+                      totalGoalsAgainst:
+                        type: integer
+                      totalGoalsMade:
+                        type: integer
+                      totalLosses:
+                        type: integer
+                      totalPointsAgainst:
+                        type: integer
+                      totalPointsMade:
+                        type: integer
+                      totalVictories:
+                        type: integer
+                    type: object
+                  type: array
+                perGameResults:
+                  items: {}
+                  type: array
+                position:
+                  type: integer
+                rulesApplied:
+                  items:
+                    type: string
+                  type: array
+                seasonGoalsAgainst:
+                  type: integer
+                seasonGoalsMade:
+                  type: integer
+                seasonTeamId:
+                  type: integer
+                teamName:
+                  type:
+                  - string
+                  - 'null'
+                tlc:
+                  type: string
+                totalGames:
+                  type: integer
+                totalGoalsAgainst:
+                  type: integer
+                totalGoalsMade:
+                  type: integer
+                totalLosses:
+                  type: integer
+                totalPointsAgainst:
+                  type: integer
+                totalPointsMade:
+                  type: integer
+                totalVictories:
+                  type: integer
+              type: object
+            type: array
+          seasonId:
+            type: integer
+          seasonTeam:
+            properties:
+              hasReachedPlayins:
+                type: boolean
+              hasReachedPlayoffs:
+                type: boolean
+              id:
+                type: string
+              isRelegationCertain:
+                type: boolean
+              logoUrl:
+                type: string
+              name:
+                type: string
+              nameShort:
+                type:
+                - string
+                - 'null'
+              teamId:
+                type: string
+              tlc:
+                type: string
+            type: object
+          stage:
+            type: string
+          streak:
+            type: string
+          streakCount:
+            type: integer
+          totalGames:
+            type: integer
+          totalGoalDifference:
+            type: integer
+          totalGoalsAgainst:
+            type: integer
+          totalGoalsMade:
+            type: integer
+          totalLosses:
+            type: integer
+          totalPointsAgainst:
+            type: integer
+          totalPointsMade:
+            type: integer
+          totalVictories:
+            type: integer
+          totalVictoryPercentage:
+            type: number
+          updatedDate:
+            type: string
+        type: object
+      type: array
+    TeamsTeamId:
+      properties:
+        address:
+          type: string
+        bestAchievements:
+          type: string
+        contactPhone:
+          type: string
+        email:
+          type: string
+        homepageUrl:
+          type: string
+        id:
+          type: string
+        logoUrl:
+          type: string
+        mascot:
+          type:
+          - string
+          - 'null'
+        nameFull:
+          type: string
+        nameShort:
+          type:
+          - string
+          - 'null'
+        orderId:
+          type:
+          - integer
+          - 'null'
+        rssFeedUrl:
+          type: string
+        seasonIds:
+          items:
+            type: integer
+          type: array
+        seasonTeams:
+          items:
+            properties:
+              id:
+                type: string
+              isChampionshipWinner:
+                type: boolean
+              isCupWinner:
+                type: boolean
+              logoUrl:
+                type: string
+              name:
+                type: string
+              seasonId:
+                type: integer
+              seasonVenues:
+                items:
+                  properties:
+                    capacity:
+                      type: integer
+                    id:
+                      type: string
+                    isMain:
+                      type: boolean
+                    name:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type: array
+        socialMediaLinks:
+          items:
+            type: string
+          type: array
+        sourceId:
+          type: integer
+        ticketPhone:
+          type:
+          - string
+          - 'null'
+        ticketUrl:
+          type: string
+        tlc:
+          type: string
+        yearJoinedBBL:
+          type: integer
+      type: object
+    Transfers:
+      items:
+        properties:
+          destinationTeam:
+            properties:
+              id:
+                type: string
+              logoUrl:
+                type: string
+              nameShort:
+                type: string
+            type: object
+          destinationTeamFreeText:
+            type: string
+          player:
+            properties:
+              firstName:
+                type: string
+              id:
+                type: string
+              lastName:
+                type: string
+              playerId:
+                type: string
+              position:
+                type: string
+            type: object
+          sortingDate:
+            type: string
+          sourceTeam:
+            properties:
+              id:
+                type: string
+              logoUrl:
+                type: string
+              nameShort:
+                type: string
+            type: object
+          sourceTeamFreeText:
+            type: string
+        type: object
+      type: array
+    TransfersTeams:
+      items:
+        properties:
+          joining:
+            items:
+              properties:
+                destinationTeam:
+                  properties:
+                    id:
+                      type: string
+                    logoUrl:
+                      type: string
+                    nameShort:
+                      type: string
+                  type: object
+                destinationTeamFreeText:
+                  type: string
+                player:
+                  properties:
+                    firstName:
+                      type: string
+                    id:
+                      type: string
+                    lastName:
+                      type: string
+                    playerId:
+                      type: string
+                    position:
+                      type: string
+                  type: object
+                sortingDate:
+                  type: string
+                sourceTeam:
+                  properties:
+                    id:
+                      type: string
+                    logoUrl:
+                      type: string
+                    nameShort:
+                      type: string
+                  type: object
+                sourceTeamFreeText:
+                  type: string
+              type: object
+            type: array
+          leaving:
+            items:
+              properties:
+                destinationTeam:
+                  properties:
+                    id:
+                      type:
+                      - 'null'
+                    logoUrl:
+                      type:
+                      - 'null'
+                    nameShort:
+                      type:
+                      - 'null'
+                  type: object
+                destinationTeamFreeText:
+                  type:
+                  - 'null'
+                player:
+                  properties:
+                    firstName:
+                      type: string
+                    id:
+                      type: string
+                    lastName:
+                      type: string
+                    playerId:
+                      type: string
+                    position:
+                      type: string
+                  type: object
+                sortingDate:
+                  type: string
+                sourceTeam:
+                  properties:
+                    id:
+                      type: string
+                    logoUrl:
+                      type: string
+                    nameShort:
+                      type: string
+                  type: object
+                sourceTeamFreeText:
+                  type: string
+              type: object
+            type: array
+          roster:
+            items:
+              properties:
+                birthDate:
+                  type: string
+                firstName:
+                  type: string
+                height:
+                  type: number
+                id:
+                  type: string
+                imageUrl:
+                  type: string
+                isAllStar:
+                  type: boolean
+                isVisible:
+                  type: integer
+                isYoung:
+                  type: boolean
+                lastName:
+                  type: string
+                nationalities:
+                  items:
+                    type: string
+                  type: array
+                playerId:
+                  type: string
+                playerSourceId:
+                  type: integer
+                position:
+                  type: string
+                previousTeams:
+                  items:
+                    type: string
+                  type: array
+                realPlayerId:
+                  type: integer
+                seasonId:
+                  type: integer
+                seasonTeamId:
+                  type: string
+                shirtNumber:
+                  type: string
+                socialMediaLinks:
+                  items: {}
+                  type: array
+                weight:
+                  type: integer
+              type: object
+            type: array
+          team:
+            properties:
+              address:
+                type: string
+              bestAchievements:
+                type:
+                - string
+                - 'null'
+              contactPhone:
+                type: string
+              email:
+                type: string
+              homepageUrl:
+                type: string
+              id:
+                type: string
+              logoUrl:
+                type: string
+              mascot:
+                type:
+                - string
+                - 'null'
+              nameFull:
+                type: string
+              nameShort:
+                type: string
+              orderId:
+                type:
+                - integer
+                - 'null'
+              rssFeedUrl:
+                type: string
+              seasonIds:
+                items:
+                  type: integer
+                type: array
+              seasonTeams:
+                items:
+                  properties:
+                    id:
+                      type: string
+                    isChampionshipWinner:
+                      type: boolean
+                    isCupWinner:
+                      type: boolean
+                    logoUrl:
+                      type: string
+                    name:
+                      type: string
+                    seasonId:
+                      type: integer
+                    seasonVenues:
+                      items: {}
+                      type: array
+                  type: object
+                type: array
+              socialMediaLinks:
+                items:
+                  type: string
+                type: array
+              sourceId:
+                type: integer
+              ticketPhone:
+                type: string
+              ticketUrl:
+                type:
+                - string
+                - 'null'
+              tlc:
+                type: string
+              yearJoinedBBL:
+                type:
+                - integer
+                - 'null'
+            type: object
+        type: object
+      type: array
+  securitySchemes:
+    apiKey:
+      description: The constant `publicWebUser`.
+      in: header
+      name: x-api-key
+      type: apiKey
+    apiSecret:
+      description: 'Derived, and rotating: take the `"key":"..."` value embedded in any https://www.easycredit-bbl.de/
+        page, reverse it, and replace every `:` with `-`. Scrape it on each run (it has changed at least
+        once); never commit it. The BBL value also unlocks the DBBL host.'
+      in: header
+      name: x-api-secret
+      type: apiKey
+info:
+  description: 'The Bundesliga sites'' data API, run by SCB on two hosts with the same routes: the men''s
+    easyCredit BBL (api.basketball-bundesliga.de) and the women''s Toyota DBBL (api-1.dbbl.scb.world).
+    Seasons, games (paged), box scores and play-by-play with shot x/y, standings, playoff trees, season
+    stat tables, player and club profiles, referees, transfers and records. Routes from the easycredit-bbl.de
+    site bundle; shapes from committed captures in scb/captures/ (captured 2026-10-12). seasonId is the
+    START year (2026 = 2026-27; sdv END year = seasonId + 1). BBL history from 1966 (games) and 2005 (box
+    scores); actions from 2008-09; DBBL from 2024-25. Ids are strings; players are keyed by season-player
+    id (one per club engagement) and realPlayerId (the person). Every request needs both security headers.
+    Not official or supported; the BBL Impressum forbids storing BBL content in an information system
+    without written permission (see the README).'
+  title: 'SCB basketball API: BBL and DBBL (api.basketball-bundesliga.de, api-1.dbbl.scb.world)'
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /games:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: games
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1). Omitted: the active
+          season.'
+        example: 2026
+        in: query
+        name: seasonId
+        required: false
+        schema: &id001
+          type: integer
+      - description: '1-based page number. Required: omitted, the API answers 400 with a JSON string.'
+        example: 1
+        in: query
+        name: currentPage
+        required: true
+        schema: *id001
+      - description: Rows per page (default 9 on /games). 500 returns a whole season of games in one page.
+        example: 500
+        in: query
+        name: pageSize
+        required: false
+        schema: *id001
+      - description: 'Competition filter. BBL host: BBL, BBL_CUP (Pokal), ALLSTAR, CHAMPIONS_CUP; DBBL
+          host: DBBL, DBBL_CUP.'
+        in: query
+        name: competition
+        required: false
+        schema:
+          enum: &id005
+          - BBL
+          - BBL_CUP
+          - ALLSTAR
+          - CHAMPIONS_CUP
+          - DBBL
+          - DBBL_CUP
+          type: string
+      - description: Finished, scheduled or all games.
+        in: query
+        name: gameType
+        required: false
+        schema:
+          enum:
+          - finished
+          - scheduled
+          - all
+          type: string
+      - description: Only the games of this team (home or guest).
+        in: query
+        name: seasonTeamId
+        required: false
+        schema: &id002
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Games'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: &id003
+                type: string
+          description: 'currentPage omitted: the JSON string "currentPage is required and needs to be
+            a number".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Games of a season, paged
+  /games/recent:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: games_recent
+      parameters:
+      - description: Games per bucket (present, future, past); 9 when omitted.
+        in: query
+        name: slotSize
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesRecent'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Recent, live and upcoming games
+  /games/{gameId}:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: games_gameId
+      parameters:
+      - description: 'Game id (`id` in /games). One sequence per host: BBL and DBBL ids overlap numerically,
+          so key a game by (host, id).'
+        example: '2006920'
+        in: path
+        name: gameId
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameId'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'Unknown id: the JSON string "not a valid gameId".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Game header
+  /games/{gameId}/stats:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL. Box scores from 2002-03 (earlier games answer
+        204). Actions from 2008-09 (on some games; every game in recent seasons); earlier box scores come
+        with actions []. See scb-returns.md for the action vocabularies and the shot coordinate system.'
+      operationId: games_gameId_stats
+      parameters:
+      - description: 'Game id (`id` in /games). One sequence per host: BBL and DBBL ids overlap numerically,
+          so key a game by (host, id).'
+        example: '2006920'
+        in: path
+        name: gameId
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameIdStats'
+          description: OK
+        '204':
+          description: 'No box score: games before 2002-03 (1990-91, 2000-01 and 2001-02 games probed).'
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'Unknown id: the JSON string "not a valid gameId".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Box score, play-by-play actions (shot x/y) and PDF report links
+  /records/per-game/{seasonId}:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: records_per_game_seasonId
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1).'
+        example: 2025
+        in: path
+        name: seasonId
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordsPerGameSeasonId'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: 'Single-game records: the season''s and all-time'
+  /records/season-averages:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: records_season_averages
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordsSeasonAverages'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: All-time season-average records
+  /referees:
+    get:
+      description: 'Hosts: BBL. Sampled on BBL. DBBL answers 200 with an empty page (items []), so only
+        BBL is documented.'
+      operationId: referees
+      parameters:
+      - description: '1-based page number. Required: omitted, the API answers 400 with a JSON string.'
+        example: 1
+        in: query
+        name: currentPage
+        required: true
+        schema: *id001
+      - description: Rows per page (default 9 on /games). 500 returns a whole season of games in one page.
+        example: 3
+        in: query
+        name: pageSize
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referees'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'currentPage omitted: "currentPage is required and has to be a positive number".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Referees and commissioners, paged
+    servers:
+    - description: BBL (men, easyCredit Basketball Bundesliga)
+      url: https://api.basketball-bundesliga.de
+  /season-players/{seasonPlayerId}:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL. Unknown ids answer 204 with an empty body.'
+      operationId: season_players_seasonPlayerId
+      parameters:
+      - description: Season-player id (a player's engagement with one club; see the README), e.g. box-score
+          `seasonPlayer.id`. Unknown ids answer 204 with no body.
+        example: '56414'
+        in: path
+        name: seasonPlayerId
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonPlayersSeasonPlayerId'
+          description: OK
+        '204':
+          description: Unknown season-player id.
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Player profile, by season-player id
+  /seasons:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: seasons
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seasons'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Seasons, newest first, with the active flag
+  /seasons/{seasonId}:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: seasons_seasonId
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1).'
+        example: 2026
+        in: path
+        name: seasonId
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonsSeasonId'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: 'One season: its teams, players (the id crosswalk) and nationalities'
+  /seasons/{seasonId}/player-statistics:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: seasons_seasonId_player_statistics
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1).'
+        example: 2025
+        in: path
+        name: seasonId
+        required: true
+        schema: *id001
+      - description: 'Which games the table covers. Required: omitted, 400 with the allowed values.'
+        example: MAIN_ROUND
+        in: query
+        name: displayType
+        required: true
+        schema:
+          enum: &id004
+          - MAIN_ROUND
+          - PLAYOFFS
+          - PLAYOFFS_TOTAL
+          - MAIN_ROUND_AND_PLAY_OFFS
+          - CUP
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonsSeasonIdPlayerStatistics'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'displayType omitted: "displayType must be one of the following values: ...".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Season player stat table (totals and per-game)
+  /seasons/{seasonId}/playoff-tree:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL. A season whose playoffs have not started answers
+        {seasonId, quarterFinals: [], semiFinals: [], finals: {}}.'
+      operationId: seasons_seasonId_playoff_tree
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1).'
+        example: 2025
+        in: path
+        name: seasonId
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonsSeasonIdPlayoffTree'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Playoff bracket of a season
+  /seasons/{seasonId}/team-statistics:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: seasons_seasonId_team_statistics
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1).'
+        example: 2025
+        in: path
+        name: seasonId
+        required: true
+        schema: *id001
+      - description: 'Which games the table covers. Required: omitted, 400 with the allowed values.'
+        example: MAIN_ROUND
+        in: query
+        name: displayType
+        required: true
+        schema:
+          enum: *id004
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonsSeasonIdTeamStatistics'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'displayType omitted: "displayType must be one of the following values: ...".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Season team stat table (totals and per-game)
+  /standings:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: standings
+      parameters:
+      - description: 'Season START year: 2026 = 2026-27 (sdv END year = seasonId + 1). Omitted: the active
+          season. Seasons before about 2000 answer [] (1990 did).'
+        example: 2025
+        in: query
+        name: seasonId
+        required: false
+        schema: *id001
+      - description: Stages to include, sent as an array (`stages[]=MAIN_ROUND` or repeated `stages=`);
+          a bare `stages=X` answers 400 "stages has to be an array".
+        explode: true
+        in: query
+        name: stages
+        required: false
+        schema:
+          items:
+            enum:
+            - MAIN_ROUND
+            - PLAYINS
+            - FIRST_ROUND
+            - SECOND_ROUND
+            - ROUND_OF_16
+            - ROUND_OF_8
+            - SEMI_FINALS
+            - FINALS
+            - THIRD_PLACE_GAME
+            - QUALIFICATION
+            - GROUP_STAGE
+            type: string
+          type: array
+        style: form
+      - description: Competition; BBL_CUP answered [].
+        in: query
+        name: competition
+        required: false
+        schema:
+          enum: *id005
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Standings'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema: *id003
+          description: 'A scalar stages value: "stages has to be an array".'
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Standings of a season
+  /teams/{teamId}:
+    get:
+      description: 'Hosts: BBL, DBBL. Sampled on BBL, DBBL.'
+      operationId: teams_teamId
+      parameters:
+      - description: Club id (`teamId`, equal to `seasonTeamId` in every sample).
+        example: '413'
+        in: path
+        name: teamId
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTeamId'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Club profile
+  /transfers:
+    get:
+      description: 'Hosts: BBL. Sampled on BBL. BBL only: DBBL answers 404 {"status":"error","error":"Sorry
+        cant find that!"}.'
+      operationId: transfers
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfers'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: Latest transfers
+    servers:
+    - description: BBL (men, easyCredit Basketball Bundesliga)
+      url: https://api.basketball-bundesliga.de
+  /transfers/teams:
+    get:
+      description: 'Hosts: BBL. Sampled on BBL. BBL only: DBBL answers 404.'
+      operationId: transfers_teams
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransfersTeams'
+          description: OK
+        '401':
+          description: 'BBL host without valid x-api-key / x-api-secret: an HTML 401 page.'
+        '403':
+          description: 'DBBL host without them: {"status":"error","error":"No valid api key provided."}.'
+      summary: 'Per club: joining, leaving and current roster'
+    servers:
+    - description: BBL (men, easyCredit Basketball Bundesliga)
+      url: https://api.basketball-bundesliga.de
+security:
+- apiKey: []
+  apiSecret: []
+servers:
+- description: BBL (men, easyCredit Basketball Bundesliga)
+  url: https://api.basketball-bundesliga.de
+- description: DBBL (women, Toyota Damen-Basketball-Bundesliga)
+  url: https://api-1.dbbl.scb.world
