@@ -1,0 +1,3144 @@
+components:
+  schemas:
+    CommonTeamList:
+      description: 'The current clubs: team code, names (Korean and English), logo class.'
+      items:
+        properties:
+          teamCode:
+            description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+              `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+              the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own
+              codes (`teamCodeD`).'
+            type: string
+          teamCodeD:
+            description: Team code of the club's D-League (reserve) side, in the same team-code space
+              as `teamCode`.
+            type: string
+          teamLogoClass:
+            description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such as
+              'hd1997').
+            type: string
+          teamName:
+            description: Team short name (Korean, no space, e.g. '창원LG').
+            type: string
+          teamNameEn:
+            description: Team short name in English.
+            type: string
+          teamNameFull:
+            description: Team full name (Korean).
+            type: string
+          teamNameFullEn:
+            description: Team full name in English (e.g. 'CHANGWON LG SAKERS').
+            type: string
+        type: object
+      type: array
+    Error:
+      description: KBL error envelope.
+      properties:
+        errorCode:
+          description: The HTTP status repeated.
+          type: integer
+        message:
+          description: Error message in Korean (translated in the response description).
+          type: string
+        object:
+          description: An error number (e.g. -1101) or null.
+        resultCode:
+          description: '''Fail''.'
+          type: string
+      type: object
+    LeaguePlayoffGlkey:
+      description: Playoff bracket, format used through 2023-24 (seasonCode < 45).
+      properties:
+        defaultRank:
+          description: Final regular-season standings that seed the playoffs (top six).
+          items:
+            properties:
+              gameCode:
+                description: 'Competition type of the standings: ''01'' regular season.'
+                type: string
+              rank:
+                description: Final regular-season standing, i.e. the playoff seed (string).
+                type: string
+              seasonCode:
+                description: 'KBL season code: sequential over every season and D-League edition (2 =
+                  1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                type: integer
+              teamCode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              teamLogoClass:
+                description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such
+                  as 'hd1997').
+                type: string
+              teamName1:
+                description: Team short name (Korean).
+                type: string
+              teamName2:
+                description: Team full name (Korean).
+                type: string
+            type: object
+          type: array
+        finalResult:
+          description: 'Championship final: one row per team.'
+          items:
+            properties:
+              gameCode:
+                description: 'Competition type: ''03'' playoffs, ''04'' championship final.'
+                type: string
+              gameDate:
+                description: Date of a game of the series, YYYYMMDD (which one is unverified).
+                type: string
+              gameHoi:
+                description: 'Series number within the round (string): ''1'', ''2''.'
+                type: string
+              loss:
+                description: Series losses of the team.
+                type: integer
+              seasonCode:
+                description: 'KBL season code: sequential over every season and D-League edition (2 =
+                  1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                type: integer
+              teamCode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              teamLogoClass:
+                description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such
+                  as 'hd1997').
+                type: string
+              teamName1:
+                description: Team short name (Korean).
+                type: string
+              teamName2:
+                description: Team full name (Korean).
+                type: string
+              win:
+                description: Series wins of the team.
+                type: integer
+            type: object
+          type: array
+        fourResult:
+          description: 'Semifinal (4강) series: one row per team.'
+          items:
+            properties:
+              gameCode:
+                description: 'Competition type: ''03'' playoffs, ''04'' championship final.'
+                type: string
+              gameDate:
+                description: Date of a game of the series, YYYYMMDD (which one is unverified).
+                type: string
+              gameHoi:
+                description: 'Series number within the round (string): ''1'', ''2''.'
+                type: string
+              loss:
+                description: Series losses of the team.
+                type: integer
+              seasonCode:
+                description: 'KBL season code: sequential over every season and D-League edition (2 =
+                  1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                type: integer
+              teamCode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              teamLogoClass:
+                description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such
+                  as 'hd1997').
+                type: string
+              teamName1:
+                description: Team short name (Korean).
+                type: string
+              teamName2:
+                description: Team full name (Korean).
+                type: string
+              win:
+                description: Series wins of the team.
+                type: integer
+            type: object
+          type: array
+        poScheduleExist:
+          description: True when the season has a playoff schedule.
+          type: boolean
+        sixResult:
+          description: 'Quarterfinal (6강) series: one row per team.'
+          items:
+            properties:
+              gameCode:
+                description: 'Competition type: ''03'' playoffs, ''04'' championship final.'
+                type: string
+              gameDate:
+                description: Date of a game of the series, YYYYMMDD (which one is unverified).
+                type: string
+              gameHoi:
+                description: 'Series number within the round (string): ''1'', ''2''.'
+                type: string
+              loss:
+                description: Series losses of the team.
+                type: integer
+              seasonCode:
+                description: 'KBL season code: sequential over every season and D-League edition (2 =
+                  1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                type: integer
+              teamCode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              teamLogoClass:
+                description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such
+                  as 'hd1997').
+                type: string
+              teamName1:
+                description: Team short name (Korean).
+                type: string
+              teamName2:
+                description: Team full name (Korean).
+                type: string
+              win:
+                description: Series wins of the team.
+                type: integer
+            type: object
+          type: array
+      type: object
+    LeaguePlayoffNewGlkey:
+      description: Playoff bracket, format used from 2024-25 (seasonCode >= 45).
+      properties:
+        defaultRank:
+          description: Final regular-season standings that seed the playoffs (top six).
+          items:
+            properties:
+              gameCode:
+                description: 'Competition type of the standings: ''01'' regular season.'
+                type: string
+              rank:
+                description: Final regular-season standing, i.e. the playoff seed (string).
+                type: string
+              seasonCode:
+                description: 'KBL season code: sequential over every season and D-League edition (2 =
+                  1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                type: integer
+              teamCode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              teamLogoClass:
+                description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such
+                  as 'hd1997').
+                type: string
+              teamName1:
+                description: Team short name (Korean).
+                type: string
+              teamName2:
+                description: Team full name (Korean).
+                type: string
+            type: object
+          type: array
+        finalScheduleExist:
+          description: True when the championship final is scheduled.
+          type: boolean
+        fourScheduleExist:
+          description: True when the semifinal (4강) round is scheduled.
+          type: boolean
+        game1Start:
+          description: True when quarterfinal series 1 has started.
+          type: boolean
+        game2Start:
+          description: True when quarterfinal series 2 has started.
+          type: boolean
+        game3Start:
+          description: True when semifinal series 1 has started.
+          type: boolean
+        game4Start:
+          description: True when semifinal series 2 has started.
+          type: boolean
+        game5Start:
+          description: True when the championship final has started.
+          type: boolean
+        result:
+          description: 'The bracket: series scores, seeds, winners and the games of each series.'
+          properties:
+            finalFour1vs2Winner:
+              description: 'Team code of the winner of semifinal series 1. KBL team code (2-digit string,
+                e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`,
+                `t` in text-cast. Not stable across ownership changes: the Anyang club is ''40'' (SBS)
+                in 1997-98 and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+              type: string
+            finalFour3vs4Winner:
+              description: 'Team code of the winner of semifinal series 2. KBL team code (2-digit string,
+                e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`,
+                `t` in text-cast. Not stable across ownership changes: the Anyang club is ''40'' (SBS)
+                in 1997-98 and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+              type: string
+            finalSix1:
+              description: 'Team code of playoff seed 1 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix1vs2Winner:
+              description: 'Team code of the winner of quarterfinal series 1 (resultFinalSix1 vs resultFinalSix2).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix2:
+              description: 'Team code of playoff seed 2 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix3:
+              description: 'Team code of playoff seed 3 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix3vs4Winner:
+              description: 'Team code of the winner of quarterfinal series 2 (resultFinalSix3 vs resultFinalSix4).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix4:
+              description: 'Team code of playoff seed 4 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix5:
+              description: 'Team code of playoff seed 5 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalSix6:
+              description: 'Team code of playoff seed 6 (the 6-team bracket; seeds 1-2 skip to the semifinals).
+                KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            finalWinner:
+              description: 'Team code of the winner of the championship final: the champion. KBL team
+                code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`,
+                game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes: the Anyang
+                club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own codes
+                (`teamCodeD`).'
+              type: string
+            game1:
+              description: Games of quarterfinal series 1.
+              items:
+                properties:
+                  gameDate:
+                    description: Game date, YYYYMMDD (local, KST).
+                    type: string
+                  gameNo:
+                    description: Game number within the competition (glkey); the N part of the gmkey.
+                    type: integer
+                  gmkey:
+                    description: The game key as an OBJECT {seasonCode, gameCode, gameNo} here (a string
+                      `S..G..N..` elsewhere).
+                    properties:
+                      gameCode:
+                        description: 'Competition type within the season (2-digit string; code table in
+                          the README and below): 01 regular season, 03 playoffs, 04 final, ...'
+                        type: string
+                      gameNo:
+                        description: Game number within the competition (glkey); the N part of the gmkey.
+                        type: integer
+                      seasonCode:
+                        description: 'KBL season code: sequential over every season and D-League edition
+                          (2 = 1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                        type: integer
+                    type: object
+                  homeWin:
+                    description: 1 when the home team won, else 0.
+                    type: integer
+                  scoreA:
+                    description: Away team points.
+                    type: integer
+                  scoreH:
+                    description: Home team points.
+                    type: integer
+                  tcodeA:
+                    description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tcodeH:
+                    description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tnameA:
+                    description: Away team short name (Korean).
+                    type: string
+                  tnameH:
+                    description: Home team short name (Korean).
+                    type: string
+                type: object
+              type: array
+            game2:
+              description: Games of quarterfinal series 2.
+              items:
+                properties:
+                  gameDate:
+                    description: Game date, YYYYMMDD (local, KST).
+                    type: string
+                  gameNo:
+                    description: Game number within the competition (glkey); the N part of the gmkey.
+                    type: integer
+                  gmkey:
+                    description: The game key as an OBJECT {seasonCode, gameCode, gameNo} here (a string
+                      `S..G..N..` elsewhere).
+                    properties:
+                      gameCode:
+                        description: 'Competition type within the season (2-digit string; code table in
+                          the README and below): 01 regular season, 03 playoffs, 04 final, ...'
+                        type: string
+                      gameNo:
+                        description: Game number within the competition (glkey); the N part of the gmkey.
+                        type: integer
+                      seasonCode:
+                        description: 'KBL season code: sequential over every season and D-League edition
+                          (2 = 1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                        type: integer
+                    type: object
+                  homeWin:
+                    description: 1 when the home team won, else 0.
+                    type: integer
+                  scoreA:
+                    description: Away team points.
+                    type: integer
+                  scoreH:
+                    description: Home team points.
+                    type: integer
+                  tcodeA:
+                    description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tcodeH:
+                    description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tnameA:
+                    description: Away team short name (Korean).
+                    type: string
+                  tnameH:
+                    description: Home team short name (Korean).
+                    type: string
+                type: object
+              type: array
+            game3:
+              description: Games of semifinal series 1.
+              items:
+                properties:
+                  gameDate:
+                    description: Game date, YYYYMMDD (local, KST).
+                    type: string
+                  gameNo:
+                    description: Game number within the competition (glkey); the N part of the gmkey.
+                    type: integer
+                  gmkey:
+                    description: The game key as an OBJECT {seasonCode, gameCode, gameNo} here (a string
+                      `S..G..N..` elsewhere).
+                    properties:
+                      gameCode:
+                        description: 'Competition type within the season (2-digit string; code table in
+                          the README and below): 01 regular season, 03 playoffs, 04 final, ...'
+                        type: string
+                      gameNo:
+                        description: Game number within the competition (glkey); the N part of the gmkey.
+                        type: integer
+                      seasonCode:
+                        description: 'KBL season code: sequential over every season and D-League edition
+                          (2 = 1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                        type: integer
+                    type: object
+                  homeWin:
+                    description: 1 when the home team won, else 0.
+                    type: integer
+                  scoreA:
+                    description: Away team points.
+                    type: integer
+                  scoreH:
+                    description: Home team points.
+                    type: integer
+                  tcodeA:
+                    description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tcodeH:
+                    description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tnameA:
+                    description: Away team short name (Korean).
+                    type: string
+                  tnameH:
+                    description: Home team short name (Korean).
+                    type: string
+                type: object
+              type: array
+            game4:
+              description: Games of semifinal series 2.
+              items:
+                properties:
+                  gameDate:
+                    description: Game date, YYYYMMDD (local, KST).
+                    type: string
+                  gameNo:
+                    description: Game number within the competition (glkey); the N part of the gmkey.
+                    type: integer
+                  gmkey:
+                    description: The game key as an OBJECT {seasonCode, gameCode, gameNo} here (a string
+                      `S..G..N..` elsewhere).
+                    properties:
+                      gameCode:
+                        description: 'Competition type within the season (2-digit string; code table in
+                          the README and below): 01 regular season, 03 playoffs, 04 final, ...'
+                        type: string
+                      gameNo:
+                        description: Game number within the competition (glkey); the N part of the gmkey.
+                        type: integer
+                      seasonCode:
+                        description: 'KBL season code: sequential over every season and D-League edition
+                          (2 = 1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                        type: integer
+                    type: object
+                  homeWin:
+                    description: 1 when the home team won, else 0.
+                    type: integer
+                  scoreA:
+                    description: Away team points.
+                    type: integer
+                  scoreH:
+                    description: Home team points.
+                    type: integer
+                  tcodeA:
+                    description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tcodeH:
+                    description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tnameA:
+                    description: Away team short name (Korean).
+                    type: string
+                  tnameH:
+                    description: Home team short name (Korean).
+                    type: string
+                type: object
+              type: array
+            game5:
+              description: Games of the championship final.
+              items:
+                properties:
+                  gameDate:
+                    description: Game date, YYYYMMDD (local, KST).
+                    type: string
+                  gameNo:
+                    description: Game number within the competition (glkey); the N part of the gmkey.
+                    type: integer
+                  gmkey:
+                    description: The game key as an OBJECT {seasonCode, gameCode, gameNo} here (a string
+                      `S..G..N..` elsewhere).
+                    properties:
+                      gameCode:
+                        description: 'Competition type within the season (2-digit string; code table in
+                          the README and below): 01 regular season, 03 playoffs, 04 final, ...'
+                        type: string
+                      gameNo:
+                        description: Game number within the competition (glkey); the N part of the gmkey.
+                        type: integer
+                      seasonCode:
+                        description: 'KBL season code: sequential over every season and D-League edition
+                          (2 = 1997-98, 47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+                        type: integer
+                    type: object
+                  homeWin:
+                    description: 1 when the home team won, else 0.
+                    type: integer
+                  scoreA:
+                    description: Away team points.
+                    type: integer
+                  scoreH:
+                    description: Home team points.
+                    type: integer
+                  tcodeA:
+                    description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tcodeH:
+                    description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon
+                      LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast.
+                      Not stable across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98
+                      and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+                    type: string
+                  tnameA:
+                    description: Away team short name (Korean).
+                    type: string
+                  tnameH:
+                    description: Home team short name (Korean).
+                    type: string
+                type: object
+              type: array
+            resultFinal1:
+              description: Wins of team 1 in the championship final (the games in `game5`).
+              type: integer
+            resultFinal2:
+              description: Wins of team 2 in the championship final.
+              type: integer
+            resultFinalFour1:
+              description: Wins of team 1 in semifinal series 1 (the games in `game3`).
+              type: integer
+            resultFinalFour2:
+              description: Wins of team 2 in semifinal series 1 (the games in `game3`).
+              type: integer
+            resultFinalFour3:
+              description: Wins of team 1 in semifinal series 2 (the games in `game4`).
+              type: integer
+            resultFinalFour4:
+              description: Wins of team 2 in semifinal series 2 (the games in `game4`).
+              type: integer
+            resultFinalSix1:
+              description: Wins of team 1 in quarterfinal series 1 (the games in `game1`).
+              type: integer
+            resultFinalSix2:
+              description: Wins of team 2 in quarterfinal series 1 (the games in `game1`).
+              type: integer
+            resultFinalSix3:
+              description: Wins of team 1 in quarterfinal series 2 (the games in `game2`).
+              type: integer
+            resultFinalSix4:
+              description: Wins of team 2 in quarterfinal series 2 (the games in `game2`).
+              type: integer
+          type: object
+        sixScheduleExist:
+          description: True when the quarterfinal (6강) round is scheduled.
+          type: boolean
+      type: object
+    LeagueRankGlkey:
+      description: Standings of one competition (glkey) with team season totals.
+      items:
+        properties:
+          AS:
+            description: Assists. Team season total for the competition (glkey).
+            type: integer
+          BS:
+            description: Blocked shots. Team season total for the competition (glkey).
+            type: integer
+          DR:
+            description: Defensive rebounds. Team season total for the competition (glkey).
+            type: integer
+          OR:
+            description: Offensive rebounds. Team season total for the competition (glkey).
+            type: integer
+          PScore:
+            description: Points in the paint (pp/ppA are 0 on this route in every sampled row). Team season
+              total for the competition (glkey).
+            type: integer
+          ST:
+            description: Steals. Team season total for the competition (glkey).
+            type: integer
+          TDraw:
+            description: Draws (always 0).
+            type: integer
+          TLoss:
+            description: Losses.
+            type: integer
+          TO:
+            description: Turnovers. Team season total for the competition (glkey).
+            type: integer
+          TR:
+            description: Team rebounds (action 218), unverified against `teamR`. Team season total for
+              the competition (glkey).
+            type: integer
+          TWin:
+            description: Wins.
+            type: integer
+          aloss:
+            description: Away losses.
+            type: integer
+          awin:
+            description: Away wins.
+            type: integer
+          bf:
+            description: Meaning unverified (probably bench fouls; 0 in every game sample). Team season
+              total for the competition (glkey).
+            type: integer
+          contiDate:
+            description: Date (YYYYMMDD) the current streak started (inferred; unverified).
+            type: string
+          contiLoss:
+            description: Current losing streak (0 when the last game was a win).
+            type: integer
+          contiWin:
+            description: Current winning streak (0 when the last game was a loss).
+            type: integer
+          dk:
+            description: Dunks made (action 207); included in `fg`. Team season total for the competition
+              (glkey).
+            type: integer
+          dkA:
+            description: Dunk attempts (made + missed, actions 207 + 208). Team season total for the competition
+              (glkey).
+            type: integer
+          draw:
+            description: 'Boolean: the team''s latest game was a draw (always false).'
+            type: boolean
+          ef:
+            description: Meaning unverified (0 in every game sample; non-zero in some season totals).
+              Team season total for the competition (glkey).
+            type: integer
+          fb:
+            description: Fast breaks credited to the player (action 217 rows that name a player, as in
+              1997-98); 0 in recent seasons, where fast breaks are team rows (`tfb`). Team season total
+              for the competition (glkey).
+            type: integer
+          fg:
+            description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft holds
+              on every sampled box). Team season total for the competition (glkey).
+            type: integer
+          fgA:
+            description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208). Team
+              season total for the competition (glkey).
+            type: integer
+          foulTot:
+            description: Fouls committed. Team season total for the competition (glkey).
+            type: integer
+          foulout:
+            description: Players fouled out (unverified). Team season total for the competition (glkey).
+            type: integer
+          ft:
+            description: Free throws made (action 203). Team season total for the competition (glkey).
+            type: integer
+          ftA:
+            description: Free-throw attempts, made + missed (203 + 204). Team season total for the competition
+              (glkey).
+            type: integer
+          gameCode:
+            description: 'Competition type within the season (2-digit string; code table in the README
+              and below): 01 regular season, 03 playoffs, 04 final, ...'
+            type: string
+          gameCount:
+            description: Games played.
+            type: integer
+          gameDate:
+            description: Date of the latest game counted in the row, YYYYMMDD.
+            type: string
+          gameFlag:
+            description: Boolean; meaning unverified.
+            type: boolean
+          gd:
+            description: Good-defense plays (action 221). Team season total for the competition (glkey).
+            type: integer
+          hloss:
+            description: Home losses.
+            type: integer
+          hwin:
+            description: Home wins.
+            type: integer
+          idf:
+            description: Illegal-defense violations (action 219; an early-KBL rule, so non-zero only in
+              old seasons). Team season total for the competition (glkey).
+            type: integer
+          inout:
+            description: Times the player entered the game, the start included (checked on the 2025-26
+              sample game); a team row sums its players. Team season total for the competition (glkey).
+            type: integer
+          inout1:
+            description: Times the player was substituted out before the end (checked on the 2025-26 sample
+              game); a team row sums its players. Team season total for the competition (glkey).
+            type: integer
+          inputtime:
+            description: When the standings row was written (ISO 8601 UTC timestamp).
+            type: string
+          lastRecor:
+            description: 'The last five results as a comma-separated string, most recent first: 1 win,
+              0 loss (the name is cut short in the API).'
+            type: string
+          loss:
+            description: 'Boolean: the team''s latest game was a loss (inferred from contiLoss).'
+            type: boolean
+          maxLoss:
+            description: Longest losing streak of the season.
+            type: integer
+          maxWin:
+            description: Longest winning streak of the season.
+            type: integer
+          nextTeam:
+            description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+            x-unobserved: true
+          nextTeamLogoClass:
+            description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+            x-unobserved: true
+          nextTeamName:
+            description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+            x-unobserved: true
+          playMin:
+            description: Minutes of playing time; add `playSec` seconds. Team season total for the competition
+              (glkey).
+            type: integer
+          playSec:
+            description: Seconds part of the playing time (0-59), added to `playMin`. Team season total
+              for the competition (glkey).
+            type: integer
+          pp:
+            description: 'Paint field goals made: 0 in every sampled row (see PScore).'
+            type: integer
+          ppA:
+            description: 'Paint field-goal attempts: 0 in every sampled row (see PScore).'
+            type: integer
+          rank:
+            description: Standing (1 = first).
+            type: integer
+          score:
+            description: Points. Team season total for the competition (glkey).
+            type: integer
+          seasonCode:
+            description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+              47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+            type: integer
+          teamCode:
+            description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+              `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+              the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own
+              codes (`teamCodeD`).'
+            type: string
+          teamLogoClass:
+            description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such as
+              'hd1997').
+            type: string
+          teamName1:
+            description: Team short name (Korean).
+            type: string
+          teamName2:
+            description: Team full name (Korean).
+            type: string
+          tf:
+            description: Probably technical fouls (unverified; 0 in most rows). Team season total for
+              the competition (glkey).
+            type: integer
+          tfb:
+            description: Team fast breaks (action 217). Team season total for the competition (glkey).
+            type: integer
+          threep:
+            description: Three-point field goals made (action 205). Team season total for the competition
+              (glkey).
+            type: integer
+          threepA:
+            description: Three-point attempts, made + missed (205 + 206). Team season total for the competition
+              (glkey).
+            type: integer
+          tto:
+            description: Team turnovers (action 223). Team season total for the competition (glkey).
+            type: integer
+          wft:
+            description: Fouls that awarded free throws (action 215). Team season total for the competition
+              (glkey).
+            type: integer
+          win:
+            description: 'Boolean: the team''s latest game was a win (inferred: `loss` true with contiLoss
+              2).'
+            type: boolean
+          winDiff:
+            description: Games behind the leader.
+            type: number
+          winRate:
+            description: Win fraction, 0-1.
+            type: number
+          woft:
+            description: Fouls that awarded no free throws (action 216). Team season total for the competition
+              (glkey).
+            type: integer
+        type: object
+      type: array
+    LeagueRankGlkeyTeamTracks:
+      description: Standings rank after every game, per team, and the round calendar.
+      properties:
+        rounds:
+          description: The season's round calendar.
+          items:
+            properties:
+              fromDate:
+                description: First date of the round, YYYYMMDD.
+                type: string
+              gameRound:
+                description: Round number of the season (the KBL plays six rounds).
+                type: integer
+              toDate:
+                description: Last date of the round, YYYYMMDD.
+                type: string
+            type: object
+          type: array
+        tracks:
+          description: 'Per team: its rank after each game.'
+          items:
+            properties:
+              tcode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              tlogo:
+                description: CSS logo class of the team (site styling).
+                type: string
+              tname:
+                description: Team short name in English (e.g. 'KT').
+                type: string
+              tracks:
+                description: Standing after each of the team's games, in order (1 = first).
+                items:
+                  type: integer
+                type: array
+            type: object
+          type: array
+      type: object
+    LeagueRankTeam:
+      description: Current standings (the active season; no parameter).
+      items:
+        properties:
+          aloss:
+            description: Away losses.
+            type: integer
+          awin:
+            description: Away wins.
+            type: integer
+          contiLoss:
+            description: Current losing streak (0 when the last game was a win).
+            type: integer
+          contiWin:
+            description: Current winning streak (0 when the last game was a loss).
+            type: integer
+          draw:
+            description: Draws (always 0 in basketball).
+            type: integer
+          hloss:
+            description: Home losses.
+            type: integer
+          hwin:
+            description: Home wins.
+            type: integer
+          lastRecord:
+            description: 'The last five results, most recent first: 1 win, 0 loss.'
+            items:
+              type: integer
+            type: array
+          loss:
+            description: Losses.
+            type: integer
+          maxLoss:
+            description: Longest losing streak of the season.
+            type: integer
+          maxWin:
+            description: Longest winning streak of the season.
+            type: integer
+          rank:
+            description: Standing (1 = first).
+            type: integer
+          tcode:
+            description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+              `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+              the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own
+              codes (`teamCodeD`).'
+            type: string
+          teamLogoClass:
+            description: CSS logo class of the team on www.kbl.or.kr (e.g. 'lg'; era variants such as
+              'hd1997').
+            type: string
+          tname:
+            description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+            type: string
+          tnameF:
+            description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
+            type: string
+          win:
+            description: Wins.
+            type: integer
+          winDiff:
+            description: Games behind the leader.
+            type: number
+        type: object
+      type: array
+    LeagueRoundMvpSeasonCode:
+      description: Round MVPs of a season.
+      items:
+        properties:
+          ename:
+            description: Player name in English / romanized (sometimes Hangul for former players, e.g.
+              'CJ 레슬리').
+            type: string
+          gameCount:
+            description: Games played in the round.
+            type: integer
+          gameRound:
+            description: Round number of the season (the KBL plays six rounds).
+            type: integer
+          goodsImageUrl:
+            description: Site path of the round-MVP merchandise image.
+            type: string
+          kname:
+            description: Player name in Korean.
+            type: string
+          playerNo:
+            description: Player code (= `pcode` elsewhere). KBL player code (6-digit string). Joins to
+              `pcode` on every route and to `playerNo` in /league/round-mvp.
+            type: string
+          seasonCode:
+            description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+              47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+            type: integer
+          storeLink:
+            description: Link to the round-MVP product in the KBL online store.
+            type: string
+          teamCode:
+            description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+              `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+              the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own
+              codes (`teamCodeD`).'
+            type: string
+          totalAssist:
+            description: Assists over the round.
+            type: integer
+          totalHour:
+            description: Hours part of the playing time in the round (0 in every sample; the time is all
+              in totalSecond).
+            type: integer
+          totalMinute:
+            description: Minutes part of the playing time in the round (0 in every sample).
+            type: integer
+          totalRebound:
+            description: Rebounds over the round.
+            type: integer
+          totalScore:
+            description: Points over the round.
+            type: integer
+          totalSecond:
+            description: Playing time over the round, in seconds.
+            type: integer
+        type: object
+      type: array
+    LeagueSeasonLeader:
+      description: Current season leaders per category (no parameter).
+      items:
+        properties:
+          list:
+            description: The category's top players.
+            items:
+              properties:
+                gameCount:
+                  description: Games played this season.
+                  type: integer
+                player:
+                  description: 'The player: code, names, team, jersey number, position, type.'
+                  properties:
+                    backNum:
+                      description: Jersey number (string).
+                      type: string
+                    ename:
+                      description: Player name in English / romanized (sometimes Hangul for former players,
+                        e.g. 'CJ 레슬리').
+                      type: string
+                    img:
+                      description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+                      type: string
+                    pcode:
+                      description: KBL player code (6-digit string). Joins to `pcode` on every route and
+                        to `playerNo` in /league/round-mvp.
+                      type: string
+                    playerFlag:
+                      description: 'Player type (string): ''0'' domestic, ''1'' foreign import, ''2''
+                        Asian-quota player.'
+                      type: string
+                    pname:
+                      description: Player name in Korean (foreign players in Hangul transliteration).
+                      type: string
+                    pos:
+                      description: 'Position code (string): C center, FD forward, GD guard, FC forward-center,
+                        GF guard-forward; table in the returns md.'
+                      type: string
+                    tcode:
+                      description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to
+                        /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable
+                        across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70''
+                        today. D-League sides have their own codes (`teamCodeD`).'
+                      type: string
+                    tname:
+                      description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                      type: string
+                  type: object
+                rank:
+                  description: Rank in the category.
+                  type: integer
+                value:
+                  description: The player's value in the category (per-game average, or a percentage for
+                    the *R categories).
+                  type: number
+              type: object
+            type: array
+          part:
+            description: 'Leader category code: score, rb, ast, bs, stl, ... (table in the returns md).'
+            type: string
+          playerFlag:
+            description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+            x-unobserved: true
+        type: object
+      type: array
+    LeaguesGlkeyStatsPlayers:
+      description: Season player totals for one competition (glkey).
+      items:
+        properties:
+          gameCount:
+            description: Games played.
+            type: integer
+          player:
+            description: 'The player: code, names, team, jersey number, position, type.'
+            properties:
+              backNum:
+                description: Jersey number (string).
+                type: string
+              img:
+                description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+                type: string
+              pcode:
+                description: KBL player code (6-digit string). Joins to `pcode` on every route and to
+                  `playerNo` in /league/round-mvp.
+                type: string
+              playerFlag:
+                description: 'Player type (string): ''0'' domestic, ''1'' foreign import, ''2'' Asian-quota
+                  player.'
+                type: string
+              pname:
+                description: Player name in Korean (foreign players in Hangul transliteration).
+                type: string
+              pos:
+                description: 'Position code (string): C center, FD forward, GD guard, FC forward-center,
+                  GF guard-forward; table in the returns md.'
+                type: string
+              tcode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              tname:
+                description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                type: string
+            type: object
+          records:
+            description: Box-score counts and rates.
+            properties:
+              ast:
+                description: Assists (action 211). Season total for the competition (glkey).
+                type: integer
+              bs:
+                description: Blocked shots (action 213). Season total for the competition (glkey).
+                type: integer
+              defr:
+                description: Defensive rebounds (action 210). Season total for the competition (glkey).
+                type: integer
+              dfl:
+                description: Deflections (action 227; tracked in recent seasons only, 0 before). Season
+                  total for the competition (glkey).
+                type: integer
+              dk:
+                description: Dunks made (action 207); included in `fg`. Season total for the competition
+                  (glkey).
+                type: integer
+              dkA:
+                description: Dunk attempts (made + missed, actions 207 + 208). Season total for the competition
+                  (glkey).
+                type: integer
+              ef:
+                description: Meaning unverified (0 in every game sample; non-zero in some season totals).
+                  Season total for the competition (glkey).
+                type: integer
+              fb:
+                description: Fast breaks credited to the player (action 217 rows that name a player, as
+                  in 1997-98); 0 in recent seasons, where fast breaks are team rows (`tfb`). Season total
+                  for the competition (glkey).
+                type: integer
+              fg:
+                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
+                  holds on every sampled box). Season total for the competition (glkey).
+                type: integer
+              fgA:
+                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
+                  Season total for the competition (glkey).
+                type: integer
+              fgt:
+                description: Field goals made, two- and three-point (fg + threep). Season total for the
+                  competition (glkey).
+                type: integer
+              fgtA:
+                description: Field-goal attempts, two- and three-point (fgA + threepA). Season total for
+                  the competition (glkey).
+                type: integer
+              foul:
+                description: Personal fouls (wft + woft). Season total for the competition (glkey).
+                type: integer
+              foulout:
+                description: 'Meaning unverified: values exceed games played (70 for a 40-game player
+                  with 74 fouls); possibly fouls drawn, as this route has no `fo`.'
+                type: integer
+              ft:
+                description: Free throws made (action 203). Season total for the competition (glkey).
+                type: integer
+              ftA:
+                description: Free-throw attempts, made + missed (203 + 204). Season total for the competition
+                  (glkey).
+                type: integer
+              gd:
+                description: Good-defense plays (action 221). Season total for the competition (glkey).
+                type: integer
+              idf:
+                description: Illegal-defense violations (action 219; an early-KBL rule, so non-zero only
+                  in old seasons). Season total for the competition (glkey).
+                type: integer
+              inout:
+                description: Times the player entered the game, the start included (checked on the 2025-26
+                  sample game); a team row sums its players. Season total for the competition (glkey).
+                type: integer
+              inout1:
+                description: Times the player was substituted out before the end (checked on the 2025-26
+                  sample game); a team row sums its players. Season total for the competition (glkey).
+                type: integer
+              offr:
+                description: Offensive rebounds (action 209). Season total for the competition (glkey).
+                type: integer
+              playMin:
+                description: Minutes of playing time; add `playSec` seconds. Season total for the competition
+                  (glkey).
+                type: integer
+              playSec:
+                description: Seconds part of the playing time (0-59), added to `playMin`. Season total
+                  for the competition (glkey).
+                type: integer
+              pp:
+                description: Field goals made in the paint. Season total for the competition (glkey).
+                type: integer
+              ppA:
+                description: Field-goal attempts in the paint. Season total for the competition (glkey).
+                type: integer
+              pscore:
+                description: Points in the paint (2 * pp). Season total for the competition (glkey).
+                type: integer
+              rb:
+                description: Total rebounds (offr + defr; team rebounds are `teamR`). Season total for
+                  the competition (glkey).
+                type: integer
+              sast:
+                description: Screen assists (action 226; tracked in recent seasons only, 0 before). Season
+                  total for the competition (glkey).
+                type: integer
+              score:
+                description: Points. Season total for the competition (glkey).
+                type: integer
+              stl:
+                description: Steals (action 212). Season total for the competition (glkey).
+                type: integer
+              tf:
+                description: Probably technical fouls (unverified; 0 in most rows). Season total for the
+                  competition (glkey).
+                type: integer
+              threep:
+                description: Three-point field goals made (action 205). Season total for the competition
+                  (glkey).
+                type: integer
+              threepA:
+                description: Three-point attempts, made + missed (205 + 206). Season total for the competition
+                  (glkey).
+                type: integer
+              to:
+                description: Turnovers (action 214). Season total for the competition (glkey).
+                type: integer
+              wft:
+                description: Fouls that awarded free throws (action 215). Season total for the competition
+                  (glkey).
+                type: integer
+              woft:
+                description: Fouls that awarded no free throws (action 216). Season total for the competition
+                  (glkey).
+                type: integer
+            type: object
+          startCount:
+            description: 'Meaning unverified: up to 4 x gameCount in every sampled row, so probably quarters
+              started.'
+            type: integer
+        type: object
+      type: array
+    MatchGmkey:
+      description: 'Game header: teams, coaches, officials, venue, crowd, period scores.'
+      properties:
+        game:
+          description: Game header.
+          properties:
+            crowds:
+              description: Attendance.
+              type: integer
+            detailUrl:
+              description: Path of the game page on www.kbl.or.kr.
+              type: string
+            gameCode:
+              description: 'Competition type within the season (2-digit string; code table in the README
+                and below): 01 regular season, 03 playoffs, 04 final, ...'
+              type: string
+            gameDate:
+              description: Game date, YYYYMMDD (local, KST).
+              type: string
+            gameEnd:
+              description: End time, HHMM (KST); '0000' or blanks when not recorded.
+              type: string
+            gameNo:
+              description: Game number within the competition (glkey); the N part of the gmkey.
+              type: integer
+            gameStart:
+              description: Tip-off time, HHMM (KST).
+              type: string
+            gameTime:
+              description: 'Duration in minutes: an integer in the header, a numeric string in /match/list
+                (e.g. ''142''); null on some list rows.'
+              type: integer
+            glkey:
+              description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular
+                season): the id of the /leagues and /league/rank routes.'
+              type: string
+            gmkey:
+              description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every
+                /match/{gmkey} route.'
+              type: string
+            highlightUrl:
+              description: URL of the game's page on Naver Sports.
+              type: string
+            isEnded:
+              description: '1 when the game is over. Unreliable: 0 on every finished game through 2005-06
+                and on some later ones (e.g. S45G01N95''s header); the capture treats a past-dated game
+                with scores as final.'
+              type: integer
+            isStarted:
+              description: 1 when the game has started. Unreliable for old games (0 on finished 1997-2006
+                games in /match/list).
+              type: integer
+            judges:
+              description: Game officials (names only).
+              properties:
+                main:
+                  description: Crew chief.
+                  properties:
+                    name:
+                      description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                      type: string
+                  type: object
+                sub:
+                  description: Umpires.
+                  items:
+                    properties:
+                      name:
+                        description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            playingQuarter:
+              description: 'Period in progress: ''X'' when none (before or after the game), else e.g.
+                ''Q4'' or ''EQ1''. Can stay stale after the game (the overtime sample says ''EQ1'').'
+              type: string
+            seasonCategoryName:
+              description: 'Category name in Korean: ''정규시즌'' regular season, ''플레이오프'' playoffs, ''챔피언결정전''
+                championship final, ''D리그 1차'' / ''D리그 2차'' D-League stage 1 / 2, ''올스타게임'' All-Star Game,
+                ''컵대회'' cup, ''KBL컵대회'' KBL Cup, ''EASL'', ''OPEN MATCH DAY''.'
+              type: string
+            seasonCode:
+              description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+                47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+              type: integer
+            seasonGrade:
+              description: 'Division: 1 = the KBL itself, 2 = the KBL D-League (reserve league).'
+              type: integer
+            seasonName:
+              description: 'Season label: ''YYYY-YYYY'' for a KBL season (e.g. ''2025-2026''), ''1997''
+                for the 1997 inaugural season, or the D-League edition name (e.g. ''2010KBLWINTER'', ''2024
+                KBL D리그'' = 2024 KBL D-League).'
+              type: string
+            stadiumname:
+              description: Venue short name (Korean).
+              type: string
+            stadiumnameEn:
+              description: Venue name in English; an empty string, or the Korean name, for some old venues.
+              type: string
+            stadiumnameF:
+              description: Venue full name (Korean).
+              type: string
+            tcodeA:
+              description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon LG).
+                Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable
+                across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today.
+                D-League sides have their own codes (`teamCodeD`).'
+              type: string
+            tcodeH:
+              description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon LG).
+                Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable
+                across ownership changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today.
+                D-League sides have their own codes (`teamCodeD`).'
+              type: string
+            tlogoA:
+              description: CSS logo class of the away team, era-specific.
+              type: string
+            tlogoH:
+              description: CSS logo class of the home team, era-specific (e.g. 'hd1997').
+              type: string
+            tnameA:
+              description: Away team short name (Korean).
+              type: string
+            tnameFA:
+              description: Away team full name (Korean).
+              type: string
+            tnameFH:
+              description: Home team full name (Korean).
+              type: string
+            tnameH:
+              description: Home team short name (Korean).
+              type: string
+            tv:
+              description: Broadcaster name(s), e.g. 'tvN SPORTS', 'SPOTV2 / SPOTV ON'.
+              type: string
+            tvCode:
+              description: Broadcaster code(s), comma-separated (e.g. 'T24,T25'); the site uses it instead
+                of `tv` from seasonCode 45.
+              type: string
+            weekDay:
+              description: 'Day of the week in Korean: 월 Mon, 화 Tue, 수 Wed, 목 Thu, 금 Fri, 토 Sat, 일 Sun.'
+              type: string
+          type: object
+        teamrecords:
+          description: Points per period, per side.
+          properties:
+            away:
+              description: Away side.
+              properties:
+                scoreeq:
+                  description: Away points in each overtime period ([] when none).
+                  items:
+                    type: integer
+                  type: array
+                scoreq1:
+                  description: Away points in quarter 1.
+                  type: integer
+                scoreq2:
+                  description: Away points in quarter 2.
+                  type: integer
+                scoreq3:
+                  description: Away points in quarter 3.
+                  type: integer
+                scoreq4:
+                  description: Away points in quarter 4.
+                  type: integer
+              type: object
+            home:
+              description: Home side.
+              properties:
+                scoreeq:
+                  description: Home points in each overtime period ([] when none).
+                  items:
+                    type: integer
+                  type: array
+                scoreq1:
+                  description: Home points in quarter 1.
+                  type: integer
+                scoreq2:
+                  description: Home points in quarter 2.
+                  type: integer
+                scoreq3:
+                  description: Home points in quarter 3.
+                  type: integer
+                scoreq4:
+                  description: Home points in quarter 4.
+                  type: integer
+              type: object
+          type: object
+        teams:
+          description: The two teams' names and staff.
+          properties:
+            away:
+              description: Away side.
+              properties:
+                staffs:
+                  description: Coaching staff.
+                  properties:
+                    coaches:
+                      description: Assistant coaches.
+                      items:
+                        properties:
+                          name:
+                            description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                            type: string
+                        type: object
+                      type: array
+                    manager:
+                      description: Head coach.
+                      properties:
+                        name:
+                          description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                          type: string
+                      type: object
+                  type: object
+                tcode:
+                  description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                    `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership
+                    changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides
+                    have their own codes (`teamCodeD`).'
+                  type: string
+                tname:
+                  description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                  type: string
+                tnameF:
+                  description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
+                  type: string
+              type: object
+            home:
+              description: Home side.
+              properties:
+                staffs:
+                  description: Coaching staff.
+                  properties:
+                    coaches:
+                      description: Assistant coaches.
+                      items:
+                        properties:
+                          name:
+                            description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                            type: string
+                        type: object
+                      type: array
+                    manager:
+                      description: Head coach.
+                      properties:
+                        name:
+                          description: Name in Korean (foreign coaches and officials in the Latin alphabet).
+                          type: string
+                      type: object
+                  type: object
+                tcode:
+                  description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                    `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership
+                    changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides
+                    have their own codes (`teamCodeD`).'
+                  type: string
+                tname:
+                  description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                  type: string
+                tnameF:
+                  description: Team full name (Korean, e.g. '창원 LG 세이커스' = Changwon LG Sakers).
+                  type: string
+              type: object
+          type: object
+      type: object
+    MatchGmkeyMatchChart:
+      description: Shot chart (x/y), lead tracker, score chart and best players.
+      properties:
+        bestPlayer:
+          description: Each team's leader per category.
+          items:
+            properties:
+              away:
+                description: Away side.
+                properties:
+                  img:
+                    description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+                    type: string
+                  pcode:
+                    description: KBL player code (6-digit string). Joins to `pcode` on every route and
+                      to `playerNo` in /league/round-mvp.
+                    type: string
+                  playMin:
+                    description: Minutes played this game; add playSec.
+                    type: integer
+                  playSec:
+                    description: Seconds part of the playing time (0-59).
+                    type: integer
+                  pname:
+                    description: Player name in Korean (foreign players in Hangul transliteration).
+                    type: string
+                  pnameEn:
+                    description: Player name in English / romanized.
+                    type: string
+                  tname:
+                    description: The away team's short name (Korean).
+                    type: string
+                  value:
+                    description: The away leader's total in the category, this game.
+                    type: number
+                type: object
+              home:
+                description: Home side.
+                properties:
+                  img:
+                    description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+                    type: string
+                  pcode:
+                    description: KBL player code (6-digit string). Joins to `pcode` on every route and
+                      to `playerNo` in /league/round-mvp.
+                    type: string
+                  playMin:
+                    description: Minutes played this game; add playSec.
+                    type: integer
+                  playSec:
+                    description: Seconds part of the playing time (0-59).
+                    type: integer
+                  pname:
+                    description: Player name in Korean (foreign players in Hangul transliteration).
+                    type: string
+                  pnameEn:
+                    description: Player name in English / romanized.
+                    type: string
+                  tname:
+                    description: The home team's short name (Korean).
+                    type: string
+                  value:
+                    description: The home leader's total in the category, this game.
+                    type: number
+                type: object
+              part:
+                description: 'Category code: score, rb, ast, stl, bs, ... (the leader-category table in
+                  the returns md).'
+                type: string
+            type: object
+          type: array
+        leadTrack:
+          description: 'Home margin (home minus away points) at eight checkpoints per period (evenly spaced
+            is assumed: every 75 s of a 10-minute quarter; unverified), the last at the period''s end;
+            keys q1-q4, eq1, ...'
+          properties:
+            eq1:
+              description: Home margin (home - away) at eight checkpoints in overtime 1, the last at its
+                end.
+              items:
+                type: integer
+              type: array
+            q1:
+              description: Home margin (home - away) at eight checkpoints in quarter 1, the last at its
+                end.
+              items:
+                type: integer
+              type: array
+            q2:
+              description: Home margin (home - away) at eight checkpoints in quarter 2, the last at its
+                end.
+              items:
+                type: integer
+              type: array
+            q3:
+              description: Home margin (home - away) at eight checkpoints in quarter 3, the last at its
+                end.
+              items:
+                type: integer
+              type: array
+            q4:
+              description: Home margin (home - away) at eight checkpoints in quarter 4, the last at its
+                end.
+              items:
+                type: integer
+              type: array
+          type: object
+        scoreChart:
+          description: Cumulative points at the same eight checkpoints per period; the last value of the
+            last period is the final score.
+          properties:
+            away:
+              description: Away side.
+              properties:
+                eq1:
+                  description: Away cumulative points at eight checkpoints in overtime 1, the last at
+                    its end.
+                  items:
+                    type: integer
+                  type: array
+                q1:
+                  description: Away cumulative points at eight checkpoints in quarter 1, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q2:
+                  description: Away cumulative points at eight checkpoints in quarter 2, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q3:
+                  description: Away cumulative points at eight checkpoints in quarter 3, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q4:
+                  description: Away cumulative points at eight checkpoints in quarter 4, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+              type: object
+            home:
+              description: Home side.
+              properties:
+                eq1:
+                  description: Home cumulative points at eight checkpoints in overtime 1, the last at
+                    its end.
+                  items:
+                    type: integer
+                  type: array
+                q1:
+                  description: Home cumulative points at eight checkpoints in quarter 1, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q2:
+                  description: Home cumulative points at eight checkpoints in quarter 2, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q3:
+                  description: Home cumulative points at eight checkpoints in quarter 3, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+                q4:
+                  description: Home cumulative points at eight checkpoints in quarter 4, the last at its
+                    end.
+                  items:
+                    type: integer
+                  type: array
+              type: object
+          type: object
+        shootLog:
+          description: Shots per player (one row per player who shot).
+          items:
+            properties:
+              ename:
+                description: Player name in English / romanized (sometimes Hangul for former players,
+                  e.g. 'CJ 레슬리').
+                type: string
+              logs:
+                description: The player's shots.
+                items:
+                  properties:
+                    d:
+                      description: 'Target basket: ''1'' the right-hand one, ''2'' the left-hand one (teams
+                        switch at half-time); see Shot coordinates.'
+                      type: string
+                    o:
+                      description: 'Result: ''O'' made, ''X'' missed.'
+                      type: string
+                    q:
+                      description: 'Period: Q1-Q4; overtime is ''X1'', ''X2'', ... in text-cast but ''EQ1'',
+                        ''EQ2'', ... in match-chart and the request''s quarterList.'
+                      type: string
+                    x:
+                      description: Shot location x, pixels on the 726 x 412 full-court image (origin top-left,
+                        x right); see Shot coordinates.
+                      type: integer
+                    y:
+                      description: Shot location y, pixels on the 726 x 412 full-court image (origin top-left,
+                        y down); see Shot coordinates.
+                      type: integer
+                  type: object
+                type: array
+              pcode:
+                description: KBL player code (6-digit string). Joins to `pcode` on every route and to
+                  `playerNo` in /league/round-mvp.
+                type: string
+              pname:
+                description: Player name in Korean (foreign players in Hangul transliteration).
+                type: string
+              tcode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+            type: object
+          type: array
+      type: object
+    MatchGmkeyPlayerStat:
+      description: Player box score with advanced rates.
+      items:
+        properties:
+          homeAway:
+            description: 'Side (string): ''1'' home, ''2'' away; ''3'' on both teams'' rows in the 1997-98
+              sample, so join on `player.tcode` instead.'
+            type: string
+          player:
+            description: 'The player: code, names, team, jersey number, position, type.'
+            properties:
+              backNum:
+                description: Jersey number (string).
+                type: string
+              ename:
+                description: Player name in English / romanized (sometimes Hangul for former players,
+                  e.g. 'CJ 레슬리').
+                type: string
+              img:
+                description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+                type: string
+              pcode:
+                description: KBL player code (6-digit string). Joins to `pcode` on every route and to
+                  `playerNo` in /league/round-mvp.
+                type: string
+              playerFlag:
+                description: 'Player type (string): ''0'' domestic, ''1'' foreign import, ''2'' Asian-quota
+                  player.'
+                type: string
+              pname:
+                description: Player name in Korean (foreign players in Hangul transliteration).
+                type: string
+              pos:
+                description: 'Position code (string): C center, FD forward, GD guard, FC forward-center,
+                  GF guard-forward; table in the returns md.'
+                type: string
+              tcode:
+                description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+                  `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+                  the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their
+                  own codes (`teamCodeD`).'
+                type: string
+              tname:
+                description: Team short name (Korean, e.g. '창원 LG'), as it was at the time.
+                type: string
+            type: object
+          records:
+            description: Box-score counts and rates.
+            properties:
+              ast:
+                description: Assists (action 211). This game.
+                type: integer
+              astRatio:
+                description: 'Assist ratio: assists per 100 possessions used. This game.'
+                type: number
+              astRt:
+                description: 'Assist rate: share of teammates'' field goals assisted while on court, 0-100.
+                  This game.'
+                type: number
+              astTo:
+                description: Assist-to-turnover ratio. This game.
+                type: number
+              bs:
+                description: Blocked shots (action 213). This game.
+                type: integer
+              defr:
+                description: Defensive rebounds (action 210). This game.
+                type: integer
+              defrtg:
+                description: 'Defensive rating: points allowed per 100 possessions (estimated). This game.'
+                type: number
+              dfl:
+                description: Deflections (action 227; tracked in recent seasons only, 0 before). This
+                  game.
+                type: integer
+              dk:
+                description: Dunks made (action 207); included in `fg`. This game.
+                type: integer
+              dkA:
+                description: Dunk attempts (made + missed, actions 207 + 208). This game.
+                type: integer
+              drebRt:
+                description: Defensive-rebound percentage, 0-100. This game.
+                type: number
+              ef:
+                description: Meaning unverified (0 in every game sample; non-zero in some season totals).
+                  This game.
+                type: integer
+              efgRt:
+                description: Effective field-goal percentage, 0-100. This game.
+                type: number
+              fb:
+                description: Fast breaks credited to the player (action 217 rows that name a player, as
+                  in 1997-98); 0 in recent seasons, where fast breaks are team rows (`tfb`). This game.
+                type: integer
+              fg:
+                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
+                  holds on every sampled box). This game.
+                type: integer
+              fgA:
+                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
+                  This game.
+                type: integer
+              fgt:
+                description: Field goals made, two- and three-point (fg + threep). This game.
+                type: integer
+              fgtA:
+                description: Field-goal attempts, two- and three-point (fgA + threepA). This game.
+                type: integer
+              fo:
+                description: Fouls drawn (the player rows of a team sum to the opponent's `foul`, checked
+                  on the 2025-26 sample game). This game.
+                type: integer
+              foul:
+                description: Personal fouls (wft + woft). This game.
+                type: integer
+              ft:
+                description: Free throws made (action 203). This game.
+                type: integer
+              ftA:
+                description: Free-throw attempts, made + missed (203 + 204). This game.
+                type: integer
+              gd:
+                description: Good-defense plays (action 221). This game.
+                type: integer
+              idf:
+                description: Illegal-defense violations (action 219; an early-KBL rule, so non-zero only
+                  in old seasons). This game.
+                type: integer
+              inout:
+                description: Times the player entered the game, the start included (checked on the 2025-26
+                  sample game); a team row sums its players. This game.
+                type: integer
+              inout1:
+                description: Times the player was substituted out before the end (checked on the 2025-26
+                  sample game); a team row sums its players. This game.
+                type: integer
+              marginCn:
+                description: 'Plus-minus: the point margin while the player was on court. This game.'
+                type: integer
+              netrtg:
+                description: 'Net rating: offrtg - defrtg. This game.'
+                type: number
+              offr:
+                description: Offensive rebounds (action 209). This game.
+                type: integer
+              offrtg:
+                description: 'Offensive rating: points scored per 100 possessions (estimated). This game.'
+                type: number
+              orebRt:
+                description: Offensive-rebound percentage, 0-100. This game.
+                type: number
+              pace:
+                description: Possessions per 40 minutes (estimated; a player row covers his minutes on
+                  court). This game.
+                type: number
+              per:
+                description: Player efficiency rating (KBL's formula; scale unverified). This game.
+                type: number
+              pie:
+                description: 'Player impact estimate: share of the game''s positive events, as a percentage.
+                  This game.'
+                type: number
+              playMin:
+                description: Minutes of playing time; add `playSec` seconds. This game.
+                type: integer
+              playSec:
+                description: Seconds part of the playing time (0-59), added to `playMin`. This game.
+                type: integer
+              poss:
+                description: Possessions (estimated). This game.
+                type: number
+              pp:
+                description: Field goals made in the paint. This game.
+                type: integer
+              ppA:
+                description: Field-goal attempts in the paint. This game.
+                type: integer
+              pscore:
+                description: Points in the paint (2 * pp). This game.
+                type: integer
+              rb:
+                description: Total rebounds (offr + defr; team rebounds are `teamR`). This game.
+                type: integer
+              rebRt:
+                description: Total-rebound percentage, 0-100. This game.
+                type: number
+              sast:
+                description: Screen assists (action 226; tracked in recent seasons only, 0 before). This
+                  game.
+                type: integer
+              score:
+                description: Points. This game.
+                type: integer
+              stl:
+                description: Steals (action 212). This game.
+                type: integer
+              tf:
+                description: Probably technical fouls (unverified; 0 in most rows). This game.
+                type: integer
+              threep:
+                description: Three-point field goals made (action 205). This game.
+                type: integer
+              threepA:
+                description: Three-point attempts, made + missed (205 + 206). This game.
+                type: integer
+              to:
+                description: Turnovers (action 214). This game.
+                type: integer
+              toRatio:
+                description: 'Turnover ratio: turnovers per 100 possessions used. This game.'
+                type: number
+              tovRt:
+                description: 'Turnover rate: turnovers per 100 possessions, 0-100. This game.'
+                type: number
+              tsRt:
+                description: True-shooting percentage, 0-100. This game.
+                type: number
+              usgRt:
+                description: 'Usage rate: share of team possessions used while on court, 0-100. This game.'
+                type: number
+              wft:
+                description: Fouls that awarded free throws (action 215). This game.
+                type: integer
+              woft:
+                description: Fouls that awarded no free throws (action 216). This game.
+                type: integer
+            type: object
+          startFlag:
+            description: 1 when the player started the game, else 0.
+            type: integer
+        type: object
+      type: array
+    MatchGmkeyTeamRecord:
+      description: Team box score with advanced rates and team-only counts.
+      items:
+        properties:
+          records:
+            description: Box-score counts and rates.
+            properties:
+              ast:
+                description: Assists (action 211). This game, team total.
+                type: integer
+              astRatio:
+                description: 'Assist ratio: assists per 100 possessions used. This game, team total.'
+                type: number
+              astRt:
+                description: 'Assist rate: share of teammates'' field goals assisted while on court, 0-100.
+                  This game, team total.'
+                type: number
+              astTo:
+                description: Assist-to-turnover ratio. This game, team total.
+                type: number
+              benchScoreCn:
+                description: Bench points. This game, team total.
+                type: integer
+              bf:
+                description: Meaning unverified (probably bench fouls; 0 in every game sample). This game,
+                  team total.
+                type: integer
+              bs:
+                description: Blocked shots (action 213). This game, team total.
+                type: integer
+              defr:
+                description: Defensive rebounds (action 210). This game, team total.
+                type: integer
+              defrtg:
+                description: 'Defensive rating: points allowed per 100 possessions (estimated). This game,
+                  team total.'
+                type: number
+              dfl:
+                description: Deflections (action 227; tracked in recent seasons only, 0 before). This
+                  game, team total.
+                type: integer
+              dk:
+                description: Dunks made (action 207); included in `fg`. This game, team total.
+                type: integer
+              dkA:
+                description: Dunk attempts (made + missed, actions 207 + 208). This game, team total.
+                type: integer
+              drebRt:
+                description: Defensive-rebound percentage, 0-100. This game, team total.
+                type: number
+              ef:
+                description: Meaning unverified (0 in every game sample; non-zero in some season totals).
+                  This game, team total.
+                type: integer
+              efgRt:
+                description: Effective field-goal percentage, 0-100. This game, team total.
+                type: number
+              fb:
+                description: Fast breaks credited to the player (action 217 rows that name a player, as
+                  in 1997-98); 0 in recent seasons, where fast breaks are team rows (`tfb`). This game,
+                  team total.
+                type: integer
+              fbScoreCn:
+                description: Fast-break points. This game, team total.
+                type: integer
+              fg:
+                description: Two-point field goals made, dunks included (score = 2*fg + 3*threep + ft
+                  holds on every sampled box). This game, team total.
+                type: integer
+              fgA:
+                description: Two-point field-goal attempts, made + missed (actions 201/207 + 202/208).
+                  This game, team total.
+                type: integer
+              fgt:
+                description: Field goals made, two- and three-point (fg + threep). This game, team total.
+                type: integer
+              fgtA:
+                description: Field-goal attempts, two- and three-point (fgA + threepA). This game, team
+                  total.
+                type: integer
+              foul:
+                description: Personal fouls (wft + woft). This game, team total.
+                type: integer
+              foulout:
+                description: Players fouled out (unverified). This game, team total.
+                type: integer
+              ft:
+                description: Free throws made (action 203). This game, team total.
+                type: integer
+              ftA:
+                description: Free-throw attempts, made + missed (203 + 204). This game, team total.
+                type: integer
+              gd:
+                description: Good-defense plays (action 221). This game, team total.
+                type: integer
+              idf:
+                description: Illegal-defense violations (action 219; an early-KBL rule, so non-zero only
+                  in old seasons). This game, team total.
+                type: integer
+              inout:
+                description: Times the player entered the game, the start included (checked on the 2025-26
+                  sample game); a team row sums its players. This game, team total.
+                type: integer
+              inout1:
+                description: Times the player was substituted out before the end (checked on the 2025-26
+                  sample game); a team row sums its players. This game, team total.
+                type: integer
+              maxContiScoreCn:
+                description: 'Longest scoring run: the most consecutive points without an opponent score.
+                  This game, team total.'
+                type: integer
+              maxLeadScoreCn:
+                description: Largest lead, in points. This game, team total.
+                type: integer
+              netrtg:
+                description: 'Net rating: offrtg - defrtg. This game, team total.'
+                type: number
+              offr:
+                description: Offensive rebounds (action 209). This game, team total.
+                type: integer
+              offrtg:
+                description: 'Offensive rating: points scored per 100 possessions (estimated). This game,
+                  team total.'
+                type: number
+              orebRt:
+                description: Offensive-rebound percentage, 0-100. This game, team total.
+                type: number
+              pace:
+                description: Possessions per 40 minutes (estimated; a player row covers his minutes on
+                  court). This game, team total.
+                type: number
+              playMin:
+                description: Minutes of playing time summed over the players (200 = 5 x 40 in regulation);
+                  add playSec. This game, team total.
+                type: integer
+              playSec:
+                description: Seconds part of the playing time (0-59), added to `playMin`. This game, team
+                  total.
+                type: integer
+              poss:
+                description: Possessions (estimated). This game, team total.
+                type: number
+              pp:
+                description: Field goals made in the paint. This game, team total.
+                type: integer
+              ppA:
+                description: Field-goal attempts in the paint. This game, team total.
+                type: integer
+              pscore:
+                description: Points in the paint (2 * pp). This game, team total.
+                type: integer
+              rb:
+                description: Total rebounds (offr + defr; team rebounds are `teamR`). This game, team
+                  total.
+                type: integer
+              rebRt:
+                description: Total-rebound percentage, 0-100. This game, team total.
+                type: number
+              sast:
+                description: Screen assists (action 226; tracked in recent seasons only, 0 before). This
+                  game, team total.
+                type: integer
+              score:
+                description: Points. This game, team total.
+                type: integer
+              scoreHighTimeCn:
+                description: Seconds the team led (the two teams' values sum to less than the 2,400-second
+                  game when it was tied or level at times). This game, team total.
+                type: integer
+              secChanceScoreCn:
+                description: Second-chance points. This game, team total.
+                type: integer
+              stl:
+                description: Steals (action 212). This game, team total.
+                type: integer
+              teamR:
+                description: Team rebounds (action 218). This game, team total.
+                type: integer
+              tf:
+                description: Probably technical fouls (unverified; 0 in most rows). This game, team total.
+                type: integer
+              tfb:
+                description: Team fast breaks (action 217). This game, team total.
+                type: integer
+              threep:
+                description: Three-point field goals made (action 205). This game, team total.
+                type: integer
+              threepA:
+                description: Three-point attempts, made + missed (205 + 206). This game, team total.
+                type: integer
+              to:
+                description: Turnovers (action 214). This game, team total.
+                type: integer
+              tovRt:
+                description: 'Turnover rate: turnovers per 100 possessions, 0-100. This game, team total.'
+                type: number
+              tsRt:
+                description: True-shooting percentage, 0-100. This game, team total.
+                type: number
+              tto:
+                description: Team turnovers (action 223). This game, team total.
+                type: integer
+              turnoverScoreCn:
+                description: Points off turnovers. This game, team total.
+                type: integer
+              wft:
+                description: Fouls that awarded free throws (action 215). This game, team total.
+                type: integer
+              woft:
+                description: Fouls that awarded no free throws (action 216). This game, team total.
+                type: integer
+            type: object
+          tcode:
+            description: 'KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins to /common/teamList
+              `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across ownership changes:
+              the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League sides have their own
+              codes (`teamCodeD`).'
+            type: string
+        type: object
+      type: array
+    MatchGmkeyTextCast:
+      description: Play-by-play (text cast) for the requested quarters.
+      items:
+        properties:
+          a:
+            description: Action code (string, e.g. '201'); table in the returns md.
+            type: string
+          c:
+            description: Substitution sub-type code on substitution-out (102) rows (e.g. '101_0'); table
+              in the returns md.
+            type: string
+          e:
+            description: Player name in English / romanized; absent on team and game events.
+            type: string
+          m:
+            description: Minutes remaining in the period (10-minute quarters, 5-minute overtimes).
+            type: integer
+          n:
+            description: Sequence number of the event in the game (1-based); 0 on every row of some games
+              (e.g. S45G01N95), so order by array position.
+            type: integer
+          p:
+            description: Player name in Korean; absent on team and game events.
+            type: string
+          q:
+            description: 'Period: Q1-Q4; overtime is ''X1'', ''X2'', ... in text-cast but ''EQ1'', ''EQ2'',
+              ... in match-chart and the request''s quarterList.'
+            type: string
+          s:
+            description: Seconds part of the time remaining (0-59).
+            type: integer
+          t:
+            description: Team code of the acting team (the KBL team code, as `tcodeH`/`tcodeA`); '' (or
+              ' ' in 1997-98) on game events such as period start/end.
+            type: string
+        type: object
+      type: array
+    MatchList:
+      description: Every game (all competitions) dated within fromDate..toDate.
+      items:
+        properties:
+          artcSq:
+            description: Id of the game's news article on kbl.or.kr; null when none.
+            type:
+            - integer
+            - 'null'
+          bookmarkFlag:
+            description: 1 when the logged-in user bookmarked the game; always 0 for an anonymous request.
+            type: integer
+          challengeSq:
+            description: Id of the game in KBL Challenge (the site's prediction game); null when none.
+            type:
+            - integer
+            - 'null'
+          gameCode:
+            description: 'Competition type within the season (2-digit string; code table in the README
+              and below): 01 regular season, 03 playoffs, 04 final, ...'
+            type: string
+          gameDate:
+            description: Game date, YYYYMMDD (local, KST).
+            type: string
+          gameEnd:
+            description: End time, HHMM (KST); '0000' or blanks when not recorded.
+            type: string
+          gameNo:
+            description: Game number within the competition (glkey); the N part of the gmkey.
+            type: integer
+          gameStart:
+            description: Tip-off time, HHMM (KST).
+            type: string
+          gameTime:
+            description: 'Duration in minutes: an integer in the header, a numeric string in /match/list
+              (e.g. ''142''); null on some list rows.'
+            type: string
+          glkey:
+            description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+              the id of the /leagues and /league/rank routes.'
+            type: string
+          gmkey:
+            description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every
+              /match/{gmkey} route.'
+            type: string
+          isEnded:
+            description: '1 when the game is over. Unreliable: 0 on every finished game through 2005-06
+              and on some later ones (e.g. S45G01N95''s header); the capture treats a past-dated game
+              with scores as final.'
+            type: integer
+          isStarted:
+            description: 1 when the game has started. Unreliable for old games (0 on finished 1997-2006
+              games in /match/list).
+            type: integer
+          logoA:
+            description: CSS logo class of the away team (site styling).
+            type: string
+          logoH:
+            description: CSS logo class of the home team (site styling).
+            type: string
+          playingQuarter:
+            description: 'Period in progress: ''X'' when none (before or after the game), else e.g. ''Q4''
+              or ''EQ1''. Can stay stale after the game (the overtime sample says ''EQ1'').'
+            type: string
+          replayUrl:
+            description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+            x-unobserved: true
+          scoreA:
+            description: Away team points.
+            type: integer
+          scoreH:
+            description: Home team points.
+            type: integer
+          seasonCategory:
+            description: 'Category code of the competition: R regular season, PO playoffs, CP final, D1/D2
+              D-League stages, AS All-Star, EG/CU cups, EA EASL, OM Open Match Day (table below).'
+            type: string
+          seasonCategoryName:
+            description: 'Category name in Korean: ''정규시즌'' regular season, ''플레이오프'' playoffs, ''챔피언결정전''
+              championship final, ''D리그 1차'' / ''D리그 2차'' D-League stage 1 / 2, ''올스타게임'' All-Star Game,
+              ''컵대회'' cup, ''KBL컵대회'' KBL Cup, ''EASL'', ''OPEN MATCH DAY''.'
+            type: string
+          seasonCode:
+            description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+              47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+            type: integer
+          seasonGrade:
+            description: 'Division: 1 = the KBL itself, 2 = the KBL D-League (reserve league).'
+            type: integer
+          seasonName1:
+            description: 'Season label, as `seasonName` (e.g. ''2025-2026'', ''2010KBLWINTER'', ''2024
+              KBL D리그'' = 2024 KBL D-League); an empty string on EASL rows. sdv END year: the README crosswalk.'
+            type: string
+          stadiumname:
+            description: Venue short name (Korean).
+            type: string
+          stadiumnameEn:
+            description: Venue name in English; an empty string, or the Korean name, for some old venues.
+            type: string
+          stadiumnameF:
+            description: Venue full name (Korean).
+            type: string
+          tcodeA:
+            description: 'Away team code. KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins
+              to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across
+              ownership changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League
+              sides have their own codes (`teamCodeD`).'
+            type: string
+          tcodeH:
+            description: 'Home team code. KBL team code (2-digit string, e.g. ''50'' = Changwon LG). Joins
+              to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`, `t` in text-cast. Not stable across
+              ownership changes: the Anyang club is ''40'' (SBS) in 1997-98 and ''70'' today. D-League
+              sides have their own codes (`teamCodeD`).'
+            type: string
+          tnameA:
+            description: Away team short name (Korean).
+            type: string
+          tnameFA:
+            description: Away team full name (Korean).
+            type: string
+          tnameFH:
+            description: Home team full name (Korean).
+            type: string
+          tnameH:
+            description: Home team short name (Korean).
+            type: string
+          tv:
+            description: Broadcaster name(s), e.g. 'tvN SPORTS', 'SPOTV2 / SPOTV ON'.
+            type:
+            - string
+            - 'null'
+          tvCode:
+            description: Broadcaster code(s), comma-separated (e.g. 'T24,T25'); the site uses it instead
+              of `tv` from seasonCode 45.
+            type:
+            - string
+            - 'null'
+          weekDay:
+            description: 'Day of the week in Korean: 월 Mon, 화 Tue, 수 Wed, 목 Thu, 금 Fri, 토 Sat, 일 Sun.'
+            type: string
+        type: object
+      type: array
+    Players:
+      description: Every player in the site's player directory (current and former).
+      items:
+        properties:
+          backNum:
+            description: Jersey number (string).
+            type: string
+          ename:
+            description: Player name in English / romanized (sometimes Hangul for former players, e.g.
+              'CJ 레슬리').
+            type: string
+          img:
+            description: URL of the player's head-shot photo (kbl.or.kr/files/kbl/players-photo/{pcode}.png).
+            type: string
+          pcode:
+            description: KBL player code (6-digit string). Joins to `pcode` on every route and to `playerNo`
+              in /league/round-mvp.
+            type: string
+          playerFlag:
+            description: 'Player type (string): ''0'' domestic, ''1'' foreign import, ''2'' Asian-quota
+              player.'
+            type: string
+          playerLastCareerIf:
+            description: 'Meaning unverified: a season-code-like number, ''A'' or ''''.'
+            type: string
+          pname:
+            description: Player name in Korean (foreign players in Hangul transliteration).
+            type: string
+          pos:
+            description: 'Position code (string): C center, FD forward, GD guard, FC forward-center, GF
+              guard-forward; table in the returns md.'
+            type: string
+          tcode:
+            description: 'Team code of the player''s current or last team. KBL team code (2-digit string,
+              e.g. ''50'' = Changwon LG). Joins to /common/teamList `teamCode`, game `tcodeH`/`tcodeA`,
+              `t` in text-cast. Not stable across ownership changes: the Anyang club is ''40'' (SBS) in
+              1997-98 and ''70'' today. D-League sides have their own codes (`teamCodeD`).'
+            type: string
+          teamLogoClass:
+            description: CSS logo class of the player's current or last team (site styling).
+            type: string
+          tname:
+            description: Short name (Korean) of the player's current or last team.
+            type: string
+          tnameEn:
+            description: Current team short name in English (e.g. 'JUNG KWAN JANG').
+            type: string
+        type: object
+      type: array
+    SeasonList:
+      description: Regular seasons (seasonCode, glkey, name, date range), newest first.
+      items:
+        properties:
+          gameCode:
+            description: 'Competition type within the season (2-digit string; code table in the README
+              and below): 01 regular season, 03 playoffs, 04 final, ...'
+            type: string
+          gamedateEnd:
+            description: Last date of the season, YYYYMMDD.
+            type: string
+          gamedateStart:
+            description: First date of the season, YYYYMMDD.
+            type: string
+          glkey:
+            description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+              the id of the /leagues and /league/rank routes.'
+            type: string
+          seasonCategory:
+            description: 'Category code of the competition: R regular season, PO playoffs, CP final, D1/D2
+              D-League stages, AS All-Star, EG/CU cups, EA EASL, OM Open Match Day (table below).'
+            type: string
+          seasonCode:
+            description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+              47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+            type: integer
+          seasonGrade:
+            description: 'Division: 1 = the KBL itself, 2 = the KBL D-League (reserve league).'
+            type: integer
+          seasonName:
+            description: 'Season label: ''YYYY-YYYY'' for a KBL season (e.g. ''2025-2026''), ''1997''
+              for the 1997 inaugural season, or the D-League edition name (e.g. ''2010KBLWINTER'', ''2024
+              KBL D리그'' = 2024 KBL D-League).'
+            type: string
+          seasonNameFull:
+            description: 'Division label: ''1군시즌'' = first-team (top-division) season.'
+            type: string
+        type: object
+      type: array
+  securitySchemes:
+    channel:
+      description: 'Required header, not a secret: the site sends `WEB`. Any value but `APP` passes (APP
+        asks for a further `device` header).'
+      in: header
+      name: Channel
+      type: apiKey
+    teamCode:
+      description: 'Required header, not a secret: the site sends a team code or `XX`; any value, even
+        empty, passes.'
+      in: header
+      name: TeamCode
+      type: apiKey
+info:
+  description: 'The data API behind www.kbl.or.kr (stats by sports2i). Schedules of every competition
+    (KBL, its D-League, cups, All-Star, EASL), game headers, play-by-play (text cast), box scores with
+    advanced rates, shot charts with x/y, standings, playoff brackets, season player totals and leaders.
+    Coverage: play-by-play and box scores from 1997 (seasonCode 1), shot x/y from 2006-07. Keys: gmkey
+    `S{seasonCode}G{gameCode}N{gameNo}` and glkey `S{seasonCode}G{gameCode}`; seasonCode is sequential
+    over every KBL season and D-League edition, and the README maps each to the sdv END year. No key,
+    but every request must carry the `Channel` and `TeamCode` headers (values unchecked). Routes from
+    the site bundle; shapes from committed captures in kbl/captures/ (captured 2026-10-12). Korean values
+    are translated in the descriptions. x-unobserved = null in every sample. Not official or supported.'
+  title: 'KBL (Korean Basketball League) API: api.kbl.or.kr'
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /common/teamList:
+    get:
+      description: 'Not scope-checked: no parameter; the current clubs.'
+      operationId: common_teamList
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonTeamList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: 'The current clubs: team code, names (Korean and English), logo class'
+  /league/playoff/new/{glkey}:
+    get:
+      description: For seasonCode >= 45. With a playoff glkey (S45G03) it answers 200 with an empty body.
+      operationId: league_playoff_new_glkey
+      parameters:
+      - description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+          the id of the /leagues and /league/rank routes.'
+        example: S45G01
+        in: path
+        name: glkey
+        required: true
+        schema: &id001
+          pattern: ^S\d+G\d{2}$
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaguePlayoffNewGlkey'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Playoff bracket, format used from 2024-25 (seasonCode >= 45)
+  /league/playoff/{glkey}:
+    get:
+      description: The site calls this route for seasonCode < 45 and /league/playoff/new for 45+. The
+        glkey's gameCode is not used (S43G03 returns the same body as S43G01).
+      operationId: league_playoff_glkey
+      parameters:
+      - description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+          the id of the /leagues and /league/rank routes.'
+        example: S43G01
+        in: path
+        name: glkey
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaguePlayoffGlkey'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Playoff bracket, format used through 2023-24 (seasonCode < 45)
+  /league/rank/team:
+    get:
+      description: 'Not scope-checked: no parameter; the active season only.'
+      operationId: league_rank_team
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueRankTeam'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Current standings (the active season; no parameter)
+  /league/rank/{glkey}:
+    get:
+      operationId: league_rank_glkey
+      parameters:
+      - description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+          the id of the /leagues and /league/rank routes.'
+        example: S45G01
+        in: path
+        name: glkey
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueRankGlkey'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Standings of one competition (glkey) with team season totals
+  /league/rank/{glkey}/team-tracks:
+    get:
+      description: 'Not scope-checked: no season echo; `rounds` dates are checked against the season instead.'
+      operationId: league_rank_glkey_team_tracks
+      parameters:
+      - description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+          the id of the /leagues and /league/rank routes.'
+        example: S45G01
+        in: path
+        name: glkey
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueRankGlkeyTeamTracks'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Standings rank after every game, per team, and the round calendar
+  /league/round-mvp/{seasonCode}:
+    get:
+      operationId: league_round_mvp_seasonCode
+      parameters:
+      - description: 'KBL season code: sequential over every season and D-League edition (2 = 1997-98,
+          47 = 2025-26); the crosswalk to the sdv END year is in the README.'
+        example: 45
+        in: path
+        name: seasonCode
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueRoundMvpSeasonCode'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Round MVPs of a season
+  /league/season-leader:
+    get:
+      description: 'Not scope-checked: no parameter; the active season only.'
+      operationId: league_season_leader
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueSeasonLeader'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Current season leaders per category (no parameter)
+  /leagues/{glkey}/stats/players:
+    get:
+      description: 'Players with at least one game. `/leagues/{glkey}/stats/players2` (not captured) returns
+        the same rows plus every registered player with 0 games. Not scope-checked: rows carry no season
+        or competition echo (S45G01 and S47G01 return different tables, so the path is honoured).'
+      operationId: leagues_glkey_stats_players
+      parameters:
+      - description: 'Competition key `S{seasonCode}G{gameCode}` (e.g. S47G01 = 2025-26 regular season):
+          the id of the /leagues and /league/rank routes.'
+        example: S45G01
+        in: path
+        name: glkey
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaguesGlkeyStatsPlayers'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Season player totals for one competition (glkey)
+  /match/list:
+    get:
+      description: 'Rows of every competition dated in the window; scope: every row''s gameDate lies in
+        fromDate..toDate.'
+      operationId: match_list
+      parameters:
+      - description: First game date, YYYYMMDD (inclusive). Every competition of the window is returned
+          (KBL, D-League, cups, EASL); no paging (a full calendar year, up to 396 games, comes back in
+          one answer).
+        example: '20251101'
+        in: query
+        name: fromDate
+        required: true
+        schema: &id002
+          pattern: ^\d{8}$
+          type: string
+      - description: Last game date, YYYYMMDD (inclusive).
+        example: '20251102'
+        in: query
+        name: toDate
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Every game (all competitions) dated within fromDate..toDate
+  /match/{gmkey}:
+    get:
+      operationId: match_gmkey
+      parameters:
+      - description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every /match/{gmkey}
+          route.'
+        example: S47G01N49
+        in: path
+        name: gmkey
+        required: true
+        schema: &id003
+          pattern: ^S\d+G\d{2}N\d+$
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchGmkey'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: 'Game header: teams, coaches, officials, venue, crowd, period scores'
+  /match/{gmkey}/match-chart:
+    get:
+      description: 'Scope: shot team codes are the game''s and scoreChart ends on the header''s final
+        score. shootLog is [] before 2006-07. An unknown gameNo returns 200 with empty arrays.'
+      operationId: match_gmkey_match_chart
+      parameters:
+      - description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every /match/{gmkey}
+          route.'
+        example: S47G01N49
+        in: path
+        name: gmkey
+        required: true
+        schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchGmkeyMatchChart'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Shot chart (x/y), lead tracker, score chart and best players
+  /match/{gmkey}/player-stat:
+    get:
+      description: 'Scope: player team codes are the game''s and their points add up to the header''s
+        totals. An unknown gameNo returns 200 [].'
+      operationId: match_gmkey_player_stat
+      parameters:
+      - description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every /match/{gmkey}
+          route.'
+        example: S47G01N49
+        in: path
+        name: gmkey
+        required: true
+        schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchGmkeyPlayerStat'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Player box score with advanced rates
+  /match/{gmkey}/team-record:
+    get:
+      description: 'Scope: the two team codes and their points match the header.'
+      operationId: match_gmkey_team_record
+      parameters:
+      - description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every /match/{gmkey}
+          route.'
+        example: S47G01N49
+        in: path
+        name: gmkey
+        required: true
+        schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchGmkeyTeamRecord'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Team box score with advanced rates and team-only counts
+  /match/{gmkey}/text-cast:
+    get:
+      description: 'Rows in period order; the order within a period is not strictly chronological for
+        simultaneous events. Scope: team codes are the game''s, and the periods returned are exactly Q1-Q4
+        plus one X{n} per overtime in the header.'
+      operationId: match_gmkey_text_cast
+      parameters:
+      - description: 'Game key `S{seasonCode}G{gameCode}N{gameNo}` (e.g. S47G01N49): the id of every /match/{gmkey}
+          route.'
+        example: S47G01N49
+        in: path
+        name: gmkey
+        required: true
+        schema: *id003
+      - description: 'Comma-separated periods: Q1,Q2,Q3,Q4,EQ1,EQ2,EQ3,EQ4. WITHOUT it only the LAST period
+          comes back (134 of 603 rows in S47G01N49), so always send every period; asking for an overtime
+          the game did not have is harmless.'
+        example: Q1,Q2,Q3,Q4,EQ1,EQ2,EQ3,EQ4
+        explode: false
+        in: query
+        name: quarterList
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchGmkeyTextCast'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Play-by-play (text cast) for the requested quarters
+  /players:
+    get:
+      description: 'Not scope-checked: no parameter; the whole directory.'
+      operationId: players
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Players'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Every player in the site's player directory (current and former)
+  /season/list:
+    get:
+      description: 'Not scope-checked: no parameter; the full list.'
+      operationId: season_list
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'A required header (`Channel` or `TeamCode`) is missing: {"resultCode":"Fail","message":"필수
+            헤더 정보가 누락되었습니다." (required header information is missing),"object":-1101,"errorCode":400}.'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Unknown or malformed id (e.g. /match/S99G01N1, /league/rank/47): {"resultCode":"Fail","message":"서버
+            오류가 발생했습니다." (a server error occurred),"object":null,"errorCode":500}. Not retried by the
+            capture.'
+      summary: Regular seasons (seasonCode, glkey, name, date range), newest first
+security:
+- channel: []
+  teamCode: []
+servers:
+- description: KBL API
+  url: https://api.kbl.or.kr
