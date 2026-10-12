@@ -959,86 +959,86 @@ components:
             Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
             Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). Null on the league row.'
           anyOf:
-          - &id001
-            type: integer
+          - type: integer
           - type: 'null'
-          x-upstream-schema: *id001
+          x-upstream-schema:
+            type: integer
           x-sdv-divergence: null on the league row, which upstream declares non-null
         name_en:
           title: Name En
           description: Team full name in English ('Niagara River Lions'). Null on the league row.
           anyOf:
-          - &id002
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id002
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         short_name_en:
           title: Short Name En
           description: Team short name in English, usually the city ('Niagara'). Null on the league row.
           anyOf:
-          - &id003
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id003
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         name_fr:
           title: Name Fr
           description: Team full name in French ('River Lions de Niagara'). Null on the league row.
           anyOf:
-          - &id004
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id004
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         short_name_fr:
           title: Short Name Fr
           description: Team short name in French, usually the city. Null on the league row.
           anyOf:
-          - &id005
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id005
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         logo_url:
           title: Logo Url
           description: Team logo URL (icon with the team name) on Google Cloud Storage. Null on the league
             row.
           anyOf:
-          - &id006
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id006
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         icon_url:
           title: Icon Url
           description: Team icon URL (without the team name) on Google Cloud Storage. Null on the league
             row.
           anyOf:
-          - &id007
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id007
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         stats_url_en:
           title: Stats Url En
           description: The team's stats page on cebl.ca (`https://cebl.ca/stats/{slug}`). Null on the
             league row.
           anyOf:
-          - &id008
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id008
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         stats_url_fr:
           title: Stats Url Fr
           description: The team's stats page on the French cebl.ca (`https://cebl.ca/fr-ca/stats/{slug}`).
             Null on the league row.
           anyOf:
-          - &id009
-            type: string
+          - type: string
           - type: 'null'
-          x-upstream-schema: *id009
+          x-upstream-schema:
+            type: string
           x-sdv-divergence: null on the league row, which upstream declares non-null
         played:
           title: Played
@@ -1324,7 +1324,9 @@ components:
           type: string
           description: 'Genius LiveStats box-score page, `https://fibalivestats.dcd.shared.geniussports.com/u/CEBL/{matchId}/`.
             The segment after `/u/CEBL/` is the Genius match id: the join to genius-livestats/ (org CEBL),
-            whose `data/{matchId}/data.json` holds the box score, play-by-play and shot chart.'
+            whose `data/{matchId}/data.json` holds the box score, play-by-play and shot chart. Only match
+            2600563 is banked there; the others are derived, and cancelled (CANELLED) games carry a filled-in
+            URL whose `data.json` is unverified.'
         stats_url_fr:
           title: Stats Url Fr
           type: string
@@ -1399,8 +1401,9 @@ components:
           - type: integer
           - type: 'null'
           title: Period
-          description: 'Current period while a game is live; null on every finished game (non-null on
-            1 of the 257 games of 2025-2026: a cancelled one, at 3).'
+          description: 'Current period while a game is live; null on every finished game. Counted over
+            the full 2025 and 2026 season bodies (257 games, probed 2026-10-12; the samples keep 3 rows):
+            non-null on 1, a cancelled game, at 3.'
       required:
       - stats_url_en
       - stats_url_fr
@@ -2010,14 +2013,26 @@ components:
       properties:
         id:
           title: Id
-          type: integer
           description: CEBL player id (its own key space). Joins /players/{player_id}/ and `id` in the
             other player rows. Genius LiveStats `data.json` carries no person id, so the join to Genius
             play-by-play is by name, team and jersey number (unverified).
+          anyOf:
+          - type: integer
+          - type: 'null'
+          x-upstream-schema:
+            type: integer
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         full_name:
           title: Full Name
-          type: string
           description: Player's full name.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         nationality:
           anyOf:
           - type: string
@@ -2041,44 +2056,98 @@ components:
             birth date is unknown.
         photo_url:
           title: Photo Url
-          type: string
           description: Player headshot URL on the Genius Sports image CDN (images.statsengine.playbyplay.api.geniussports.com).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_id:
           title: Team Id
-          type: integer
           description: 'CEBL team id (its own key space; not a Genius id). Joins /teams/ `id`, the games''
             `home_team_id` / `away_team_id`, `team_id` in player rows and the `team_id` / `vs_team_id`
             params. A relocated or renamed franchise has a second id: the Stats Hub groups 15+56 (Saskatchewan
             Rattlers, Saskatoon Mamba), 17+53 (Calgary Surge, Guelph Nighthawks), 19+55 (Brampton, Hamilton
             Honey Badgers) and 16+54 (Vancouver, Fraser Valley Bandits). The player''s latest team.'
+          anyOf:
+          - type: integer
+          - type: 'null'
+          x-upstream-schema:
+            type: integer
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_name_en:
           title: Team Name En
-          type: string
           description: Full English name of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_short_name_en:
           title: Team Short Name En
-          type: string
           description: Short English name (city) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_name_fr:
           title: Team Name Fr
-          type: string
           description: Full French name of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_short_name_fr:
           title: Team Short Name Fr
-          type: string
           description: Short French name (city) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_icon_url:
           title: Team Icon Url
-          type: string
           description: Icon URL (without the name) of the player's team.
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_stats_url_en:
           title: Team Stats Url En
-          type: string
           description: cebl.ca stats page of the player's team (English).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         team_stats_url_fr:
           title: Team Stats Url Fr
-          type: string
           description: cebl.ca stats page of the player's team (French).
+          anyOf:
+          - type: string
+          - type: 'null'
+          x-upstream-schema:
+            type: string
+          x-sdv-divergence: null in the unknown-player answer (HTTP 200, every field null), which upstream
+            declares non-null
         position:
           anyOf:
           - maxLength: 10
