@@ -3,1409 +3,2122 @@ components:
     GetClassementsphase:
       properties:
         data:
+          description: 'Payload: the standings table plus back-office timing.'
           properties:
             data:
+              description: 'Standings table: rows and table id.'
               properties:
                 classement_id:
+                  description: Standings table id.
                   type: integer
                 positions:
+                  description: Standings rows, one per team, in rank order.
                   items:
                     properties:
                       dernier_resultats:
+                        description: 'Last games of the team (form guide): scores and winner.'
                         items:
                           properties:
                             match_nul:
+                              description: Game ended tied.
                               type: boolean
                             participant_gagnant_id:
+                              description: Team participant id of the winner (joins positions[].participant_id).
                               type: integer
                             scores:
+                              description: 'Score rows, one per team: goals, team id, team participant
+                                id.'
                               items:
                                 properties:
                                   equipe_id:
+                                    description: Team id.
                                     type: integer
                                   participant_id:
+                                    description: 'Team participant id of the team score row: the team''s
+                                      entry in one phase (its own key space, e.g. 9120-9131 for 2026-27
+                                      phase 714; not a team id, not a player participant id). Joins score[].participant_id
+                                      = positions[].participant_id = dernier_resultats[].participant_gagnant_id.'
                                     type: integer
                                   score:
+                                    description: Goals scored by the team.
                                     type: integer
                                   sportif_rencontre_id:
+                                    description: Game id.
                                     type: integer
                                 type: object
                               type: array
                             sportif_rencontre_id:
+                              description: Game id.
                               type: integer
                           type: object
                         type: array
                       equipe:
+                        description: 'Team of the standings row: team id, labels, logo, club.'
                         properties:
                           abreviation:
+                            description: Abbreviation of the team.
                             type: string
                           code:
+                            description: Team code (EQ....).
                             type: string
                           id:
+                            description: Team id of the team (stable across seasons; = get_equipes data[].id).
                             type: integer
                           logo:
+                            description: Logo URL (or file name) of the team.
                             type: string
                           nom:
+                            description: Name of the team.
                             type: string
                           nom_court:
+                            description: Short name of the team.
                             type: string
                           proprietaire:
+                            description: 'Owning club: its federation code.'
                             properties:
                               code:
+                                description: Code of the owning club.
                                 type: string
                             type: object
                         type: object
                       logo:
+                        description: Team logo URL.
                         type: string
                       nombre_but_concede:
+                        description: Goals against.
                         type: integer
                       nombre_but_marque:
+                        description: Goals for.
                         type: integer
                       nombre_defaite:
+                        description: Regulation losses.
                         type: integer
                       nombre_dprl:
+                        description: Overtime/shootout losses (défaite en prolongation).
                         type: integer
                       nombre_nul:
+                        description: Ties.
                         type: integer
                       nombre_penalites:
+                        description: Penalty minutes.
                         type: integer
                       nombre_point:
+                        description: Points.
                         type: integer
                       nombre_rencontres_joues:
+                        description: Games played.
                         type: integer
                       nombre_victoire:
+                        description: Regulation wins.
                         type: integer
                       nombre_vprl:
+                        description: Overtime/shootout wins (victoire en prolongation).
                         type: integer
                       participant_id:
+                        description: 'Team participant id of the standings row: the team''s entry in one
+                          phase (its own key space, e.g. 9120-9131 for 2026-27 phase 714; not a team id,
+                          not a player participant id). Joins score[].participant_id = positions[].participant_id
+                          = dernier_resultats[].participant_gagnant_id.'
                         type: integer
                       position:
+                        description: Rank in the standings (1 = first).
                         type: integer
                     type: object
                   type: array
               type: object
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetCompetitionByType:
       properties:
         data:
+          description: 'Payload: competition rows plus back-office timing.'
           properties:
             data:
+              description: Competitions of the type, one per season.
               items:
                 properties:
                   id:
+                    description: Competition id, one per season (the competition_id request parameter).
                     type: integer
                   libelle:
+                    description: Label (name) of the competition.
                     type: string
                   parametres:
+                    description: Publication settings of the competition (streaming URL, published flag).
                     properties:
                       publier_sur_site:
+                        description: Published on the public site.
                         type: boolean
                       url_externe:
+                        description: External streaming / site URL.
                         type: string
                     type: object
                   saison:
+                    description: Season key, END year (2027 = 2026-27).
                     type: integer
                   type:
+                    description: 'Competition type: id, code, label.'
                     properties:
                       code:
+                        description: Competition type code (NA in samples).
                         type: string
                       created_at:
+                        description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       id:
+                        description: 'Competition type id: 1 = Ligue Magnus, 2 = Division 1.'
                         type: integer
                       libelle:
+                        description: Competition type name (Ligue Magnus, D1).
                         type: string
                       updated_at:
+                        description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                     type: object
                 type: object
               type: array
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetEquipes:
       properties:
         data:
+          description: 'Payload: team rows plus back-office timing.'
           properties:
             data:
+              description: Teams of the phase.
               items:
                 properties:
                   abreviation:
+                    description: Abbreviation of the team.
                     type: string
                   id:
+                    description: Team id, stable across seasons (the equipe_id request parameter of get_rencontres).
                     type: integer
                   id_compet:
+                    description: Competition ids the team has entered (all seasons, all levels).
                     items:
                       type: integer
                     type: array
                   libelle:
+                    description: Label (name) of the team.
                     type: string
                   libelle_complet:
+                    description: Full display name of the team.
                     type: string
                   libelle_court:
+                    description: Short label of the team.
                     type: string
                   logo:
+                    description: Logo URL (or file name) of the team.
                     type: string
                   sexe:
+                    description: 'Gender of the team: M (men; the only value in samples).'
                     type: string
                   structure:
+                    description: 'Club (legal entity) behind the team: id, name, federation code, state.'
                     properties:
                       code:
+                        description: Federation club code (e.g. 72001S).
                         type: string
                       etat:
+                        description: Club state code (A in every sample).
                         type: string
                       id:
+                        description: Id of the club (legal entity).
                         type: integer
                       logo:
+                        description: Logo URL (or file name) of the club (legal entity).
                         type: string
                       nom:
+                        description: Name of the club (legal entity).
                         type: string
                       nom_court:
+                        description: Short name of the club (legal entity).
                         type: string
                       type:
+                        description: Club legal-form code (SOC in samples).
                         type: string
                     type: object
                 type: object
               type: array
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetListeTours:
       properties:
         data:
+          description: 'Payload: round rows plus back-office timing.'
           properties:
             data:
+              description: Rounds of the phase.
               items:
                 properties:
                   competition:
+                    description: 'Competition (one per season) of the round: id, season key, name, type.'
                     properties:
                       id:
+                        description: Id of the competition.
                         type: integer
                       libelle:
+                        description: Competition name (e.g. Synerglace Ligue Magnus).
                         type: string
                       parametres:
+                        description: Publication settings of the competition (streaming URL, published
+                          flag).
                         properties:
                           publier_sur_site:
+                            description: Published on the public site.
                             type: boolean
                           url_externe:
+                            description: External streaming / site URL.
                             type: string
                         type: object
                       saison:
+                        description: Season key, END year (2027 = 2026-27).
                         type: integer
                       type:
+                        description: 'Competition type: id, code, label.'
                         properties:
                           code:
+                            description: Competition type code (NA in samples).
                             type: string
                           created_at:
+                            description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                             type: string
                           id:
+                            description: 'Competition type id: 1 = Ligue Magnus, 2 = Division 1.'
                             type: integer
                           libelle:
+                            description: Competition type name (Ligue Magnus, D1).
                             type: string
                           updated_at:
+                            description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                             type: string
                         type: object
                     type: object
                   date_debut:
+                    description: Start date of the round.
                     type: string
                   date_fin:
+                    description: End date of the round.
                     type: string
                   id:
+                    description: Id of the round.
                     type: integer
                   libelle:
-                    type:
-                    - 'null'
+                    description: Unobserved in samples (null in every capture); type and meaning unverified.
+                    x-unobserved: true
                   phase:
+                    description: 'Phase of the round: id, name, phase type, format settings.'
                     properties:
                       competition_libelle:
+                        description: Competition name.
                         type: string
                       id:
+                        description: Id of the phase.
                         type: integer
                       libelle:
+                        description: Phase name (e.g. Saison régulière = regular season).
                         type: string
                       parametrage:
+                        description: Format settings of the phase (legs, groups, overtime, ...).
                         properties:
                           aller_retour:
+                            description: Home-and-away legs flag (0/1).
                             type: integer
                           appuis:
+                            description: Back-office seeding setting.
                             type: integer
                           avec_bascule_auto:
+                            description: Automatic promotion to the next phase.
                             type: boolean
                           avec_classement_final:
+                            description: Produces a final ranking.
                             type: boolean
                           extra_poule:
+                            description: Cross-pool games flag.
                             type: boolean
                           grille_id:
-                            type:
-                            - 'null'
+                            description: Unobserved in samples (null in every capture); type and meaning
+                              unverified.
+                            x-unobserved: true
                           nombre_groupe:
+                            description: Number of groups (pools).
                             type: integer
                           nombre_match_par_confrontation:
+                            description: Games per pairing.
                             type: integer
                           nombre_participant:
+                            description: Number of teams.
                             type: integer
                           nombre_plateaux:
-                            type:
-                            - 'null'
+                            description: Unobserved in samples (null in every capture); type and meaning
+                              unverified.
+                            x-unobserved: true
                           petite_finale:
+                            description: Third-place game played.
                             type: boolean
                           phase_finale:
+                            description: Final-phase flag.
                             type: boolean
                           prolongation:
+                            description: Overtime played when tied.
                             type: boolean
                           score_cumule:
+                            description: Aggregate score across legs.
                             type: boolean
                           type_assignation:
+                            description: Fixture assignment mode (M = manual).
                             type: string
                         type: object
                       type_phase:
+                        description: 'Phase type code: C (championnat, round robin), T (tableau, playoff
+                          bracket).'
                         type: string
                       visible:
+                        description: Shown on the public site.
                         type: boolean
                     type: object
                   phase_id:
+                    description: Phase id.
                     type: integer
                   rencontres:
-                    type:
-                    - 'null'
+                    description: Unobserved in samples (null in every capture); type and meaning unverified.
+                    x-unobserved: true
                   tour:
+                    description: Round number (journee).
                     type: integer
                 type: object
               type: array
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetPhases:
       properties:
         data:
+          description: 'Payload: phase rows plus back-office timing.'
           properties:
             data:
+              description: Phases of the competition.
               items:
                 properties:
                   competition_libelle:
+                    description: Competition name.
                     type: string
                   id:
+                    description: Phase id (the phase_id request parameter).
                     type: integer
                   libelle:
+                    description: Label (name) of the phase.
                     type: string
                   parametrage:
+                    description: Format settings of the phase (legs, groups, overtime, ...).
                     properties:
                       aller_retour:
+                        description: Home-and-away legs flag (0/1).
                         type: integer
                       appuis:
+                        description: Back-office seeding setting.
                         type: integer
                       avec_bascule_auto:
+                        description: Automatic promotion to the next phase.
                         type: boolean
                       avec_classement_final:
+                        description: Produces a final ranking.
                         type: boolean
                       extra_poule:
+                        description: Cross-pool games flag.
                         type: boolean
                       grille_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       nombre_groupe:
+                        description: Number of groups (pools).
                         type: integer
                       nombre_match_par_confrontation:
+                        description: Games per pairing.
                         type: integer
                       nombre_participant:
+                        description: Number of teams.
                         type: integer
                       nombre_plateaux:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       petite_finale:
+                        description: Third-place game played.
                         type: boolean
                       phase_finale:
+                        description: Final-phase flag.
                         type: boolean
                       prolongation:
+                        description: Overtime played when tied.
                         type: boolean
                       score_cumule:
+                        description: Aggregate score across legs.
                         type: boolean
                       type_assignation:
+                        description: Fixture assignment mode (M = manual).
                         type: string
                     type: object
                   type_phase:
+                    description: 'Phase type code: C (championnat, round robin), T (tableau, playoff bracket).'
                     type: string
                   visible:
+                    description: Shown on the public site.
                     type: boolean
                 type: object
               type: array
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetRencontres:
       properties:
         data:
+          description: 'Laravel page: data (game rows), links, meta.'
           properties:
             data:
+              description: Games of the page (the whole season with par_page=700).
               items:
                 properties:
                   calendrier:
+                    description: 'Scheduled slot of the game: start and end date-time.'
                     properties:
                       date_debut:
+                        description: Start date of the scheduled slot.
                         type: string
                       date_fin:
+                        description: End date of the scheduled slot.
                         type: string
                     type: object
                   competition:
+                    description: 'Competition (one per season) of the game: id, season key, name, type.'
                     properties:
                       id:
+                        description: Id of the competition.
                         type: integer
                       libelle:
+                        description: Competition name (e.g. Synerglace Ligue Magnus).
                         type: string
                       parametres:
+                        description: Publication settings of the competition (streaming URL, published
+                          flag).
                         properties:
                           publier_sur_site:
+                            description: Published on the public site.
                             type: boolean
                           url_externe:
+                            description: External streaming / site URL.
                             type: string
                         type: object
                       saison:
+                        description: Season key, END year (2027 = 2026-27).
                         type: integer
                       type:
+                        description: 'Competition type: id, code, label.'
                         properties:
                           code:
+                            description: Competition type code (NA in samples).
                             type: string
                           created_at:
+                            description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                             type: string
                           id:
+                            description: 'Competition type id: 1 = Ligue Magnus, 2 = Division 1.'
                             type: integer
                           libelle:
+                            description: Competition type name (Ligue Magnus, D1).
                             type: string
                           updated_at:
+                            description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                             type: string
                         type: object
                     type: object
                   date_rencontre:
+                    description: Game date and time, local (YYYY-MM-DD HH:MM).
                     type: string
                   en_cours:
+                    description: Game in progress.
                     type: boolean
                   etat:
+                    description: 'Game state code: T (terminée, final); null before the game.'
                     type: string
                   id:
+                    description: Game id (the {id} of /rencontre/{id}/).
                     type: integer
                   infos_complementaires:
+                    description: Extra information text (empty string in samples).
                     type: string
                   lieu_de_pratique:
+                    description: 'Rink (venue) of the game: id and name.'
                     properties:
                       id:
+                        description: Id of the rink.
                         type: integer
                       nom:
+                        description: Name of the rink.
                         type: string
                     type: object
                   lot:
-                    type:
-                    - 'null'
+                    description: Unobserved in samples (null in every capture); type and meaning unverified.
+                    x-unobserved: true
                   phase:
+                    description: 'Phase of the game: id, name, phase type, format settings.'
                     properties:
                       competition_libelle:
+                        description: Competition name.
                         type: string
                       id:
+                        description: Id of the phase.
                         type: integer
                       libelle:
+                        description: Phase name (e.g. Saison régulière = regular season).
                         type: string
                       parametrage:
+                        description: Format settings of the phase (legs, groups, overtime, ...).
                         properties:
                           aller_retour:
+                            description: Home-and-away legs flag (0/1).
                             type: integer
                           appuis:
+                            description: Back-office seeding setting.
                             type: integer
                           avec_bascule_auto:
+                            description: Automatic promotion to the next phase.
                             type: boolean
                           avec_classement_final:
+                            description: Produces a final ranking.
                             type: boolean
                           extra_poule:
+                            description: Cross-pool games flag.
                             type: boolean
                           grille_id:
-                            type:
-                            - 'null'
+                            description: Unobserved in samples (null in every capture); type and meaning
+                              unverified.
+                            x-unobserved: true
                           nombre_groupe:
+                            description: Number of groups (pools).
                             type: integer
                           nombre_match_par_confrontation:
+                            description: Games per pairing.
                             type: integer
                           nombre_participant:
+                            description: Number of teams.
                             type: integer
                           nombre_plateaux:
-                            type:
-                            - 'null'
+                            description: Unobserved in samples (null in every capture); type and meaning
+                              unverified.
+                            x-unobserved: true
                           petite_finale:
+                            description: Third-place game played.
                             type: boolean
                           phase_finale:
+                            description: Final-phase flag.
                             type: boolean
                           prolongation:
+                            description: Overtime played when tied.
                             type: boolean
                           score_cumule:
+                            description: Aggregate score across legs.
                             type: boolean
                           type_assignation:
+                            description: Fixture assignment mode (M = manual).
                             type: string
                         type: object
                       type_phase:
+                        description: 'Phase type code: C (championnat, round robin), T (tableau, playoff
+                          bracket).'
                         type: string
                       visible:
+                        description: Shown on the public site.
                         type: boolean
                     type: object
                   phase_id:
+                    description: Phase id.
                     type: integer
                   receveur:
+                    description: 'Home team of the game: team id, labels, logo, club.'
                     properties:
                       abreviation:
+                        description: Abbreviation of the home team.
                         type: string
                       id:
+                        description: Team id of the home team (stable across seasons; = get_equipes data[].id).
                         type: integer
                       id_compet:
+                        description: Competition ids the team has entered (all seasons, all levels).
                         items:
                           type: integer
                         type: array
                       libelle:
+                        description: Label (name) of the home team.
                         type: string
                       libelle_complet:
+                        description: Full display name of the home team.
                         type: string
                       libelle_court:
+                        description: Short label of the home team.
                         type: string
                       logo:
+                        description: Logo URL (or file name) of the home team.
                         type: string
                       sexe:
+                        description: 'Gender of the home team: M (men; the only value in samples).'
                         type: string
                       structure:
+                        description: 'Club (legal entity) behind the home team: id, name, federation code,
+                          state.'
                         properties:
                           code:
+                            description: Federation club code (e.g. 72001S).
                             type: string
                           etat:
+                            description: Club state code (A in every sample).
                             type: string
                           id:
+                            description: Id of the club (legal entity).
                             type: integer
                           logo:
+                            description: Logo URL (or file name) of the club (legal entity).
                             type: string
                           nom:
+                            description: Name of the club (legal entity).
                             type: string
                           nom_court:
+                            description: Short name of the club (legal entity).
                             type: string
                           type:
+                            description: Club legal-form code (SOC in samples).
                             type: string
                         type: object
                     type: object
                   rencontre_libelle:
+                    description: Game label 'HOME / AWAY'.
                     type: string
                   score:
+                    description: Final score rows, one per team (0-0 on unplayed games).
                     items:
                       properties:
                         equipe_id:
+                          description: Team id.
                           type: integer
                         participant_id:
+                          description: 'Team participant id of the team score row: the team''s entry in
+                            one phase (its own key space, e.g. 9120-9131 for 2026-27 phase 714; not a
+                            team id, not a player participant id). Joins score[].participant_id = positions[].participant_id
+                            = dernier_resultats[].participant_gagnant_id.'
                           type: integer
                         score:
+                          description: Goals scored by the team.
                           type: integer
                         sportif_rencontre_id:
+                          description: Game id.
                           type: integer
                       type: object
                     type: array
                   tour:
+                    description: Round number (journee).
                     type: integer
                   tour_libelle:
-                    type:
-                    - 'null'
+                    description: Unobserved in samples (null in every capture); type and meaning unverified.
+                    x-unobserved: true
                   victoire_par:
+                    description: 'How the game was won: S = regulation, PRL = overtime, TAB = shootout
+                      (S also on unplayed games).'
                     type: string
                   visiteur:
+                    description: 'Away team of the game: team id, labels, logo, club.'
                     properties:
                       abreviation:
+                        description: Abbreviation of the away team.
                         type: string
                       id:
+                        description: Team id of the away team (stable across seasons; = get_equipes data[].id).
                         type: integer
                       id_compet:
+                        description: Competition ids the team has entered (all seasons, all levels).
                         items:
                           type: integer
                         type: array
                       libelle:
+                        description: Label (name) of the away team.
                         type: string
                       libelle_complet:
+                        description: Full display name of the away team.
                         type: string
                       libelle_court:
+                        description: Short label of the away team.
                         type: string
                       logo:
+                        description: Logo URL (or file name) of the away team.
                         type: string
                       sexe:
+                        description: 'Gender of the away team: M (men; the only value in samples).'
                         type: string
                       structure:
+                        description: 'Club (legal entity) behind the away team: id, name, federation code,
+                          state.'
                         properties:
                           code:
+                            description: Federation club code (e.g. 72001S).
                             type: string
                           etat:
+                            description: Club state code (A in every sample).
                             type: string
                           id:
+                            description: Id of the club (legal entity).
                             type: integer
                           logo:
+                            description: Logo URL (or file name) of the club (legal entity).
                             type: string
                           nom:
+                            description: Name of the club (legal entity).
                             type: string
                           nom_court:
+                            description: Short name of the club (legal entity).
                             type: string
                           type:
+                            description: Club legal-form code (SOC in samples).
                             type: string
                         type: object
                     type: object
                 type: object
               type: array
             links:
+              description: 'Laravel pager URLs: first, last, prev, next.'
               properties:
                 first:
+                  description: URL of the first page (upstream hockeynet.fr path).
                   type: string
                 last:
+                  description: URL of the last page.
                   type: string
                 next:
-                  type:
-                  - 'null'
+                  description: Unobserved in samples (null in every capture); type and meaning unverified.
+                  x-unobserved: true
                 prev:
-                  type:
-                  - 'null'
+                  description: Unobserved in samples (null in every capture); type and meaning unverified.
+                  x-unobserved: true
               type: object
             meta:
+              description: 'Laravel paging metadata: page, size, totals.'
               properties:
                 current_page:
+                  description: Current page number.
                   type: integer
                 from:
+                  description: First row number on this page.
                   type: integer
                 last_page:
+                  description: Number of pages.
                   type: integer
                 links:
+                  description: Pager buttons (url, label, active, page).
                   items:
                     properties:
                       active:
+                        description: Current page marker.
                         type: boolean
                       label:
+                        description: Pager label (HTML entities).
                         type: string
                       page:
+                        description: Page number of the button (null for the prev / next buttons).
                         type:
                         - integer
                         - 'null'
                       url:
+                        description: Page URL (null for a disabled button).
                         type:
                         - string
                         - 'null'
                     type: object
                   type: array
                 path:
+                  description: Upstream API path (hockeynet.fr/api/v1/rencontres).
                   type: string
                 per_page:
+                  description: Page size (par_page).
                   type: integer
                 to:
+                  description: Last row number on this page.
                   type: integer
                 total:
+                  description: Total rows.
                   type: integer
               type: object
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     GetRencontrestours:
       properties:
         data:
+          description: 'Payload: the round plus back-office timing.'
           properties:
             data:
+              description: The requested round, with its games.
               properties:
                 competition:
+                  description: 'Competition (one per season) of the round: id, season key, name, type.'
                   properties:
                     id:
+                      description: Id of the competition.
                       type: integer
                     libelle:
+                      description: Competition name (e.g. Synerglace Ligue Magnus).
                       type: string
                     parametres:
+                      description: Publication settings of the competition (streaming URL, published flag).
                       properties:
                         publier_sur_site:
+                          description: Published on the public site.
                           type: boolean
                         url_externe:
+                          description: External streaming / site URL.
                           type: string
                       type: object
                     saison:
+                      description: Season key, END year (2027 = 2026-27).
                       type: integer
                     type:
+                      description: 'Competition type: id, code, label.'
                       properties:
                         code:
+                          description: Competition type code (NA in samples).
                           type: string
                         created_at:
+                          description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                           type: string
                         id:
+                          description: 'Competition type id: 1 = Ligue Magnus, 2 = Division 1.'
                           type: integer
                         libelle:
+                          description: Competition type name (Ligue Magnus, D1).
                           type: string
                         updated_at:
+                          description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                           type: string
                       type: object
                   type: object
                 date_debut:
+                  description: Start date of the round.
                   type: string
                 date_fin:
+                  description: End date of the round.
                   type: string
                 id:
+                  description: Id of the round.
                   type: integer
                 libelle:
-                  type:
-                  - 'null'
+                  description: Unobserved in samples (null in every capture); type and meaning unverified.
+                  x-unobserved: true
                 phase:
+                  description: 'Phase of the round: id, name, phase type, format settings.'
                   properties:
                     competition_libelle:
+                      description: Competition name.
                       type: string
                     id:
+                      description: Id of the phase.
                       type: integer
                     libelle:
+                      description: Phase name (e.g. Saison régulière = regular season).
                       type: string
                     parametrage:
+                      description: Format settings of the phase (legs, groups, overtime, ...).
                       properties:
                         aller_retour:
+                          description: Home-and-away legs flag (0/1).
                           type: integer
                         appuis:
+                          description: Back-office seeding setting.
                           type: integer
                         avec_bascule_auto:
+                          description: Automatic promotion to the next phase.
                           type: boolean
                         avec_classement_final:
+                          description: Produces a final ranking.
                           type: boolean
                         extra_poule:
+                          description: Cross-pool games flag.
                           type: boolean
                         grille_id:
-                          type:
-                          - 'null'
+                          description: Unobserved in samples (null in every capture); type and meaning
+                            unverified.
+                          x-unobserved: true
                         nombre_groupe:
+                          description: Number of groups (pools).
                           type: integer
                         nombre_match_par_confrontation:
+                          description: Games per pairing.
                           type: integer
                         nombre_participant:
+                          description: Number of teams.
                           type: integer
                         nombre_plateaux:
-                          type:
-                          - 'null'
+                          description: Unobserved in samples (null in every capture); type and meaning
+                            unverified.
+                          x-unobserved: true
                         petite_finale:
+                          description: Third-place game played.
                           type: boolean
                         phase_finale:
+                          description: Final-phase flag.
                           type: boolean
                         prolongation:
+                          description: Overtime played when tied.
                           type: boolean
                         score_cumule:
+                          description: Aggregate score across legs.
                           type: boolean
                         type_assignation:
+                          description: Fixture assignment mode (M = manual).
                           type: string
                       type: object
                     type_phase:
+                      description: 'Phase type code: C (championnat, round robin), T (tableau, playoff
+                        bracket).'
                       type: string
                     visible:
+                      description: Shown on the public site.
                       type: boolean
                   type: object
                 phase_id:
+                  description: Phase id.
                   type: integer
                 rencontres:
+                  description: Games of the round.
                   items:
                     properties:
                       date_rencontre:
+                        description: Game date and time, local (YYYY-MM-DD HH:MM).
                         type: string
                       en_cours:
+                        description: Game in progress.
                         type: boolean
                       etat:
+                        description: 'Game state code: T (terminée, final); null before the game.'
                         type: string
                       id:
+                        description: Id of the game.
                         type: integer
                       infos_complementaires:
+                        description: Extra information text (empty string in samples).
                         type: string
                       lieu_de_pratique:
+                        description: 'Rink (venue) of the game: id and name.'
                         properties:
                           id:
+                            description: Id of the rink.
                             type: integer
                           nom:
+                            description: Name of the rink.
                             type: string
                         type: object
                       poule:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       receveur:
+                        description: 'Home team of the game: team id, labels, logo, club.'
                         properties:
                           abreviation:
+                            description: Abbreviation of the home team.
                             type: string
                           id:
+                            description: Team id of the home team (stable across seasons; = get_equipes
+                              data[].id).
                             type: integer
                           id_compet:
+                            description: Competition ids the team has entered (all seasons, all levels).
                             items:
                               type: integer
                             type: array
                           libelle:
+                            description: Label (name) of the home team.
                             type: string
                           libelle_complet:
+                            description: Full display name of the home team.
                             type: string
                           libelle_court:
+                            description: Short label of the home team.
                             type: string
                           logo:
+                            description: Logo URL (or file name) of the home team.
                             type: string
                           sexe:
+                            description: 'Gender of the home team: M (men; the only value in samples).'
                             type: string
                           structure:
+                            description: 'Club (legal entity) behind the home team: id, name, federation
+                              code, state.'
                             properties:
                               code:
+                                description: Federation club code (e.g. 72001S).
                                 type: string
                               etat:
+                                description: Club state code (A in every sample).
                                 type: string
                               id:
+                                description: Id of the club (legal entity).
                                 type: integer
                               logo:
+                                description: Logo URL (or file name) of the club (legal entity).
                                 type: string
                               nom:
+                                description: Name of the club (legal entity).
                                 type: string
                               nom_court:
+                                description: Short name of the club (legal entity).
                                 type: string
                               type:
+                                description: Club legal-form code (SOC in samples).
                                 type: string
                             type: object
                         type: object
                       rencontre_libelle:
+                        description: Game label 'HOME / AWAY'.
                         type: string
                       score:
+                        description: 'Score rows, one per team: goals, team id, team participant id.'
                         items:
                           properties:
                             equipe_id:
+                              description: Team id.
                               type: integer
                             participant_id:
+                              description: 'Team participant id of the team score row: the team''s entry
+                                in one phase (its own key space, e.g. 9120-9131 for 2026-27 phase 714;
+                                not a team id, not a player participant id). Joins score[].participant_id
+                                = positions[].participant_id = dernier_resultats[].participant_gagnant_id.'
                               type: integer
                             score:
+                              description: Goals scored by the team.
                               type: integer
                             sportif_rencontre_id:
+                              description: Game id.
                               type: integer
                           type: object
                         type: array
                       visiteur:
+                        description: 'Away team of the game: team id, labels, logo, club.'
                         properties:
                           abreviation:
+                            description: Abbreviation of the away team.
                             type: string
                           id:
+                            description: Team id of the away team (stable across seasons; = get_equipes
+                              data[].id).
                             type: integer
                           id_compet:
+                            description: Competition ids the team has entered (all seasons, all levels).
                             items:
                               type: integer
                             type: array
                           libelle:
+                            description: Label (name) of the away team.
                             type: string
                           libelle_complet:
+                            description: Full display name of the away team.
                             type: string
                           libelle_court:
+                            description: Short label of the away team.
                             type: string
                           logo:
+                            description: Logo URL (or file name) of the away team.
                             type: string
                           sexe:
+                            description: 'Gender of the away team: M (men; the only value in samples).'
                             type: string
                           structure:
+                            description: 'Club (legal entity) behind the away team: id, name, federation
+                              code, state.'
                             properties:
                               code:
+                                description: Federation club code (e.g. 72001S).
                                 type: string
                               etat:
+                                description: Club state code (A in every sample).
                                 type: string
                               id:
+                                description: Id of the club (legal entity).
                                 type: integer
                               logo:
+                                description: Logo URL (or file name) of the club (legal entity).
                                 type: string
                               nom:
+                                description: Name of the club (legal entity).
                                 type: string
                               nom_court:
+                                description: Short name of the club (legal entity).
                                 type: string
                               type:
+                                description: Club legal-form code (SOC in samples).
                                 type: string
                             type: object
                         type: object
                     type: object
                   type: array
                 tour:
+                  description: Round number (journee).
                   type: integer
               type: object
             time:
+              description: Back-office query time ('0.0008 sec.').
               type: string
           type: object
         success:
+          description: 'Envelope flag: true when the call succeeded (an error can still arrive with true;
+            see the operation description).'
           type: boolean
       type: object
     RencontreGameSheet:
       properties:
         chronometre:
+          description: 'Game clock state: references, total, paused flag.'
           properties:
             en_pause:
+              description: Clock paused.
               type: boolean
             milisecondes_total:
+              description: Clock total in milliseconds.
               type: integer
             reference_debut:
+              description: Clock start reference (ISO 8601 UTC).
               type: string
             reference_fin:
+              description: Clock end reference (ISO 8601 UTC).
               type: string
           type: object
         competition:
+          description: Competition name (a string here, not an object).
           type: string
         date_rencontre:
+          description: Game date and time, local (YYYY-MM-DD HH:MM).
           type: string
         date_rencontre_non_formate:
+          description: Game date and time, local (YYYY-MM-DD HH:MM:SS).
           type: string
         est_debute:
+          description: Game has started.
           type: boolean
         est_en_pause:
+          description: Game clock is stopped.
           type: boolean
         est_terminee:
+          description: Game is over.
           type: boolean
         etat:
+          description: 'Game state code: T (terminée, final); null before the game.'
           type: string
         evenements:
+          description: 'Play-by-play events, grouped by type (not chronological): sort by temps.'
           items:
             properties:
               assistants:
+                description: Assisting players (0-2).
                 items:
                   properties:
                     attributs:
+                      description: Role attributes of the assisting player (captaincy); empty for most
+                        players.
                       items:
                         properties:
                           code:
+                            description: Code of the role attribute.
                             type: string
                           couleur:
+                            description: Display colour (hex) of the role attribute.
                             type: string
                           libelle:
+                            description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                              captain).'
                             type: string
                         type: object
                       type: array
                     code_adherent:
+                      description: FFHG licence number of the assisting player (string, keeps leading
+                        zeros).
                       type: string
                     equipe_id:
+                      description: Team id.
                       type: integer
                     id:
+                      description: 'Person id of the assisting player: = joueurs[].id = joueurs[].personne.id,
+                        stable across games.'
                       type: integer
                     nom_complet:
+                      description: Full name of the assisting player (SURNAME First).
                       type: string
                     numero:
+                      description: Jersey number of the assisting player (string).
                       type: string
                     participant_id:
+                      description: 'Player participant id of the assisting player: this player''s roster
+                        entry in THIS game (changes every game). Joins evenements[].joueurs_plus_ids /
+                        joueurs_moins_ids and mvps[].participant_joueur_id; use the person id to join
+                        across games.'
                       type: integer
                     personne:
+                      description: 'The person (licence holder) behind the assisting player: person id,
+                        licence number, registered number, photo.'
                       properties:
                         code_adherent:
+                          description: FFHG licence number of the person (licence holder) (string, keeps
+                            leading zeros).
                           type: string
                         id:
+                          description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                            stable across games.'
                           type: integer
                         nom_complet:
+                          description: Full name of the person (licence holder) (SURNAME First).
                           type: string
                         numero:
+                          description: Registered jersey number of the person (string); can differ from
+                            the number worn in this game.
                           type: string
                         photo_url:
+                          description: Photo thumbnail URL of the person (licence holder).
                           type: string
                       type: object
                     position:
+                      description: 'Playing position of the assisting player: code, label, colour; null
+                        when unset.'
                       properties:
                         code:
+                          description: 'Position code: D (défenseur, defence), A (attaquant, forward),
+                            GB (gardien de but, goalie).'
                           type: string
                         couleur:
+                          description: Display colour (hex) of the playing position.
                           type: string
                         libelle:
+                          description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                           type: string
                       type: object
                   type: object
                 type: array
               but_associe:
-                type:
-                - 'null'
+                description: Unobserved in samples (null in every capture); type and meaning unverified.
+                x-unobserved: true
               buteur:
+                description: Goal scorer (person; also carries the per-game participant id).
                 properties:
                   attributs:
+                    description: Role attributes of the goal scorer (captaincy); empty for most players.
                     items:
                       properties:
                         code:
+                          description: Code of the role attribute.
                           type: string
                         couleur:
+                          description: Display colour (hex) of the role attribute.
                           type: string
                         libelle:
+                          description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                            captain).'
                           type: string
                       type: object
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the goal scorer (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the goal scorer: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the goal scorer (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the goal scorer (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the goal scorer: this player''s roster entry
+                      in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the goal scorer: person id, licence
+                      number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the goal scorer: code, label, colour; null when
+                      unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
                 type: object
               entrant:
-                type:
-                - 'null'
+                description: Unobserved in samples (null in every capture); type and meaning unverified.
+                x-unobserved: true
               equipe:
+                description: 'Team of the event: team id, labels, logo, club.'
                 properties:
                   abreviation:
+                    description: Abbreviation of the team.
                     type: string
                   id:
+                    description: Team id of the team (stable across seasons; = get_equipes data[].id).
                     type: integer
                   id_compet:
+                    description: Competition ids the team has entered (all seasons, all levels).
                     items:
                       type: integer
                     type: array
                   libelle:
+                    description: Label (name) of the team.
                     type: string
                   libelle_complet:
+                    description: Full display name of the team.
                     type: string
                   libelle_court:
+                    description: Short label of the team.
                     type: string
                   logo:
+                    description: Logo URL (or file name) of the team.
                     type: string
                   sexe:
+                    description: 'Gender of the team: M (men; the only value in samples).'
                     type: string
                   structure:
+                    description: 'Club (legal entity) behind the team: id, name, federation code, state.'
                     properties:
                       EquivalentStructure:
+                        description: Club-type metadata (UI colours, affiliation flag).
                         properties:
                           affiliable:
+                            description: Club type can affiliate.
                             type: boolean
                           code:
+                            description: Code of the club type.
                             type: string
                           color:
+                            description: UI colour name.
                             type: string
                           colorlabel:
+                            description: UI label colour name.
                             type: string
                           enfants:
+                            description: Child club types.
                             items:
                               type: string
                             type: array
                           filter_key:
+                            description: Club-type filter key.
                             type: string
                           nom:
+                            description: Name of the club type.
                             type: string
                         type: object
                       TypeColorLabel:
+                        description: UI colour of the club type label.
                         type: string
                       annuaire_web:
+                        description: Listed in the web directory (0/1).
                         type: integer
                       choix_correspondance:
+                        description: Correspondence contact choice code.
                         type: string
                       code:
+                        description: Federation club code (e.g. 72001S).
                         type: string
                       code_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_adresse_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_personne_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       created_at:
+                        description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       est_club_federal:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       etat:
+                        description: Club state code (A in every sample).
                         type: string
                       id:
+                        description: Id of the club (legal entity).
                         type: integer
                       id_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       logo:
+                        description: Logo URL (or file name) of the club (legal entity).
                         type: string
                       nom:
+                        description: Name of the club (legal entity).
                         type: string
                       nom_court:
+                        description: Short name of the club (legal entity).
                         type: string
                       sites_partenaires:
+                        description: Shown on partner sites (0/1).
                         type: integer
                       type:
+                        description: Club legal-form code (SOC in samples).
                         type: string
                       updated_at:
+                        description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       uuid:
+                        description: UUID of the club (legal entity).
                         type: string
                     type: object
                 type: object
               equipe_gagante_id:
+                description: Team id of the faceoff winner (upstream typo 'gagante').
                 type: integer
               gagnant:
+                description: Faceoff winner.
                 properties:
                   attributs:
+                    description: Role attributes of the faceoff winner (captaincy); empty for most players.
                     items:
                       properties:
                         code:
+                          description: Code of the role attribute.
                           type: string
                         couleur:
+                          description: Display colour (hex) of the role attribute.
                           type: string
                         libelle:
+                          description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                            captain).'
                           type: string
                       type: object
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the faceoff winner (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the faceoff winner: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the faceoff winner (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the faceoff winner (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the faceoff winner: this player''s roster entry
+                      in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the faceoff winner: person id, licence
+                      number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the faceoff winner: code, label, colour; null when
+                      unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type:
                     - object
                     - 'null'
                 type: object
               gardien:
+                description: Goalie in net for the event (the goalie scored on, or facing the shot or
+                  attempt).
                 properties:
                   attributs:
-                    items: {}
+                    description: Always an empty array in samples; element shape and meaning unverified.
+                    items:
+                      x-unobserved: true
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the goalie (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the goalie: = joueurs[].id = joueurs[].personne.id, stable
+                      across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the goalie (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the goalie (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the goalie: this player''s roster entry in
+                      THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the goalie: person id, licence number,
+                      registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the goalie: code, label, colour; null when unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
                 type: object
               id:
+                description: 'Event id: type code + number (BUT99238); unique per type.'
                 type: string
               joueur:
+                description: Penalised player.
                 properties:
                   attributs:
+                    description: Role attributes of the penalised player (captaincy); empty for most players.
                     items:
                       properties:
                         code:
+                          description: Code of the role attribute.
                           type: string
                         couleur:
+                          description: Display colour (hex) of the role attribute.
                           type: string
                         libelle:
+                          description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                            captain).'
                           type: string
                       type: object
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the penalised player (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the penalised player: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the penalised player (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the penalised player (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the penalised player: this player''s roster
+                      entry in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the penalised player: person id,
+                      licence number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the penalised player: code, label, colour; null
+                      when unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
-                type: object
+                type:
+                - object
+                - 'null'
               joueurs_moins_ids:
+                description: Player participant ids of the conceding team's skaters on ice.
                 items:
                   type: integer
                 type: array
               joueurs_plus_ids:
+                description: Player participant ids of the scoring team's skaters on ice.
                 items:
                   type: integer
                 type: array
               receveur:
+                description: Home team's faceoff taker (a player, not the team).
                 properties:
                   attributs:
-                    items: {}
+                    description: Always an empty array in samples; element shape and meaning unverified.
+                    items:
+                      x-unobserved: true
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the home faceoff taker (string, keeps leading
+                      zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the home faceoff taker: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the home faceoff taker (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the home faceoff taker (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the home faceoff taker: this player''s roster
+                      entry in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the home faceoff taker: person id,
+                      licence number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the home faceoff taker: code, label, colour; null
+                      when unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
                 type: object
               sanction:
+                description: 'Penalty infraction: code, label, short label, active flag.'
                 properties:
                   actif:
+                    description: Infraction code is active.
                     type: boolean
                   code:
+                    description: Infraction code (e.g. CIN = cinglage, slashing).
                     type: string
                   libelle:
+                    description: Infraction label in French (e.g. 'Cinglage (coup de crosse)').
                     type: string
                   libelle_court:
+                    description: Short label of the penalty infraction.
                     type: string
                 type: object
               sortant:
+                description: Goalie leaving the net.
                 properties:
                   attributs:
-                    items: {}
+                    description: Always an empty array in samples; element shape and meaning unverified.
+                    items:
+                      x-unobserved: true
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the goalie leaving (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the goalie leaving: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the goalie leaving (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the goalie leaving (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the goalie leaving: this player''s roster entry
+                      in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the goalie leaving: person id, licence
+                      number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the goalie leaving: code, label, colour; null when
+                      unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
                 type: object
               substitution:
-                type:
-                - 'null'
+                description: Unobserved in samples (null in every capture); type and meaning unverified.
+                x-unobserved: true
               surnombre:
+                description: 'Strength situation when the goal was scored: code and label.'
                 properties:
                   code:
+                    description: 'Strength code: EG (égalité, even strength), SUP1 (supériorité, power
+                      play one man up); other codes unobserved.'
                     type: string
                   libelle:
+                    description: Strength label in French ('EGAL - égalité numérique', 'SUP1 - Supériorité
+                      numérique').
                     type: string
                 type: object
               surnombre_details:
-                type:
-                - 'null'
+                description: Unobserved in samples (null in every capture); type and meaning unverified.
+                x-unobserved: true
               temps:
+                description: Elapsed game seconds from the opening faceoff (periods of 1200 s; see the
+                  period note).
                 type: integer
               temps_debut_sanction:
+                description: Elapsed game seconds when the penalty starts.
                 type: integer
               temps_fin_sanction:
+                description: Elapsed game seconds when the penalty ends.
                 type: integer
               temps_penalite:
+                description: Penalty length in minutes.
                 type: integer
               tir_associe:
-                type:
-                - 'null'
+                description: Unobserved in samples (null in every capture); type and meaning unverified.
+                x-unobserved: true
               tireur:
+                description: Shooter of the event (null on shootout attempts not taken).
                 properties:
                   attributs:
-                    items: {}
+                    description: Always an empty array in samples; element shape and meaning unverified.
+                    items:
+                      x-unobserved: true
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the shooter (string, keeps leading zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the shooter: = joueurs[].id = joueurs[].personne.id, stable
+                      across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the shooter (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the shooter (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the shooter: this player''s roster entry in
+                      THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the shooter: person id, licence number,
+                      registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the shooter: code, label, colour; null when unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type: object
                 type:
                 - object
                 - 'null'
               type:
+                description: 'Event type: BUT goal, SANCTION penalty, TIR shot, ENGA faceoff, REMPLACANT
+                  goalie change, TEMPS_MORT timeout.'
                 type: string
               visiteur:
+                description: Away team's faceoff taker (a player, not the team).
                 properties:
                   attributs:
+                    description: Role attributes of the away faceoff taker (captaincy); empty for most
+                      players.
                     items:
                       properties:
                         code:
+                          description: Code of the role attribute.
                           type: string
                         couleur:
+                          description: Display colour (hex) of the role attribute.
                           type: string
                         libelle:
+                          description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                            captain).'
                           type: string
                       type: object
                     type: array
                   code_adherent:
+                    description: FFHG licence number of the away faceoff taker (string, keeps leading
+                      zeros).
                     type: string
                   equipe_id:
+                    description: Team id.
                     type: integer
                   id:
+                    description: 'Person id of the away faceoff taker: = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the away faceoff taker (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the away faceoff taker (string).
                     type: string
                   participant_id:
+                    description: 'Player participant id of the away faceoff taker: this player''s roster
+                      entry in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                      and mvps[].participant_joueur_id; use the person id to join across games.'
                     type: integer
                   personne:
+                    description: 'The person (licence holder) behind the away faceoff taker: person id,
+                      licence number, registered number, photo.'
                     properties:
                       code_adherent:
+                        description: FFHG licence number of the person (licence holder) (string, keeps
+                          leading zeros).
                         type: string
                       id:
+                        description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                          stable across games.'
                         type: integer
                       nom_complet:
+                        description: Full name of the person (licence holder) (SURNAME First).
                         type: string
                       numero:
+                        description: Registered jersey number of the person (string); can differ from
+                          the number worn in this game.
                         type: string
                       photo_url:
+                        description: Photo thumbnail URL of the person (licence holder).
                         type: string
                     type: object
                   position:
+                    description: 'Playing position of the away faceoff taker: code, label, colour; null
+                      when unset.'
                     properties:
                       code:
+                        description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB
+                          (gardien de but, goalie).'
                         type: string
                       couleur:
+                        description: Display colour (hex) of the playing position.
                         type: string
                       libelle:
+                        description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                         type: string
                     type:
                     - object
@@ -1414,444 +2127,651 @@ components:
             type: object
           type: array
         joueurs:
+          description: 'Game roster: one row per dressed player.'
           items:
             properties:
               attributs:
+                description: Role attributes of the rostered player (captaincy); empty for most players.
                 items:
                   properties:
                     code:
+                      description: Code of the role attribute.
                       type: string
                     couleur:
+                      description: Display colour (hex) of the role attribute.
                       type: string
                     libelle:
+                      description: 'Role label: Capitaine (captain) or Capitaine assistant (alternate
+                        captain).'
                       type: string
                   type: object
                 type: array
               code_adherent:
+                description: FFHG licence number of the rostered player (string, keeps leading zeros).
                 type: string
               equipe_id:
+                description: Team id.
                 type: integer
               id:
+                description: 'Person id of the player: = joueurs[].personne.id, stable across games. Event
+                  player objects, mouvements[].personne and tirs_aux_but[].tireur / gardien carry only
+                  this id.'
                 type: integer
               nom_complet:
+                description: Full name of the rostered player (SURNAME First).
                 type: string
               numero:
+                description: Jersey number worn in this game (string).
                 type: string
               participant_id:
+                description: 'Player participant id of the rostered player: this player''s roster entry
+                  in THIS game (changes every game). Joins evenements[].joueurs_plus_ids / joueurs_moins_ids
+                  and mvps[].participant_joueur_id; use the person id to join across games.'
                 type: integer
               personne:
+                description: 'The person (licence holder) behind the rostered player: person id, licence
+                  number, registered number, photo.'
                 properties:
                   code_adherent:
+                    description: FFHG licence number of the person (licence holder) (string, keeps leading
+                      zeros).
                     type: string
                   id:
+                    description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the person (licence holder) (SURNAME First).
                     type: string
                   numero:
+                    description: Registered jersey number of the person (string); can differ from the
+                      number worn in this game.
                     type: string
                   photo_url:
+                    description: Photo thumbnail URL of the person (licence holder).
                     type: string
                 type: object
               position:
+                description: 'Playing position of the rostered player: code, label, colour; null when
+                  unset.'
                 properties:
                   code:
+                    description: 'Position code: D (défenseur, defence), A (attaquant, forward), GB (gardien
+                      de but, goalie).'
                     type: string
                   couleur:
+                    description: Display colour (hex) of the playing position.
                     type: string
                   libelle:
+                    description: 'Position label in French: Défenseur, Attaquant, Gardien de but.'
                     type: string
                 type: object
             type: object
           type: array
         journee:
+          description: Round number.
           type: integer
         mouvements:
+          description: 'Goalie movements: which goalie was in net, from when to when.'
           items:
             properties:
               equipe:
+                description: 'Team of the goalie movement: team id, labels, logo, club.'
                 properties:
                   abreviation:
+                    description: Abbreviation of the team.
                     type: string
                   id:
+                    description: Team id of the team (stable across seasons; = get_equipes data[].id).
                     type: integer
                   libelle:
+                    description: Label (name) of the team.
                     type: string
                   libelle_complet:
+                    description: Full display name of the team.
                     type: string
                   libelle_court:
+                    description: Short label of the team.
                     type: string
                   logo:
+                    description: Logo URL (or file name) of the team.
                     type: string
                   structure:
+                    description: 'Club (legal entity) behind the team: id, name, federation code, state.'
                     properties:
                       EquivalentStructure:
+                        description: Club-type metadata (UI colours, affiliation flag).
                         properties:
                           affiliable:
+                            description: Club type can affiliate.
                             type: boolean
                           code:
+                            description: Code of the club type.
                             type: string
                           color:
+                            description: UI colour name.
                             type: string
                           colorlabel:
+                            description: UI label colour name.
                             type: string
                           enfants:
+                            description: Child club types.
                             items:
                               type: string
                             type: array
                           filter_key:
+                            description: Club-type filter key.
                             type: string
                           nom:
+                            description: Name of the club type.
                             type: string
                         type: object
                       TypeColorLabel:
+                        description: UI colour of the club type label.
                         type: string
                       annuaire_web:
+                        description: Listed in the web directory (0/1).
                         type: integer
                       choix_correspondance:
+                        description: Correspondence contact choice code.
                         type: string
                       code:
+                        description: Federation club code (e.g. 72001S).
                         type: string
                       code_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_adresse_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_personne_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       created_at:
+                        description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       est_club_federal:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       etat:
+                        description: Club state code (A in every sample).
                         type: string
                       id:
+                        description: Id of the club (legal entity).
                         type: integer
                       id_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       logo:
+                        description: Logo URL (or file name) of the club (legal entity).
                         type: string
                       nom:
+                        description: Name of the club (legal entity).
                         type: string
                       nom_court:
+                        description: Short name of the club (legal entity).
                         type: string
                       sites_partenaires:
+                        description: Shown on partner sites (0/1).
                         type: integer
                       type:
+                        description: Club legal-form code (SOC in samples).
                         type: string
                       updated_at:
+                        description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       uuid:
+                        description: UUID of the club (legal entity).
                         type: string
                     type: object
                 type: object
               id:
+                description: Goalie movement record id.
                 type: integer
               personne:
+                description: 'The person (licence holder) behind the goalie movement: person id, licence
+                  number, registered number, photo.'
                 properties:
                   code_adherent:
+                    description: FFHG licence number of the person (licence holder) (string, keeps leading
+                      zeros).
                     type: string
                   id:
+                    description: 'Person id of the person (licence holder): = joueurs[].id = joueurs[].personne.id,
+                      stable across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the person (licence holder) (SURNAME First).
                     type: string
                   numero:
+                    description: Registered jersey number of the person (string); can differ from the
+                      number worn in this game.
                     type: string
                   photo_url:
+                    description: Photo thumbnail URL of the person (licence holder).
                     type: string
                 type: object
               temps_rentree_secondes:
+                description: Elapsed game seconds when the goalie went in.
                 type: integer
               temps_sortie_secondes:
+                description: Elapsed game seconds when the goalie came out (null = until the end).
                 type:
                 - integer
                 - 'null'
             type: object
           type: array
         mvps:
+          description: Players of the game (one record per team when awarded).
           items:
             properties:
               created_at:
+                description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                 type: string
               equipe_id:
+                description: Team id.
                 type: integer
               id:
+                description: Player-of-the-game record id (not a player id; the player is participant_joueur_id).
                 type: integer
               participant_joueur_id:
+                description: Player participant id of the player of the game (joins joueurs[].participant_id
+                  of this game).
                 type: integer
               sportif_rencontre_id:
+                description: Game id.
                 type: integer
               updated_at:
+                description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                 type: string
             type: object
           type: array
         nombre_spectateurs:
+          description: Attendance.
           type: integer
         patinoire:
+          description: Rink name.
           type: string
         periodes:
+          description: 'Regulation format: number and length of periods.'
           properties:
             duree:
+              description: Period length in minutes.
               type: integer
             nombre:
+              description: Number of regulation periods.
               type: integer
           type: object
         phase:
+          description: Phase name (a string here, not an object).
           type: string
         receveur:
+          description: 'Home team: team id, labels, logo, club.'
           properties:
             abreviation:
+              description: Abbreviation of the home team.
               type: string
             id:
+              description: Team id of the home team (stable across seasons; = get_equipes data[].id).
               type: integer
             id_compet:
+              description: Competition ids the team has entered (all seasons, all levels).
               items:
                 type: integer
               type: array
             libelle:
+              description: Label (name) of the home team.
               type: string
             libelle_complet:
+              description: Full display name of the home team.
               type: string
             libelle_court:
+              description: Short label of the home team.
               type: string
             logo:
+              description: Logo URL (or file name) of the home team.
               type: string
             sexe:
+              description: 'Gender of the home team: M (men; the only value in samples).'
               type: string
             structure:
+              description: 'Club (legal entity) behind the home team: id, name, federation code, state.'
               properties:
                 code:
+                  description: Federation club code (e.g. 72001S).
                   type: string
                 etat:
+                  description: Club state code (A in every sample).
                   type: string
                 id:
+                  description: Id of the club (legal entity).
                   type: integer
                 logo:
+                  description: Logo URL (or file name) of the club (legal entity).
                   type: string
                 nom:
+                  description: Name of the club (legal entity).
                   type: string
                 nom_court:
+                  description: Short name of the club (legal entity).
                   type: string
                 type:
+                  description: Club legal-form code (SOC in samples).
                   type: string
               type: object
           type: object
         reserves:
-          items: {}
+          description: Always an empty array in samples; element shape and meaning unverified.
+          items:
+            x-unobserved: true
           type: array
         scores:
+          description: 'Score rows, one per team: goals, team id, team participant id.'
           items:
             properties:
               created_at:
+                description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                 type: string
               equipe_id:
+                description: Team id.
                 type: integer
               id:
+                description: Id of the team score row.
                 type: integer
               participant_id:
+                description: 'Team participant id of the team score row: the team''s entry in one phase
+                  (its own key space, e.g. 9120-9131 for 2026-27 phase 714; not a team id, not a player
+                  participant id). Joins score[].participant_id = positions[].participant_id = dernier_resultats[].participant_gagnant_id.'
                 type: integer
               score:
+                description: Goals scored by the team.
                 type: integer
               sportif_rencontre_id:
+                description: Game id.
                 type: integer
               updated_at:
+                description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                 type: string
             type: object
           type: array
         staffs:
+          description: Team staff listed on the game sheet.
           items:
             properties:
               attributs:
+                description: 'Staff role: id, label, colour.'
                 properties:
                   couleur:
+                    description: Display colour (hex) of the role attribute.
                     type: string
                   id:
+                    description: Staff role id.
                     type: integer
                   libelle:
+                    description: 'Staff role label: Entraîneur principal (head coach), Entraîneur adjoint
+                      (assistant coach), Equipement manager, Dirigeant d''équipe (team official).'
                     type: string
                 type: object
               code_adherent:
+                description: FFHG licence number of the team staff member (string, keeps leading zeros).
                 type: string
               ddn:
+                description: 'Birth date (DD/MM/YYYY). REDACTED: masked to the literal ''DD/MM/YYYY''
+                  in the samples (x-redacted); not a parsed date.'
                 type: string
+                x-redacted: true
               equipe_id:
+                description: Team id.
                 type: integer
               id:
+                description: Person id of the staff member (staff are not in joueurs).
                 type: integer
               nom:
+                description: Name of the team staff member.
                 type: string
               nom_complet:
+                description: Full name of the team staff member (SURNAME First).
                 type: string
               photo_url:
+                description: Photo thumbnail URL of the team staff member.
                 type: string
               prenom:
+                description: First name of the team staff member.
                 type: string
             type: object
           type: array
         tirs_aux_but:
+          description: Shootout attempts in order; empty when the game had no shootout.
           items:
             properties:
               equipe:
+                description: Team of the shooter.
                 properties:
                   abreviation:
+                    description: Abbreviation of the team.
                     type: string
                   id:
+                    description: Team id of the team (stable across seasons; = get_equipes data[].id).
                     type: integer
                   libelle:
+                    description: Label (name) of the team.
                     type: string
                   libelle_complet:
+                    description: Full display name of the team.
                     type: string
                   libelle_court:
+                    description: Short label of the team.
                     type: string
                   logo:
+                    description: Logo URL (or file name) of the team.
                     type: string
                   structure:
+                    description: 'Club (legal entity) behind the team: id, name, federation code, state.'
                     properties:
                       EquivalentStructure:
+                        description: Club-type metadata (UI colours, affiliation flag).
                         properties:
                           affiliable:
+                            description: Club type can affiliate.
                             type: boolean
                           code:
+                            description: Code of the club type.
                             type: string
                           color:
+                            description: UI colour name.
                             type: string
                           colorlabel:
+                            description: UI label colour name.
                             type: string
                           enfants:
+                            description: Child club types.
                             items:
                               type: string
                             type: array
                           filter_key:
+                            description: Club-type filter key.
                             type: string
                           nom:
+                            description: Name of the club type.
                             type: string
                         type: object
                       TypeColorLabel:
+                        description: UI colour of the club type label.
                         type: string
                       annuaire_web:
+                        description: Listed in the web directory (0/1).
                         type: integer
                       choix_correspondance:
+                        description: Correspondence contact choice code.
                         type: string
                       code:
+                        description: Federation club code (e.g. 72001S).
                         type: string
                       code_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_adresse_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       correspondant_personne_id:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       created_at:
+                        description: Row creation time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       est_club_federal:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       etat:
+                        description: Club state code (A in every sample).
                         type: string
                       id:
+                        description: Id of the club (legal entity).
                         type: integer
                       id_import:
-                        type:
-                        - 'null'
+                        description: Unobserved in samples (null in every capture); type and meaning unverified.
+                        x-unobserved: true
                       logo:
+                        description: Logo URL (or file name) of the club (legal entity).
                         type: string
                       nom:
+                        description: Name of the club (legal entity).
                         type: string
                       nom_court:
+                        description: Short name of the club (legal entity).
                         type: string
                       sites_partenaires:
+                        description: Shown on partner sites (0/1).
                         type: integer
                       type:
+                        description: Club legal-form code (SOC in samples).
                         type: string
                       updated_at:
+                        description: Row update time (YYYY-MM-DD HH:MM:SS, upstream database).
                         type: string
                       uuid:
+                        description: UUID of the club (legal entity).
                         type: string
                     type: object
                 type: object
               gardien:
+                description: Goalie in net for the shootout attempt (the goalie scored on, or facing the
+                  shot or attempt).
                 properties:
                   code_adherent:
+                    description: FFHG licence number of the goalie (string, keeps leading zeros).
                     type: string
                   id:
+                    description: 'Person id of the goalie: = joueurs[].id = joueurs[].personne.id, stable
+                      across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the goalie (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the goalie (string).
                     type: string
                   photo_url:
+                    description: Photo thumbnail URL of the goalie.
                     type: string
                 type: object
               id:
+                description: Shootout attempt id.
                 type: integer
               marque:
+                description: Attempt scored; null on attempts not taken.
                 type: boolean
               numero:
+                description: 'Shootout round of the attempt (1, 1, 2, 2, ...: one attempt per team per
+                  round); an integer, not a jersey number.'
                 type: integer
               tireur:
+                description: Shooter of the shootout attempt (null on shootout attempts not taken).
                 properties:
                   code_adherent:
+                    description: FFHG licence number of the shooter (string, keeps leading zeros).
                     type: string
                   id:
+                    description: 'Person id of the shooter: = joueurs[].id = joueurs[].personne.id, stable
+                      across games.'
                     type: integer
                   nom_complet:
+                    description: Full name of the shooter (SURNAME First).
                     type: string
                   numero:
+                    description: Jersey number of the shooter (string).
                     type: string
                   photo_url:
+                    description: Photo thumbnail URL of the shooter.
                     type: string
                 type: object
             type: object
           type: array
         types_evenements:
+          description: Event types the page legend lists (TIR and ENGA are not listed).
           items:
             properties:
               code:
+                description: Event type code listed in the page legend.
                 type: string
               libelle:
+                description: 'Event type label in French: Buts (goals), Pénalités (penalties), Gardiens
+                  (goalies), Temps morts (timeouts).'
                 type: string
             type: object
           type: array
         visiteur:
+          description: 'Away team: team id, labels, logo, club.'
           properties:
             abreviation:
+              description: Abbreviation of the away team.
               type: string
             id:
+              description: Team id of the away team (stable across seasons; = get_equipes data[].id).
               type: integer
             id_compet:
+              description: Competition ids the team has entered (all seasons, all levels).
               items:
                 type: integer
               type: array
             libelle:
+              description: Label (name) of the away team.
               type: string
             libelle_complet:
+              description: Full display name of the away team.
               type: string
             libelle_court:
+              description: Short label of the away team.
               type: string
             logo:
+              description: Logo URL (or file name) of the away team.
               type: string
             sexe:
+              description: 'Gender of the away team: M (men; the only value in samples).'
               type: string
             structure:
+              description: 'Club (legal entity) behind the away team: id, name, federation code, state.'
               properties:
                 code:
+                  description: Federation club code (e.g. 72001S).
                   type: string
                 etat:
+                  description: Club state code (A in every sample).
                   type: string
                 id:
+                  description: Id of the club (legal entity).
                   type: integer
                 logo:
+                  description: Logo URL (or file name) of the club (legal entity).
                   type: string
                 nom:
+                  description: Name of the club (legal entity).
                   type: string
                 nom_court:
+                  description: Short name of the club (legal entity).
                   type: string
                 type:
+                  description: Club legal-form code (SOC in samples).
                   type: string
               type: object
           type: object
@@ -1866,7 +2786,8 @@ info:
     validation error). An unknown action answers HTTP 400 text/html ''0''. The game sheet (events, rosters,
     staff, MVPs, shootout) is JSON embedded in the text/html page /rencontre/{id}/ (see x-embedded-json).
     Coverage 2020-21 onward; competition_id is per season and season keys are END years. /statistiques-individuelles/
-    is Cloudflare-blocked and not modelled. Shapes from captures of 2026-10-12. Not official or supported.'
+    is Cloudflare-blocked and not modelled. Shapes from captures of 2026-10-12; a property with x-unobserved
+    was null or empty in every sample, so no type is claimed. Not official or supported.'
   title: Ligue Magnus (liguemagnus.com) admin-ajax JSON + game sheets
   version: '2026-10-12'
 openapi: 3.1.0
@@ -1874,13 +2795,13 @@ paths:
   /rencontre/{id}/:
     get:
       description: 'text/html. The game sheet JSON is the value of the Vue `:data` attribute of `<live-rencontre-container>`,
-        HTML-entity escaped (&quot; &amp; &#039; ...). Extract with the regex `:data="([^"]*)"`, then
-        html.unescape, then json.loads. An unknown id still answers 200 text/html, with `:data` = {"message":
-        ...}.'
+        HTML-entity escaped (&quot; &amp; &#039; ...). Extract: regex <live-rencontre-container\b[^>]*?\s:data="([^"]*)"
+        -> html.unescape -> json.loads -> first JSON object (see x-embedded-json). An unknown id still
+        answers 200 text/html, with `:data` = {"message": ...}.'
       operationId: get_rencontre_page
       parameters:
       - description: 'Game id (get_rencontres data.data[].id). Example 77779 (2026-27, shootout + MVPs);
-          also sampled: 68838.'
+          also sampled: 68838, 865.'
         example: '77779'
         in: path
         name: id
@@ -1897,7 +2818,8 @@ paths:
                 attribute: :data
                 element: live-rencontre-container
                 encoding: HTML entities (&quot; &amp; &#039; ...)
-                extract: :data="([^"]*)" -> html.unescape -> json.loads
+                extract: regex <live-rencontre-container\b[^>]*?\s:data="([^"]*)" -> html.unescape ->
+                  json.loads -> first JSON object
                 schema:
                   $ref: '#/components/schemas/RencontreGameSheet'
           description: Match page (HTML) with the game sheet embedded as JSON
