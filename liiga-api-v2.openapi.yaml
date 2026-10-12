@@ -5053,8 +5053,9 @@ info:
     (captured 2026-10-12, game 1 of season 2026 = HPK-TPS 2025-09-09). Season keys are END years (2026
     = 2025-26); game ids are unique only within a season; the team id is the string `<num>:<slug>` in
     games, schedule and lineups but a bare integer in shotmap and teamStats (see liiga-returns.md, Divergence
-    notes). Keyless, GET only, no pagination (whole season per response, up to ~4 MB). Shot maps from
-    2016; /games/stats tracking (topSpeed, hardestShot) from at least 2021. Not official or supported.'
+    notes). Keyless, GET only, no pagination (whole season per response, up to ~4 MB). Games and team
+    history from 1976 (= 1975-76); shot maps from 2016; /games/stats from at least 2015, with tracking
+    (topSpeed, hardestShot) by 2021. /teams/info ignores the value of `team`. Not official or supported.'
   title: Liiga API v2 (liiga.fi/api/v2)
   version: '2026-10-12'
 openapi: 3.1.0
@@ -5069,8 +5070,8 @@ paths:
         in: query
         name: tournament
         required: false
-        schema: &id002
-          enum: &id003
+        schema: &id004
+          enum: &id006
           - runkosarja
           - playoffs
           - playout
@@ -5106,23 +5107,25 @@ paths:
       summary: All games of a season-tournament with goal events, periods, xG and rink
   /games/stats/{season}/{id}:
     get:
+      description: 'A game id the season does not have answers {"stats": "Remote server error"} (discovery
+        report; status not recorded).'
       operationId: games_stats_season_id
       parameters:
       - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
           by (season, id).'
-        example: '2026'
+        example: 2026
         in: path
         name: season
         required: true
-        schema:
-          type: string
+        schema: &id002
+          type: integer
       - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
-        example: '1'
+        example: 1
         in: path
         name: id
         required: true
-        schema:
-          type: string
+        schema: &id003
+          type: integer
       responses:
         '200':
           content:
@@ -5137,19 +5140,17 @@ paths:
       parameters:
       - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
           by (season, id).'
-        example: '2026'
+        example: 2026
         in: path
         name: season
         required: true
-        schema:
-          type: string
+        schema: *id002
       - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
-        example: '1'
+        example: 1
         in: path
         name: id
         required: true
-        schema:
-          type: string
+        schema: *id003
       - description: '`playersWithStats` adds allTimeStats/seasonStats/seasonStatsInTeam to every lineup
           row.'
         in: query
@@ -5184,7 +5185,7 @@ paths:
         in: query
         name: tournament
         required: true
-        schema: *id002
+        schema: *id004
       responses:
         '200':
           content:
@@ -5192,6 +5193,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Gameweeks'
           description: OK
+        '400':
+          content:
+            application/json:
+              schema: &id007
+                type: string
+          description: 'tournament omitted: the JSON string "unsupported parameter".'
       summary: Number of game weeks of a season-tournament
   /players/info:
     get:
@@ -5202,7 +5209,7 @@ paths:
         in: query
         name: tournament
         required: true
-        schema: *id002
+        schema: *id004
       - description: First season (END year).
         example: 2026
         in: query
@@ -5234,18 +5241,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/PlayersInfo'
           description: OK
+        '502':
+          content:
+            application/json:
+              schema: &id008
+                properties:
+                  message:
+                    type: string
+                type: object
+          description: 'tournament omitted: {"message": ...}.'
       summary: Roster and bio rows of every player in a season range
   /players/info/{playerId}:
     get:
       operationId: players_info_playerId
       parameters:
       - description: Player id (lineup `id`, `playerId`; equals `fihaId`), e.g. 21870028.
-        example: '21870028'
+        example: 21870028
         in: path
         name: playerId
         required: true
-        schema:
-          type: string
+        schema: &id005
+          type: integer
       responses:
         '200':
           content:
@@ -5259,20 +5275,18 @@ paths:
       operationId: players_info_playerId_games_season
       parameters:
       - description: Player id (lineup `id`, `playerId`; equals `fihaId`), e.g. 21870028.
-        example: '21870028'
+        example: 21870028
         in: path
         name: playerId
         required: true
-        schema:
-          type: string
+        schema: *id005
       - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
           by (season, id).'
-        example: '2026'
+        example: 2026
         in: path
         name: season
         required: true
-        schema:
-          type: string
+        schema: *id002
       responses:
         '200':
           content:
@@ -5286,26 +5300,26 @@ paths:
       operationId: players_stats_summed_from_to_tournament_bool
       parameters:
       - description: First season (END year) of the range, e.g. 2026.
-        example: '2026'
+        example: 2026
         in: path
         name: from
         required: true
         schema:
-          type: string
+          type: integer
       - description: Last season (END year) of the range, e.g. 2026.
-        example: '2026'
+        example: 2026
         in: path
         name: to
         required: true
         schema:
-          type: string
+          type: integer
       - description: Tournament code (lowercase; responses echo it uppercase in `serie`/`tournament`).
         example: runkosarja
         in: path
         name: tournament
         required: true
         schema:
-          enum: *id003
+          enum: *id006
           type: string
       - description: '`true`: the whole league, no filters (what the site''s stat tables request; captured).
           `false`: honours the team/splitTeams/gameWeek/opposingTeam/result/homeAway/lastGames/nationality
@@ -5416,7 +5430,7 @@ paths:
         in: query
         name: tournament
         required: false
-        schema: *id002
+        schema: *id004
       - description: 'Season END year: 2026 = 2025-26. Omitted = the season in progress (probe: 2027).'
         example: 2026
         in: query
@@ -5430,26 +5444,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Schedule'
           description: OK
+        '500':
+          content:
+            application/json:
+              schema: *id007
+          description: 'Unknown tournament (e.g. harjoitusottelut): the JSON string "Remote server error".'
       summary: 'Flat schedule rows of a season-tournament: ids, teams, goals, xG, start'
   /shotmap/{season}/{id}:
     get:
+      description: A game without shot data (before 2016, or the season in progress so far) answers 200
+        with [].
       operationId: shotmap_season_id
       parameters:
       - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
           by (season, id).'
-        example: '2026'
+        example: 2026
         in: path
         name: season
         required: true
-        schema:
-          type: string
+        schema: *id002
       - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
-        example: '1'
+        example: 1
         in: path
         name: id
         required: true
-        schema:
-          type: string
+        schema: *id003
       responses:
         '200':
           content:
@@ -5478,10 +5497,12 @@ paths:
       summary: 'Standings of a season: regular season, playoffs, preseason, playout, qualifications'
   /teams/info:
     get:
+      description: The `team` value is ignored; see the parameter.
       operationId: teams_info
       parameters:
-      - description: 'Team as `<num>:<slug>`, e.g. 55786244:hpk. Omitted = every team: `{teams, logos}`
-          (a different shape; captured as the `all` variant).'
+      - description: 'Present: the VALUE IS IGNORED (probe 2026-10-12: `55786244:hpk`, `362185137:tappara`
+          and `zzz:bogus` all answer the same 593 regular-season rows of every team, 1976-2027). Omitted:
+          a different body, the team directory `{teams, logos}` (captured as the `all` variant).'
         example: 55786244:hpk
         in: query
         name: team
@@ -5497,7 +5518,7 @@ paths:
                 - $ref: '#/components/schemas/TeamsInfo'
                 - $ref: '#/components/schemas/TeamsInfoAll'
           description: OK
-      summary: All-time season rows of one team (team given) or every team's logos and rows (team omitted)
+      summary: Every team's regular-season rows 1976 onward (the `team` value is ignored)
   /teams/stats:
     get:
       operationId: teams_stats
@@ -5519,7 +5540,7 @@ paths:
         in: query
         name: tournament
         required: true
-        schema: *id002
+        schema: *id004
       - description: 'Stat table (discovery: omitted = 502; basicStats = 500).'
         example: shots
         in: query
@@ -5583,6 +5604,16 @@ paths:
                 - $ref: '#/components/schemas/TeamsStatsPenaltyKill'
                 - $ref: '#/components/schemas/TeamsStatsEvenStrength'
           description: OK
+        '500':
+          content:
+            application/json:
+              schema: *id007
+          description: 'tournament omitted, or dataType=basicStats: the JSON string "Remote server error".'
+        '502':
+          content:
+            application/json:
+              schema: *id008
+          description: 'dataType omitted: {"message": "Internal server error"} (discovery report).'
       summary: Team stat table for a season range
   /tournament:
     get:
