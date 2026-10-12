@@ -579,7 +579,8 @@ components:
                   foul, foulon (foul drawn), substitution, timeout, jumpball, period, game, headcoachchallenge'
                 type: string
               clock:
-                description: Game clock with hundredths, 'mm:ss:cc' remaining in the period
+                description: Game clock with hundredths, 'mm:ss:cc' remaining in the period; absent in
+                  older feeds (the 2014-15 WBBL sample has gt only)
                 type: string
               familyName:
                 description: Family name in the competition's own script
@@ -623,8 +624,8 @@ components:
                 description: Player display name; '' when no player
                 type: string
               pno:
-                description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                  In-game only: not a person id and not the shirt number'
+                description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player (team,
+                  period and game rows). In-game only: not a person id and not the shirt number'
                 type: integer
               previousAction:
                 description: ActionNumber of the linked earlier action (the shot an assist or rebound
@@ -673,8 +674,8 @@ components:
                 type: integer
               tno:
                 description: 'Team number within this game: 1 = the team listed first (home on the hosted
-                  schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game only: not
-                  a team id'
+                  schedule and widget), 2 = the other; 0 = no team (period and game rows). In-game only:
+                  not a team id'
                 type: integer
             type: object
           type: array
@@ -731,8 +732,8 @@ components:
                   description: Player display name
                   type: string
                 pno:
-                  description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                    In-game only: not a person id and not the shirt number'
+                  description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                    not a person id and not the shirt number'
                   type: integer
                 scoreboardName:
                   description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -767,8 +768,7 @@ components:
                   type: array
                 tno:
                   description: 'Team number within this game: 1 = the team listed first (home on the hosted
-                    schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game only:
-                    not a team id'
+                    schedule and widget), 2 = the other. In-game only: not a team id'
                   type: integer
               type: object
             type: array
@@ -954,8 +954,8 @@ components:
                           description: Leader photo URL (thumbnail)
                           type: string
                         pno:
-                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
-                            player. In-game only: not a person id and not the shirt number'
+                          description: 'Player number within this game (the key of tm.<tno>.pl). In-game
+                            only: not a person id and not the shirt number'
                           type: integer
                         scoreboardName:
                           description: Short display name ('T. Nichols'), in the local script when the
@@ -966,18 +966,20 @@ components:
                           type: string
                         tno:
                           description: 'Team number within this game: 1 = the team listed first (home
-                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
-                            rows). In-game only: not a team id'
+                            on the hosted schedule and widget), 2 = the other. In-game only: not a team
+                            id'
                           type: integer
                         tot:
                           description: 'The leader''s value: assists'
                           type: integer
                       type: object
                       x-key: <rank>
-                    description: Top-3 leaders in assists, keyed by rank '1'..'3'
+                    description: Top-3 leaders in assists, keyed by rank '1'..'3'; an empty list [] instead
+                      of a map when no player recorded one (no blocks in the game, ...)
                     type: object
                   sBlocks:
-                    description: Top-3 leaders in blocks made, keyed by rank '1'..'3'
+                    description: Top-3 leaders in blocks made, keyed by rank '1'..'3'; an empty list []
+                      instead of a map when no player recorded one (no blocks in the game, ...)
                     type:
                     - array
                     - object
@@ -1020,8 +1022,8 @@ components:
                           description: Leader photo URL (thumbnail)
                           type: string
                         pno:
-                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
-                            player. In-game only: not a person id and not the shirt number'
+                          description: 'Player number within this game (the key of tm.<tno>.pl). In-game
+                            only: not a person id and not the shirt number'
                           type: integer
                         scoreboardName:
                           description: Short display name ('T. Nichols'), in the local script when the
@@ -1032,15 +1034,16 @@ components:
                           type: string
                         tno:
                           description: 'Team number within this game: 1 = the team listed first (home
-                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
-                            rows). In-game only: not a team id'
+                            on the hosted schedule and widget), 2 = the other. In-game only: not a team
+                            id'
                           type: integer
                         tot:
                           description: 'The leader''s value: points'
                           type: integer
                       type: object
                       x-key: <rank>
-                    description: Top-3 leaders in points, keyed by rank '1'..'3'
+                    description: Top-3 leaders in points, keyed by rank '1'..'3'; an empty list [] instead
+                      of a map when no player recorded one (no blocks in the game, ...)
                     type: object
                   sReboundsTotal:
                     additionalProperties:
@@ -1081,8 +1084,8 @@ components:
                           description: Leader photo URL (thumbnail)
                           type: string
                         pno:
-                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
-                            player. In-game only: not a person id and not the shirt number'
+                          description: 'Player number within this game (the key of tm.<tno>.pl). In-game
+                            only: not a person id and not the shirt number'
                           type: integer
                         scoreboardName:
                           description: Short display name ('T. Nichols'), in the local script when the
@@ -1093,15 +1096,16 @@ components:
                           type: string
                         tno:
                           description: 'Team number within this game: 1 = the team listed first (home
-                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
-                            rows). In-game only: not a team id'
+                            on the hosted schedule and widget), 2 = the other. In-game only: not a team
+                            id'
                           type: integer
                         tot:
                           description: 'The leader''s value: total rebounds'
                           type: integer
                       type: object
                       x-key: <rank>
-                    description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'
+                    description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'; an empty list
+                      [] instead of a map when no player recorded one (no blocks in the game, ...)
                     type: object
                   sSteals:
                     additionalProperties:
@@ -1142,8 +1146,8 @@ components:
                           description: Leader photo URL (thumbnail)
                           type: string
                         pno:
-                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
-                            player. In-game only: not a person id and not the shirt number'
+                          description: 'Player number within this game (the key of tm.<tno>.pl). In-game
+                            only: not a person id and not the shirt number'
                           type: integer
                         scoreboardName:
                           description: Short display name ('T. Nichols'), in the local script when the
@@ -1154,15 +1158,16 @@ components:
                           type: string
                         tno:
                           description: 'Team number within this game: 1 = the team listed first (home
-                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
-                            rows). In-game only: not a team id'
+                            on the hosted schedule and widget), 2 = the other. In-game only: not a team
+                            id'
                           type: integer
                         tot:
                           description: 'The leader''s value: steals'
                           type: integer
                       type: object
                       x-key: <rank>
-                    description: Top-3 leaders in steals, keyed by rank '1'..'3'
+                    description: Top-3 leaders in steals, keyed by rank '1'..'3'; an empty list [] instead
+                      of a map when no player recorded one (no blocks in the game, ...)
                     type: object
                 type: object
               logo:
@@ -1255,7 +1260,8 @@ components:
                           description: Average assists per game in the competition
                           type: number
                         sMinutesAverage:
-                          description: Average minutes per game in the competition, 'mm:ss'
+                          description: 'Average minutes per game in the competition: an ''mm:ss'' string
+                            since 2016, decimal minutes (27.58) in the 2014-15 era sample'
                           type:
                           - number
                           - string
@@ -1306,7 +1312,9 @@ components:
                       description: 'Genius efficiency formula 7. The feed carries seven formulas (eff_1..eff_7)
                         with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
                         often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
-                        do not treat any as PIR/EFF without checking against a league site'
+                        do not treat any as PIR/EFF without checking against a league site. Absent in
+                        the 2014-15 era sample (WBBL 12248), which carries eff_1..eff_6 on players and
+                        no team tot_eff_*'
                       type: number
                     familyName:
                       description: Family name in the competition's own script
@@ -1496,8 +1504,8 @@ components:
                       description: Player display name
                       type: string
                     pno:
-                      description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                        In-game only: not a person id and not the shirt number'
+                      description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                        not a person id and not the shirt number'
                       type: integer
                     scoreboardName:
                       description: Short display name ('T. Nichols'), in the local script when the org
@@ -1508,8 +1516,7 @@ components:
                       type: string
                     tno:
                       description: 'Team number within this game: 1 = the team listed first (home on the
-                        hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                        only: not a team id'
+                        hosted schedule and widget), 2 = the other. In-game only: not a team id'
                       type: integer
                   type: object
                 type: array
@@ -1544,8 +1551,8 @@ components:
                       description: Shooter display name
                       type: string
                     pno:
-                      description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                        In-game only: not a person id and not the shirt number'
+                      description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                        not a person id and not the shirt number'
                       type: integer
                     previousAction:
                       description: ActionNumber of the linked previous action, or '' (string)
@@ -1561,8 +1568,7 @@ components:
                       type: string
                     tno:
                       description: 'Team number within this game: 1 = the team listed first (home on the
-                        hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                        only: not a team id'
+                        hosted schedule and widget), 2 = the other. In-game only: not a team id'
                       type: integer
                     x:
                       description: 'Court x, PERCENT of the full court length (0-100, float), along the
@@ -1577,50 +1583,58 @@ components:
                   type: object
                 type: array
               timeouts:
-                description: 'Timeouts counter of the current period (unverified: remaining vs taken;
-                  0 in finished games)'
+                description: 'Timeouts counter of the current period (unverified: remaining vs taken);
+                  0 in every sampled (finished) game'
                 type: integer
               tot_eff_1:
                 description: 'Genius efficiency formula 1. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_2:
                 description: 'Genius efficiency formula 2. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Team tot_eff_2 is
+                  2 in every 2016+ sample (a constant, not a stat). Absent in the 2014-15 era sample (WBBL
+                  12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_3:
                 description: 'Genius efficiency formula 3. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_4:
                 description: 'Genius efficiency formula 4. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_5:
                 description: 'Genius efficiency formula 5. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_6:
                 description: 'Genius efficiency formula 6. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_eff_7:
                 description: 'Genius efficiency formula 7. The feed carries seven formulas (eff_1..eff_7)
                   with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
                   agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
-                  any as PIR/EFF without checking against a league site (team total)'
+                  any as PIR/EFF without checking against a league site (team total). Absent in the 2014-15
+                  era sample (WBBL 12248), which carries eff_1..eff_6 on players and no team tot_eff_*'
                 type: number
               tot_sAssists:
                 description: 'Team total: assists'
@@ -1791,8 +1805,8 @@ components:
                     description: Leader photo URL (thumbnail)
                     type: string
                   pno:
-                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                      In-game only: not a person id and not the shirt number'
+                    description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                      not a person id and not the shirt number'
                     type: integer
                   scoreboardName:
                     description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -1803,15 +1817,15 @@ components:
                     type: string
                   tno:
                     description: 'Team number within this game: 1 = the team listed first (home on the
-                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                      only: not a team id'
+                      hosted schedule and widget), 2 = the other. In-game only: not a team id'
                     type: integer
                   tot:
                     description: 'The leader''s value: assists'
                     type: integer
                 type: object
                 x-key: <rank>
-              description: Top-3 leaders in assists, keyed by rank '1'..'3'
+              description: Top-3 leaders in assists, keyed by rank '1'..'3'; an empty list [] instead
+                of a map when no player recorded one (no blocks in the game, ...)
               type: object
             sBlocks:
               additionalProperties:
@@ -1852,8 +1866,8 @@ components:
                     description: Leader photo URL (thumbnail)
                     type: string
                   pno:
-                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                      In-game only: not a person id and not the shirt number'
+                    description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                      not a person id and not the shirt number'
                     type: integer
                   scoreboardName:
                     description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -1864,15 +1878,15 @@ components:
                     type: string
                   tno:
                     description: 'Team number within this game: 1 = the team listed first (home on the
-                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                      only: not a team id'
+                      hosted schedule and widget), 2 = the other. In-game only: not a team id'
                     type: integer
                   tot:
                     description: 'The leader''s value: blocks made'
                     type: integer
                 type: object
                 x-key: <rank>
-              description: Top-3 leaders in blocks made, keyed by rank '1'..'3'
+              description: Top-3 leaders in blocks made, keyed by rank '1'..'3'; an empty list [] instead
+                of a map when no player recorded one (no blocks in the game, ...)
               type: object
             sPoints:
               additionalProperties:
@@ -1913,8 +1927,8 @@ components:
                     description: Leader photo URL (thumbnail)
                     type: string
                   pno:
-                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                      In-game only: not a person id and not the shirt number'
+                    description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                      not a person id and not the shirt number'
                     type: integer
                   scoreboardName:
                     description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -1925,15 +1939,15 @@ components:
                     type: string
                   tno:
                     description: 'Team number within this game: 1 = the team listed first (home on the
-                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                      only: not a team id'
+                      hosted schedule and widget), 2 = the other. In-game only: not a team id'
                     type: integer
                   tot:
                     description: 'The leader''s value: points'
                     type: integer
                 type: object
                 x-key: <rank>
-              description: Top-3 leaders in points, keyed by rank '1'..'3'
+              description: Top-3 leaders in points, keyed by rank '1'..'3'; an empty list [] instead of
+                a map when no player recorded one (no blocks in the game, ...)
               type: object
             sReboundsTotal:
               additionalProperties:
@@ -1974,8 +1988,8 @@ components:
                     description: Leader photo URL (thumbnail)
                     type: string
                   pno:
-                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                      In-game only: not a person id and not the shirt number'
+                    description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                      not a person id and not the shirt number'
                     type: integer
                   scoreboardName:
                     description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -1986,15 +2000,15 @@ components:
                     type: string
                   tno:
                     description: 'Team number within this game: 1 = the team listed first (home on the
-                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                      only: not a team id'
+                      hosted schedule and widget), 2 = the other. In-game only: not a team id'
                     type: integer
                   tot:
                     description: 'The leader''s value: total rebounds'
                     type: integer
                 type: object
                 x-key: <rank>
-              description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'
+              description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'; an empty list [] instead
+                of a map when no player recorded one (no blocks in the game, ...)
               type: object
             sSteals:
               additionalProperties:
@@ -2035,8 +2049,8 @@ components:
                     description: Leader photo URL (thumbnail)
                     type: string
                   pno:
-                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
-                      In-game only: not a person id and not the shirt number'
+                    description: 'Player number within this game (the key of tm.<tno>.pl). In-game only:
+                      not a person id and not the shirt number'
                     type: integer
                   scoreboardName:
                     description: Short display name ('T. Nichols'), in the local script when the org enters
@@ -2047,15 +2061,15 @@ components:
                     type: string
                   tno:
                     description: 'Team number within this game: 1 = the team listed first (home on the
-                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
-                      only: not a team id'
+                      hosted schedule and widget), 2 = the other. In-game only: not a team id'
                     type: integer
                   tot:
                     description: 'The leader''s value: steals'
                     type: integer
                 type: object
                 x-key: <rank>
-              description: Top-3 leaders in steals, keyed by rank '1'..'3'
+              description: Top-3 leaders in steals, keyed by rank '1'..'3'; an empty list [] instead of
+                a map when no player recorded one (no blocks in the game, ...)
               type: object
           type: object
       type: object
@@ -2067,7 +2081,8 @@ components:
             description: One game (a div.match-wrap block)
             properties:
               away_score:
-                description: Away points; null before tip-off
+                description: Away points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type: integer
               away_team_code:
                 description: Away team code (local script possible)
@@ -2089,7 +2104,8 @@ components:
                   null when unscheduled
                 type: string
               home_score:
-                description: Home points; null before tip-off
+                description: Home points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type: integer
               home_team_code:
                 description: Home team code (local script possible)
@@ -2135,7 +2151,8 @@ components:
             description: One game (a div.match-wrap block)
             properties:
               away_score:
-                description: Away points; null before tip-off
+                description: Away points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type:
                 - integer
                 - 'null'
@@ -2159,7 +2176,8 @@ components:
                   null when unscheduled
                 type: string
               home_score:
-                description: Home points; null before tip-off
+                description: Home points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type:
                 - integer
                 - 'null'
@@ -2267,7 +2285,8 @@ components:
             description: One game
             properties:
               away_score:
-                description: Away points; null before tip-off
+                description: Away points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type:
                 - integer
                 - 'null'
@@ -2287,7 +2306,8 @@ components:
                   unverified for others)
                 type: string
               home_score:
-                description: Home points; null before tip-off
+                description: Home points; null before tip-off (typed integer only on a route whose 3 sampled
+                  rows were all played)
                 type:
                 - integer
                 - 'null'
@@ -4759,3 +4779,27 @@ x-leagues:
     live_org: WBBL
     sample_match_id: 2522423
     span: split
+x-leagues-fields:
+  competitions[].comp_id: Genius competition id (compId)
+  competitions[].genius_year: 'Genius season year from the chooser: START year of a split season, the
+    year itself for a calendar season; null when not from the chooser'
+  competitions[].label: Competition label as the org typed it (free text, any language)
+  competitions[].season: 'sdv season key: the END year of the season (2024-25 = 2025; a one-year season
+    = its year); null when unknown'
+  competitions[].season_rule: 'Which rule produced season: label span, genius year + 1 (split), genius
+    year (calendar), label year (calendar), schedule dates, competition window dates, unknown'
+  competitions[].source: 'Where the compId came from: chooser, u shell (the sample game''s /u/ page) or
+    curated id'
+  country: Country code(s) of the ORG (ISO 3166-1 alpha-3; AFR = pan-African)
+  earliest_data_json: 'Oldest competition probed whose first completed game has a data.json: season (sdv
+    END year), comp_id, match_id, probes, bounded (true when an older listed season was probed without
+    one); null when not probed'
+  genius_league_id: Genius league id of the ORG from the hosted chooser (leagueId of data/competition);
+    null without a chooser
+  hosted: plain = hosted WebStats pages work; embednf = only the /embednf/ variant works; null = no hosted
+    pages
+  league: Competitions the ORG runs on Genius (free text)
+  live_org: 'ORG code for /u/ shells and webcast links (differs from the key for NZNBL: NZN)'
+  sample_match_id: The match id of the committed data.json sample
+  span: split = seasons cross two calendar years (Genius year = START year); calendar = one-year seasons
+    (Genius year = END year)
