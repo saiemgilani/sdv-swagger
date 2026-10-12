@@ -45,8 +45,7 @@ components:
                   type: object
                 showEntityLogo:
                   description: Widget page config (current page, navigation, display toggles); not data
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 sport:
                   description: Widget page config (current page, navigation, display toggles); not data
                   type: string
@@ -92,8 +91,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -130,27 +128,24 @@ components:
                       / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
                     type: string
                   imageURL:
-                    description: Team logo URL / display name
+                    description: Team logo URL
                     type: string
                   link:
                     properties:
                       fragment:
                         description: 'Link URL fragment; unobserved: null, empty or absent in every sampled
                           row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       openInNewTab:
                         description: Link opens in a new tab
                         type: boolean
                       origin:
                         description: 'Link origin (absolute site URL); unobserved: null, empty or absent
                           in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       path:
                         description: 'Link path; unobserved: null, empty or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       queryParams:
                         properties:
                           ~w:
@@ -162,7 +157,7 @@ components:
                         type: object
                     type: object
                   name:
-                    description: Team logo URL / display name
+                    description: Team display name
                     type: string
                 type: object
               type: array
@@ -279,16 +274,16 @@ components:
               items:
                 properties:
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -308,10 +303,10 @@ components:
                         site, not data)'
                       type: string
                     logoURL:
-                      description: Team logo URL / display name
+                      description: Team logo URL (the team the page is about)
                       type: string
                     name:
-                      description: Team logo URL / display name
+                      description: Team display name (the team the page is about)
                       type: string
                   type: object
                 summary:
@@ -345,8 +340,7 @@ components:
                             attendance:
                               description: Last-game card field (attendance, pool, aggregate score, stage);
                                 null in the samples
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             competitors:
                               properties:
                                 away:
@@ -383,21 +377,18 @@ components:
                                         fragment:
                                           description: 'Link URL fragment; unobserved: null, empty or
                                             absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         openInNewTab:
                                           description: Link opens in a new tab
                                           type: boolean
                                         origin:
                                           description: 'Link origin (absolute site URL); unobserved: null,
                                             empty or absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         path:
                                           description: 'Link path; unobserved: null, empty or absent in
                                             every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         queryParams:
                                           properties:
                                             ~w:
@@ -430,8 +421,7 @@ components:
                                     secondaryScore:
                                       description: 'Secondary score (other sports'' sets/legs); unobserved:
                                         null, empty or absent in every sampled row'
-                                      type:
-                                      - 'null'
+                                      x-unobserved: true
                                     shootOutAttempts:
                                       description: Shoot-out attempts (other sports); the string `"None"`,
                                         an empty string or null in basketball
@@ -471,21 +461,18 @@ components:
                                         fragment:
                                           description: 'Link URL fragment; unobserved: null, empty or
                                             absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         openInNewTab:
                                           description: Link opens in a new tab
                                           type: boolean
                                         origin:
                                           description: 'Link origin (absolute site URL); unobserved: null,
                                             empty or absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         path:
                                           description: 'Link path; unobserved: null, empty or absent in
                                             every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         queryParams:
                                           properties:
                                             ~w:
@@ -518,8 +505,7 @@ components:
                                     secondaryScore:
                                       description: 'Secondary score (other sports'' sets/legs); unobserved:
                                         null, empty or absent in every sampled row'
-                                      type:
-                                      - 'null'
+                                      x-unobserved: true
                                     shootOutAttempts:
                                       description: Shoot-out attempts (other sports); the string `"None"`,
                                         an empty string or null in basketball
@@ -542,42 +528,35 @@ components:
                             poolCode:
                               description: Last-game card field (attendance, pool, aggregate score, stage);
                                 null in the samples
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             round:
                               description: Round number of the last game, as a string
                               type: string
                             score:
                               description: Last-game card field (attendance, pool, aggregate score, stage);
                                 null in the samples
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             stageCode:
                               description: Last-game card field (attendance, pool, aggregate score, stage);
                                 null in the samples
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             startTimeLocal:
-                              description: 'Last game: tip-off (local / UTC, ISO 8601 without offset),
-                                status, TBC flag, venue name'
+                              description: Last game's tip-off in the venue's local time, ISO 8601 without
+                                offset
                               type: string
                             startTimeUTC:
-                              description: 'Last game: tip-off (local / UTC, ISO 8601 without offset),
-                                status, TBC flag, venue name'
+                              description: Last game's tip-off in UTC, ISO 8601 without offset
                               type: string
                             status:
-                              description: 'Last game: tip-off (local / UTC, ISO 8601 without offset),
-                                status, TBC flag, venue name'
+                              description: Last game's status (`CONFIRMED` = final)
                               type: string
                             timesUnconfirmed:
-                              description: 'Last game: tip-off (local / UTC, ISO 8601 without offset),
-                                status, TBC flag, venue name'
+                              description: Last game's tip-off time was not confirmed (TBC)
                               type: boolean
                             venue:
                               properties:
                                 name:
-                                  description: 'Last game: tip-off (local / UTC, ISO 8601 without offset),
-                                    status, TBC flag, venue name'
+                                  description: Last game's venue name
                                   type: string
                               type: object
                           type: object
@@ -593,8 +572,7 @@ components:
                             header:
                               properties:
                                 code:
-                                  description: 'The stat this leader card ranks: key (`points`), short
-                                    label and long label in the response locale'
+                                  description: Long label of the ranked stat in the response locale (`Points`)
                                   type: string
                               type: object
                             items:
@@ -607,28 +585,25 @@ components:
                                           `personId` / person `id` on this host. Joins `/person_detail?personId=`.'
                                         type: string
                                       imageURL:
-                                        description: 'Team stat leader: headshot URL / name'
+                                        description: Team stat leader's headshot URL
                                         type: string
                                       link:
                                         properties:
                                           fragment:
                                             description: 'Link URL fragment; unobserved: null, empty or
                                               absent in every sampled row'
-                                            type:
-                                            - 'null'
+                                            x-unobserved: true
                                           openInNewTab:
                                             description: Link opens in a new tab
                                             type: boolean
                                           origin:
                                             description: 'Link origin (absolute site URL); unobserved:
                                               null, empty or absent in every sampled row'
-                                            type:
-                                            - 'null'
+                                            x-unobserved: true
                                           path:
                                             description: 'Link path; unobserved: null, empty or absent
                                               in every sampled row'
-                                            type:
-                                            - 'null'
+                                            x-unobserved: true
                                           queryParams:
                                             properties:
                                               ~w:
@@ -641,7 +616,7 @@ components:
                                             type: object
                                         type: object
                                       name:
-                                        description: 'Team stat leader: headshot URL / name'
+                                        description: Team stat leader's name
                                         type: string
                                     type: object
                                   value:
@@ -658,10 +633,11 @@ components:
                     standings:
                       properties:
                         filters:
-                          description: 'Empty object; unobserved: null, empty or absent in every sampled
-                            row'
+                          description: 'Standings filters of the excerpt; unobserved: null, empty or absent
+                            in every sampled row'
                           properties: {}
                           type: object
+                          x-unobserved: true
                         items:
                           properties:
                             headers:
@@ -695,13 +671,13 @@ components:
                                             empty or absent in every sampled row'
                                           properties: {}
                                           type: object
+                                          x-unobserved: true
                                         team:
                                           properties:
                                             color:
                                               description: 'Row highlight colour; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             entityId:
                                               description: 'Entity (team) id, UUID v1: the key space of
                                                 every `entityId` / `teamId` / team `id` on this host,
@@ -716,21 +692,18 @@ components:
                                                 fragment:
                                                   description: 'Link URL fragment; unobserved: null, empty
                                                     or absent in every sampled row'
-                                                  type:
-                                                  - 'null'
+                                                  x-unobserved: true
                                                 openInNewTab:
                                                   description: Link opens in a new tab
                                                   type: boolean
                                                 origin:
                                                   description: 'Link origin (absolute site URL); unobserved:
                                                     null, empty or absent in every sampled row'
-                                                  type:
-                                                  - 'null'
+                                                  x-unobserved: true
                                                 path:
                                                   description: 'Link path; unobserved: null, empty or
                                                     absent in every sampled row'
-                                                  type:
-                                                  - 'null'
+                                                  x-unobserved: true
                                                 queryParams:
                                                   properties:
                                                     ~w:
@@ -743,10 +716,10 @@ components:
                                                   type: object
                                               type: object
                                             logoURL:
-                                              description: Team logo URL / display name
+                                              description: Team logo URL
                                               type: string
                                             name:
-                                              description: Team logo URL / display name
+                                              description: Team display name
                                               type: string
                                           type: object
                                       type: object
@@ -774,18 +747,20 @@ components:
                               type: string
                           type: object
                         promotionColors:
-                          description: 'Empty object; unobserved: null, empty or absent in every sampled
-                            row'
+                          description: 'Promotion / relegation row colours of the excerpt; unobserved:
+                            null, empty or absent in every sampled row'
                           properties: {}
                           type: object
+                          x-unobserved: true
                       type: object
                     teamInfoFields:
                       properties:
                         items:
-                          description: 'Team info / performance panels; unobserved: null, empty or absent
-                            in every sampled row'
+                          description: 'Team info panel rows (founded, arena, ...); unobserved: null,
+                            empty or absent in every sampled row'
                           items: {}
                           type: array
+                          x-unobserved: true
                       type: object
                     teamPerformanceStats:
                       properties:
@@ -794,23 +769,25 @@ components:
                             stages:
                               properties:
                                 id:
-                                  description: Picker widget state (DOM id, selected option); not data
+                                  description: DOM id of the picker widget; not data
                                   type: string
                                 options:
-                                  description: Picker widget state (DOM id, selected option); not data
+                                  description: 'Picker options; unobserved: null, empty or absent in every
+                                    sampled row'
                                   items: {}
                                   type: array
+                                  x-unobserved: true
                                 selected:
-                                  description: Picker widget state (DOM id, selected option); not data
-                                  type:
-                                  - 'null'
+                                  description: The picker's selected option; null when nothing is selected
+                                  x-unobserved: true
                               type: object
                           type: object
                         items:
-                          description: 'Team info / performance panels; unobserved: null, empty or absent
+                          description: 'Team performance panel rows; unobserved: null, empty or absent
                             in every sampled row'
                           items: {}
                           type: array
+                          x-unobserved: true
                         label:
                           description: 'UI label text in the response locale (header-as-data: translated
                             per site, not data)'
@@ -916,8 +893,7 @@ components:
                     attendance:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     attendanceLabel:
                       description: 'UI label text in the response locale (header-as-data: translated per
                         site, not data)'
@@ -927,6 +903,7 @@ components:
                         series, shoot-out); null, empty or unobserved in the samples
                       items: {}
                       type: array
+                      x-unobserved: true
                     competitors:
                       items:
                         properties:
@@ -962,21 +939,18 @@ components:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -1009,8 +983,7 @@ components:
                           secondaryScore:
                             description: 'Secondary score (other sports'' sets/legs); unobserved: null,
                               empty or absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           shootOutAttempts:
                             description: Shoot-out attempts (other sports); the string `"None"`, an empty
                               string or null in basketball
@@ -1067,6 +1040,7 @@ components:
                             in every sampled row'
                           properties: {}
                           type: object
+                          x-unobserved: true
                         pointsFourAllowed:
                           description: Four-point shots exist (false in basketball)
                           type: boolean
@@ -1105,8 +1079,7 @@ components:
                     labelShootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     leaderStats:
                       properties:
                         leaders:
@@ -1133,7 +1106,7 @@ components:
                                             every `personId` / person `id` on this host. Joins `/person_detail?personId=`.'
                                           type: string
                                         imageURL:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's headshot URL; null when none
                                           type:
                                           - string
                                           - 'null'
@@ -1142,21 +1115,18 @@ components:
                                             fragment:
                                               description: 'Link URL fragment; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             openInNewTab:
                                               description: Link opens in a new tab
                                               type: boolean
                                             origin:
                                               description: 'Link origin (absolute site URL); unobserved:
                                                 null, empty or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             path:
                                               description: 'Link path; unobserved: null, empty or absent
                                                 in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             queryParams:
                                               properties:
                                                 ~w:
@@ -1171,7 +1141,7 @@ components:
                                           - object
                                           - 'null'
                                         name:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's name as the site prints it
                                           type: string
                                       type: object
                                     value:
@@ -1182,16 +1152,15 @@ components:
                               header:
                                 properties:
                                   code:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Long label of the ranked stat in the response locale
+                                      (`Points`)
                                     type: string
                                   key:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Stat key this leader card ranks (`points`, `pointsPerGame`)
                                     type: string
                                   name:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Short label of the ranked stat in the response locale
+                                      (PTS)
                                     type: string
                                 type: object
                             type: object
@@ -1218,13 +1187,13 @@ components:
                     series:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     shootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
                       properties: {}
                       type: object
+                      x-unobserved: true
                     sport:
                       description: Sport (`basketball`)
                       type: string
@@ -1323,8 +1292,7 @@ components:
                   type: string
                 attendance:
                   description: Spectators; null when not reported
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 attendanceLabel:
                   description: 'UI label text in the response locale (header-as-data: translated per site,
                     not data)'
@@ -1377,21 +1345,18 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -1424,8 +1389,7 @@ components:
                       secondaryScore:
                         description: 'Secondary score (other sports'' sets/legs); unobserved: null, empty
                           or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       shootOutAttempts:
                         description: Shoot-out attempts (other sports); the string `"None"`, an empty
                           string or null in basketball
@@ -1435,8 +1399,7 @@ components:
                 discipline:
                   description: 'Discipline (3x3 / 5x5); unobserved: null, empty or absent in every sampled
                     row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 externalId:
                   description: The league's own game number (LNB `29084` = the lnb.fr match id); null
                     on other sites
@@ -1511,6 +1474,7 @@ components:
                         every sampled row'
                       properties: {}
                       type: object
+                      x-unobserved: true
                     pointsFourAllowed:
                       description: Four-point shots exist (false in basketball)
                       type: boolean
@@ -1549,8 +1513,7 @@ components:
                   type: string
                 series:
                   description: 'Playoff series; unobserved: null, empty or absent in every sampled row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 startTimeLocal:
                   description: Tip-off in the venue's local time, ISO 8601 without offset (see `timezone`)
                   type: string
@@ -1637,15 +1600,17 @@ components:
               items:
                 properties:
                   bannerMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header strip; unobserved: null, empty
+                      or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   bannerTimelineMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header timeline; unobserved: null,
+                      empty or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   durationMinutes:
                     description: Period length, minutes (10 regulation, 5 overtime)
                     type: integer
@@ -1653,7 +1618,7 @@ components:
                     description: Game minutes played before this period (0, 10, 20, 30, 40 for OT1)
                     type: integer
                   ended:
-                    description: Period has started / ended
+                    description: The period is over
                     type: boolean
                   events:
                     items:
@@ -1781,7 +1746,7 @@ components:
                       inferred)'
                     type: integer
                   started:
-                    description: Period has started / ended
+                    description: The period has started
                     type: boolean
                   teamScore:
                     additionalProperties:
@@ -1814,24 +1779,24 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             tabs:
               items:
                 properties:
                   active:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: This tab is the one served
                     type: boolean
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -1898,8 +1863,7 @@ components:
                     attendance:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     attendanceLabel:
                       description: 'UI label text in the response locale (header-as-data: translated per
                         site, not data)'
@@ -1909,6 +1873,7 @@ components:
                         series, shoot-out); null, empty or unobserved in the samples
                       items: {}
                       type: array
+                      x-unobserved: true
                     competitors:
                       items:
                         properties:
@@ -1942,21 +1907,18 @@ components:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -1987,8 +1949,7 @@ components:
                           secondaryScore:
                             description: 'Secondary score (other sports'' sets/legs); unobserved: null,
                               empty or absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           shootOutAttempts:
                             description: Shoot-out attempts (other sports); the string `"None"`, an empty
                               string or null in basketball
@@ -2045,6 +2006,7 @@ components:
                             in every sampled row'
                           properties: {}
                           type: object
+                          x-unobserved: true
                         resetFoulsAfterPeriods:
                           description: Periods after which team fouls reset
                           items:
@@ -2074,8 +2036,7 @@ components:
                     labelShootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     leaderStats:
                       properties:
                         leaders:
@@ -2102,28 +2063,25 @@ components:
                                             every `personId` / person `id` on this host. Joins `/person_detail?personId=`.'
                                           type: string
                                         imageURL:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's headshot URL; null when none
                                           type: string
                                         link:
                                           properties:
                                             fragment:
                                               description: 'Link URL fragment; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             openInNewTab:
                                               description: Link opens in a new tab
                                               type: boolean
                                             origin:
                                               description: 'Link origin (absolute site URL); unobserved:
                                                 null, empty or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             path:
                                               description: 'Link path; unobserved: null, empty or absent
                                                 in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             queryParams:
                                               properties:
                                                 ~w:
@@ -2136,7 +2094,7 @@ components:
                                               type: object
                                           type: object
                                         name:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's name as the site prints it
                                           type: string
                                       type: object
                                     value:
@@ -2147,16 +2105,15 @@ components:
                               header:
                                 properties:
                                   code:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Long label of the ranked stat in the response locale
+                                      (`Points`)
                                     type: string
                                   key:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Stat key this leader card ranks (`points`, `pointsPerGame`)
                                     type: string
                                   name:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Short label of the ranked stat in the response locale
+                                      (PTS)
                                     type: string
                                 type: object
                             type: object
@@ -2183,13 +2140,13 @@ components:
                     series:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     shootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
                       properties: {}
                       type: object
+                      x-unobserved: true
                     sport:
                       description: Sport (`basketball`)
                       type: string
@@ -2288,8 +2245,7 @@ components:
                   type: string
                 attendance:
                   description: Spectators; null when not reported
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 attendanceLabel:
                   description: 'UI label text in the response locale (header-as-data: translated per site,
                     not data)'
@@ -2340,21 +2296,18 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -2385,8 +2338,7 @@ components:
                       secondaryScore:
                         description: 'Secondary score (other sports'' sets/legs); unobserved: null, empty
                           or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       shootOutAttempts:
                         description: Shoot-out attempts (other sports); the string `"None"`, an empty
                           string or null in basketball
@@ -2396,8 +2348,7 @@ components:
                 discipline:
                   description: 'Discipline (3x3 / 5x5); unobserved: null, empty or absent in every sampled
                     row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 externalId:
                   description: The league's own game number (LNB `29084` = the lnb.fr match id); null
                     on other sites
@@ -2472,6 +2423,7 @@ components:
                         every sampled row'
                       properties: {}
                       type: object
+                      x-unobserved: true
                     resetFoulsAfterPeriods:
                       description: Periods after which team fouls reset
                       items:
@@ -2501,8 +2453,7 @@ components:
                   type: string
                 series:
                   description: 'Playoff series; unobserved: null, empty or absent in every sampled row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 startTimeLocal:
                   description: Tip-off in the venue's local time, ISO 8601 without offset (see `timezone`)
                   type: string
@@ -2589,15 +2540,17 @@ components:
               items:
                 properties:
                   bannerMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header strip; unobserved: null, empty
+                      or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   bannerTimelineMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header timeline; unobserved: null,
+                      empty or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   durationMinutes:
                     description: Period length, minutes (10 regulation, 5 overtime)
                     type: integer
@@ -2605,7 +2558,7 @@ components:
                     description: Game minutes played before this period (0, 10, 20, 30, 40 for OT1)
                     type: integer
                   ended:
-                    description: Period has started / ended
+                    description: The period is over
                     type: boolean
                   isOvertime:
                     description: Overtime period (periodId 11+)
@@ -2725,7 +2678,7 @@ components:
                       type: object
                     type: array
                   started:
-                    description: Period has started / ended
+                    description: The period has started
                     type: boolean
                   teamScore:
                     additionalProperties:
@@ -2782,21 +2735,18 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -2827,8 +2777,7 @@ components:
                       secondaryScore:
                         description: 'Secondary score (other sports'' sets/legs); unobserved: null, empty
                           or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       shootOutAttempts:
                         description: Shoot-out attempts (other sports); the string `"None"`, an empty
                           string or null in basketball
@@ -2869,21 +2818,18 @@ components:
                             fragment:
                               description: 'Link URL fragment; unobserved: null, empty or absent in every
                                 sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             openInNewTab:
                               description: Link opens in a new tab
                               type: boolean
                             origin:
                               description: 'Link origin (absolute site URL); unobserved: null, empty or
                                 absent in every sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             path:
                               description: 'Link path; unobserved: null, empty or absent in every sampled
                                 row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             queryParams:
                               properties:
                                 ~w:
@@ -2916,24 +2862,24 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             tabs:
               items:
                 properties:
                   active:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: This tab is the one served
                     type: boolean
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -3000,8 +2946,7 @@ components:
                     attendance:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     attendanceLabel:
                       description: 'UI label text in the response locale (header-as-data: translated per
                         site, not data)'
@@ -3011,6 +2956,7 @@ components:
                         series, shoot-out); null, empty or unobserved in the samples
                       items: {}
                       type: array
+                      x-unobserved: true
                     competitors:
                       items:
                         properties:
@@ -3044,21 +2990,18 @@ components:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -3089,8 +3032,7 @@ components:
                           secondaryScore:
                             description: 'Secondary score (other sports'' sets/legs); unobserved: null,
                               empty or absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           shootOutAttempts:
                             description: Shoot-out attempts (other sports); the string `"None"`, an empty
                               string or null in basketball
@@ -3147,6 +3089,7 @@ components:
                             in every sampled row'
                           properties: {}
                           type: object
+                          x-unobserved: true
                         resetFoulsAfterPeriods:
                           description: Periods after which team fouls reset
                           items:
@@ -3176,8 +3119,7 @@ components:
                     labelShootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     leaderStats:
                       properties:
                         leaders:
@@ -3204,28 +3146,25 @@ components:
                                             every `personId` / person `id` on this host. Joins `/person_detail?personId=`.'
                                           type: string
                                         imageURL:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's headshot URL; null when none
                                           type: string
                                         link:
                                           properties:
                                             fragment:
                                               description: 'Link URL fragment; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             openInNewTab:
                                               description: Link opens in a new tab
                                               type: boolean
                                             origin:
                                               description: 'Link origin (absolute site URL); unobserved:
                                                 null, empty or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             path:
                                               description: 'Link path; unobserved: null, empty or absent
                                                 in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             queryParams:
                                               properties:
                                                 ~w:
@@ -3238,7 +3177,7 @@ components:
                                               type: object
                                           type: object
                                         name:
-                                          description: 'Game leader: player headshot URL / name'
+                                          description: Game leader's name as the site prints it
                                           type: string
                                       type: object
                                     value:
@@ -3249,16 +3188,15 @@ components:
                               header:
                                 properties:
                                   code:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Long label of the ranked stat in the response locale
+                                      (`Points`)
                                     type: string
                                   key:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Stat key this leader card ranks (`points`, `pointsPerGame`)
                                     type: string
                                   name:
-                                    description: 'The stat this leader card ranks: key (`points`), short
-                                      label and long label in the response locale'
+                                    description: Short label of the ranked stat in the response locale
+                                      (PTS)
                                     type: string
                                 type: object
                             type: object
@@ -3285,13 +3223,13 @@ components:
                     series:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     shootout:
                       description: Header-strip copy of a fixture field (attendance, broadcasts, pool,
                         series, shoot-out); null, empty or unobserved in the samples
                       properties: {}
                       type: object
+                      x-unobserved: true
                     sport:
                       description: Sport (`basketball`)
                       type: string
@@ -3394,8 +3332,7 @@ components:
                   type: string
                 attendance:
                   description: Spectators; null when not reported
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 attendanceLabel:
                   description: 'UI label text in the response locale (header-as-data: translated per site,
                     not data)'
@@ -3446,21 +3383,18 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -3491,8 +3425,7 @@ components:
                       secondaryScore:
                         description: 'Secondary score (other sports'' sets/legs); unobserved: null, empty
                           or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       shootOutAttempts:
                         description: Shoot-out attempts (other sports); the string `"None"`, an empty
                           string or null in basketball
@@ -3502,8 +3435,7 @@ components:
                 discipline:
                   description: 'Discipline (3x3 / 5x5); unobserved: null, empty or absent in every sampled
                     row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 externalId:
                   description: The league's own game number (LNB `29084` = the lnb.fr match id); null
                     on other sites
@@ -3578,6 +3510,7 @@ components:
                         every sampled row'
                       properties: {}
                       type: object
+                      x-unobserved: true
                     resetFoulsAfterPeriods:
                       description: Periods after which team fouls reset
                       items:
@@ -3607,8 +3540,7 @@ components:
                   type: string
                 series:
                   description: 'Playoff series; unobserved: null, empty or absent in every sampled row'
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 startTimeLocal:
                   description: Tip-off in the venue's local time, ISO 8601 without offset (see `timezone`)
                   type: string
@@ -3707,28 +3639,25 @@ components:
                                 type: string
                             type: object
                           image:
-                            description: 'Team of the highlighted player: logo URL / short name (`DRM`)'
+                            description: Logo URL of the highlighted player's team
                             type: string
                           link:
                             properties:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -3740,7 +3669,7 @@ components:
                                 type: object
                             type: object
                           name:
-                            description: 'Team of the highlighted player: logo URL / short name (`DRM`)'
+                            description: Short name of the highlighted player's team (`DRM`)
                             type: string
                         type: object
                       fixtureStats:
@@ -3763,8 +3692,8 @@ components:
                             - number
                             - 'null'
                           minutes:
-                            description: Playing time, ISO 8601 duration `PT{m}M{s}S`, whole seconds (e.g.
-                              `PT12M2S` = 12:02); a team's is the sum over players (`PT200M` = 5 x 40)
+                            description: Playing time in the game, ISO 8601 duration `PT{m}M{s}S`, whole
+                              seconds (e.g. `PT12M2S` = 12:02)
                             type:
                             - string
                             - 'null'
@@ -3778,16 +3707,15 @@ components:
                             - number
                             - 'null'
                           reboundsPercentage:
-                            description: Rebound share, percent on a 0-100 scale (62.96 = 62.96 %); null
-                              when not computed
+                            description: Rebound share in the game, percent on a 0-100 scale (14.22 =
+                              14.22 % of the rebounds available; definition inferred); null when not computed
                             type:
                             - number
                             - 'null'
                           stealsPercentage:
-                            description: Steal rate, percent on a 0-100 scale (62.96 = 62.96 %); null
-                              when not computed
-                            type:
-                            - 'null'
+                            description: Steal rate, a percentage (0-100 scale assumed like the other
+                              percentages); null in every sample, so the scale and definition are unverified
+                            x-unobserved: true
                         type: object
                       person:
                         properties:
@@ -3795,28 +3723,25 @@ components:
                             description: Shirt number, as a string
                             type: string
                           image:
-                            description: Highlighted player headshot URL / name
+                            description: Highlighted player's headshot URL
                             type: string
                           link:
                             properties:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -3828,13 +3753,12 @@ components:
                                 type: object
                             type: object
                           name:
-                            description: Highlighted player headshot URL / name
+                            description: Highlighted player's name as the site prints it
                             type: string
                           position:
                             description: 'Playing position; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                         type: object
                       seasonStats:
                         properties:
@@ -3850,8 +3774,9 @@ components:
                               there were no attempts
                             type: number
                           minutes:
-                            description: Playing time, ISO 8601 duration `PT{m}M{s}S`, whole seconds (e.g.
-                              `PT12M2S` = 12:02); a team's is the sum over players (`PT200M` = 5 x 40)
+                            description: The highlighted player's season playing time (a total, not an
+                              average), ISO 8601 duration `PT{m}M{s}S`, whole seconds (e.g. `PT12M2S`
+                              = 12:02)
                             type: string
                           points:
                             description: Points scored
@@ -3861,15 +3786,13 @@ components:
                               when there were no attempts
                             type: number
                           reboundsPercentage:
-                            description: Rebound share, percent on a 0-100 scale (62.96 = 62.96 %); null
-                              when not computed
-                            type:
-                            - 'null'
+                            description: The highlighted player's season rebound share, a percentage;
+                              null in every sample, so the scale and definition are unverified
+                            x-unobserved: true
                           stealsPercentage:
-                            description: Steal rate, percent on a 0-100 scale (62.96 = 62.96 %); null
-                              when not computed
-                            type:
-                            - 'null'
+                            description: The highlighted player's season steal rate, a percentage; null
+                              in every sample, so the scale and definition are unverified
+                            x-unobserved: true
                         type: object
                     type: object
                   description: Map personId -> one highlighted player's game and season lines
@@ -3913,15 +3836,17 @@ components:
               items:
                 properties:
                   bannerMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header strip; unobserved: null, empty
+                      or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   bannerTimelineMatchEvents:
-                    description: 'Key moments for the header strip; unobserved: null, empty or absent
-                      in every sampled row'
+                    description: 'Key moments of the period for the header timeline; unobserved: null,
+                      empty or absent in every sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   durationMinutes:
                     description: Period length, minutes (10 regulation, 5 overtime)
                     type: integer
@@ -3929,7 +3854,7 @@ components:
                     description: Game minutes played before this period (0, 10, 20, 30, 40 for OT1)
                     type: integer
                   ended:
-                    description: Period has started / ended
+                    description: The period is over
                     type: boolean
                   isOvertime:
                     description: Overtime period (periodId 11+)
@@ -3957,7 +3882,7 @@ components:
                       inferred)'
                     type: integer
                   started:
-                    description: Period has started / ended
+                    description: The period has started
                     type: boolean
                   teamScore:
                     additionalProperties:
@@ -4078,14 +4003,13 @@ components:
                                     null when there were no attempts
                                   type: number
                                 minutes:
-                                  description: Playing time, ISO 8601 duration `PT{m}M{s}S`, whole seconds
-                                    (e.g. `PT12M2S` = 12:02); a team's is the sum over players (`PT200M`
-                                    = 5 x 40)
+                                  description: 'Team playing time: the sum over its players, ISO 8601
+                                    duration `PT{m}M{s}S`, whole seconds (e.g. `PT12M2S` = 12:02) (`PT200M`
+                                    = 5 players x 40 min)'
                                   type: string
                                 plusMinus:
                                   description: Point differential while on court; null at team level
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 points:
                                   description: Points scored
                                   type: integer
@@ -4184,8 +4108,7 @@ components:
                                         didNotPlayReason:
                                           description: 'Why a rostered player did not play (DNP); unobserved:
                                             null, empty or absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         entityId:
                                           description: 'Entity (team) id, UUID v1: the key space of every
                                             `entityId` / `teamId` / team `id` on this host, shared across
@@ -4206,21 +4129,18 @@ components:
                                             fragment:
                                               description: 'Link URL fragment; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             openInNewTab:
                                               description: Link opens in a new tab
                                               type: boolean
                                             origin:
                                               description: 'Link origin (absolute site URL); unobserved:
                                                 null, empty or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             path:
                                               description: 'Link path; unobserved: null, empty or absent
                                                 in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             queryParams:
                                               properties:
                                                 ~w:
@@ -4293,9 +4213,8 @@ components:
                                               - number
                                               - 'null'
                                             minutes:
-                                              description: Playing time, ISO 8601 duration `PT{m}M{s}S`,
-                                                whole seconds (e.g. `PT12M2S` = 12:02); a team's is the
-                                                sum over players (`PT200M` = 5 x 40)
+                                              description: Playing time in the game, ISO 8601 duration
+                                                `PT{m}M{s}S`, whole seconds (e.g. `PT12M2S` = 12:02)
                                               type: string
                                             plusMinus:
                                               description: Point differential while on court; null at
@@ -4434,14 +4353,13 @@ components:
                                     null when there were no attempts
                                   type: number
                                 minutes:
-                                  description: Playing time, ISO 8601 duration `PT{m}M{s}S`, whole seconds
-                                    (e.g. `PT12M2S` = 12:02); a team's is the sum over players (`PT200M`
-                                    = 5 x 40)
+                                  description: 'Team playing time: the sum over its players, ISO 8601
+                                    duration `PT{m}M{s}S`, whole seconds (e.g. `PT12M2S` = 12:02) (`PT200M`
+                                    = 5 players x 40 min)'
                                   type: string
                                 plusMinus:
                                   description: Point differential while on court; null at team level
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 points:
                                   description: Points scored
                                   type: integer
@@ -4540,8 +4458,7 @@ components:
                                         didNotPlayReason:
                                           description: 'Why a rostered player did not play (DNP); unobserved:
                                             null, empty or absent in every sampled row'
-                                          type:
-                                          - 'null'
+                                          x-unobserved: true
                                         entityId:
                                           description: 'Entity (team) id, UUID v1: the key space of every
                                             `entityId` / `teamId` / team `id` on this host, shared across
@@ -4562,21 +4479,18 @@ components:
                                             fragment:
                                               description: 'Link URL fragment; unobserved: null, empty
                                                 or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             openInNewTab:
                                               description: Link opens in a new tab
                                               type: boolean
                                             origin:
                                               description: 'Link origin (absolute site URL); unobserved:
                                                 null, empty or absent in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             path:
                                               description: 'Link path; unobserved: null, empty or absent
                                                 in every sampled row'
-                                              type:
-                                              - 'null'
+                                              x-unobserved: true
                                             queryParams:
                                               properties:
                                                 ~w:
@@ -4663,9 +4577,8 @@ components:
                                               - number
                                               - 'null'
                                             minutes:
-                                              description: Playing time, ISO 8601 duration `PT{m}M{s}S`,
-                                                whole seconds (e.g. `PT12M2S` = 12:02); a team's is the
-                                                sum over players (`PT200M` = 5 x 40)
+                                              description: Playing time in the game, ISO 8601 duration
+                                                `PT{m}M{s}S`, whole seconds (e.g. `PT12M2S` = 12:02)
                                               type:
                                               - string
                                               - 'null'
@@ -4785,16 +4698,13 @@ components:
                           items:
                             properties:
                               code:
-                                description: 'Legend of the box-score columns: stat key, short label,
-                                  long label in the response locale'
+                                description: Long label in the response locale (`Puntos`)
                                 type: string
                               key:
-                                description: 'Legend of the box-score columns: stat key, short label,
-                                  long label in the response locale'
+                                description: Stat key of the column (`points`, `minutes`)
                                 type: string
                               name:
-                                description: 'Legend of the box-score columns: stat key, short label,
-                                  long label in the response locale'
+                                description: Short label in the response locale (`PTS`, `2TR`)
                                 type: string
                             type: object
                           type: array
@@ -4804,16 +4714,14 @@ components:
                   items:
                     properties:
                       code:
-                        description: 'Labels of the team-totals panel (`totalEntityStats` keys): key,
-                          short label, long label in the response locale'
+                        description: Long label in the response locale (`Changement de Leader` = lead
+                          changes)
                         type: string
                       key:
-                        description: 'Labels of the team-totals panel (`totalEntityStats` keys): key,
-                          short label, long label in the response locale'
+                        description: Key in `totalEntityStats` this label names (`leadChanges`)
                         type: string
                       name:
-                        description: 'Labels of the team-totals panel (`totalEntityStats` keys): key,
-                          short label, long label in the response locale'
+                        description: Short label in the response locale (`CL`)
                         type: string
                     type: object
                   type: array
@@ -4826,24 +4734,24 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             tabs:
               items:
                 properties:
                   active:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: This tab is the one served
                     type: boolean
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -4852,6 +4760,7 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
           type: object
         links:
           properties:
@@ -4957,14 +4866,13 @@ components:
             entities:
               properties:
                 id:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: DOM id of the picker widget; not data
                   type: string
                 options:
                   items:
                     properties:
                       label:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option label in the response locale (`Journée: 1`, `Alle Phasen`)'
                         type: string
                       link:
                         description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture,
@@ -4973,13 +4881,13 @@ components:
                           seasonId, l locale, z tab, f/e/p ids, rn round}
                         type: string
                       value:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option value: a round number as a string, a stage or entity id,
+                          or `All`'
                         type: string
                     type: object
                   type: array
                 selected:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: The picker's selected option; null when nothing is selected
                   type: string
               type:
               - object
@@ -4997,6 +4905,7 @@ components:
                       sampled row'
                     items: {}
                     type: array
+                    x-unobserved: true
                   competitors:
                     items:
                       properties:
@@ -5038,21 +4947,18 @@ components:
                             fragment:
                               description: 'Link URL fragment; unobserved: null, empty or absent in every
                                 sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             openInNewTab:
                               description: Link opens in a new tab
                               type: boolean
                             origin:
                               description: 'Link origin (absolute site URL); unobserved: null, empty or
                                 absent in every sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             path:
                               description: 'Link path; unobserved: null, empty or absent in every sampled
                                 row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             queryParams:
                               properties:
                                 ~w:
@@ -5087,8 +4993,7 @@ components:
                         secondaryScore:
                           description: 'Secondary score (other sports'' sets/legs); unobserved: null,
                             empty or absent in every sampled row'
-                          type:
-                          - 'null'
+                          x-unobserved: true
                         shootOutAttempts:
                           description: Shoot-out attempts (other sports); the string `"None"`, an empty
                             string or null in basketball
@@ -5126,13 +5031,11 @@ components:
                     - 'null'
                   roundCode:
                     description: 'Round code; unobserved: null, empty or absent in every sampled row'
-                    type:
-                    - 'null'
+                    x-unobserved: true
                   series:
                     description: 'Playoff series object; unobserved: null, empty or absent in every sampled
                       row'
-                    type:
-                    - 'null'
+                    x-unobserved: true
                   stageCode:
                     description: Stage code (an opaque 30-hex string); null when the competition has no
                       stages
@@ -5198,18 +5101,16 @@ components:
             rounds:
               properties:
                 id:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: DOM id of the picker widget; not data
                   type: string
                 options:
                   items:
                     properties:
                       active:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: The option is the one applied
                         type: boolean
                       label:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option label in the response locale (`Journée: 1`, `Alle Phasen`)'
                         type: string
                       link:
                         description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture,
@@ -5218,17 +5119,16 @@ components:
                           seasonId, l locale, z tab, f/e/p ids, rn round}
                         type: string
                       order:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: Sort order of the option (-1 = the `All` option)
                         type: integer
                       value:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option value: a round number as a string, a stage or entity id,
+                          or `All`'
                         type: string
                     type: object
                   type: array
                 selected:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: The picker's selected option; null when nothing is selected
                   type: string
               type: object
             seasonId:
@@ -5257,8 +5157,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -5290,16 +5189,16 @@ components:
             series:
               properties:
                 id:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: DOM id of the picker widget; not data
                   type: string
                 options:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: 'Picker options; unobserved: null, empty or absent in every sampled row'
                   items: {}
                   type: array
+                  x-unobserved: true
                 selected:
-                  description: Picker widget state (DOM id, selected option); not data
-                  type:
-                  - 'null'
+                  description: The picker's selected option; null when nothing is selected
+                  x-unobserved: true
               type:
               - object
               - 'null'
@@ -5309,14 +5208,13 @@ components:
             stageTabs:
               properties:
                 id:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: DOM id of the picker widget; not data
                   type: string
                 options:
                   items:
                     properties:
                       label:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option label in the response locale (`Journée: 1`, `Alle Phasen`)'
                         type: string
                       link:
                         description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture,
@@ -5325,17 +5223,16 @@ components:
                           seasonId, l locale, z tab, f/e/p ids, rn round}
                         type: string
                       orderNumber:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: Sort order of the option (-1 = the `All` option)
                         type: integer
                       value:
-                        description: 'Picker option: label, value (round number / stage / entity / `All`),
-                          sort order and a `state` link that applies it'
+                        description: 'Option value: a round number as a string, a stage or entity id,
+                          or `All`'
                         type: string
                     type: object
                   type: array
                 selected:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: The picker's selected option; null when nothing is selected
                   type:
                   - string
                   - 'null'
@@ -5347,16 +5244,16 @@ components:
               items:
                 properties:
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   value:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -5411,7 +5308,7 @@ components:
             allSeasonsOption:
               properties:
                 label:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: The option's label in the response locale
                   type: string
                 link:
                   description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
@@ -5420,7 +5317,7 @@ components:
                     tab, f/e/p ids, rn round}
                   type: string
                 value:
-                  description: Picker widget state (DOM id, selected option); not data
+                  description: The option's value (`ALL` = every season)
                   type: string
               type: object
             config:
@@ -5497,10 +5394,11 @@ components:
                   fixture:
                     properties:
                       broadcasts:
-                        description: 'Broadcasters / playoff series; unobserved: null, empty or absent
-                          in every sampled row'
+                        description: 'Broadcasters of the game; unobserved: null, empty or absent in every
+                          sampled row'
                         items: {}
                         type: array
+                        x-unobserved: true
                       date:
                         description: Tip-off in the venue's local time, ISO 8601 without offset
                         type: string
@@ -5518,16 +5416,14 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
@@ -5550,26 +5446,22 @@ components:
                           on /fixtures, /standings and the other season-scoped types.
                         type: string
                       series:
-                        description: 'Broadcasters / playoff series; unobserved: null, empty or absent
-                          in every sampled row'
-                        type:
-                        - 'null'
+                        description: 'Playoff series of the game; unobserved: null, empty or absent in
+                          every sampled row'
+                        x-unobserved: true
                       stageName:
                         description: 'Stage name; unobserved: null, empty or absent in every sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       startTimeUTC:
                         description: Tip-off in UTC, ISO 8601 without offset
                         type: string
                       status:
                         properties:
                           label:
-                            description: 'Status: value `SCHEDULED`, `IN_PROGRESS`, `CONFIRMED`, `IF_NEEDED`;
-                              label in the response locale'
+                            description: Status in the response locale (`Final`)
                             type: string
                           value:
-                            description: 'Status: value `SCHEDULED`, `IN_PROGRESS`, `CONFIRMED`, `IF_NEEDED`;
-                              label in the response locale'
+                            description: 'Status: `SCHEDULED`, `IN_PROGRESS`, `CONFIRMED` (final), `IF_NEEDED`'
                             type: string
                         type: object
                       timesUnconfirmed:
@@ -5638,8 +5530,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -5780,16 +5671,14 @@ components:
                   items:
                     properties:
                       code:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Long label of the card average in the response locale (`Rebonds Défensifs
+                          par Match` = defensive rebounds per game)
                         type: string
                       key:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Stat key of the card average (`pointsPerGame`)
                         type: string
                       name:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Short label of the card average in the response locale (`PTS`, `RD`)
                         type: string
                       value:
                         description: The average's value (per game)
@@ -5798,8 +5687,7 @@ components:
                   type: array
                 bib:
                   description: Shirt number, as a string; null when unassigned
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 colors:
                   properties:
                     primary:
@@ -5843,32 +5731,30 @@ components:
                   description: 'Social links; unobserved: null, empty or absent in every sampled row'
                   properties: {}
                   type: object
+                  x-unobserved: true
                 teamId:
                   description: 'Current team. Entity (team) id, UUID v1: the key space of every `entityId`
                     / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
                   type: string
                 teamImage:
-                  description: Current team logo URL / display name
+                  description: Logo URL of the player's current team
                   type: string
                 teamLink:
                   properties:
                     fragment:
                       description: 'Link URL fragment; unobserved: null, empty or absent in every sampled
                         row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     openInNewTab:
                       description: Link opens in a new tab
                       type: boolean
                     origin:
                       description: 'Link origin (absolute site URL); unobserved: null, empty or absent
                         in every sampled row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     path:
                       description: 'Link path; unobserved: null, empty or absent in every sampled row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     queryParams:
                       properties:
                         ~w:
@@ -5880,7 +5766,7 @@ components:
                       type: object
                   type: object
                 teamName:
-                  description: Current team logo URL / display name
+                  description: Display name of the player's current team
                   type: string
               type: object
             statistics:
@@ -5902,16 +5788,17 @@ components:
                     fixtureType:
                       properties:
                         id:
-                          description: Picker widget state (DOM id, selected option); not data
+                          description: DOM id of the picker widget; not data
                           type: string
                         options:
-                          description: Picker widget state (DOM id, selected option); not data
+                          description: 'Picker options; unobserved: null, empty or absent in every sampled
+                            row'
                           items: {}
                           type: array
+                          x-unobserved: true
                         selected:
-                          description: Picker widget state (DOM id, selected option); not data
-                          type:
-                          - 'null'
+                          description: The picker's selected option; null when nothing is selected
+                          x-unobserved: true
                       type: object
                   type: object
                 headers:
@@ -5952,28 +5839,25 @@ components:
                               / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
                             type: string
                           imageURL:
-                            description: Team logo URL / display name
+                            description: Team logo URL (the player's team that season)
                             type: string
                           link:
                             properties:
                               fragment:
                                 description: 'Link URL fragment; unobserved: null, empty or absent in
                                   every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               openInNewTab:
                                 description: Link opens in a new tab
                                 type: boolean
                               origin:
                                 description: 'Link origin (absolute site URL); unobserved: null, empty
                                   or absent in every sampled row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               path:
                                 description: 'Link path; unobserved: null, empty or absent in every sampled
                                   row'
-                                type:
-                                - 'null'
+                                x-unobserved: true
                               queryParams:
                                 properties:
                                   ~w:
@@ -5985,7 +5869,7 @@ components:
                                 type: object
                             type: object
                           name:
-                            description: Team logo URL / display name
+                            description: Team display name (the player's team that season)
                             type: string
                         type: object
                     type: object
@@ -5998,16 +5882,16 @@ components:
               items:
                 properties:
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -6175,16 +6059,17 @@ components:
                     fixtureType:
                       properties:
                         id:
-                          description: Picker widget state (DOM id, selected option); not data
+                          description: DOM id of the picker widget; not data
                           type: string
                         options:
-                          description: Picker widget state (DOM id, selected option); not data
+                          description: 'Picker options; unobserved: null, empty or absent in every sampled
+                            row'
                           items: {}
                           type: array
+                          x-unobserved: true
                         selected:
-                          description: Picker widget state (DOM id, selected option); not data
-                          type:
-                          - 'null'
+                          description: The picker's selected option; null when nothing is selected
+                          x-unobserved: true
                       type: object
                   type: object
                 headers:
@@ -6241,28 +6126,25 @@ components:
                           `/entity_detail?entityId=`. The row has no fixtureId: join on date + teams'
                         type: string
                       imageURL:
-                        description: Opponent logo URL / display name
+                        description: Opponent's logo URL
                         type: string
                       link:
                         properties:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -6274,7 +6156,7 @@ components:
                             type: object
                         type: object
                       name:
-                        description: Opponent logo URL / display name
+                        description: Opponent's display name
                         type: string
                       result:
                         properties:
@@ -6304,16 +6186,14 @@ components:
                   items:
                     properties:
                       code:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Long label of the card average in the response locale (`Rebonds Défensifs
+                          par Match` = defensive rebounds per game)
                         type: string
                       key:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Stat key of the card average (`pointsPerGame`)
                         type: string
                       name:
-                        description: 'Season average shown on the player card: stat key (`pointsPerGame`),
-                          short label, long label in the response locale'
+                        description: Short label of the card average in the response locale (`PTS`, `RD`)
                         type: string
                       value:
                         description: The average's value (per game)
@@ -6322,8 +6202,7 @@ components:
                   type: array
                 bib:
                   description: Shirt number, as a string; null when unassigned
-                  type:
-                  - 'null'
+                  x-unobserved: true
                 colors:
                   properties:
                     primary:
@@ -6367,32 +6246,30 @@ components:
                   description: 'Social links; unobserved: null, empty or absent in every sampled row'
                   properties: {}
                   type: object
+                  x-unobserved: true
                 teamId:
                   description: 'Current team. Entity (team) id, UUID v1: the key space of every `entityId`
                     / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
                   type: string
                 teamImage:
-                  description: Current team logo URL / display name
+                  description: Logo URL of the player's current team
                   type: string
                 teamLink:
                   properties:
                     fragment:
                       description: 'Link URL fragment; unobserved: null, empty or absent in every sampled
                         row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     openInNewTab:
                       description: Link opens in a new tab
                       type: boolean
                     origin:
                       description: 'Link origin (absolute site URL); unobserved: null, empty or absent
                         in every sampled row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     path:
                       description: 'Link path; unobserved: null, empty or absent in every sampled row'
-                      type:
-                      - 'null'
+                      x-unobserved: true
                     queryParams:
                       properties:
                         ~w:
@@ -6404,7 +6281,7 @@ components:
                       type: object
                   type: object
                 teamName:
-                  description: Current team logo URL / display name
+                  description: Display name of the player's current team
                   type: string
               type: object
             sub:
@@ -6414,16 +6291,16 @@ components:
               items:
                 properties:
                   label:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Tab label in the response locale
                     type: string
                   link:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: Widget navigation link `&~w=<prefix>~<token>` (prefix f fixture, fl fixtures
+                      list, e team, p person, stn standings, l leaders, fr ribbon). The token after the
+                      second `~` is a valid `state=` param and decodes to JSON {s seasonId, l locale,
+                      z tab, f/e/p ids, rn round}
                     type: string
                   sub:
-                    description: Page tab (label, the `sub` it opens, link, active flag); the `sub` values
-                      are the valid `sub=` params of this type
+                    description: The `sub` value this tab opens (a valid `sub=` param of this type)
                     type: string
                 type: object
               type: array
@@ -6521,8 +6398,7 @@ components:
             entities:
               description: 'Empty object in every sample; unobserved: null, empty or absent in every sampled
                 row'
-              type:
-              - 'null'
+              x-unobserved: true
             labels:
               properties:
                 toBeConfirmed:
@@ -6585,21 +6461,18 @@ components:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -6631,28 +6504,25 @@ components:
                         description: Roster status in the response locale (`Actif` = active)
                         type: string
                       teamImageURL:
-                        description: Team logo URL / display name
+                        description: Logo URL of the player's team
                         type: string
                       teamLink:
                         properties:
                           fragment:
                             description: 'Link URL fragment; unobserved: null, empty or absent in every
                               sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           openInNewTab:
                             description: Link opens in a new tab
                             type: boolean
                           origin:
                             description: 'Link origin (absolute site URL); unobserved: null, empty or
                               absent in every sampled row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           path:
                             description: 'Link path; unobserved: null, empty or absent in every sampled
                               row'
-                            type:
-                            - 'null'
+                            x-unobserved: true
                           queryParams:
                             properties:
                               ~w:
@@ -6664,7 +6534,7 @@ components:
                             type: object
                         type: object
                       teamName:
-                        description: Team logo URL / display name
+                        description: Display name of the player's team
                         type: string
                     type: object
                   type: array
@@ -6695,8 +6565,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -6815,6 +6684,7 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             headers:
               items:
                 properties:
@@ -6870,6 +6740,7 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             seasonId:
               description: 'The season served: the `seasonId` param, or the site default when omitted.
                 Season id, UUID v1 (one per competition per year). Joins `seasonId=` on /fixtures, /standings
@@ -6896,8 +6767,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -7013,8 +6883,7 @@ components:
                             color:
                               description: 'Row highlight colour; unobserved: null, empty or absent in
                                 every sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             entityId:
                               description: 'Entity (team) id, UUID v1: the key space of every `entityId`
                                 / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
@@ -7028,21 +6897,18 @@ components:
                                 fragment:
                                   description: 'Link URL fragment; unobserved: null, empty or absent in
                                     every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 openInNewTab:
                                   description: Link opens in a new tab
                                   type: boolean
                                 origin:
                                   description: 'Link origin (absolute site URL); unobserved: null, empty
                                     or absent in every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 path:
                                   description: 'Link path; unobserved: null, empty or absent in every
                                     sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 queryParams:
                                   properties:
                                     ~w:
@@ -7054,10 +6920,10 @@ components:
                                   type: object
                               type: object
                             logoURL:
-                              description: Team logo URL / display name
+                              description: Team logo URL
                               type: string
                             name:
-                              description: Team logo URL / display name
+                              description: Team display name
                               type: string
                           type: object
                       type: object
@@ -7160,6 +7026,7 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             headers:
               items:
                 properties:
@@ -7211,6 +7078,7 @@ components:
                 row'
               properties: {}
               type: object
+              x-unobserved: true
             seasonId:
               description: 'The season served: the `seasonId` param, or the site default when omitted.
                 Season id, UUID v1 (one per competition per year). Joins `seasonId=` on /fixtures, /standings
@@ -7250,8 +7118,7 @@ components:
                             color:
                               description: 'Row highlight colour; unobserved: null, empty or absent in
                                 every sampled row'
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             entityId:
                               description: 'Entity (team) id, UUID v1: the key space of every `entityId`
                                 / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
@@ -7265,13 +7132,12 @@ components:
                                 fl fixtures list, e team, p person, stn standings, l leaders, fr ribbon).
                                 The token after the second `~` is a valid `state=` param and decodes to
                                 JSON {s seasonId, l locale, z tab, f/e/p ids, rn round}
-                              type:
-                              - 'null'
+                              x-unobserved: true
                             logoURL:
-                              description: Team logo URL / display name
+                              description: Team logo URL
                               type: string
                             name:
-                              description: Team logo URL / display name
+                              description: Team display name
                               type: string
                           type: object
                       type: object
@@ -7347,11 +7213,13 @@ components:
                         data
                       properties: {}
                       type: object
+                      x-unobserved: true
                     main:
                       description: Widget page config (current page, navigation, display toggles); not
                         data
                       items: {}
                       type: array
+                      x-unobserved: true
                     secondary:
                       items:
                         properties:
@@ -7382,16 +7250,17 @@ components:
                 fixtureType:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
               type: object
             labels:
@@ -7431,12 +7300,11 @@ components:
                   label:
                     properties:
                       key:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: 'Table kind: `averages`, `totals` or `shootingstatistics`'
                         type: string
                       text:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: Table title in the response locale (`Moyennes` = averages, `Totaux`
+                          = totals, `Stats Tirs` = shooting)
                         type: string
                     type: object
                   statistics:
@@ -7445,12 +7313,11 @@ components:
                         entity:
                           properties:
                             imageURL:
-                              description: Team logo URL / display name (the row's team; no team id is
-                                given)
+                              description: Logo URL of the row's team (no team id is given)
                               type: string
                             name:
-                              description: Team logo URL / display name (the row's team; no team id is
-                                given)
+                              description: 'Display name of the row''s team (no team id is given: join
+                                on name)'
                               type: string
                           type: object
                         statistics:
@@ -7532,11 +7399,13 @@ components:
                         data
                       properties: {}
                       type: object
+                      x-unobserved: true
                     main:
                       description: Widget page config (current page, navigation, display toggles); not
                         data
                       items: {}
                       type: array
+                      x-unobserved: true
                     secondary:
                       items:
                         properties:
@@ -7567,16 +7436,17 @@ components:
                 fixtureType:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
               type: object
             labels:
@@ -7616,12 +7486,11 @@ components:
                   label:
                     properties:
                       key:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: 'Table kind: `averages`, `totals` or `shootingstatistics`'
                         type: string
                       text:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: Table title in the response locale (`Moyennes` = averages, `Totaux`
+                          = totals, `Stats Tirs` = shooting)
                         type: string
                     type: object
                   statistics:
@@ -7630,12 +7499,10 @@ components:
                         person:
                           properties:
                             imageURL:
-                              description: 'Player headshot URL / name. No personId is given: join on
-                                name + team'
+                              description: Player headshot URL
                               type: string
                             name:
-                              description: 'Player headshot URL / name. No personId is given: join on
-                                name + team'
+                              description: 'Player name. No personId is given: join on name + team'
                               type: string
                           type: object
                         statistics:
@@ -7778,30 +7645,32 @@ components:
                 fixtureType:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
                 stages:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
               type: object
             labels:
@@ -7845,8 +7714,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -7897,12 +7765,11 @@ components:
                   label:
                     properties:
                       key:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: 'Table kind: `averages`, `totals` or `shootingstatistics`'
                         type: string
                       text:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: Table title in the response locale (`Moyennes` = averages, `Totaux`
+                          = totals, `Stats Tirs` = shooting)
                         type: string
                     type: object
                   statistics:
@@ -7911,29 +7778,25 @@ components:
                         entity:
                           properties:
                             imageURL:
-                              description: Team logo URL / display name (the row's team; no team id is
-                                given)
+                              description: Logo URL of the row's team (no team id is given)
                               type: string
                             link:
                               properties:
                                 fragment:
                                   description: 'Link URL fragment; unobserved: null, empty or absent in
                                     every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 openInNewTab:
                                   description: Link opens in a new tab
                                   type: boolean
                                 origin:
                                   description: 'Link origin (absolute site URL); unobserved: null, empty
                                     or absent in every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 path:
                                   description: 'Link path; unobserved: null, empty or absent in every
                                     sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 queryParams:
                                   properties:
                                     ~w:
@@ -7945,8 +7808,8 @@ components:
                                   type: object
                               type: object
                             name:
-                              description: Team logo URL / display name (the row's team; no team id is
-                                given)
+                              description: 'Display name of the row''s team (no team id is given: join
+                                on name)'
                               type: string
                           type: object
                         statistics:
@@ -8057,16 +7920,17 @@ components:
                 fixtureType:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
               type: object
             labels:
@@ -8110,8 +7974,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -8153,28 +8016,25 @@ components:
                                 / `teamId` / team `id` on this host, shared across websiteIds. Joins `/entity_detail?entityId=`.'
                               type: string
                             imageURL:
-                              description: Leader's team logo URL / name
+                              description: Logo URL of the leader's team
                               type: string
                             link:
                               properties:
                                 fragment:
                                   description: 'Link URL fragment; unobserved: null, empty or absent in
                                     every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 openInNewTab:
                                   description: Link opens in a new tab
                                   type: boolean
                                 origin:
                                   description: 'Link origin (absolute site URL); unobserved: null, empty
                                     or absent in every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 path:
                                   description: 'Link path; unobserved: null, empty or absent in every
                                     sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 queryParams:
                                   properties:
                                     ~w:
@@ -8186,34 +8046,31 @@ components:
                                   type: object
                               type: object
                             name:
-                              description: Leader's team logo URL / name
+                              description: Display name of the leader's team
                               type: string
                           type: object
                         person:
                           properties:
                             imageURL:
-                              description: Leader headshot URL / abbreviated name (`N. Hifi`)
+                              description: Leader's headshot URL
                               type: string
                             link:
                               properties:
                                 fragment:
                                   description: 'Link URL fragment; unobserved: null, empty or absent in
                                     every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 openInNewTab:
                                   description: Link opens in a new tab
                                   type: boolean
                                 origin:
                                   description: 'Link origin (absolute site URL); unobserved: null, empty
                                     or absent in every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 path:
                                   description: 'Link path; unobserved: null, empty or absent in every
                                     sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 queryParams:
                                   properties:
                                     ~w:
@@ -8225,7 +8082,7 @@ components:
                                   type: object
                               type: object
                             name:
-                              description: Leader headshot URL / abbreviated name (`N. Hifi`)
+                              description: Leader's abbreviated name (`N. Hifi`)
                               type: string
                             personId:
                               description: 'Person (player) id, UUID v1: the key space of every `personId`
@@ -8255,16 +8112,13 @@ components:
                   header:
                     properties:
                       code:
-                        description: 'The stat this leader card ranks: key (`points`), short label and
-                          long label in the response locale'
+                        description: Long label of the ranked stat in the response locale (`Points`)
                         type: string
                       key:
-                        description: 'The stat this leader card ranks: key (`points`), short label and
-                          long label in the response locale'
+                        description: Stat key this leader card ranks (`points`, `pointsPerGame`)
                         type: string
                       name:
-                        description: 'The stat this leader card ranks: key (`points`), short label and
-                          long label in the response locale'
+                        description: Short label of the ranked stat in the response locale (PTS)
                         type: string
                     type: object
                 type: object
@@ -8397,30 +8251,32 @@ components:
                 fixtureType:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
                 stages:
                   properties:
                     id:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: DOM id of the picker widget; not data
                       type: string
                     options:
-                      description: Picker widget state (DOM id, selected option); not data
+                      description: 'Picker options; unobserved: null, empty or absent in every sampled
+                        row'
                       items: {}
                       type: array
+                      x-unobserved: true
                     selected:
-                      description: Picker widget state (DOM id, selected option); not data
-                      type:
-                      - 'null'
+                      description: The picker's selected option; null when nothing is selected
+                      x-unobserved: true
                   type: object
               type: object
             labels:
@@ -8464,8 +8320,7 @@ components:
                       abbreviationLocal:
                         description: 'Season abbreviation; unobserved: null, empty or absent in every
                           sampled row'
-                        type:
-                        - 'null'
+                        x-unobserved: true
                       competitionId:
                         description: Competition id, UUID v1. A new id per edition on some sites (LNB's
                           Betclic ÉLITE has a different id each season). Joins `competitionId=` and the
@@ -8516,12 +8371,11 @@ components:
                   label:
                     properties:
                       key:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: 'Table kind: `averages`, `totals` or `shootingstatistics`'
                         type: string
                       text:
-                        description: 'Table kind: key `averages`, `totals` or `shootingstatistics`; text
-                          in the response locale'
+                        description: Table title in the response locale (`Moyennes` = averages, `Totaux`
+                          = totals, `Stats Tirs` = shooting)
                         type: string
                     type: object
                   statistics:
@@ -8530,36 +8384,32 @@ components:
                         entity:
                           properties:
                             name:
-                              description: Team logo URL / display name (the row's team; no team id is
-                                given)
+                              description: 'Display name of the row''s team (no team id is given: join
+                                on name)'
                               type: string
                           type: object
                         person:
                           properties:
                             imageURL:
-                              description: 'Player headshot URL / name. No personId is given: join on
-                                name + team'
+                              description: Player headshot URL
                               type: string
                             link:
                               properties:
                                 fragment:
                                   description: 'Link URL fragment; unobserved: null, empty or absent in
                                     every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 openInNewTab:
                                   description: Link opens in a new tab
                                   type: boolean
                                 origin:
                                   description: 'Link origin (absolute site URL); unobserved: null, empty
                                     or absent in every sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 path:
                                   description: 'Link path; unobserved: null, empty or absent in every
                                     sampled row'
-                                  type:
-                                  - 'null'
+                                  x-unobserved: true
                                 queryParams:
                                   properties:
                                     ~w:
@@ -8571,8 +8421,7 @@ components:
                                   type: object
                               type: object
                             name:
-                              description: 'Player headshot URL / name. No personId is given: join on
-                                name + team'
+                              description: 'Player name. No personId is given: join on name + team'
                               type: string
                           type: object
                         statistics:
@@ -8632,9 +8481,11 @@ info:
   description: 'The keyless JSON API behind the Sportradar Connect widget (widget.eui.connect.sportradar.com)
     that league sites embed: LNB France (websiteId 12), LNBP Mexico (14), NBL1 (3), El Salvador (13),
     Panama (22), Austria (236), Montenegro (326). One host serves every site; `websiteId` picks the site
-    config. eapi.web.prod.cloud.atriumsports.com/v1/embed/... 302-redirects here. Every id is a UUID v1
-    shared across sites. Bodies are UI view models (labels in the site locale). Shapes from committed
-    captures in atrium-embed/captures/ (truncated samples). Not official or supported.'
+    config. eapi.web.prod.cloud.atriumsports.com/v1/embed/... answers 301 to the same path here. Every
+    id is a UUID v1 shared across sites. Bodies are UI view models (labels in the site locale). A property
+    with x-unobserved was null or empty in every sample, so no type (or no item / property schema) is
+    claimed. Shapes from committed captures in atrium-embed/captures/ (truncated samples). Not official
+    or supported.'
   title: Sportradar Atrium / Synergy embed API (embed-api.eui.connect.sportradar.com)
   version: '2026-10-12'
 openapi: 3.1.0
