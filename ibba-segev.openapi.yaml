@@ -195,8 +195,10 @@ components:
                             description: 'Away team: First name, Hebrew.'
                             type: string
                           id:
-                            description: 'Away team: Segev player id as a string (Segev player key space;
-                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            description: 'Away team: Segev player id as a string (Segev player key space,
+                              stable across seasons: Jaylen Hoard = 1000 in games 50 and 419, the cross-season
+                              player key IBBA lacks; = getBoxScore playerId; actions `playerId` as an
+                              integer). Not an IBBA id.'
                             type: string
                           inRoster:
                             description: 'Away team: 0 or 2 in the samples; meaning unverified.'
@@ -286,8 +288,10 @@ components:
                             description: 'Home team: First name, Hebrew.'
                             type: string
                           id:
-                            description: 'Home team: Segev player id as a string (Segev player key space;
-                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            description: 'Home team: Segev player id as a string (Segev player key space,
+                              stable across seasons: Jaylen Hoard = 1000 in games 50 and 419, the cross-season
+                              player key IBBA lacks; = getBoxScore playerId; actions `playerId` as an
+                              integer). Not an IBBA id.'
                             type: string
                           inRoster:
                             description: 'Home team: 0 or 2 in the samples; meaning unverified.'
@@ -376,8 +380,9 @@ components:
                             description: 'Player: Fouls drawn (= IBBA fouls_against).'
                             type: string
                           fb:
-                            description: 'Player: Fast-break points (game 50 home total 12 = homeGameStats
-                              Pts_of_total_FBs ''12 of 6'').'
+                            description: 'Player: Fast-break points (the team total equals P of the same
+                              side''s gameStats ''P of N'' fast-break stat: verified home and away in
+                              games 50, 300, 419).'
                             type: string
                           fd_off:
                             description: 'Player: Offensive fouls drawn (charges taken). Inferred.'
@@ -412,8 +417,9 @@ components:
                               updated (the final buzzer for a finished game). Inferred.'
                             type: boolean
                           playerId:
-                            description: 'Player: Segev player id as a string (Segev player key space;
-                              = getGameInfo players[].id; actions carry it as an integer).'
+                            description: 'Player: Segev player id as a string (Segev player key space,
+                              stable across seasons; = getGameInfo players[].id; actions carry it as an
+                              integer).'
                             type: string
                           plusMinus:
                             description: 'Player: Plus-minus, string.'
@@ -434,8 +440,9 @@ components:
                             description: 'Player: Unverified; likely loose-ball recoveries.'
                             type: string
                           sc:
-                            description: 'Player: Second-chance points (game 50 home total 13 = homeGameStats
-                              Second_chance_points).'
+                            description: 'Player: Second-chance points (the team total equals the same
+                              side''s gameStats second-chance stat: verified home and away in games 50,
+                              300, 419).'
                             type: string
                           starter:
                             description: 'Player: true when the player started.'
@@ -481,8 +488,9 @@ components:
                           description: 'Team-credited: Fouls drawn (= IBBA fouls_against).'
                           type: string
                         fb:
-                          description: 'Team-credited: Fast-break points (game 50 home total 12 = homeGameStats
-                            Pts_of_total_FBs ''12 of 6'').'
+                          description: 'Team-credited: Fast-break points (the team total equals P of the
+                            same side''s gameStats ''P of N'' fast-break stat: verified home and away
+                            in games 50, 300, 419).'
                           type: string
                         fd_off:
                           description: 'Team-credited: Offensive fouls drawn (charges taken). Inferred.'
@@ -522,8 +530,9 @@ components:
                           description: 'Team-credited: Unverified; likely loose-ball recoveries.'
                           type: string
                         sc:
-                          description: 'Team-credited: Second-chance points (game 50 home total 13 = homeGameStats
-                            Second_chance_points).'
+                          description: 'Team-credited: Second-chance points (the team total equals the
+                            same side''s gameStats second-chance stat: verified home and away in games
+                            50, 300, 419).'
                           type: string
                         stl:
                           description: 'Team-credited: Steals.'
@@ -576,8 +585,9 @@ components:
                           description: 'Team total: Fouls drawn (= IBBA fouls_against).'
                           type: string
                         fb:
-                          description: 'Team total: Fast-break points (game 50 home total 12 = homeGameStats
-                            Pts_of_total_FBs ''12 of 6'').'
+                          description: 'Team total: Fast-break points (the team total equals P of the
+                            same side''s gameStats ''P of N'' fast-break stat: verified home and away
+                            in games 50, 300, 419).'
                           type: string
                         fd_off:
                           description: 'Team total: Offensive fouls drawn (charges taken). Inferred.'
@@ -617,8 +627,9 @@ components:
                           description: 'Team total: Unverified; likely loose-ball recoveries.'
                           type: string
                         sc:
-                          description: 'Team total: Second-chance points (game 50 home total 13 = homeGameStats
-                            Second_chance_points).'
+                          description: 'Team total: Second-chance points (the team total equals the same
+                            side''s gameStats second-chance stat: verified home and away in games 50,
+                            300, 419).'
                           type: string
                         stl:
                           description: 'Team total: Steals.'
@@ -673,16 +684,17 @@ components:
                           description: 'Away team: Points in the paint (2026-27 key).'
                           type: string
                         Pts_Of_Total_FB_Possessions:
-                          description: 'Away team: ''P of N'': P fast-break points from N fast-break possessions
-                            (2026-27 key).'
+                          description: 'Away team: ''P of N'': P fast-break points (= teamActionsTotal
+                            fb) from N fast-break possessions (2026-27 key; was Pts_of_total_FBs). Whether
+                            N counts the same thing as the 2025-26 N is unverified.'
                           type: string
                         Pts_Of_Total_LS_Possessions:
                           description: 'Away team: ''P of N'': P points from N ''LS'' possessions (2026-27
                             key). LS is not expanded by the source; unverified.'
                           type: string
                         Pts_of_total_FBs:
-                          description: 'Away team: ''P of N'': P fast-break points from N fast breaks
-                            (2025-26 key).'
+                          description: 'Away team: ''P of N'': P fast-break points (= teamActionsTotal
+                            fb) from N fast breaks (2025-26 key; renamed Pts_Of_Total_FB_Possessions).'
                           type: string
                         Second_Chance_Pts:
                           description: 'Away team: Second-chance points (2026-27 key).'
@@ -784,16 +796,17 @@ components:
                           description: 'Home team: Points in the paint (2026-27 key).'
                           type: string
                         Pts_Of_Total_FB_Possessions:
-                          description: 'Home team: ''P of N'': P fast-break points from N fast-break possessions
-                            (2026-27 key).'
+                          description: 'Home team: ''P of N'': P fast-break points (= teamActionsTotal
+                            fb) from N fast-break possessions (2026-27 key; was Pts_of_total_FBs). Whether
+                            N counts the same thing as the 2025-26 N is unverified.'
                           type: string
                         Pts_Of_Total_LS_Possessions:
                           description: 'Home team: ''P of N'': P points from N ''LS'' possessions (2026-27
                             key). LS is not expanded by the source; unverified.'
                           type: string
                         Pts_of_total_FBs:
-                          description: 'Home team: ''P of N'': P fast-break points from N fast breaks
-                            (2025-26 key).'
+                          description: 'Home team: ''P of N'': P fast-break points (= teamActionsTotal
+                            fb) from N fast breaks (2025-26 key; renamed Pts_Of_Total_FB_Possessions).'
                           type: string
                         Second_Chance_Pts:
                           description: 'Home team: Second-chance points (2026-27 key).'
@@ -870,8 +883,9 @@ components:
                             description: 'Player: Fouls drawn (= IBBA fouls_against).'
                             type: string
                           fb:
-                            description: 'Player: Fast-break points (game 50 home total 12 = homeGameStats
-                              Pts_of_total_FBs ''12 of 6'').'
+                            description: 'Player: Fast-break points (the team total equals P of the same
+                              side''s gameStats ''P of N'' fast-break stat: verified home and away in
+                              games 50, 300, 419).'
                             type: string
                           fd_off:
                             description: 'Player: Offensive fouls drawn (charges taken). Inferred.'
@@ -906,8 +920,9 @@ components:
                               updated (the final buzzer for a finished game). Inferred.'
                             type: boolean
                           playerId:
-                            description: 'Player: Segev player id as a string (Segev player key space;
-                              = getGameInfo players[].id; actions carry it as an integer).'
+                            description: 'Player: Segev player id as a string (Segev player key space,
+                              stable across seasons; = getGameInfo players[].id; actions carry it as an
+                              integer).'
                             type: string
                           plusMinus:
                             description: 'Player: Plus-minus, string.'
@@ -928,8 +943,9 @@ components:
                             description: 'Player: Unverified; likely loose-ball recoveries.'
                             type: string
                           sc:
-                            description: 'Player: Second-chance points (game 50 home total 13 = homeGameStats
-                              Second_chance_points).'
+                            description: 'Player: Second-chance points (the team total equals the same
+                              side''s gameStats second-chance stat: verified home and away in games 50,
+                              300, 419).'
                             type: string
                           starter:
                             description: 'Player: true when the player started.'
@@ -975,8 +991,9 @@ components:
                           description: 'Team-credited: Fouls drawn (= IBBA fouls_against).'
                           type: string
                         fb:
-                          description: 'Team-credited: Fast-break points (game 50 home total 12 = homeGameStats
-                            Pts_of_total_FBs ''12 of 6'').'
+                          description: 'Team-credited: Fast-break points (the team total equals P of the
+                            same side''s gameStats ''P of N'' fast-break stat: verified home and away
+                            in games 50, 300, 419).'
                           type: string
                         fd_off:
                           description: 'Team-credited: Offensive fouls drawn (charges taken). Inferred.'
@@ -1016,8 +1033,9 @@ components:
                           description: 'Team-credited: Unverified; likely loose-ball recoveries.'
                           type: string
                         sc:
-                          description: 'Team-credited: Second-chance points (game 50 home total 13 = homeGameStats
-                            Second_chance_points).'
+                          description: 'Team-credited: Second-chance points (the team total equals the
+                            same side''s gameStats second-chance stat: verified home and away in games
+                            50, 300, 419).'
                           type: string
                         stl:
                           description: 'Team-credited: Steals.'
@@ -1070,8 +1088,9 @@ components:
                           description: 'Team total: Fouls drawn (= IBBA fouls_against).'
                           type: string
                         fb:
-                          description: 'Team total: Fast-break points (game 50 home total 12 = homeGameStats
-                            Pts_of_total_FBs ''12 of 6'').'
+                          description: 'Team total: Fast-break points (the team total equals P of the
+                            same side''s gameStats ''P of N'' fast-break stat: verified home and away
+                            in games 50, 300, 419).'
                           type: string
                         fd_off:
                           description: 'Team total: Offensive fouls drawn (charges taken). Inferred.'
@@ -1111,8 +1130,9 @@ components:
                           description: 'Team total: Unverified; likely loose-ball recoveries.'
                           type: string
                         sc:
-                          description: 'Team total: Second-chance points (game 50 home total 13 = homeGameStats
-                            Second_chance_points).'
+                          description: 'Team total: Second-chance points (the team total equals the same
+                            side''s gameStats second-chance stat: verified home and away in games 50,
+                            300, 419).'
                           type: string
                         stl:
                           description: 'Team total: Steals.'
@@ -1193,8 +1213,10 @@ components:
                             description: 'Away team: First name, Hebrew.'
                             type: string
                           id:
-                            description: 'Away team: Segev player id as a string (Segev player key space;
-                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            description: 'Away team: Segev player id as a string (Segev player key space,
+                              stable across seasons: Jaylen Hoard = 1000 in games 50 and 419, the cross-season
+                              player key IBBA lacks; = getBoxScore playerId; actions `playerId` as an
+                              integer). Not an IBBA id.'
                             type: string
                           inRoster:
                             description: 'Away team: 0 or 2 in the samples; meaning unverified.'
@@ -1284,8 +1306,10 @@ components:
                             description: 'Home team: First name, Hebrew.'
                             type: string
                           id:
-                            description: 'Home team: Segev player id as a string (Segev player key space;
-                              = getBoxScore playerId; actions `playerId` as an integer). Not an IBBA id.'
+                            description: 'Home team: Segev player id as a string (Segev player key space,
+                              stable across seasons: Jaylen Hoard = 1000 in games 50 and 419, the cross-season
+                              player key IBBA lacks; = getBoxScore playerId; actions `playerId` as an
+                              integer). Not an IBBA id.'
                             type: string
                           inRoster:
                             description: 'Home team: 0 or 2 in the samples; meaning unverified.'
@@ -1354,11 +1378,14 @@ info:
   description: 'Reverse-engineered, unofficial; keyless. Live-stats vendor behind basket.co.il game pages
     from 2025-26: Winner League, Winner Cup, women''s league, Leumit, youth, school, pre-season. Segev
     shot frame (one half court; both teams'' shots are drawn toward the same basket): x runs across the
-    court from sideline to sideline, 0 to 1470, basket at x ~= 735; y runs from the baseline out toward
-    midcourt, the rim at y ~= 112-140 (every dunk in the samples sits at x 630-780, y 112-140), deepest
-    observed y = 1176. Values sit on a 15 (x) by 28 (y) grid (floats with rounding noise, e.g. 134.99999999999994).
-    The metric scale (pixels per metre in each axis) is UNVERIFIED. The same frame holds in 2025-26 (games
-    50, 300) and 2026-27 (game 419).'
+    court from one sideline to the other, 0 to 1470, basket at x ~= 735 (WHICH sideline is x = 0 is UNVERIFIED);
+    y runs from the baseline out toward midcourt, the rim at y ~= 112-140 (every dunk in the samples sits
+    at x 630-780, y 112-140), deepest observed y = 1176. Every value is a multiple of 15 (x) or 28 (y),
+    i.e. grid steps of 15 and 28 units, as floats with rounding noise (134.99999999999994). The steps
+    equal the court''s width (15 m) and length (28 m), so x/15 and y/28 may be percent of width and length
+    (the rim at y 112-140 = 4-5% of 28 m = 1.1-1.4 m from the baseline; the real rim centre is 1.575 m):
+    a hypothesis, the metric scale is UNVERIFIED. The same frame holds in 2025-26 (games 50, 300) and
+    2026-27 (game 419).'
   title: Segev Stats real-time stats JSON-RPC (Israeli basketball)
   version: '2026-10-12'
 openapi: 3.1.0

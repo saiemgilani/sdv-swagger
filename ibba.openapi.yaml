@@ -126,9 +126,10 @@ components:
                 description: 3-point field goals attempted.
                 type: string
               player_year_id:
-                description: Player-season id (IBBA player-season key space). Joins Players/PlayerById
-                  `player_id` to Boxscore `player_year_id` (every box player of game 26392 is on the Players
-                  roster). '0' on the _TEAM and TOTAL rows.
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster). ''0'' on the _TEAM and TOTAL rows.'
                 type: string
               plusminus:
                 description: Plus-minus; '0' on every row of the 2004-05 sample (not recorded then, inferred).
@@ -265,8 +266,10 @@ components:
                 description: Game date 'dd/mm/yyyy' (local Israel date).
                 type: string
               game_id:
-                description: IBBA game id (basket.co.il game key space). Joins Games `game_id` to Boxscore
-                  `game_id`; the `game_id` param.
+                description: 'Game id, by board: on a domestic board (5, 10, 16, 17, 26, 33, 34) the IBBA
+                  game id (basket.co.il game key space; joins Boxscore `game_id`). On an external board
+                  (BOARD_ID 1001+; every row of the committed sample is board 1005, pre-season, ids 8888,
+                  9895, 9896) an IBBA external-game id (= GamesEx `game_id`), NOT a Boxscore key.'
                 type: string
               overtime:
                 description: '''True'' when the game went to overtime, else ''False''.'
@@ -497,9 +500,10 @@ components:
                 description: Jersey number, zero-padded string.
                 type: string
               player_year_id:
-                description: Player-season id (IBBA player-season key space). Joins Players/PlayerById
-                  `player_id` to Boxscore `player_year_id` (every box player of game 26392 is on the Players
-                  roster).
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster).'
                 type: string
               team_id:
                 description: 'Team-season id (IBBA team-season key space: a new id every season for the
@@ -535,9 +539,10 @@ components:
                 description: Photo, path relative to https://www.basket.co.il; empty when none.
                 type: string
               player_id:
-                description: Player-season id (IBBA player-season key space). Joins Players/PlayerById
-                  `player_id` to Boxscore `player_year_id` (every box player of game 26392 is on the Players
-                  roster); the `player_id` param.
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
                 type: string
               team_id:
                 description: 'Team-season id (IBBA team-season key space: a new id every season for the
@@ -626,9 +631,10 @@ components:
                 description: 3-point field goals attempted.
                 type: string
               player_id:
-                description: Player-season id (IBBA player-season key space). Joins Players/PlayerById
-                  `player_id` to Boxscore `player_year_id` (every box player of game 26392 is on the Players
-                  roster); the `player_id` param.
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
                 type: string
               plusminus:
                 description: Plus-minus; '0' on every row of the 2004-05 sample (not recorded then, inferred).
@@ -688,9 +694,10 @@ components:
                 description: Photo, path relative to https://www.basket.co.il; empty when none.
                 type: string
               player_id:
-                description: Player-season id (IBBA player-season key space). Joins Players/PlayerById
-                  `player_id` to Boxscore `player_year_id` (every box player of game 26392 is on the Players
-                  roster); the `player_id` param.
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
                 type: string
               position:
                 description: 'Playing position, Hebrew (code table in ibba-returns.md: ''רכז'' point guard
@@ -1250,7 +1257,10 @@ paths:
   /Games:
     get:
       description: 'Body: {"games": [rows]}. team1 = home, team2 = away. ExternalID is the Segev game
-        id from 2025-26 (empty before). The 2004-05 rows lack venue, time and referees.'
+        id from 2025-26 (empty before). The 2004-05 rows lack venue, time and referees. No paging and
+        no row cap: a board/season filter returns the whole list (2004-05 board 5 = 132 games; the capture
+        checks the count). Women''s league and Leumit games are not on this host: they are on Genius Sports
+        org IBBA (genius-livestats/, START-year key) and in Segev.'
       operationId: Games
       parameters:
       - description: 'Board (competition) id: 5 league, 10 cup, ... (code table in ibba-returns.md); 0
