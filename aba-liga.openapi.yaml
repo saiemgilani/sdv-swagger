@@ -13,20 +13,29 @@ components:
                 description: Away club's three-letter code.
                 type: string
               away_score:
-                description: Away final score; null like home_score for a game not played yet.
-                type: integer
+                description: Away final score; null like home_score for a game not played yet (live 2026-27
+                  page, not banked).
+                type:
+                - integer
+                - 'null'
               away_team:
-                description: Away club name; null like home_team while a pairing is not set (not in the
-                  samples).
-                type: string
+                description: Away club name; null like home_team while a pairing is not set (live 2026-27
+                  page, not banked).
+                type:
+                - string
+                - 'null'
               date:
-                description: Game date, ISO 'YYYY-MM-DD' (the first date of a window). The parser sets
-                  null for 'TBA' (2026-27 page; not in the samples).
-                type: string
+                description: Game date, ISO 'YYYY-MM-DD' (the first date of a window). Null for 'TBA'
+                  (10 of 302 games on the live 2026-27 page, which is NOT banked).
+                type:
+                - string
+                - 'null'
               date_to:
-                description: 'Unobserved: null in every sample. When filled: Last date of a ''dd.mm.yyyy
-                  - dd.mm.yyyy'' window; null otherwise (every sampled game is scheduled).'
-                x-unobserved: true
+                description: Last date of a 'dd.mm.yyyy - dd.mm.yyyy' window (116 of 302 games on the
+                  live 2026-27 page, which is NOT banked; null on every banked game).
+                type:
+                - string
+                - 'null'
               game_no:
                 description: 'Game number (key space: per season AND league: it restarts at 1 for every
                   (sez, lea), so a game''s key is (game_no, sez, lea); ABA 2025-26 runs 1..251 with gaps
@@ -45,14 +54,18 @@ components:
                   cell.
                 type: string
               home_score:
-                description: Home final score. Never null in the samples (finished seasons); null for
-                  a game not played yet (empty Result cell, 2026-27 page).
-                type: integer
+                description: 'Home final score. Null for a game not played yet (empty Result cell): seen
+                  on the live 2026-27 page (282 of 302 games), which is NOT banked.'
+                type:
+                - integer
+                - 'null'
               home_team:
                 description: 'Home club name as the site prints it now (see the match page''s game.home_team).
-                  Never null in the samples (finished seasons); the parser sets null while a playoff pairing
-                  is not set ('' : '', seen on the 2026-27 page).'
-                type: string
+                  Null while a playoff pairing is not set ('' : ''): seen on the live 2026-27 page (122
+                  of 302 games), which is NOT banked, so no committed sample shows it.'
+                type:
+                - string
+                - 'null'
               lea:
                 description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
                   8 = qualifiers; those are not sampled). From the game link; checked to equal the request.'
@@ -79,13 +92,18 @@ components:
                   (END year) = 2000 + sez + 1. From the game link; checked to equal the request.'
                 type: integer
               time:
-                description: Tip-off 'hh:mm' in time_zone. Null when only a date or 'TBA' is printed (2026-27
-                  page; not in the samples).
-                type: string
+                description: Tip-off 'hh:mm' in time_zone. Null when only a date window or 'TBA' is printed
+                  (live 2026-27 page, NOT banked).
+                type:
+                - string
+                - 'null'
               time_zone:
-                description: '''CET'' = Central European wall-clock time including summer time; ''local''
-                  = arena local time (''Local time'', ABA League 2).'
-                type: string
+                description: '''CET'' = Central European wall-clock time INCLUDING summer time (CET in
+                  winter, CEST in summer; the label never changes); ''local'' = arena local time (''Local
+                  time'', ABA League 2). Null with a date window or ''TBA'' (live 2026-27 page, NOT banked).'
+                type:
+                - string
+                - 'null'
               when:
                 description: 'Date and Time cell verbatim: ''Monday, 06.10.2025 18:00 CET'', with ''(19:00
                   Dubai local time)'' for arenas outside Central Europe, ''Local time'' on ABA League
@@ -135,8 +153,11 @@ components:
           description: The game header (#basic_match_info, the clubs table, the officials line).
           properties:
             attendance:
-              description: Spectators (the users icon); null when the page prints none.
-              type: integer
+              description: 'Spectators (the users icon). The parser sets null when the page prints none
+                (never seen: every banked page prints it; null is part of the record contract).'
+              type:
+              - integer
+              - 'null'
             away_city:
               description: Away club city (local spelling).
               type: string
@@ -289,8 +310,9 @@ components:
               player_id:
                 description: 'ABA player id (key space: aba-liga.com players, global: the same person
                   keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
-                  of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a
-                  STRING there. Null on team, timeout and game/period rows.'
+                  of /player/{id}/{sez}/{lea}/{slug}/. An INTEGER in every parsed record; the shot chart
+                  sends it as a STRING ("4807"), so the boundary rule is int(player_id) before any join.
+                  Null on team, timeout and game/period rows.'
                 type:
                 - integer
                 - 'null'
@@ -460,8 +482,8 @@ components:
               player_id:
                 description: 'ABA player id (key space: aba-liga.com players, global: the same person
                   keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
-                  of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a
-                  STRING there.'
+                  of /player/{id}/{sez}/{lea}/{slug}/. An INTEGER in every parsed record; the shot chart
+                  sends it as a STRING ("4807"), so the boundary rule is int(player_id) before any join.'
                 type: integer
               player_name:
                 description: 'Name as the box prints it: ''Surname I.'' (diacritics kept).'
@@ -859,9 +881,9 @@ components:
           type: string
         player_id:
           description: 'ABA player id (key space: aba-liga.com players, global: the same person keeps
-            one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/;
-            equals the shot chart''s player_id, which is a STRING there. The request''s id, echoed by
-            the selected season option.'
+            one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/.
+            An INTEGER in every parsed record; the shot chart sends it as a STRING ("4807"), so the boundary
+            rule is int(player_id) before any join. The request''s id, echoed by the selected season option.'
           type: integer
         position:
           description: Position in English as printed ('Guard' on the sample).
@@ -970,9 +992,10 @@ components:
           player_id:
             description: 'Shooter: ABA player id (key space: aba-liga.com players, global: the same person
               keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
-              of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a STRING
-              there. A STRING here; ''0'' (with player_name '' '') = shooter not recorded (seen once,
-              ABA 2025-26 game 6).'
+              of /player/{id}/{sez}/{lea}/{slug}/. An INTEGER in every parsed record; the shot chart sends
+              it as a STRING ("4807"), so the boundary rule is int(player_id) before any join. A STRING
+              here; ''0'' (with player_name '' '') = shooter not recorded (seen once, ABA 2025-26 game
+              6).'
             type: string
           player_name:
             description: Shooter's full name, 'First Last' (the box prints 'Last F.'); ' ' when player_id
@@ -1245,10 +1268,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/AbaShotChart'
               x-body-format: json
-              x-scope: 'No game echo. Checked against the same game''s parsed match page: every non-''0''
-                player_id is in that side''s box score, and made shots per side are within 2 of the box
-                score''s field goals made. A game between the same two rosters with near-identical made
-                counts would pass.'
+              x-scope: 'No game echo. Checked against the same game''s parsed match page, per shooter:
+                each shooter is in that side''s box score and his chart rows / made shots are within 1
+                of his box attempts / field goals made; the differences add up to at most 8 attempts and
+                4 made, and at most 3 rows have no recorded shooter. A rematch of the same rosters would
+                have to match every player''s shot count to pass.'
           description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
       security: []
       summary: 'One game''s shot chart: every field-goal attempt with x/y (2017-18 onward)'
@@ -1326,8 +1350,9 @@ paths:
       operationId: get_aba_player
       parameters:
       - description: 'ABA player id (key space: aba-liga.com players, global: the same person keeps one
-          id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/;
-          equals the shot chart''s player_id, which is a STRING there.'
+          id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/.
+          An INTEGER in every parsed record; the shot chart sends it as a STRING ("4807"), so the boundary
+          rule is int(player_id) before any join.'
         example: 4807
         in: path
         name: playerId
