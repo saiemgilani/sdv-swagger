@@ -1,0 +1,4761 @@
+components:
+  schemas:
+    GeniusCompetition:
+      items:
+        description: One game of the recent window (the endpoint returns only a few recent or upcoming
+          games, not the season)
+        properties:
+          awaycode:
+            description: Away team code
+            type: string
+          awaylogo:
+            description: Away team logo URL
+            type: string
+          awayname:
+            description: Away team name
+            type: string
+          awaynameInternational:
+            description: Away team name in Latin script
+            type: string
+          awayscore:
+            description: 'Away points: a string on most rows, an integer on some ('''' before tip-off);
+              cast it'
+            type:
+            - integer
+            - string
+          awayteamId:
+            description: 'Away team: Genius team id (warehouse key space, global across orgs and seasons;
+              the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+              data.json carries no team id: join on name/code'
+            type: integer
+          clock:
+            description: Period clock of a live or finished game, 'mm:ss' remaining (present on some rows
+              only)
+            type: string
+          competitionId:
+            description: 'Genius competition id (compId): one per org competition-season; the {compId}
+              of hosted and data/competition paths'
+            type: integer
+          homecode:
+            description: Home team code
+            type: string
+          homelogo:
+            description: Home team logo URL
+            type: string
+          homename:
+            description: Home team name
+            type: string
+          homenameInternational:
+            description: Home team name in Latin script
+            type: string
+          homescore:
+            description: 'Home points: a string on most rows, an integer on some ('''' before tip-off);
+              cast it'
+            type:
+            - integer
+            - string
+          hometeamId:
+            description: 'Home team: Genius team id (warehouse key space, global across orgs and seasons;
+              the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+              data.json carries no team id: join on name/code'
+            type: integer
+          leagueId:
+            description: Genius league id of the org (ESAKE = 115); the leagueId column of the hosted
+              chooser
+            type: integer
+          live:
+            description: 1 while the game is live, else 0
+            type: integer
+          matchId:
+            description: 'Genius match id: the {matchId} of data.json and /u/; one global sequence across
+              every Genius customer (~0.3 M in 2016, ~2.9 M in Oct 2026)'
+            type: integer
+          matchStatus:
+            description: 'Match status: COMPLETE, SCHEDULED, IN_PROGRESS, ... (upper case)'
+            type: string
+          matchTime:
+            description: Local tip-off time, 'YYYY-MM-DD HH:MM:SS' (venue time zone, not stated)
+            type: string
+          matchTimeUTC:
+            description: Tip-off time in UTC, 'YYYY-MM-DD HH:MM:SS'
+            type: string
+          period:
+            description: Current period of a live or finished game (present on some rows only)
+            type: integer
+          periodType:
+            description: 'Current period type: REGULAR or OVERTIME (present on some rows only)'
+            type: string
+        type: object
+      type: array
+    GeniusData:
+      properties:
+        attendance:
+          description: Attendance as entered by the org; 0 when not entered
+          type: integer
+        clock:
+          description: Clock of the current period at capture time, 'mm:ss' remaining ('00:00' once the
+            game is over)
+          type: string
+        disableMatch:
+          description: 1 when the org disabled the public feed for this game, else 0
+          type: integer
+        inOT:
+          description: 1 when the game is (or ended) in overtime, else 0
+          type: integer
+        leaddata:
+          description: 'Lead-tracker chart: two parallel series. [0] holds axis labels (''P1'', ''P2'',
+            ... at period starts, '''' elsewhere), [1] the score margin (team 1 minus team 2) at each
+            step'
+          items:
+            description: One lead-tracker series (labels or margins; see leaddata)
+            items:
+              description: Axis label (string) in series 0, score margin team 1 minus team 2 (integer)
+                in series 1
+              type:
+              - integer
+              - string
+            type: array
+          type: array
+        officials:
+          description: Game officials keyed by role
+          properties:
+            commissioner:
+              description: Commissioner (game supervisor); absent in some orgs
+              properties:
+                externalId:
+                  description: Id of this official in the org's own system (federation licence number),
+                    as a string; not a Genius id
+                  type: string
+                familyName:
+                  description: Family name in the competition's own script
+                  type: string
+                familyNameInitial:
+                  description: Initial of familyName
+                  type: string
+                familyNameTV:
+                  description: TV-graphics family name; empty string in every sample
+                  type: string
+                firstName:
+                  description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                    Czech, ... as entered)
+                  type: string
+                firstNameInitial:
+                  description: Initial of firstName
+                  type: string
+                firstNameTV:
+                  description: TV-graphics given name; empty string in every sample
+                  type: string
+                internationalFamilyName:
+                  description: Family name in Latin script (often upper case)
+                  type: string
+                internationalFamilyNameInitial:
+                  description: Initial of internationalFamilyName
+                  type: string
+                internationalFirstName:
+                  description: Given name in Latin script
+                  type: string
+                internationalFirstNameInitial:
+                  description: Initial of internationalFirstName
+                  type: string
+                internationalReference:
+                  description: FIBA international reference of the official; empty string in every sample
+                  type: string
+                name:
+                  description: Display name ('F. Abou Chacra')
+                  type: string
+                nationality:
+                  description: Nationality, English, upper case ('GREECE'); empty string when unset
+                  type: string
+                nationalityCode:
+                  description: ISO 3166-1 alpha-2 nationality code; empty string when unset
+                  type: string
+                nationalityCodeIOC:
+                  description: IOC three-letter nationality code; empty string when unset
+                  type: string
+                nickName:
+                  description: Nickname; empty string in every sample
+                  type: string
+                personId:
+                  description: Genius person id (warehouse key space, global across orgs). The only global
+                    person id in data.json; players carry none
+                  type: integer
+                scoreboardName:
+                  description: Short display name ('T. Nichols'), in the local script when the org enters
+                    one
+                  type: string
+              type: object
+            referee1:
+              description: Crew chief (first referee)
+              properties:
+                externalId:
+                  description: Id of this official in the org's own system (federation licence number),
+                    as a string; not a Genius id
+                  type: string
+                familyName:
+                  description: Family name in the competition's own script
+                  type: string
+                familyNameInitial:
+                  description: Initial of familyName
+                  type: string
+                familyNameTV:
+                  description: TV-graphics family name; empty string in every sample
+                  type: string
+                firstName:
+                  description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                    Czech, ... as entered)
+                  type: string
+                firstNameInitial:
+                  description: Initial of firstName
+                  type: string
+                firstNameTV:
+                  description: TV-graphics given name; empty string in every sample
+                  type: string
+                internationalFamilyName:
+                  description: Family name in Latin script (often upper case)
+                  type: string
+                internationalFamilyNameInitial:
+                  description: Initial of internationalFamilyName
+                  type: string
+                internationalFirstName:
+                  description: Given name in Latin script
+                  type: string
+                internationalFirstNameInitial:
+                  description: Initial of internationalFirstName
+                  type: string
+                internationalReference:
+                  description: FIBA international reference of the official; empty string in every sample
+                  type: string
+                name:
+                  description: Display name ('F. Abou Chacra')
+                  type: string
+                nationality:
+                  description: Nationality, English, upper case ('GREECE'); empty string when unset
+                  type: string
+                nationalityCode:
+                  description: ISO 3166-1 alpha-2 nationality code; empty string when unset
+                  type: string
+                nationalityCodeIOC:
+                  description: IOC three-letter nationality code; empty string when unset
+                  type: string
+                nickName:
+                  description: Nickname; empty string in every sample
+                  type: string
+                personId:
+                  description: Genius person id (warehouse key space, global across orgs). The only global
+                    person id in data.json; players carry none
+                  type: integer
+                scoreboardName:
+                  description: Short display name ('T. Nichols'), in the local script when the org enters
+                    one
+                  type: string
+              type: object
+            referee2:
+              description: Second referee (umpire 1)
+              properties:
+                externalId:
+                  description: Id of this official in the org's own system (federation licence number),
+                    as a string; not a Genius id
+                  type: string
+                familyName:
+                  description: Family name in the competition's own script
+                  type: string
+                familyNameInitial:
+                  description: Initial of familyName
+                  type: string
+                familyNameTV:
+                  description: TV-graphics family name; empty string in every sample
+                  type: string
+                firstName:
+                  description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                    Czech, ... as entered)
+                  type: string
+                firstNameInitial:
+                  description: Initial of firstName
+                  type: string
+                firstNameTV:
+                  description: TV-graphics given name; empty string in every sample
+                  type: string
+                internationalFamilyName:
+                  description: Family name in Latin script (often upper case)
+                  type: string
+                internationalFamilyNameInitial:
+                  description: Initial of internationalFamilyName
+                  type: string
+                internationalFirstName:
+                  description: Given name in Latin script
+                  type: string
+                internationalFirstNameInitial:
+                  description: Initial of internationalFirstName
+                  type: string
+                internationalReference:
+                  description: FIBA international reference of the official; empty string in every sample
+                  type: string
+                name:
+                  description: Display name ('F. Abou Chacra')
+                  type: string
+                nationality:
+                  description: Nationality, English, upper case ('GREECE'); empty string when unset
+                  type: string
+                nationalityCode:
+                  description: ISO 3166-1 alpha-2 nationality code; empty string when unset
+                  type: string
+                nationalityCodeIOC:
+                  description: IOC three-letter nationality code; empty string when unset
+                  type: string
+                nickName:
+                  description: Nickname; empty string in every sample
+                  type: string
+                personId:
+                  description: Genius person id (warehouse key space, global across orgs). The only global
+                    person id in data.json; players carry none
+                  type: integer
+                scoreboardName:
+                  description: Short display name ('T. Nichols'), in the local script when the org enters
+                    one
+                  type: string
+              type: object
+            referee3:
+              description: Third referee (umpire 2); absent in two-referee games
+              properties:
+                externalId:
+                  description: Id of this official in the org's own system (federation licence number),
+                    as a string; not a Genius id
+                  type: string
+                familyName:
+                  description: Family name in the competition's own script
+                  type: string
+                familyNameInitial:
+                  description: Initial of familyName
+                  type: string
+                familyNameTV:
+                  description: TV-graphics family name; empty string in every sample
+                  type: string
+                firstName:
+                  description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                    Czech, ... as entered)
+                  type: string
+                firstNameInitial:
+                  description: Initial of firstName
+                  type: string
+                firstNameTV:
+                  description: TV-graphics given name; empty string in every sample
+                  type: string
+                internationalFamilyName:
+                  description: Family name in Latin script (often upper case)
+                  type: string
+                internationalFamilyNameInitial:
+                  description: Initial of internationalFamilyName
+                  type: string
+                internationalFirstName:
+                  description: Given name in Latin script
+                  type: string
+                internationalFirstNameInitial:
+                  description: Initial of internationalFirstName
+                  type: string
+                internationalReference:
+                  description: FIBA international reference of the official; empty string in every sample
+                  type: string
+                name:
+                  description: Display name ('F. Abou Chacra')
+                  type: string
+                nationality:
+                  description: Nationality, English, upper case ('GREECE'); empty string when unset
+                  type: string
+                nationalityCode:
+                  description: ISO 3166-1 alpha-2 nationality code; empty string when unset
+                  type: string
+                nationalityCodeIOC:
+                  description: IOC three-letter nationality code; empty string when unset
+                  type: string
+                nickName:
+                  description: Nickname; empty string in every sample
+                  type: string
+                personId:
+                  description: Genius person id (warehouse key space, global across orgs). The only global
+                    person id in data.json; players carry none
+                  type: integer
+                photo:
+                  description: Official's photo, keyed by size code (S1, T1)
+                  properties:
+                    S1:
+                      description: One photo size
+                      properties:
+                        bytes:
+                          description: Image file size, bytes
+                          type: integer
+                        height:
+                          description: Image height, pixels
+                          type: integer
+                        size:
+                          description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                          type: string
+                        url:
+                          description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                          type: string
+                        width:
+                          description: Image width, pixels
+                          type: integer
+                      type: object
+                    T1:
+                      description: One photo size
+                      properties:
+                        bytes:
+                          description: Image file size, bytes
+                          type: integer
+                        height:
+                          description: Image height, pixels
+                          type: integer
+                        size:
+                          description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                          type: string
+                        url:
+                          description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                          type: string
+                        width:
+                          description: Image width, pixels
+                          type: integer
+                      type: object
+                  type: object
+                scoreboardName:
+                  description: Short display name ('T. Nichols'), in the local script when the org enters
+                    one
+                  type: string
+              type: object
+          type: object
+        othermatches:
+          description: 'Neighbouring games of the same org (a discovery hint: their ids are data.json
+            match ids); absent or empty in some samples'
+          items:
+            description: One neighbouring game
+            properties:
+              clock:
+                description: That game's period clock, 'mm:ss' remaining
+                type: string
+              competitionName:
+                description: Competition label of that game, free text ('Stoiximan GBL 2026-2027')
+                type: string
+              id:
+                description: Genius match id as a STRING (the {matchId} of data.json and /u/)
+                type: string
+              period:
+                description: That game's current period number
+                type: integer
+              periodType:
+                description: That game's current period type
+                type: string
+              team1:
+                description: Team 1 of that game
+                properties:
+                  logoS:
+                    description: Team logo image (standard)
+                    properties:
+                      bytes:
+                        description: Image file size, bytes
+                        type: integer
+                      height:
+                        description: Image height, pixels
+                        type: integer
+                      size:
+                        description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                        type: string
+                      url:
+                        description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                        type: string
+                      width:
+                        description: Image width, pixels
+                        type: integer
+                    type: object
+                  logoT:
+                    description: Team logo image (thumbnail)
+                    properties:
+                      bytes:
+                        description: Image file size, bytes
+                        type: integer
+                      height:
+                        description: Image height, pixels
+                        type: integer
+                      size:
+                        description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                        type: string
+                      url:
+                        description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                        type: string
+                      width:
+                        description: Image width, pixels
+                        type: integer
+                    type: object
+                  teamCode:
+                    description: Team code
+                    type: string
+                  teamCodeInternational:
+                    description: Team code in Latin script; '' when unset
+                    type: string
+                  teamName:
+                    description: Team name
+                    type: string
+                  teamNameInternational:
+                    description: Team name in Latin script; '' when unset
+                    type: string
+                type: object
+              team1Name:
+                description: Team 1 code (not the full name)
+                type: string
+              team1Score:
+                description: Team 1 points
+                type: integer
+              team2:
+                description: Team 2 of that game
+                properties:
+                  logoS:
+                    description: Team logo image (standard)
+                    properties:
+                      bytes:
+                        description: Image file size, bytes
+                        type: integer
+                      height:
+                        description: Image height, pixels
+                        type: integer
+                      size:
+                        description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                        type: string
+                      url:
+                        description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                        type: string
+                      width:
+                        description: Image width, pixels
+                        type: integer
+                    type: object
+                  logoT:
+                    description: Team logo image (thumbnail)
+                    properties:
+                      bytes:
+                        description: Image file size, bytes
+                        type: integer
+                      height:
+                        description: Image height, pixels
+                        type: integer
+                      size:
+                        description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                        type: string
+                      url:
+                        description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                        type: string
+                      width:
+                        description: Image width, pixels
+                        type: integer
+                    type: object
+                  teamCode:
+                    description: Team code
+                    type: string
+                  teamCodeInternational:
+                    description: Team code in Latin script; '' when unset
+                    type: string
+                  teamName:
+                    description: Team name
+                    type: string
+                  teamNameInternational:
+                    description: Team name in Latin script; '' when unset
+                    type: string
+                type: object
+              team2Name:
+                description: Team 2 code (not the full name)
+                type: string
+              team2Score:
+                description: Team 2 points
+                type: integer
+            type: object
+          type: array
+        pbp:
+          description: Play-by-play, NEWEST FIRST (descending actionNumber); one row per action
+          items:
+            description: One action
+            properties:
+              actionNumber:
+                description: Action sequence number, unique within the game (gaps where actions were deleted);
+                  shots join on it
+                type: integer
+              actionType:
+                description: 'Action type: 2pt, 3pt, freethrow, rebound, assist, turnover, steal, block,
+                  foul, foulon (foul drawn), substitution, timeout, jumpball, period, game, headcoachchallenge'
+                type: string
+              clock:
+                description: Game clock with hundredths, 'mm:ss:cc' remaining in the period
+                type: string
+              familyName:
+                description: Family name in the competition's own script
+                type: string
+              familyNameInitial:
+                description: Initial of familyName
+                type: string
+              firstName:
+                description: Given name in the competition's own script and spelling (Greek, Hebrew, Czech,
+                  ... as entered)
+                type: string
+              firstNameInitial:
+                description: Initial of firstName
+                type: string
+              gt:
+                description: Game clock, 'mm:ss' remaining in the period
+                type: string
+              internationalFamilyName:
+                description: Family name in Latin script (often upper case)
+                type: string
+              internationalFamilyNameInitial:
+                description: Initial of internationalFamilyName
+                type: string
+              internationalFirstName:
+                description: Given name in Latin script
+                type: string
+              internationalFirstNameInitial:
+                description: Initial of internationalFirstName
+                type: string
+              lead:
+                description: Score margin after the action, team 1 minus team 2 (negative when team 2
+                  leads)
+                type: integer
+              period:
+                description: Period number; restarts at 1 for the first overtime (read it with periodType)
+                type: integer
+              periodType:
+                description: 'Period type: REGULAR or OVERTIME'
+                type: string
+              player:
+                description: Player display name; '' when no player
+                type: string
+              pno:
+                description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                  In-game only: not a person id and not the shirt number'
+                type: integer
+              previousAction:
+                description: ActionNumber of the linked earlier action (the shot an assist or rebound
+                  belongs to), or '' (string)
+                type:
+                - integer
+                - string
+              qualifier:
+                description: 'Qualifier codes: pointsinthepaint, fromturnover, 2ndchance, fastbreak, blocked,
+                  1freethrow/2freethrow (free throws awarded), shooting (shooting foul), team (team rebound/turnover),
+                  confirmed, accepted/rejected (challenge outcome), ...'
+                items:
+                  description: One qualifier code
+                  type: string
+                type: array
+              s1:
+                description: 'Team 1 score after the action. Type varies by game: a string in most samples,
+                  an integer in BSN 2080988 and LNBP 1913661; cast it'
+                type:
+                - integer
+                - string
+              s2:
+                description: 'Team 2 score after the action. Type varies by game: a string in most samples,
+                  an integer in BSN 2080988 and LNBP 1913661; cast it'
+                type:
+                - integer
+                - string
+              scoreboardName:
+                description: Short display name ('T. Nichols'), in the local script when the org enters
+                  one
+                type: string
+              scoring:
+                description: 1 when the action is a scoring attempt (shot or free throw), else 0
+                type: integer
+              shirtNumber:
+                description: Player shirt number (string); '' when no player
+                type: string
+              subType:
+                description: 'Action subtype, free-text code per actionType: shot type for 2pt/3pt (layup,
+                  drivinglayup, jumpshot, pullupjumpshot, turnaroundjumpshot, ...), ''in''/''out'' for
+                  substitutions, ''start''/''end'' for period and game, foul kind for fouls; empty string
+                  when none'
+                type: string
+              success:
+                description: 1 = made / successful, 0 = missed (shots, free throws); 1 for other actions
+                type: integer
+              tno:
+                description: 'Team number within this game: 1 = the team listed first (home on the hosted
+                  schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game only: not
+                  a team id'
+                type: integer
+            type: object
+          type: array
+        period:
+          description: Current (or last) period number; restarts at 1 in overtime
+          type: integer
+        periodLength:
+          description: Length of the current period, minutes
+          type: integer
+        periodLengthOVERTIME:
+          description: Length of an overtime period, minutes
+          type: integer
+        periodLengthREGULAR:
+          description: Length of a regulation period, minutes (10 under FIBA rules, 12 in some leagues)
+          type: integer
+        periodType:
+          description: 'Current period type: REGULAR or OVERTIME'
+          type: string
+        periodsMax:
+          description: Number of regulation periods (4)
+          type: integer
+        scorers:
+          additionalProperties:
+            description: The team's scorers
+            items:
+              description: One scorer
+              properties:
+                familyName:
+                  description: Family name in the competition's own script
+                  type: string
+                familyNameInitial:
+                  description: Initial of familyName
+                  type: string
+                firstName:
+                  description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                    Czech, ... as entered)
+                  type: string
+                firstNameInitial:
+                  description: Initial of firstName
+                  type: string
+                internationalFamilyName:
+                  description: Family name in Latin script (often upper case)
+                  type: string
+                internationalFamilyNameInitial:
+                  description: Initial of internationalFamilyName
+                  type: string
+                internationalFirstName:
+                  description: Given name in Latin script
+                  type: string
+                internationalFirstNameInitial:
+                  description: Initial of internationalFirstName
+                  type: string
+                player:
+                  description: Player display name
+                  type: string
+                pno:
+                  description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                    In-game only: not a person id and not the shirt number'
+                  type: integer
+                scoreboardName:
+                  description: Short display name ('T. Nichols'), in the local script when the org enters
+                    one
+                  type: string
+                shirtNumber:
+                  description: Shirt number (string)
+                  type: string
+                summary:
+                  description: Space-separated two-digit game-clock minutes of each of the player's scores
+                    ('09 06 06 ...'), display string
+                  type: string
+                times:
+                  description: The player's scores in order
+                  items:
+                    description: One score
+                    properties:
+                      gt:
+                        description: Game clock of the score, 'mm:ss' remaining in the period
+                        type: string
+                      per:
+                        description: Period number; restarts at 1 for the first overtime (read it with
+                          periodType)
+                        type: integer
+                      perType:
+                        description: 'Period type: REGULAR or OVERTIME'
+                        type: string
+                      subType:
+                        description: Shot type of the score; '' for free throws
+                        type: string
+                    type: object
+                  type: array
+                tno:
+                  description: 'Team number within this game: 1 = the team listed first (home on the hosted
+                    schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game only:
+                    not a team id'
+                  type: integer
+              type: object
+            type: array
+            x-key: <tno>
+          description: Scorers per team, keyed by tno
+          type: object
+        timeline:
+          description: Timeline events; an empty list in every sample (unobserved)
+          items:
+            description: 'One timeline event (unobserved: the list is always empty)'
+            x-unobserved: true
+          type: array
+        tm:
+          additionalProperties:
+            description: One team's box score, roster and shots
+            properties:
+              assistcoach1:
+                description: Assistant coach 1 display name
+                type: string
+              assistcoach1Details:
+                description: Name parts of the assistcoach1
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                type: object
+              assistcoach2:
+                description: Assistant coach 2 display name
+                type: string
+              assistcoach2Details:
+                description: Name parts of the assistcoach2
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                type: object
+              asstSep:
+                description: Separator the page puts between assistant coach names (', ')
+                type: string
+              coach:
+                description: Head coach display name
+                type: string
+              coachDetails:
+                description: Name parts of the coach
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                type: object
+              code:
+                description: Team code, three letters as entered (may be in the local script, e.g. Greek
+                  'ΑΕΚ')
+                type: string
+              codeInternational:
+                description: Team code in Latin script
+                type: string
+              fouls:
+                description: Team fouls in the current (last) period
+                type: integer
+              full_score:
+                description: Team points including overtime; equal to score in every sample (a numeric
+                  string in the 2014-15 era)
+                type:
+                - integer
+                - string
+              lds:
+                description: The team's top-3 leaders per stat, keyed by stat code
+                properties:
+                  sAssists:
+                    additionalProperties:
+                      description: One leader
+                      properties:
+                        familyName:
+                          description: Family name in the competition's own script
+                          type: string
+                        familyNameInitial:
+                          description: Initial of familyName
+                          type: string
+                        firstName:
+                          description: Given name in the competition's own script and spelling (Greek,
+                            Hebrew, Czech, ... as entered)
+                          type: string
+                        firstNameInitial:
+                          description: Initial of firstName
+                          type: string
+                        internationalFamilyName:
+                          description: Family name in Latin script (often upper case)
+                          type: string
+                        internationalFamilyNameInitial:
+                          description: Initial of internationalFamilyName
+                          type: string
+                        internationalFirstName:
+                          description: Given name in Latin script
+                          type: string
+                        internationalFirstNameInitial:
+                          description: Initial of internationalFirstName
+                          type: string
+                        name:
+                          description: Leader display name
+                          type: string
+                        photoS:
+                          description: Leader photo URL (standard)
+                          type: string
+                        photoT:
+                          description: Leader photo URL (thumbnail)
+                          type: string
+                        pno:
+                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
+                            player. In-game only: not a person id and not the shirt number'
+                          type: integer
+                        scoreboardName:
+                          description: Short display name ('T. Nichols'), in the local script when the
+                            org enters one
+                          type: string
+                        shirtNumber:
+                          description: Shirt number (string)
+                          type: string
+                        tno:
+                          description: 'Team number within this game: 1 = the team listed first (home
+                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
+                            rows). In-game only: not a team id'
+                          type: integer
+                        tot:
+                          description: 'The leader''s value: assists'
+                          type: integer
+                      type: object
+                      x-key: <rank>
+                    description: Top-3 leaders in assists, keyed by rank '1'..'3'
+                    type: object
+                  sBlocks:
+                    description: Top-3 leaders in blocks made, keyed by rank '1'..'3'
+                    type:
+                    - array
+                    - object
+                  sPoints:
+                    additionalProperties:
+                      description: One leader
+                      properties:
+                        familyName:
+                          description: Family name in the competition's own script
+                          type: string
+                        familyNameInitial:
+                          description: Initial of familyName
+                          type: string
+                        firstName:
+                          description: Given name in the competition's own script and spelling (Greek,
+                            Hebrew, Czech, ... as entered)
+                          type: string
+                        firstNameInitial:
+                          description: Initial of firstName
+                          type: string
+                        internationalFamilyName:
+                          description: Family name in Latin script (often upper case)
+                          type: string
+                        internationalFamilyNameInitial:
+                          description: Initial of internationalFamilyName
+                          type: string
+                        internationalFirstName:
+                          description: Given name in Latin script
+                          type: string
+                        internationalFirstNameInitial:
+                          description: Initial of internationalFirstName
+                          type: string
+                        name:
+                          description: Leader display name
+                          type: string
+                        photoS:
+                          description: Leader photo URL (standard)
+                          type: string
+                        photoT:
+                          description: Leader photo URL (thumbnail)
+                          type: string
+                        pno:
+                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
+                            player. In-game only: not a person id and not the shirt number'
+                          type: integer
+                        scoreboardName:
+                          description: Short display name ('T. Nichols'), in the local script when the
+                            org enters one
+                          type: string
+                        shirtNumber:
+                          description: Shirt number (string)
+                          type: string
+                        tno:
+                          description: 'Team number within this game: 1 = the team listed first (home
+                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
+                            rows). In-game only: not a team id'
+                          type: integer
+                        tot:
+                          description: 'The leader''s value: points'
+                          type: integer
+                      type: object
+                      x-key: <rank>
+                    description: Top-3 leaders in points, keyed by rank '1'..'3'
+                    type: object
+                  sReboundsTotal:
+                    additionalProperties:
+                      description: One leader
+                      properties:
+                        familyName:
+                          description: Family name in the competition's own script
+                          type: string
+                        familyNameInitial:
+                          description: Initial of familyName
+                          type: string
+                        firstName:
+                          description: Given name in the competition's own script and spelling (Greek,
+                            Hebrew, Czech, ... as entered)
+                          type: string
+                        firstNameInitial:
+                          description: Initial of firstName
+                          type: string
+                        internationalFamilyName:
+                          description: Family name in Latin script (often upper case)
+                          type: string
+                        internationalFamilyNameInitial:
+                          description: Initial of internationalFamilyName
+                          type: string
+                        internationalFirstName:
+                          description: Given name in Latin script
+                          type: string
+                        internationalFirstNameInitial:
+                          description: Initial of internationalFirstName
+                          type: string
+                        name:
+                          description: Leader display name
+                          type: string
+                        photoS:
+                          description: Leader photo URL (standard)
+                          type: string
+                        photoT:
+                          description: Leader photo URL (thumbnail)
+                          type: string
+                        pno:
+                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
+                            player. In-game only: not a person id and not the shirt number'
+                          type: integer
+                        scoreboardName:
+                          description: Short display name ('T. Nichols'), in the local script when the
+                            org enters one
+                          type: string
+                        shirtNumber:
+                          description: Shirt number (string)
+                          type: string
+                        tno:
+                          description: 'Team number within this game: 1 = the team listed first (home
+                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
+                            rows). In-game only: not a team id'
+                          type: integer
+                        tot:
+                          description: 'The leader''s value: total rebounds'
+                          type: integer
+                      type: object
+                      x-key: <rank>
+                    description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'
+                    type: object
+                  sSteals:
+                    additionalProperties:
+                      description: One leader
+                      properties:
+                        familyName:
+                          description: Family name in the competition's own script
+                          type: string
+                        familyNameInitial:
+                          description: Initial of familyName
+                          type: string
+                        firstName:
+                          description: Given name in the competition's own script and spelling (Greek,
+                            Hebrew, Czech, ... as entered)
+                          type: string
+                        firstNameInitial:
+                          description: Initial of firstName
+                          type: string
+                        internationalFamilyName:
+                          description: Family name in Latin script (often upper case)
+                          type: string
+                        internationalFamilyNameInitial:
+                          description: Initial of internationalFamilyName
+                          type: string
+                        internationalFirstName:
+                          description: Given name in Latin script
+                          type: string
+                        internationalFirstNameInitial:
+                          description: Initial of internationalFirstName
+                          type: string
+                        name:
+                          description: Leader display name
+                          type: string
+                        photoS:
+                          description: Leader photo URL (standard)
+                          type: string
+                        photoT:
+                          description: Leader photo URL (thumbnail)
+                          type: string
+                        pno:
+                          description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no
+                            player. In-game only: not a person id and not the shirt number'
+                          type: integer
+                        scoreboardName:
+                          description: Short display name ('T. Nichols'), in the local script when the
+                            org enters one
+                          type: string
+                        shirtNumber:
+                          description: Shirt number (string)
+                          type: string
+                        tno:
+                          description: 'Team number within this game: 1 = the team listed first (home
+                            on the hosted schedule and widget), 2 = the other; 0 = no team (period/game
+                            rows). In-game only: not a team id'
+                          type: integer
+                        tot:
+                          description: 'The leader''s value: steals'
+                          type: integer
+                      type: object
+                      x-key: <rank>
+                    description: Top-3 leaders in steals, keyed by rank '1'..'3'
+                    type: object
+                type: object
+              logo:
+                description: Legacy logo URL; empty string in every sample (use logoT / logoS)
+                type: string
+              logoS:
+                description: Team logo image (standard)
+                properties:
+                  bytes:
+                    description: Image file size, bytes
+                    type: integer
+                  height:
+                    description: Image height, pixels
+                    type: integer
+                  size:
+                    description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                    type: string
+                  url:
+                    description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                    type: string
+                  width:
+                    description: Image width, pixels
+                    type: integer
+                type: object
+              logoT:
+                description: Team logo image (thumbnail)
+                properties:
+                  bytes:
+                    description: Image file size, bytes
+                    type: integer
+                  height:
+                    description: Image height, pixels
+                    type: integer
+                  size:
+                    description: 'Image size code: T1 = thumbnail (75 px), S1 = standard (200 px)'
+                    type: string
+                  url:
+                    description: Image URL on images.statsengine.playbyplay.api.geniussports.com
+                    type: string
+                  width:
+                    description: Image width, pixels
+                    type: integer
+                type: object
+              name:
+                description: Team name as the org enters it
+                type: string
+              nameInternational:
+                description: Team name in Latin script
+                type: string
+              ot_score:
+                description: Points scored in overtime (all overtime periods); present only when the game
+                  went to overtime
+                type: integer
+              p1_score:
+                description: Points scored in period 1 (a numeric string in the 2014-15 era)
+                type:
+                - integer
+                - string
+              p2_score:
+                description: Points scored in period 2 (a numeric string in the 2014-15 era)
+                type:
+                - integer
+                - string
+              p3_score:
+                description: Points scored in period 3 (a numeric string in the 2014-15 era)
+                type:
+                - integer
+                - string
+              p4_score:
+                description: Points scored in period 4 (a numeric string in the 2014-15 era)
+                type:
+                - integer
+                - string
+              pl:
+                additionalProperties:
+                  description: One player's box score line and name
+                  properties:
+                    active:
+                      description: '1 when the player is on court now (at game end: on court at the final
+                        whistle), else 0'
+                      type: integer
+                    captain:
+                      description: 1 for the team captain, else 0; absent in some orgs
+                      type: integer
+                    comp:
+                      description: The player's competition averages before this game; absent in some
+                        orgs
+                      properties:
+                        sAssistsAverage:
+                          description: Average assists per game in the competition
+                          type: number
+                        sMinutesAverage:
+                          description: Average minutes per game in the competition, 'mm:ss'
+                          type:
+                          - number
+                          - string
+                        sPointsAverage:
+                          description: Average points per game in the competition
+                          type: number
+                        sReboundsTotalAverage:
+                          description: Average rebounds per game in the competition
+                          type: number
+                      type: object
+                    eff_1:
+                      description: 'Genius efficiency formula 1. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_2:
+                      description: 'Genius efficiency formula 2. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_3:
+                      description: 'Genius efficiency formula 3. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_4:
+                      description: 'Genius efficiency formula 4. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_5:
+                      description: 'Genius efficiency formula 5. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_6:
+                      description: 'Genius efficiency formula 6. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    eff_7:
+                      description: 'Genius efficiency formula 7. The feed carries seven formulas (eff_1..eff_7)
+                        with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7
+                        often agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified:
+                        do not treat any as PIR/EFF without checking against a league site'
+                      type: number
+                    familyName:
+                      description: Family name in the competition's own script
+                      type: string
+                    familyNameInitial:
+                      description: Initial of familyName
+                      type: string
+                    firstName:
+                      description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                        Czech, ... as entered)
+                      type: string
+                    firstNameInitial:
+                      description: Initial of firstName
+                      type: string
+                    internationalFamilyName:
+                      description: Family name in Latin script (often upper case)
+                      type: string
+                    internationalFamilyNameInitial:
+                      description: Initial of internationalFamilyName
+                      type: string
+                    internationalFirstName:
+                      description: Given name in Latin script
+                      type: string
+                    internationalFirstNameInitial:
+                      description: Initial of internationalFirstName
+                      type: string
+                    name:
+                      description: Display name ('T. Nichols')
+                      type: string
+                    photoS:
+                      description: Player photo URL (standard); absent when the org has none
+                      type: string
+                    photoT:
+                      description: Player photo URL (thumbnail); absent when the org has none
+                      type: string
+                    playingPosition:
+                      description: Playing position code (PG, SG, SF, PF, C, G, F, ...); empty string
+                        when not entered
+                      type: string
+                    sAssists:
+                      description: Assists
+                      type: integer
+                    sBlocks:
+                      description: Blocks made
+                      type: integer
+                    sBlocksReceived:
+                      description: Own shots blocked by an opponent
+                      type: integer
+                    sFieldGoalsAttempted:
+                      description: Field goals attempted
+                      type: integer
+                    sFieldGoalsMade:
+                      description: Field goals made
+                      type: integer
+                    sFieldGoalsPercentage:
+                      description: Field-goal percentage, 0-100, rounded to an integer by the feed
+                      type: number
+                    sFoulsOn:
+                      description: Fouls drawn
+                      type: integer
+                    sFoulsPersonal:
+                      description: Personal fouls committed
+                      type: integer
+                    sFreeThrowsAttempted:
+                      description: Free throws attempted
+                      type: integer
+                    sFreeThrowsMade:
+                      description: Free throws made
+                      type: integer
+                    sFreeThrowsPercentage:
+                      description: Free-throw percentage, 0-100, rounded to an integer
+                      type: number
+                    sMinutes:
+                      description: Minutes played, 'mm:ss' string
+                      type: string
+                    sPlusMinusPoints:
+                      description: 'Plus/minus: team point margin while the player was on court'
+                      type: integer
+                    sPoints:
+                      description: Points
+                      type: integer
+                    sPointsFastBreak:
+                      description: Fast-break points
+                      type: integer
+                    sPointsFromTurnovers:
+                      description: Points off turnovers
+                      type: integer
+                    sPointsInThePaint:
+                      description: Points in the paint
+                      type: integer
+                    sPointsSecondChance:
+                      description: Second-chance points
+                      type: integer
+                    sReboundsDefensive:
+                      description: Defensive rebounds
+                      type: integer
+                    sReboundsOffensive:
+                      description: Offensive rebounds
+                      type: integer
+                    sReboundsTotal:
+                      description: Total rebounds
+                      type: integer
+                    sSteals:
+                      description: Steals
+                      type: integer
+                    sThreePointersAttempted:
+                      description: Three-pointers attempted
+                      type: integer
+                    sThreePointersMade:
+                      description: Three-pointers made
+                      type: integer
+                    sThreePointersPercentage:
+                      description: Three-point percentage, 0-100, rounded to an integer
+                      type: number
+                    sTurnovers:
+                      description: Turnovers
+                      type: integer
+                    sTwoPointersAttempted:
+                      description: Two-pointers attempted
+                      type: integer
+                    sTwoPointersMade:
+                      description: Two-pointers made
+                      type: integer
+                    sTwoPointersPercentage:
+                      description: Two-point percentage, 0-100, rounded to an integer
+                      type: number
+                    scoreboardName:
+                      description: Short display name ('T. Nichols'), in the local script when the org
+                        enters one
+                      type: string
+                    shirtNumber:
+                      description: Shirt number as a string ('0' and '00' differ)
+                      type: string
+                    starter:
+                      description: 1 when the player started the game, else 0
+                      type: integer
+                  type: object
+                  x-key: <pno>
+                description: Players of the team keyed by pno (in-game player number)
+                type: object
+              score:
+                description: Team points (current or final); a numeric string in the 2014-15 era sample
+                  (WBBL 12248), an integer since
+                type:
+                - integer
+                - string
+              scoring:
+                description: The team's scoring plays in order (who scored when); points are not stated
+                items:
+                  description: One scoring play
+                  properties:
+                    familyName:
+                      description: Family name in the competition's own script
+                      type: string
+                    familyNameInitial:
+                      description: Initial of familyName
+                      type: string
+                    firstName:
+                      description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                        Czech, ... as entered)
+                      type: string
+                    firstNameInitial:
+                      description: Initial of firstName
+                      type: string
+                    gt:
+                      description: Game clock of the score, 'mm:ss' remaining in the period
+                      type: string
+                    internationalFamilyName:
+                      description: Family name in Latin script (often upper case)
+                      type: string
+                    internationalFamilyNameInitial:
+                      description: Initial of internationalFamilyName
+                      type: string
+                    internationalFirstName:
+                      description: Given name in Latin script
+                      type: string
+                    internationalFirstNameInitial:
+                      description: Initial of internationalFirstName
+                      type: string
+                    per:
+                      description: Period number; restarts at 1 for the first overtime (read it with periodType)
+                      type: integer
+                    perType:
+                      description: 'Period type: REGULAR or OVERTIME'
+                      type: string
+                    player:
+                      description: Player display name
+                      type: string
+                    pno:
+                      description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                        In-game only: not a person id and not the shirt number'
+                      type: integer
+                    scoreboardName:
+                      description: Short display name ('T. Nichols'), in the local script when the org
+                        enters one
+                      type: string
+                    shirtNumber:
+                      description: Shirt number (string)
+                      type: string
+                    tno:
+                      description: 'Team number within this game: 1 = the team listed first (home on the
+                        hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                        only: not a team id'
+                      type: integer
+                  type: object
+                type: array
+              shortName:
+                description: Short team name
+                type: string
+              shortNameInternational:
+                description: Short team name in Latin script
+                type: string
+              shot:
+                description: 'The team''s shot chart: one row per field-goal attempt (free throws excluded)'
+                items:
+                  description: One field-goal attempt
+                  properties:
+                    actionNumber:
+                      description: ActionNumber of the matching pbp[] row (every shot joins one pbp row
+                        in samples)
+                      type: integer
+                    actionType:
+                      description: 'Shot value: 2pt or 3pt'
+                      type: string
+                    p:
+                      description: Shooter's pno (same as pno)
+                      type: integer
+                    per:
+                      description: Period number; restarts at 1 for the first overtime (read it with periodType)
+                      type: integer
+                    perType:
+                      description: 'Period type: REGULAR or OVERTIME'
+                      type: string
+                    player:
+                      description: Shooter display name
+                      type: string
+                    pno:
+                      description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                        In-game only: not a person id and not the shirt number'
+                      type: integer
+                    previousAction:
+                      description: ActionNumber of the linked previous action, or '' (string)
+                      type: string
+                    r:
+                      description: 'Result: 1 = made, 0 = missed'
+                      type: integer
+                    shirtNumber:
+                      description: Shooter's shirt number (string)
+                      type: string
+                    subType:
+                      description: Shot type (layup, drivinglayup, jumpshot, pullupjumpshot, dunk, ...)
+                      type: string
+                    tno:
+                      description: 'Team number within this game: 1 = the team listed first (home on the
+                        hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                        only: not a team id'
+                      type: integer
+                    x:
+                      description: 'Court x, PERCENT of the full court length (0-100, float), along the
+                        long axis. Not normalised to one basket: a team attacks one end in periods 1-2
+                        and the other end in periods 3-4 (ESAKE 2902690: team 1 mean x 90 and 86 in P1-P2,
+                        11 and 19 in P3-P4). Which end x = 0 is, and which end team 1 starts at, are unverified'
+                      type: number
+                    y:
+                      description: Court y, PERCENT of the full court width (0-100, float), across the
+                        court (observed 1.7-97.2). Origin side unverified
+                      type: number
+                  type: object
+                type: array
+              timeouts:
+                description: 'Timeouts counter of the current period (unverified: remaining vs taken;
+                  0 in finished games)'
+                type: integer
+              tot_eff_1:
+                description: 'Genius efficiency formula 1. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_2:
+                description: 'Genius efficiency formula 2. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_3:
+                description: 'Genius efficiency formula 3. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_4:
+                description: 'Genius efficiency formula 4. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_5:
+                description: 'Genius efficiency formula 5. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_6:
+                description: 'Genius efficiency formula 6. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_eff_7:
+                description: 'Genius efficiency formula 7. The feed carries seven formulas (eff_1..eff_7)
+                  with no labels; the definitions are not published. In samples eff_1/eff_6/eff_7 often
+                  agree (an index-rating style total), eff_3/eff_4 are decimals. Unverified: do not treat
+                  any as PIR/EFF without checking against a league site (team total)'
+                type: number
+              tot_sAssists:
+                description: 'Team total: assists'
+                type: integer
+              tot_sBenchPoints:
+                description: 'Team total: points scored by non-starters'
+                type: integer
+              tot_sBiggestLead:
+                description: 'Team total: biggest lead, points'
+                type: integer
+              tot_sBiggestScoringRun:
+                description: 'Team total: biggest unanswered scoring run, points'
+                type: integer
+              tot_sBlocks:
+                description: 'Team total: blocks made'
+                type: integer
+              tot_sBlocksReceived:
+                description: 'Team total: own shots blocked by an opponent'
+                type: integer
+              tot_sFieldGoalsAttempted:
+                description: 'Team total: field goals attempted'
+                type: integer
+              tot_sFieldGoalsMade:
+                description: 'Team total: field goals made'
+                type: integer
+              tot_sFieldGoalsPercentage:
+                description: 'Team total: field-goal percentage, 0-100, rounded to an integer by the feed'
+                type: number
+              tot_sFoulsOn:
+                description: 'Team total: fouls drawn'
+                type: integer
+              tot_sFoulsPersonal:
+                description: 'Team total: personal fouls committed'
+                type: integer
+              tot_sFoulsTeam:
+                description: 'Team total: team (bench) fouls'
+                type: integer
+              tot_sFoulsTotal:
+                description: 'Team total: all fouls committed (personal + technical + team bench)'
+                type: integer
+              tot_sFreeThrowsAttempted:
+                description: 'Team total: free throws attempted'
+                type: integer
+              tot_sFreeThrowsMade:
+                description: 'Team total: free throws made'
+                type: integer
+              tot_sFreeThrowsPercentage:
+                description: 'Team total: free-throw percentage, 0-100, rounded to an integer'
+                type: number
+              tot_sLeadChanges:
+                description: 'Team total: lead changes in the game (same value on both teams)'
+                type: integer
+              tot_sMinutes:
+                description: Team minutes, 'mmm:ss' (200:00 for 4 x 10 min; the feed can print '199:60')
+                type: string
+              tot_sPoints:
+                description: 'Team total: points'
+                type: integer
+              tot_sPointsFastBreak:
+                description: 'Team total: fast-break points'
+                type: integer
+              tot_sPointsFromTurnovers:
+                description: 'Team total: points off turnovers'
+                type: integer
+              tot_sPointsInThePaint:
+                description: 'Team total: points in the paint'
+                type: integer
+              tot_sPointsSecondChance:
+                description: 'Team total: second-chance points'
+                type: integer
+              tot_sReboundsDefensive:
+                description: 'Team total: defensive rebounds'
+                type: integer
+              tot_sReboundsOffensive:
+                description: 'Team total: offensive rebounds'
+                type: integer
+              tot_sReboundsTeam:
+                description: 'Team total: team rebounds (credited to no player)'
+                type: integer
+              tot_sReboundsTeamDefensive:
+                description: 'Team total: team defensive rebounds'
+                type: integer
+              tot_sReboundsTeamOffensive:
+                description: 'Team total: team offensive rebounds'
+                type: integer
+              tot_sReboundsTotal:
+                description: 'Team total: total rebounds'
+                type: integer
+              tot_sSteals:
+                description: 'Team total: steals'
+                type: integer
+              tot_sThreePointersAttempted:
+                description: 'Team total: three-pointers attempted'
+                type: integer
+              tot_sThreePointersMade:
+                description: 'Team total: three-pointers made'
+                type: integer
+              tot_sThreePointersPercentage:
+                description: 'Team total: three-point percentage, 0-100, rounded to an integer'
+                type: number
+              tot_sTimeLeading:
+                description: 'Team total: minutes the team led, decimal minutes (33.58 = 33 min 35 s)'
+                type: number
+              tot_sTimesScoresLevel:
+                description: 'Team total: times the score was tied (same value on both teams)'
+                type: integer
+              tot_sTurnovers:
+                description: 'Team total: turnovers'
+                type: integer
+              tot_sTurnoversTeam:
+                description: 'Team total: team turnovers (credited to no player, e.g. shot clock)'
+                type: integer
+              tot_sTwoPointersAttempted:
+                description: 'Team total: two-pointers attempted'
+                type: integer
+              tot_sTwoPointersMade:
+                description: 'Team total: two-pointers made'
+                type: integer
+              tot_sTwoPointersPercentage:
+                description: 'Team total: two-point percentage, 0-100, rounded to an integer'
+                type: number
+            type: object
+            x-key: <tno>
+          description: The two teams, keyed by tno ('1', '2')
+          type: object
+        totalTimeAdded:
+          description: Clock time added by corrections, seconds (unverified; 0 in every sample)
+          type: integer
+        totallds:
+          description: Top-3 leaders across both teams per stat, keyed by stat code
+          properties:
+            sAssists:
+              additionalProperties:
+                description: One leader
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  name:
+                    description: Leader display name
+                    type: string
+                  photoS:
+                    description: Leader photo URL (standard)
+                    type: string
+                  photoT:
+                    description: Leader photo URL (thumbnail)
+                    type: string
+                  pno:
+                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                      In-game only: not a person id and not the shirt number'
+                    type: integer
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                  shirtNumber:
+                    description: Shirt number (string)
+                    type: string
+                  tno:
+                    description: 'Team number within this game: 1 = the team listed first (home on the
+                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                      only: not a team id'
+                    type: integer
+                  tot:
+                    description: 'The leader''s value: assists'
+                    type: integer
+                type: object
+                x-key: <rank>
+              description: Top-3 leaders in assists, keyed by rank '1'..'3'
+              type: object
+            sBlocks:
+              additionalProperties:
+                description: One leader
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  name:
+                    description: Leader display name
+                    type: string
+                  photoS:
+                    description: Leader photo URL (standard)
+                    type: string
+                  photoT:
+                    description: Leader photo URL (thumbnail)
+                    type: string
+                  pno:
+                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                      In-game only: not a person id and not the shirt number'
+                    type: integer
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                  shirtNumber:
+                    description: Shirt number (string)
+                    type: string
+                  tno:
+                    description: 'Team number within this game: 1 = the team listed first (home on the
+                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                      only: not a team id'
+                    type: integer
+                  tot:
+                    description: 'The leader''s value: blocks made'
+                    type: integer
+                type: object
+                x-key: <rank>
+              description: Top-3 leaders in blocks made, keyed by rank '1'..'3'
+              type: object
+            sPoints:
+              additionalProperties:
+                description: One leader
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  name:
+                    description: Leader display name
+                    type: string
+                  photoS:
+                    description: Leader photo URL (standard)
+                    type: string
+                  photoT:
+                    description: Leader photo URL (thumbnail)
+                    type: string
+                  pno:
+                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                      In-game only: not a person id and not the shirt number'
+                    type: integer
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                  shirtNumber:
+                    description: Shirt number (string)
+                    type: string
+                  tno:
+                    description: 'Team number within this game: 1 = the team listed first (home on the
+                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                      only: not a team id'
+                    type: integer
+                  tot:
+                    description: 'The leader''s value: points'
+                    type: integer
+                type: object
+                x-key: <rank>
+              description: Top-3 leaders in points, keyed by rank '1'..'3'
+              type: object
+            sReboundsTotal:
+              additionalProperties:
+                description: One leader
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  name:
+                    description: Leader display name
+                    type: string
+                  photoS:
+                    description: Leader photo URL (standard)
+                    type: string
+                  photoT:
+                    description: Leader photo URL (thumbnail)
+                    type: string
+                  pno:
+                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                      In-game only: not a person id and not the shirt number'
+                    type: integer
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                  shirtNumber:
+                    description: Shirt number (string)
+                    type: string
+                  tno:
+                    description: 'Team number within this game: 1 = the team listed first (home on the
+                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                      only: not a team id'
+                    type: integer
+                  tot:
+                    description: 'The leader''s value: total rebounds'
+                    type: integer
+                type: object
+                x-key: <rank>
+              description: Top-3 leaders in total rebounds, keyed by rank '1'..'3'
+              type: object
+            sSteals:
+              additionalProperties:
+                description: One leader
+                properties:
+                  familyName:
+                    description: Family name in the competition's own script
+                    type: string
+                  familyNameInitial:
+                    description: Initial of familyName
+                    type: string
+                  firstName:
+                    description: Given name in the competition's own script and spelling (Greek, Hebrew,
+                      Czech, ... as entered)
+                    type: string
+                  firstNameInitial:
+                    description: Initial of firstName
+                    type: string
+                  internationalFamilyName:
+                    description: Family name in Latin script (often upper case)
+                    type: string
+                  internationalFamilyNameInitial:
+                    description: Initial of internationalFamilyName
+                    type: string
+                  internationalFirstName:
+                    description: Given name in Latin script
+                    type: string
+                  internationalFirstNameInitial:
+                    description: Initial of internationalFirstName
+                    type: string
+                  name:
+                    description: Leader display name
+                    type: string
+                  photoS:
+                    description: Leader photo URL (standard)
+                    type: string
+                  photoT:
+                    description: Leader photo URL (thumbnail)
+                    type: string
+                  pno:
+                    description: 'Player number within this game (the key of tm.<tno>.pl); 0 = no player.
+                      In-game only: not a person id and not the shirt number'
+                    type: integer
+                  scoreboardName:
+                    description: Short display name ('T. Nichols'), in the local script when the org enters
+                      one
+                    type: string
+                  shirtNumber:
+                    description: Shirt number (string)
+                    type: string
+                  tno:
+                    description: 'Team number within this game: 1 = the team listed first (home on the
+                      hosted schedule and widget), 2 = the other; 0 = no team (period/game rows). In-game
+                      only: not a team id'
+                    type: integer
+                  tot:
+                    description: 'The leader''s value: steals'
+                    type: integer
+                type: object
+                x-key: <rank>
+              description: Top-3 leaders in steals, keyed by rank '1'..'3'
+              type: object
+          type: object
+      type: object
+    GeniusEmbednfCompetitionSchedule:
+      properties:
+        matches:
+          description: Every game of the competition (roundNumber=-1 = all rounds), in page order
+          items:
+            description: One game (a div.match-wrap block)
+            properties:
+              away_score:
+                description: Away points; null before tip-off
+                type: integer
+              away_team_code:
+                description: Away team code (local script possible)
+                type: string
+              away_team_id:
+                description: 'Away team: Genius team id (warehouse key space, global across orgs and seasons;
+                  the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+                  data.json carries no team id: join on name/code'
+                type: integer
+              away_team_name:
+                description: Away team full name
+                type: string
+              comp_id:
+                description: CompId of the match link, or of the team links when the org hides match pages
+                  (FFBB); equals the {compId} asked for
+                type: integer
+              date_time:
+                description: Tip-off as displayed, 'Mon D, YYYY, h:mm AM' (local time, zone not stated);
+                  null when unscheduled
+                type: string
+              home_score:
+                description: Home points; null before tip-off
+                type: integer
+              home_team_code:
+                description: Home team code (local script possible)
+                type: string
+              home_team_id:
+                description: 'Home team: Genius team id (warehouse key space, global across orgs and seasons;
+                  the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+                  data.json carries no team id: join on name/code'
+                type: integer
+              home_team_name:
+                description: Home team full name
+                type: string
+              link_match_id:
+                description: Match id of the block's /match/<id>/summary link; equals match_id (the capture
+                  refuses a page where it does not); null when the org hides match pages (FFBB)
+                type: integer
+              match_id:
+                description: 'From the block id extfix_<id>. Genius match id: the {matchId} of data.json
+                  and /u/; one global sequence across every Genius customer (~0.3 M in 2016, ~2.9 M in
+                  Oct 2026)'
+                type: integer
+              org:
+                description: ORG code of the match link (or the team links, as comp_id)
+                type: string
+              status:
+                description: 'Status from the block class STATUS_*: COMPLETE, SCHEDULED, POSTPONED, ...'
+                type: string
+              venue_id:
+                description: Genius venue id (the /venue/{id} of hosted pages); null when the venue is
+                  plain text (FFBB)
+                type: integer
+              venue_name:
+                description: Venue name as entered (local script)
+                type: string
+            type: object
+          type: array
+      type: object
+    GeniusHostedCompetitionSchedule:
+      properties:
+        matches:
+          description: Every game of the competition (roundNumber=-1 = all rounds), in page order
+          items:
+            description: One game (a div.match-wrap block)
+            properties:
+              away_score:
+                description: Away points; null before tip-off
+                type:
+                - integer
+                - 'null'
+              away_team_code:
+                description: Away team code (local script possible)
+                type: string
+              away_team_id:
+                description: 'Away team: Genius team id (warehouse key space, global across orgs and seasons;
+                  the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+                  data.json carries no team id: join on name/code'
+                type: integer
+              away_team_name:
+                description: Away team full name
+                type: string
+              comp_id:
+                description: CompId of the match link, or of the team links when the org hides match pages
+                  (FFBB); equals the {compId} asked for
+                type: integer
+              date_time:
+                description: Tip-off as displayed, 'Mon D, YYYY, h:mm AM' (local time, zone not stated);
+                  null when unscheduled
+                type: string
+              home_score:
+                description: Home points; null before tip-off
+                type:
+                - integer
+                - 'null'
+              home_team_code:
+                description: Home team code (local script possible)
+                type: string
+              home_team_id:
+                description: 'Home team: Genius team id (warehouse key space, global across orgs and seasons;
+                  the /team/{id} of hosted pages, the tid of the widget, the teamId of data/competition).
+                  data.json carries no team id: join on name/code'
+                type: integer
+              home_team_name:
+                description: Home team full name
+                type: string
+              link_match_id:
+                description: Match id of the block's /match/<id>/summary link; equals match_id (the capture
+                  refuses a page where it does not); null when the org hides match pages (FFBB)
+                type: integer
+              match_id:
+                description: 'From the block id extfix_<id>. Genius match id: the {matchId} of data.json
+                  and /u/; one global sequence across every Genius customer (~0.3 M in 2016, ~2.9 M in
+                  Oct 2026)'
+                type: integer
+              org:
+                description: ORG code of the match link (or the team links, as comp_id)
+                type: string
+              status:
+                description: 'Status from the block class STATUS_*: COMPLETE, SCHEDULED, POSTPONED, ...'
+                type: string
+              venue_id:
+                description: Genius venue id (the /venue/{id} of hosted pages); null when the venue is
+                  plain text (FFBB)
+                type: integer
+              venue_name:
+                description: Venue name as entered (local script)
+                type: string
+            type: object
+          type: array
+      type: object
+    GeniusHostedSchedule:
+      properties:
+        competitions:
+          description: Every competition of the org the hosted site lists, from the page's compdata.push([...])
+            rows
+          items:
+            description: One competition-season
+            properties:
+              comp_id:
+                description: 'Genius competition id (compId): one per org competition-season; the {compId}
+                  of hosted and data/competition paths'
+                type: integer
+              label:
+                description: 'Competition label as the org typed it, free text in any language: may or
+                  may not carry a season (''BASKET LEAGUE 2019 - 20'', ''1st division'', ''Κύπελλο Ελλάδας''
+                  = Greek Cup, ''Μαυροσκούφεια'' = Mavroskoufeia youth tournament)'
+                type: string
+              league_id:
+                description: 'Genius league id of the org (ESAKE = 115; IBBA has two: 187 and 549)'
+                type: integer
+              org:
+                description: ORG code from the competition URL (equals the {org} asked for)
+                type: string
+              year:
+                description: 'Genius season year of the competition: the START year of a two-year season
+                  (BNXT ''2023-2024'' = 2023), the year itself for a calendar season. null when the page
+                  gives none'
+                type: integer
+            type: object
+          type: array
+        selected_comp_id:
+          description: CompId the chooser pre-selects (the org's default, not always the newest)
+          type:
+          - integer
+          - 'null'
+      type: object
+    GeniusU:
+      properties:
+        comp_id:
+          description: 'Competition id from the hidden input #compId. Genius competition id (compId):
+            one per org competition-season; the {compId} of hosted and data/competition paths. The way
+            to map a data.json game to its competition and season'
+          type: integer
+        competition_name:
+          description: 'Competition label from #competitionName, free text (''Stoiximan GBL 2026-2027'');
+            carries the season only when the org writes it in'
+          type: string
+        match_id:
+          description: 'Match id from the page''s hidden input #matchId (equals the {matchId} asked for).
+            Genius match id: the {matchId} of data.json and /u/; one global sequence across every Genius
+            customer (~0.3 M in 2016, ~2.9 M in Oct 2026)'
+          type: integer
+        og_description:
+          description: 'The page''s og:description: ''<ORG> , <competition>, Check out the full statistics
+            here'''
+          type: string
+        org_label:
+          description: 'First item of og:description: the org''s display code (ESAKE)'
+          type: string
+      type: object
+    GeniusWidget:
+      properties:
+        matches:
+          description: Latest games the widget shows (about 5 to 50), newest competition first
+          items:
+            description: One game
+            properties:
+              away_score:
+                description: Away points; null before tip-off
+                type:
+                - integer
+                - 'null'
+              away_team_code:
+                description: Away team code
+                type: string
+              away_team_id:
+                description: 'Away team from the ''tid<N>'' class. Genius team id (warehouse key space,
+                  global across orgs and seasons; the /team/{id} of hosted pages, the tid of the widget,
+                  the teamId of data/competition). data.json carries no team id: join on name/code'
+                type: integer
+              competition_name:
+                description: Competition label, free text
+                type: string
+              date:
+                description: Date as shown, 'DD/MM/YYYY' in samples (format follows the widget locale;
+                  unverified for others)
+                type: string
+              home_score:
+                description: Home points; null before tip-off
+                type:
+                - integer
+                - 'null'
+              home_team_code:
+                description: Home team code
+                type: string
+              home_team_id:
+                description: 'Home team from the ''tid<N>'' class. Genius team id (warehouse key space,
+                  global across orgs and seasons; the /team/{id} of hosted pages, the tid of the widget,
+                  the teamId of data/competition). data.json carries no team id: join on name/code'
+                type: integer
+              match_id:
+                description: 'From the webcast link. Genius match id: the {matchId} of data.json and /u/;
+                  one global sequence across every Genius customer (~0.3 M in 2016, ~2.9 M in Oct 2026)'
+                type: integer
+              status:
+                description: Status text as shown ('Final', 'Live', a tip-off time)
+                type: string
+              webcast_org:
+                description: ORG code of the webcast link; can differ from the hosted ORG (NZNBL games
+                  link /webcast/NZN/)
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Cross-league basketball stats platform behind 20+ domestic leagues (see x-leagues). Keyless
+    GET on three hosts; each path carries its own servers entry. CloudFront blocks datacenter IPs such
+    as the SDV droplet on fibalivestats.* and hosted.* (403 ''Request blocked''); route through a proxy
+    (capture.py reads GENIUS_PROXY). A missing object is a different 403 (S3 AccessDenied). data.json
+    is the full game (box score, newest-first play-by-play, shot x/y as 0-100 percent of the full court)
+    but carries no date, no competition id and no global player or team id. Season key: none in the API;
+    inputs/leagues.json maps each compId to the sdv END year. Not official or supported.'
+  title: Genius Sports / FIBA LiveStats (fibalivestats, hosted WebStats, widget)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /data/competition/{compId}.json:
+    get:
+      description: 'Captured for 2 org(s): ESAKE, POL. JSON body served as application/javascript.'
+      operationId: genius_competition
+      parameters:
+      - description: 'Genius competition id: one per org competition-season (the comp_id rows of x-leagues)'
+        example: 49915
+        in: path
+        name: compId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/GeniusCompetition'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+      summary: Recent window of a competition's games, with global team ids
+    servers:
+    - url: https://fibalivestats.dcd.shared.geniussports.com
+  /data/{matchId}/data.json:
+    get:
+      description: 'Captured for 18 org(s): BAL, BNXT, BSN, CBFFE, CEBL, ESAKE, FFBB, FRB, FUBB, HKS,
+        IBBA, LNBP, NBL, NZNBL, POL, SLB, WBBL. JSON body served as application/javascript.'
+      operationId: genius_data
+      parameters:
+      - description: Genius match id (one global sequence across every Genius customer). data.json needs
+          only this id
+        example: 2902690
+        in: path
+        name: matchId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/GeniusData'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+      summary: 'Full live game: team and player box scores, play-by-play, shot chart'
+    servers:
+    - url: https://fibalivestats.dcd.shared.geniussports.com
+  /embednf/{org}/en/competition/{compId}/schedule:
+    get:
+      description: 'Captured for 1 org(s): HKS. The capture banks the PARSED record of x-parsed-schema
+        (the envelope''s html member, parsed like the hosted schedule).'
+      operationId: genius_embednf_competition_schedule
+      parameters:
+      - description: ORG code of the Genius customer (ESAKE, POL, CEBL, ...; see x-leagues). Case as listed;
+          a wrong ORG answers 403 AccessDenied on /u/ and an empty 200 on hosted pages
+        example: HKS
+        in: path
+        name: org
+        required: true
+        schema:
+          type: string
+      - description: 'Genius competition id: one per org competition-season (the comp_id rows of x-leagues)'
+        example: 49946
+        in: path
+        name: compId
+        required: true
+        schema:
+          type: integer
+      - description: Round filter; -1 = every round of the competition (the page otherwise shows one round)
+        example: -1
+        in: query
+        name: roundNumber
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  css:
+                    items:
+                      type: string
+                    type: array
+                  html:
+                    type: string
+                  js:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              x-parsed-schema:
+                parser: genius-livestats/tools/capture.py parse_embednf
+                rule: the envelope's html member, parsed like the hosted schedule
+                schema:
+                  $ref: '#/components/schemas/GeniusEmbednfCompetitionSchedule'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+        '500':
+          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
+            BSN, LNBP, NBL); try the embednf variant'
+      summary: Every match of a competition, JSON-wrapped embed variant (orgs whose plain hosted pages
+        answer 500)
+    servers:
+    - url: https://hosted.dcd.shared.geniussports.com
+  /u/{org}/{matchId}/:
+    get:
+      description: 'Captured for 17 org(s): BAL, BNXT, BSN, CBFFE, CEBL, ESAKE, FFBB, FRB, FUBB, HKS,
+        IBBA, LNBP, NBL, NZN, POL, SLB, WBBL. The capture banks the PARSED record of x-parsed-schema (regex
+        over the hidden inputs #matchId / #compId, #competitionName and og:description).'
+      operationId: genius_u
+      parameters:
+      - description: ORG code of the Genius customer (ESAKE, POL, CEBL, ...; see x-leagues). Case as listed;
+          a wrong ORG answers 403 AccessDenied on /u/ and an empty 200 on hosted pages
+        example: ESAKE
+        in: path
+        name: org
+        required: true
+        schema:
+          type: string
+      - description: Genius match id (one global sequence across every Genius customer). data.json needs
+          only this id
+        example: 2902690
+        in: path
+        name: matchId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: genius-livestats/tools/capture.py parse_u
+                rule: 'regex over the hidden inputs #matchId / #compId, #competitionName and og:description'
+                schema:
+                  $ref: '#/components/schemas/GeniusU'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+      summary: 'LiveStats HTML shell of a game: competition name and compId'
+    servers:
+    - url: https://fibalivestats.dcd.shared.geniussports.com
+  /widget/:
+    get:
+      description: 'Captured for 3 org(s): ESAKE, FRB, NZNBL. The query string is the bare widget key
+        (`/widget/?RFJIN037I07QV520B7WEXKV1GYNA31`), not a name=value pair; see x-query-string. The capture
+        banks the PARSED record of x-parsed-schema (the JSON string of `var html = "..."`, one record
+        per li.spls_lsmatch (webcast link, spteam tid<N>, teamname, score, date)).'
+      operationId: genius_widget
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/javascript:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: genius-livestats/tools/capture.py parse_widget
+                rule: the JSON string of `var html = "..."`, one record per li.spls_lsmatch (webcast link,
+                  spteam tid<N>, teamname, score, date)
+                schema:
+                  $ref: '#/components/schemas/GeniusWidget'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+      summary: 'Site widget (JavaScript): latest games with webcast links'
+      x-query-string: '{key}'
+    servers:
+    - url: https://widget.wh.geniussports.com
+  /{org}/en/competition/{compId}/schedule:
+    get:
+      description: 'Captured for 1 org(s): CEBL. The capture banks the PARSED record of x-parsed-schema
+        (one record per div.match-wrap block: STATUS_* class, extfix_<matchId> id, .match-time span, venue
+        link, home/away team links, names, codes and scores).'
+      operationId: genius_hosted_competition_schedule
+      parameters:
+      - description: ORG code of the Genius customer (ESAKE, POL, CEBL, ...; see x-leagues). Case as listed;
+          a wrong ORG answers 403 AccessDenied on /u/ and an empty 200 on hosted pages
+        example: CEBL
+        in: path
+        name: org
+        required: true
+        schema:
+          type: string
+      - description: 'Genius competition id: one per org competition-season (the comp_id rows of x-leagues)'
+        example: 47852
+        in: path
+        name: compId
+        required: true
+        schema:
+          type: integer
+      - description: Round filter; -1 = every round of the competition (the page otherwise shows one round)
+        example: -1
+        in: query
+        name: roundNumber
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: genius-livestats/tools/capture.py parse_schedule
+                rule: 'one record per div.match-wrap block: STATUS_* class, extfix_<matchId> id, .match-time
+                  span, venue link, home/away team links, names, codes and scores'
+                schema:
+                  $ref: '#/components/schemas/GeniusHostedCompetitionSchedule'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+        '500':
+          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
+            BSN, LNBP, NBL); try the embednf variant'
+      summary: Every match of a competition (hosted WebStats)
+    servers:
+    - url: https://hosted.dcd.shared.geniussports.com
+  /{org}/en/schedule:
+    get:
+      description: 'Captured for 11 org(s): BAL, BNXT, CEBL, ESAKE, FFBB, FRB, FUBB, IBBA, NZNBL, SLB,
+        WBBL. The capture banks the PARSED record of x-parsed-schema (the compdata.push([url, label, leagueId,
+        year, compId]) rows of the page script (the options of #competitionChooser)).'
+      operationId: genius_hosted_schedule
+      parameters:
+      - description: ORG code of the Genius customer (ESAKE, POL, CEBL, ...; see x-leagues). Case as listed;
+          a wrong ORG answers 403 AccessDenied on /u/ and an empty 200 on hosted pages
+        example: ESAKE
+        in: path
+        name: org
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: genius-livestats/tools/capture.py parse_chooser
+                rule: 'the compdata.push([url, label, leagueId, year, compId]) rows of the page script
+                  (the options of #competitionChooser)'
+                schema:
+                  $ref: '#/components/schemas/GeniusHostedSchedule'
+          description: OK
+        '403':
+          description: 'CloudFront ''Request blocked'' (~919 B HTML: this egress IP is refused; use a
+            proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
+            existed). Tell them apart by the body'
+        '500':
+          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
+            BSN, LNBP, NBL); try the embednf variant'
+      summary: 'Hosted WebStats schedule: the org''s competitionChooser (every compId)'
+    servers:
+    - url: https://hosted.dcd.shared.geniussports.com
+servers:
+- url: https://fibalivestats.dcd.shared.geniussports.com
+x-leagues:
+  BAL:
+    competitions:
+    - comp_id: 33096
+      genius_year: 2022
+      label: BAL 2022
+      season: 2022
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 35460
+      genius_year: 2023
+      label: BAL 2023
+      season: 2023
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 36139
+      genius_year: 2023
+      label: '2023'
+      season: 2023
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 38044
+      genius_year: 2024
+      label: BAL 2024
+      season: 2024
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 40671
+      genius_year: 2025
+      label: BAL 2025
+      season: 2025
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 48286
+      genius_year: 2026
+      label: '2026'
+      season: 2026
+      season_rule: genius year (calendar)
+      source: chooser
+    country: AFR
+    earliest_data_json:
+      bounded: false
+      comp_id: 33096
+      match_id: 2063276
+      probes: 2
+      season: 2022
+    genius_league_id: 521
+    hosted: plain
+    league: Basketball Africa League (men)
+    live_org: BAL
+    sample_match_id: 2664476
+    span: calendar
+  BNXT:
+    competitions:
+    - comp_id: 30701
+      genius_year: 2021
+      label: BNXT Supercup 2021
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 36455
+      genius_year: 2023
+      label: 2023-2024
+      season: 2024
+      season_rule: label span
+      source: chooser
+    - comp_id: 41511
+      genius_year: null
+      label: BNXT League 2025-2026
+      season: 2026
+      season_rule: label span
+      source: u shell
+    country: BEL/NLD
+    earliest_data_json:
+      bounded: false
+      comp_id: 30701
+      match_id: 1922665
+      probes: 2
+      season: 2022
+    genius_league_id: 560
+    hosted: plain
+    league: BNXT League (Belgium + Netherlands, men)
+    live_org: BNXT
+    sample_match_id: 2852146
+    span: split
+  BSN:
+    competitions:
+    - comp_id: 33320
+      genius_year: null
+      label: BSN 2022
+      season: 2022
+      season_rule: label year (calendar)
+      source: u shell
+    country: PRI
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: Baloncesto Superior Nacional (Puerto Rico, men; Genius to 2025)
+    live_org: BSN
+    sample_match_id: 2080988
+    span: calendar
+  CBFFE:
+    competitions:
+    - comp_id: 49261
+      genius_year: null
+      label: Maxa NBL - muži
+      season: 2027
+      season_rule: competition window dates
+      source: u shell
+    country: CZE
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: Czech NBL (Kooperativa NBL, men)
+    live_org: CBFFE
+    sample_match_id: 2893123
+    span: split
+  CEBL:
+    competitions:
+    - comp_id: 23173
+      genius_year: 2019
+      label: CEBL 2019
+      season: 2019
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 26768
+      genius_year: 2020
+      label: CEBL 2020
+      season: 2020
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 29423
+      genius_year: 2021
+      label: CEBL 2021
+      season: 2021
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 33076
+      genius_year: 2022
+      label: CEBL 2022
+      season: 2022
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 35363
+      genius_year: 2023
+      label: CEBL 2023
+      season: 2023
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 37308
+      genius_year: 2024
+      label: '2024'
+      season: 2024
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 40250
+      genius_year: 2025
+      label: '2025'
+      season: 2025
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 47852
+      genius_year: 2026
+      label: '2026'
+      season: 2026
+      season_rule: genius year (calendar)
+      source: chooser
+    country: CAN
+    earliest_data_json:
+      bounded: false
+      comp_id: 23173
+      match_id: 1140283
+      probes: 3
+      season: 2019
+    genius_league_id: 459
+    hosted: plain
+    league: Canadian Elite Basketball League (men)
+    live_org: CEBL
+    sample_match_id: 2600563
+    span: calendar
+  ESAKE:
+    competitions:
+    - comp_id: 5426
+      genius_year: 1993
+      label: STOIXIMAN.GR Basket League
+      season: 1994
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5428
+      genius_year: 1994
+      label: STOIXIMAN.GR Basket League
+      season: 1995
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5427
+      genius_year: 1995
+      label: STOIXIMAN.GR Basket League
+      season: 1996
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5421
+      genius_year: 1996
+      label: STOIXIMAN.GR Basket League
+      season: 1997
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5422
+      genius_year: 1997
+      label: STOIXIMAN.GR Basket League
+      season: 1998
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5423
+      genius_year: 1998
+      label: STOIXIMAN.GR Basket League
+      season: 1999
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5424
+      genius_year: 1999
+      label: STOIXIMAN.GR Basket League
+      season: 2000
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5425
+      genius_year: 2000
+      label: STOIXIMAN.GR Basket League
+      season: 2001
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5416
+      genius_year: 2001
+      label: STOIXIMAN.GR Basket League
+      season: 2002
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5417
+      genius_year: 2002
+      label: STOIXIMAN.GR Basket League
+      season: 2003
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5418
+      genius_year: 2003
+      label: STOIXIMAN.GR Basket League
+      season: 2004
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5419
+      genius_year: 2004
+      label: STOIXIMAN.GR Basket League
+      season: 2005
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5420
+      genius_year: 2005
+      label: STOIXIMAN.GR Basket League
+      season: 2006
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5415
+      genius_year: 2006
+      label: STOIXIMAN.GR Basket League
+      season: 2007
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5413
+      genius_year: 2007
+      label: STOIXIMAN.GR Basket League
+      season: 2008
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 14600
+      genius_year: 2008
+      label: STOIXIMAN.GR Basket League
+      season: 2009
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 14601
+      genius_year: 2009
+      label: STOIXIMAN.GR Basket League
+      season: 2010
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 14602
+      genius_year: 2010
+      label: STOIXIMAN.GR Basket League
+      season: 2011
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 14603
+      genius_year: 2011
+      label: STOIXIMAN.GR Basket League
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5414
+      genius_year: 2012
+      label: STOIXIMAN.GR Basket League
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5429
+      genius_year: 2013
+      label: STOIXIMAN.GR Basket League
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5031
+      genius_year: 2014
+      label: STOIXIMAN.GR Basket League
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5032
+      genius_year: 2014
+      label: Nick Galis Cup
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5033
+      genius_year: 2015
+      label: Nick Galis Cup
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5034
+      genius_year: 2015
+      label: Κύπελλο Ελλάδας
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5035
+      genius_year: 2015
+      label: Κύπελλο Ελλάδας
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 5036
+      genius_year: 2015
+      label: STOIXIMAN.GR Basket League 2015 - 16
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 7972
+      genius_year: 2015
+      label: Μαυροσκούφεια
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 12126
+      genius_year: 2016
+      label: STOIXIMAN.GR Basket League 2016 - 17
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 19453
+      genius_year: 2017
+      label: STOIXIMAN.GR Basket League 2017-18
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 22742
+      genius_year: 2018
+      label: BETSHOP BASKET LEAGUE 2018 - 19
+      season: 2019
+      season_rule: label span
+      source: chooser
+    - comp_id: 25989
+      genius_year: 2019
+      label: BASKET LEAGUE 2019 - 20
+      season: 2020
+      season_rule: label span
+      source: chooser
+    - comp_id: 27218
+      genius_year: 2019
+      label: ALL STAR
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28567
+      genius_year: 2020
+      label: BASKET LEAGUE
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28568
+      genius_year: 2020
+      label: SUPER CUP
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28569
+      genius_year: 2020
+      label: SUPER CUP 2020
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28570
+      genius_year: 2020
+      label: super cup basket league
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28571
+      genius_year: 2020
+      label: SUPER CUP BASKET LEAGUE 2020
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28572
+      genius_year: 2020
+      label: 1o SUPER CUP
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28575
+      genius_year: 2020
+      label: WATT + VOLT Super Cup 2020
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28743
+      genius_year: 2020
+      label: STOIXIMAN BASKET LEAGUE
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 29022
+      genius_year: 2020
+      label: Monday’s Game Night against COVID-19
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 29847
+      genius_year: 2020
+      label: Esake Woman
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 30872
+      genius_year: 2021
+      label: 2o HNC COIN SUPER CUP
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 30873
+      genius_year: 2021
+      label: STOIXIMAN BASKET LEAGUE 2021-22
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 34541
+      genius_year: 2022
+      label: BASKET LEAGUE 2022 - 23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 34542
+      genius_year: 2022
+      label: SUPER CUP 2022 by aegean islands
+      season: 2023
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 49915
+      genius_year: null
+      label: Stoiximan GBL 2026-2027
+      season: 2027
+      season_rule: label span
+      source: u shell
+    country: GRC
+    earliest_data_json:
+      bounded: true
+      comp_id: 5036
+      match_id: 211954
+      probes: 5
+      season: 2016
+    genius_league_id: 115
+    hosted: plain
+    league: Greek Basket League (HEBA A1, men) + Greek cup, super cup, women
+    live_org: ESAKE
+    sample_match_id: 2902690
+    span: split
+  FFBB:
+    competitions:
+    - comp_id: 18539
+      genius_year: 2017
+      label: NATIONALE MASCULINE 1
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18540
+      genius_year: 2017
+      label: LIGUE FEMININE
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18541
+      genius_year: 2017
+      label: LIGUE FEMININE 2
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21849
+      genius_year: 2018
+      label: LIGUE FEMININE DE BASKET
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21850
+      genius_year: 2018
+      label: NATIONALE MASCULINE 1
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21851
+      genius_year: 2018
+      label: LIGUE FEMININE 2
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22217
+      genius_year: 2018
+      label: COUPE DE FRANCE ROBERT BUSNEL
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 49551
+      genius_year: null
+      label: LIGUE FEMININE 2
+      season: 2027
+      season_rule: schedule dates
+      source: u shell
+    country: FRA
+    earliest_data_json:
+      bounded: false
+      comp_id: 18539
+      match_id: 678522
+      probes: 3
+      season: 2018
+    genius_league_id: 95
+    hosted: plain
+    league: 'French federation: Ligue Féminine, LF2, Nationale 1, Coupe de France'
+    live_org: FFBB
+    sample_match_id: 2875354
+    span: split
+  FRB:
+    competitions:
+    - comp_id: 11929
+      genius_year: 2016
+      label: Liga Nationala de Baschet Masculin
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 50100
+      genius_year: null
+      label: LNBM BCR
+      season: 2027
+      season_rule: schedule dates
+      source: u shell
+    country: ROU
+    earliest_data_json:
+      bounded: false
+      comp_id: 11929
+      match_id: 376626
+      probes: 1
+      season: 2017
+    genius_league_id: 118
+    hosted: plain
+    league: Romanian Liga Națională (men)
+    live_org: FRB
+    sample_match_id: 2910767
+    span: split
+  FUBB:
+    competitions:
+    - comp_id: 21479
+      genius_year: 1995
+      label: Federal 1995
+      season: 1996
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21523
+      genius_year: 1995
+      label: Torneo Federal 1995
+      season: 1996
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21527
+      genius_year: 1996
+      label: Torneo Federal 1996
+      season: 1997
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21528
+      genius_year: 1997
+      label: Torneo Federal 1997
+      season: 1998
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21529
+      genius_year: 1998
+      label: Torneo Federal 1998
+      season: 1999
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21530
+      genius_year: 1999
+      label: Torneo Federal 1999
+      season: 2000
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21534
+      genius_year: 2000
+      label: Torneo Federal
+      season: 2001
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21535
+      genius_year: 2001
+      label: Torneo Federal 2001
+      season: 2002
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21539
+      genius_year: 2002
+      label: Torneo Federal 2002
+      season: 2003
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21540
+      genius_year: 2003
+      label: Torneo Federal 2003
+      season: 2004
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21546
+      genius_year: 2004
+      label: Liga Uruguaya de Basquetbol 2004
+      season: 2005
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21547
+      genius_year: 2005
+      label: Liga Uruguaya de Basquetbol 2005-2006
+      season: 2006
+      season_rule: label span
+      source: chooser
+    - comp_id: 21963
+      genius_year: 2005
+      label: Metro 2005
+      season: 2006
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25839
+      genius_year: 2007
+      label: Metro 2007
+      season: 2008
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 23208
+      genius_year: 2008
+      label: Metro 2008
+      season: 2009
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 288
+      genius_year: 2010
+      label: Liga Uruguaya / PlayOff 2010-2011
+      season: 2011
+      season_rule: label span
+      source: chooser
+    - comp_id: 332
+      genius_year: 2010
+      label: Liga Uruguaya de Basquetbol 2010-2011
+      season: 2011
+      season_rule: label span
+      source: chooser
+    - comp_id: 1338
+      genius_year: 2010
+      label: Liga Uruguaya de Basquetbol / 2 2010-2011
+      season: 2011
+      season_rule: label span
+      source: chooser
+    - comp_id: 1339
+      genius_year: 2010
+      label: Liga Uruguaya de Basquetbol 2010
+      season: 2011
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 1340
+      genius_year: 2010
+      label: Liga Uruguaya de Basquetbol / 2 2010
+      season: 2011
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 289
+      genius_year: 2011
+      label: Torneo Metropolitano 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 290
+      genius_year: 2011
+      label: Torneo Metropolitano / Playoff-cap-25a 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 291
+      genius_year: 2011
+      label: Torneo Metropolitano / Playoff-yal-ver 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 292
+      genius_year: 2011
+      label: Torneo Metropolitano / Playoff-2ver-25a 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 293
+      genius_year: 2011
+      label: Torneo Metropolitano / Playoff
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 294
+      genius_year: 2011
+      label: Internacional Amistoso / SUPER 4
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 295
+      genius_year: 2011
+      label: Internacional Amistoso / URU-MEX
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 296
+      genius_year: 2011
+      label: Liga Uruguaya - Capital 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 297
+      genius_year: 2011
+      label: Liga Uruguaya - Sur 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 298
+      genius_year: 2011
+      label: Liga Uruguaya - Litoral 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 299
+      genius_year: 2011
+      label: Internacional Amistoso / URU-ARG
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 300
+      genius_year: 2011
+      label: Tercera de Ascenso
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 302
+      genius_year: 2011
+      label: Tercera de Ascenso / Play Off 2011
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 304
+      genius_year: 2011
+      label: Liga Uruguaya / Desempate 8 Lugar 2011-2012
+      season: 2012
+      season_rule: label span
+      source: chooser
+    - comp_id: 305
+      genius_year: 2011
+      label: Liga Uruguaya / Super Liga - Serie 1
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 306
+      genius_year: 2011
+      label: Liga Uruguaya / Super Liga - Serie 2
+      season: 2012
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 303
+      genius_year: 2012
+      label: LUB / Super 4 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 307
+      genius_year: 2012
+      label: Super Liga / Desempate 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 308
+      genius_year: 2012
+      label: Liga Uruguaya / PlayOff 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 312
+      genius_year: 2012
+      label: Torneo Metropolitano 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 313
+      genius_year: 2012
+      label: Torneo Metropolitno / Desempate 7o puesto 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 314
+      genius_year: 2012
+      label: Torneo Metropolitano / 2 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 315
+      genius_year: 2012
+      label: Torneo Metropolitano / PlayOff 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 317
+      genius_year: 2012
+      label: Liga Uruguaya / Fase Regular 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 318
+      genius_year: 2012
+      label: Tercera de Ascenso
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 319
+      genius_year: 2012
+      label: Liga Uruguaya / Litoral 2012-2013
+      season: 2013
+      season_rule: label span
+      source: chooser
+    - comp_id: 320
+      genius_year: 2012
+      label: Liga Uruguaya - Centro Sur 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 322
+      genius_year: 2012
+      label: Liga Uruguaya / Super 4 Interior 2012-2013
+      season: 2013
+      season_rule: label span
+      source: chooser
+    - comp_id: 323
+      genius_year: 2012
+      label: Liga Uruguaya / Desempate Permanencia 2012-2013
+      season: 2013
+      season_rule: label span
+      source: chooser
+    - comp_id: 324
+      genius_year: 2012
+      label: Liga Uruguaya / Reclasificatorio 2012
+      season: 2013
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 309
+      genius_year: 2013
+      label: Liga Uruguaya / SUPER LIGA 2013
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 310
+      genius_year: 2013
+      label: Liga Uruguaya 2013
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 311
+      genius_year: 2013
+      label: AMISTOSOS URUGUAY
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 325
+      genius_year: 2013
+      label: Torneo Metropolitano 2013
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 326
+      genius_year: 2013
+      label: Torneo Litoral Norte
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 328
+      genius_year: 2013
+      label: Liga Uruguaya de Basquetbol 2013-2014
+      season: 2014
+      season_rule: label span
+      source: chooser
+    - comp_id: 329
+      genius_year: 2013
+      label: Tercera de Ascenso
+      season: 2014
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 330
+      genius_year: 2013
+      label: Liga Uruguaya / PlayOff Reclasificatorio 2013-2014
+      season: 2014
+      season_rule: label span
+      source: chooser
+    - comp_id: 331
+      genius_year: 2014
+      label: Torneo Litoral Norte 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 333
+      genius_year: 2014
+      label: Torneo Metropolitano 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 334
+      genius_year: 2014
+      label: Torneo Litoral Norte / Fase 2 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 335
+      genius_year: 2014
+      label: Liga Uruguaya de Basquetbol 2014-2015
+      season: 2015
+      season_rule: label span
+      source: chooser
+    - comp_id: 528
+      genius_year: 2014
+      label: Torneo Metropolitano / Final 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 529
+      genius_year: 2014
+      label: Torneo Uruguayo de Ascenso 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 942
+      genius_year: 2014
+      label: DTA 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 1132
+      genius_year: 2014
+      label: Partido de las Estrellas 2014
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21545
+      genius_year: 2014
+      label: Liga Uruguaya de Basquetbol
+      season: 2015
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 1307
+      genius_year: 2015
+      label: Liga Uruguaya / Super 4
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 1781
+      genius_year: 2015
+      label: Torneo Metropolitano 2015
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 2095
+      genius_year: 2015
+      label: AMISTOSOS INTERNACIONALES
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 3007
+      genius_year: 2015
+      label: Liga Uruguaya de Basquetbol 2015-2016
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 4388
+      genius_year: 2015
+      label: DTA 2015
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 8026
+      genius_year: 2015
+      label: Liga Uruguaya / Super 4 2015-2016
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 8538
+      genius_year: 2016
+      label: Liga Uruguaya de Ascenso 2016
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 11907
+      genius_year: 2016
+      label: Liga Uruguaya de Basquetbol 2016-2017
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 12017
+      genius_year: 2016
+      label: DTA 2016
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 16464
+      genius_year: 2016
+      label: Liga Uruguaya / PARTIDO DE ESTRELLAS 2016
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 17031
+      genius_year: 2017
+      label: Super 4 LUB
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 17080
+      genius_year: 2017
+      label: Metro 2017
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 17617
+      genius_year: 2017
+      label: U17 AMISTOSO INTERNACIONAL
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18502
+      genius_year: 2017
+      label: AMISTOSOS URUGUAY
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19163
+      genius_year: 2017
+      label: Liga Uruguaya de Basquetbol 2017-2018
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 19164
+      genius_year: 2017
+      label: COPA BIGUA 2017
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19370
+      genius_year: 2017
+      label: DTA 2017
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19392
+      genius_year: 2017
+      label: FEMENINO 2017 ORO
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19393
+      genius_year: 2017
+      label: FEMENINO 2017 PLATA
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19432
+      genius_year: 2017
+      label: TEST FLS
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 20486
+      genius_year: 2018
+      label: METRO 2018
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 21875
+      genius_year: 2018
+      label: Liga Uruguaya de Basquetbol 2018-2019
+      season: 2019
+      season_rule: label span
+      source: chooser
+    - comp_id: 21876
+      genius_year: 2018
+      label: DTA 2018
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22123
+      genius_year: 2018
+      label: FEMENINO 2018 ORO
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22124
+      genius_year: 2018
+      label: FEMENINO 2018 PLATA
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 23440
+      genius_year: 2019
+      label: Metro 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 24484
+      genius_year: 2019
+      label: Liga Uruguaya de Basquetbol 2019-2020
+      season: 2020
+      season_rule: label span
+      source: chooser
+    - comp_id: 25182
+      genius_year: 2019
+      label: DTA 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25493
+      genius_year: 2019
+      label: FEMENINO PLATA 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25494
+      genius_year: 2019
+      label: FEMENINO ORO 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25559
+      genius_year: 2019
+      label: G League International Challenge
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25982
+      genius_year: 2019
+      label: COPA BIGUA 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26883
+      genius_year: 2019
+      label: SUB23 2019
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 27311
+      genius_year: 2020
+      label: Metro 2020
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28386
+      genius_year: 2020
+      label: LIGA FEMENINA 2020
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 28807
+      genius_year: 2020
+      label: LUB 2020/2021
+      season: 2021
+      season_rule: label span
+      source: chooser
+    - comp_id: 29672
+      genius_year: 2021
+      label: Metro 2021
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 29746
+      genius_year: 2021
+      label: DTA 2021
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 30383
+      genius_year: 2021
+      label: LUB 2021/2022
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 30436
+      genius_year: 2021
+      label: Liga Femenina 2021
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 33412
+      genius_year: 2021
+      label: Triangular amistoso FUBB 2022
+      season: 2022
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 33265
+      genius_year: 2022
+      label: Liga Femenina 2022
+      season: 2023
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 33314
+      genius_year: 2022
+      label: Metro 2022
+      season: 2023
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 34366
+      genius_year: 2022
+      label: CAMPEONATO SALTEÑO 2022
+      season: 2023
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 34409
+      genius_year: 2022
+      label: LUB 2022/2023
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 34410
+      genius_year: 2022
+      label: DTA 2022
+      season: 2023
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 35607
+      genius_year: 2022
+      label: Super 4 LUB 22/23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 35765
+      genius_year: 2023
+      label: Liga Femenina 2023
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 35948
+      genius_year: 2023
+      label: Metro 2023
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 36575
+      genius_year: 2023
+      label: Campeonato Salteño 2023
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 37214
+      genius_year: 2023
+      label: LUB 2023/2024
+      season: 2024
+      season_rule: label span
+      source: chooser
+    - comp_id: 37215
+      genius_year: 2023
+      label: DTA 2023
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 38079
+      genius_year: 2023
+      label: Torneo Integración OBL 2024
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 38196
+      genius_year: 2024
+      label: Liga Femenina 2024
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 38332
+      genius_year: 2024
+      label: Liga de Ascenso 2024
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 38604
+      genius_year: 2024
+      label: DTA 2024
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 39237
+      genius_year: 2024
+      label: '2024'
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 39840
+      genius_year: 2024
+      label: Liga Uruguaya de Basquetbol 2024/2025
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 39917
+      genius_year: 2024
+      label: TORNEO INTERNACIONAL 2024
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 40675
+      genius_year: 2024
+      label: Torneo OBL 2025
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 40676
+      genius_year: 2024
+      label: Torneo Litoral Norte 2025
+      season: 2025
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 40794
+      genius_year: 2025
+      label: Liga Femenina 2025
+      season: 2026
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 40841
+      genius_year: 2025
+      label: Liga de Ascenso 2025
+      season: 2026
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 41426
+      genius_year: 2025
+      label: Divisional Tercera de Ascenso 2025
+      season: 2026
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 42104
+      genius_year: 2025
+      label: Liga Uruguaya de Basquetbol 2025/2026
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 48315
+      genius_year: 2025
+      label: Torneo Litoral Norte 2026
+      season: 2026
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 48456
+      genius_year: 2026
+      label: LFB 2026
+      season: 2027
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 48479
+      genius_year: 2026
+      label: OBL 2026
+      season: 2027
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 48785
+      genius_year: 2026
+      label: LUB 26/27
+      season: 2027
+      season_rule: label span
+      source: chooser
+    - comp_id: 48810
+      genius_year: 2026
+      label: Liga de Ascenso 2026
+      season: 2027
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 49476
+      genius_year: 2026
+      label: DTA 2026
+      season: 2027
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 50123
+      genius_year: 2026
+      label: Amistosos LUB 2026
+      season: 2027
+      season_rule: genius year + 1 (split)
+      source: chooser
+    country: URY
+    earliest_data_json:
+      bounded: true
+      comp_id: 1132
+      match_id: 76638
+      probes: 6
+      season: 2015
+    genius_league_id: 16
+    hosted: plain
+    league: Uruguay Liga Uruguaya de Básquetbol (men) + federation competitions
+    live_org: FUBB
+    sample_match_id: 2741417
+    span: split
+  HKS:
+    competitions:
+    - comp_id: 39516
+      genius_year: null
+      label: ''
+      season: 2025
+      season_rule: schedule dates
+      source: curated id
+    - comp_id: 47783
+      genius_year: null
+      label: ''
+      season: 2026
+      season_rule: schedule dates
+      source: curated id
+    - comp_id: 49945
+      genius_year: null
+      label: ''
+      season: 2027
+      season_rule: schedule dates
+      source: curated id
+    - comp_id: 49946
+      genius_year: null
+      label: Prva muška liga 2026-27
+      season: 2027
+      season_rule: label span
+      source: u shell
+    country: HRV
+    earliest_data_json:
+      bounded: false
+      comp_id: 39516
+      match_id: 2514566
+      probes: 2
+      season: 2025
+    genius_league_id: null
+    hosted: embednf
+    league: Croatian Premijer liga (men; women on a sibling compId)
+    live_org: HKS
+    sample_match_id: 2895763
+    span: split
+  IBBA:
+    competitions:
+    - comp_id: 9465
+      genius_year: 2015
+      label: Men's Leumit
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 9475
+      genius_year: 2015
+      label: Women 1st Div.
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 9825
+      genius_year: 2015
+      label: 1st division
+      season: 2016
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 9466
+      genius_year: 2016
+      label: Men's Leumit
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 9476
+      genius_year: 2016
+      label: Women 1st Div.
+      season: 2017
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18932
+      genius_year: 2017
+      label: 1st division
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18933
+      genius_year: 2017
+      label: Men's Leumit
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18949
+      genius_year: 2017
+      label: Women 1st Div.
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 18963
+      genius_year: 2017
+      label: Boys U18 LigatAl North
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 19000
+      genius_year: 2017
+      label: Boys U18 LigatAl South
+      season: 2018
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22329
+      genius_year: 2018
+      label: Men's Leumit
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22330
+      genius_year: 2018
+      label: Women 1st Div.
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22390
+      genius_year: 2018
+      label: 1st division
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 22514
+      genius_year: 2018
+      label: Boys U18 LigatAl South
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26057
+      genius_year: 2019
+      label: 1st division
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26059
+      genius_year: 2019
+      label: Men's Leumit
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26073
+      genius_year: 2019
+      label: Women 1st Div.
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26084
+      genius_year: 2019
+      label: Boys U18 LigatAl North
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 26087
+      genius_year: 2019
+      label: Boys U18 LigatAl South
+      season: 2020
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 29004
+      genius_year: 2020
+      label: National
+      season: 2021
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 47270
+      genius_year: null
+      label: לאומית
+      season: 2026
+      season_rule: schedule dates
+      source: u shell
+    country: ISR
+    earliest_data_json:
+      bounded: true
+      comp_id: 9466
+      match_id: 339944
+      probes: 4
+      season: 2017
+    genius_league_id: 187
+    hosted: plain
+    league: 'Israel Basketball Association: Leumit (1st division) and Women 1st Division'
+    live_org: IBBA
+    sample_match_id: 2733668
+    span: split
+  LNBP:
+    competitions:
+    - comp_id: 30544
+      genius_year: null
+      label: LNBP 2021
+      season: 2021
+      season_rule: label year (calendar)
+      source: u shell
+    country: MEX
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: Liga Nacional de Baloncesto Profesional (Mexico, men; Genius history)
+    live_org: LNBP
+    sample_match_id: 1913661
+    span: calendar
+  NBL:
+    competitions:
+    - comp_id: 38870
+      genius_year: null
+      label: NBL
+      season: 2025
+      season_rule: competition window dates
+      source: u shell
+    country: AUS
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: NBL Australia (men; on Genius to 2024-25, then Synergy)
+    live_org: NBL
+    sample_match_id: 2461903
+    span: split
+  NZNBL:
+    competitions:
+    - comp_id: 8192
+      genius_year: 2011
+      label: Bartercard National Basketball League
+      season: 2011
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 8194
+      genius_year: 2012
+      label: Bartercard National Basketball League
+      season: 2012
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 8195
+      genius_year: 2013
+      label: Bartercard National Basketball League
+      season: 2013
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 8197
+      genius_year: 2014
+      label: Bartercard National Basketball League
+      season: 2014
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 8198
+      genius_year: 2015
+      label: Bartercard National Basketball League
+      season: 2015
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 8199
+      genius_year: 2016
+      label: National Basketball League
+      season: 2016
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 16992
+      genius_year: 2017
+      label: National Basketball League
+      season: 2017
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 20396
+      genius_year: 2018
+      label: Sal's National Basketball League
+      season: 2018
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 23676
+      genius_year: 2019
+      label: Sal's National Basketball League
+      season: 2019
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 27176
+      genius_year: 2020
+      label: Sals NBL Men
+      season: 2020
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 29103
+      genius_year: 2021
+      label: Sals NBL Men
+      season: 2021
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 31602
+      genius_year: 2022
+      label: Sals NBL
+      season: 2022
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 35190
+      genius_year: 2023
+      label: Sals NBL
+      season: 2023
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 37523
+      genius_year: 2024
+      label: Sals NBL
+      season: 2024
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 37524
+      genius_year: 2024
+      label: Rapid League
+      season: 2024
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 40144
+      genius_year: 2025
+      label: Rapid League
+      season: 2025
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 40145
+      genius_year: 2025
+      label: Sals NBL
+      season: 2025
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 47827
+      genius_year: 2026
+      label: 2026 Sal's National Basketball League
+      season: 2026
+      season_rule: genius year (calendar)
+      source: chooser
+    - comp_id: 47834
+      genius_year: 2026
+      label: Rapid League
+      season: 2026
+      season_rule: genius year (calendar)
+      source: chooser
+    country: NZL
+    earliest_data_json:
+      bounded: true
+      comp_id: 8199
+      match_id: 279815
+      probes: 4
+      season: 2016
+    genius_league_id: 149
+    hosted: plain
+    league: New Zealand National Basketball League (men)
+    live_org: NZN
+    sample_match_id: 2785478
+    span: calendar
+  POL:
+    competitions:
+    - comp_id: 50175
+      genius_year: null
+      label: PGE Polska Liga Koszykówki
+      season: 2027
+      season_rule: competition window dates
+      source: u shell
+    country: POL
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: Polish Basketball League (PLK / Orlen Basket Liga, men)
+    live_org: POL
+    sample_match_id: 2937721
+    span: split
+  SLB:
+    competitions:
+    - comp_id: 39625
+      genius_year: 2024
+      label: Championship 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 39626
+      genius_year: 2024
+      label: Trophy 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 39732
+      genius_year: 2024
+      label: Cup 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 39733
+      genius_year: 2024
+      label: Play-offs 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 41897
+      genius_year: 2025
+      label: Championship 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 42212
+      genius_year: 2025
+      label: Trophy 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 47714
+      genius_year: 2025
+      label: Cup 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 48758
+      genius_year: 2025
+      label: Play-offs 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 49597
+      genius_year: 2026
+      label: Championship 26-27
+      season: 2027
+      season_rule: label span
+      source: chooser
+    - comp_id: 49599
+      genius_year: 2026
+      label: Cup 26-27
+      season: 2027
+      season_rule: label span
+      source: chooser
+    country: GBR
+    earliest_data_json:
+      bounded: false
+      comp_id: 39625
+      match_id: 2523044
+      probes: 3
+      season: 2025
+    genius_league_id: 610
+    hosted: plain
+    league: Super League Basketball (UK, men)
+    live_org: SLB
+    sample_match_id: 2523184
+    span: split
+  SPB:
+    competitions: []
+    country: VEN
+    earliest_data_json: null
+    genius_league_id: null
+    hosted: null
+    league: Superliga Profesional de Baloncesto (Venezuela, men)
+    live_org: SPB
+    sample_match_id: null
+    span: calendar
+  WBBL:
+    competitions:
+    - comp_id: 103
+      genius_year: 2014
+      label: WBBL Championship & Play-Offs 2014-15
+      season: 2015
+      season_rule: label span
+      source: chooser
+    - comp_id: 105
+      genius_year: 2014
+      label: WBBL Trophy 2014-15
+      season: 2015
+      season_rule: label span
+      source: chooser
+    - comp_id: 2120
+      genius_year: 2015
+      label: WBBL Trophy 2015-16
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 2121
+      genius_year: 2015
+      label: WBBL Championship 2015-16
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 8413
+      genius_year: 2015
+      label: WBBL Play-Offs 2015-16
+      season: 2016
+      season_rule: label span
+      source: chooser
+    - comp_id: 9056
+      genius_year: 2016
+      label: WBBL Championship 2016-17
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 9057
+      genius_year: 2016
+      label: WBBL Cup 2016-17
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 9069
+      genius_year: 2016
+      label: WBBL Trophy 2016-17
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 17387
+      genius_year: 2016
+      label: WBBL Play-Offs 2016-17
+      season: 2017
+      season_rule: label span
+      source: chooser
+    - comp_id: 18386
+      genius_year: 2017
+      label: WBBL Championship 2017-18
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 18387
+      genius_year: 2017
+      label: WBBL Cup 2017-18
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 18393
+      genius_year: 2017
+      label: Betty Codona WBBL Trophy 2017-18
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 20887
+      genius_year: 2017
+      label: WBBL Play-Offs 2017-18
+      season: 2018
+      season_rule: label span
+      source: chooser
+    - comp_id: 21246
+      genius_year: 2018
+      label: WBBL Championship 2018-19
+      season: 2019
+      season_rule: label span
+      source: chooser
+    - comp_id: 21247
+      genius_year: 2018
+      label: WBBL Cup 2018-19
+      season: 2019
+      season_rule: label span
+      source: chooser
+    - comp_id: 21248
+      genius_year: 2018
+      label: Betty Codona WBBL Trophy 2018-19
+      season: 2019
+      season_rule: label span
+      source: chooser
+    - comp_id: 24207
+      genius_year: 2018
+      label: benecos WBBL Play-Offs
+      season: 2019
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 25009
+      genius_year: 2019
+      label: WBBL Championship 2019-20
+      season: 2020
+      season_rule: label span
+      source: chooser
+    - comp_id: 25201
+      genius_year: 2019
+      label: WBBL Cup 2019-20
+      season: 2020
+      season_rule: label span
+      source: chooser
+    - comp_id: 25202
+      genius_year: 2019
+      label: Betty Codona WBBL Trophy 2019-20
+      season: 2020
+      season_rule: label span
+      source: chooser
+    - comp_id: 28811
+      genius_year: 2020
+      label: WBBL Championship 2020-21
+      season: 2021
+      season_rule: label span
+      source: chooser
+    - comp_id: 28816
+      genius_year: 2020
+      label: WBBL Cup 2020-21
+      season: 2021
+      season_rule: label span
+      source: chooser
+    - comp_id: 29098
+      genius_year: 2020
+      label: Betty Codona WBBL Trophy 2020-21
+      season: 2021
+      season_rule: label span
+      source: chooser
+    - comp_id: 29714
+      genius_year: 2020
+      label: WBBL Play-Offs 2020-21
+      season: 2021
+      season_rule: label span
+      source: chooser
+    - comp_id: 30240
+      genius_year: 2021
+      label: WBBL Championship 2021-22
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 30241
+      genius_year: 2021
+      label: WBBL Cup 2021-22
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 30242
+      genius_year: 2021
+      label: Betty Codona WBBL Trophy 2021-22
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 33518
+      genius_year: 2021
+      label: WBBL Play-Offs 2021-22
+      season: 2022
+      season_rule: label span
+      source: chooser
+    - comp_id: 34125
+      genius_year: 2022
+      label: WBBL Championship 2022-23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 34126
+      genius_year: 2022
+      label: WBBL Cup 2022-23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 35227
+      genius_year: 2022
+      label: Betty Codona WBBL Trophy 2022-23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 35892
+      genius_year: 2022
+      label: WBBL Play-Offs 2022-23
+      season: 2023
+      season_rule: label span
+      source: chooser
+    - comp_id: 36427
+      genius_year: 2023
+      label: Championship 2023-24
+      season: 2024
+      season_rule: label span
+      source: chooser
+    - comp_id: 36574
+      genius_year: 2023
+      label: Betty Codona Trophy 2023-24
+      season: 2024
+      season_rule: label span
+      source: chooser
+    - comp_id: 38098
+      genius_year: 2023
+      label: All-Stars 2024
+      season: 2024
+      season_rule: genius year + 1 (split)
+      source: chooser
+    - comp_id: 38398
+      genius_year: 2023
+      label: Playoffs 2023-24
+      season: 2024
+      season_rule: label span
+      source: chooser
+    - comp_id: 39604
+      genius_year: 2024
+      label: Championship 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 39606
+      genius_year: 2024
+      label: Betty Codona Trophy 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 40463
+      genius_year: 2024
+      label: Cup 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 41141
+      genius_year: 2024
+      label: Play-offs 2024-25
+      season: 2025
+      season_rule: label span
+      source: chooser
+    - comp_id: 41751
+      genius_year: 2025
+      label: Championship 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 41771
+      genius_year: 2025
+      label: Betty Codona Trophy 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 41772
+      genius_year: 2025
+      label: Cup 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 48730
+      genius_year: 2025
+      label: Play-offs 2025-26
+      season: 2026
+      season_rule: label span
+      source: chooser
+    - comp_id: 49542
+      genius_year: 2026
+      label: Championship 2026-27
+      season: 2027
+      season_rule: label span
+      source: chooser
+    - comp_id: 49543
+      genius_year: 2026
+      label: Betty Codona Cup 2026-27
+      season: 2027
+      season_rule: label span
+      source: chooser
+    country: GBR
+    earliest_data_json:
+      bounded: true
+      comp_id: 105
+      match_id: 12248
+      probes: 5
+      season: 2015
+    genius_league_id: 10
+    hosted: plain
+    league: Women's British Basketball League
+    live_org: WBBL
+    sample_match_id: 2522423
+    span: split
