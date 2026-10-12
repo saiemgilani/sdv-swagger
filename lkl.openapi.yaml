@@ -144,11 +144,10 @@ components:
                             type: integer
                         type: object
                       plus_minus:
-                        description: 'Cell: Plus/minus while on court (+/- rodiklis), signed integer;
-                          null on the team row.'
+                        description: 'Cell: Plus/minus while on court (+/- rodiklis).'
                         properties:
                           value:
-                            description: The value (integer unless noted in the cell).
+                            description: Plus/minus while on court, signed integer.
                             type: integer
                         type: object
                       points:
@@ -299,8 +298,8 @@ components:
                           type: integer
                       type: object
                     plus_minus:
-                      description: 'Cell: Plus/minus while on court (+/- rodiklis), signed integer; null
-                        on the team row.'
+                      description: 'Cell: plus/minus (+/- rodiklis). On the team totals row the cell is
+                        present but its value is null.'
                       properties:
                         value:
                           description: 'Unobserved: null in every sample (the team totals row carries
@@ -483,11 +482,10 @@ components:
                             type: integer
                         type: object
                       plus_minus:
-                        description: 'Cell: Plus/minus while on court (+/- rodiklis), signed integer;
-                          null on the team row.'
+                        description: 'Cell: Plus/minus while on court (+/- rodiklis).'
                         properties:
                           value:
-                            description: The value (integer unless noted in the cell).
+                            description: Plus/minus while on court, signed integer.
                             type: integer
                         type: object
                       points:
@@ -638,8 +636,8 @@ components:
                           type: integer
                       type: object
                     plus_minus:
-                      description: 'Cell: Plus/minus while on court (+/- rodiklis), signed integer; null
-                        on the team row.'
+                      description: 'Cell: plus/minus (+/- rodiklis). On the team totals row the cell is
+                        present but its value is null.'
                       properties:
                         value:
                           description: 'Unobserved: null in every sample (the team totals row carries
@@ -784,7 +782,7 @@ components:
                 description: Team offensive rebounds in the game (count).
                 type: integer
               points:
-                description: Team points (final score once finished); null before the game.
+                description: 'Team points: the final score (the capture banks finished games only).'
                 type: integer
               points_in_paint:
                 description: Points in the paint; 0 on the 2007-08 sample.
@@ -798,7 +796,7 @@ components:
                   description: Points in that period (integer).
                   type: integer
                 description: Points the team scored IN each period (not cumulative), keyed by period number
-                  ('1'..'4', '5' = first overtime); null before the game.
+                  ('1'..'4', '5' = first overtime).
                 propertyNames:
                   pattern: ^[0-9]+$
                 type: object
@@ -920,8 +918,8 @@ components:
                   type: string
               type: object
           type:
-          - object
           - array
+          - object
         players:
           description: Players of each side on the team sheet, in the site's order (not sorted by shirt
             number or name).
@@ -1101,7 +1099,7 @@ components:
             against the box score instead.'
           type: string
         home:
-          description: Home points (final once finished; 0 before tip-off).
+          description: 'Home points: the final score (the capture banks finished games only).'
           type: integer
       type: object
     LklGameStats:
@@ -1123,14 +1121,20 @@ components:
                         description: 'Bar length in percent: shooting rows = the percentage as a string
                           (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
                           (43 vs 37 -> 53.75).'
-                        type: string
+                        type:
+                        - number
+                        - string
                       percentage:
-                        description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                        description: 'Shooting rows only (absent on counting rows): percentage with ONE
+                          decimal and a % sign (''71.4%'').'
                         type: string
+                        x-absent-in-some-rows: true
                       value:
                         description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
                           integer.'
-                        type: string
+                        type:
+                        - integer
+                        - string
                       winning:
                         description: True when this side's bar is highlighted as the better one (both
                           false on a tie).
@@ -1143,14 +1147,20 @@ components:
                         description: 'Bar length in percent: shooting rows = the percentage as a string
                           (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
                           (43 vs 37 -> 53.75).'
-                        type: string
+                        type:
+                        - number
+                        - string
                       percentage:
-                        description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                        description: 'Shooting rows only (absent on counting rows): percentage with ONE
+                          decimal and a % sign (''71.4%'').'
                         type: string
+                        x-absent-in-some-rows: true
                       value:
                         description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
                           integer.'
-                        type: string
+                        type:
+                        - integer
+                        - string
                       winning:
                         description: True when this side's bar is highlighted as the better one (both
                           false on a tie).
@@ -1159,11 +1169,12 @@ components:
                   label:
                     description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
                       metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws,
-                      ''Atkovoti kamuoliai'' = rebounds (gynyboje = defensive, puolime = offensive), ''Rezultatyvūs
-                      perdavimai'' = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos''
-                      = turnovers, ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' =
-                      points off turnovers, ''Taškai greitose atakose'' = fast-break points, ''Taškai
-                      antru bandymu'' = second-chance points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                      ''Atkovoti kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds,
+                      ''Atkovoti kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai''
+                      = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers,
+                      ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers,
+                      ''Taškai greitose atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance
+                      points, ''Atsarginių žaidėjų taškai'' = bench points.'
                     type: string
                 type: object
               type: array
@@ -1174,7 +1185,7 @@ components:
                   description: Away team's biggest lead.
                   type: integer
                 home:
-                  description: Home team's biggest lead (0 when it never led; null before the game).
+                  description: Home team's biggest lead in points (0 when it never led).
                   type: integer
               type: object
             leads_stats:
@@ -1232,11 +1243,12 @@ components:
                   label:
                     description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
                       metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws,
-                      ''Atkovoti kamuoliai'' = rebounds (gynyboje = defensive, puolime = offensive), ''Rezultatyvūs
-                      perdavimai'' = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos''
-                      = turnovers, ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' =
-                      points off turnovers, ''Taškai greitose atakose'' = fast-break points, ''Taškai
-                      antru bandymu'' = second-chance points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                      ''Atkovoti kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds,
+                      ''Atkovoti kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai''
+                      = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers,
+                      ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers,
+                      ''Taškai greitose atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance
+                      points, ''Atsarginių žaidėjų taškai'' = bench points.'
                     type: string
                 type: object
               type: array
@@ -1248,16 +1260,14 @@ components:
                     description: The away team's bar.
                     properties:
                       graph_length:
-                        description: 'Bar length in percent: shooting rows = the percentage as a string
-                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
-                          (43 vs 37 -> 53.75).'
+                        description: 'Bar length in percent: the percentage as a string without the sign
+                          (''71.4'').'
                         type: string
                       percentage:
-                        description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                        description: Percentage with ONE decimal and a % sign ('71.4%').
                         type: string
                       value:
-                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
-                          integer.'
+                        description: '''made/attempted'' as a string (''25/35'').'
                         type: string
                       winning:
                         description: True when this side's bar is highlighted as the better one (both
@@ -1268,16 +1278,14 @@ components:
                     description: The home team's bar.
                     properties:
                       graph_length:
-                        description: 'Bar length in percent: shooting rows = the percentage as a string
-                          (''71.4''); counting rows = this side''s share of the two values, 0-100, a number
-                          (43 vs 37 -> 53.75).'
+                        description: 'Bar length in percent: the percentage as a string without the sign
+                          (''71.4'').'
                         type: string
                       percentage:
-                        description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                        description: Percentage with ONE decimal and a % sign ('71.4%').
                         type: string
                       value:
-                        description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
-                          integer.'
+                        description: '''made/attempted'' as a string (''25/35'').'
                         type: string
                       winning:
                         description: True when this side's bar is highlighted as the better one (both
@@ -1285,13 +1293,8 @@ components:
                         type: boolean
                     type: object
                   label:
-                    description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
-                      metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws,
-                      ''Atkovoti kamuoliai'' = rebounds (gynyboje = defensive, puolime = offensive), ''Rezultatyvūs
-                      perdavimai'' = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos''
-                      = turnovers, ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' =
-                      points off turnovers, ''Taškai greitose atakose'' = fast-break points, ''Taškai
-                      antru bandymu'' = second-chance points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                    description: 'Row label in LITHUANIAN: ''Dvitaškiai metimai'' = 2PT, ''Tritaškiai
+                      metimai'' = 3PT, ''Baudų metimai'' = free throws.'
                     type: string
                 type: object
               type: array
@@ -1900,13 +1903,15 @@ components:
                       = technical foul (on the bench); ''Išprovokuota pražanga'' = foul drawn; ''Blogas
                       perdavimas'' = bad pass; ''Kamuolio valdymo klaida'' = ball-handling error; ''Puolimo
                       klaida'' = offensive turnover; ''Kamuolys už aikštelės ribų'' = ball out of bounds;
-                      ''Žingsniai'' = travelling; ''N sekundžių pažeidimas'' = N-second violation; ''Įeina
-                      į aikštelę / Išeina iš aikštelės'' = substitution in / out; ''Pilna minutės pertraukėlė''
-                      = full timeout; ''Minutės pertraukėlė'' = official timeout; ''Ginčo kamuolys kėlinio
-                      pradžioje / laimėtas / pralaimėtas'' = jump ball at the period start / won / lost;
-                      ''Trenerio iššūkis – pražanga (atmestas)'' = coach''s challenge on a foul (rejected;
-                      ''priimtas'' = accepted); ''Kėlinys prasidėjo / baigėsi'' = period started / ended;
-                      ''Rungtynės prasidėjo / baigėsi'' = game started / ended.'
+                      ''Žingsniai'' = travelling; ''Vidurio linijos pažeidimas'' = backcourt (half-court
+                      line) violation; ''Sulaikytas kamuolys'' = held ball; ''N sekundžių pažeidimas''
+                      = N-second violation; ''Įeina į aikštelę / Išeina iš aikštelės'' = substitution
+                      in / out; ''Pilna minutės pertraukėlė'' = full timeout; ''Minutės pertraukėlė''
+                      = official timeout; ''Ginčo kamuolys kėlinio pradžioje / laimėtas / pralaimėtas''
+                      = jump ball at the period start / won / lost; ''Trenerio iššūkis – pražanga (atmestas)''
+                      = coach''s challenge on a foul (rejected; ''priimtas'' = accepted); ''Kėlinys prasidėjo
+                      / baigėsi'' = period started / ended; ''Rungtynės prasidėjo / baigėsi'' = game started
+                      / ended.'
                     type: string
                   is_home:
                     description: True = the home team's event (teams_info.home), false = away. Also false
@@ -1916,7 +1921,8 @@ components:
                     description: True on lines that changed the score (made shots and free throws).
                     type: boolean
                   player:
-                    description: The acting player; all three fields null on team / period / game lines.
+                    description: 'The acting player: always an object, but its name, slug and image are
+                      null on team / period / game lines.'
                     properties:
                       image:
                         description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
@@ -1951,11 +1957,12 @@ components:
                     description: 'Event subtype (English code; '''' when none). 2pt/3pt: shot kind (jumpshot,
                       layup, drivinglayup, reverselayup, dunk, alleyoop, alleyoopdunk, tipinlayup, tipindunk,
                       hookshot, fadeaway, floatingjumpshot, pullupjumpshot, stepbackjumpshot, turnaroundjumpshot,
-                      eurostep). freethrow: ''NofM'' (1of2 = first of two). rebound: offensive / defensive.
-                      foul: personal, offensive, technical, benchTechnical. turnover: badpass, ballhandling,
-                      offensive, outofbounds, travel, 3sec, 24sec. substitution: in / out. timeout: full
-                      (team), officials. jumpball: startperiod, won, lost. headcoachchallenge: the challenged
-                      call (foul, outofbounds). period / game: start, end.'
+                      eurostep). freethrow: ''NofM'' = attempt N of M (1of1, 1of2, 2of2, 1of3, 2of3, 3of3).
+                      rebound: offensive / defensive. foul: personal, offensive, technical, benchTechnical.
+                      turnover: badpass, ballhandling, offensive, outofbounds, travel, backcourt (backcourt
+                      violation), 3sec, 24sec. substitution: in / out. timeout: full (team), officials.
+                      jumpball: startperiod, won, lost, heldball. headcoachchallenge: the challenged call
+                      (foul, outofbounds). period / game: start, end.'
                     type: string
                   success:
                     description: 'Shots and free throws: true = made. Every other type: always true.'
@@ -1987,14 +1994,15 @@ components:
                         pražanga (suoleliui)'' = technical foul (on the bench); ''Išprovokuota pražanga''
                         = foul drawn; ''Blogas perdavimas'' = bad pass; ''Kamuolio valdymo klaida'' =
                         ball-handling error; ''Puolimo klaida'' = offensive turnover; ''Kamuolys už aikštelės
-                        ribų'' = ball out of bounds; ''Žingsniai'' = travelling; ''N sekundžių pažeidimas''
-                        = N-second violation; ''Įeina į aikštelę / Išeina iš aikštelės'' = substitution
-                        in / out; ''Pilna minutės pertraukėlė'' = full timeout; ''Minutės pertraukėlė''
-                        = official timeout; ''Ginčo kamuolys kėlinio pradžioje / laimėtas / pralaimėtas''
-                        = jump ball at the period start / won / lost; ''Trenerio iššūkis – pražanga (atmestas)''
-                        = coach''s challenge on a foul (rejected; ''priimtas'' = accepted); ''Kėlinys
-                        prasidėjo / baigėsi'' = period started / ended; ''Rungtynės prasidėjo / baigėsi''
-                        = game started / ended.'
+                        ribų'' = ball out of bounds; ''Žingsniai'' = travelling; ''Vidurio linijos pažeidimas''
+                        = backcourt (half-court line) violation; ''Sulaikytas kamuolys'' = held ball;
+                        ''N sekundžių pažeidimas'' = N-second violation; ''Įeina į aikštelę / Išeina iš
+                        aikštelės'' = substitution in / out; ''Pilna minutės pertraukėlė'' = full timeout;
+                        ''Minutės pertraukėlė'' = official timeout; ''Ginčo kamuolys kėlinio pradžioje
+                        / laimėtas / pralaimėtas'' = jump ball at the period start / won / lost; ''Trenerio
+                        iššūkis – pražanga (atmestas)'' = coach''s challenge on a foul (rejected; ''priimtas''
+                        = accepted); ''Kėlinys prasidėjo / baigėsi'' = period started / ended; ''Rungtynės
+                        prasidėjo / baigėsi'' = game started / ended.'
                       type: string
                     is_home:
                       description: True = the home team's event (teams_info.home), false = away. Also
@@ -2004,7 +2012,8 @@ components:
                       description: True on lines that changed the score (made shots and free throws).
                       type: boolean
                     player:
-                      description: The acting player; all three fields null on team / period / game lines.
+                      description: 'The acting player: always an object, but its name, slug and image
+                        are null on team / period / game lines.'
                       properties:
                         image:
                           description: Player photo URL (http://lkl.lt/media/players/responsive_width_600px/{hash}.png;
@@ -2039,11 +2048,12 @@ components:
                       description: 'Event subtype (English code; '''' when none). 2pt/3pt: shot kind (jumpshot,
                         layup, drivinglayup, reverselayup, dunk, alleyoop, alleyoopdunk, tipinlayup, tipindunk,
                         hookshot, fadeaway, floatingjumpshot, pullupjumpshot, stepbackjumpshot, turnaroundjumpshot,
-                        eurostep). freethrow: ''NofM'' (1of2 = first of two). rebound: offensive / defensive.
-                        foul: personal, offensive, technical, benchTechnical. turnover: badpass, ballhandling,
-                        offensive, outofbounds, travel, 3sec, 24sec. substitution: in / out. timeout:
-                        full (team), officials. jumpball: startperiod, won, lost. headcoachchallenge:
-                        the challenged call (foul, outofbounds). period / game: start, end.'
+                        eurostep). freethrow: ''NofM'' = attempt N of M (1of1, 1of2, 2of2, 1of3, 2of3,
+                        3of3). rebound: offensive / defensive. foul: personal, offensive, technical, benchTechnical.
+                        turnover: badpass, ballhandling, offensive, outofbounds, travel, backcourt (backcourt
+                        violation), 3sec, 24sec. substitution: in / out. timeout: full (team), officials.
+                        jumpball: startperiod, won, lost, heldball. headcoachchallenge: the challenged
+                        call (foul, outofbounds). period / game: start, end.'
                       type: string
                     success:
                       description: 'Shots and free throws: true = made. Every other type: always true.'
@@ -2093,8 +2103,11 @@ components:
                   and standings rows carry only this; the game page teams_info gives slug + id.'
                 type: string
               city:
-                description: City, from 'Arena , City'; null when the site gives none.
-                type: string
+                description: City, from 'Arena , City'; null when the venue line has no city (2007-08
+                  'Arena dar nežinoma').
+                type:
+                - string
+                - 'null'
               date:
                 description: Game date ISO 'YYYY-MM-DD' from the Lithuanian day header ('2026 m. birželio
                   13 d. (šeštadienis)'); the capture checks it falls in the season (Aug 1 START - Jul
@@ -2458,12 +2471,16 @@ components:
                 type: integer
             type: object
           type: array
+        season_end_year:
+          description: 'sdv season key: the END year of season_label (2024-2025 -> 2025).'
+          type: integer
         season_id:
           description: 'The {seasonId} path parameter: STANDINGS season id (a separate, small key space:
             35 = 2026-27, 34 = 2025-26, 1 = 2016-17, 24 = 1993-94; NOT the results season id).'
           type: integer
         season_label:
-          description: That season's label from the /turnyrine-lentele select ('2024-2025 m. sezonas').
+          description: That season's label from the /turnyrine-lentele select ('2024-2025 m. sezonas'
+            = season START-END).
           type: string
         seasons:
           description: Every standings season of the select (newest first). The sample keeps 3.
@@ -2498,14 +2515,20 @@ components:
                     description: 'Bar length in percent: shooting rows = the percentage as a string (''71.4'');
                       counting rows = this side''s share of the two values, 0-100, a number (43 vs 37
                       -> 53.75).'
-                    type: string
+                    type:
+                    - number
+                    - string
                   percentage:
-                    description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                    description: 'Shooting rows only (absent on counting rows): percentage with ONE decimal
+                      and a % sign (''71.4%'').'
                     type: string
+                    x-absent-in-some-rows: true
                   value:
                     description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
                       integer.'
-                    type: string
+                    type:
+                    - integer
+                    - string
                   winning:
                     description: True when this side's bar is highlighted as the better one (both false
                       on a tie).
@@ -2518,14 +2541,20 @@ components:
                     description: 'Bar length in percent: shooting rows = the percentage as a string (''71.4'');
                       counting rows = this side''s share of the two values, 0-100, a number (43 vs 37
                       -> 53.75).'
-                    type: string
+                    type:
+                    - number
+                    - string
                   percentage:
-                    description: 'Shooting rows only: percentage with ONE decimal and a % sign (''71.4%'').'
+                    description: 'Shooting rows only (absent on counting rows): percentage with ONE decimal
+                      and a % sign (''71.4%'').'
                     type: string
+                    x-absent-in-some-rows: true
                   value:
                     description: 'Shooting rows: ''made/attempted'' string (''25/35''); counting rows:
                       integer.'
-                    type: string
+                    type:
+                    - integer
+                    - string
                   winning:
                     description: True when this side's bar is highlighted as the better one (both false
                       on a tie).
@@ -2534,11 +2563,12 @@ components:
               label:
                 description: 'Row label in LITHUANIAN: ''Metimai iš žaidimo'' = field goals, ''Dvitaškiai
                   metimai'' = 2PT, ''Tritaškiai metimai'' = 3PT, ''Baudų metimai'' = free throws, ''Atkovoti
-                  kamuoliai'' = rebounds (gynyboje = defensive, puolime = offensive), ''Rezultatyvūs perdavimai''
-                  = assists, ''Perimti kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers,
-                  ''Pražangos'' = fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers,
-                  ''Taškai greitose atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance
-                  points, ''Atsarginių žaidėjų taškai'' = bench points.'
+                  kamuoliai'' = rebounds, ''Atkovoti kamuoliai gynyboje'' = defensive rebounds, ''Atkovoti
+                  kamuoliai puolime'' = offensive rebounds, ''Rezultatyvūs perdavimai'' = assists, ''Perimti
+                  kamuoliai'' = steals, ''Blokai'' = blocks, ''Klaidos'' = turnovers, ''Pražangos'' =
+                  fouls, ''Taškai'' = points, ''Taškai po klaidų'' = points off turnovers, ''Taškai greitose
+                  atakose'' = fast-break points, ''Taškai antru bandymu'' = second-chance points, ''Atsarginių
+                  žaidėjų taškai'' = bench points.'
                 type: string
             type: object
           type: array
@@ -2640,7 +2670,7 @@ components:
                 description: Team offensive rebounds in the game (count).
                 type: integer
               points:
-                description: Team points (final score once finished); null before the game.
+                description: 'Team points: the final score (the capture banks finished games only).'
                 type: integer
               points_in_paint:
                 description: Points in the paint; 0 on the 2007-08 sample.
@@ -2654,7 +2684,7 @@ components:
                   description: Points in that period (integer).
                   type: integer
                 description: Points the team scored IN each period (not cumulative), keyed by period number
-                  ('1'..'4', '5' = first overtime); null before the game.
+                  ('1'..'4', '5' = first overtime).
                 propertyNames:
                   pattern: ^[0-9]+$
                 type: object
@@ -3060,8 +3090,9 @@ paths:
         then div.result-item: div.location (time, ''arena , city''), a[href*=/komandos/] x2 (strong =
         code, img alt = name), a[href*=/rungtynes/] (id, ''H - A'', the winner in <strong>); page links
         loadResults?page=N. Season scoping verified 2026-10-12 by diffing 49436, 39252 and 3090 (disjoint
-        game ids; every date inside its season window). The capture refuses a list whose dates leave the
-        season, whose pages are short, or whose games repeat across pages.'
+        game ids; every date inside its season window, fixed at Aug 1 START - Jul 31 END). The capture
+        refuses a list whose dates leave the season, whose pages are short, or whose games repeat across
+        pages.'
       operationId: get_lkl_results
       parameters:
       - description: 'Results season id = the value of the /rezultatai select (key space: lkl.lt championships;
@@ -3131,7 +3162,9 @@ paths:
         Keyless. Parsing rule: div.tab-c-ins[data-id=full|home|away|final] tables: th headers checked,
         td cells: Poz. | Komanda (a[href*=/komandos/]) | Rng. | Per. | Pr. | [Laim.% | Serija] | Tšk.
         vid. (two span.num) | Paskutinės 5 (span.bg-green / bg-red). UNSCOPED: the fragment carries no
-        season echo; it is banked on the URL alone (capture.UNSCOPED).'
+        season echo; it is banked on the URL alone (capture.UNSCOPED). Partial check: every team slug
+        of the four tables must play a game in the results list of the season with the same label (walked
+        in full), or the capture refuses it.'
       operationId: get_lkl_standings
       parameters:
       - description: Standings season id = the value of the /turnyrine-lentele select (35 = 2026-27 ...
