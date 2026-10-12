@@ -69,8 +69,9 @@ components:
               matchNumber:
                 type: integer
               overtimeCount:
-                type:
-                - 'null'
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               real_end_date:
                 type: string
               real_start_date:
@@ -135,8 +136,9 @@ components:
                     type: string
                 type: object
               television2:
-                type:
-                - 'null'
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               tickets_url:
                 type: string
             type: object
@@ -300,8 +302,9 @@ components:
           height:
             type: integer
           holema_id:
-            type:
-            - 'null'
+            description: 'Unobserved: null (or an empty array) in every captured sample, so the type is
+              unknown.'
+            x-unobserved: true
           id:
             type: integer
           jersey:
@@ -559,6 +562,11 @@ components:
         type: object
       type: array
     MatchesMatchIdGameHeader:
+      oneOf:
+      - $ref: '#/components/schemas/MatchesMatchIdGameHeaderDe'
+      - $ref: '#/components/schemas/MatchesMatchIdGameHeaderIcehlDen'
+    MatchesMatchIdGameHeaderDe:
+      description: Shape sent by `de.hokejovyzapis.cz`.
       properties:
         actualTimeAlias:
           type: string
@@ -581,6 +589,136 @@ components:
                   type: string
               type: object
           type: object
+        lastEventTime:
+          type: integer
+        numberOfViewers:
+          type: integer
+        overtimeCount:
+          description: 'Unobserved: null (or an empty array) in every captured sample, so the type is
+            unknown.'
+          x-unobserved: true
+        referees:
+          properties:
+            headReferee1:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            headReferee2:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            lineReferee1:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            lineReferee2:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+          type: object
+        results:
+          properties:
+            contumacy:
+              type: boolean
+            extra_time:
+              type: boolean
+            score:
+              properties:
+                final:
+                  properties:
+                    score_guest:
+                      type: integer
+                    score_home:
+                      type: integer
+                  type: object
+                first_period:
+                  properties:
+                    score_guest:
+                      type: integer
+                    score_home:
+                      type: integer
+                  type: object
+                second_period:
+                  properties:
+                    score_guest:
+                      type: integer
+                    score_home:
+                      type: integer
+                  type: object
+                third_period:
+                  properties:
+                    score_guest:
+                      type: integer
+                    score_home:
+                      type: integer
+                  type: object
+              type: object
+            shooting:
+              type: boolean
+          type: object
+        stadium:
+          type: string
+        teamBilance:
+          properties:
+            homeWin:
+              type: integer
+            visitorWin:
+              type: integer
+          type: object
+        teamInfo:
+          properties:
+            home:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                shortcut:
+                  type: string
+              type: object
+            visitor:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                shortcut:
+                  type: string
+              type: object
+          type: object
+        trainers:
+          properties:
+            homeHeadCoach:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            visitorHeadCoach:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+          type: object
+      type: object
+    MatchesMatchIdGameHeaderIcehlDen:
+      description: Shape sent by `icehl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.
+      properties:
         gameInfo:
           properties:
             actualTimeAlias:
@@ -704,84 +842,6 @@ components:
                   type: string
               type: object
           type: object
-        lastEventTime:
-          type: integer
-        numberOfViewers:
-          type: integer
-        overtimeCount:
-          type:
-          - 'null'
-        referees:
-          properties:
-            headReferee1:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-              type: object
-            headReferee2:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-              type: object
-            lineReferee1:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-              type: object
-            lineReferee2:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-              type: object
-          type: object
-        results:
-          properties:
-            contumacy:
-              type: boolean
-            extra_time:
-              type: boolean
-            score:
-              properties:
-                final:
-                  properties:
-                    score_guest:
-                      type: integer
-                    score_home:
-                      type: integer
-                  type: object
-                first_period:
-                  properties:
-                    score_guest:
-                      type: integer
-                    score_home:
-                      type: integer
-                  type: object
-                second_period:
-                  properties:
-                    score_guest:
-                      type: integer
-                    score_home:
-                      type: integer
-                  type: object
-                third_period:
-                  properties:
-                    score_guest:
-                      type: integer
-                    score_home:
-                      type: integer
-                  type: object
-              type: object
-            shooting:
-              type: boolean
-          type: object
         roster:
           properties:
             home:
@@ -825,53 +885,6 @@ components:
                   surname:
                     type: string
                 type: object
-              type: object
-          type: object
-        stadium:
-          type: string
-        teamBilance:
-          properties:
-            homeWin:
-              type: integer
-            visitorWin:
-              type: integer
-          type: object
-        teamInfo:
-          properties:
-            home:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-                shortcut:
-                  type: string
-              type: object
-            visitor:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-                shortcut:
-                  type: string
-              type: object
-          type: object
-        trainers:
-          properties:
-            homeHeadCoach:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-              type: object
-            visitorHeadCoach:
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
               type: object
           type: object
       type: object
@@ -1021,289 +1034,8 @@ components:
           type: object
       type: object
     MatchesMatchIdPeriodEvents:
-      properties:
-        '1':
-          items:
-            properties:
-              data:
-                properties:
-                  assistants:
-                    items:
-                      properties:
-                        jersey:
-                          type: integer
-                        matchPlayerId:
-                          type: integer
-                        name:
-                          type: string
-                        playerId:
-                          type: integer
-                        surname:
-                          type: string
-                      type: object
-                    type: array
-                  attendants:
-                    properties:
-                      negative:
-                        items:
-                          properties:
-                            jersey:
-                              type: integer
-                            matchPlayerId:
-                              type: integer
-                            name:
-                              type: string
-                            playerId:
-                              type: integer
-                            surname:
-                              type: string
-                          type: object
-                        type: array
-                      positive:
-                        items:
-                          properties:
-                            jersey:
-                              type: integer
-                            matchPlayerId:
-                              type: integer
-                            name:
-                              type: string
-                            playerId:
-                              type: integer
-                            surname:
-                              type: string
-                          type: object
-                        type: array
-                    type: object
-                  balance:
-                    type: string
-                  codename:
-                    type: string
-                  createTime:
-                    type: integer
-                  currentScore:
-                    type: string
-                  disciplinedPlayer:
-                    properties:
-                      jersey:
-                        type: integer
-                      matchPlayerId:
-                        type: integer
-                      name:
-                        type: string
-                      playerId:
-                        type: integer
-                      surname:
-                        type: string
-                    type: object
-                  disciplined_bm:
-                    type: boolean
-                  disciplined_functionary:
-                    type: boolean
-                  duration:
-                    type: integer
-                  ea:
-                    type: boolean
-                  en:
-                    type: boolean
-                  fouledPlayer:
-                    type:
-                    - 'null'
-                  id:
-                    type: integer
-                  outgoingGoalkeeper:
-                    type:
-                    - 'null'
-                  player:
-                    properties:
-                      jersey:
-                        type: integer
-                      matchPlayerId:
-                        type: integer
-                      name:
-                        type: string
-                      playerId:
-                        type: integer
-                      surname:
-                        type: string
-                    type: object
-                  realTime:
-                    type: string
-                  replacedPlayer:
-                    type:
-                    - 'null'
-                  scoreboardTime:
-                    type: integer
-                  scorer:
-                    properties:
-                      jersey:
-                        type: integer
-                      matchPlayerId:
-                        type: integer
-                      name:
-                        type: string
-                      playerId:
-                        type: integer
-                      surname:
-                        type: string
-                    type: object
-                  shooting:
-                    type: boolean
-                  team:
-                    type: string
-                  technical:
-                    type: boolean
-                  time:
-                    type:
-                    - integer
-                    - object
-                type: object
-              time:
-                type: integer
-              type:
-                type: string
-            type: object
-          type: array
-        '2':
-          items:
-            properties:
-              data:
-                properties:
-                  assistants:
-                    items:
-                      properties:
-                        jersey:
-                          type: integer
-                        matchPlayerId:
-                          type: integer
-                        name:
-                          type: string
-                        playerId:
-                          type: integer
-                        surname:
-                          type: string
-                      type: object
-                    type: array
-                  attendants:
-                    properties:
-                      negative:
-                        items:
-                          properties:
-                            jersey:
-                              type: integer
-                            matchPlayerId:
-                              type: integer
-                            name:
-                              type: string
-                            playerId:
-                              type: integer
-                            surname:
-                              type: string
-                          type: object
-                        type: array
-                      positive:
-                        items:
-                          properties:
-                            jersey:
-                              type: integer
-                            matchPlayerId:
-                              type: integer
-                            name:
-                              type: string
-                            playerId:
-                              type: integer
-                            surname:
-                              type: string
-                          type: object
-                        type: array
-                    type: object
-                  balance:
-                    type: string
-                  codename:
-                    type: string
-                  createTime:
-                    type: integer
-                  currentScore:
-                    type: string
-                  disciplinedPlayer:
-                    properties:
-                      jersey:
-                        type: integer
-                      matchPlayerId:
-                        type: integer
-                      name:
-                        type: string
-                      playerId:
-                        type: integer
-                      surname:
-                        type: string
-                    type: object
-                  disciplined_bm:
-                    type: boolean
-                  disciplined_functionary:
-                    type: boolean
-                  duration:
-                    type: integer
-                  ea:
-                    type: boolean
-                  en:
-                    type: boolean
-                  fouledPlayer:
-                    type:
-                    - 'null'
-                  id:
-                    type: integer
-                  realTime:
-                    type: string
-                  replacedPlayer:
-                    type:
-                    - 'null'
-                  scoreboardTime:
-                    type: integer
-                  scorer:
-                    properties:
-                      jersey:
-                        type: integer
-                      matchPlayerId:
-                        type: integer
-                      name:
-                        type: string
-                      playerId:
-                        type: integer
-                      surname:
-                        type: string
-                    type: object
-                  shooting:
-                    type: boolean
-                  team:
-                    type: string
-                  technical:
-                    type: boolean
-                  time:
-                    properties:
-                      from:
-                        properties:
-                          realTime:
-                            type: string
-                          scoreboardTime:
-                            type: integer
-                        type: object
-                      to:
-                        properties:
-                          realTime:
-                            type: string
-                          scoreboardTime:
-                            type: integer
-                        type: object
-                    type: object
-                type: object
-              time:
-                type: integer
-              type:
-                type: string
-            type: object
-          type: array
-        '3':
+      patternProperties:
+        ^(1|2|3|overtime|shootout)$:
           items:
             properties:
               data:
@@ -1390,8 +1122,9 @@ components:
                   en:
                     type: boolean
                   fouledPlayer:
-                    type:
-                    - 'null'
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                   goalReview:
                     type: string
                   id:
@@ -1410,17 +1143,32 @@ components:
                         type: integer
                       surname:
                         type: string
-                    type: object
-                  player:
                     type:
+                    - object
+                    - 'null'
+                  player:
+                    properties:
+                      jersey:
+                        type: integer
+                      matchPlayerId:
+                        type: integer
+                      name:
+                        type: string
+                      playerId:
+                        type: integer
+                      surname:
+                        type: string
+                    type:
+                    - object
                     - 'null'
                   realTime:
                     type: string
                   reasonForReview:
                     type: string
                   replacedPlayer:
-                    type:
-                    - 'null'
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                   scoreboardTime:
                     type: integer
                   scorer:
@@ -1447,6 +1195,21 @@ components:
                   technical:
                     type: boolean
                   time:
+                    properties:
+                      from:
+                        properties:
+                          realTime:
+                            type: string
+                          scoreboardTime:
+                            type: integer
+                        type: object
+                      to:
+                        properties:
+                          realTime:
+                            type: string
+                          scoreboardTime:
+                            type: integer
+                        type: object
                     type:
                     - integer
                     - object
@@ -1457,47 +1220,23 @@ components:
                 type: string
             type: object
           type: array
+      properties:
         last_event_time:
           type: integer
-        overtime:
-          items: {}
-          type: array
         periods:
-          properties:
-            '1':
-              properties:
-                end:
-                  type: string
-                start:
-                  type: string
-              type: object
-            '2':
-              properties:
-                end:
-                  type: string
-                start:
-                  type: string
-              type: object
-            '3':
-              properties:
-                end:
-                  type: string
-                start:
-                  type: string
-              type: object
-            overtime:
+          patternProperties:
+            ^(1|2|3|overtime|shootout)$:
               properties:
                 end:
                   type:
+                  - string
                   - 'null'
                 start:
                   type:
+                  - string
                   - 'null'
               type: object
           type: object
-        shootout:
-          items: {}
-          type: array
       type: object
     MatchesMatchIdRoster:
       properties:
@@ -1599,8 +1338,9 @@ components:
           height:
             type: integer
           holema_id:
-            type:
-            - 'null'
+            description: 'Unobserved: null (or an empty array) in every captured sample, so the type is
+              unknown.'
+            x-unobserved: true
           id:
             type: integer
           jersey:
@@ -1921,8 +1661,9 @@ components:
                 live:
                   type: boolean
                 liveGameScore:
-                  type:
-                  - 'null'
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
                 losts:
                   type: integer
                 lostsOt:
@@ -1972,84 +1713,21 @@ components:
           complete:
             type: boolean
           groupId:
-            type:
-            - 'null'
+            description: 'Unobserved: null (or an empty array) in every captured sample, so the type is
+              unknown.'
+            x-unobserved: true
           groupName:
             type: string
         type: object
       type: array
     TablesSeasonLeagueId:
+      oneOf:
+      - $ref: '#/components/schemas/TablesSeasonLeagueIdDe'
+      - $ref: '#/components/schemas/TablesSeasonLeagueIdIcehl'
+    TablesSeasonLeagueIdDe:
+      description: Shape sent by `de.hokejovyzapis.cz`.
       items:
         properties:
-          clubs:
-            items:
-              properties:
-                games:
-                  type: integer
-                goalsAway:
-                  type: integer
-                id:
-                  type: integer
-                last10:
-                  type: string
-                live:
-                  type: boolean
-                liveGameScore:
-                  type:
-                  - 'null'
-                losts:
-                  type: integer
-                lostsOt:
-                  type: integer
-                name:
-                  type: string
-                onlyOTlosts:
-                  type: integer
-                onlyOTwins:
-                  type: integer
-                onlySOlosts:
-                  type: integer
-                onlySOwins:
-                  type: integer
-                partTeamId:
-                  type: integer
-                points:
-                  type: integer
-                pointsAway:
-                  type: integer
-                position:
-                  type: integer
-                positionChange:
-                  type: integer
-                ppg:
-                  type: number
-                qualified:
-                  type: boolean
-                score1:
-                  type: integer
-                score2:
-                  type: integer
-                shortcut:
-                  type: string
-                teamOriginal:
-                  type: string
-                ties:
-                  type: integer
-                wins:
-                  type: integer
-                winsOt:
-                  type: integer
-                winsReg:
-                  type: integer
-              type: object
-            type: array
-          complete:
-            type: boolean
-          groupId:
-            type:
-            - 'null'
-          groupName:
-            type: string
           leaguePartId:
             type: integer
           leaguePartName:
@@ -2106,6 +1784,83 @@ components:
                   type: object
                 type: array
             type: object
+        type: object
+      type: array
+    TablesSeasonLeagueIdIcehl:
+      description: Shape sent by `icehl.hokejovyzapis.cz`.
+      items:
+        properties:
+          clubs:
+            items:
+              properties:
+                games:
+                  type: integer
+                goalsAway:
+                  type: integer
+                id:
+                  type: integer
+                last10:
+                  type: string
+                live:
+                  type: boolean
+                liveGameScore:
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
+                losts:
+                  type: integer
+                lostsOt:
+                  type: integer
+                name:
+                  type: string
+                onlyOTlosts:
+                  type: integer
+                onlyOTwins:
+                  type: integer
+                onlySOlosts:
+                  type: integer
+                onlySOwins:
+                  type: integer
+                partTeamId:
+                  type: integer
+                points:
+                  type: integer
+                pointsAway:
+                  type: integer
+                position:
+                  type: integer
+                positionChange:
+                  type: integer
+                ppg:
+                  type: number
+                qualified:
+                  type: boolean
+                score1:
+                  type: integer
+                score2:
+                  type: integer
+                shortcut:
+                  type: string
+                teamOriginal:
+                  type: string
+                ties:
+                  type: integer
+                wins:
+                  type: integer
+                winsOt:
+                  type: integer
+                winsReg:
+                  type: integer
+              type: object
+            type: array
+          complete:
+            type: boolean
+          groupId:
+            description: 'Unobserved: null (or an empty array) in every captured sample, so the type is
+              unknown.'
+            x-unobserved: true
+          groupName:
+            type: string
         type: object
       type: array
     VisualizationShotsMatchId:
@@ -2451,13 +2206,14 @@ components:
                     type: object
                   type: array
                 xGPeriod:
-                  additionalProperties:
-                    properties:
-                      home:
-                        type: number
-                      visitor:
-                        type: number
-                    type: object
+                  patternProperties:
+                    ^(1|2|3|overtime|shootout)$:
+                      properties:
+                        home:
+                          type: number
+                        visitor:
+                          type: number
+                      type: object
                   type: object
                 xWHome:
                   type: number
@@ -2725,8 +2481,9 @@ components:
                         type: string
                     type: object
                   youTubeLink:
-                    type:
-                    - 'null'
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                 type: object
               type: array
             awayPenalties:
@@ -2768,8 +2525,9 @@ components:
                   penaltyLength:
                     type: integer
                   servedBy:
-                    type:
-                    - 'null'
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                   startTime:
                     type: integer
                   startTimeFormatted:
@@ -2823,13 +2581,22 @@ components:
                   type: object
               type: object
             faceoffsHeadToHead:
-              items: {}
+              items:
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               type: array
             faceoffsIndividual:
-              items: {}
+              items:
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               type: array
             gameActions:
-              items: {}
+              items:
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               type: array
             gameData:
               properties:
@@ -2840,8 +2607,9 @@ components:
                 awayTeamId:
                   type: integer
                 awayTeamLogoUrl:
-                  type:
-                  - 'null'
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
                 awayTeamLongname:
                   type: string
                 awayTeamScore:
@@ -2906,8 +2674,9 @@ components:
                 homeTeamId:
                   type: integer
                 homeTeamLogoUrl:
-                  type:
-                  - 'null'
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
                 homeTeamLongname:
                   type: string
                 homeTeamScore:
@@ -2919,11 +2688,13 @@ components:
                 images:
                   properties:
                     awayTeamLogo:
-                      type:
-                      - 'null'
+                      description: 'Unobserved: null (or an empty array) in every captured sample, so
+                        the type is unknown.'
+                      x-unobserved: true
                     homeTeamLogo:
-                      type:
-                      - 'null'
+                      description: 'Unobserved: null (or an empty array) in every captured sample, so
+                        the type is unknown.'
+                      x-unobserved: true
                   type: object
                 isOvertime:
                   type: integer
@@ -2942,8 +2713,9 @@ components:
                 liveTimePeriod:
                   type: integer
                 liveTimePeriodBar:
-                  type:
-                  - 'null'
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
                 liveTimeString:
                   type: string
                 location:
@@ -3003,7 +2775,10 @@ components:
                 startTime:
                   type: string
                 streams:
-                  items: {}
+                  items:
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                   type: array
                 teamOfficials:
                   properties:
@@ -3023,11 +2798,15 @@ components:
                       type: object
                   type: object
                 youTubeLink:
-                  type:
-                  - 'null'
+                  description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                    type is unknown.'
+                  x-unobserved: true
               type: object
             gameSituations:
-              items: {}
+              items:
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               type: array
             homeFieldPlayers:
               items:
@@ -3282,8 +3061,9 @@ components:
                         type: string
                     type: object
                   youTubeLink:
-                    type:
-                    - 'null'
+                    description: 'Unobserved: null (or an empty array) in every captured sample, so the
+                      type is unknown.'
+                    x-unobserved: true
                 type: object
               type: array
             homePenalties:
@@ -3394,7 +3174,10 @@ components:
                   type: object
               type: object
             shootouts:
-              items: {}
+              items:
+                description: 'Unobserved: null (or an empty array) in every captured sample, so the type
+                  is unknown.'
+                x-unobserved: true
               type: array
           type: object
         lastUpdate:
@@ -3416,18 +3199,20 @@ components:
           type: string
       type: object
 info:
-  description: Public, keyless, anonymously listable S3 buckets written by the eSports s.r.o. hockey scoring
-    system and read by the leagues' own widgets. One key layout across four buckets; the bucket is a server
-    variable and each path lists the buckets that serve it. Shapes from committed captures (2026-10-12,
-    one completed 2026/27 game per bucket) in esports-hokejovyzapis/captures/. Season key = START year.
-    Not official or supported.
+  description: 'Public, keyless, anonymously listable S3 buckets written by the eSports s.r.o. hockey
+    scoring system and read by the leagues'' own widgets. One key layout across four buckets; the bucket
+    is a server variable and each path''s enum lists the buckets with data for it (a bucket that holds
+    only empty shells, or no file for the example game, is named in the path description instead). Shapes
+    from committed captures (2026-10-12, one completed 2026/27 game per bucket) in esports-hokejovyzapis/captures/.
+    A field null in every sample carries `x-unobserved: true` and no type. Season key = START year. Not
+    official or supported.'
   title: eSports hokejovyzapis S3 buckets (DEL, DEL2, ICEHL, EIHL, Metal Ligaen)
   version: '2026-10-12'
 openapi: 3.1.0
 paths:
   /:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: list_objects
       parameters:
@@ -3483,12 +3268,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3496,7 +3282,7 @@ paths:
           - den.hokejovyzapis.cz
   /league-matches/{season}/{league_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: league_matches_season_league_id
       parameters:
@@ -3531,12 +3317,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3544,7 +3331,7 @@ paths:
           - den.hokejovyzapis.cz
   /league-part-players-stats/{league_part_id}.json:
     get:
-      description: 'Buckets: `icehl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `icehl.hokejovyzapis.cz`.'
       operationId: league_part_players_stats_league_part_id
       parameters:
       - description: 'League part id (`matches[].league_part_id` from league-matches; ICEHL 56 = 2026/27
@@ -3570,13 +3357,14 @@ paths:
       variables:
         bucket:
           default: icehl.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL (regular season and playoffs, split by
+            league_part_name), 2 pre-season, 3 test games'
           enum:
           - icehl.hokejovyzapis.cz
   /league-team-stats/{season}/{league_id}/{team_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`.'
       operationId: league_team_stats_season_league_id_team_id
       parameters:
       - description: 'Season START year (2026 = 2026/27). Examples: de 2026, icehl 2026, eihl 2026.'
@@ -3617,18 +3405,19 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
           - eihl.hokejovyzapis.cz
   /league-top-scorers/{season}/{league_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: league_top_scorers_season_league_id
       parameters:
@@ -3663,12 +3452,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3676,7 +3466,7 @@ paths:
           - den.hokejovyzapis.cz
   /matches/{match_id}/faceoffs.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`.'
       operationId: matches_match_id_faceoffs
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -3702,16 +3492,17 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
   /matches/{match_id}/game-header.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
       operationId: matches_match_id_game_header
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -3737,18 +3528,19 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `den.hokejovyzapis.cz`
-            Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs),
+            2 pre-season, 3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
           - den.hokejovyzapis.cz
   /matches/{match_id}/game-info.json:
     get:
-      description: 'Buckets: `eihl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `eihl.hokejovyzapis.cz`.'
       operationId: matches_match_id_game_info
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -3774,13 +3566,13 @@ paths:
       variables:
         bucket:
           default: eihl.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4
-            Challenge Cup, 5 EIHL playoffs, 6 test'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test'
           enum:
           - eihl.hokejovyzapis.cz
   /matches/{match_id}/period-events.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: matches_match_id_period_events
       parameters:
@@ -3807,12 +3599,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3820,7 +3613,8 @@ paths:
           - den.hokejovyzapis.cz
   /matches/{match_id}/roster.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`. `icehl.` also has `roster.json`, but for
+        33 games of 2025/26 only (none for the 2026/27 example game), so it is not in this path''s enum.'
       operationId: matches_match_id_roster
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -3846,14 +3640,14 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on)'
           enum:
           - de.hokejovyzapis.cz
   /matches/{match_id}/shiftsSC.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`.'
       operationId: matches_match_id_shiftsSC
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -3879,14 +3673,14 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on)'
           enum:
           - de.hokejovyzapis.cz
   /matches/{match_id}/team-stats/{team_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: matches_match_id_team_stats_team_id
       parameters:
@@ -3921,12 +3715,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3934,7 +3729,7 @@ paths:
           - den.hokejovyzapis.cz
   /matches/{match_id}/top-goalies.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`,
         `den.hokejovyzapis.cz`.'
       operationId: matches_match_id_top_goalies
       parameters:
@@ -3961,12 +3756,13 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-            1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+            3 test, 4 Final-4 (cup)'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
@@ -3974,7 +3770,7 @@ paths:
           - den.hokejovyzapis.cz
   /table/{season}/{league_id}.json:
     get:
-      description: 'Buckets: `eihl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `eihl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
       operationId: table_season_league_id
       parameters:
       - description: 'Season START year (2026 = 2026/27). Examples: eihl 2026, den 2026.'
@@ -4007,15 +3803,15 @@ paths:
       variables:
         bucket:
           default: eihl.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4
-            Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular
-            season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz`
+            Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
           enum:
           - eihl.hokejovyzapis.cz
           - den.hokejovyzapis.cz
   /tables/{season}/{league_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`.'
       operationId: tables_season_league_id
       parameters:
       - description: 'Season START year (2026 = 2026/27). Examples: de 2026, icehl 2026.'
@@ -4048,16 +3844,20 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
   /visualization/shots/{match_id}.json:
     get:
-      description: 'Buckets: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `de.hokejovyzapis.cz`, `icehl.hokejovyzapis.cz`, `eihl.hokejovyzapis.cz`.
+        `den.` also has these keys (355 files listed, 338 of them for completed games), but every one
+        is an empty shell (`shots: []`, `status: LIVE`), which the capture refuses; so `den.` is not in
+        this path''s enum.'
       operationId: visualization_shots_match_id
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -4083,18 +3883,19 @@ paths:
       variables:
         bucket:
           default: de.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular
-            season, 2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global
-            Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-            EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+            4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+            ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+            3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+            6 test'
           enum:
           - de.hokejovyzapis.cz
           - icehl.hokejovyzapis.cz
           - eihl.hokejovyzapis.cz
   /widget/esports/match/{match_id}.json:
     get:
-      description: 'Buckets: `icehl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
+      description: 'Buckets with data: `icehl.hokejovyzapis.cz`, `den.hokejovyzapis.cz`.'
       operationId: widget_esports_match_match_id
       parameters:
       - description: 'Match id (`matches[].id` from league-matches); ids run per bucket and do not match
@@ -4120,9 +3921,10 @@ paths:
       variables:
         bucket:
           default: icehl.hokejovyzapis.cz
-          description: 'eSports hokejovyzapis bucket. `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL
-            (regular season and playoffs, split by league_part_name), 2 pre-season, 3 test games | `den.hokejovyzapis.cz`
-            Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+          description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+            `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL (regular season and playoffs, split by
+            league_part_name), 2 pre-season, 3 test games | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen
+            (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
           enum:
           - icehl.hokejovyzapis.cz
           - den.hokejovyzapis.cz
@@ -4131,12 +3933,13 @@ servers:
   variables:
     bucket:
       default: de.hokejovyzapis.cz
-      description: 'eSports hokejovyzapis bucket. `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season,
-        2 Test-Liga (preseason), 3 DEL playoffs, 4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022
-        only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz` ICE Hockey League: 1 ICEHL (regular season
-        and playoffs, split by league_part_name), 2 pre-season, 3 test games | `eihl.hokejovyzapis.cz`
-        EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs, 6 test | `den.hokejovyzapis.cz` Denmark:
-        1 Metal Ligaen (regular season and playoffs), 2 pre-season, 3 test, 4 Final-4 (cup)'
+      description: 'eSports hokejovyzapis bucket (the enum lists the buckets with data for this path).
+        `de.hokejovyzapis.cz` DEL + DEL2: 1 DEL regular season, 2 Test-Liga (preseason), 3 DEL playoffs,
+        4 MagentaSport Cup (2020 only), 5 NHL Global Series (2022 only), 6 DEL2 (2026 on) | `icehl.hokejovyzapis.cz`
+        ICE Hockey League: 1 ICEHL (regular season and playoffs, split by league_part_name), 2 pre-season,
+        3 test games | `eihl.hokejovyzapis.cz` EIHL: 3 Elite League, 4 Challenge Cup, 5 EIHL playoffs,
+        6 test | `den.hokejovyzapis.cz` Denmark: 1 Metal Ligaen (regular season and playoffs), 2 pre-season,
+        3 test, 4 Final-4 (cup)'
       enum:
       - de.hokejovyzapis.cz
       - icehl.hokejovyzapis.cz
