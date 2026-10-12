@@ -1,0 +1,1768 @@
+components:
+  schemas:
+    BoardsExResponse:
+      properties:
+        boards-ex:
+          description: External competitions the club played in (European cups, national team, pre-season).
+          items:
+            properties:
+              ig_board:
+                description: External board id (1001+; a separate key space from the domestic BOARD_ID;
+                  code table in ibba-returns.md). = GamesEx `BOARD_ID`.
+                type: string
+              o_comp_name:
+                description: Competition name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;) ('יורוליג'
+                  = EuroLeague).
+                type: string
+            type: object
+          type: array
+      type: object
+    BoardsResponse:
+      properties:
+        boards:
+          description: Domestic boards (competitions) of the season.
+          items:
+            properties:
+              BOARD_ID:
+                description: 'Board id (code table in ibba-returns.md: 5 league, 10 cup, 16/26/17 playoff
+                  rounds, 33 play-in, 34 Supercup, 11 = 2004-05 semifinal group).'
+                type: string
+              category_name:
+                description: 'Board format, Hebrew: ''טבלה'' = table (standings), ''נוק אאוט'' = knockout,
+                  ''סדרה'' = best-of series.'
+                type: string
+              h_type:
+                description: Board group name, Hebrew ('ליגת העל' = Premier League; 'גביע הליגה' = League
+                  Cup); translations in ibba-returns.md.
+                type: string
+              type:
+                description: Board display name with sponsor, Hebrew ('ליגת Winner סל' = Winner League).
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    BoxscoreResponse:
+      properties:
+        boxscore:
+          description: 'Box-score rows: per team a ''_TEAM'' row (team rebounds/turnovers credited to
+            no player), the player rows, then a ''TOTAL'' row.'
+          items:
+            properties:
+              VAL:
+                description: 'Efficiency rating (verified: = Segev `rate` for game 26392 / Segev 50);
+                  ''-1'' on 2004-05 _TEAM rows.'
+                type: string
+              assists:
+                description: Assists.
+                type: string
+              block_against:
+                description: Own shots that were blocked.
+                type: string
+              blocks_for:
+                description: Shots this player or team blocked.
+                type: string
+              board:
+                description: Board id of the game (5 = league).
+                type: string
+              defensive_reb:
+                description: Defensive rebounds.
+                type: string
+              dunk:
+                description: Dunks made.
+                type: string
+              fouls_against:
+                description: 'Fouls DRAWN: fouls opponents committed against this player or team (verified:
+                  = Segev f_drawn, game 26392 / Segev 50).'
+                type: string
+              fouls_for:
+                description: 'Fouls COMMITTED by this player or team (verified: = Segev f, game 26392
+                  / Segev 50).'
+                type: string
+              game_id:
+                description: IBBA game id (basket.co.il game key space). Joins Games `game_id` to Boxscore
+                  `game_id`; the `game_id` param.
+                type: string
+              jersy:
+                description: Jersey number as a string, zero-padded ('02'; sic 'jersy'); '_TEAM' and 'TOTAL'
+                  on the two non-player rows.
+                type: string
+              minutes:
+                description: Minutes played, whole minutes; the TOTAL row has the team's player-minutes
+                  (200 in regulation, 25 more per overtime).
+                type: string
+              offensive_reb:
+                description: Offensive rebounds.
+                type: string
+              p1:
+                description: Free-throw percentage, 0-100.
+                type: string
+              p11:
+                description: Free throws made.
+                type: string
+              p12:
+                description: Free throws attempted.
+                type: string
+              p2:
+                description: 2-point field-goal percentage, 0-100 (integer in a box score, 2 decimals
+                  in season stats).
+                type: string
+              p21:
+                description: 2-point field goals made.
+                type: string
+              p22:
+                description: '2-point field goals attempted (verified: = Segev fg_2m + fg_2mis for game
+                  26392 / Segev 50).'
+                type: string
+              p3:
+                description: 3-point field-goal percentage, 0-100.
+                type: string
+              p31:
+                description: 3-point field goals made.
+                type: string
+              p32:
+                description: 3-point field goals attempted.
+                type: string
+              player_year_id:
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster). ''0'' on the _TEAM and TOTAL rows.'
+                type: string
+              plusminus:
+                description: Plus-minus; '0' on every row of the 2004-05 sample (not recorded then, inferred).
+                type: string
+              pts:
+                description: Points.
+                type: string
+              round:
+                description: Round (game number) within the board.
+                type: string
+              starter:
+                description: '''1'' if the player started, else ''0''.'
+                type: string
+              steals:
+                description: Steals.
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              total_reb:
+                description: Total rebounds.
+                type: string
+              tournovers:
+                description: Turnovers (sic 'tournovers').
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    CoachesResponse:
+      properties:
+        coaches:
+          description: Coaching staff of the team-season.
+          items:
+            properties:
+              birth_date:
+                description: 'Coach''s date of birth: REDACTED in the committed samples (personal data).'
+                type: string
+              cType:
+                description: 'Role: ''1'' head coach, ''2'' assistant coach (observed).'
+                type: string
+              coach_id:
+                description: Coach id (IBBA coach key space).
+                type: string
+              isReplaced:
+                description: '''True'' when the person left the team during the season (replaced), else
+                  ''False''.'
+                type: string
+              mOrder:
+                description: Display order ('1' on every sample row).
+                type: string
+              name:
+                description: Name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              name_eng:
+                description: Name, English, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              pic:
+                description: Photo, path relative to https://www.basket.co.il; empty when none.
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    ConfigurationResponse:
+      properties:
+        settings:
+          description: One settings row.
+          items:
+            properties:
+              ActiveComp:
+                description: Board id the site treats as the active competition (17 = final series for
+                  2025-26, 5 = league for 2004-05). Inferred.
+                type: string
+              Current_Year:
+                description: Season END year the settings are for (echoes `cYear`).
+                type: string
+              Current_Year_Full:
+                description: Season label 'YYYY-YY' ('2025-26').
+                type: string
+              TotalGN:
+                description: Rounds in the regular season (32 in 2025-26, 22 in 2004-05). Inferred.
+                type: string
+              nextGN:
+                description: Next round (game number) to be played. Inferred.
+                type: string
+              red_line:
+                description: Standings position the site draws its cut line under (12 in 2025-26, 10 in
+                  2004-05). Meaning inferred, unverified.
+                type: string
+            type: object
+          type: array
+      type: object
+    GamesByTeamResponse:
+      properties:
+        games:
+          description: 'Every game of the club in the season: domestic boards and external boards (1001+).'
+          items:
+            properties:
+              BOARD_ID:
+                description: 'Board (competition) id: the domestic table (5 league, 10 cup, ...) or an
+                  external board (1001+); code tables in ibba-returns.md.'
+                type: string
+              ExternalID:
+                description: Segev Stats game id (the Segev `game_id`, a string) for league games from
+                  2025-26; empty before. For pre-season games (board 1005) a news URL instead.
+                type: string
+              PlaceOfGameHeb:
+                description: Venue, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              TimeOfGame:
+                description: 'Tip-off ''HH:MM'', local Israel time; empty in 2004-05. Can disagree with
+                  Segev `time` (game 26646: 20:15 here, 19:30 in Segev 419).'
+                type: string
+              board_name:
+                description: Board name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;) ('ליגת Winner
+                  סל' = Winner League).
+                type: string
+              gameNumber:
+                description: Round number within the board; empty for external games.
+                type: string
+              game_date_txt:
+                description: Game date 'dd/mm/yyyy' (local Israel date).
+                type: string
+              game_id:
+                description: 'Game id, by board: on a domestic board (5, 10, 16, 17, 26, 33, 34) the IBBA
+                  game id (basket.co.il game key space; joins Boxscore `game_id`). On an external board
+                  (BOARD_ID 1001+; every row of the committed sample is board 1005, pre-season, ids 8888,
+                  9895, 9896) an IBBA external-game id (= GamesEx `game_id`), NOT a Boxscore key.'
+                type: string
+              overtime:
+                description: '''True'' when the game went to overtime, else ''False''.'
+                type: string
+              score_team1:
+                description: Home final score; '0' before the game is played.
+                type: string
+              score_team2:
+                description: Away final score; '0' before the game is played.
+                type: string
+              team1:
+                description: 'Home team-season id (team1 = home: verified against Segev homeTeam for games
+                  26392 and 26646). In GamesByTeam rows of external boards (1001+) an external-team id
+                  instead (see GamesEx `ig_team_1`).'
+                type: string
+              team1_logo:
+                description: Home team logo, absolute URL.
+                type: string
+              team1_name:
+                description: Home team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team2:
+                description: Away team-season id. In GamesByTeam rows of external boards an external-team
+                  id.
+                type: string
+              team2_logo:
+                description: Away team logo, absolute URL.
+                type: string
+              team2_name:
+                description: Away team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              tickets_url:
+                description: Ticketing URL; empty when none.
+                type: string
+              total_ot:
+                description: Number of overtime periods.
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    GamesExResponse:
+      properties:
+        games_ex:
+          description: The club's games in external competitions.
+          items:
+            properties:
+              BOARD_ID:
+                description: External board id (= BoardsEx `ig_board`).
+                type: string
+              board_name:
+                description: External competition name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              game_id:
+                description: External-game id (IBBA external-game key space, shared with GamesByTeam rows
+                  of boards 1001+, e.g. 8888; not a Boxscore key).
+                type: string
+              ig_date:
+                description: Game date 'dd/mm/yyyy'.
+                type: string
+              ig_gn:
+                description: Game number; empty when none.
+                type: string
+              ig_place:
+                description: Venue, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              ig_score_team_1:
+                description: Home score.
+                type: string
+              ig_score_team_2:
+                description: Away score.
+                type: string
+              ig_team_1:
+                description: Home external-team id (external-team key space, e.g. 120 = Maccabi Tel Aviv;
+                  not a team-season id).
+                type: string
+              ig_team_2:
+                description: Away external-team id.
+                type: string
+              ig_time:
+                description: Tip-off 'HH:MM', local time.
+                type: string
+              team1_logo:
+                description: Home team logo, absolute URL.
+                type: string
+              team1_name:
+                description: Home team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team2_logo:
+                description: Away team logo, absolute URL.
+                type: string
+              team2_name:
+                description: Away team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    GamesResponse:
+      properties:
+        games:
+          description: Games matching every non-zero filter (0 = any).
+          items:
+            properties:
+              BOARD_ID:
+                description: 'Board (competition) id: the domestic table (5 league, 10 cup, ...) or an
+                  external board (1001+); code tables in ibba-returns.md.'
+                type: string
+              ExternalID:
+                description: Segev Stats game id (the Segev `game_id`, a string) for league games from
+                  2025-26; empty before. For pre-season games (board 1005) a news URL instead.
+                type: string
+              PlaceOfGame:
+                description: Venue, English, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              PlaceOfGameHeb:
+                description: Venue, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              Ref:
+                description: Referees' names, Hebrew, comma-separated (', , ' when unknown).
+                type: string
+              TimeOfGame:
+                description: 'Tip-off ''HH:MM'', local Israel time; empty in 2004-05. Can disagree with
+                  Segev `time` (game 26646: 20:15 here, 19:30 in Segev 419).'
+                type: string
+              board_name:
+                description: Board name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;) ('ליגת Winner
+                  סל' = Winner League).
+                type: string
+              board_name_eng:
+                description: Board name, English ('Winner League').
+                type: string
+              gameNumber:
+                description: Round number within the board; empty for external games.
+                type: string
+              game_date_txt:
+                description: Game date 'dd/mm/yyyy' (local Israel date).
+                type: string
+              game_id:
+                description: IBBA game id (basket.co.il game key space). Joins Games `game_id` to Boxscore
+                  `game_id`; the `game_id` param.
+                type: string
+              overtime:
+                description: '''True'' when the game went to overtime, else ''False''.'
+                type: string
+              score_by_q_1:
+                description: Home points per quarter, pipe-separated ('18|23|30|21').
+                type: string
+              score_by_q_2:
+                description: Away points per quarter, pipe-separated.
+                type: string
+              score_team1:
+                description: Home final score; '0' before the game is played.
+                type: string
+              score_team2:
+                description: Away final score; '0' before the game is played.
+                type: string
+              team1:
+                description: 'Home team-season id (team1 = home: verified against Segev homeTeam for games
+                  26392 and 26646). In GamesByTeam rows of external boards (1001+) an external-team id
+                  instead (see GamesEx `ig_team_1`).'
+                type: string
+              team1_logo:
+                description: Home team logo, absolute URL.
+                type: string
+              team1_name:
+                description: Home team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team1_name_eng:
+                description: Home team name, English.
+                type: string
+              team2:
+                description: Away team-season id. In GamesByTeam rows of external boards an external-team
+                  id.
+                type: string
+              team2_logo:
+                description: Away team logo, absolute URL.
+                type: string
+              team2_name:
+                description: Away team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team2_name_eng:
+                description: Away team name, English.
+                type: string
+              tickets_url:
+                description: Ticketing URL; empty when none.
+                type: string
+              total_ot:
+                description: Number of overtime periods.
+                type: string
+              total_viewers:
+                description: Attendance; '0' when unknown.
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    LeaderByTypeResponse:
+      properties:
+        leaders:
+          description: Top five players in the category.
+          items:
+            properties:
+              DATA:
+                description: The category value, per game with 2 decimals for counting stats ('22.33').
+                type: string
+              GP:
+                description: 'Games played. The 2025-26 sample''s GP values (6, 6, 3, 17, 2) do not match
+                  a full season: the games it ranks over are unverified.'
+                type: string
+              Year:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+              pic:
+                description: Photo, path relative to https://www.basket.co.il (URL-encoded); empty when
+                  none.
+                type: string
+              player_name:
+                description: Player name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              player_number:
+                description: Jersey number, zero-padded string.
+                type: string
+              player_year_id:
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster).'
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+            type: object
+          type: array
+      type: object
+    PlayerByIdResponse:
+      properties:
+        player:
+          description: One player-season row.
+          items:
+            properties:
+              isLocal:
+                description: '''True'' for Israeli (local) players, ''False'' for foreign players.'
+                type: string
+              isReplaced:
+                description: '''True'' when the person left the team during the season (replaced), else
+                  ''False''.'
+                type: string
+              jersy:
+                description: Jersey number as a string, zero-padded ('02'; sic 'jersy').
+                type: string
+              name:
+                description: Name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              name_eng:
+                description: Name, English, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              pic:
+                description: Photo, path relative to https://www.basket.co.il; empty when none.
+                type: string
+              player_id:
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    PlayerStatsByIdResponse:
+      properties:
+        player:
+          description: 'One row: the player''s season totals, or per-game averages when isAverages=true.'
+          items:
+            properties:
+              VAL:
+                description: 'Efficiency rating (verified: = Segev `rate` for game 26392 / Segev 50);
+                  ''-1'' on 2004-05 _TEAM rows.'
+                type: string
+              assists:
+                description: Assists.
+                type: string
+              block_against:
+                description: Own shots that were blocked.
+                type: string
+              blocks_for:
+                description: Shots this player or team blocked.
+                type: string
+              defensive_reb:
+                description: Defensive rebounds.
+                type: string
+              dunk:
+                description: Dunks made.
+                type: string
+              fouls_against:
+                description: 'Fouls DRAWN: fouls opponents committed against this player or team (verified:
+                  = Segev f_drawn, game 26392 / Segev 50).'
+                type: string
+              fouls_for:
+                description: 'Fouls COMMITTED by this player or team (verified: = Segev f, game 26392
+                  / Segev 50).'
+                type: string
+              games:
+                description: Games played.
+                type: string
+              jersy:
+                description: Jersey number as a string, zero-padded ('02'; sic 'jersy').
+                type: string
+              minutes:
+                description: Minutes played (whole minutes in a box score; per game with 2 decimals when
+                  isAverages=true).
+                type: string
+              offensive_reb:
+                description: Offensive rebounds.
+                type: string
+              p1:
+                description: Free-throw percentage, 0-100.
+                type: string
+              p11:
+                description: Free throws made.
+                type: string
+              p12:
+                description: Free throws attempted.
+                type: string
+              p2:
+                description: 2-point field-goal percentage, 0-100 (integer in a box score, 2 decimals
+                  in season stats).
+                type: string
+              p21:
+                description: 2-point field goals made.
+                type: string
+              p22:
+                description: '2-point field goals attempted (verified: = Segev fg_2m + fg_2mis for game
+                  26392 / Segev 50).'
+                type: string
+              p3:
+                description: 3-point field-goal percentage, 0-100.
+                type: string
+              p31:
+                description: 3-point field goals made.
+                type: string
+              p32:
+                description: 3-point field goals attempted.
+                type: string
+              player_id:
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
+                type: string
+              plusminus:
+                description: Plus-minus; '0' on every row of the 2004-05 sample (not recorded then, inferred).
+                type: string
+              pts:
+                description: Points.
+                type: string
+              steals:
+                description: Steals.
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              total_reb:
+                description: Total rebounds.
+                type: string
+              tournovers:
+                description: Turnovers (sic 'tournovers').
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    PlayersResponse:
+      properties:
+        players:
+          description: Roster of the team-season, ordered by jersey.
+          items:
+            properties:
+              Height:
+                description: Height in metres as a string ('1.93').
+                type: string
+              birth_date:
+                description: Date of birth 'dd/mm/yyyy' (public player bio).
+                type: string
+              isLocal:
+                description: '''True'' for Israeli (local) players, ''False'' for foreign players.'
+                type: string
+              isReplaced:
+                description: '''True'' when the person left the team during the season (replaced), else
+                  ''False''.'
+                type: string
+              jersy:
+                description: Jersey number as a string, zero-padded ('02'; sic 'jersy').
+                type: string
+              name:
+                description: Name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              name_eng:
+                description: Name, English, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              pic:
+                description: Photo, path relative to https://www.basket.co.il; empty when none.
+                type: string
+              player_id:
+                description: 'Player-season id (IBBA player-season key space: a new id every season, e.g.
+                  Jaylen Hoard = 21912 in 2025-26 and 25997 in 2026-27; the ASMX host has no cross-season
+                  person id). Joins Players/PlayerById `player_id` to Boxscore `player_year_id` (every
+                  box player of game 26392 is on the Players roster); the `player_id` param.'
+                type: string
+              position:
+                description: 'Playing position, Hebrew (code table in ibba-returns.md: ''רכז'' point guard
+                  ... ''סנטר'' center).'
+                type: string
+              position_eng:
+                description: 'Playing position code: PG, G, G-F, F, F-C, C.'
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    StatsTypesResponse:
+      properties:
+        statsTypes:
+          description: Stat categories LeaderByType accepts.
+          items:
+            properties:
+              stat_type_field:
+                description: Code to send as LeaderByType `stat_type` (bracketed codes such as '[OR]'
+                  are sent with the brackets).
+                type: string
+              stat_type_name:
+                description: 'Category name, Hebrew (translations in ibba-returns.md: ''נקודות'' = points).'
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamByIdResponse:
+      properties:
+        team:
+          description: One team-season.
+          items:
+            properties:
+              TeamUID:
+                description: 'Club id (IBBA club key space, stable across seasons: Maccabi Tel Aviv =
+                  10). The `team_uid` param; not a team-season id.'
+                type: string
+              addDiaryCode:
+                description: Calendar-subscription short link.
+                type: string
+              lose:
+                description: Losses.
+                type: string
+              place:
+                description: Standings position (1 = top).
+                type: string
+              points:
+                description: 'Standings points: 2 per win, 1 per loss (Maccabi 2025-26: 24 x 2 + 2 x 1
+                  = 50).'
+                type: string
+              rival_scores:
+                description: Points allowed, season total.
+                type: string
+              team:
+                description: Team name with sponsor, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              teamEng:
+                description: Team name with sponsor, English.
+                type: string
+              team_About:
+                description: Club history and honours as an HTML fragment, Hebrew.
+                type: string
+              team_AboutEng:
+                description: Club history as an HTML fragment, English; empty in the sample.
+                type: string
+              team_address:
+                description: Club office address, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team_addressEng:
+                description: Club office address, English.
+                type: string
+              team_arena_id:
+                description: Arena id (IBBA arena key space; no captured route is keyed by it).
+                type: string
+              team_color:
+                description: Club colours, Hebrew.
+                type: string
+              team_colorEng:
+                description: Club colours, English, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team_email:
+                description: Club office e-mail. REDACTED in the committed samples.
+                type: string
+              team_fax:
+                description: Club office fax. REDACTED in the committed samples.
+                type: string
+              team_icon:
+                description: Small logo, path relative to https://www.basket.co.il.
+                type: string
+              team_icon2:
+                description: Team logo, absolute URL.
+                type: string
+              team_icon3:
+                description: Large logo, path relative to https://www.basket.co.il.
+                type: string
+              team_insta:
+                description: Instagram URL.
+                type: string
+              team_phone:
+                description: Club office phone. REDACTED in the committed samples.
+                type: string
+              team_pic:
+                description: Team photo, path relative to https://www.basket.co.il.
+                type: string
+              team_scores:
+                description: Points scored, season total.
+                type: string
+              team_shortName:
+                description: Short team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team_shortNameEng:
+                description: Short team name, English.
+                type: string
+              team_site:
+                description: Club website URL.
+                type: string
+              team_social_link:
+                description: Facebook page URL.
+                type: string
+              team_sponsers:
+                description: Sponsors, Hebrew, comma-separated (sic 'sponsers'), HTML-entity encoded (&quot;
+                  &#39; &amp;).
+                type: string
+              team_sponsersEng:
+                description: Sponsors, English, comma-separated.
+                type: string
+              team_subscribe_url:
+                description: Season-ticket (subscription) page URL.
+                type: string
+              team_twitter:
+                description: X/Twitter URL.
+                type: string
+              team_year_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). = `team_id`
+                  on every other route; the `team_id` param.'
+                type: string
+              team_youtube:
+                description: YouTube URL.
+                type: string
+              win:
+                description: Wins.
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamStatsByIdResponse:
+      properties:
+        team-stats:
+          description: 'One row: the team''s season totals, or per-game averages when isAverages=true.'
+          items:
+            properties:
+              VAL:
+                description: 'Efficiency rating (verified: = Segev `rate` for game 26392 / Segev 50);
+                  ''-1'' on 2004-05 _TEAM rows.'
+                type: string
+              assists:
+                description: Assists.
+                type: string
+              block_against:
+                description: Own shots that were blocked.
+                type: string
+              blocks_for:
+                description: Shots this player or team blocked.
+                type: string
+              defensive_reb:
+                description: Defensive rebounds.
+                type: string
+              dunk:
+                description: Dunks made.
+                type: string
+              fouls_against:
+                description: 'Fouls DRAWN: fouls opponents committed against this player or team (verified:
+                  = Segev f_drawn, game 26392 / Segev 50).'
+                type: string
+              fouls_for:
+                description: 'Fouls COMMITTED by this player or team (verified: = Segev f, game 26392
+                  / Segev 50).'
+                type: string
+              games:
+                description: Games played.
+                type: string
+              jersy:
+                description: '''TOTAL''.'
+                type: string
+              minutes:
+                description: Minutes played (whole minutes in a box score; per game with 2 decimals when
+                  isAverages=true).
+                type: string
+              offensive_reb:
+                description: Offensive rebounds.
+                type: string
+              p1:
+                description: Free-throw percentage, 0-100.
+                type: string
+              p11:
+                description: Free throws made.
+                type: string
+              p12:
+                description: Free throws attempted.
+                type: string
+              p2:
+                description: 2-point field-goal percentage, 0-100 (integer in a box score, 2 decimals
+                  in season stats).
+                type: string
+              p21:
+                description: 2-point field goals made.
+                type: string
+              p22:
+                description: '2-point field goals attempted (verified: = Segev fg_2m + fg_2mis for game
+                  26392 / Segev 50).'
+                type: string
+              p3:
+                description: 3-point field-goal percentage, 0-100.
+                type: string
+              p31:
+                description: 3-point field goals made.
+                type: string
+              p32:
+                description: 3-point field goals attempted.
+                type: string
+              player_id:
+                description: '''0'': the row is the team, not a player.'
+                type: string
+              plusminus:
+                description: Plus-minus; '0' on every row of the 2004-05 sample (not recorded then, inferred).
+                type: string
+              pts:
+                description: Points.
+                type: string
+              steals:
+                description: Steals.
+                type: string
+              team_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). Joins to Teams
+                  `team_year_id`; the `team_id` param.'
+                type: string
+              total_reb:
+                description: Total rebounds.
+                type: string
+              tournovers:
+                description: Turnovers (sic 'tournovers').
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamsResponse:
+      properties:
+        teams:
+          description: One standings line per team of the board.
+          items:
+            properties:
+              COACHES:
+                description: 'Coaching staff as one Hebrew string: ''מאמן:'' = head coach, ''עוזר מאמן:''
+                  = assistant coach.'
+                type: string
+              TeamUID:
+                description: 'Club id (IBBA club key space, stable across seasons: Maccabi Tel Aviv =
+                  10). The `team_uid` param; not a team-season id.'
+                type: string
+              board:
+                description: Board id the standings line belongs to (echoes `board_id`).
+                type: string
+              games:
+                description: Games played.
+                type: string
+              lose:
+                description: Losses.
+                type: string
+              place:
+                description: Standings position (1 = top).
+                type: string
+              points:
+                description: 'Standings points: 2 per win, 1 per loss (Maccabi 2025-26: 24 x 2 + 2 x 1
+                  = 50).'
+                type: string
+              rival_scores:
+                description: Points allowed, season total.
+                type: string
+              team:
+                description: Team name with sponsor, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              teamEng:
+                description: Team name with sponsor, English.
+                type: string
+              team_address:
+                description: Club office address, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team_email:
+                description: Club office e-mail. REDACTED in the committed samples.
+                type: string
+              team_icon2:
+                description: Team logo, absolute URL.
+                type: string
+              team_insta:
+                description: Instagram URL.
+                type: string
+              team_phone:
+                description: Club office phone. REDACTED in the committed samples.
+                type: string
+              team_pic:
+                description: Team photo, path relative to https://www.basket.co.il.
+                type: string
+              team_scores:
+                description: Points scored, season total.
+                type: string
+              team_shortName:
+                description: Short team name, Hebrew, HTML-entity encoded (&quot; &#39; &amp;).
+                type: string
+              team_shortNameEng:
+                description: Short team name, English.
+                type: string
+              team_social_link:
+                description: Facebook page URL.
+                type: string
+              team_sponsers:
+                description: Sponsors, Hebrew, comma-separated (sic 'sponsers'), HTML-entity encoded (&quot;
+                  &#39; &amp;).
+                type: string
+              team_subscribe_url:
+                description: Season-ticket (subscription) page URL.
+                type: string
+              team_twitter:
+                description: X/Twitter URL.
+                type: string
+              team_year_id:
+                description: 'Team-season id (IBBA team-season key space: a new id every season for the
+                  same club, e.g. Maccabi Tel Aviv = 1109 in 2025-26 and 2111 in 2026-27). = `team_id`
+                  on every other route; the `team_id` param.'
+                type: string
+              team_youtube:
+                description: YouTube URL.
+                type: string
+              ticket_link:
+                description: Ticketing URL; empty when none.
+                type: string
+              win:
+                description: Wins.
+                type: string
+              year_id:
+                description: Season END year as a string (2026 = 2025-26); echoes `cYear`.
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Reverse-engineered, unofficial. ASP.NET web service (HttpGet binding) behind basket.co.il;
+    keyless. Every WSDL parameter is required. `cYear` = season END year. Strings everywhere, Hebrew HTML-entity
+    encoded. Segev Stats play-by-play for the same games: ibba-segev.openapi.yaml (game_id = Games.ExternalID).'
+  title: Israel Basketball Association (basket.co.il) ASMX JSON API
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /Boards:
+    get:
+      description: 'Body: {"boards": [rows]}. Board ids recur across seasons with the same meaning (5
+        = league in 2004-05 and 2025-26); the set differs by season (11 exists only in the 2004-05 format;
+        33 play-in and 34 Supercup are recent).'
+      operationId: Boards
+      parameters:
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardsResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: 'Competitions (boards) of a season: league, cup, playoff rounds, play-in, Supercup'
+  /BoardsEx:
+    get:
+      description: 'Body: {"boards-ex": [rows]}. The body echoes neither `team_uid` nor `cYear`: the sample
+        cannot be scope-checked (README).'
+      operationId: BoardsEx
+      parameters:
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardsExResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: External competitions (European cups, national team, pre-season)
+      x-unscoped-params:
+      - team_uid
+      - cYear
+  /Boxscore:
+    get:
+      description: 'Body: {"boxscore": [rows]}. No player names: join `player_year_id` to Players `player_id`.
+        Every number is a string. 2004-05 rows carry plusminus ''0'' and dunk ''0'' throughout (not recorded
+        then, inferred). An unknown game_id answers HTTP 200 with an EMPTY body.'
+      operationId: Boxscore
+      parameters:
+      - description: IBBA game id; 0 = all games.
+        example: 26392
+        in: query
+        name: game_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoxscoreResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: 'Box score of a game: player rows plus _TEAM and TOTAL rows per team'
+  /Coaches:
+    get:
+      description: 'Body: {"coaches": [rows]}. Dates of birth are redacted in the committed samples.'
+      operationId: Coaches
+      parameters:
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 1109
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoachesResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Coaching staff of a team-season
+      x-unscoped-params:
+      - team_uid
+  /Configuration:
+    get:
+      description: 'Body: {"settings": [rows]}. Echoes `cYear` in Current_Year; the other fields'' meanings
+        are inferred.'
+      operationId: Configuration
+      parameters:
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: 'Season settings: current season, round counters, standings cut line'
+  /Games:
+    get:
+      description: 'Body: {"games": [rows]}. team1 = home, team2 = away. ExternalID is the Segev game
+        id from 2025-26 (empty before). The 2004-05 rows lack venue, time and referees. No paging and
+        no row cap: a board/season filter returns the whole list (2004-05 board 5 = 132 games; the capture
+        checks the count). Women''s league and Leumit games are not on this host: they are on Genius Sports
+        org IBBA (genius-livestats/, START-year key) and in Segev.'
+      operationId: Games
+      parameters:
+      - description: 'Board (competition) id: 5 league, 10 cup, ... (code table in ibba-returns.md); 0
+          = all boards.'
+        example: 5
+        in: query
+        name: board_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Round within the board; 0 = all rounds. Not echoed in the body.
+        example: 0
+        in: query
+        name: board_round
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 0
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 0
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: IBBA game id; 0 = all games.
+        example: 26392
+        in: query
+        name: game_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Games (schedule and results) filtered by board, round, team, game
+      x-unscoped-params:
+      - board_round
+      - team_uid
+  /GamesByTeam:
+    get:
+      description: 'Body: {"games": [rows]}. Mixes domestic boards (team-season ids) and external boards
+        1001+ (external-team ids; ExternalID can be a news URL).'
+      operationId: GamesByTeam
+      parameters:
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesByTeamResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Every game of a club in a season, domestic and external
+      x-unscoped-params:
+      - team_uid
+  /GamesEx:
+    get:
+      description: 'Body: {"games_ex": [rows]}. Team ids here are external-team ids (120 = Maccabi Tel
+        Aviv), not team-season ids.'
+      operationId: GamesEx
+      parameters:
+      - description: 'Board (competition) id: 5 league, 10 cup, ... (code table in ibba-returns.md); 0
+          = all boards.'
+        example: 0
+        in: query
+        name: board_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesExResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: A club's games in external competitions (BoardsEx boards)
+      x-unscoped-params:
+      - team_uid
+  /LeaderByType:
+    get:
+      description: 'Body: {"leaders": [rows]}. `stat_type` is not echoed; `Year` echoes cYear. GP values
+        in the 2025-26 sample look partial (see GP).'
+      operationId: LeaderByType
+      parameters:
+      - description: A StatsTypes `stat_type_field` code ('pts', 'VAL', '[OR]', ...). Not echoed in the
+          body.
+        example: pts
+        in: query
+        name: stat_type
+        required: true
+        schema:
+          type: string
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 0
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderByTypeResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Top five players in a stat category
+      x-unscoped-params:
+      - stat_type
+  /PlayerById:
+    get:
+      description: 'Body: {"player": [rows]}. A subset of the Players row: no Height, position or birth_date.'
+      operationId: PlayerById
+      parameters:
+      - description: Player-season id (Players `player_id`).
+        example: 21912
+        in: query
+        name: player_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerByIdResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: One player-season row
+  /PlayerStatsById:
+    get:
+      description: 'Body: {"player": [rows]}. Same columns as a box-score row plus `games`; averages have
+        2 decimals. `isAverages` / `isPlayOff` are not echoed.'
+      operationId: PlayerStatsById
+      parameters:
+      - description: Player-season id (Players `player_id`).
+        example: 21912
+        in: query
+        name: player_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: true = per-game averages, false = season totals. Not echoed in the body.
+        example: false
+        in: query
+        name: isAverages
+        required: true
+        schema: &id001
+          type: boolean
+      - description: true = playoff games only, false = regular season. Not echoed in the body.
+        example: false
+        in: query
+        name: isPlayOff
+        required: true
+        schema: &id002
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerStatsByIdResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Season totals or averages of a player
+      x-unscoped-params:
+      - isAverages
+      - isPlayOff
+  /Players:
+    get:
+      description: 'Body: {"players": [rows]}. Players carry a public birth_date; coaches'' dates of birth
+        are redacted (Coaches).'
+      operationId: Players
+      parameters:
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 1109
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Roster of a team-season
+      x-unscoped-params:
+      - team_uid
+  /StatsTypes:
+    get:
+      description: 'Body: {"statsTypes": [rows]}. No parameters.'
+      operationId: StatsTypes
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsTypesResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Stat categories LeaderByType accepts
+  /TeamById:
+    get:
+      description: 'Body: {"team": [rows]}. `team_About` is an HTML fragment. Club contact fields (e-mail,
+        phone, fax) are redacted in the committed samples.'
+      operationId: TeamById
+      parameters:
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 1109
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Club id (Teams `TeamUID`); 0 = all clubs. Not echoed in the body.
+        example: 10
+        in: query
+        name: team_uid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamByIdResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: 'One team-season: standings line, club profile'
+  /TeamStatsById:
+    get:
+      description: 'Body: {"team-stats": [rows]}. One TOTAL row shaped like a box-score row.'
+      operationId: TeamStatsById
+      parameters:
+      - description: Team-season id (Teams `team_year_id`); 0 = all teams.
+        example: 1109
+        in: query
+        name: team_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: true = per-game averages, false = season totals. Not echoed in the body.
+        example: true
+        in: query
+        name: isAverages
+        required: true
+        schema: *id001
+      - description: true = playoff games only, false = regular season. Not echoed in the body.
+        example: false
+        in: query
+        name: isPlayOff
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamStatsByIdResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Season totals or averages of a team
+      x-unscoped-params:
+      - isAverages
+      - isPlayOff
+  /Teams:
+    get:
+      description: 'Body: {"teams": [rows]}. Team and person names are HTML-entity encoded (&quot;, &#39;);
+        decode before use. Club contact fields (e-mail, phone, fax) are redacted in the committed samples.'
+      operationId: Teams
+      parameters:
+      - description: 'Board (competition) id: 5 league, 10 cup, ... (code table in ibba-returns.md); 0
+          = all boards.'
+        example: 5
+        in: query
+        name: board_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Season END year (2026 = 2025-26; 2005 = 2004-05, the earliest verified). Required
+          on every op that takes it.
+        example: 2026
+        in: query
+        name: cYear
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsResponse'
+          description: The rows (an unknown id answers 200 with an EMPTY body, not JSON).
+        '500':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 'A missing or unparsable parameter: a text/plain .NET stack trace (''Missing parameter:
+            cYear.''). Deterministic; do not retry.'
+      summary: Teams of a board with standings and club contact fields
+servers:
+- url: https://basket.co.il/ws/ws.asmx
