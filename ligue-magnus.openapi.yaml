@@ -566,7 +566,8 @@ components:
                         type: object
                     type: object
                   date_rencontre:
-                    description: Game date and time, local (YYYY-MM-DD HH:MM).
+                    description: Game date and time, local French time (Europe/Paris, no offset given;
+                      YYYY-MM-DD HH:MM).
                     type: string
                   en_cours:
                     description: Game in progress.
@@ -727,7 +728,9 @@ components:
                     description: Game label 'HOME / AWAY'.
                     type: string
                   score:
-                    description: Final score rows, one per team (0-0 on unplayed games).
+                    description: 'Final score rows: one per team of the game (0-0 on unplayed games),
+                      plus, on some finished games, 0-goal rows for teams that did not play in it; not
+                      home-first. Match a row to a side by equipe_id.'
                     items:
                       properties:
                         equipe_id:
@@ -1025,7 +1028,8 @@ components:
                   items:
                     properties:
                       date_rencontre:
-                        description: Game date and time, local (YYYY-MM-DD HH:MM).
+                        description: Game date and time in UTC, ISO 8601 with microseconds (YYYY-MM-DDTHH:MM:SS.ffffffZ);
+                          get_rencontres gives the same game in local French time.
                         type: string
                       en_cours:
                         description: Game in progress.
@@ -1113,7 +1117,9 @@ components:
                         description: Game label 'HOME / AWAY'.
                         type: string
                       score:
-                        description: 'Score rows, one per team: goals, team id, team participant id.'
+                        description: 'Score rows: one per team of the game, plus, on some finished games,
+                          0-goal rows for teams that did not play in it; not home-first. Match a row to
+                          a side by equipe_id.'
                         items:
                           properties:
                             equipe_id:
@@ -1227,7 +1233,8 @@ components:
           description: Competition name (a string here, not an object).
           type: string
         date_rencontre:
-          description: Game date and time, local (YYYY-MM-DD HH:MM).
+          description: Game date as French long-form text ('Mardi 29 septembre 2026'), no time; date_rencontre_non_formate
+            has the local date and time.
           type: string
         date_rencontre_non_formate:
           description: Game date and time, local (YYYY-MM-DD HH:MM:SS).
@@ -2466,7 +2473,9 @@ components:
             x-unobserved: true
           type: array
         scores:
-          description: 'Score rows, one per team: goals, team id, team participant id.'
+          description: 'Score rows with goals, team id and team participant id: one per team of the game,
+            plus, on some finished games, 0-goal rows for teams that did not play in it; not home-first.
+            Match a row to a side by equipe_id.'
           items:
             properties:
               created_at:
