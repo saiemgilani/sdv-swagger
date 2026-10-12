@@ -2733,7 +2733,9 @@ components:
                 type: boolean
               made:
                 description: The shot went in
-                type: boolean
+                type:
+                - boolean
+                - 'null'
               minute:
                 description: Game clock left in the period, minutes
                 type: integer
@@ -2749,7 +2751,9 @@ components:
                 type: integer
               points:
                 description: 'Shot value: 2 or 3; null on free throws'
-                type: integer
+                type:
+                - integer
+                - 'null'
               posX:
                 description: 'Court length coordinate (x-shot-coordinates). From 2020-21 (new match ids):
                   millimetres from the attacked basket''s centre, mirrored to one basket. Up to 2019-20
@@ -2775,8 +2779,10 @@ components:
               zone:
                 description: Court zone (x-observed-values); null on free throws; unreliable on legacy
                   (up to 2019-20) shots
-                type: string
-                x-observed-values: &id002
+                type:
+                - string
+                - 'null'
+                x-observed-values:
                 - restricted_area
                 - paint
                 - mid_range_left
@@ -3057,10 +3063,9 @@ components:
                 sampled row'
               x-unobserved: true
             roundType:
-              description: 'Phase code: LR = Liga Regular (regular season); PO = playoffs (in the bundle);
-                null in some rows; unobserved: null, absent or empty in every sampled row'
-              x-observed-values: &id001
-              - LR
+              description: 'Phase code: LR = Liga Regular (regular season), PO = playoffs (a bundle value,
+                not in the samples); null on every row of /Menu/competition-data and /TeamProfile/next-matches;
+                unobserved: null, absent or empty in every sampled row'
               x-unobserved: true
             serieData:
               description: 'Playoff series summary; unobserved: null, absent or empty in every sampled
@@ -3286,10 +3291,11 @@ components:
                 description: Round number within the phase
                 type: integer
               roundType:
-                description: 'Phase code: LR = Liga Regular (regular season); PO = playoffs (in the bundle);
-                  null in some rows'
+                description: 'Phase code: LR = Liga Regular (regular season), PO = playoffs (a bundle
+                  value, not in the samples); null on every row of /Menu/competition-data and /TeamProfile/next-matches'
                 type: string
-                x-observed-values: *id001
+                x-observed-values:
+                - LR
               serieData:
                 description: 'Playoff series summary; unobserved: null, absent or empty in every sampled
                   row'
@@ -8167,8 +8173,8 @@ components:
                 description: Round number within the phase
                 type: integer
               roundType:
-                description: 'Phase code: LR = Liga Regular (regular season); PO = playoffs (in the bundle);
-                  null in some rows'
+                description: 'Phase code: LR = Liga Regular (regular season), PO = playoffs (a bundle
+                  value, not in the samples); null on every row of /Menu/competition-data and /TeamProfile/next-matches'
                 type: string
                 x-observed-values:
                 - LR
@@ -8421,7 +8427,8 @@ components:
           description: Player bio
           properties:
             birthCountry:
-              description: Birth country, in Spanish ('Cabo Verde')
+              description: Birth country as a Spanish country name ('Cabo Verde' = Cape Verde); map with
+                x-country-names
               type: string
             birthDate:
               description: Birth date, 'DD-MM-YYYY' string
@@ -8511,7 +8518,8 @@ components:
               - EXT
               - COT
             nationality:
-              description: Nationality, in Spanish
+              description: Nationality as a Spanish country name ('Eslovenia' = Slovenia, 'EE.UU.' = United
+                States); map to English / ISO 3166-1 with x-country-names
               type: string
             player:
               description: The player
@@ -9343,7 +9351,9 @@ components:
                         type: string
                       secondaryLogo:
                         description: Second (contrast) logo image URL
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       shirtColor:
                         description: 'Shirt colour worn in this match, #RRGGBB; null outside match routes;
                           unobserved: null, absent or empty in every sampled row'
@@ -9574,7 +9584,17 @@ components:
               zone:
                 description: Court zone (x-observed-values; the same zones as match-shots `zone`)
                 type: string
-                x-observed-values: *id002
+                x-observed-values:
+                - restricted_area
+                - paint
+                - mid_range_left
+                - mid_range_center
+                - mid_range_right
+                - corner_three_left
+                - corner_three_right
+                - wing_three_left
+                - wing_three_right
+                - top_three
             type: object
           type: array
       type: object
@@ -9818,7 +9838,8 @@ components:
                 - EXT
                 - COT
               nationalityCountry:
-                description: Nationality, country name in Spanish ('Eslovenia')
+                description: Nationality as a Spanish country name ('Eslovenia' = Slovenia, 'EE.UU.' =
+                  United States); map to English / ISO 3166-1 with x-country-names
                 type: string
               player:
                 description: The player
@@ -9948,7 +9969,8 @@ components:
                 x-observed-values:
                 - CRE
               nationalityCountry:
-                description: Nationality, country name in Spanish
+                description: Nationality as a Spanish country name ('Eslovenia' = Slovenia, 'EE.UU.' =
+                  United States); map to English / ISO 3166-1 with x-country-names
                 type: string
             type: object
           type: array
@@ -10148,9 +10170,9 @@ components:
                 description: Round number within the phase
                 type: integer
               roundType:
-                description: 'Phase code: LR = Liga Regular (regular season); PO = playoffs (in the bundle);
-                  null in some rows; unobserved: null, absent or empty in every sampled row'
-                x-observed-values: *id001
+                description: 'Phase code: LR = Liga Regular (regular season), PO = playoffs (a bundle
+                  value, not in the samples); null on every row of /Menu/competition-data and /TeamProfile/next-matches;
+                  unobserved: null, absent or empty in every sampled row'
                 x-unobserved: true
               serieData:
                 description: 'Playoff series summary; unobserved: null, absent or empty in every sampled
@@ -15577,7 +15599,9 @@ components:
             properties:
               awayScore:
                 description: Away points (null before the match)
-                type: integer
+                type:
+                - integer
+                - 'null'
               awayTeam:
                 description: Away team
                 properties:
@@ -15643,7 +15667,9 @@ components:
                 x-unobserved: true
               homeScore:
                 description: Home points (null before the match)
-                type: integer
+                type:
+                - integer
+                - 'null'
               homeTeam:
                 description: Home team
                 properties:
@@ -15723,8 +15749,8 @@ components:
                 description: Round number within the phase
                 type: integer
               roundType:
-                description: 'Phase code: LR = Liga Regular (regular season); PO = playoffs (in the bundle);
-                  null in some rows'
+                description: 'Phase code: LR = Liga Regular (regular season), PO = playoffs (a bundle
+                  value, not in the samples); null on every row of /Menu/competition-data and /TeamProfile/next-matches'
                 type: string
                 x-observed-values:
                 - LR
@@ -19718,11 +19744,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataAdvancedStatsMatchAdvancedStats'
           description: OK (application/json; charset=utf-8)
-        '400': &id003
+        '400':
           description: 'A missing or malformed param: application/problem+json validation errors'
-        '401': &id004
+        '401':
           description: Missing or wrong X-APIKEY
-        '404': &id005
+        '404':
           description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
             for clubId 0')
       summary: Team advanced stats of the match (four factors, ratings, pace)
@@ -19758,9 +19784,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataAdvancedStatsPlayerAdvancedStats'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: One player's advanced stats in the match, against his season and win/loss splits
   /matchdata/MatchHeader/match-header:
     get:
@@ -19783,9 +19813,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataMatchHeaderMatchHeader'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Match header: teams, status, score by quarter, available content'
   /matchdata/MatchShots/match-shots:
     get:
@@ -19808,10 +19842,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataMatchShotsMatchShots'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
-      summary: Field-goal attempts with court coordinates (2016-17 onward)
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
+      summary: Field-goal and free-throw attempts with court coordinates (2016-17 onward)
   /matchdata/Menu/competition-data:
     get:
       description: 'Captured: default: competitionIds=1.'
@@ -19838,9 +19876,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataMenuCompetitionData'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Current competition, edition, round and match pointers, plus each competition's editions
   /matchdata/Menu/matchlist:
     get:
@@ -19885,9 +19927,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataMenuMatchlist'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: The matches of the round (or week) around a match
   /matchdata/Overview/lead-tracker:
     get:
@@ -19910,9 +19956,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataOverviewLeadTracker'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Score margin through the game, plus lead statistics
   /matchdata/Overview/lineup:
     get:
@@ -19935,9 +19985,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataOverviewLineup'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Starters and bench per team with game stats
   /matchdata/Overview/match-leaders:
     get:
@@ -19960,9 +20014,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataOverviewMatchLeaders'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Per-team leaders of this match
   /matchdata/Overview/match-team-comparison:
     get:
@@ -19985,9 +20043,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataOverviewMatchTeamComparison'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Team-vs-team stat bars per quarter (quarter 0 = whole game)
   /matchdata/Overview/serie:
     get:
@@ -20012,9 +20074,13 @@ paths:
           description: OK (application/json; charset=utf-8)
         '204':
           description: 'No content: the match is not part of a playoff series (match 105401)'
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Playoff series of the match (HTTP 204 for a match outside a series)
   /matchdata/PlayByPlay/play-by-play:
     get:
@@ -20037,9 +20103,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataPlayByPlayPlayByPlay'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Play-by-play (2016-17 onward; earlier games answer an empty `plays`)
   /matchdata/Preview/quickfacts:
     get:
@@ -20062,9 +20132,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataPreviewQuickfacts'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Pre-match facts per team: standing, record, last results'
   /matchdata/Preview/season-leaders:
     get:
@@ -20087,9 +20161,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataPreviewSeasonLeaders'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Per-team season leaders before the match
   /matchdata/Result/boxscores:
     get:
@@ -20112,9 +20190,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MatchdataResultBoxscores'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Box score per team and per quarter (quarter 0 = whole game)
   /seasondata/Calendar/season-calendar:
     get:
@@ -20145,9 +20227,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataCalendarSeasonCalendar'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Every round of a season with its matches
   /seasondata/Competition/bracket:
     get:
@@ -20179,14 +20265,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataCompetitionBracket'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Playoff bracket: quarterfinal, semifinal and final series'
   /seasondata/Competition/matches:
     get:
       description: 'Captured: default: competitionId=1&editionId=91&roundId=6017; 2016: competitionId=1&editionId=81&roundId=2600;
-        copa: competitionId=2&editionId=90.'
+        copa: competitionId=2&editionId=90&roundId=5995.'
       operationId: seasondata_Competition_matches
       parameters:
       - description: 'Competition id: 1 Liga Endesa, 2 Copa del Rey, 3 Supercopa Endesa, 10 Minicopa Endesa
@@ -20207,8 +20297,10 @@ paths:
         schema:
           type: integer
       - description: 'Omitted = the current (or last) round: 2016-17 without it served only the final
-          (match 17718). Round id: global across seasons, not the round number (6017 = Liga 2026-27 round
-          3; 2600 = 2016-17 round 1).'
+          (match 17718). A round comes back whole, postponed games included (2025-26 round 10, roundId
+          5893: 9 games from 2025-12-13 to 2026-02-08, the same 9 the season calendar lists); capture.py
+          checks every round body against the calendar. Round id: global across seasons, not the round
+          number (6017 = Liga 2026-27 round 3; 2600 = 2016-17 round 1).'
         example: 6017
         in: query
         name: roundId
@@ -20221,7 +20313,9 @@ paths:
         required: false
         schema:
           type: integer
-      - description: Site flag sent with roundId; echoed in selectedFilters.isRoundSelected. Effect unverified.
+      - description: 'With weekId: false = the matches played that week, across rounds (week 2879 of 2025-26
+          served 9 games of 2026-02-07/08 from several rounds); true or omitted = the round the week resolves
+          to (round 5911, postponed game included). Echoed in selectedFilters.isRoundSelected.'
         in: query
         name: isRoundSelected
         required: false
@@ -20234,9 +20328,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataCompetitionMatches'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Matches of one round (default: the current or last round)'
   /seasondata/Competition/standings:
     get:
@@ -20274,9 +20372,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataCompetitionStandings'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Standings after a round (default: the current round)'
   /seasondata/PlayerProfile/career:
     get:
@@ -20300,9 +20402,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataPlayerProfileCareer'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A player's titles and club stints
   /seasondata/PlayerProfile/matches:
     get:
@@ -20335,9 +20441,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataPlayerProfileMatches'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'A player''s game log for an edition (default: the current one)'
   /seasondata/PlayerProfile/player-data:
     get:
@@ -20361,9 +20471,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataPlayerProfilePlayerData'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Player bio: birth date and place, nationality, height, current team, social links'
   /seasondata/PlayerProfile/player-stats:
     get:
@@ -20403,9 +20517,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataPlayerProfilePlayerStats'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A player's season-by-season stats per team, and career totals
   /seasondata/Search/search:
     get:
@@ -20433,9 +20551,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataSearchSearch'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Search players, teams and coaches by name
   /seasondata/ShotChart/league-zones:
     get:
@@ -20466,9 +20588,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataShotChartLeagueZones'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: League-wide shooting by court zone for a season
   /seasondata/TeamProfile/club-data:
     get:
@@ -20490,9 +20616,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileClubData'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'Club profile: arena, contacts, links, titles'
   /seasondata/TeamProfile/current-roster:
     get:
@@ -20532,9 +20662,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileCurrentRoster'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: 'A club''s roster and staff for an edition (default: the current one)'
   /seasondata/TeamProfile/next-matches:
     get:
@@ -20578,9 +20712,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileNextMatches'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A club's most recent and upcoming matches
   /seasondata/TeamProfile/team-leaders:
     get:
@@ -20628,9 +20766,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileTeamLeaders'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A club's stat leaders for an edition and all-time
   /seasondata/TeamProfile/team-matches:
     get:
@@ -20669,9 +20811,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileTeamMatches'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A club's matches in a competition edition
   /seasondata/TeamProfile/team-records:
     get:
@@ -20693,9 +20839,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileTeamRecords'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A club's single-game records (best performance per stat)
   /seasondata/TeamProfile/team-stats:
     get:
@@ -20734,9 +20884,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileTeamStats'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: A club's player and team season stats
   /seasondata/TeamProfile/teams:
     get:
@@ -20767,9 +20921,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeasondataTeamProfileTeams'
           description: OK (application/json; charset=utf-8)
-        '400': *id003
-        '401': *id004
-        '404': *id005
+        '400':
+          description: 'A missing or malformed param: application/problem+json validation errors'
+        '401':
+          description: Missing or wrong X-APIKEY
+        '404':
+          description: Unknown route (empty body) or unknown id (text/plain, e.g. 'There is no team inscription
+            for clubId 0')
       summary: Teams entered in a competition edition
 security:
 - ApiKey: []
@@ -20780,6 +20938,38 @@ x-competitions:
   '10': Minicopa Endesa (youth cup)
   '2': Copa del Rey
   '3': Supercopa Endesa
+x-country-names:
+  Alemania: Germany DE
+  Brasil: Brazil BR
+  Bulgaria: Bulgaria BG
+  Cabo Verde: Cape Verde CV
+  Chequia: Czechia CZ
+  Costa de Marfil: Ivory Coast CI
+  Croacia: Croatia HR
+  EE.UU.: United States US
+  Eslovenia: Slovenia SI
+  España: Spain ES
+  Finlandia: Finland FI
+  Francia: France FR
+  Grecia: Greece GR
+  Hungría: Hungary HU
+  Italia: Italy IT
+  Jamaica: Jamaica JM
+  Letonia: Latvia LV
+  Lituania: Lithuania LT
+  Macedonia del Norte: North Macedonia MK
+  Montenegro: Montenegro ME
+  Nigeria: Nigeria NG
+  Países Bajos: Netherlands NL
+  Polonia: Poland PL
+  Puerto Rico: Puerto Rico PR
+  Reino Unido: United Kingdom GB
+  Rep. Democrática del Congo: DR Congo CD
+  República Dominicana: Dominican Republic DO
+  Senegal: Senegal SN
+  Serbia: Serbia RS
+  Suecia: Sweden SE
+  Ucrania: Ukraine UA
 x-match-statuses:
   FINALIZED: Finished
   NOT_SCHEDULED: Date not fixed yet
@@ -20787,6 +20977,18 @@ x-match-statuses:
   POSTPONED: Postponed
   STARTED: Live
   SUSPENDED: Suspended
+x-play-tag-meanings:
+  '10': 5-second inbound violation
+  '11': 5-second closely guarded (held ball) violation
+  '12': Bad pass
+  '13': 'Ball lost while in control (Spanish ''balon controlado'': a handling or dribbling turnover, as
+    opposed to a bad pass; inferred)'
+  '14': Double dribble
+  '15': Backcourt violation
+  '2': Three-second violation
+  '7': 24-second (shot clock) violation
+  '8': 8-second backcourt violation
+  '9': 14-second violation (reset shot clock)
 x-play-tags:
   '10': FIVE_SECOND_INBOUND_VIOLATION
   '11': FIVE_SECOND_HELD_BALL
@@ -20800,6 +21002,174 @@ x-play-tags:
   '9': FOURTEEN_SECOND_VIOLATION
 x-play-tags-unmapped:
   '1': Observed once on a turnover in match 105401; not in the bundle enum (unverified).
+x-play-type-meanings:
+  '100': Dunk made (counts as a made two)
+  '101': Offensive rebound
+  '102': Block (the defender's event)
+  '103': Steal
+  '104': Defensive rebound
+  '105': Own shot blocked (the shooter's event)
+  '106': Turnover (its kind is in playTag)
+  '107': Assist on a made two
+  '108': Assist on a made three
+  '109': Offensive foul
+  '110': Foul received (drawn)
+  '112': 'Substitution: player in'
+  '113': Time-out
+  '115': 'Substitution: player out'
+  '116': End of period
+  '118': TV time-out
+  '119': Assist on a foul drawn in the act of shooting (inferred)
+  '121': Start of period
+  '122': Start of game
+  '123': End of game
+  '130': Fast-break two
+  '131': Fast-break three
+  '159': Foul, no free throws
+  '160': Foul, 1 free throw
+  '161': Foul, 2 free throws
+  '162': Personal foul, 3 free throws
+  '163': Double personal foul, no free throws
+  '164': Personal foul, not counted as a team foul
+  '165': Unsportsmanlike foul, 1 free throw
+  '166': Unsportsmanlike foul, 2 free throws
+  '167': Unsportsmanlike foul, 3 free throws
+  '168': Unsportsmanlike foul double, no free throws
+  '169': Unsportsmanlike foul, not counted as a team foul
+  '170': Disqualifying foul (the foul itself)
+  '171': Disqualifying foul, not counted as a team foul
+  '172': Technical foul (player)
+  '173': Double technical foul, no free throws
+  '174': Technical foul, not counted as a team foul
+  '175': Fight
+  '176': Technical foul on the head coach
+  '177': Technical foul on the bench
+  '178': Jump ball won
+  '179': Jump ball lost
+  '200': 'Player disqualified from the game: the ejection event (after a fifth foul or a disqualifying
+    foul), distinct from the foul codes (inferred)'
+  '405': Instant replay review started
+  '406': 'Instant replay review: changed shot type'
+  '407': 'Instant replay review: shot validity'
+  '408': 'Instant replay review: possession clock'
+  '409': 'Instant replay review: match clock'
+  '410': 'Instant replay review: fight'
+  '411': 'Instant replay review: foul type'
+  '412': 'Instant replay review: rule violation'
+  '413': 'Instant replay review: last played touch'
+  '414': 'Instant replay review: player action'
+  '415': 'Instant replay review: substitution'
+  '416': Coach's challenge by the home coach
+  '417': Coach's challenge by the away coach
+  '533': Dunk missed
+  '537': Technical foul, 1 free throw
+  '538': Technical foul, 2 free throws
+  '539': Technical foul, 3 free throws
+  '540': Technical foul coach, 1 free throw
+  '541': Technical foul coach, 2 free throws
+  '542': Technical foul coach, 3 free throws
+  '543': Double technical foul coach, no free throws
+  '544': Technical foul bench, 1 free throw
+  '545': Technical foul bench, 2 free throws
+  '546': Technical foul bench, 3 free throws
+  '547': Double technical foul bench, no free throws
+  '548': Disqualifying foul, 1 free throw
+  '549': Disqualifying foul, 2 free throws
+  '550': Disqualifying foul, 3 free throws
+  '551': Disqualifying foul, no free throws
+  '552': Fight, 1 free throw
+  '553': Fight, 2 free throws
+  '554': Fight, 3 free throws
+  '555': Double fight, no free throws
+  '556': Fight, no free throws
+  '559': 'Technical foul bench no accumulate, 1 free throw; NO_ACCUMULATE: does not count toward the head
+    coach''s technical-foul total (Spanish ''no acumula''; inferred)'
+  '560': 'Technical foul bench no accumulate, 2 free throws; NO_ACCUMULATE: does not count toward the
+    head coach''s technical-foul total (Spanish ''no acumula''; inferred)'
+  '561': 'Technical foul bench no accumulate, 3 free throws; NO_ACCUMULATE: does not count toward the
+    head coach''s technical-foul total (Spanish ''no acumula''; inferred)'
+  '562': 'Technical foul bench with accumulate double; WITH_ACCUMULATE: counts toward the head coach''s
+    technical-foul total (inferred)'
+  '563': Technical foul bench, no free throws
+  '599': 'Starting lineup: one row per starter at 10:00 of period 1'
+  '748': Coach's challenge won
+  '749': Coach's challenge lost
+  '750': 'Technical foul BD disqualifying, 1 free throw; BD: an abbreviation the bundle never expands
+    (unverified)'
+  '751': 'Technical foul BD disqualifying, 2 free throws; BD: an abbreviation the bundle never expands
+    (unverified)'
+  '752': 'Technical foul BD disqualifying, 3 free throws; BD: an abbreviation the bundle never expands
+    (unverified)'
+  '753': 'Technical foul BD disqualifying, possession by throw-in; BD: an abbreviation the bundle never
+    expands (unverified)'
+  '754': 'Double technical foul BD disqualifying; BD: an abbreviation the bundle never expands (unverified)'
+  '755': 'Disruptive foul, 1 free throw; disruptive foul: not a FIBA rulebook term; the bundle name is
+    kept (unverified meaning)'
+  '756': 'Disruptive foul, 2 free throws; disruptive foul: not a FIBA rulebook term; the bundle name is
+    kept (unverified meaning)'
+  '757': 'Disruptive foul, 3 free throws; disruptive foul: not a FIBA rulebook term; the bundle name is
+    kept (unverified meaning)'
+  '758': 'Double disruptive foul; disruptive foul: not a FIBA rulebook term; the bundle name is kept (unverified
+    meaning)'
+  '759': 'Disruptive foul, not counted as a team foul; disruptive foul: not a FIBA rulebook term; the
+    bundle name is kept (unverified meaning)'
+  '760': Flagrant foul, 1 free throw; the FIBA rulebook has no flagrant foul; the bundle name is kept
+    (unverified meaning)
+  '761': Flagrant foul, 2 free throws; the FIBA rulebook has no flagrant foul; the bundle name is kept
+    (unverified meaning)
+  '762': Flagrant foul, 3 free throws; the FIBA rulebook has no flagrant foul; the bundle name is kept
+    (unverified meaning)
+  '763': Double flagrant foul; the FIBA rulebook has no flagrant foul; the bundle name is kept (unverified
+    meaning)
+  '764': Flagrant foul, not counted as a team foul; the FIBA rulebook has no flagrant foul; the bundle
+    name is kept (unverified meaning)
+  '765': 'Technical foul BD, 1 free throw; BD: an abbreviation the bundle never expands (unverified)'
+  '766': 'Technical foul BD, 2 free throws; BD: an abbreviation the bundle never expands (unverified)'
+  '767': 'Technical foul BD, 3 free throws; BD: an abbreviation the bundle never expands (unverified)'
+  '768': 'Double technical foul BD; BD: an abbreviation the bundle never expands (unverified)'
+  '769': 'Technical foul BD, possession by throw-in; BD: an abbreviation the bundle never expands (unverified)'
+  '770': 'Technical foul bench CAT1, 1 free throw; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '771': 'Technical foul bench CAT1, 2 free throws; CAT1 / CAT2: technical-foul categories the bundle
+    never defines (unverified)'
+  '772': 'Technical foul bench CAT1, 3 free throws; CAT1 / CAT2: technical-foul categories the bundle
+    never defines (unverified)'
+  '773': 'Double technical foul bench CAT1; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '774': 'Technical foul coach CAT1, 1 free throw; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '775': 'Technical foul coach CAT1, 2 free throws; CAT1 / CAT2: technical-foul categories the bundle
+    never defines (unverified)'
+  '776': 'Technical foul coach CAT1, 3 free throws; CAT1 / CAT2: technical-foul categories the bundle
+    never defines (unverified)'
+  '777': 'Double technical foul coach CAT1; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '778': 'Technical foul CAT1, 1 free throw; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '779': 'Technical foul CAT1, 2 free throws; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '780': 'Technical foul CAT1, 3 free throws; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '781': 'Double technical foul CAT1; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '782': 'Technical foul CAT1, not counted as a team foul; CAT1 / CAT2: technical-foul categories the
+    bundle never defines (unverified)'
+  '783': 'Technical foul CAT2, 1 free throw; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '784': 'Technical foul CAT2, 2 free throws; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '785': 'Technical foul CAT2, 3 free throws; CAT1 / CAT2: technical-foul categories the bundle never
+    defines (unverified)'
+  '786': 'Double technical foul CAT2; CAT1 / CAT2: technical-foul categories the bundle never defines
+    (unverified)'
+  '787': 'Technical foul CAT2, not counted as a team foul; CAT1 / CAT2: technical-foul categories the
+    bundle never defines (unverified)'
+  '92': Free throw made
+  '93': Two-point field goal made
+  '94': Three-point field goal made
+  '96': Free throw missed
+  '97': Two-point field goal missed
+  '98': Three-point field goal missed
 x-play-types:
   '100': DUNK
   '101': OFFENSIVE_REBOUND
@@ -20959,3 +21329,14 @@ x-shot-coordinates:
     grid over the full court; new ids (2020-21 onward) use millimetres from the attacked basket. Probed
     on one game each of 2016-17 (17718), 2019-20 (19132), 2020-21 (101497), 2021-22 (103118) and 2026-27
     (105401).'
+x-shot-zones:
+  corner_three_left: Corner three, left
+  corner_three_right: Corner three, right
+  mid_range_center: Mid-range two, centre
+  mid_range_left: Mid-range two, shooter's left
+  mid_range_right: Mid-range two, shooter's right
+  paint: Paint, outside the restricted area
+  restricted_area: Restricted area (under the basket)
+  top_three: Three from the top of the key
+  wing_three_left: Wing three, left
+  wing_three_right: Wing three, right
