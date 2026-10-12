@@ -1,0 +1,1424 @@
+components:
+  schemas:
+    AbaCalendar:
+      description: 'Record parsed from /calendar/{sez}/{lea}/ (text/html): the season select and every
+        game of every round of one season and league.'
+      properties:
+        games:
+          description: Every game of the season, round by round in page order (each round is one accordion
+            panel).
+          items:
+            properties:
+              away_abbr:
+                description: Away club's three-letter code.
+                type: string
+              away_score:
+                description: Away final score; null like home_score for a game not played yet.
+                type: integer
+              away_team:
+                description: Away club name; null like home_team while a pairing is not set (not in the
+                  samples).
+                type: string
+              date:
+                description: Game date, ISO 'YYYY-MM-DD' (the first date of a window). The parser sets
+                  null for 'TBA' (2026-27 page; not in the samples).
+                type: string
+              date_to:
+                description: 'Unobserved: null in every sample. When filled: Last date of a ''dd.mm.yyyy
+                  - dd.mm.yyyy'' window; null otherwise (every sampled game is scheduled).'
+                x-unobserved: true
+              game_no:
+                description: 'Game number (key space: per season AND league: it restarts at 1 for every
+                  (sez, lea), so a game''s key is (game_no, sez, lea); ABA 2025-26 runs 1..251 with gaps
+                  for unplayed playoff games). The {gameNo} of /match/ and the id= of the live-match helpers.'
+                type: integer
+              group:
+                description: Group letter ('A', 'B') from the Group column, which exists only in seasons
+                  with groups (ABA 2025-26). Null on the rounds after the groups (Top8, Play-out, playoffs);
+                  ABSENT when the page has no Group column.
+                type:
+                - string
+                - 'null'
+                x-absent-in-some-rows: true
+              home_abbr:
+                description: Home club's three-letter code ('PAR', 'CZV'), from the mobile copy of the
+                  cell.
+                type: string
+              home_score:
+                description: Home final score. Never null in the samples (finished seasons); null for
+                  a game not played yet (empty Result cell, 2026-27 page).
+                type: integer
+              home_team:
+                description: 'Home club name as the site prints it now (see the match page''s game.home_team).
+                  Never null in the samples (finished seasons); the parser sets null while a playoff pairing
+                  is not set ('' : '', seen on the 2026-27 page).'
+                type: string
+              lea:
+                description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                  8 = qualifiers; those are not sampled). From the game link; checked to equal the request.'
+                type: integer
+              local_place:
+                description: City of local_time; null otherwise.
+                type:
+                - string
+                - 'null'
+              local_time:
+                description: Arena-local tip-off 'hh:mm' for arenas outside Central Europe (Dubai, Cluj-Napoca);
+                  null otherwise.
+                type:
+                - string
+                - 'null'
+              round:
+                description: 'Round / phase label, the panel title (vocabulary in the notes below). ABA
+                  2025-26: ''ROUND 1''..''ROUND 18'', ''Top8 - R1''..''R8'', ''Play-out - R1''..''R10'',
+                  ''Play-in R1''/''R2'', ''Quarter-finals, Round 1''..3, ''Semi-finals, Round 1''..3,
+                  ''Finals, Round 1''..4.'
+                type: string
+              sez:
+                description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                  (END year) = 2000 + sez + 1. From the game link; checked to equal the request.'
+                type: integer
+              time:
+                description: Tip-off 'hh:mm' in time_zone. Null when only a date or 'TBA' is printed (2026-27
+                  page; not in the samples).
+                type: string
+              time_zone:
+                description: '''CET'' = Central European wall-clock time including summer time; ''local''
+                  = arena local time (''Local time'', ABA League 2).'
+                type: string
+              when:
+                description: 'Date and Time cell verbatim: ''Monday, 06.10.2025 18:00 CET'', with ''(19:00
+                  Dubai local time)'' for arenas outside Central Europe, ''Local time'' on ABA League
+                  2, a date window ''Friday, 25.12.2026 - Sunday, 27.12.2026'' or ''TBA'' before scheduling.'
+                type: string
+            type: object
+          type: array
+        season:
+          description: The season the page was asked for, read back from select#season's selected option.
+          properties:
+            label:
+              description: Selected option text, 'Season YYYY/YY'.
+              type: string
+            lea:
+              description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                8 = qualifiers; those are not sampled).'
+              type: integer
+            sez:
+              description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                (END year) = 2000 + sez + 1.'
+              type: integer
+          type: object
+        seasons:
+          description: 'Every option of select#season: the seasons this league''s calendar offers (ABA:
+            2001-02 onward, 26 options; ABA League 2 lists its own range).'
+          items:
+            properties:
+              label:
+                description: '''Season YYYY/YY''.'
+                type: string
+              lea:
+                description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                  8 = qualifiers; those are not sampled).'
+                type: integer
+              sez:
+                description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                  (END year) = 2000 + sez + 1.'
+                type: integer
+            type: object
+          type: array
+      type: object
+    AbaMatch:
+      description: 'Record parsed from /match/{gameNo}/{sez}/{lea}/Overview (text/html): game header,
+        period scores, officials, both box scores, team totals and the play-by-play in game order.'
+      properties:
+        game:
+          description: The game header (#basic_match_info, the clubs table, the officials line).
+          properties:
+            attendance:
+              description: Spectators (the users icon); null when the page prints none.
+              type: integer
+            away_city:
+              description: Away club city (local spelling).
+              type: string
+            away_score:
+              description: Away final score.
+              type: integer
+            away_team:
+              description: Away club name as the site prints it now (see home_team).
+              type: string
+            away_team_id:
+              description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season and
+                in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first number
+                of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png. Joins
+                match game.*_team_id / players / teams / pbp, standings rows and the player page. Not
+                a player id.'
+              type: integer
+            commissioner:
+              description: Game commissioner's name ('Commissioner:' line); 2008-09 adds an IOC-style
+                country code in parentheses ('(SRB)'). Null when not printed.
+              type:
+              - string
+              - 'null'
+            competition:
+              description: 'Competition name as printed, sponsor included and applied to every season:
+                ''AdmiralBet ABA League'' (2017-18 and 2025-26), ''Regional League'' (2008-09), ''2. ABA
+                liga'' (ABA League 2).'
+              type: string
+            date:
+              description: Game date, ISO 'YYYY-MM-DD', from the when line.
+              type: string
+            date_to:
+              description: 'Unobserved: null in every sample. When filled: End of a date window (''dd.mm.yyyy
+                - dd.mm.yyyy'', used before a game is scheduled); null on every played game.'
+              x-unobserved: true
+            game_no:
+              description: 'Game number (key space: per season AND league: it restarts at 1 for every
+                (sez, lea), so a game''s key is (game_no, sez, lea); ABA 2025-26 runs 1..251 with gaps
+                for unplayed playoff games). The {gameNo} of /match/ and the id= of the live-match helpers.
+                Read from the page''s hidden input #match_data_id and checked against the request.'
+              type: integer
+            group:
+              description: Group letter of a two-group regular season ('A', 'B'). ABSENT when the season
+                has no groups (2008-09, 2017-18 and ABA League 2 samples).
+              type: string
+              x-absent-in-some-rows: true
+            home_city:
+              description: 'Home club city (local spelling: ''Beograd'', ''Novo Mesto'').'
+              type: string
+            home_score:
+              description: Home final score.
+              type: integer
+            home_team:
+              description: 'Home club name as the site prints it NOW: a club''s current name is applied
+                to every season (2008-09 shows ''Partizan Mozzart Bet''); a club that no longer plays
+                keeps its last name (2008-09 ''Petrol Olimpija''). Join on the team id.'
+              type: string
+            home_team_id:
+              description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season and
+                in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first number
+                of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png. Joins
+                match game.*_team_id / players / teams / pbp, standings rows and the player page. Not
+                a player id.'
+              type: integer
+            lea:
+              description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                8 = qualifiers; those are not sampled). From #match_data_lea, checked against the request.'
+              type: integer
+            local_place:
+              description: 'Unobserved: null in every sample. When filled: City of local_time (''Dubai'',
+                ''Cluj-Napoca''); null otherwise.'
+              x-unobserved: true
+            local_time:
+              description: 'Unobserved: null in every sample. When filled: Arena-local tip-off ''hh:mm''
+                when the arena is outside Central Europe (''(19:00 Dubai local time)''); null otherwise.'
+              x-unobserved: true
+            referees:
+              description: Referees' names in page order (crew chief first), from the 'Referees:' line;
+                with country codes in 2008-09 ('Ademir Zurapović (BIH)', both 'BIH' and 'BiH' occur).
+              items:
+                description: One referee's name.
+                type: string
+              type: array
+            round:
+              description: 'Round / phase label as the page prints it: ''ROUND 1'', ''Top8 - R2'', ''Quarter-finals,
+                Round 1'', ''Finals, Round 4'', ''Semifinal''. Same vocabulary as calendar games[].round.'
+              type: string
+            season:
+              description: Season label 'YYYY/YY' (START/END years).
+              type: string
+            sez:
+              description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                (END year) = 2000 + sez + 1. From #match_data_sez, checked against the request.'
+              type: integer
+            time:
+              description: Tip-off time 'hh:mm' in time_zone.
+              type: string
+            time_zone:
+              description: '''CET'' = Central European wall-clock time INCLUDING summer time (the label
+                never changes; the Dubai local times prove CEST in October/June, CET in winter); ''local''
+                = the arena''s local time (ABA League 2 prints ''Local time'').'
+              type: string
+            venue:
+              description: 'Arena name (''Venue: ...''). ABSENT on the 2008-09 sample (the page has no
+                venue line).'
+              type: string
+              x-absent-in-some-rows: true
+            when:
+              description: Date-and-time line verbatim (English weekday, dd.mm.yyyy, hh:mm, time-zone
+                label).
+              type: string
+          type: object
+        pbp:
+          description: 'Play-by-play in GAME order: the page lists each period newest first and the record
+            reverses it. Parsed from the desktop table .match_table_play_by_play of tabs #q1..#q5 (q5
+            = overtime). EMPTY ([]) before 2017-18: the page has no play-by-play tab (2008-09 sample).'
+          items:
+            properties:
+              action:
+                description: text without its parenthesised qualifier; see the action table below the
+                  route. Null on team rows (they print only '(qualifier)') and bare-clock rows.
+                type:
+                - string
+                - 'null'
+              away_score:
+                description: Away score after this event, as home_score.
+                type:
+                - integer
+                - 'null'
+              clock:
+                description: Clock in the period, 'mm:ss' REMAINING (counts down from 10:00; overtime
+                  from 05:00). Null on the starting-lineup rows and on game / period start and end markers.
+                type:
+                - string
+                - 'null'
+              home_score:
+                description: 'Home score after this event: only set on scoring events (the page prints
+                  the score only there); null otherwise. Carry it forward for a running score.'
+                type:
+                - integer
+                - 'null'
+              jersey:
+                description: Jersey number printed before the name; the page omits it on some rows (all
+                  starting-lineup rows and many home rows), so null there.
+                type:
+                - integer
+                - 'null'
+              period:
+                description: '1-4 = quarters, 5 = overtime (the #q5 tab; every overtime of the game).'
+                type: integer
+              player_id:
+                description: 'ABA player id (key space: aba-liga.com players, global: the same person
+                  keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
+                  of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a
+                  STRING there. Null on team, timeout and game/period rows.'
+                type:
+                - integer
+                - 'null'
+              player_name:
+                description: 'Name as the play-by-play prints it: ''SURNAME I'' upper case (the trailing
+                  ''.'' belongs to the event text on the page and is dropped).'
+                type:
+                - string
+                - 'null'
+              qualifier:
+                description: The parenthesised part of text (shot type, rebound side, free-throw 'n of
+                  m', foul or turnover type); see the qualifier table. Null when the text has none.
+                type:
+                - string
+                - 'null'
+              seq:
+                description: 1-based position in game order across the whole game (after the reversal).
+                type: integer
+              side:
+                description: 'Which column the event sits in: ''home'', ''away'', or null for game/period
+                  markers and bare-clock rows. A timeout row gets the side of its team badge.'
+                type:
+                - string
+                - 'null'
+              team_id:
+                description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season
+                  and in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first
+                  number of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png.
+                  Joins match game.*_team_id / players / teams / pbp, standings rows and the player page.
+                  Not a player id. Read from the row''s 50x50 club badge; null on team-less rows and on
+                  team rows without a badge.'
+                type:
+                - integer
+                - 'null'
+              text:
+                description: 'Event text in English after the player''s name: ''<action> (<qualifier>)'',
+                  ''in starting lineup'', or the whole text of a team / game row (''(defensive)'', ''Timeout'',
+                  ''start of 1. quarter''). Null on bare-clock rows (''10:00'' with nothing else, opening
+                  some periods).'
+                type:
+                - string
+                - 'null'
+            type: object
+          type: array
+        periods:
+          description: 'Score of each period from #match_cetrtine_rezultat (Slovenian ''četrtine'' = quarters);
+            overtime periods follow Q4.'
+          items:
+            properties:
+              away:
+                description: Away points in the period (not cumulative).
+                type: integer
+              home:
+                description: Home points in the period (not cumulative).
+                type: integer
+              period:
+                description: '''Q1''..''Q4'', then ''OT1'', ''OT2'' ... for overtimes.'
+                type: string
+            type: object
+          type: array
+        players:
+          description: Both box scores (home table, then away), one row per player in page order (by jersey
+            number).
+          items:
+            properties:
+              assists:
+                description: Assists (Ass). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              blocks:
+                description: Shots blocked by this player or team (Blck Fv, 'in favour'). Null on did-not-play
+                  rows (played = false).
+                type:
+                - integer
+                - 'null'
+              blocks_against:
+                description: Own shots blocked by an opponent (Blck Ag, 'against'). Null on did-not-play
+                  rows (played = false).
+                type:
+                - integer
+                - 'null'
+              fg2_att:
+                description: 2-point field goals attempted (FG2 A). Null on did-not-play rows (played
+                  = false).
+                type:
+                - integer
+                - 'null'
+              fg2_made:
+                description: 2-point field goals made (FG2 M). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              fg2_pct:
+                description: 2-point percentage, 0-100 with one decimal; 0 when no attempt. Null on did-not-play
+                  rows (played = false).
+                type:
+                - number
+                - 'null'
+              fg3_att:
+                description: 3-point field goals attempted (FG3 A). Null on did-not-play rows (played
+                  = false).
+                type:
+                - integer
+                - 'null'
+              fg3_made:
+                description: 3-point field goals made (FG3 M). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              fg3_pct:
+                description: 3-point percentage, 0-100 with one decimal; 0 when no attempt. Null on did-not-play
+                  rows (played = false).
+                type:
+                - number
+                - 'null'
+              fg_pct:
+                description: Field-goal percentage over 2- and 3-point attempts, 0-100 with one decimal
+                  (FG2 + FG3 made / attempted); 0 when no attempt. Header 'overall %'. Null on did-not-play
+                  rows (played = false).
+                type:
+                - number
+                - 'null'
+              fouls:
+                description: Fouls committed (Foul Cm). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              fouls_drawn:
+                description: Fouls drawn / received (Foul Rv). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              ft_att:
+                description: Free throws attempted (FT A). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              ft_made:
+                description: Free throws made (FT M). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              ft_pct:
+                description: Free-throw percentage, 0-100 with one decimal; 0 when no attempt. Null on
+                  did-not-play rows (played = false).
+                type:
+                - number
+                - 'null'
+              jersey:
+                description: Jersey number.
+                type: integer
+              minutes:
+                description: Minutes played, 'mm:ss' text. '00:00' on did-not-play rows.
+                type: string
+              on_court_at_end:
+                description: 'On court at the final buzzer: the box prints the name in bold (matches the
+                  substitutions in the play-by-play on every sample). Null for the whole game when no
+                  name is bold (box-only seasons).'
+                type:
+                - boolean
+                - 'null'
+              played:
+                description: False on a did-not-play row (minutes '00:00' and one empty cell across the
+                  stat columns); its stat columns are null.
+                type: boolean
+              player_id:
+                description: 'ABA player id (key space: aba-liga.com players, global: the same person
+                  keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
+                  of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a
+                  STRING there.'
+                type: integer
+              player_name:
+                description: 'Name as the box prints it: ''Surname I.'' (diacritics kept).'
+                type: string
+              plus_minus:
+                description: Plus/minus while on court (+/-). 0 on every row of the 2008-09 sample (not
+                  tracked then). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              points:
+                description: Points scored (overall Pts). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              pts_fast_break:
+                description: Fast-break points (Points from FstBr). Absent on the 2008-09 sample, as pts_paint.
+                  Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+                x-absent-in-some-rows: true
+              pts_paint:
+                description: Points in the paint (Points from Paint). ABSENT before the advanced columns
+                  appear (absent on the 2008-09 sample, present on 2017-18). Null on did-not-play rows
+                  (played = false).
+                type:
+                - integer
+                - 'null'
+                x-absent-in-some-rows: true
+              pts_second_chance:
+                description: Second-chance points (Points from 2ndCh). Absent on the 2008-09 sample, as
+                  pts_paint. Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+                x-absent-in-some-rows: true
+              reb_def:
+                description: Defensive rebounds (Rebs D). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              reb_off:
+                description: Offensive rebounds (Rebs O). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              reb_tot:
+                description: Total rebounds (Rebs T). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              side:
+                description: '''home'' or ''away'' (the home team is listed first everywhere on the site).'
+                type: string
+              starter:
+                description: 'In the starting five: the box marks it with ''*'' (matches the play-by-play
+                  ''in starting lineup'' rows on every sample). Null for the whole game when no row carries
+                  a ''*'' (box-only seasons, 2008-09 sample).'
+                type:
+                - boolean
+                - 'null'
+              steals:
+                description: Steals (St). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              team_id:
+                description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season
+                  and in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first
+                  number of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png.
+                  Joins match game.*_team_id / players / teams / pbp, standings rows and the player page.
+                  Not a player id.'
+                type: integer
+              turnovers:
+                description: Turnovers (To). Null on did-not-play rows (played = false).
+                type:
+                - integer
+                - 'null'
+              valuation:
+                description: 'Valuation (Val, ''rank Value''): the efficiency rating (PIR-style index)
+                  the site ranks players by. Null on did-not-play rows (played = false).'
+                type:
+                - integer
+                - 'null'
+            type: object
+          type: array
+        teams:
+          description: 'Team totals from the ''Team Compare'' table: home row, then away.'
+          items:
+            properties:
+              assists:
+                description: Assists (Ass).
+                type: integer
+              blocks:
+                description: Shots blocked by this player or team (Blck Fv, 'in favour').
+                type: integer
+              blocks_against:
+                description: Own shots blocked by an opponent (Blck Ag, 'against').
+                type: integer
+              fg2_att:
+                description: 2-point field goals attempted (FG2 A).
+                type: integer
+              fg2_made:
+                description: 2-point field goals made (FG2 M).
+                type: integer
+              fg2_pct:
+                description: 2-point percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              fg3_att:
+                description: 3-point field goals attempted (FG3 A).
+                type: integer
+              fg3_made:
+                description: 3-point field goals made (FG3 M).
+                type: integer
+              fg3_pct:
+                description: 3-point percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              fg_pct:
+                description: Field-goal percentage over 2- and 3-point attempts, 0-100 with one decimal
+                  (FG2 + FG3 made / attempted); 0 when no attempt. Header 'overall %'.
+                type: number
+              fouls:
+                description: Fouls committed (Foul Cm).
+                type: integer
+              fouls_drawn:
+                description: Fouls drawn / received (Foul Rv).
+                type: integer
+              ft_att:
+                description: Free throws attempted (FT A).
+                type: integer
+              ft_made:
+                description: Free throws made (FT M).
+                type: integer
+              ft_pct:
+                description: Free-throw percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              minutes:
+                description: 'Minutes played, ''mm:ss'' text. Team rows sum the five on court: ''200:00'',
+                  ''225:00'' with one overtime.'
+                type: string
+              plus_minus:
+                description: 'Plus/minus while on court (+/-). 0 on every row of the 2008-09 sample (not
+                  tracked then). Team rows: the final margin (0 on the 2008-09 sample).'
+                type: integer
+              points:
+                description: Points scored (overall Pts).
+                type: integer
+              pts_fast_break:
+                description: Fast-break points (Points from FstBr). Absent on the 2008-09 sample, as pts_paint.
+                type: integer
+                x-absent-in-some-rows: true
+              pts_paint:
+                description: Points in the paint (Points from Paint). ABSENT before the advanced columns
+                  appear (absent on the 2008-09 sample, present on 2017-18).
+                type: integer
+                x-absent-in-some-rows: true
+              pts_second_chance:
+                description: Second-chance points (Points from 2ndCh). Absent on the 2008-09 sample, as
+                  pts_paint.
+                type: integer
+                x-absent-in-some-rows: true
+              reb_def:
+                description: Defensive rebounds (Rebs D).
+                type: integer
+              reb_off:
+                description: Offensive rebounds (Rebs O).
+                type: integer
+              reb_tot:
+                description: Total rebounds (Rebs T). Team rows equal the players' sum on every sample
+                  (team rebounds are not added).
+                type: integer
+              side:
+                description: '''home'' or ''away'' (the home team is listed first everywhere on the site).'
+                type: string
+              steals:
+                description: Steals (St).
+                type: integer
+              team_id:
+                description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season
+                  and in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first
+                  number of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png.
+                  Joins match game.*_team_id / players / teams / pbp, standings rows and the player page.
+                  Not a player id.'
+                type: integer
+              team_name:
+                description: Club name as the site prints it now (see game.home_team).
+                type: string
+              turnovers:
+                description: Turnovers (To).
+                type: integer
+              valuation:
+                description: 'Valuation (Val, ''rank Value''): the efficiency rating (PIR-style index)
+                  the site ranks players by.'
+                type: integer
+            type: object
+          type: array
+      type: object
+      x-code-tables:
+        pbp.[].action:
+          Timeout: Team timeout (middle column, with the team's badge).
+          assist: Assist (no qualifier).
+          block: Blocked shot by this player (no qualifier).
+          end of 1. quarter: Period end marker.
+          end of 2. quarter: Period end marker.
+          end of 3. quarter: Period end marker.
+          end of 4. quarter: Period end marker.
+          end of OT1: Overtime end marker.
+          foul: Foul committed; qualifier = type.
+          foul on: 'Foul drawn: this player was fouled (no qualifier).'
+          game finished: Game end marker (middle column); the capture requires it.
+          game started: Game start marker (middle column).
+          in starting lineup: Player is in the starting five (one row per starter, before 'game started';
+            no clock).
+          jumpball: Jump ball marker (middle column); the players' rows are 'jumpball (won)' / '(lost)'.
+          made 2 points: Made 2-point field goal; qualifier = shot type.
+          made 3 points: Made 3-point field goal; qualifier = shot type.
+          made free throw: Made free throw; qualifier = 'n of m'.
+          missed 2 points: Missed 2-point field goal; qualifier = shot type.
+          missed 3 points: Missed 3-point field goal; qualifier = shot type.
+          missed free throw: Missed free throw; qualifier = 'n of m'.
+          rebound: Rebound; qualifier 'offensive' / 'defensive'.
+          start of 1. quarter: Period start marker; '1.'..'4.' quarter.
+          start of 2. quarter: Period start marker.
+          start of 3. quarter: Period start marker.
+          start of 4. quarter: Period start marker.
+          start of OT1: Overtime start marker ('OT1', 'OT2', ...).
+          steal: Steal (no qualifier).
+          substitution: Substitution; qualifier 'in' / 'out'.
+          timeout - officials: Officials' timeout (middle column, no team).
+          turnover: Turnover; qualifier = type.
+        pbp.[].qualifier:
+          1 of 2: Free throw 1 of 2.
+          1 of 3: Free throw 1 of 3.
+          1of1: Free throw 1 of 1 (spelled without spaces).
+          2 of 2: Free throw 2 of 2.
+          2 of 3: Free throw 2 of 3.
+          24sec: Shot-clock (24-second) violation, on a team row.
+          3 of 3: Free throw 3 of 3.
+          bad pass: 'Turnover: bad pass.'
+          ballhandling: 'Turnover: ball-handling error.'
+          defensive: Defensive rebound; on a team row '(defensive)' = team defensive rebound.
+          doubledribble: 'Turnover: double dribble.'
+          drivinglayup: Driving layup.
+          dunk: Dunk.
+          floatingjump shot: Floating jump shot (floater).
+          freethrow: 'Team row ''(freethrow)'': unverified (a team free-throw event, e.g. a lane violation).'
+          gameorshotclock: 'Team turnover: game- or shot-clock expired (team row).'
+          heldball: Held ball (team row; alternating possession).
+          in: 'Substitution: enters the game.'
+          jump shot: Jump shot.
+          layup: Layup.
+          lost: Jump ball lost.
+          offensive: Offensive (rebound, foul or turnover type); on a team row '(offensive)' = team offensive
+            rebound.
+          out: 'Substitution: leaves the game.'
+          outofbounds: 'Turnover: out of bounds (team row: team turnover out of bounds).'
+          personal: Personal foul.
+          technical: Technical foul.
+          tip inlayup: Tip-in (layup).
+          travel: 'Turnover: travelling.'
+          turnaroundjump shot: Turnaround jump shot (words run together as printed).
+          unsportsmanlike: Unsportsmanlike foul.
+          violence: 'Team row ''(violence)'': unverified (a team violation coded ''violence''; seen once,
+            ABA League 2 2025-26 game 1).'
+          won: Jump ball won.
+    AbaPlayer:
+      description: 'Record parsed from /player/{playerId}/{sez}/{lea}/ (text/html): the player''s info
+        box, the free-text club history and the season''s game log.'
+      properties:
+        birth_date:
+          description: Date of birth, ISO 'YYYY-MM-DD' (public player bio).
+          type: string
+        birth_place:
+          description: Place of birth as printed, 'City, COUNTRY' ('Cincinnati, USA').
+          type: string
+        career:
+          description: 'The ''Clubs'' box, one free-text line per stint, oldest first: ''<seasons> - <club>''
+            (''2021/22 - Texas Legends'', ''2024-27 - Partizan Mozzart Bet'').'
+          items:
+            description: One career line.
+            type: string
+          type: array
+        club:
+          description: Club name of the 'Club:' row.
+          type: string
+        games:
+          description: The season's game log (#player_game_stats_table), one row per game the player was
+            listed in.
+          items:
+            properties:
+              assists:
+                description: Assists (Ass).
+                type: integer
+              blocks:
+                description: Shots blocked by this player or team (Blck Fv, 'in favour').
+                type: integer
+              blocks_against:
+                description: Own shots blocked by an opponent (Blck Ag, 'against').
+                type: integer
+              fg2_att:
+                description: 2-point field goals attempted (FG2 A).
+                type: integer
+              fg2_made:
+                description: 2-point field goals made (FG2 M).
+                type: integer
+              fg2_pct:
+                description: 2-point percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              fg3_att:
+                description: 3-point field goals attempted (FG3 A).
+                type: integer
+              fg3_made:
+                description: 3-point field goals made (FG3 M).
+                type: integer
+              fg3_pct:
+                description: 3-point percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              fg_pct:
+                description: Field-goal percentage over 2- and 3-point attempts, 0-100 with one decimal
+                  (FG2 + FG3 made / attempted); 0 when no attempt. Header 'overall %'.
+                type: number
+              fouls:
+                description: Fouls committed (Foul Cm).
+                type: integer
+              fouls_drawn:
+                description: Fouls drawn / received (Foul Rv).
+                type: integer
+              ft_att:
+                description: Free throws attempted (FT A).
+                type: integer
+              ft_made:
+                description: Free throws made (FT M).
+                type: integer
+              ft_pct:
+                description: Free-throw percentage, 0-100 with one decimal; 0 when no attempt.
+                type: number
+              game:
+                description: Short pairing label 'Home-Away' with short club names ('Partizan-Krka', 'C.
+                  Zvezda-Partizan').
+                type: string
+              game_no:
+                description: 'Game number (key space: per season AND league: it restarts at 1 for every
+                  (sez, lea), so a game''s key is (game_no, sez, lea); ABA 2025-26 runs 1..251 with gaps
+                  for unplayed playoff games). The {gameNo} of /match/ and the id= of the live-match helpers.'
+                type: integer
+              minutes:
+                description: Minutes played, 'mm:ss' text.
+                type: string
+              plus_minus:
+                description: Plus/minus while on court (+/-). 0 on every row of the 2008-09 sample (not
+                  tracked then).
+                type: integer
+              points:
+                description: Points scored (overall Pts).
+                type: integer
+              reb_def:
+                description: Defensive rebounds (Rebs D).
+                type: integer
+              reb_off:
+                description: Offensive rebounds (Rebs O).
+                type: integer
+              reb_tot:
+                description: Total rebounds (Rebs T).
+                type: integer
+              round_no:
+                description: 'Season-wide round index of the game: 1-18 = regular season, later phases
+                  continue the count (ABA 2025-26: ''Top8 - R2'' = 21, ''Finals, Round 4'' = 48).'
+                type: integer
+              steals:
+                description: Steals (St).
+                type: integer
+              turnovers:
+                description: Turnovers (To).
+                type: integer
+              valuation:
+                description: 'Valuation (Val, ''rank Value''): the efficiency rating (PIR-style index)
+                  the site ranks players by.'
+                type: integer
+            type: object
+          type: array
+        height_cm:
+          description: Height in centimetres ('185 cm').
+          type: integer
+        lea:
+          description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 =
+            qualifiers; those are not sampled). The request''s league, echoed by the selected season option.'
+          type: integer
+        name:
+          description: Full name from the h1, 'First Last' (checked against the expected name).
+          type: string
+        nationality:
+          description: Sporting nationality, a three-letter code as printed ('SSD' = South Sudan; IOC/FIBA-style
+            codes).
+          type: string
+        player_id:
+          description: 'ABA player id (key space: aba-liga.com players, global: the same person keeps
+            one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/;
+            equals the shot chart''s player_id, which is a STRING there. The request''s id, echoed by
+            the selected season option.'
+          type: integer
+        position:
+          description: Position in English as printed ('Guard' on the sample).
+          type: string
+        seasons:
+          description: 'Every option of the page''s select#season: the seasons and leagues this player
+            has a page for (values ''{playerId}/{sez}/{lea}/{slug}/''; the selected one must equal the
+            request).'
+          items:
+            properties:
+              label:
+                description: '''Season YYYY/YY - <competition>'' (''Season 2025/26 - AdmiralBet ABA League'').'
+                type: string
+              lea:
+                description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                  8 = qualifiers; those are not sampled).'
+                type: integer
+              sez:
+                description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                  (END year) = 2000 + sez + 1.'
+                type: integer
+            type: object
+          type: array
+        sez:
+          description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+            year) = 2000 + sez + 1. The request''s season, echoed by the selected season option.'
+          type: integer
+        team_id:
+          description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season and in
+            both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first number of /team/{id}/{sez}/{lea}/0/{slug}/
+            and of the logo images/club/{size}/{id}.png. Joins match game.*_team_id / players / teams
+            / pbp, standings rows and the player page. Not a player id. The ''Club:'' link (the player''s
+            club in this season).'
+          type: integer
+      type: object
+    AbaScoreDifference:
+      description: 'Body of create_scoredifference.php: identical to create_json.php for a played game
+        (same rows, same types).'
+      items:
+        description: Score at one whole game minute.
+        properties:
+          domaci_rez:
+            description: Home cumulative score at the end of that minute, a numeric STRING ('domaći' =
+              home, 'rez' = rezultat, result). The last row equals the final score.
+            type: string
+          minuta:
+            description: Elapsed game minute, an INTEGER 0..40 (0 = tip-off), then 41..45 per overtime
+              ('minuta' = minute). Every minute is present once, in order.
+            type: integer
+          tuji_rez:
+            description: Away cumulative score at the end of that minute, a numeric STRING (Slovenian
+              'tuji' = foreign / guest).
+            type: string
+        type: object
+      type: array
+    AbaScoreFlow:
+      description: 'Body of create_json.php: a JSON array served as text/html, the cumulative score at
+        every whole game minute 0..40 (+5 per overtime). Keys are Slovenian/Serbo-Croatian (minuta = minute,
+        domaci = home, tuji = away/guest, rez = result).'
+      items:
+        description: Score at one whole game minute.
+        properties:
+          domaci_rez:
+            description: Home cumulative score at the end of that minute, a numeric STRING ('domaći' =
+              home, 'rez' = rezultat, result). The last row equals the final score.
+            type: string
+          minuta:
+            description: Elapsed game minute, an INTEGER 0..40 (0 = tip-off), then 41..45 per overtime
+              ('minuta' = minute). Every minute is present once, in order.
+            type: integer
+          tuji_rez:
+            description: Away cumulative score at the end of that minute, a numeric STRING (Slovenian
+              'tuji' = foreign / guest).
+            type: string
+        type: object
+      type: array
+    AbaShotChart:
+      description: 'Body of create_shooting_chart.php: a JSON array served as text/html, one object per
+        field-goal attempt, in game order. Keys are Slovenian (ekipa = team, koordinata = coordinate,
+        uspeh = success).'
+      items:
+        description: One field-goal attempt.
+        properties:
+          ekipa:
+            description: 'Team, a STRING: ''1'' = home, ''2'' = away (Slovenian ''ekipa'' = team).'
+            type: string
+          koordinata_uspeh:
+            description: 'Made flag, a STRING (''uspeh'' = success): ''1'' = made, ''0'' = missed.'
+            type: string
+          koordinata_x:
+            description: 'Shot x (''koordinata'' = coordinate): 0-100 = PERCENT of the court LENGTH from
+              the LEFT baseline of the 1000x535 px full-court image live-match/images/aba-basketball-markings-final.png
+              (Chart.js bubble chart, axes 0-100). Each team is drawn at one end: home shots at x < 50
+              (left basket at about x 5, y 50), away shots at x > 50. TYPE VARIES WITHIN ONE BODY: one
+              contiguous run of rows (one half of the game) is a numeric string as stored, the other run
+              is a JSON number the server computed as 100 - stored x (floats carry noise such as 15.760000000000005;
+              whole values come out as integers). Cast to float.'
+            type:
+            - number
+            - string
+          koordinata_y:
+            description: 'Shot y, a numeric STRING: 0-100 = PERCENT of the court WIDTH; Chart.js draws
+              y upward, so 0 = the bottom edge of the image and 50 = the line through both baskets. Never
+              mirrored (string in every row).'
+            type: string
+          player_id:
+            description: 'Shooter: ABA player id (key space: aba-liga.com players, global: the same person
+              keeps one id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number
+              of /player/{id}/{sez}/{lea}/{slug}/; equals the shot chart''s player_id, which is a STRING
+              there. A STRING here; ''0'' (with player_name '' '') = shooter not recorded (seen once,
+              ABA 2025-26 game 6).'
+            type: string
+          player_name:
+            description: Shooter's full name, 'First Last' (the box prints 'Last F.'); ' ' when player_id
+              is '0'.
+            type: string
+        type: object
+      type: array
+    AbaStandings:
+      description: 'Record parsed from /standings/{sez}/{lea}/ (text/html): every standings table of one
+        season and league, flattened to rows.'
+      properties:
+        rows:
+          description: Every row of every standings table, in page order.
+          items:
+            properties:
+              games:
+                description: Games played (GP).
+                type: integer
+              group:
+                description: Group heading under the phase ('Group A', 'Group B'); null when the table
+                  has no group heading.
+                type:
+                - string
+                - 'null'
+              losses:
+                description: Losses (L).
+                type: integer
+              point_diff:
+                description: Point difference (Diff), points_for - points_against.
+                type: integer
+              points_against:
+                description: Points allowed (right side of 'Overall').
+                type: integer
+              points_for:
+                description: Points scored (left side of 'Overall' 'for:against').
+                type: integer
+              rank:
+                description: Position in this table (#).
+                type: integer
+              standing_points:
+                description: 'Standings points (Points): 2 per win and 1 per loss (FIBA), e.g. 21-3 =
+                  45.'
+                type: integer
+              table:
+                description: 'Title of the table''s phase heading (h2): ''Top 8 Season 2025/26'', ''Play-out
+                  Season 2025/26'', ''Regular Season 2025/26''.'
+                type: string
+              team_id:
+                description: 'ABA team id (key space: aba-liga.com clubs, the same id in every season
+                  and in both leagues, e.g. Partizan = 22 in 2008-09 and 2025-26, Krka = 10). The first
+                  number of /team/{id}/{sez}/{lea}/0/{slug}/ and of the logo images/club/{size}/{id}.png.
+                  Joins match game.*_team_id / players / teams / pbp, standings rows and the player page.
+                  Not a player id.'
+                type: integer
+              team_name:
+                description: Club name as the site prints it now (see the match page's game.home_team).
+                type: string
+              wins:
+                description: Wins (W).
+                type: integer
+            type: object
+          type: array
+        season:
+          description: The season the page was asked for, read back from select#season's selected option.
+          properties:
+            label:
+              description: Selected option text, 'Season YYYY/YY'.
+              type: string
+            lea:
+              description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19,
+                8 = qualifiers; those are not sampled).'
+              type: integer
+            sez:
+              description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season
+                (END year) = 2000 + sez + 1.'
+              type: integer
+          type: object
+      type: object
+info:
+  description: 'Adriatic ABA League (lea=1) and ABA League 2 (lea=2) game data from the leagues'' own
+    PHP sites. Keyless, no bot wall; robots.txt on www is ''User-agent: *'' with no Disallow line, druga
+    has none (404). Match pages, calendars, standings and player pages are server-rendered HTML (x-parsed-schema
+    gives the record capture.py parses); the shot chart and the minute-by-minute score are JSON served
+    as text/html. Box scores from 2001-02, play-by-play and shots from 2017-18. Seasons are keyed by sez
+    = START year - 2000 (sdv END year = 2000 + sez + 1); game numbers restart per (sez, lea); team and
+    player ids are global. Shapes from captures of 2026-10-12; x-unobserved = null in every sample; x-absent-in-some-rows
+    = the key is missing from some records. Not official or supported.'
+  title: ABA League sites (aba-liga.com, druga.aba-liga.com)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /calendar/{sez}/{lea}/:
+    get:
+      description: 'One season''s full schedule and results of one league: every round and game. Server-rendered
+        HTML, parsed by capture.py into the JSON record of x-parsed-schema (English keys). Keyless. Parsing
+        rule: select#season (selected option = the request); each .panel: h4.panel-title (round) and table.league_calendar_table
+        (Game | Result | Date and Time | Info [| Group]); the game link /match/{gameNo}/{sez}/{lea}/Overview/....'
+      operationId: get_aba_calendar
+      parameters:
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: path
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: path
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: aba-liga/tools/capture.py parse_calendar
+                rule: 'select#season (selected option = the request); each .panel: h4.panel-title (round)
+                  and table.league_calendar_table (Game | Result | Date and Time | Info [| Group]); the
+                  game link /match/{gameNo}/{sez}/{lea}/Overview/...'
+                schema:
+                  $ref: '#/components/schemas/AbaCalendar'
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: 'One season''s full schedule and results of one league: every round and game'
+  /live-match/rezultati-1718/create_json.php:
+    get:
+      description: One game's score after every minute (the Result Graph; 2017-18 onward). JSON served
+        as text/html (parse the body as JSON). Keyless. minuta is an integer while the scores are strings.
+        An UNKNOWN id answers whitespace only (not JSON; refused), and 2016-17 and earlier the same.
+      operationId: get_aba_flow
+      parameters:
+      - description: 'Game number, as {gameNo} of the match page. Game number (key space: per season AND
+          league: it restarts at 1 for every (sez, lea), so a game''s key is (game_no, sez, lea); ABA
+          2025-26 runs 1..251 with gaps for unplayed playoff games). The {gameNo} of /match/ and the id=
+          of the live-match helpers.'
+        example: 6
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: query
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: query
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/AbaScoreFlow'
+              x-body-format: json
+              x-scope: Checked against the same game's parsed match page (minutes, final score).
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: One game's score after every minute (the Result Graph; 2017-18 onward)
+  /live-match/rezultati-1718/create_scoredifference.php:
+    get:
+      description: 'Same minute-by-minute score as create_json.php (the Score difference chart). JSON
+        served as text/html (parse the body as JSON). Keyless. For a played game: the same rows as create_json.php.
+        For an UNKNOWN or unplayed id it answers a 40-row placeholder (minutes 0..39, scores the INTEGER
+        0) instead of nothing: the capture refuses it (minute count and final score).'
+      operationId: get_aba_scorediff
+      parameters:
+      - description: 'Game number, as {gameNo} of the match page. Game number (key space: per season AND
+          league: it restarts at 1 for every (sez, lea), so a game''s key is (game_no, sez, lea); ABA
+          2025-26 runs 1..251 with gaps for unplayed playoff games). The {gameNo} of /match/ and the id=
+          of the live-match helpers.'
+        example: 6
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: query
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: query
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/AbaScoreDifference'
+              x-body-format: json
+              x-scope: Checked against the same game's parsed match page (minutes, final score).
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: Same minute-by-minute score as create_json.php (the Score difference chart)
+  /live-match/rezultati-1718/create_shooting_chart.php:
+    get:
+      description: 'One game''s shot chart: every field-goal attempt with x/y (2017-18 onward). JSON served
+        as text/html (parse the body as JSON). Keyless. 2016-17 and earlier answer `[]` plus blank lines
+        (refused). An unknown id answers the same.'
+      operationId: get_aba_shots
+      parameters:
+      - description: 'Game number, as {gameNo} of the match page. Game number (key space: per season AND
+          league: it restarts at 1 for every (sez, lea), so a game''s key is (game_no, sez, lea); ABA
+          2025-26 runs 1..251 with gaps for unplayed playoff games). The {gameNo} of /match/ and the id=
+          of the live-match helpers.'
+        example: 6
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: query
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: query
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/AbaShotChart'
+              x-body-format: json
+              x-scope: 'No game echo. Checked against the same game''s parsed match page: every non-''0''
+                player_id is in that side''s box score, and made shots per side are within 2 of the box
+                score''s field goals made. A game between the same two rosters with near-identical made
+                counts would pass.'
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: 'One game''s shot chart: every field-goal attempt with x/y (2017-18 onward)'
+  /match/{gameNo}/{sez}/{lea}/Overview:
+    get:
+      description: 'One game: header, quarter scores, officials, box score, team totals and play-by-play.
+        Server-rendered HTML, parsed by capture.py into the JSON record of x-parsed-schema (English keys).
+        Keyless. Parsing rule: hidden inputs #match_data_id / _sez / _lea / _home / _guest (the echo checked
+        against the request); #basic_match_info: span.roundNumber (''<round>, <competition>, Season YYYY/YY[
+        - Group X]'') and .dateAndVenue_container (when line, attendance, ''Venue:''); #match_clubs_and_results_info_table
+        (team links /team/{id}/{sez}/{lea}/, span.club, span.city, td.gameScore); span.smallCaps ''Commissioner:''
+        / ''Referees:''; table#match_cetrtine_rezultat (Q1..Q4, OT1..); #Boxscore: two table.match_boxscore_team_table
+        (home, away; two header rows read as ''<group> <label>'') and table.match_boxscore_teams_compare_table;
+        #tabs_for_quaters > div#q1..#q5 > table.match_table_play_by_play (home | ''Minute | Score'' |
+        away; rows newest first).'
+      operationId: get_aba_match
+      parameters:
+      - description: 'Game number (key space: per season AND league: it restarts at 1 for every (sez,
+          lea), so a game''s key is (game_no, sez, lea); ABA 2025-26 runs 1..251 with gaps for unplayed
+          playoff games). The {gameNo} of /match/ and the id= of the live-match helpers.'
+        example: 6
+        in: path
+        name: gameNo
+        required: true
+        schema:
+          type: integer
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: path
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: path
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: aba-liga/tools/capture.py parse_match
+                rule: 'hidden inputs #match_data_id / _sez / _lea / _home / _guest (the echo checked against
+                  the request); #basic_match_info: span.roundNumber (''<round>, <competition>, Season
+                  YYYY/YY[ - Group X]'') and .dateAndVenue_container (when line, attendance, ''Venue:'');
+                  #match_clubs_and_results_info_table (team links /team/{id}/{sez}/{lea}/, span.club,
+                  span.city, td.gameScore); span.smallCaps ''Commissioner:'' / ''Referees:''; table#match_cetrtine_rezultat
+                  (Q1..Q4, OT1..); #Boxscore: two table.match_boxscore_team_table (home, away; two header
+                  rows read as ''<group> <label>'') and table.match_boxscore_teams_compare_table; #tabs_for_quaters
+                  > div#q1..#q5 > table.match_table_play_by_play (home | ''Minute | Score'' | away; rows
+                  newest first)'
+                schema:
+                  $ref: '#/components/schemas/AbaMatch'
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: 'One game: header, quarter scores, officials, box score, team totals and play-by-play'
+  /player/{playerId}/{sez}/{lea}/:
+    get:
+      description: 'One player''s bio and game log for one season and league. Server-rendered HTML, parsed
+        by capture.py into the JSON record of x-parsed-schema (English keys). Keyless. Parsing rule: select#season
+        (options ''{playerId}/{sez}/{lea}/{slug}/''; the selected one = the request); h1.main_title (must
+        equal the expected name); table#player_basic_info_table label/value rows; #players_clubs_container
+        lines; table#player_game_stats_table (two header rows as the box score; rows with a /match/ link).'
+      operationId: get_aba_player
+      parameters:
+      - description: 'ABA player id (key space: aba-liga.com players, global: the same person keeps one
+          id across seasons and both leagues, e.g. Carlik Jones = 4807). The first number of /player/{id}/{sez}/{lea}/{slug}/;
+          equals the shot chart''s player_id, which is a STRING there.'
+        example: 4807
+        in: path
+        name: playerId
+        required: true
+        schema:
+          type: integer
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: path
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: path
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: aba-liga/tools/capture.py parse_player
+                rule: 'select#season (options ''{playerId}/{sez}/{lea}/{slug}/''; the selected one = the
+                  request); h1.main_title (must equal the expected name); table#player_basic_info_table
+                  label/value rows; #players_clubs_container lines; table#player_game_stats_table (two
+                  header rows as the box score; rows with a /match/ link)'
+                schema:
+                  $ref: '#/components/schemas/AbaPlayer'
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: One player's bio and game log for one season and league
+  /standings/{sez}/{lea}/:
+    get:
+      description: 'One season''s standings tables of one league. Server-rendered HTML, parsed by capture.py
+        into the JSON record of x-parsed-schema (English keys). Keyless. Parsing rule: select#season (selected
+        option = the request); #main_content walked in order: h2.main_title (phase, or ''Group X'' under
+        it) and table.league_standings_table (# | Club | GP | W | L | Overall | Diff | Points).'
+      operationId: get_aba_standings
+      parameters:
+      - description: 'Season key: season START year - 2000 (25 = 2025-26, 8 = 2008-09). sdv season (END
+          year) = 2000 + sez + 1. Verified by diffing seasons: /calendar/25/1/ selects ''Season 2025/26''
+          and /calendar/8/1/ ''Season 2008/09''; an unknown sez (99) serves a page with no selected season
+          and no games (refused).'
+        example: 25
+        in: path
+        name: sez
+        required: true
+        schema:
+          type: integer
+      - description: 'League code: 1 = ABA League, 2 = ABA League 2 (also 3 = Supercup, 7 = U19, 8 = qualifiers;
+          those are not sampled). Either host serves either league (same database; verified on game 1
+          of 2025-26 for lea 1 and 2 on both hosts); the capture uses www for 1 and druga for 2.'
+        example: 1
+        in: path
+        name: lea
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: aba-liga/tools/capture.py parse_standings
+                rule: 'select#season (selected option = the request); #main_content walked in order: h2.main_title
+                  (phase, or ''Group X'' under it) and table.league_standings_table (# | Club | GP | W
+                  | L | Overall | Diff | Points)'
+                schema:
+                  $ref: '#/components/schemas/AbaStandings'
+          description: text/html; charset=UTF-8 (see x-parsed-schema / x-body-format)
+      security: []
+      summary: One season's standings tables of one league
+servers:
+- url: https://{host}
+  variables:
+    host:
+      default: www.aba-liga.com
+      description: www = ABA League site, druga = ABA League 2 site. Either serves either league (lea).
+      enum:
+      - www.aba-liga.com
+      - druga.aba-liga.com
