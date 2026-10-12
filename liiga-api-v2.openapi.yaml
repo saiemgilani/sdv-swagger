@@ -1,0 +1,5600 @@
+components:
+  schemas:
+    Games:
+      items:
+        properties:
+          awayTeam:
+            properties:
+              expectedGoals:
+                type: number
+              gameStartDateTime:
+                type: string
+              goalEvents:
+                items:
+                  properties:
+                    assistantPlayerIds:
+                      items:
+                        type: integer
+                      type: array
+                    assistantPlayers:
+                      items:
+                        properties:
+                          firstName:
+                            type: string
+                          lastName:
+                            type: string
+                          playerId:
+                            type: integer
+                        type: object
+                      type: array
+                    assistsSoFarInSeason:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    awayTeamScore:
+                      type: integer
+                    eventId:
+                      type: integer
+                    gameTime:
+                      type: integer
+                    goalTypes:
+                      items:
+                        type: string
+                      type: array
+                    goalsSoFarInSeason:
+                      type: integer
+                    homeTeamScore:
+                      type: integer
+                    logTime:
+                      type: string
+                    minusPlayerIds:
+                      type:
+                      - string
+                      - 'null'
+                    period:
+                      type: integer
+                    plusPlayerIds:
+                      type:
+                      - string
+                      - 'null'
+                    scorerPlayer:
+                      properties:
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        playerId:
+                          type: integer
+                      type: object
+                    scorerPlayerId:
+                      type: integer
+                    videoClipPlaylistUrl:
+                      type:
+                      - 'null'
+                    videoClipUrl:
+                      type:
+                      - 'null'
+                    videoThumbnailUrl:
+                      type:
+                      - 'null'
+                    winningGoal:
+                      type: boolean
+                  type: object
+                type: array
+              goals:
+                type: integer
+              logos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              powerplayGoals:
+                type: integer
+              powerplayInstances:
+                type: integer
+              ranking:
+                type:
+                - 'null'
+              shortHandedGoals:
+                type: integer
+              shortHandedInstances:
+                type: integer
+              teamId:
+                type: string
+              teamName:
+                type: string
+              teamPlaceholder:
+                type:
+                - 'null'
+              timeOut:
+                type:
+                - 'null'
+            type: object
+          currentPeriod:
+            type: integer
+          ended:
+            type: boolean
+          finishedType:
+            type: string
+          gameTime:
+            type: integer
+          gameWeek:
+            type: integer
+          homeTeam:
+            properties:
+              expectedGoals:
+                type: number
+              gameStartDateTime:
+                type: string
+              goalEvents:
+                items:
+                  properties:
+                    assistantPlayerIds:
+                      items:
+                        type: integer
+                      type: array
+                    assistantPlayers:
+                      items:
+                        properties:
+                          firstName:
+                            type: string
+                          lastName:
+                            type: string
+                          playerId:
+                            type: integer
+                        type: object
+                      type: array
+                    assistsSoFarInSeason:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    awayTeamScore:
+                      type: integer
+                    eventId:
+                      type: integer
+                    gameTime:
+                      type: integer
+                    goalTypes:
+                      items:
+                        type: string
+                      type: array
+                    goalsSoFarInSeason:
+                      type: integer
+                    homeTeamScore:
+                      type: integer
+                    logTime:
+                      type: string
+                    minusPlayerIds:
+                      type:
+                      - string
+                      - 'null'
+                    period:
+                      type: integer
+                    plusPlayerIds:
+                      type:
+                      - string
+                      - 'null'
+                    scorerPlayer:
+                      properties:
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        playerId:
+                          type: integer
+                      type: object
+                    scorerPlayerId:
+                      type: integer
+                    videoClipPlaylistUrl:
+                      type:
+                      - 'null'
+                    videoClipUrl:
+                      type:
+                      - 'null'
+                    videoThumbnailUrl:
+                      type:
+                      - 'null'
+                    winningGoal:
+                      type: boolean
+                  type: object
+                type: array
+              goals:
+                type: integer
+              logos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              powerplayGoals:
+                type: integer
+              powerplayInstances:
+                type: integer
+              ranking:
+                type:
+                - 'null'
+              shortHandedGoals:
+                type: integer
+              shortHandedInstances:
+                type: integer
+              teamId:
+                type: string
+              teamName:
+                type: string
+              teamPlaceholder:
+                type:
+                - 'null'
+              timeOut:
+                type:
+                - integer
+                - 'null'
+            type: object
+          iceRink:
+            properties:
+              city:
+                type: string
+              id:
+                type: integer
+              latitude:
+                type: number
+              longitude:
+                type: number
+              name:
+                type: string
+              streetAddress:
+                type: string
+              zip:
+                type: string
+            type: object
+          id:
+            type: integer
+          periods:
+            items:
+              properties:
+                awayTeamGoals:
+                  type: integer
+                category:
+                  type: string
+                endTime:
+                  type: integer
+                homeTeamGoals:
+                  type: integer
+                index:
+                  type: integer
+                startTime:
+                  type: integer
+              type: object
+            type: array
+          season:
+            type: integer
+          serie:
+            type: string
+          spectators:
+            type: integer
+          stale:
+            type: boolean
+          start:
+            type: string
+          started:
+            type: boolean
+        type: object
+      type: array
+    GamesSeasonId:
+      properties:
+        awards:
+          items:
+            properties:
+              awardCategory:
+                type: integer
+              awardIssuer:
+                type: string
+              awardName:
+                type: string
+              awardPoint:
+                type: integer
+              id:
+                type: integer
+              playerId:
+                type: integer
+              teamId:
+                type: string
+            type: object
+          type: array
+        awayTeamPlayers:
+          items:
+            properties:
+              alternateCaptain:
+                type: boolean
+              awards:
+                type:
+                - 'null'
+              captain:
+                type: boolean
+              countryOfBirth:
+                type: string
+              dateOfBirth:
+                type: string
+              extra_description:
+                type:
+                - 'null'
+              extra_rookie_picture:
+                type: boolean
+              extra_strengths:
+                type:
+                - 'null'
+              firstName:
+                type: string
+              handedness:
+                type: string
+              height:
+                type: integer
+              id:
+                type: integer
+              injured:
+                type: boolean
+              jersey:
+                type: integer
+              lastName:
+                type: string
+              line:
+                type: integer
+              nationality:
+                type: string
+              pictureUrl:
+                type: string
+              placeOfBirth:
+                type: string
+              removed:
+                type: boolean
+              role:
+                type: string
+              roleCode:
+                type: string
+              rookie:
+                type: boolean
+              sponsors:
+                type:
+                - 'null'
+              suspended:
+                type: boolean
+              teamId:
+                type: string
+              teamName:
+                type: string
+              weight:
+                type: integer
+            type: object
+          type: array
+        game:
+          properties:
+            awayTeam:
+              properties:
+                expectedGoals:
+                  type: number
+                gameStartDateTime:
+                  type: string
+                goalEvents:
+                  items:
+                    properties:
+                      assistantPlayerIds:
+                        items:
+                          type: integer
+                        type: array
+                      assistantPlayers:
+                        items:
+                          properties:
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                            playerId:
+                              type: integer
+                          type: object
+                        type: array
+                      assistsSoFarInSeason:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      awayTeamScore:
+                        type: integer
+                      eventId:
+                        type: integer
+                      gameTime:
+                        type: integer
+                      goalTypes:
+                        items:
+                          type: string
+                        type: array
+                      goalsSoFarInSeason:
+                        type: integer
+                      homeTeamScore:
+                        type: integer
+                      logTime:
+                        type: string
+                      minusPlayerIds:
+                        type:
+                        - string
+                        - 'null'
+                      period:
+                        type: integer
+                      plusPlayerIds:
+                        type:
+                        - string
+                        - 'null'
+                      scorerPlayer:
+                        properties:
+                          firstName:
+                            type: string
+                          lastName:
+                            type: string
+                          playerId:
+                            type: integer
+                        type: object
+                      scorerPlayerId:
+                        type: integer
+                      videoClipPlaylistUrl:
+                        type:
+                        - 'null'
+                      videoClipUrl:
+                        type:
+                        - 'null'
+                      videoThumbnailUrl:
+                        type:
+                        - 'null'
+                      winningGoal:
+                        type: boolean
+                    type: object
+                  type: array
+                goalKeeperChanges:
+                  items: {}
+                  type: array
+                goalKeeperEvents:
+                  items: {}
+                  type: array
+                goals:
+                  type: integer
+                logos:
+                  properties:
+                    darkBg:
+                      type: string
+                    darkBgOriginal:
+                      type:
+                      - 'null'
+                    lightBg:
+                      type: string
+                    lightBgOriginal:
+                      type:
+                      - 'null'
+                  type: object
+                penaltyEvents:
+                  items:
+                    properties:
+                      eventId:
+                        type: integer
+                      gameTime:
+                        type: integer
+                      logTime:
+                        type: string
+                      penaltyBegintime:
+                        type: integer
+                      penaltyEndtime:
+                        type: integer
+                      penaltyFaultName:
+                        type: string
+                      penaltyFaultType:
+                        type: string
+                      penaltyInfo:
+                        type: string
+                      penaltyMinutes:
+                        type: integer
+                      period:
+                        type: integer
+                      playerId:
+                        type: integer
+                      suffererPlayerId:
+                        type: integer
+                    type: object
+                  type: array
+                powerplayGoals:
+                  type: integer
+                powerplayInstances:
+                  type: integer
+                ranking:
+                  type:
+                  - 'null'
+                shortHandedGoals:
+                  type: integer
+                shortHandedInstances:
+                  type: integer
+                teamId:
+                  type: string
+                teamName:
+                  type: string
+                teamPlaceholder:
+                  type:
+                  - 'null'
+                timeOut:
+                  type:
+                  - 'null'
+              type: object
+            currentPeriod:
+              type: integer
+            ended:
+              type: boolean
+            finishedType:
+              type: string
+            gameTime:
+              type: integer
+            gameWeek:
+              type: integer
+            homeTeam:
+              properties:
+                expectedGoals:
+                  type: number
+                gameStartDateTime:
+                  type: string
+                goalEvents:
+                  items:
+                    properties:
+                      assistantPlayerIds:
+                        items:
+                          type: integer
+                        type: array
+                      assistantPlayers:
+                        items:
+                          properties:
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                            playerId:
+                              type: integer
+                          type: object
+                        type: array
+                      assistsSoFarInSeason:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      awayTeamScore:
+                        type: integer
+                      eventId:
+                        type: integer
+                      gameTime:
+                        type: integer
+                      goalTypes:
+                        items: {}
+                        type: array
+                      goalsSoFarInSeason:
+                        type: integer
+                      homeTeamScore:
+                        type: integer
+                      logTime:
+                        type: string
+                      minusPlayerIds:
+                        type: string
+                      period:
+                        type: integer
+                      plusPlayerIds:
+                        type: string
+                      scorerPlayer:
+                        properties:
+                          firstName:
+                            type: string
+                          lastName:
+                            type: string
+                          playerId:
+                            type: integer
+                        type: object
+                      scorerPlayerId:
+                        type: integer
+                      videoClipPlaylistUrl:
+                        type:
+                        - 'null'
+                      videoClipUrl:
+                        type:
+                        - 'null'
+                      videoThumbnailUrl:
+                        type:
+                        - 'null'
+                      winningGoal:
+                        type: boolean
+                    type: object
+                  type: array
+                goalKeeperChanges:
+                  items: {}
+                  type: array
+                goalKeeperEvents:
+                  items: {}
+                  type: array
+                goals:
+                  type: integer
+                logos:
+                  properties:
+                    darkBg:
+                      type: string
+                    darkBgOriginal:
+                      type:
+                      - 'null'
+                    lightBg:
+                      type: string
+                    lightBgOriginal:
+                      type:
+                      - 'null'
+                  type: object
+                penaltyEvents:
+                  items:
+                    properties:
+                      eventId:
+                        type: integer
+                      gameTime:
+                        type: integer
+                      logTime:
+                        type: string
+                      penaltyBegintime:
+                        type: integer
+                      penaltyEndtime:
+                        type: integer
+                      penaltyFaultName:
+                        type: string
+                      penaltyFaultType:
+                        type: string
+                      penaltyInfo:
+                        type: string
+                      penaltyMinutes:
+                        type: integer
+                      period:
+                        type: integer
+                      playerId:
+                        type: integer
+                      suffererPlayerId:
+                        type: integer
+                    type: object
+                  type: array
+                powerplayGoals:
+                  type: integer
+                powerplayInstances:
+                  type: integer
+                ranking:
+                  type:
+                  - 'null'
+                shortHandedGoals:
+                  type: integer
+                shortHandedInstances:
+                  type: integer
+                teamId:
+                  type: string
+                teamName:
+                  type: string
+                teamPlaceholder:
+                  type:
+                  - 'null'
+                timeOut:
+                  type: integer
+              type: object
+            iceRink:
+              properties:
+                city:
+                  type: string
+                id:
+                  type: integer
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+                name:
+                  type: string
+                streetAddress:
+                  type: string
+                zip:
+                  type: string
+              type: object
+            id:
+              type: integer
+            periods:
+              items:
+                properties:
+                  awayTeamGoals:
+                    type: integer
+                  category:
+                    type: string
+                  endTime:
+                    type: integer
+                  homeTeamGoals:
+                    type: integer
+                  index:
+                    type: integer
+                  startTime:
+                    type: integer
+                type: object
+              type: array
+            referees:
+              items:
+                properties:
+                  firstName:
+                    type: string
+                  jersey:
+                    type: integer
+                  lastName:
+                    type: string
+                  officialID:
+                    type: integer
+                  pictureUrl:
+                    type: string
+                  roleAbbrv:
+                    type: string
+                  roleName:
+                    type: string
+                  secondaryID:
+                    type: integer
+                  tagA:
+                    type: string
+                  tagB:
+                    type: string
+                type: object
+              type: array
+            season:
+              type: integer
+            serie:
+              type: string
+            spectators:
+              type: integer
+            stale:
+              type: boolean
+            start:
+              type: string
+            started:
+              type: boolean
+            winningShotCompetitionEvents:
+              items:
+                properties:
+                  blockingPlayerId:
+                    type: integer
+                  blockingTeamId:
+                    type: string
+                  goalScored:
+                    type: boolean
+                  shootingPlayerId:
+                    type: integer
+                  shootingTeamId:
+                    type: string
+                  shotNumber:
+                    type: integer
+                  winningGoal:
+                    type: boolean
+                type: object
+              type: array
+          type: object
+        homeTeamPlayers:
+          items:
+            properties:
+              alternateCaptain:
+                type: boolean
+              awards:
+                type:
+                - 'null'
+              captain:
+                type: boolean
+              countryOfBirth:
+                type: string
+              dateOfBirth:
+                type: string
+              extra_description:
+                type:
+                - 'null'
+              extra_rookie_picture:
+                type: boolean
+              extra_strengths:
+                type:
+                - 'null'
+              firstName:
+                type: string
+              handedness:
+                type: string
+              height:
+                type: integer
+              id:
+                type: integer
+              injured:
+                type: boolean
+              jersey:
+                type: integer
+              lastName:
+                type: string
+              line:
+                type: integer
+              nationality:
+                type: string
+              pictureUrl:
+                type: string
+              placeOfBirth:
+                type: string
+              removed:
+                type: boolean
+              role:
+                type: string
+              roleCode:
+                type: string
+              rookie:
+                type: boolean
+              sponsors:
+                type:
+                - 'null'
+              suspended:
+                type: boolean
+              teamId:
+                type: string
+              teamName:
+                type: string
+              weight:
+                type: integer
+            type: object
+          type: array
+      type: object
+    GamesSeasonIdPlayersWithStats:
+      properties:
+        awayTeamPlayers:
+          items:
+            properties:
+              allTimeStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: number
+                  shots:
+                    type: integer
+                type: object
+              playerDTO:
+                properties:
+                  alternateCaptain:
+                    type: boolean
+                  awards:
+                    type:
+                    - 'null'
+                  captain:
+                    type: boolean
+                  countryOfBirth:
+                    type: string
+                  dateOfBirth:
+                    type: string
+                  extra_description:
+                    type:
+                    - 'null'
+                  extra_rookie_picture:
+                    type: boolean
+                  extra_strengths:
+                    type:
+                    - 'null'
+                  firstName:
+                    type: string
+                  handedness:
+                    type: string
+                  height:
+                    type: integer
+                  id:
+                    type: integer
+                  injured:
+                    type: boolean
+                  jersey:
+                    type: integer
+                  lastName:
+                    type: string
+                  line:
+                    type: integer
+                  nationality:
+                    type: string
+                  pictureUrl:
+                    type: string
+                  placeOfBirth:
+                    type: string
+                  removed:
+                    type: boolean
+                  role:
+                    type: string
+                  roleCode:
+                    type: string
+                  rookie:
+                    type: boolean
+                  sponsors:
+                    type:
+                    - 'null'
+                  suspended:
+                    type: boolean
+                  teamId:
+                    type: string
+                  teamName:
+                    type: string
+                  weight:
+                    type: integer
+                type: object
+              seasonStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+              seasonStatsInTeam:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+              vsTeamStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+            type: object
+          type: array
+        homeTeamPlayers:
+          items:
+            properties:
+              allTimeStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: number
+                  shots:
+                    type: integer
+                type: object
+              playerDTO:
+                properties:
+                  alternateCaptain:
+                    type: boolean
+                  awards:
+                    type:
+                    - 'null'
+                  captain:
+                    type: boolean
+                  countryOfBirth:
+                    type: string
+                  dateOfBirth:
+                    type: string
+                  extra_description:
+                    type:
+                    - 'null'
+                  extra_rookie_picture:
+                    type: boolean
+                  extra_strengths:
+                    type:
+                    - 'null'
+                  firstName:
+                    type: string
+                  handedness:
+                    type: string
+                  height:
+                    type: integer
+                  id:
+                    type: integer
+                  injured:
+                    type: boolean
+                  jersey:
+                    type: integer
+                  lastName:
+                    type: string
+                  line:
+                    type: integer
+                  nationality:
+                    type: string
+                  pictureUrl:
+                    type: string
+                  placeOfBirth:
+                    type: string
+                  removed:
+                    type: boolean
+                  role:
+                    type: string
+                  roleCode:
+                    type: string
+                  rookie:
+                    type: boolean
+                  sponsors:
+                    type:
+                    - 'null'
+                  suspended:
+                    type: boolean
+                  teamId:
+                    type: string
+                  teamName:
+                    type: string
+                  weight:
+                    type: integer
+                type: object
+              seasonStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+              seasonStatsInTeam:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+              vsTeamStats:
+                properties:
+                  assists:
+                    type: integer
+                  games:
+                    type: integer
+                  goals:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  shotPercentage:
+                    type: integer
+                  shots:
+                    type: integer
+                type: object
+            type: object
+          type: array
+      type: object
+    GamesStatsSeasonId:
+      properties:
+        awayTeam:
+          items:
+            properties:
+              faceOffWins:
+                type: integer
+              fiveMinutePenalties:
+                type: integer
+              goaliePeriodStats:
+                items:
+                  properties:
+                    distance:
+                      type:
+                      - 'null'
+                    expectedGoalsAgainst:
+                      type:
+                      - number
+                      - 'null'
+                    expectedGoalsAgainstShotOnGoal:
+                      type:
+                      - number
+                      - 'null'
+                    expectedGoalsPlayer:
+                      type:
+                      - 'null'
+                    expectedGoalsTeam:
+                      type:
+                      - 'null'
+                    jerseyId:
+                      type: integer
+                    period:
+                      properties:
+                        assists:
+                          type: integer
+                        blockedShots:
+                          type:
+                          - integer
+                          - 'null'
+                        corsiAgainst:
+                          type: integer
+                        corsiFor:
+                          type: integer
+                        faceoffsCenterTotal:
+                          type:
+                          - 'null'
+                        faceoffsCenterWon:
+                          type:
+                          - 'null'
+                        faceoffsDefenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsDefenceWon:
+                          type:
+                          - 'null'
+                        faceoffsOffenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsOffenceWon:
+                          type:
+                          - 'null'
+                        faceoffsTotal:
+                          type:
+                          - 'null'
+                        faceoffsWon:
+                          type:
+                          - 'null'
+                        fsTeamGoals:
+                          type: integer
+                        fsTeamGoalsAgainst:
+                          type: integer
+                        fsTeamShots:
+                          type: integer
+                        fsTeamShotsAgainst:
+                          type: integer
+                        fsZoneStartsDz:
+                          type: integer
+                        fsZoneStartsOz:
+                          type: integer
+                        goals:
+                          type: integer
+                        goalsAllowed:
+                          type: integer
+                        goalsToEmptyGoal:
+                          type: integer
+                        minus:
+                          type: integer
+                        penaltykill2Goals:
+                          type: integer
+                        penaltykillAssists:
+                          type: integer
+                        penaltyminutes:
+                          type: integer
+                        period:
+                          type: integer
+                        plus:
+                          type: integer
+                        plusminus:
+                          type: integer
+                        points:
+                          type: integer
+                        powerplay2Goals:
+                          type: integer
+                        powerplayAssists:
+                          type: integer
+                        powerplayGoals:
+                          type: integer
+                        saves:
+                          type: integer
+                        savesPercentage:
+                          type: string
+                        shortHandedGoals:
+                          type: integer
+                        shots:
+                          type:
+                          - integer
+                          - 'null'
+                        shotsOnGoal:
+                          type: integer
+                        timeofice:
+                          type: integer
+                        winningGoal:
+                          type: boolean
+                      type: object
+                    playerId:
+                      type: integer
+                    playerPassesUnderHighPressure:
+                      type:
+                      - 'null'
+                    playerPassesUnderPressure:
+                      type:
+                      - 'null'
+                    playerSuccessfulPassesUnderHighPressure:
+                      type:
+                      - 'null'
+                    playerSuccessfulPassesUnderPressure:
+                      type:
+                      - 'null'
+                    successfulPasses:
+                      type:
+                      - 'null'
+                    totalPasses:
+                      type:
+                      - 'null'
+                  type: object
+                type: array
+              goals:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              period:
+                type: integer
+              periodPlayerStats:
+                items:
+                  properties:
+                    distance:
+                      type: number
+                    expectedGoalsAgainst:
+                      type:
+                      - integer
+                      - number
+                    expectedGoalsAgainstShotOnGoal:
+                      type:
+                      - 'null'
+                    expectedGoalsPlayer:
+                      type:
+                      - integer
+                      - number
+                    expectedGoalsTeam:
+                      type: number
+                    jerseyId:
+                      type: integer
+                    period:
+                      properties:
+                        assists:
+                          type: integer
+                        blockedShots:
+                          type: integer
+                        corsiAgainst:
+                          type: integer
+                        corsiFor:
+                          type: integer
+                        faceoffsCenterTotal:
+                          type:
+                          - 'null'
+                        faceoffsCenterWon:
+                          type:
+                          - 'null'
+                        faceoffsDefenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsDefenceWon:
+                          type:
+                          - 'null'
+                        faceoffsOffenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsOffenceWon:
+                          type:
+                          - 'null'
+                        faceoffsTotal:
+                          type:
+                          - 'null'
+                        faceoffsWon:
+                          type:
+                          - 'null'
+                        fsTeamGoals:
+                          type: integer
+                        fsTeamGoalsAgainst:
+                          type: integer
+                        fsTeamShots:
+                          type: integer
+                        fsTeamShotsAgainst:
+                          type: integer
+                        fsZoneStartsDz:
+                          type: integer
+                        fsZoneStartsOz:
+                          type: integer
+                        goals:
+                          type: integer
+                        goalsToEmptyGoal:
+                          type: integer
+                        minus:
+                          type: integer
+                        penaltykill2Goals:
+                          type: integer
+                        penaltykillAssists:
+                          type: integer
+                        penaltyminutes:
+                          type: integer
+                        period:
+                          type: integer
+                        plus:
+                          type: integer
+                        plusminus:
+                          type: integer
+                        points:
+                          type: integer
+                        powerplay2Goals:
+                          type: integer
+                        powerplayAssists:
+                          type: integer
+                        powerplayGoals:
+                          type: integer
+                        shortHandedGoals:
+                          type: integer
+                        shots:
+                          type: integer
+                        timeofice:
+                          type: integer
+                        winningGoal:
+                          type: boolean
+                      type: object
+                    playerId:
+                      type: integer
+                    playerPassesUnderHighPressure:
+                      type: integer
+                    playerPassesUnderPressure:
+                      type: integer
+                    playerSuccessfulPassesUnderHighPressure:
+                      type: integer
+                    playerSuccessfulPassesUnderPressure:
+                      type: integer
+                    successfulPasses:
+                      type: integer
+                    totalPasses:
+                      type: integer
+                  type: object
+                type: array
+              powerPlayGoals:
+                type: integer
+              powerPlayInstances:
+                items:
+                  type: string
+                type: array
+              shortHandedGoalsAgainst:
+                type: integer
+              shortHandedInstances:
+                items:
+                  type: string
+                type: array
+              shots:
+                type: integer
+              teamId:
+                type: string
+              tenMinutePenalties:
+                type: integer
+              totalDistanceTravelled:
+                type: number
+              twentyMinutePenalties:
+                type: integer
+              twoMinutePenalties:
+                type: integer
+            type: object
+          type: array
+        awayTeamGamePlayerStats:
+          items:
+            properties:
+              hardestShot:
+                type: number
+              playerId:
+                type: integer
+              topSpeed:
+                type: number
+            type: object
+          type: array
+        homeTeam:
+          items:
+            properties:
+              faceOffWins:
+                type: integer
+              fiveMinutePenalties:
+                type: integer
+              goaliePeriodStats:
+                items:
+                  properties:
+                    distance:
+                      type:
+                      - 'null'
+                    expectedGoalsAgainst:
+                      type:
+                      - number
+                      - 'null'
+                    expectedGoalsAgainstShotOnGoal:
+                      type:
+                      - number
+                      - 'null'
+                    expectedGoalsPlayer:
+                      type:
+                      - 'null'
+                    expectedGoalsTeam:
+                      type:
+                      - 'null'
+                    jerseyId:
+                      type: integer
+                    period:
+                      properties:
+                        assists:
+                          type: integer
+                        blockedShots:
+                          type:
+                          - integer
+                          - 'null'
+                        corsiAgainst:
+                          type: integer
+                        corsiFor:
+                          type: integer
+                        faceoffsCenterTotal:
+                          type:
+                          - 'null'
+                        faceoffsCenterWon:
+                          type:
+                          - 'null'
+                        faceoffsDefenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsDefenceWon:
+                          type:
+                          - 'null'
+                        faceoffsOffenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsOffenceWon:
+                          type:
+                          - 'null'
+                        faceoffsTotal:
+                          type:
+                          - 'null'
+                        faceoffsWon:
+                          type:
+                          - 'null'
+                        fsTeamGoals:
+                          type: integer
+                        fsTeamGoalsAgainst:
+                          type: integer
+                        fsTeamShots:
+                          type: integer
+                        fsTeamShotsAgainst:
+                          type: integer
+                        fsZoneStartsDz:
+                          type: integer
+                        fsZoneStartsOz:
+                          type: integer
+                        goals:
+                          type: integer
+                        goalsAllowed:
+                          type: integer
+                        goalsToEmptyGoal:
+                          type: integer
+                        minus:
+                          type: integer
+                        penaltykill2Goals:
+                          type: integer
+                        penaltykillAssists:
+                          type: integer
+                        penaltyminutes:
+                          type: integer
+                        period:
+                          type: integer
+                        plus:
+                          type: integer
+                        plusminus:
+                          type: integer
+                        points:
+                          type: integer
+                        powerplay2Goals:
+                          type: integer
+                        powerplayAssists:
+                          type: integer
+                        powerplayGoals:
+                          type: integer
+                        saves:
+                          type: integer
+                        savesPercentage:
+                          type: string
+                        shortHandedGoals:
+                          type: integer
+                        shots:
+                          type:
+                          - integer
+                          - 'null'
+                        shotsOnGoal:
+                          type: integer
+                        timeofice:
+                          type: integer
+                        winningGoal:
+                          type: boolean
+                      type: object
+                    playerId:
+                      type: integer
+                    playerPassesUnderHighPressure:
+                      type:
+                      - 'null'
+                    playerPassesUnderPressure:
+                      type:
+                      - 'null'
+                    playerSuccessfulPassesUnderHighPressure:
+                      type:
+                      - 'null'
+                    playerSuccessfulPassesUnderPressure:
+                      type:
+                      - 'null'
+                    successfulPasses:
+                      type:
+                      - 'null'
+                    totalPasses:
+                      type:
+                      - 'null'
+                  type: object
+                type: array
+              goals:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              period:
+                type: integer
+              periodPlayerStats:
+                items:
+                  properties:
+                    distance:
+                      type:
+                      - integer
+                      - number
+                    expectedGoalsAgainst:
+                      type: number
+                    expectedGoalsAgainstShotOnGoal:
+                      type:
+                      - 'null'
+                    expectedGoalsPlayer:
+                      type:
+                      - integer
+                      - number
+                    expectedGoalsTeam:
+                      type:
+                      - integer
+                      - number
+                    jerseyId:
+                      type: integer
+                    period:
+                      properties:
+                        assists:
+                          type: integer
+                        blockedShots:
+                          type: integer
+                        corsiAgainst:
+                          type: integer
+                        corsiFor:
+                          type: integer
+                        faceoffsCenterTotal:
+                          type:
+                          - 'null'
+                        faceoffsCenterWon:
+                          type:
+                          - 'null'
+                        faceoffsDefenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsDefenceWon:
+                          type:
+                          - 'null'
+                        faceoffsOffenceTotal:
+                          type:
+                          - 'null'
+                        faceoffsOffenceWon:
+                          type:
+                          - 'null'
+                        faceoffsTotal:
+                          type:
+                          - 'null'
+                        faceoffsWon:
+                          type:
+                          - 'null'
+                        fsTeamGoals:
+                          type: integer
+                        fsTeamGoalsAgainst:
+                          type: integer
+                        fsTeamShots:
+                          type: integer
+                        fsTeamShotsAgainst:
+                          type: integer
+                        fsZoneStartsDz:
+                          type: integer
+                        fsZoneStartsOz:
+                          type: integer
+                        goals:
+                          type: integer
+                        goalsToEmptyGoal:
+                          type: integer
+                        minus:
+                          type: integer
+                        penaltykill2Goals:
+                          type: integer
+                        penaltykillAssists:
+                          type: integer
+                        penaltyminutes:
+                          type: integer
+                        period:
+                          type: integer
+                        plus:
+                          type: integer
+                        plusminus:
+                          type: integer
+                        points:
+                          type: integer
+                        powerplay2Goals:
+                          type: integer
+                        powerplayAssists:
+                          type: integer
+                        powerplayGoals:
+                          type: integer
+                        shortHandedGoals:
+                          type: integer
+                        shots:
+                          type: integer
+                        timeofice:
+                          type: integer
+                        winningGoal:
+                          type: boolean
+                      type: object
+                    playerId:
+                      type: integer
+                    playerPassesUnderHighPressure:
+                      type: integer
+                    playerPassesUnderPressure:
+                      type: integer
+                    playerSuccessfulPassesUnderHighPressure:
+                      type: integer
+                    playerSuccessfulPassesUnderPressure:
+                      type: integer
+                    successfulPasses:
+                      type: integer
+                    totalPasses:
+                      type: integer
+                  type: object
+                type: array
+              powerPlayGoals:
+                type: integer
+              powerPlayInstances:
+                items:
+                  type: string
+                type: array
+              shortHandedGoalsAgainst:
+                type: integer
+              shortHandedInstances:
+                items:
+                  type: string
+                type: array
+              shots:
+                type: integer
+              teamId:
+                type: string
+              tenMinutePenalties:
+                type: integer
+              totalDistanceTravelled:
+                type: number
+              twentyMinutePenalties:
+                type: integer
+              twoMinutePenalties:
+                type: integer
+            type: object
+          type: array
+        homeTeamGamePlayerStats:
+          items:
+            properties:
+              hardestShot:
+                type: number
+              playerId:
+                type: integer
+              topSpeed:
+                type: number
+            type: object
+          type: array
+        puckStats:
+          items:
+            properties:
+              awayTeamControlDuration:
+                type: number
+              contestedControlDuration:
+                type: number
+              distance:
+                type: integer
+              homeTeamControlDuration:
+                type: number
+              periodNumber:
+                type: integer
+            type: object
+          type: array
+      type: object
+    Gameweeks:
+      properties:
+        nbWeeks:
+          type: integer
+        season:
+          type: integer
+        serie:
+          type: string
+      type: object
+    PlayersInfo:
+      items:
+        properties:
+          alternateCaptain:
+            type: boolean
+          captain:
+            type: boolean
+          countryOfBirth:
+            type: string
+          dateOfBirth:
+            type: string
+          firstName:
+            type: string
+          handedness:
+            type: string
+          height:
+            type: integer
+          id:
+            type: integer
+          injured:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          nationality:
+            type: string
+          pictureUrl:
+            type: string
+          placeOfBirth:
+            type: string
+          removed:
+            type: boolean
+          role:
+            type: string
+          roleCode:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: string
+          teamName:
+            type: string
+          weight:
+            type: integer
+        type: object
+      type: array
+    PlayersInfoPlayerId:
+      properties:
+        activeSeasons:
+          items:
+            type: integer
+          type: array
+        birthLocality:
+          properties:
+            country:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+              type: object
+            name:
+              type: string
+          type: object
+        dateOfBirth:
+          type: string
+        fihaId:
+          type: integer
+        firstName:
+          type: string
+        handedness:
+          type: string
+        height:
+          type: integer
+        historical:
+          properties:
+            playoffs:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  endTime:
+                    type: string
+                  faceoffTotal:
+                    type: integer
+                  faceoffsPercentage:
+                    type: string
+                  faceoffsWon:
+                    type: integer
+                  games:
+                    type: integer
+                  gkLosses:
+                    type: integer
+                  gkTies:
+                    type: integer
+                  gkWins:
+                    type: integer
+                  goals:
+                    type: integer
+                  goalsAgainst:
+                    type: integer
+                  goalsAgainstAverage:
+                    type: string
+                  leagueName:
+                    type: string
+                  losses:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  playedGames:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  powerPlayGoals:
+                    type: integer
+                  savePercentage:
+                    type: string
+                  saves:
+                    type: integer
+                  season:
+                    type: integer
+                  shortHandedGoals:
+                    type: integer
+                  shotIntoGoalPercentage:
+                    type: string
+                  shotPercentage:
+                    type: string
+                  shots:
+                    type: integer
+                  shotsIntoGoal:
+                    type: integer
+                  shutOut:
+                    type: string
+                  teamName:
+                    type: string
+                  teamShortName:
+                    type: string
+                  ties:
+                    type: integer
+                  timeOnIce:
+                    type: integer
+                  tournament:
+                    type: string
+                  winPercentage:
+                    type: string
+                  winningGoals:
+                    type: integer
+                  wins:
+                    type: integer
+                type: object
+              type: array
+            playout:
+              items: {}
+              type: array
+            practice:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  endTime:
+                    type: string
+                  faceoffTotal:
+                    type: integer
+                  faceoffsPercentage:
+                    type: string
+                  faceoffsWon:
+                    type: integer
+                  games:
+                    type: integer
+                  gkLosses:
+                    type: integer
+                  gkTies:
+                    type: integer
+                  gkWins:
+                    type: integer
+                  goals:
+                    type: integer
+                  goalsAgainst:
+                    type: integer
+                  goalsAgainstAverage:
+                    type: string
+                  leagueName:
+                    type: string
+                  losses:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  playedGames:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  powerPlayGoals:
+                    type: integer
+                  savePercentage:
+                    type: string
+                  saves:
+                    type: integer
+                  season:
+                    type: integer
+                  shortHandedGoals:
+                    type: integer
+                  shotIntoGoalPercentage:
+                    type: string
+                  shotPercentage:
+                    type: string
+                  shots:
+                    type: integer
+                  shotsIntoGoal:
+                    type: integer
+                  shutOut:
+                    type: string
+                  teamName:
+                    type: string
+                  teamShortName:
+                    type: string
+                  ties:
+                    type: integer
+                  timeOnIce:
+                    type: integer
+                  tournament:
+                    type: string
+                  winPercentage:
+                    type: string
+                  winningGoals:
+                    type: integer
+                  wins:
+                    type: integer
+                type: object
+              type: array
+            qualifications:
+              items: {}
+              type: array
+            regular:
+              items:
+                properties:
+                  assists:
+                    type: integer
+                  endTime:
+                    type: string
+                  faceoffTotal:
+                    type: integer
+                  faceoffsPercentage:
+                    type: string
+                  faceoffsWon:
+                    type: integer
+                  games:
+                    type: integer
+                  gkLosses:
+                    type: integer
+                  gkTies:
+                    type: integer
+                  gkWins:
+                    type: integer
+                  goals:
+                    type: integer
+                  goalsAgainst:
+                    type: integer
+                  goalsAgainstAverage:
+                    type: string
+                  leagueName:
+                    type: string
+                  losses:
+                    type: integer
+                  minus:
+                    type: integer
+                  penaltyMinutes:
+                    type: integer
+                  playedGames:
+                    type: integer
+                  plus:
+                    type: integer
+                  plusMinus:
+                    type: integer
+                  points:
+                    type: integer
+                  powerPlayGoals:
+                    type: integer
+                  savePercentage:
+                    type: string
+                  saves:
+                    type: integer
+                  season:
+                    type: integer
+                  shortHandedGoals:
+                    type: integer
+                  shotIntoGoalPercentage:
+                    type: string
+                  shotPercentage:
+                    type: string
+                  shots:
+                    type: integer
+                  shotsIntoGoal:
+                    type: integer
+                  shutOut:
+                    type: string
+                  teamName:
+                    type: string
+                  teamShortName:
+                    type: string
+                  ties:
+                    type: integer
+                  timeOnIce:
+                    type: integer
+                  tournament:
+                    type: string
+                  winPercentage:
+                    type: string
+                  winningGoals:
+                    type: integer
+                  wins:
+                    type: integer
+                type: object
+              type: array
+          type: object
+        isRemoved:
+          type: boolean
+        isSuspended:
+          type: boolean
+        lastName:
+          type: string
+        nationality:
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+          type: object
+        teamList:
+          additionalProperties:
+            type: string
+          type: object
+        teamSeasons:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          type: object
+        teams:
+          additionalProperties:
+            properties:
+              imageUrl:
+                type:
+                - string
+                - 'null'
+              jersey:
+                type: integer
+              position:
+                type: string
+              season:
+                type: integer
+              slug:
+                type: string
+              teamId:
+                type: integer
+              teamName:
+                type: string
+            type: object
+          type: object
+        weight:
+          type: integer
+      type: object
+    PlayersInfoPlayerIdGamesSeason:
+      properties:
+        chl:
+          items: {}
+          type: array
+        pitsiturnaus:
+          items: {}
+          type: array
+        playoffs:
+          items:
+            properties:
+              assists:
+                type: integer
+              awayTeamName:
+                type: string
+              blockOrSavedShotsPercentage:
+                type:
+                - string
+                - 'null'
+              blockedOrSavedShots:
+                type: integer
+              date:
+                type: string
+              faceoffsPercentage:
+                type: string
+              faceoffsTotal:
+                type: integer
+              faceoffsWon:
+                type: integer
+              gameId:
+                type: integer
+              gameStr:
+                type: string
+              goalkeeper:
+                type: boolean
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              homeTeamName:
+                type: string
+              lost:
+                type: integer
+              minus:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              penaltykillAssists:
+                type: integer
+              penaltykillGoals:
+                type: integer
+              penaltykillPoints:
+                type: integer
+              plus:
+                type: integer
+              plusMinus:
+                type: integer
+              powerplayAssists:
+                type: integer
+              powerplayGoals:
+                type: integer
+              powerplaySeconds:
+                type: integer
+              savePercentage:
+                type:
+                - string
+                - 'null'
+              saves:
+                type: integer
+              shotIntoGoalPercentage:
+                type:
+                - string
+                - 'null'
+              shotPercentage:
+                type:
+                - string
+                - 'null'
+              shots:
+                type: integer
+              shotsIntoGoal:
+                type: integer
+              shotsSaved:
+                type: integer
+              shotsSavedBySkater:
+                type: integer
+              shutOut:
+                type: integer
+              tied:
+                type: integer
+              timeOnIce:
+                type: integer
+              totalPoints:
+                type: integer
+              winningGoals:
+                type: integer
+              won:
+                type: integer
+            type: object
+          type: array
+        playout:
+          items: {}
+          type: array
+        practice:
+          items:
+            properties:
+              assists:
+                type: integer
+              awayTeamName:
+                type: string
+              blockOrSavedShotsPercentage:
+                type:
+                - 'null'
+              blockedOrSavedShots:
+                type: integer
+              date:
+                type: string
+              faceoffsPercentage:
+                type:
+                - string
+                - 'null'
+              faceoffsTotal:
+                type:
+                - integer
+                - 'null'
+              faceoffsWon:
+                type:
+                - integer
+                - 'null'
+              gameId:
+                type: integer
+              gameStr:
+                type: string
+              goalkeeper:
+                type: boolean
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              homeTeamName:
+                type: string
+              lost:
+                type: integer
+              minus:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              penaltykillAssists:
+                type: integer
+              penaltykillGoals:
+                type: integer
+              penaltykillPoints:
+                type: integer
+              plus:
+                type: integer
+              plusMinus:
+                type: integer
+              powerplayAssists:
+                type: integer
+              powerplayGoals:
+                type: integer
+              powerplaySeconds:
+                type: integer
+              savePercentage:
+                type:
+                - string
+                - 'null'
+              saves:
+                type: integer
+              shotIntoGoalPercentage:
+                type:
+                - string
+                - 'null'
+              shotPercentage:
+                type:
+                - string
+                - 'null'
+              shots:
+                type: integer
+              shotsIntoGoal:
+                type: integer
+              shotsSaved:
+                type: integer
+              shotsSavedBySkater:
+                type: integer
+              shutOut:
+                type: integer
+              tied:
+                type: integer
+              timeOnIce:
+                type: integer
+              totalPoints:
+                type: integer
+              winningGoals:
+                type: integer
+              won:
+                type: integer
+            type: object
+          type: array
+        qualifications:
+          items: {}
+          type: array
+        regular:
+          items:
+            properties:
+              assists:
+                type: integer
+              awayTeamName:
+                type: string
+              blockOrSavedShotsPercentage:
+                type:
+                - string
+                - 'null'
+              blockedOrSavedShots:
+                type: integer
+              date:
+                type: string
+              faceoffsPercentage:
+                type: string
+              faceoffsTotal:
+                type: integer
+              faceoffsWon:
+                type: integer
+              gameId:
+                type: integer
+              gameStr:
+                type: string
+              goalkeeper:
+                type: boolean
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              homeTeamName:
+                type: string
+              lost:
+                type: integer
+              minus:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              penaltykillAssists:
+                type: integer
+              penaltykillGoals:
+                type: integer
+              penaltykillPoints:
+                type: integer
+              plus:
+                type: integer
+              plusMinus:
+                type: integer
+              powerplayAssists:
+                type: integer
+              powerplayGoals:
+                type: integer
+              powerplaySeconds:
+                type: integer
+              savePercentage:
+                type:
+                - string
+                - 'null'
+              saves:
+                type: integer
+              shotIntoGoalPercentage:
+                type:
+                - string
+                - 'null'
+              shotPercentage:
+                type:
+                - string
+                - 'null'
+              shots:
+                type: integer
+              shotsIntoGoal:
+                type: integer
+              shotsSaved:
+                type: integer
+              shotsSavedBySkater:
+                type: integer
+              shutOut:
+                type: integer
+              tied:
+                type: integer
+              timeOnIce:
+                type: integer
+              totalPoints:
+                type: integer
+              winningGoals:
+                type: integer
+              won:
+                type: integer
+            type: object
+          type: array
+      type: object
+    PlayersStatsSummedFromToTournamentBoolAdvancedStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          corsiAgainst:
+            type: integer
+          corsiDiffTotal:
+            type: integer
+          corsiFor:
+            type: integer
+          corsiPercentageFor:
+            type: number
+          current:
+            type: boolean
+          firstName:
+            type: string
+          fsTeamGoals:
+            type: integer
+          fsTeamGoalsAgainst:
+            type: integer
+          fsTeamSavePercentage:
+            type:
+            - integer
+            - number
+          fsTeamShotPercentage:
+            type:
+            - integer
+            - number
+          fsTeamShots:
+            type: integer
+          fsTeamShotsAgainst:
+            type: integer
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pdo:
+            type:
+            - integer
+            - number
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+          zoneStartsDz:
+            type: integer
+          zoneStartsDzPercentage:
+            type: number
+          zoneStartsOz:
+            type: integer
+          zoneStartsOzPercentage:
+            type: number
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolBasicStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          assists:
+            type: integer
+          contestLost:
+            type: integer
+          contestWon:
+            type: integer
+          contestWonPercentage:
+            type: number
+          current:
+            type: boolean
+          expectedGoals:
+            type: number
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goals:
+            type: integer
+          goalsToEmptyGoal:
+            type: integer
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          minus:
+            type: integer
+          nationality:
+            type: string
+          penaltyMinutes:
+            type: integer
+          penaltykillGoals:
+            type: integer
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          plus:
+            type: integer
+          plusMinus:
+            type: integer
+          points:
+            type: integer
+          powerplayGoals:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          shotPercentage:
+            type:
+            - integer
+            - number
+            - 'null'
+          shots:
+            type: integer
+          shotsIntoGoal:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          timeOnIceAvg:
+            type:
+            - integer
+            - number
+          tournament:
+            type: string
+          winningGoals:
+            type: integer
+          xge:
+            type: number
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolBasicStatsGk:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          assists:
+            type: integer
+          blockedOrSavedShots:
+            type: integer
+          contestLost:
+            type: integer
+          contestWon:
+            type: integer
+          current:
+            type: boolean
+          expectedGoalsAgainst:
+            type:
+            - integer
+            - number
+          firstName:
+            type: string
+          games:
+            type: integer
+          gkLosses:
+            type: integer
+          gkTies:
+            type: integer
+          gkWins:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goals:
+            type: integer
+          goalsAgainst:
+            type: integer
+          goalsAgainstAvg:
+            type:
+            - number
+            - 'null'
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          penaltyMinutes:
+            type: integer
+          pictureUrl:
+            type: string
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          points:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          reserveGoalie:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          savePercentage:
+            type:
+            - number
+            - 'null'
+          shutOut:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+          winPercentage:
+            type:
+            - integer
+            - number
+          xgea:
+            type:
+            - integer
+            - number
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolFaceOffStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          faceoffCenterLost:
+            type: integer
+          faceoffCenterPercentage:
+            type:
+            - 'null'
+          faceoffCenterTotal:
+            type: integer
+          faceoffCenterWon:
+            type: integer
+          faceoffDefenceLost:
+            type: integer
+          faceoffDefencePercentage:
+            type:
+            - 'null'
+          faceoffDefenceTotal:
+            type: integer
+          faceoffDefenceWon:
+            type: integer
+          faceoffOffenceLost:
+            type: integer
+          faceoffOffencePercentage:
+            type:
+            - integer
+            - 'null'
+          faceoffOffenceTotal:
+            type: integer
+          faceoffOffenceWon:
+            type: integer
+          faceoffPercentage:
+            type:
+            - integer
+            - 'null'
+          faceoffsLost:
+            type: integer
+          faceoffsTotal:
+            type: integer
+          faceoffsWon:
+            type: integer
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolGameTime:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          countOnIceAvg:
+            type:
+            - integer
+            - number
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          penaltykill2Seconds:
+            type: integer
+          penaltykillSeconds:
+            type: integer
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          powerplay2Seconds:
+            type: integer
+          powerplaySeconds:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          shifts:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          timeOnIce1:
+            type: integer
+          timeOnIce1Avg:
+            type: number
+          timeOnIce2:
+            type: integer
+          timeOnIce2Avg:
+            type:
+            - integer
+            - number
+          timeOnIce3:
+            type: integer
+          timeOnIce3Avg:
+            type:
+            - integer
+            - number
+          timeOnIce4:
+            type: integer
+          timeOnIce4Avg:
+            type:
+            - integer
+            - number
+          timeOnIceAvg:
+            type:
+            - integer
+            - number
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolGoalStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goals:
+            type: integer
+          goalsToEmptyGoal:
+            type: integer
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          penaltykill2Goals:
+            type: integer
+          penaltykillGoals:
+            type: integer
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          powerplay2Goals:
+            type: integer
+          powerplayGoals:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          shotPercentage:
+            type:
+            - integer
+            - number
+          shots:
+            type: integer
+          shotsIntoGoal:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+          winningGoals:
+            type: integer
+          winningShotCompGoals:
+            type: integer
+          winningShotGoals:
+            type: integer
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolPasses:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          evenStrengthSuccessfulPasses:
+            type: integer
+          evenStrengthTotalPasses:
+            type: integer
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          passesPercentage:
+            type: number
+          passesUnderHighPressurePercentage:
+            type:
+            - integer
+            - number
+          passesUnderPressurePercentage:
+            type: number
+          penaltyKill1SuccessfulPasses:
+            type: integer
+          penaltyKill1TotalPasses:
+            type: integer
+          penaltyKill2SuccessfulPasses:
+            type: integer
+          penaltyKill2TotalPasses:
+            type: integer
+          penaltyKillSuccessfulPasses:
+            type: integer
+          penaltyKillTotalPasses:
+            type: integer
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          powerplay1SuccessfulPasses:
+            type: integer
+          powerplay1TotalPasses:
+            type: integer
+          powerplay2SuccessfulPasses:
+            type: integer
+          powerplay2TotalPasses:
+            type: integer
+          powerplaySuccessfulPasses:
+            type: integer
+          powerplayTotalPasses:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          successfulPasses:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          totalPasses:
+            type: integer
+          tournament:
+            type: string
+          underHighPressurePasses:
+            type: integer
+          underHighPressureSuccessfulPasses:
+            type: integer
+          underPressurePasses:
+            type: integer
+          underPressureSuccessfulPasses:
+            type: integer
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolPenaltyStats:
+      items:
+        properties:
+          accumulatingPenalties:
+            type: integer
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          penalties10Minutes:
+            type: integer
+          penalties20Minutes:
+            type: integer
+          penalties25Minutes:
+            type: integer
+          penalties2Minutes:
+            type: integer
+          penalties5Minutes:
+            type: integer
+          penaltyMinutes:
+            type: integer
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolPowerplayPenaltykillStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          penaltykill2Goals:
+            type: integer
+          penaltykillAssists:
+            type: integer
+          penaltykillGoals:
+            type: integer
+          penaltykillPoints:
+            type: integer
+          penaltykillPointsPercentage:
+            type:
+            - 'null'
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          points:
+            type: integer
+          powerplay2Goals:
+            type: integer
+          powerplayAssists:
+            type: integer
+          powerplayGoals:
+            type: integer
+          powerplayPoints:
+            type: integer
+          powerplayPointsPercentage:
+            type:
+            - 'null'
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolShotStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goals:
+            type: integer
+          goldenHelmets:
+            type: integer
+          hardestShotVelocity:
+            type: number
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          shotIntoGoalPercentage:
+            type:
+            - integer
+            - number
+            - 'null'
+          shotPercentage:
+            type:
+            - integer
+            - number
+          shots:
+            type: integer
+          shotsBlocked:
+            type: integer
+          shotsIntoGoal:
+            type: integer
+          shotsSaved:
+            type: integer
+          shotsWideOrHigh:
+            type: integer
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolSkatingStats:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          distance1:
+            type: number
+          distance2:
+            type: number
+          distance3:
+            type: number
+          distance4:
+            type:
+            - integer
+            - number
+          distancePerMatch:
+            type: number
+          distanceTravelled:
+            type: number
+          distanceTravelled1:
+            type: number
+          distanceTravelled2:
+            type: number
+          distanceTravelled3:
+            type: number
+          distanceTravelled4:
+            type:
+            - integer
+            - number
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          topSpeed:
+            type: number
+          tournament:
+            type: string
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolWinningShotComp:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pictureUrl:
+            type:
+            - string
+            - 'null'
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+          winningShotCompGoals:
+            type: integer
+          winningShotCompMisses:
+            type: integer
+          winningShotCompPercentage:
+            type:
+            - integer
+            - 'null'
+          winningShotCompShots:
+            type: integer
+          winningShotGoals:
+            type: integer
+        type: object
+      type: array
+    PlayersStatsSummedFromToTournamentBoolWinningShotCompGk:
+      items:
+        properties:
+          alumniPoints:
+            type: integer
+          current:
+            type: boolean
+          firstName:
+            type: string
+          games:
+            type: integer
+          goalkeeper:
+            type: boolean
+          goldenHelmets:
+            type: integer
+          injured:
+            type: boolean
+          isU20:
+            type: boolean
+          jersey:
+            type: integer
+          lastName:
+            type: string
+          lastSeason:
+            type: integer
+          nationality:
+            type: string
+          pictureUrl:
+            type: string
+          playedGames:
+            type: integer
+          playerId:
+            type: integer
+          previousTeamsForTournament:
+            type:
+            - 'null'
+          removed:
+            type: boolean
+          reserveGoalie:
+            type: boolean
+          role:
+            type: string
+          rookie:
+            type: boolean
+          suspended:
+            type: boolean
+          teamId:
+            type: integer
+          teamName:
+            type: string
+          teamShortName:
+            type: string
+          timeOnIce:
+            type: integer
+          tournament:
+            type: string
+          winningShotCompSavePercentage:
+            type:
+            - integer
+            - number
+          winningShotGkShotsPassed:
+            type: integer
+          winningShotGkShotsSaved:
+            type: integer
+          winningShotGkShotsTaken:
+            type: integer
+        type: object
+      type: array
+    Schedule:
+      items:
+        properties:
+          awayTeamGoals:
+            type: integer
+          awayTeamId:
+            type: string
+          awayTeamName:
+            type: string
+          awayTeamPlaceholder:
+            type:
+            - 'null'
+          awayTeamRanking:
+            type:
+            - 'null'
+          buyTicketsUrl:
+            type:
+            - 'null'
+          ended:
+            type: boolean
+          expectedAwayTeamGoals:
+            type: number
+          expectedHomeTeamGoals:
+            type: number
+          finishedType:
+            type: string
+          gameTime:
+            type: integer
+          homeTeamGoals:
+            type: integer
+          homeTeamId:
+            type: string
+          homeTeamName:
+            type: string
+          homeTeamPlaceholder:
+            type:
+            - 'null'
+          homeTeamRanking:
+            type:
+            - 'null'
+          homeTeamWinner:
+            type: boolean
+          iceRink:
+            properties:
+              city:
+                type: string
+              id:
+                type: integer
+              latitude:
+                type: number
+              longitude:
+                type: number
+              name:
+                type: string
+              streetAddress:
+                type: string
+              zip:
+                type: string
+            type: object
+          id:
+            type: integer
+          playOffPair:
+            type:
+            - 'null'
+          playOffPhase:
+            type:
+            - 'null'
+          playOffReqWins:
+            type:
+            - 'null'
+          season:
+            type: integer
+          serie:
+            type: integer
+          spectators:
+            type: integer
+          start:
+            type: string
+          started:
+            type: boolean
+        type: object
+      type: array
+    ShotmapSeasonId:
+      items:
+        properties:
+          blockerId:
+            type: integer
+          eventType:
+            type: string
+          gameTime:
+            type: integer
+          leftTeam:
+            type: integer
+          otherTeamPlayersOnIce:
+            type: integer
+          ownTeamPlayersOnIce:
+            type: integer
+          period:
+            type: integer
+          rightTeam:
+            type: integer
+          shooterId:
+            type: integer
+          shootingTeamId:
+            type: integer
+          shotX:
+            type: integer
+          shotY:
+            type: integer
+          type:
+            type: string
+        type: object
+      type: array
+    Standings:
+      properties:
+        playoffs:
+          items:
+            properties:
+              distance:
+                type: number
+              distancePerGame:
+                type: number
+              fiveMinutePenalties:
+                type: integer
+              games:
+                type: integer
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              internalId:
+                type: integer
+              liveGames:
+                type: integer
+              liveGoals:
+                type: integer
+              liveGoalsAgainst:
+                type: integer
+              liveLosses:
+                type: integer
+              livePoints:
+                type: integer
+              livePointsPerGame:
+                type: integer
+              liveRanking:
+                type: integer
+              liveTies:
+                type: integer
+              liveWins:
+                type: integer
+              losses:
+                type: integer
+              overtimeLosses:
+                type: integer
+              overtimeWins:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              points:
+                type: integer
+              pointsPerGame:
+                type: integer
+              powerPlayGoals:
+                type: integer
+              powerPlayInstances:
+                type: integer
+              powerPlayPercentage:
+                type: string
+              powerPlayTime:
+                type: integer
+              ranking:
+                type: integer
+              serie:
+                type: string
+              shortHandedGoalsAgainst:
+                type: integer
+              shortHandedInstances:
+                type: integer
+              shortHandedPercentage:
+                type: string
+              shortHandedTime:
+                type: integer
+              teamId:
+                type: string
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              tenMinutePenalties:
+                type: integer
+              ties:
+                type: integer
+              totalPenalties:
+                type: integer
+              twentyFiveMinutePenalties:
+                type: integer
+              twentyMinutePenalties:
+                type: integer
+              twoMinutePenalties:
+                type: integer
+              winPercentage:
+                type: string
+              wins:
+                type: integer
+            type: object
+          type: array
+        playoffsLines:
+          items:
+            type: integer
+          type: array
+        playout:
+          items: {}
+          type: array
+        qualifications:
+          items: {}
+          type: array
+        season:
+          items:
+            properties:
+              distance:
+                type:
+                - integer
+                - number
+              distancePerGame:
+                type: number
+              fiveMinutePenalties:
+                type: integer
+              games:
+                type: integer
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              internalId:
+                type: integer
+              liveGames:
+                type: integer
+              liveGoals:
+                type: integer
+              liveGoalsAgainst:
+                type: integer
+              liveLosses:
+                type: integer
+              livePoints:
+                type: integer
+              livePointsPerGame:
+                type: number
+              liveRanking:
+                type: integer
+              liveTies:
+                type: integer
+              liveWins:
+                type: integer
+              losses:
+                type: integer
+              overtimeLosses:
+                type: integer
+              overtimeWins:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              points:
+                type: integer
+              pointsPerGame:
+                type: number
+              powerPlayGoals:
+                type: integer
+              powerPlayInstances:
+                type: integer
+              powerPlayPercentage:
+                type: string
+              powerPlayTime:
+                type: integer
+              ranking:
+                type: integer
+              serie:
+                type: string
+              shortHandedGoalsAgainst:
+                type: integer
+              shortHandedInstances:
+                type: integer
+              shortHandedPercentage:
+                type: string
+              shortHandedTime:
+                type: integer
+              teamId:
+                type: string
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              tenMinutePenalties:
+                type: integer
+              ties:
+                type: integer
+              totalPenalties:
+                type: integer
+              twentyFiveMinutePenalties:
+                type: integer
+              twentyMinutePenalties:
+                type: integer
+              twoMinutePenalties:
+                type: integer
+              winPercentage:
+                type: string
+              wins:
+                type: integer
+            type: object
+          type: array
+        sortByPointsPerGameSeason:
+          type: boolean
+        valmistavat_ottelut:
+          items:
+            properties:
+              distance:
+                type:
+                - integer
+                - number
+              distancePerGame:
+                type:
+                - integer
+                - number
+              fiveMinutePenalties:
+                type: integer
+              games:
+                type: integer
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              internalId:
+                type: integer
+              liveGames:
+                type: integer
+              liveGoals:
+                type: integer
+              liveGoalsAgainst:
+                type: integer
+              liveLosses:
+                type: integer
+              livePoints:
+                type: integer
+              livePointsPerGame:
+                type: integer
+              liveRanking:
+                type: integer
+              liveTies:
+                type: integer
+              liveWins:
+                type: integer
+              losses:
+                type: integer
+              overtimeLosses:
+                type: integer
+              overtimeWins:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              points:
+                type: integer
+              pointsPerGame:
+                type: integer
+              powerPlayGoals:
+                type: integer
+              powerPlayInstances:
+                type: integer
+              powerPlayPercentage:
+                type: string
+              powerPlayTime:
+                type: integer
+              ranking:
+                type: integer
+              serie:
+                type: string
+              shortHandedGoalsAgainst:
+                type: integer
+              shortHandedInstances:
+                type: integer
+              shortHandedPercentage:
+                type: string
+              shortHandedTime:
+                type: integer
+              teamId:
+                type: string
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              tenMinutePenalties:
+                type: integer
+              ties:
+                type: integer
+              totalPenalties:
+                type: integer
+              twentyFiveMinutePenalties:
+                type: integer
+              twentyMinutePenalties:
+                type: integer
+              twoMinutePenalties:
+                type: integer
+              winPercentage:
+                type: string
+              wins:
+                type: integer
+            type: object
+          type: array
+      type: object
+    TeamsInfo:
+      items:
+        properties:
+          awayGames:
+            type: integer
+          awayLosses:
+            type: integer
+          awayTies:
+            type: integer
+          awayWins:
+            type: integer
+          awayWinsInExtraTime:
+            type: integer
+          games:
+            type: integer
+          goalsAgainst:
+            type: integer
+          goalsScored:
+            type: integer
+          homeGames:
+            type: integer
+          homeLosses:
+            type: integer
+          homeTies:
+            type: integer
+          homeWins:
+            type: integer
+          homeWinsInExtraTime:
+            type: integer
+          id:
+            type: integer
+          leagueId:
+            type: integer
+          losses:
+            type: integer
+          playoffRank:
+            type: integer
+          points:
+            type: integer
+          regularSeasonRank:
+            type: integer
+          season:
+            type: integer
+          serieId:
+            type: integer
+          teamId:
+            type: integer
+          ties:
+            type: integer
+          wins:
+            type: integer
+          winsInExtraTime:
+            type: integer
+        type: object
+      type: array
+    TeamsInfoAll:
+      properties:
+        logos:
+          items:
+            properties:
+              logo:
+                type: string
+              slug:
+                type: string
+            type: object
+          type: array
+        teams:
+          additionalProperties:
+            properties:
+              contact_info:
+                type: string
+              country:
+                properties:
+                  code:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              current_venue_capacity:
+                type: integer
+              externals:
+                items:
+                  properties:
+                    label:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              general_info:
+                type: string
+              id:
+                type: string
+              locality:
+                type:
+                - 'null'
+              logo:
+                type: string
+              name:
+                type: string
+              short_name:
+                type: string
+              slug:
+                type: string
+              teamtournamentstats:
+                items:
+                  properties:
+                    attendants_avg:
+                      type: integer
+                    attendants_away_avg:
+                      type: integer
+                    attendants_away_total:
+                      type: integer
+                    attendants_home_avg:
+                      type: integer
+                    attendants_home_total:
+                      type: integer
+                    attendants_total:
+                      type: integer
+                    away_games:
+                      type: integer
+                    corsi_against:
+                      type: integer
+                    corsi_against_close:
+                      type: integer
+                    corsi_against_total:
+                      type: integer
+                    corsi_close_percentage:
+                      type: string
+                    corsi_diff:
+                      type: integer
+                    corsi_diff_close:
+                      type: integer
+                    corsi_diff_total:
+                      type: integer
+                    corsi_for:
+                      type: integer
+                    corsi_for_close:
+                      type: integer
+                    corsi_for_total:
+                      type: integer
+                    corsi_percentage:
+                      type: string
+                    distance_travelled:
+                      type:
+                      - string
+                      - 'null'
+                    fs_save_percentage:
+                      type: string
+                    fs_shooting_percentage:
+                      type: string
+                    games:
+                      type: integer
+                    games_lost:
+                      type: integer
+                    games_tied:
+                      type: integer
+                    games_won:
+                      type: integer
+                    goals_against:
+                      type: integer
+                    goals_for:
+                      type: integer
+                    home_games:
+                      type: integer
+                    ot_ps_lost:
+                      type: integer
+                    ot_ps_won:
+                      type: integer
+                    pdo:
+                      type: string
+                    penalties_10_minutes:
+                      type: integer
+                    penalties_20_minutes:
+                      type: integer
+                    penalties_25_minutes:
+                      type: integer
+                    penalties_2_minutes:
+                      type: integer
+                    penalties_5_minutes:
+                      type: integer
+                    penalties_total:
+                      type: integer
+                    penalty_minutes_avg:
+                      type: string
+                    penalty_minutes_total:
+                      type: integer
+                    penaltykill2_count:
+                      type: integer
+                    penaltykill2_goals_against:
+                      type: integer
+                    penaltykill2_goals_for:
+                      type: integer
+                    penaltykill2_percentage:
+                      type: string
+                    penaltykill2_time:
+                      type: integer
+                    penaltykill2_time_per_goal_against:
+                      type: integer
+                    penaltykill_count:
+                      type: integer
+                    penaltykill_goals_against:
+                      type: integer
+                    penaltykill_goals_for:
+                      type: integer
+                    penaltykill_percentage:
+                      type: string
+                    penaltykill_time:
+                      type: integer
+                    penaltykill_time_per_goal_against:
+                      type: integer
+                    points:
+                      type: integer
+                    points_per_game:
+                      type: string
+                    powerplay2_count:
+                      type: integer
+                    powerplay2_goals_against:
+                      type: integer
+                    powerplay2_goals_for:
+                      type: integer
+                    powerplay2_percentage:
+                      type: string
+                    powerplay2_time:
+                      type: integer
+                    powerplay2_time_per_goal_for:
+                      type: integer
+                    powerplay_count:
+                      type: integer
+                    powerplay_goals_against:
+                      type: integer
+                    powerplay_goals_for:
+                      type: integer
+                    powerplay_percentage:
+                      type: string
+                    powerplay_time:
+                      type: integer
+                    powerplay_time_per_goal_for:
+                      type: integer
+                    resource_uri:
+                      type: string
+                    season:
+                      type: integer
+                    slug:
+                      type: string
+                    standings_ranking:
+                      type: integer
+                    team:
+                      type: string
+                    tournament:
+                      type: string
+                    zone_starts_dz_total:
+                      type: integer
+                    zone_starts_oz_total:
+                      type: integer
+                    zone_starts_percentage:
+                      type: string
+                  type: object
+                type: array
+              url:
+                type: string
+            type: object
+          type: object
+      type: object
+    TeamsStatsEvenStrength:
+      properties:
+        teamStats:
+          items:
+            properties:
+              evenStrengthGoalsAgainst:
+                type: integer
+              evenStrengthGoalsAgainst3vs3:
+                type: integer
+              evenStrengthGoalsAgainst4vs4:
+                type: integer
+              evenStrengthGoalsAgainst5vs5:
+                type: integer
+              evenStrengthGoalsFor:
+                type: integer
+              evenStrengthGoalsFor3vs3:
+                type: integer
+              evenStrengthGoalsFor4vs4:
+                type: integer
+              evenStrengthGoalsFor5vs5:
+                type: integer
+              evenStrengthTime:
+                type: integer
+              evenStrengthTime3vs3:
+                type: integer
+              evenStrengthTime4vs4:
+                type: integer
+              evenStrengthTime5vs5:
+                type: integer
+              games:
+                type: integer
+              previousGameDayEvenStrengthGoalsFor:
+                type: integer
+              previousGameDayEvenStrengthTime:
+                type: integer
+              previousGameDayRanking:
+                type: integer
+              previousGameDayTimeForGoal:
+                type: number
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+              timeForGoal:
+                type: number
+              timeForGoal3vs3:
+                type:
+                - 'null'
+              timeForGoal4vs4:
+                type:
+                - integer
+                - 'null'
+              timeForGoal5vs5:
+                type: number
+              timeForGoalAgainst:
+                type: number
+              timeForGoalAgainst3vs3:
+                type:
+                - 'null'
+              timeForGoalAgainst4vs4:
+                type:
+                - integer
+                - 'null'
+              timeForGoalAgainst5vs5:
+                type: number
+            type: object
+          type: array
+      type: object
+    TeamsStatsFaceoffs:
+      properties:
+        teamStats:
+          items:
+            properties:
+              faceoffCenterLost:
+                type: integer
+              faceoffCenterLostEvenStrength:
+                type: integer
+              faceoffCenterLostPenaltyKill:
+                type: integer
+              faceoffCenterLostPowerplay:
+                type: integer
+              faceoffCenterWon:
+                type: integer
+              faceoffCenterWonEvenStrength:
+                type: integer
+              faceoffCenterWonPenaltyKill:
+                type: integer
+              faceoffCenterWonPercentage:
+                type: number
+              faceoffCenterWonPercentageEvenStrength:
+                type: number
+              faceoffCenterWonPercentagePenaltyKill:
+                type: number
+              faceoffCenterWonPercentagePowerplay:
+                type: number
+              faceoffCenterWonPowerplay:
+                type: integer
+              faceoffDefenceLost:
+                type: integer
+              faceoffDefenceLostEvenStrength:
+                type: integer
+              faceoffDefenceLostPenaltyKill:
+                type: integer
+              faceoffDefenceLostPowerplay:
+                type: integer
+              faceoffDefenceWon:
+                type: integer
+              faceoffDefenceWonEvenStrength:
+                type: integer
+              faceoffDefenceWonPenaltyKill:
+                type: integer
+              faceoffDefenceWonPercentage:
+                type: number
+              faceoffDefenceWonPercentageEvenStrength:
+                type: number
+              faceoffDefenceWonPercentagePenaltyKill:
+                type: number
+              faceoffDefenceWonPercentagePowerplay:
+                type: number
+              faceoffDefenceWonPowerplay:
+                type: integer
+              faceoffLost:
+                type: integer
+              faceoffLostEvenStrength:
+                type: integer
+              faceoffLostPenaltyKill:
+                type: integer
+              faceoffLostPowerplay:
+                type: integer
+              faceoffOffenceLost:
+                type: integer
+              faceoffOffenceLostEvenStrength:
+                type: integer
+              faceoffOffenceLostPenaltyKill:
+                type: integer
+              faceoffOffenceLostPowerplay:
+                type: integer
+              faceoffOffenceWon:
+                type: integer
+              faceoffOffenceWonEvenStrength:
+                type: integer
+              faceoffOffenceWonPenaltyKill:
+                type: integer
+              faceoffOffenceWonPercentage:
+                type:
+                - integer
+                - number
+              faceoffOffenceWonPercentageEvenStrength:
+                type: number
+              faceoffOffenceWonPercentagePenaltyKill:
+                type: number
+              faceoffOffenceWonPercentagePowerplay:
+                type: number
+              faceoffOffenceWonPowerplay:
+                type: integer
+              faceoffTotal:
+                type: integer
+              faceoffTotalEvenStrength:
+                type: integer
+              faceoffTotalPenaltyKill:
+                type: integer
+              faceoffTotalPowerplay:
+                type: integer
+              faceoffWon:
+                type: integer
+              faceoffWonEvenStrength:
+                type: integer
+              faceoffWonPenaltyKill:
+                type: integer
+              faceoffWonPercentage:
+                type: number
+              faceoffWonPercentageEvenStrength:
+                type: integer
+              faceoffWonPercentagePenaltyKill:
+                type: number
+              faceoffWonPercentagePowerplay:
+                type: integer
+              faceoffWonPowerplay:
+                type: integer
+              games:
+                type: integer
+              previousGameDayFaceoffLost:
+                type: integer
+              previousGameDayFaceoffWon:
+                type: integer
+              previousGameDayFaceoffWonPercentage:
+                type: number
+              previousGameDayRanking:
+                type: integer
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamsStatsPasses:
+      properties:
+        teamStats:
+          items:
+            properties:
+              evenStrengthSuccessfulPasses:
+                type: integer
+              evenStrengthTotalPasses:
+                type: integer
+              games:
+                type: integer
+              passesPercentage:
+                type: number
+              penaltyKill1PassesPercentage:
+                type: number
+              penaltyKill1SuccessfulPasses:
+                type: integer
+              penaltyKill1TotalPasses:
+                type: integer
+              penaltyKill2PassesPercentage:
+                type: number
+              penaltyKill2SuccessfulPasses:
+                type: integer
+              penaltyKill2TotalPasses:
+                type: integer
+              penaltyKillPassesPercentage:
+                type: number
+              penaltyKillSuccessfulPasses:
+                type: integer
+              penaltyKillTotalPasses:
+                type: integer
+              powerplay1PassesPercentage:
+                type:
+                - integer
+                - number
+              powerplay1SuccessfulPasses:
+                type: integer
+              powerplay1TotalPasses:
+                type: integer
+              powerplay2PassesPercentage:
+                type: integer
+              powerplay2SuccessfulPasses:
+                type: integer
+              powerplay2TotalPasses:
+                type: integer
+              powerplayPassesPercentage:
+                type: number
+              powerplaySuccessfulPasses:
+                type: integer
+              powerplayTotalPasses:
+                type: integer
+              previousGameDayPassesPercentage:
+                type: number
+              previousGameDayRanking:
+                type: integer
+              previousGameDaySuccessfulPasses:
+                type: integer
+              previousGameDayTotalPasses:
+                type: integer
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              successfulPasses:
+                type: integer
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+              totalPasses:
+                type: integer
+            type: object
+          type: array
+      type: object
+    TeamsStatsPenalties:
+      properties:
+        teamStats:
+          items:
+            properties:
+              10minutesPenalties:
+                type: integer
+              20minutesPenalties:
+                type: integer
+              25minutesPenalties:
+                type: integer
+              2minutesPenalties:
+                type: integer
+              5minutesPenalties:
+                type: integer
+              games:
+                type: integer
+              penalties:
+                type: integer
+              penaltyMinutes:
+                type: integer
+              previousGameDayRanking:
+                type: integer
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamsStatsPenaltyKill:
+      properties:
+        teamStats:
+          items:
+            properties:
+              games:
+                type: integer
+              netPenaltyKillPercentage:
+                type: number
+              netPenaltyKillPercentage1:
+                type: number
+              netPenaltyKillPercentage2:
+                type:
+                - integer
+                - number
+              penaltyKill:
+                type: integer
+              penaltyKill1:
+                type: integer
+              penaltyKill2:
+                type: integer
+              penaltyKillGoals:
+                type: integer
+              penaltyKillGoals1:
+                type: integer
+              penaltyKillGoals2:
+                type: integer
+              penaltyKillGoalsAgainst:
+                type: integer
+              penaltyKillGoalsAgainst1:
+                type: integer
+              penaltyKillGoalsAgainst2:
+                type: integer
+              penaltyKillPercentage:
+                type: number
+              penaltyKillPercentage1:
+                type: number
+              penaltyKillPercentage2:
+                type:
+                - integer
+                - number
+              penaltyKillTime:
+                type: integer
+              penaltyKillTime1:
+                type: integer
+              penaltyKillTime2:
+                type: integer
+              previousGameDayPenaltyKill:
+                type: integer
+              previousGameDayPenaltyKillGoalsAgainst:
+                type: integer
+              previousGameDayPenaltyKillPercentage:
+                type: number
+              previousGameDayRanking:
+                type: integer
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+              timeForGoalAgainstPK:
+                type: number
+              timeForGoalAgainstPK1:
+                type: integer
+              timeForGoalAgainstPK2:
+                type: integer
+              timeForGoalPK:
+                type:
+                - integer
+                - number
+              timeForGoalPK1:
+                type:
+                - integer
+                - number
+              timeForGoalPK2:
+                type:
+                - 'null'
+            type: object
+          type: array
+      type: object
+    TeamsStatsPowerplay:
+      properties:
+        teamStats:
+          items:
+            properties:
+              games:
+                type: integer
+              netPowerplayPercentage:
+                type: number
+              netPowerplayPercentage1:
+                type: number
+              netPowerplayPercentage2:
+                type:
+                - integer
+                - number
+              powerplay:
+                type: integer
+              powerplay1:
+                type: integer
+              powerplay2:
+                type: integer
+              powerplayGoals:
+                type: integer
+              powerplayGoals1:
+                type: integer
+              powerplayGoals2:
+                type: integer
+              powerplayGoalsAgainst:
+                type: integer
+              powerplayGoalsAgainst1:
+                type: integer
+              powerplayGoalsAgainst2:
+                type: integer
+              powerplayPercentage:
+                type: number
+              powerplayPercentage1:
+                type: number
+              powerplayPercentage2:
+                type:
+                - integer
+                - number
+              powerplayTime:
+                type: integer
+              powerplayTime1:
+                type: integer
+              powerplayTime2:
+                type: integer
+              previousGameDayPowerplay:
+                type: integer
+              previousGameDayPowerplayGoals:
+                type: integer
+              previousGameDayPowerplayPercentage:
+                type:
+                - integer
+                - number
+              previousGameDayRanking:
+                type: integer
+              ranking:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+              timeForGoalAgainstPowerplay:
+                type:
+                - integer
+                - number
+              timeForGoalAgainstPowerplay1:
+                type:
+                - integer
+                - number
+              timeForGoalAgainstPowerplay2:
+                type:
+                - 'null'
+              timeForGoalPowerplay:
+                type: number
+              timeForGoalPowerplay1:
+                type: number
+              timeForGoalPowerplay2:
+                type:
+                - integer
+                - number
+                - 'null'
+            type: object
+          type: array
+      type: object
+    TeamsStatsShots:
+      properties:
+        teamStats:
+          items:
+            properties:
+              evenStrengthGoals:
+                type: integer
+              evenStrengthGoalsAgainst:
+                type: integer
+              games:
+                type: integer
+              goals:
+                type: integer
+              goalsAgainst:
+                type: integer
+              nonBlockedShots:
+                type: integer
+              nonBlockedShotsAgainst:
+                type: integer
+              nonBlockedShotsAgainstEvenStrength:
+                type: integer
+              nonBlockedShotsAgainstPenaltyKill:
+                type: integer
+              nonBlockedShotsAgainstPowerplay:
+                type: integer
+              nonBlockedShotsDifference:
+                type: integer
+              nonBlockedShotsDifferenceEvenStrength:
+                type: integer
+              nonBlockedShotsDifferencePenaltyKill:
+                type: integer
+              nonBlockedShotsDifferencePowerplay:
+                type: integer
+              nonBlockedShotsEvenStrength:
+                type: integer
+              nonBlockedShotsForShotsAgainstPercentage:
+                type: number
+              nonBlockedShotsForShotsAgainstPercentageEvenStrength:
+                type: number
+              nonBlockedShotsForShotsAgainstPercentagePenaltyKill:
+                type: number
+              nonBlockedShotsForShotsAgainstPercentagePowerplay:
+                type: number
+              nonBlockedShotsPenaltyKill:
+                type: integer
+              nonBlockedShotsPowerplay:
+                type: integer
+              pdo:
+                type: number
+              pdoEvenStrength:
+                type: number
+              pdoPenaltyKill:
+                type: number
+              pdoPowerplay:
+                type: number
+              penaltyKillGoals:
+                type: integer
+              penaltyKillGoalsAgainst:
+                type: integer
+              powerplayGoals:
+                type: integer
+              powerplayGoalsAgainst:
+                type: integer
+              previousGameDayGoals:
+                type: integer
+              previousGameDayRanking:
+                type: integer
+              previousGameDayShots:
+                type: integer
+              previousGameDayShotsPercentage:
+                type: number
+              ranking:
+                type: integer
+              savePercentage:
+                type: number
+              savePercentageEvenStrength:
+                type: number
+              savePercentagePenaltyKill:
+                type: number
+              savePercentagePowerplay:
+                type: number
+              shots:
+                type: integer
+              shotsAgainst:
+                type: integer
+              shotsAgainstEvenStrength:
+                type: integer
+              shotsAgainstPenaltyKill:
+                type: integer
+              shotsAgainstPowerplay:
+                type: integer
+              shotsDifference:
+                type: integer
+              shotsDifferenceEvenStrength:
+                type: integer
+              shotsDifferencePenaltyKill:
+                type: integer
+              shotsDifferencePowerplay:
+                type: integer
+              shotsEvenStrength:
+                type: integer
+              shotsForShotsAgainstPercentage:
+                type: number
+              shotsForShotsAgainstPercentageEvenStrength:
+                type: number
+              shotsForShotsAgainstPercentagePenaltyKill:
+                type: number
+              shotsForShotsAgainstPercentagePowerplay:
+                type: number
+              shotsPenaltyKill:
+                type: integer
+              shotsPercentage:
+                type: number
+              shotsPercentageEvenStrength:
+                type: number
+              shotsPercentagePenaltyKill:
+                type: number
+              shotsPercentagePowerplay:
+                type: number
+              shotsPowerplay:
+                type: integer
+              shotsSaved:
+                type: integer
+              sortDesc:
+                type: boolean
+              teamId:
+                type: integer
+              teamLogos:
+                properties:
+                  darkBg:
+                    type: string
+                  darkBgOriginal:
+                    type:
+                    - 'null'
+                  lightBg:
+                    type: string
+                  lightBgOriginal:
+                    type:
+                    - 'null'
+                type: object
+              teamName:
+                type: string
+              teamShortName:
+                type: string
+            type: object
+          type: array
+      type: object
+    Tournament:
+      properties:
+        cachebust:
+          type: boolean
+        gameWeek:
+          type: integer
+        maxGameWeek:
+          type: integer
+      type: object
+info:
+  description: 'Finland''s Liiga: games, schedule, game events and lineups, box scores, shot maps, standings,
+    team and player tables. Routes per the liiga.fi site bundle; shapes from committed captures in liiga/captures/
+    (captured 2026-10-12, game 1 of season 2026 = HPK-TPS 2025-09-09). Season keys are END years (2026
+    = 2025-26); game ids are unique only within a season; the team id is the string `<num>:<slug>` in
+    games, schedule and lineups but a bare integer in shotmap and teamStats (see liiga-returns.md, Divergence
+    notes). Keyless, GET only, no pagination (whole season per response, up to ~4 MB). Shot maps from
+    2016; /games/stats tracking (topSpeed, hardestShot) from at least 2021. Not official or supported.'
+  title: Liiga API v2 (liiga.fi/api/v2)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /games:
+    get:
+      operationId: games
+      parameters:
+      - description: 'Tournament; omitted = every tournament, practice games included (probe: 605 rows
+          for 2026).'
+        example: runkosarja
+        in: query
+        name: tournament
+        required: false
+        schema: &id002
+          enum: &id003
+          - runkosarja
+          - playoffs
+          - playout
+          - qualifications
+          - valmistavat_ottelut
+          - chl
+          type: string
+      - description: 'Season END year: 2026 = 2025-26. Omitted = the season in progress.'
+        example: 2026
+        in: query
+        name: season
+        required: false
+        schema: &id001
+          type: integer
+      - description: One day, YYYY-MM-DD, instead of season (discovery report; not captured).
+        in: query
+        name: date
+        required: false
+        schema:
+          type: string
+      - description: Game week, with season (discovery report; not captured).
+        in: query
+        name: week
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Games'
+          description: OK
+      summary: All games of a season-tournament with goal events, periods, xG and rink
+  /games/stats/{season}/{id}:
+    get:
+      operationId: games_stats_season_id
+      parameters:
+      - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
+          by (season, id).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
+        example: '1'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesStatsSeasonId'
+          description: OK
+      summary: 'Box score: per-period team and player stats, top speed, hardest shot, puck possession'
+  /games/{season}/{id}:
+    get:
+      operationId: games_season_id
+      parameters:
+      - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
+          by (season, id).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
+        example: '1'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: '`playersWithStats` adds allTimeStats/seasonStats/seasonStatsInTeam to every lineup
+          row.'
+        in: query
+        name: dataType
+        required: false
+        schema:
+          enum:
+          - playersWithStats
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/GamesSeasonId'
+                - $ref: '#/components/schemas/GamesSeasonIdPlayersWithStats'
+          description: OK
+      summary: 'One game: goal/penalty/goalkeeper/shootout events, awards and both lineups'
+  /gameweeks:
+    get:
+      operationId: gameweeks
+      parameters:
+      - description: 'Season END year: 2026 = 2025-26.'
+        example: 2026
+        in: query
+        name: season
+        required: false
+        schema: *id001
+      - description: 'Tournament (probe: omitted = 400 ''unsupported parameter'').'
+        example: runkosarja
+        in: query
+        name: tournament
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gameweeks'
+          description: OK
+      summary: Number of game weeks of a season-tournament
+  /players/info:
+    get:
+      operationId: players_info
+      parameters:
+      - description: 'Tournament (probe: omitted = 502).'
+        example: runkosarja
+        in: query
+        name: tournament
+        required: true
+        schema: *id002
+      - description: First season (END year).
+        example: 2026
+        in: query
+        name: fromSeason
+        required: false
+        schema: *id001
+      - description: Last season (END year).
+        example: 2026
+        in: query
+        name: toSeason
+        required: false
+        schema: *id001
+      - description: Nationality filter, e.g. FIN (discovery report).
+        in: query
+        name: nationality
+        required: false
+        schema:
+          type: string
+      - description: Team as `<num>:<slug>` (discovery report).
+        in: query
+        name: team
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersInfo'
+          description: OK
+      summary: Roster and bio rows of every player in a season range
+  /players/info/{playerId}:
+    get:
+      operationId: players_info_playerId
+      parameters:
+      - description: Player id (lineup `id`, `playerId`; equals `fihaId`), e.g. 21870028.
+        example: '21870028'
+        in: path
+        name: playerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersInfoPlayerId'
+          description: OK
+      summary: One player's profile and career by tournament
+  /players/info/{playerId}/games/{season}:
+    get:
+      operationId: players_info_playerId_games_season
+      parameters:
+      - description: Player id (lineup `id`, `playerId`; equals `fihaId`), e.g. 21870028.
+        example: '21870028'
+        in: path
+        name: playerId
+        required: true
+        schema:
+          type: string
+      - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
+          by (season, id).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersInfoPlayerIdGamesSeason'
+          description: OK
+      summary: One player's game log for a season, keyed by tournament
+  /players/stats/summed/{from}/{to}/{tournament}/{bool}:
+    get:
+      operationId: players_stats_summed_from_to_tournament_bool
+      parameters:
+      - description: First season (END year) of the range, e.g. 2026.
+        example: '2026'
+        in: path
+        name: from
+        required: true
+        schema:
+          type: string
+      - description: Last season (END year) of the range, e.g. 2026.
+        example: '2026'
+        in: path
+        name: to
+        required: true
+        schema:
+          type: string
+      - description: Tournament code (lowercase; responses echo it uppercase in `serie`/`tournament`).
+        example: runkosarja
+        in: path
+        name: tournament
+        required: true
+        schema:
+          enum: *id003
+          type: string
+      - description: '`true`: the whole league, no filters (what the site''s stat tables request; captured).
+          `false`: honours the team/splitTeams/gameWeek/opposingTeam/result/homeAway/lastGames/nationality
+          query filters (site bundle; not captured).'
+        example: 'true'
+        in: path
+        name: bool
+        required: true
+        schema:
+          enum:
+          - 'true'
+          - 'false'
+          type: string
+      - description: 'Stat table. Omitted = a default table (probe: 573 rows, more than basicStats'' 531).'
+        example: basicStats
+        in: query
+        name: dataType
+        required: false
+        schema:
+          enum:
+          - basicStats
+          - basicStatsGk
+          - advancedStats
+          - goalStats
+          - shotStats
+          - skatingStats
+          - faceOffStats
+          - penaltyStats
+          - powerplayPenaltykillStats
+          - passes
+          - winningShotComp
+          - winningShotCompGk
+          - gameTime
+          type: string
+      - description: Team as `<num>:<slug>` (site bundle).
+        in: query
+        name: team
+        required: false
+        schema:
+          type: string
+      - description: '`true` splits a traded player''s rows by team (site bundle).'
+        in: query
+        name: splitTeams
+        required: false
+        schema:
+          type: string
+      - description: Game week filter (site bundle).
+        in: query
+        name: gameWeek
+        required: false
+        schema: *id001
+      - description: Opponent team filter (site bundle).
+        in: query
+        name: opposingTeam
+        required: false
+        schema:
+          type: string
+      - description: Game result filter (site bundle).
+        in: query
+        name: result
+        required: false
+        schema:
+          type: string
+      - description: Home/away filter (site bundle).
+        in: query
+        name: homeAway
+        required: false
+        schema:
+          type: string
+      - description: Last N games filter (site bundle).
+        in: query
+        name: lastGames
+        required: false
+        schema: *id001
+      - description: Nationality filter, e.g. FIN (site bundle).
+        in: query
+        name: nationality
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolBasicStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolBasicStatsGk'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolAdvancedStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolGoalStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolShotStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolSkatingStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolFaceOffStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolPenaltyStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolPowerplayPenaltykillStats'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolPasses'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolWinningShotComp'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolWinningShotCompGk'
+                - $ref: '#/components/schemas/PlayersStatsSummedFromToTournamentBoolGameTime'
+          description: OK
+      summary: Player stat table summed over a season range
+  /schedule:
+    get:
+      operationId: schedule
+      parameters:
+      - description: 'Tournament; omitted = runkosarja (probe: same 480 rows).'
+        example: runkosarja
+        in: query
+        name: tournament
+        required: false
+        schema: *id002
+      - description: 'Season END year: 2026 = 2025-26. Omitted = the season in progress (probe: 2027).'
+        example: 2026
+        in: query
+        name: season
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+          description: OK
+      summary: 'Flat schedule rows of a season-tournament: ids, teams, goals, xG, start'
+  /shotmap/{season}/{id}:
+    get:
+      operationId: shotmap_season_id
+      parameters:
+      - description: 'Season END year: 2026 = 2025-26. Game ids repeat across seasons, so a game is keyed
+          by (season, id).'
+        example: '2026'
+        in: path
+        name: season
+        required: true
+        schema:
+          type: string
+      - description: Game id (`id` in /games or /schedule), e.g. 1; unique only within a season.
+        example: '1'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShotmapSeasonId'
+          description: OK
+      summary: Every shot of a game with rink coordinates, shooter, blocker and skaters on ice
+  /standings/:
+    get:
+      operationId: standings
+      parameters:
+      - description: 'Season END year: 2026 = 2025-26. Omitted = the season in progress.'
+        example: 2026
+        in: query
+        name: season
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Standings'
+          description: OK
+      summary: 'Standings of a season: regular season, playoffs, preseason, playout, qualifications'
+  /teams/info:
+    get:
+      operationId: teams_info
+      parameters:
+      - description: 'Team as `<num>:<slug>`, e.g. 55786244:hpk. Omitted = every team: `{teams, logos}`
+          (a different shape; captured as the `all` variant).'
+        example: 55786244:hpk
+        in: query
+        name: team
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/TeamsInfo'
+                - $ref: '#/components/schemas/TeamsInfoAll'
+          description: OK
+      summary: All-time season rows of one team (team given) or every team's logos and rows (team omitted)
+  /teams/stats:
+    get:
+      operationId: teams_stats
+      parameters:
+      - description: 'First season (END year). Season END year: 2026 = 2025-26.'
+        example: 2026
+        in: query
+        name: seasonFrom
+        required: false
+        schema: *id001
+      - description: Last season (END year).
+        example: 2026
+        in: query
+        name: seasonTo
+        required: false
+        schema: *id001
+      - description: 'Tournament (probe: omitted = 500 ''Remote server error'').'
+        example: runkosarja
+        in: query
+        name: tournament
+        required: true
+        schema: *id002
+      - description: 'Stat table (discovery: omitted = 502; basicStats = 500).'
+        example: shots
+        in: query
+        name: dataType
+        required: true
+        schema:
+          enum:
+          - shots
+          - passes
+          - faceoffs
+          - penalties
+          - powerplay
+          - penalty_kill
+          - even_strength
+          type: string
+      - description: Home/away filter (site bundle).
+        in: query
+        name: homeAway
+        required: false
+        schema:
+          type: string
+      - description: Game result filter (site bundle).
+        in: query
+        name: result
+        required: false
+        schema:
+          type: string
+      - description: Last N games filter (site bundle).
+        in: query
+        name: lastGames
+        required: false
+        schema: *id001
+      - description: Game week filter (site bundle).
+        in: query
+        name: gameWeek
+        required: false
+        schema: *id001
+      - description: Include the game in progress (site bundle).
+        in: query
+        name: live
+        required: false
+        schema:
+          type: string
+      - description: Opponent team filter (site bundle).
+        in: query
+        name: opposingTeam
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/TeamsStatsShots'
+                - $ref: '#/components/schemas/TeamsStatsPasses'
+                - $ref: '#/components/schemas/TeamsStatsFaceoffs'
+                - $ref: '#/components/schemas/TeamsStatsPenalties'
+                - $ref: '#/components/schemas/TeamsStatsPowerplay'
+                - $ref: '#/components/schemas/TeamsStatsPenaltyKill'
+                - $ref: '#/components/schemas/TeamsStatsEvenStrength'
+          description: OK
+      summary: Team stat table for a season range
+  /tournament:
+    get:
+      operationId: tournament
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tournament'
+          description: OK
+      summary: 'Current state: game week of the season in progress and its last game week'
+servers:
+- url: https://liiga.fi/api/v2
