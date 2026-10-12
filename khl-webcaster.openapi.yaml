@@ -78,10 +78,13 @@ components:
                   properties:
                     avg_cost:
                       type: string
+                      x-always-empty: true
                     code:
                       type: string
+                      x-always-empty: true
                     number:
                       type: string
+                      x-always-empty: true
                   type: object
               type: object
             live:
@@ -90,19 +93,25 @@ components:
                   properties:
                     avg_cost:
                       type: string
+                      x-always-empty: true
                     code:
                       type: string
+                      x-always-empty: true
                     number:
                       type: string
+                      x-always-empty: true
                   type: object
                 sd:
                   properties:
                     avg_cost:
                       type: string
+                      x-always-empty: true
                     code:
                       type: string
+                      x-always-empty: true
                     number:
                       type: string
+                      x-always-empty: true
                   type: object
               type: object
           type: object
@@ -273,29 +282,35 @@ components:
                 type: integer
               android_app_product_id:
                 type: string
+                x-always-empty: true
               custom_data:
                 type:
                 - 'null'
               description:
                 type: string
+                x-always-empty: true
               event_ids:
                 type: string
+                x-always-empty: true
               events_filter_rule:
                 type: string
               id:
                 type: integer
               ios_app_product_id:
                 type: string
+                x-always-empty: true
               name:
                 type: string
               season:
                 type: boolean
               stage_ids:
                 type: string
+                x-always-empty: true
               stages_filter_rule:
                 type: string
               team_ids:
                 type: string
+                x-always-empty: true
               teams_filter_rule:
                 type: string
             type: object
@@ -1099,13 +1114,16 @@ components:
                     type: integer
                   android_app_product_id:
                     type: string
+                    x-always-empty: true
                   custom_data:
                     type:
                     - 'null'
                   description:
                     type: string
+                    x-always-empty: true
                   event_ids:
                     type: string
+                    x-always-empty: true
                   events_filter_rule:
                     type: string
                   id:
@@ -1122,10 +1140,12 @@ components:
                     type: string
                   stage_ids:
                     type: string
+                    x-always-empty: true
                   stages_filter_rule:
                     type: string
                   team_ids:
                     type: string
+                    x-always-empty: true
                   teams_filter_rule:
                     type: string
                   time:
@@ -2092,10 +2112,13 @@ components:
               properties:
                 android:
                   type: string
+                  x-always-empty: true
                 ios:
                   type: string
+                  x-always-empty: true
                 windows:
                   type: string
+                  x-always-empty: true
               type: object
             arena:
               properties:
@@ -2441,6 +2464,7 @@ components:
               properties:
                 fb:
                   type: string
+                  x-always-empty: true
                 instagram:
                   type: string
                 ok:
@@ -2449,10 +2473,12 @@ components:
                   type: string
                 tw:
                   type: string
+                  x-always-empty: true
                 vk:
                   type: string
                 youtube:
                   type: string
+                  x-always-empty: true
               type: object
             stage:
               type: string
