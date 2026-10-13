@@ -432,7 +432,7 @@ components:
                       type: integer
                     points:
                       description: Points in the game (2 x two_point_made + 3 x three_point_made + free_throw_made
-                        on all 14,142 box lines).
+                        on all 14,142 box lines of a one-off survey of 623 box scores).
                       type: integer
                     position:
                       description: Playing position of the player on this team.
@@ -471,19 +471,19 @@ components:
                     throw_all:
                       description: All field goals (two- plus three-pointers; the provider calls them
                         'throw') attempted in the game (= two_point_all + three_point_all on all 14,142
-                        box lines).
+                        box lines of a one-off survey of 623 box scores).
                       type: integer
                     throw_made:
                       description: All field goals (two- plus three-pointers; the provider calls them
                         'throw') made in the game (= two_point_made + three_point_made on all 14,142 box
-                        lines).
+                        lines of a one-off survey of 623 box scores).
                       type: integer
                     throw_percent:
                       description: Field-goal percentage 0-100, rounded to 2 decimals.
                       type: number
                     total_rebound:
                       description: Total rebounds in the game (= offensive + defensive on all 14,142 box
-                        lines).
+                        lines of a one-off survey of 623 box scores).
                       type: integer
                     turnover:
                       description: Turnovers in the game.
@@ -501,8 +501,8 @@ components:
                     value:
                       description: 'Efficiency rating in the game: points + total_rebound + assist + steal
                         + block + defensive_foul (fouls drawn) - missed field goals - missed free throws
-                        - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                        and foul do not enter it.'
+                        - turnover, exact on all 14,142 player lines of a one-off survey of 623 box scores
+                        (not repeatable with capture.py); block_against and foul do not enter it.'
                       type: integer
                   type: object
                 type: array
@@ -632,7 +632,7 @@ components:
                     type: integer
                   points:
                     description: Points by the team in the game (2 x two_point_made + 3 x three_point_made
-                      + free_throw_made on all 14,142 box lines).
+                      + free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores).
                     type: integer
                   starter:
                     description: Number of starters in the box score (5) or true in the per-team game
@@ -654,19 +654,19 @@ components:
                   throw_all:
                     description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                       attempted by the team in the game (= two_point_all + three_point_all on all 14,142
-                      box lines).
+                      box lines of a one-off survey of 623 box scores).
                     type: integer
                   throw_made:
                     description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                       made by the team in the game (= two_point_made + three_point_made on all 14,142
-                      box lines).
+                      box lines of a one-off survey of 623 box scores).
                     type: integer
                   throw_percent:
                     description: Field-goal percentage 0-100, rounded to 2 decimals.
                     type: number
                   total_rebound:
                     description: Total rebounds by the team in the game (= offensive + defensive on all
-                      14,142 box lines).
+                      14,142 box lines of a one-off survey of 623 box scores).
                     type: integer
                   turnover:
                     description: Turnovers by the team in the game.
@@ -684,8 +684,9 @@ components:
                   value:
                     description: 'Efficiency rating by the team in the game: points + total_rebound +
                       assist + steal + block + defensive_foul (fouls drawn) - missed field goals - missed
-                      free throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                      and foul do not enter it.'
+                      free throws - turnover, exact on all 14,142 player lines of a one-off survey of
+                      623 box scores (not repeatable with capture.py); block_against and foul do not enter
+                      it.'
                     type: integer
                 type: object
             type: object
@@ -4083,7 +4084,7 @@ components:
                         type: integer
                       points:
                         description: Points by the team in the game (2 x two_point_made + 3 x three_point_made
-                          + free_throw_made on all 14,142 box lines).
+                          + free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores).
                         type: integer
                       starter:
                         description: Number of starters in the box score (5) or true in the per-team game
@@ -4105,19 +4106,19 @@ components:
                       throw_all:
                         description: All field goals (two- plus three-pointers; the provider calls them
                           'throw') attempted by the team in the game (= two_point_all + three_point_all
-                          on all 14,142 box lines).
+                          on all 14,142 box lines of a one-off survey of 623 box scores).
                         type: integer
                       throw_made:
                         description: All field goals (two- plus three-pointers; the provider calls them
                           'throw') made by the team in the game (= two_point_made + three_point_made on
-                          all 14,142 box lines).
+                          all 14,142 box lines of a one-off survey of 623 box scores).
                         type: integer
                       throw_percent:
                         description: Field-goal percentage 0-100, rounded to 2 decimals.
                         type: number
                       total_rebound:
                         description: Total rebounds by the team in the game (= offensive + defensive on
-                          all 14,142 box lines).
+                          all 14,142 box lines of a one-off survey of 623 box scores).
                         type: integer
                       turnover:
                         description: Turnovers by the team in the game.
@@ -4135,8 +4136,9 @@ components:
                       value:
                         description: 'Efficiency rating by the team in the game: points + total_rebound
                           + assist + steal + block + defensive_foul (fouls drawn) - missed field goals
-                          - missed free throws - turnover, exact on all 14,142 player lines of 623 box
-                          scores; block_against and foul do not enter it.'
+                          - missed free throws - turnover, exact on all 14,142 player lines of a one-off
+                          survey of 623 box scores (not repeatable with capture.py); block_against and
+                          foul do not enter it.'
                         type: integer
                     type:
                     - array
@@ -4374,7 +4376,7 @@ components:
                         type: object
                       points:
                         description: Points in the game (2 x two_point_made + 3 x three_point_made + free_throw_made
-                          on all 14,142 box lines).
+                          on all 14,142 box lines of a one-off survey of 623 box scores).
                         type: integer
                       starter:
                         description: True when the player started the game.
@@ -4395,19 +4397,19 @@ components:
                       throw_all:
                         description: All field goals (two- plus three-pointers; the provider calls them
                           'throw') attempted in the game (= two_point_all + three_point_all on all 14,142
-                          box lines).
+                          box lines of a one-off survey of 623 box scores).
                         type: integer
                       throw_made:
                         description: All field goals (two- plus three-pointers; the provider calls them
                           'throw') made in the game (= two_point_made + three_point_made on all 14,142
-                          box lines).
+                          box lines of a one-off survey of 623 box scores).
                         type: integer
                       throw_percent:
                         description: Field-goal percentage 0-100, rounded to 2 decimals.
                         type: number
                       total_rebound:
                         description: Total rebounds in the game (= offensive + defensive on all 14,142
-                          box lines).
+                          box lines of a one-off survey of 623 box scores).
                         type: integer
                       turnover:
                         description: Turnovers in the game.
@@ -4425,8 +4427,9 @@ components:
                       value:
                         description: 'Efficiency rating in the game: points + total_rebound + assist +
                           steal + block + defensive_foul (fouls drawn) - missed field goals - missed free
-                          throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                          and foul do not enter it.'
+                          throws - turnover, exact on all 14,142 player lines of a one-off survey of 623
+                          box scores (not repeatable with capture.py); block_against and foul do not enter
+                          it.'
                         type: integer
                     type:
                     - array
@@ -4576,9 +4579,10 @@ components:
                 type: string
               genius_id:
                 description: 'Genius Sports LiveStats match id (key space: the `matchId` of fibalivestats.dcd.shared.geniussports.com
-                  data.json, organisation BNXT in genius-livestats/), the join to Genius play-by-play;
-                  null before the Genius era (2020-21) and on games without a Genius feed. Only this route
-                  carries it, and only for the latest 14 finished games.'
+                  data.json, organisation BNXT in genius-livestats/), the join to Genius play-by-play.
+                  Integer in every committed sample; /schedule/game-slider/2 (2020-21, not a committed
+                  sample) was seen live returning null. Only this route carries it, and only for the latest
+                  14 finished games and the upcoming ones.'
                 type: integer
               id:
                 description: 'Game id (key space: sportpress schedule entries, unique across all BNXT
@@ -4810,7 +4814,8 @@ components:
                 type: integer
               points:
                 description: Points per game (mean over the games played) (2 x two_point_made + 3 x three_point_made
-                  + free_throw_made on all 14,142 box lines). Mean per game, so fractional.
+                  + free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores). Mean
+                  per game, so fractional.
                 type: number
               position:
                 description: 'Unobserved: null in every sample. When filled: Position the player is listed
@@ -4898,19 +4903,19 @@ components:
               throw_all:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                   attempted per game (mean over the games played) (= two_point_all + three_point_all on
-                  all 14,142 box lines). Mean per game, so fractional.
+                  all 14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               throw_made:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                   made per game (mean over the games played) (= two_point_made + three_point_made on all
-                  14,142 box lines). Mean per game, so fractional.
+                  14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               throw_percent:
                 description: Field-goal percentage 0-100, rounded to 2 decimals.
                 type: number
               total_rebound:
                 description: Total rebounds per game (mean over the games played) (= offensive + defensive
-                  on all 14,142 box lines). Mean per game, so fractional.
+                  on all 14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               turnover:
                 description: Turnovers per game (mean over the games played). Mean per game, so fractional.
@@ -4930,8 +4935,9 @@ components:
               value:
                 description: 'Efficiency rating per game (mean over the games played): points + total_rebound
                   + assist + steal + block + defensive_foul (fouls drawn) - missed field goals - missed
-                  free throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                  and foul do not enter it. Mean per game, so fractional.'
+                  free throws - turnover, exact on all 14,142 player lines of a one-off survey of 623
+                  box scores (not repeatable with capture.py); block_against and foul do not enter it.
+                  Mean per game, so fractional.'
                 type: number
             type: object
           type: array
@@ -5229,7 +5235,7 @@ components:
                 type: integer
               points:
                 description: Points in the game (2 x two_point_made + 3 x three_point_made + free_throw_made
-                  on all 14,142 box lines).
+                  on all 14,142 box lines of a one-off survey of 623 box scores).
                 type: integer
               starter:
                 description: True when the player started the game.
@@ -5249,17 +5255,20 @@ components:
                 type: number
               throw_all:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
-                  attempted in the game (= two_point_all + three_point_all on all 14,142 box lines).
+                  attempted in the game (= two_point_all + three_point_all on all 14,142 box lines of
+                  a one-off survey of 623 box scores).
                 type: integer
               throw_made:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
-                  made in the game (= two_point_made + three_point_made on all 14,142 box lines).
+                  made in the game (= two_point_made + three_point_made on all 14,142 box lines of a one-off
+                  survey of 623 box scores).
                 type: integer
               throw_percent:
                 description: Field-goal percentage 0-100, rounded to 2 decimals.
                 type: number
               total_rebound:
-                description: Total rebounds in the game (= offensive + defensive on all 14,142 box lines).
+                description: Total rebounds in the game (= offensive + defensive on all 14,142 box lines
+                  of a one-off survey of 623 box scores).
                 type: integer
               turnover:
                 description: Turnovers in the game.
@@ -5277,8 +5286,8 @@ components:
               value:
                 description: 'Efficiency rating in the game: points + total_rebound + assist + steal +
                   block + defensive_foul (fouls drawn) - missed field goals - missed free throws - turnover,
-                  exact on all 14,142 player lines of 623 box scores; block_against and foul do not enter
-                  it.'
+                  exact on all 14,142 player lines of a one-off survey of 623 box scores (not repeatable
+                  with capture.py); block_against and foul do not enter it.'
                 type: integer
             type: object
           type: array
@@ -6963,7 +6972,7 @@ components:
                   type: integer
                 points:
                   description: Points in his latest game (2 x two_point_made + 3 x three_point_made +
-                    free_throw_made on all 14,142 box lines).
+                    free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores).
                   type: integer
                 starter:
                   description: True when the player started his latest game.
@@ -6984,18 +6993,19 @@ components:
                 throw_all:
                   description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                     attempted in his latest game (= two_point_all + three_point_all on all 14,142 box
-                    lines).
+                    lines of a one-off survey of 623 box scores).
                   type: integer
                 throw_made:
                   description: All field goals (two- plus three-pointers; the provider calls them 'throw')
-                    made in his latest game (= two_point_made + three_point_made on all 14,142 box lines).
+                    made in his latest game (= two_point_made + three_point_made on all 14,142 box lines
+                    of a one-off survey of 623 box scores).
                   type: integer
                 throw_percent:
                   description: Field-goal percentage 0-100, rounded to 2 decimals.
                   type: number
                 total_rebound:
                   description: Total rebounds in his latest game (= offensive + defensive on all 14,142
-                    box lines).
+                    box lines of a one-off survey of 623 box scores).
                   type: integer
                 turnover:
                   description: Turnovers in his latest game.
@@ -7013,8 +7023,8 @@ components:
                 value:
                   description: 'Efficiency rating in his latest game: points + total_rebound + assist
                     + steal + block + defensive_foul (fouls drawn) - missed field goals - missed free
-                    throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                    and foul do not enter it.'
+                    throws - turnover, exact on all 14,142 player lines of a one-off survey of 623 box
+                    scores (not repeatable with capture.py); block_against and foul do not enter it.'
                   type: integer
               type: object
             player:
@@ -7596,7 +7606,9 @@ components:
                       name:
                         description: 'Country name in English: Belgium or Netherlands.'
                         type: string
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                   created_at:
                     description: Date the competition-team record was created (YYYY-MM-DD), normally the
                       start of its season.
@@ -7646,10 +7658,14 @@ components:
                             description: URL of the small copy (file name prefixed 'small-').
                             type: string
                         type: object
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                   ticket_url:
                     description: Ticket shop URL of the club.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                 type: object
               win:
                 description: Games won in the phase.
@@ -8187,7 +8203,7 @@ components:
                     type: integer
                   points:
                     description: Points by the team in the game (2 x two_point_made + 3 x three_point_made
-                      + free_throw_made on all 14,142 box lines).
+                      + free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores).
                     type: integer
                   starter:
                     description: Number of starters in the box score (5) or true in the per-team game
@@ -8209,19 +8225,19 @@ components:
                   throw_all:
                     description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                       attempted by the team in the game (= two_point_all + three_point_all on all 14,142
-                      box lines).
+                      box lines of a one-off survey of 623 box scores).
                     type: integer
                   throw_made:
                     description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                       made by the team in the game (= two_point_made + three_point_made on all 14,142
-                      box lines).
+                      box lines of a one-off survey of 623 box scores).
                     type: integer
                   throw_percent:
                     description: Field-goal percentage 0-100, rounded to 2 decimals.
                     type: number
                   total_rebound:
                     description: Total rebounds by the team in the game (= offensive + defensive on all
-                      14,142 box lines).
+                      14,142 box lines of a one-off survey of 623 box scores).
                     type: integer
                   turnover:
                     description: Turnovers by the team in the game.
@@ -8239,8 +8255,9 @@ components:
                   value:
                     description: 'Efficiency rating by the team in the game: points + total_rebound +
                       assist + steal + block + defensive_foul (fouls drawn) - missed field goals - missed
-                      free throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                      and foul do not enter it.'
+                      free throws - turnover, exact on all 14,142 player lines of a one-off survey of
+                      623 box scores (not repeatable with capture.py); block_against and foul do not enter
+                      it.'
                     type: integer
                 type: object
             type: object
@@ -8383,7 +8400,8 @@ components:
                 type: object
               points:
                 description: Points per game (mean over the games played) (2 x two_point_made + 3 x three_point_made
-                  + free_throw_made on all 14,142 box lines). Mean per game, so fractional.
+                  + free_throw_made on all 14,142 box lines of a one-off survey of 623 box scores). Mean
+                  per game, so fractional.
                 type: number
               roster_id:
                 description: 'Roster id (key space: sportpress roster entries): one player''s entry on
@@ -8411,19 +8429,19 @@ components:
               throw_all:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                   attempted per game (mean over the games played) (= two_point_all + three_point_all on
-                  all 14,142 box lines). Mean per game, so fractional.
+                  all 14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               throw_made:
                 description: All field goals (two- plus three-pointers; the provider calls them 'throw')
                   made per game (mean over the games played) (= two_point_made + three_point_made on all
-                  14,142 box lines). Mean per game, so fractional.
+                  14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               throw_percent:
                 description: Field-goal percentage 0-100, rounded to 2 decimals.
                 type: number
               total_rebound:
                 description: Total rebounds per game (mean over the games played) (= offensive + defensive
-                  on all 14,142 box lines). Mean per game, so fractional.
+                  on all 14,142 box lines of a one-off survey of 623 box scores). Mean per game, so fractional.
                 type: number
               turnover:
                 description: Turnovers per game (mean over the games played). Mean per game, so fractional.
@@ -8443,8 +8461,9 @@ components:
               value:
                 description: 'Efficiency rating per game (mean over the games played): points + total_rebound
                   + assist + steal + block + defensive_foul (fouls drawn) - missed field goals - missed
-                  free throws - turnover, exact on all 14,142 player lines of 623 box scores; block_against
-                  and foul do not enter it. Mean per game, so fractional.'
+                  free throws - turnover, exact on all 14,142 player lines of a one-off survey of 623
+                  box scores (not repeatable with capture.py); block_against and foul do not enter it.
+                  Mean per game, so fractional.'
                 type: number
             type: object
           type: array
@@ -10107,4 +10126,7 @@ paths:
 security:
 - ApiKeyAuth: []
 servers:
-- url: https://bnxt.sportpress.info/api/v1
+- description: The BNXT tenant of the multi-tenant Sportpress CMS. sopron.sportpress.info and beac.sportpress.info
+    accept the same key but serve other leagues and lack routes (for example /schedule/game-slider is
+    a 404 there).
+  url: https://bnxt.sportpress.info/api/v1
