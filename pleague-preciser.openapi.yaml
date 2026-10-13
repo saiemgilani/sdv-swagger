@@ -1,0 +1,813 @@
+components:
+  schemas:
+    PreciserInjuryList:
+      description: 'api.preciser.io /game/injury/list/o/plg/gameId/{uuid}: one list element with the two
+        teams and the injury report (null on every sampled game).'
+      items:
+        properties:
+          away_team:
+            description: Away team block.
+            properties:
+              color:
+                description: Team colour as a CSS hex string.
+                type: string
+              english_name:
+                description: Team short English name ('Lioneers').
+                type: string
+              id:
+                description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo,
+                  photonew.preciser.io/plg/teams/<uuid>.png, and standings team_logo). Joins to site team_id
+                  only through that logo.'
+                type: string
+              logo_url:
+                description: Team logo URL.
+                type: string
+              name:
+                description: Team short name in Traditional Chinese ('攻城獅').
+                type: string
+            type: object
+          game_id:
+            description: 'Game uuid (key space: the analytics vendor Preciser''s games; a version-1 uuid).
+              Echoed here; the capture checks it. Embedded in the game page as getPlayByPlay(''<uuid>'');
+              keys /api/playbyplay.php?uuid= and the api.preciser.io game routes. Empty on 2020-21 and
+              2021-22 pages.'
+            type: string
+          home_team:
+            description: Home team block.
+            properties:
+              color:
+                description: Team colour as a CSS hex string.
+                type: string
+              english_name:
+                description: Team short English name ('Lioneers').
+                type: string
+              id:
+                description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo,
+                  photonew.preciser.io/plg/teams/<uuid>.png, and standings team_logo). Joins to site team_id
+                  only through that logo.'
+                type: string
+              logo_url:
+                description: Team logo URL.
+                type: string
+              name:
+                description: Team short name in Traditional Chinese ('攻城獅').
+                type: string
+            type: object
+          injury_report:
+            description: Injury report block.
+            properties:
+              away:
+                description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                x-unobserved: true
+              home:
+                description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
+                x-unobserved: true
+            type: object
+        type: object
+      type: array
+    PreciserPostGameSummary:
+      description: 'api.preciser.io /post/game/summary/o/plg/gameId/{uuid}: one list element with team
+        comparison, lead tracker, win probability, the play-by-play score log and the top performers.'
+      items:
+        properties:
+          away_team:
+            description: Away team block.
+            properties:
+              color:
+                description: Team colour as a CSS hex string.
+                type: string
+              id:
+                description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo,
+                  photonew.preciser.io/plg/teams/<uuid>.png, and standings team_logo). Joins to site team_id
+                  only through that logo.'
+                type: string
+              logo_url:
+                description: Team logo URL.
+                type: string
+              name:
+                description: Team full name in Traditional Chinese.
+                type: string
+            type: object
+          fast_break_points:
+            description: 'Fast-break points block: away and home value with progress bars.'
+            properties:
+              away_progress:
+                description: Away bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              away_value:
+                description: Away team's fast break points (points).
+                type: number
+              home_progress:
+                description: Home bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              home_value:
+                description: Home team's fast break points (points).
+                type: number
+            type: object
+          game_id:
+            description: 'Game uuid (key space: the analytics vendor Preciser''s games; a version-1 uuid).
+              Echoed here; the capture checks it. Embedded in the game page as getPlayByPlay(''<uuid>'');
+              keys /api/playbyplay.php?uuid= and the api.preciser.io game routes. Empty on 2020-21 and
+              2021-22 pages.'
+            type: string
+          home_team:
+            description: Home team block.
+            properties:
+              color:
+                description: Team colour as a CSS hex string.
+                type: string
+              id:
+                description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo,
+                  photonew.preciser.io/plg/teams/<uuid>.png, and standings team_logo). Joins to site team_id
+                  only through that logo.'
+                type: string
+              logo_url:
+                description: Team logo URL.
+                type: string
+              name:
+                description: Team full name in Traditional Chinese.
+                type: string
+            type: object
+          home_team_probability_over_time:
+            description: 'Home team win probability by minute, PERCENT 0-100 (integers; 49 entries for
+              a 48-minute game: 50 at the start). Method not documented by the vendor.'
+            items:
+              type: number
+            type: array
+          leadStats:
+            description: Lead tracker.
+            properties:
+              biggestLead:
+                description: Largest lead in points of each side.
+                properties:
+                  away:
+                    description: Away side's largest lead.
+                    type: integer
+                  home:
+                    description: Home side's largest lead.
+                    type: integer
+                type: object
+              biggestScoringRun:
+                description: Longest unanswered scoring run of each side, in points.
+                properties:
+                  away:
+                    description: Away side's longest run.
+                    type: integer
+                  home:
+                    description: Home side's longest run.
+                    type: integer
+                type: object
+              leadChanges:
+                description: Number of lead changes.
+                type: integer
+              leadPerMinutes:
+                description: Score at each minute mark of the game.
+                items:
+                  properties:
+                    away_score:
+                      description: Away score at the mark.
+                      type: integer
+                    home_score:
+                      description: Home score at the mark.
+                      type: integer
+                    quarter:
+                      description: Period in lower case ('q1').
+                      type: string
+                    score_difference:
+                      description: home_score - away_score (positive = home leads).
+                      type: integer
+                    time:
+                      description: Game clock REMAINING in the period 'mm:ss' (counts down).
+                      type: string
+                  type: object
+                type: array
+              timeLeadingSeconds:
+                description: Seconds each side led.
+                properties:
+                  away:
+                    description: Seconds the away side led.
+                    type: integer
+                  home:
+                    description: Seconds the home side led.
+                    type: integer
+                type: object
+            type: object
+          paint_points:
+            description: Points in the paint block.
+            properties:
+              away_progress:
+                description: Away bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              away_value:
+                description: Away team's paint points (points).
+                type: number
+              home_progress:
+                description: Home bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              home_value:
+                description: Home team's paint points (points).
+                type: number
+            type: object
+          pbp:
+            description: 'Score log: one row per scoring event, in game order (not the full play-by-play).'
+            items:
+              properties:
+                away_score:
+                  description: Away score after the event.
+                  type: integer
+                home_score:
+                  description: Home score after the event.
+                  type: integer
+                quarter:
+                  description: Period in lower case ('q1').
+                  type: string
+                time:
+                  description: Game clock REMAINING in the period 'mm:ss' (counts down).
+                  type: string
+              type: object
+            type: array
+          second_chance_points:
+            description: Second-chance points block.
+            properties:
+              away_progress:
+                description: Away bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              away_value:
+                description: Away team's second chance points (points).
+                type: number
+              home_progress:
+                description: Home bar length as a PERCENT 0-100 of the pair's combined value.
+                type: number
+              home_value:
+                description: Home team's second chance points (points).
+                type: number
+            type: object
+          team_comparison:
+            description: Team statistic comparison (one block per statistic).
+            properties:
+              assists:
+                description: Comparison of assists.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's assists.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's assists.
+                    type: integer
+                type: object
+              blocks:
+                description: Comparison of blocks.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's blocks.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's blocks.
+                    type: integer
+                type: object
+              field_goal_percentage:
+                description: Comparison of field goals made (despite the key name the value is a count
+                  of makes in the sampled games, not a percentage).
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's field goals made (despite the key name the value is a count
+                      of makes in the sampled games, not a percentage).
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's field goals made (despite the key name the value is a count
+                      of makes in the sampled games, not a percentage).
+                    type: integer
+                type: object
+              free_throw_percentage:
+                description: Comparison of free-throw percentage 0-100.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's free-throw percentage 0-100.
+                    type: number
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's free-throw percentage 0-100.
+                    type: number
+                type: object
+              points:
+                description: Comparison of points.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's points.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's points.
+                    type: integer
+                type: object
+              rebounds:
+                description: Comparison of rebounds.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's rebounds.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's rebounds.
+                    type: integer
+                type: object
+              steals:
+                description: Comparison of steals.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's steals.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's steals.
+                    type: integer
+                type: object
+              three_points_percentage:
+                description: Comparison of 3-point percentage 0-100.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's 3-point percentage 0-100.
+                    type: number
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's 3-point percentage 0-100.
+                    type: number
+                type: object
+              turnovers:
+                description: Comparison of turnovers.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's turnovers.
+                    type: integer
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's turnovers.
+                    type: integer
+                type: object
+              two_points_percentage:
+                description: Comparison of 2-point percentage 0-100.
+                properties:
+                  away_progress:
+                    description: Away bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  away_value:
+                    description: Away team's 2-point percentage 0-100.
+                    type: number
+                  home_progress:
+                    description: Home bar length as a FRACTION 0-1 of the larger of the two values (1
+                      = the larger side).
+                    type: number
+                  home_value:
+                    description: Home team's 2-point percentage 0-100.
+                    type: number
+                type: object
+            type: object
+          top_performers:
+            description: Best player of each side.
+            properties:
+              away_player:
+                description: Away top performer.
+                properties:
+                  assists:
+                    description: Assists recorded in the game.
+                    type: integer
+                  jersey_number:
+                    description: Shirt number as a string.
+                    type: string
+                  name:
+                    description: Player name (Traditional Chinese or a transliteration).
+                    type: string
+                  photo_url:
+                    description: Player photo URL ('' when none).
+                    type: string
+                  points:
+                    description: Points scored in the game.
+                    type: integer
+                  rebound:
+                    description: Total rebounds in the game.
+                    type: integer
+                type: object
+              home_player:
+                description: Home top performer.
+                properties:
+                  assists:
+                    description: Assists recorded in the game.
+                    type: integer
+                  jersey_number:
+                    description: Shirt number as a string.
+                    type: string
+                  name:
+                    description: Player name (Traditional Chinese or a transliteration).
+                    type: string
+                  photo_url:
+                    description: Player photo URL ('' when none).
+                    type: string
+                  points:
+                    description: Points scored in the game.
+                    type: integer
+                  rebound:
+                    description: Total rebounds in the game.
+                    type: integer
+                type: object
+            type: object
+        type: object
+      type: array
+    PreciserRotation:
+      description: 'api.preciser.io /game/rotation/chart/o/plg/gameId/{uuid}: one list element with each
+        side''s players and their on-court stints.'
+      items:
+        properties:
+          awayTeam:
+            description: Away players with court time, starters first.
+            items:
+              properties:
+                jerseyNumber:
+                  description: Shirt number (integer).
+                  type: integer
+                name:
+                  description: Player name (Traditional Chinese); equals the box's name_alt, which is
+                    how the capture checks the roster.
+                  type: string
+                periods:
+                  description: The player's on-court stints in game order.
+                  items:
+                    properties:
+                      endQuarter:
+                        description: Period in which the stint ends ('Q1').
+                        type: string
+                      endSeconds:
+                        description: Seconds elapsed in the GAME's regulation clock when the stint ends
+                          (seconds from the start of play, cumulative across periods).
+                        type: integer
+                      endTime:
+                        description: Clock REMAINING in endQuarter at the end of the stint, 'm:ss'.
+                        type: string
+                      startQuarter:
+                        description: Period in which the stint starts.
+                        type: string
+                      startSeconds:
+                        description: Seconds elapsed in the game when the stint starts.
+                        type: integer
+                      startTime:
+                        description: Clock REMAINING in startQuarter at the start of the stint, 'm:ss'.
+                        type: string
+                    type: object
+                  type: array
+                started:
+                  description: True when the player started the game.
+                  type: boolean
+              type: object
+            type: array
+          homeTeam:
+            description: Home players with court time, starters first.
+            items:
+              properties:
+                jerseyNumber:
+                  description: Shirt number (integer).
+                  type: integer
+                name:
+                  description: Player name (Traditional Chinese); equals the box's name_alt, which is
+                    how the capture checks the roster.
+                  type: string
+                periods:
+                  description: The player's on-court stints in game order.
+                  items:
+                    properties:
+                      endQuarter:
+                        description: Period in which the stint ends ('Q1').
+                        type: string
+                      endSeconds:
+                        description: Seconds elapsed in the GAME's regulation clock when the stint ends
+                          (seconds from the start of play, cumulative across periods).
+                        type: integer
+                      endTime:
+                        description: Clock REMAINING in endQuarter at the end of the stint, 'm:ss'.
+                        type: string
+                      startQuarter:
+                        description: Period in which the stint starts.
+                        type: string
+                      startSeconds:
+                        description: Seconds elapsed in the game when the stint starts.
+                        type: integer
+                      startTime:
+                        description: Clock REMAINING in startQuarter at the start of the stint, 'm:ss'.
+                        type: string
+                    type: object
+                  type: array
+                started:
+                  description: True when the player started the game.
+                  type: boolean
+              type: object
+            type: array
+        type: object
+      type: array
+    PreciserShots:
+      description: 'api.preciser.io /v1/chart-data/id/{uuid}: one list element with the two team uuids,
+        the players and EVERY shot of the game with court x/y, zone, type, result and a clip link.'
+      items:
+        properties:
+          away_id:
+            description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo, photonew.preciser.io/plg/teams/<uuid>.png,
+              and standings team_logo). Joins to site team_id only through that logo. Away team.'
+            type: string
+          game_status:
+            description: 'Game state: ''post'' = finished (the only value the capture banks).'
+            type: string
+          home_id:
+            description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo, photonew.preciser.io/plg/teams/<uuid>.png,
+              and standings team_logo). Joins to site team_id only through that logo. Home team.'
+            type: string
+          players:
+            description: Every player who appears in shot, keyed by Preciser person uuid.
+            items:
+              properties:
+                id:
+                  description: 'id (key space: Preciser persons, a uuid; the same value as players[].id
+                    in api.preciser.io /v1/chart-data and the join key between the box and the shot list).
+                    Equal to the site box''s personId.'
+                  type: string
+                logo_url:
+                  description: Player photo URL ('' when none).
+                  type: string
+                name:
+                  description: Player name (Traditional Chinese or a transliteration); equals the box's
+                    name_alt.
+                  type: string
+                team_id:
+                  description: 'Team uuid (key space: Preciser teams; the file name of the team''s logo,
+                    photonew.preciser.io/plg/teams/<uuid>.png, and standings team_logo). Joins to site
+                    team_id only through that logo.'
+                  type: string
+              type: object
+            type: array
+          shot:
+            description: Every shot of the game (field goals only; free throws are not listed), in no
+              guaranteed order.
+            items:
+              properties:
+                area:
+                  description: 'Shot zone, English label: ''<side> <distance band>'' - ''Center 8ft''
+                    (restricted-area band, within 8 ft), ''Center 8-16ft'', ''Left 8-16ft'', ''Right 8-16ft'',
+                    ''Left 16-23ft'', ''Center 16-23ft'', ''Right 16-23ft'', ''Left Center 16-23ft'',
+                    ''Right Center 16-23ft'' for 2-point shots and ''Left Side 3pt'', ''Left Center 3pt'',
+                    ''Center Side 3pt'', ''Right Center 3pt'', ''Right Side 3pt'' for 3-point shots; null
+                    on a few shots (2 of 2,566). Whether Left/Right is the shooter''s or the court''s
+                    side is unverified.'
+                  type:
+                  - string
+                  - 'null'
+                clock:
+                  description: Game clock REMAINING in the period 'mm:ss' (counts down).
+                  type: string
+                message:
+                  description: Play text in Traditional Chinese, '<player>(未)投(進)<distance>公尺遠的<shot>'
+                    = '<player> made / missed a <distance> m <shot>'. The distance is in metres and matches
+                    x/y (see x).
+                  type: string
+                period:
+                  description: 'Period number: 1-4, 5+ for overtime (integer).'
+                  type: integer
+                player:
+                  description: 'Shooter: the Preciser person uuid (players[].id; the box personId).'
+                  type: string
+                subtype:
+                  description: 'Shot style: jumpShot, layup, drivingLayup, floatingJumpShot (floater),
+                    tipIn (putback), pullUpJumpShot, fadeAway, dunk, turnAroundJumpShot, hookShot, stepBackJumpShot,
+                    alleyOop; null on a few shots (7 of 2,566).'
+                  type: string
+                success:
+                  description: true = made, false = missed.
+                  type: boolean
+                type:
+                  description: '''2pt'' or ''3pt''.'
+                  type: string
+                video_url:
+                  description: Clip URL on the clip vendor (tryspot). The query string carries a vendor
+                    access key, so the committed sample holds '<redacted>' there. Null when the shot has
+                    no clip.
+                  type:
+                  - string
+                  - 'null'
+                x:
+                  description: 'Shot x: PERCENT (0-100) of the court LENGTH in the VENDOR frame, in which
+                    the HOME team always attacks the basket at x = 95 and the away team the basket at
+                    x = 5 (the frame does not flip at half-time). The basket sits at x = 5 / 95 and y
+                    = 50. Calibrated on 1,893 shots whose text names a distance in metres: distance =
+                    hypot((x - 5) x 0.2875, (y - 50) x 0.1525) (or the same from x = 95) with a mean error
+                    of 0.010 m, so one x unit = 0.2875 m and one y unit = 0.1525 m (a 28.75 x 15.25 m
+                    plot). The play-by-play fragment''s own x/y is the physical court frame (flips at
+                    half-time): x_vendor = 100 - x_pbp in the halves where the home team attacks x < 50.'
+                  type: number
+                y:
+                  description: 'Shot y: PERCENT (0-100) of the court WIDTH; the baskets are at y = 50.
+                    Which sideline is y = 0 is unverified. Same frame as x.'
+                  type: number
+              type: object
+            type: array
+        type: object
+      type: array
+info:
+  description: 'The analytics vendor behind pleagueofficial.com''s game-page widgets, keyed by the game
+    uuid the page embeds as getPlayByPlay(''<uuid>''). Keyless, CORS-open (Access-Control-Allow-Origin:
+    *), no robots.txt (404). Third-party host: the same data the site shows, but the vendor''s terms are
+    unknown. Every route answers a one-element list. The shot list has the only court x/y outside the
+    play-by-play fragment. Not official or supported. The site JS also calls /v1/shot-pbp-season/{season}/{type}/{team},
+    /team/statistics/{leaders,rank}/o/plg/..., /player/statistics/season/o/plg/..., /player/game/logs/chart/o/plg/...
+    and /pre/game/summary/o/plg/gameId/{uuid}; those are not captured (no non-empty sample), see the README.'
+  title: 'Preciser (api.preciser.io): P. LEAGUE+ shot chart, win probability, rotation and injury widgets'
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /game/injury/list/o/plg/gameId/{uuid}:
+    get:
+      description: 'api.preciser.io /game/injury/list/o/plg/gameId/{uuid}: one list element with the two
+        teams and the injury report (null on every sampled game). Keyless. injury_report.away and .home
+        were null on all 16 sampled games, so their shape is unknown.'
+      operationId: get_preciser_game_injury_list_o_plg_gameId_uuid
+      parameters:
+      - description: 'Game uuid. Game uuid (key space: the analytics vendor Preciser''s games; a version-1
+          uuid). Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid=
+          and the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. A well-formed unknown
+          uuid answers 200 with `[]` on the summary, rotation-less and injury routes and 500 (text/html)
+          on /v1/chart-data.'
+        example: e6f98675-3e5b-11ed-949e-5d17350689cf
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreciserInjuryList'
+          description: Injury report of one game
+        '500':
+          description: 'text/html error page: /v1/chart-data/id/{uuid} for an unknown uuid. Not retried.'
+      security: []
+      summary: Injury report of one game
+  /game/rotation/chart/o/plg/gameId/{uuid}:
+    get:
+      description: 'api.preciser.io /game/rotation/chart/o/plg/gameId/{uuid}: one list element with each
+        side''s players and their on-court stints. Keyless. An unknown or unplayed uuid answers 200 with
+        empty awayTeam / homeTeam lists.'
+      operationId: get_preciser_game_rotation_chart_o_plg_gameId_uuid
+      parameters:
+      - description: 'Game uuid. Game uuid (key space: the analytics vendor Preciser''s games; a version-1
+          uuid). Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid=
+          and the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. A well-formed unknown
+          uuid answers 200 with `[]` on the summary, rotation-less and injury routes and 500 (text/html)
+          on /v1/chart-data.'
+        example: e6f98675-3e5b-11ed-949e-5d17350689cf
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreciserRotation'
+          description: 'Rotation chart: on-court stints per player'
+        '500':
+          description: 'text/html error page: /v1/chart-data/id/{uuid} for an unknown uuid. Not retried.'
+      security: []
+      summary: 'Rotation chart: on-court stints per player'
+  /post/game/summary/o/plg/gameId/{uuid}:
+    get:
+      description: 'api.preciser.io /post/game/summary/o/plg/gameId/{uuid}: one list element with team
+        comparison, lead tracker, win probability, the play-by-play score log and the top performers.
+        Keyless. An unknown uuid answers 200 with `[]`. The `pbp` list here is a score log (scoring events
+        only), not the full play-by-play.'
+      operationId: get_preciser_post_game_summary_o_plg_gameId_uuid
+      parameters:
+      - description: 'Game uuid. Game uuid (key space: the analytics vendor Preciser''s games; a version-1
+          uuid). Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid=
+          and the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. A well-formed unknown
+          uuid answers 200 with `[]` on the summary, rotation-less and injury routes and 500 (text/html)
+          on /v1/chart-data.'
+        example: e6f98675-3e5b-11ed-949e-5d17350689cf
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreciserPostGameSummary'
+          description: 'Post-game summary: team comparison, lead tracker, win probability, play log'
+        '500':
+          description: 'text/html error page: /v1/chart-data/id/{uuid} for an unknown uuid. Not retried.'
+      security: []
+      summary: 'Post-game summary: team comparison, lead tracker, win probability, play log'
+  /v1/chart-data/id/{uuid}:
+    get:
+      description: 'api.preciser.io /v1/chart-data/id/{uuid}: one list element with the two team uuids,
+        the players and EVERY shot of the game with court x/y, zone, type, result and a clip link. Keyless;
+        Access-Control-Allow-Origin: *. Finished games only (''game_status'' = ''post''). Free throws
+        are not in the list. x/y are in the vendor frame (home always attacks x > 50); the play-by-play
+        fragment''s own x/y is the physical court frame. An unknown uuid answers 500 text/html; 2020-21
+        and 2021-22 games have no uuid and no data.'
+      operationId: get_preciser_v1_chart_data_id_uuid
+      parameters:
+      - description: 'Game uuid. Game uuid (key space: the analytics vendor Preciser''s games; a version-1
+          uuid). Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid=
+          and the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. A well-formed unknown
+          uuid answers 200 with `[]` on the summary, rotation-less and injury routes and 500 (text/html)
+          on /v1/chart-data.'
+        example: e6f98675-3e5b-11ed-949e-5d17350689cf
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreciserShots'
+          description: Every shot of one game with court x/y, zone, clip link and result
+        '500':
+          description: 'text/html error page: /v1/chart-data/id/{uuid} for an unknown uuid. Not retried.'
+      security: []
+      summary: Every shot of one game with court x/y, zone, clip link and result
+servers:
+- url: https://api.preciser.io

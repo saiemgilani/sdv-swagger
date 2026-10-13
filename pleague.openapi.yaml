@@ -1,0 +1,2252 @@
+components:
+  schemas:
+    PleagueBox:
+      description: 'Body of /api/boxscore.preciser.php (JSON, although served as text/html): the final
+        score by quarter, one row per rostered player per side and a team totals row. The era split is
+        2020-21/2021-22 (A) vs 2022-23 onward (B).'
+      properties:
+        data:
+          description: The box payload.
+          properties:
+            adv_flag:
+              description: '1 = the game has the advanced columns (ORTG, DRTG, pace, ...): present, always
+                1, on every 2022-23+ body; absent on 2020-21 and 2021-22 bodies.'
+              type: integer
+              x-absent-in-some-rows: true
+            away:
+              description: Away players, one row per rostered player including 'DNP' rows.
+              items:
+                properties:
+                  AST_RATIO:
+                    description: 'Assist ratio, 0-100 (B era): assists per 100 of the player''s own plays.
+                      The common formula AST / (FGA + 0.5 x FTA + AST + TOV) x 100 reproduces it on 919
+                      of 1,174 rows, so the exact formula is unverified.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  DRTG:
+                    description: 'Defensive rating (B era): the opponent''s points scored per 100 of its
+                      possessions while the player was on court (lower is better).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  NETRTG:
+                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ORTG:
+                    description: 'Offensive rating (B era): the team''s points scored per 100 offensive
+                      possessions while the player was on court.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  TO_RATIO:
+                    description: 'Turnover ratio, 0-100 (B era): turnovers per 100 of the player''s own
+                      plays; same formula family as AST_RATIO (917 of 1,174 rows).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ast:
+                    description: Assists.
+                    type:
+                    - integer
+                    - string
+                  blk:
+                    description: Blocks made.
+                    type:
+                    - integer
+                    - string
+                  eff:
+                    description: 'Efficiency: points + rebounds + assists + steals + blocks - missed field
+                      goals - missed free throws - turnovers (verified on all 3,932 A-era rows).'
+                    type:
+                    - integer
+                    - string
+                  efgp:
+                    description: 'Effective field-goal percentage, 0-100: (FGM + 0.5 x 3PM) / FGA x 100
+                      (verified on 3,696 of 3,696 A-era rows with attempts). A-era only; a number or a
+                      string ('''' on DNP rows).'
+                    type: number
+                    x-absent-in-some-rows: true
+                  ft:
+                    description: Free throws ATTEMPTED (the second number of ft_m_ft).
+                    type:
+                    - integer
+                    - string
+                  ft_a:
+                    description: 'Free throws MISSED (A era): ft = ft_m + ft_a on all 3,932 rows. The
+                      name suggests ''attempted'' but it is the misses; read ft_m_ft (''made-attempted'')
+                      to check.'
+                    type: integer
+                    x-absent-in-some-rows: true
+                  ft_m:
+                    description: Free throws MADE (A era; paired with ft_a).
+                    type: integer
+                    x-absent-in-some-rows: true
+                  ft_m_ft:
+                    description: Free throws 'made-attempted' as a string ('0-0').
+                    type: string
+                  ftp:
+                    description: Free-throw percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  jersey:
+                    description: Shirt number as a string ('0', '00' and '10' differ).
+                    type: string
+                  mins:
+                    description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Team totals: ''240:00''
+                      for a 4-quarter game (5 players x 48 min), more with overtime.'
+                    type: string
+                  name:
+                    description: Player name field; equal to name_alt on B-era rows, null or '' on most
+                      A-era rows.
+                    type:
+                    - string
+                    - 'null'
+                  name_alt:
+                    description: Player name as shown in the box table (Traditional Chinese or a transliteration).
+                    type: string
+                  offensive_possession:
+                    description: The team's offensive possessions while the player was on court (B era);
+                      the base of ORTG.
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_offensive_possession:
+                    description: The opponent's offensive possessions while the player was on court (B
+                      era); the base of DRTG.
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_2nd_chance:
+                    description: Opponent second-chance points while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_fastbreak:
+                    description: Opponent fast-break points while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_turnover:
+                    description: Opponent points off turnovers while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_in_the_paint:
+                    description: Opponent points in the paint while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  pace:
+                    description: 'Pace (B era): 48 x offensive_possession / minutes on court, i.e. the
+                      team''s possessions per 48 minutes with this player on court (verified on 1,124
+                      of 1,149 rows; game 194 differs).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  personId:
+                    description: 'personId (key space: Preciser persons, a uuid; the same value as players[].id
+                      in api.preciser.io /v1/chart-data and the join key between the box and the shot
+                      list). 2022-23 onward only; ABSENT on 2020-21 and 2021-22 rows and on a few later
+                      games (2025-26 finals gid 716).'
+                    type: string
+                    x-absent-in-some-rows: true
+                  pfoul:
+                    description: Personal fouls committed.
+                    type:
+                    - integer
+                    - string
+                  player_id:
+                    description: 'player_id (key space: P. LEAGUE+ player-team memberships on the site;
+                      equals the member id the player page passes to trackPlayer(), e.g. 40 = Lai Ting-En).
+                      A STRING of digits in the box. Not the 8-character page id (random_id) and not the
+                      Preciser personId uuid.'
+                    type: string
+                  points:
+                    description: 'Points scored. A-era DNP rows: '''' (empty string).'
+                    type:
+                    - integer
+                    - string
+                  position:
+                    description: 'Unobserved: null in every sample. When filled: Position code (''G''
+                      guard, ''F'' forward, ''C'' centre) on some A-era rows; null or '''' on the rest;
+                      absent from every B-era row.'
+                    x-absent-in-some-rows: true
+                    x-unobserved: true
+                  positive:
+                    description: 'Plus/minus: the team''s points minus the opponent''s while the player
+                      was on court (signed integer). Reproduced to within 1 point on 826 of 1,060 B-era
+                      player rows by ORTG x offensive_possession / 100 - DRTG x opp_offensive_possession
+                      / 100. Absent on team-total rows of the B era; present on A-era totals rows.'
+                    type:
+                    - integer
+                    - string
+                  profile_picture:
+                    description: 'Unobserved: null in every sample. When filled: Profile picture reference
+                      (A era): null on most rows, a string on some.'
+                    x-absent-in-some-rows: true
+                    x-unobserved: true
+                  random_id:
+                    description: 'random_id (key space: the 8-character page id of /player/{random_id}).
+                      On 2022-23 and later rows it is the player''s page (gid 197: ''1JbPozLB'' = Lai
+                      Ting-En, ''1BEtRhwN'' = Kao Kuo-Hao). On 2020-21 and 2021-22 rows it is NOT reliable
+                      as a join: gid 13 gives Lai Ting-En (player_id 40) ''1BEtRhwN'', which the live
+                      site resolves to Kao Kuo-Hao (player_id 84). Join on player_id, never on random_id,
+                      across eras. Null on part of the older rows.'
+                    type: string
+                  reb:
+                    description: Total rebounds (reb_o + reb_d on every checked player row; team totals
+                      also include team rebounds).
+                    type:
+                    - integer
+                    - string
+                  reb_d:
+                    description: Defensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  reb_o:
+                    description: Offensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  seconds:
+                    description: 'Playing time in whole seconds (A era only: absent from every 2022-23+
+                      row); '''' on DNP rows. Equals mins as mm:ss x 60 on all 3,932 A-era rows with minutes.'
+                    type: integer
+                    x-absent-in-some-rows: true
+                  starter:
+                    description: 'Starter flag: ''〇'' (a Japanese-style circle) = started, '''' = bench.'
+                    type: string
+                  stl:
+                    description: Steals.
+                    type:
+                    - integer
+                    - string
+                  trey:
+                    description: 3-point field goals ATTEMPTED (the second number of trey_m_trey).
+                    type:
+                    - integer
+                    - string
+                  trey_a:
+                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a.'
+                    type: integer
+                    x-absent-in-some-rows: true
+                  trey_m:
+                    description: 3-point field goals MADE (A era).
+                    type: integer
+                    x-absent-in-some-rows: true
+                  trey_m_trey:
+                    description: 3-point field goals 'made-attempted' as a string ('1-5').
+                    type: string
+                  treyp:
+                    description: 3-point field-goal percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  tsp:
+                    description: 'True-shooting percentage, 0-100: PTS / (2 x (FGA + 0.44 x FTA)) x 100
+                      (verified on 3,721 of 3,721 A-era rows). A-era only.'
+                    type: number
+                    x-absent-in-some-rows: true
+                  turnover:
+                    description: Turnovers committed.
+                    type:
+                    - integer
+                    - string
+                  two:
+                    description: '2-point field goals ATTEMPTED (verified: equals the second number of
+                      two_m_two on all rows).'
+                    type:
+                    - integer
+                    - string
+                  two_a:
+                    description: '2-point field goals MISSED (A era): two = two_m + two_a.'
+                    type: integer
+                    x-absent-in-some-rows: true
+                  two_m:
+                    description: 2-point field goals MADE (A era).
+                    type: integer
+                    x-absent-in-some-rows: true
+                  two_m_two:
+                    description: 2-point field goals 'made-attempted' as a string ('1-3').
+                    type: string
+                  twop:
+                    description: 2-point field-goal percentage, 0-100 (a number, or '' / a string on rows
+                      without attempts).
+                    type:
+                    - number
+                    - string
+                  ugp:
+                    description: Usage percentage as the site prints it (A era only). The standard usage
+                      formula reproduces it on only 685 of 3,932 rows, so the exact formula is unverified.
+                    type: number
+                    x-absent-in-some-rows: true
+                type: object
+              type: array
+            away_total:
+              description: Away team totals row.
+              properties:
+                ast:
+                  description: Team assists.
+                  type: integer
+                blk:
+                  description: Team blocks.
+                  type: integer
+                ft:
+                  description: Team free-throw attempts.
+                  type: integer
+                ft_m:
+                  description: Team free-throw makes.
+                  type: integer
+                ftp:
+                  description: Team free-throw percentage, 0-100.
+                  type: number
+                mins:
+                  description: Team minutes 'mm:ss' ('240:00' = 5 x 48 min).
+                  type: string
+                pfoul:
+                  description: Team personal fouls.
+                  type: integer
+                points:
+                  description: Team points (equals score_home / score_away; the capture checks it).
+                  type: integer
+                positive:
+                  description: Sum of the players' plus/minus (A era only).
+                  type: integer
+                  x-absent-in-some-rows: true
+                reb:
+                  description: Team total rebounds, including team rebounds that no player row carries.
+                  type: integer
+                reb_d:
+                  description: Team defensive rebounds.
+                  type: integer
+                reb_o:
+                  description: Team offensive rebounds.
+                  type: integer
+                seconds:
+                  description: Team seconds (A era only; 14400 = 240 min).
+                  type: integer
+                  x-absent-in-some-rows: true
+                stl:
+                  description: Team steals.
+                  type: integer
+                trey:
+                  description: Team 3-point attempts.
+                  type: integer
+                trey_m:
+                  description: Team 3-point makes.
+                  type: integer
+                treyp:
+                  description: Team 3-point percentage, 0-100.
+                  type: number
+                turnover:
+                  description: Team turnovers.
+                  type: integer
+                two:
+                  description: Team 2-point attempts.
+                  type: integer
+                two_m:
+                  description: Team 2-point makes.
+                  type: integer
+                twop:
+                  description: Team 2-point percentage, 0-100.
+                  type: number
+              type: object
+            home:
+              description: Home players, one row per rostered player including 'DNP' rows.
+              items:
+                properties:
+                  AST_RATIO:
+                    description: 'Assist ratio, 0-100 (B era): assists per 100 of the player''s own plays.
+                      The common formula AST / (FGA + 0.5 x FTA + AST + TOV) x 100 reproduces it on 919
+                      of 1,174 rows, so the exact formula is unverified.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  DRTG:
+                    description: 'Defensive rating (B era): the opponent''s points scored per 100 of its
+                      possessions while the player was on court (lower is better).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  NETRTG:
+                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ORTG:
+                    description: 'Offensive rating (B era): the team''s points scored per 100 offensive
+                      possessions while the player was on court.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  TO_RATIO:
+                    description: 'Turnover ratio, 0-100 (B era): turnovers per 100 of the player''s own
+                      plays; same formula family as AST_RATIO (917 of 1,174 rows).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ast:
+                    description: Assists.
+                    type:
+                    - integer
+                    - string
+                  blk:
+                    description: Blocks made.
+                    type:
+                    - integer
+                    - string
+                  eff:
+                    description: 'Efficiency: points + rebounds + assists + steals + blocks - missed field
+                      goals - missed free throws - turnovers (verified on all 3,932 A-era rows).'
+                    type:
+                    - integer
+                    - string
+                  efgp:
+                    description: 'Effective field-goal percentage, 0-100: (FGM + 0.5 x 3PM) / FGA x 100
+                      (verified on 3,696 of 3,696 A-era rows with attempts). A-era only; a number or a
+                      string ('''' on DNP rows).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ft:
+                    description: Free throws ATTEMPTED (the second number of ft_m_ft).
+                    type:
+                    - integer
+                    - string
+                  ft_a:
+                    description: 'Free throws MISSED (A era): ft = ft_m + ft_a on all 3,932 rows. The
+                      name suggests ''attempted'' but it is the misses; read ft_m_ft (''made-attempted'')
+                      to check.'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  ft_m:
+                    description: Free throws MADE (A era; paired with ft_a).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  ft_m_ft:
+                    description: Free throws 'made-attempted' as a string ('0-0').
+                    type: string
+                  ftp:
+                    description: Free-throw percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  jersey:
+                    description: Shirt number as a string ('0', '00' and '10' differ).
+                    type: string
+                  mins:
+                    description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Team totals: ''240:00''
+                      for a 4-quarter game (5 players x 48 min), more with overtime.'
+                    type: string
+                  name:
+                    description: Player name field; equal to name_alt on B-era rows, null or '' on most
+                      A-era rows.
+                    type:
+                    - string
+                    - 'null'
+                  name_alt:
+                    description: Player name as shown in the box table (Traditional Chinese or a transliteration).
+                    type: string
+                  offensive_possession:
+                    description: The team's offensive possessions while the player was on court (B era);
+                      the base of ORTG.
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_offensive_possession:
+                    description: The opponent's offensive possessions while the player was on court (B
+                      era); the base of DRTG.
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_2nd_chance:
+                    description: Opponent second-chance points while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_fastbreak:
+                    description: Opponent fast-break points while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_turnover:
+                    description: Opponent points off turnovers while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_in_the_paint:
+                    description: Opponent points in the paint while the player was on court (B era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  pace:
+                    description: 'Pace (B era): 48 x offensive_possession / minutes on court, i.e. the
+                      team''s possessions per 48 minutes with this player on court (verified on 1,124
+                      of 1,149 rows; game 194 differs).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  personId:
+                    description: 'personId (key space: Preciser persons, a uuid; the same value as players[].id
+                      in api.preciser.io /v1/chart-data and the join key between the box and the shot
+                      list). 2022-23 onward only; ABSENT on 2020-21 and 2021-22 rows and on a few later
+                      games (2025-26 finals gid 716).'
+                    type: string
+                    x-absent-in-some-rows: true
+                  pfoul:
+                    description: Personal fouls committed.
+                    type:
+                    - integer
+                    - string
+                  player_id:
+                    description: 'player_id (key space: P. LEAGUE+ player-team memberships on the site;
+                      equals the member id the player page passes to trackPlayer(), e.g. 40 = Lai Ting-En).
+                      A STRING of digits in the box. Not the 8-character page id (random_id) and not the
+                      Preciser personId uuid.'
+                    type: string
+                  points:
+                    description: 'Points scored. A-era DNP rows: '''' (empty string).'
+                    type:
+                    - integer
+                    - string
+                  position:
+                    description: Position code ('G' guard, 'F' forward, 'C' centre) on some A-era rows;
+                      null or '' on the rest; absent from every B-era row.
+                    type:
+                    - string
+                    - 'null'
+                    x-absent-in-some-rows: true
+                  positive:
+                    description: 'Plus/minus: the team''s points minus the opponent''s while the player
+                      was on court (signed integer). Reproduced to within 1 point on 826 of 1,060 B-era
+                      player rows by ORTG x offensive_possession / 100 - DRTG x opp_offensive_possession
+                      / 100. Absent on team-total rows of the B era; present on A-era totals rows.'
+                    type:
+                    - integer
+                    - string
+                  profile_picture:
+                    description: 'Profile picture reference (A era): null on most rows, a string on some.'
+                    type:
+                    - string
+                    - 'null'
+                    x-absent-in-some-rows: true
+                  random_id:
+                    description: 'random_id (key space: the 8-character page id of /player/{random_id}).
+                      On 2022-23 and later rows it is the player''s page (gid 197: ''1JbPozLB'' = Lai
+                      Ting-En, ''1BEtRhwN'' = Kao Kuo-Hao). On 2020-21 and 2021-22 rows it is NOT reliable
+                      as a join: gid 13 gives Lai Ting-En (player_id 40) ''1BEtRhwN'', which the live
+                      site resolves to Kao Kuo-Hao (player_id 84). Join on player_id, never on random_id,
+                      across eras. Null on part of the older rows.'
+                    type:
+                    - string
+                    - 'null'
+                  reb:
+                    description: Total rebounds (reb_o + reb_d on every checked player row; team totals
+                      also include team rebounds).
+                    type:
+                    - integer
+                    - string
+                  reb_d:
+                    description: Defensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  reb_o:
+                    description: Offensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  seconds:
+                    description: 'Playing time in whole seconds (A era only: absent from every 2022-23+
+                      row); '''' on DNP rows. Equals mins as mm:ss x 60 on all 3,932 A-era rows with minutes.'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  starter:
+                    description: 'Starter flag: ''〇'' (a Japanese-style circle) = started, '''' = bench.'
+                    type: string
+                  stl:
+                    description: Steals.
+                    type:
+                    - integer
+                    - string
+                  trey:
+                    description: 3-point field goals ATTEMPTED (the second number of trey_m_trey).
+                    type:
+                    - integer
+                    - string
+                  trey_a:
+                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a.'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  trey_m:
+                    description: 3-point field goals MADE (A era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  trey_m_trey:
+                    description: 3-point field goals 'made-attempted' as a string ('1-5').
+                    type: string
+                  treyp:
+                    description: 3-point field-goal percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  tsp:
+                    description: 'True-shooting percentage, 0-100: PTS / (2 x (FGA + 0.44 x FTA)) x 100
+                      (verified on 3,721 of 3,721 A-era rows). A-era only.'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  turnover:
+                    description: Turnovers committed.
+                    type:
+                    - integer
+                    - string
+                  two:
+                    description: '2-point field goals ATTEMPTED (verified: equals the second number of
+                      two_m_two on all rows).'
+                    type:
+                    - integer
+                    - string
+                  two_a:
+                    description: '2-point field goals MISSED (A era): two = two_m + two_a.'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  two_m:
+                    description: 2-point field goals MADE (A era).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  two_m_two:
+                    description: 2-point field goals 'made-attempted' as a string ('1-3').
+                    type: string
+                  twop:
+                    description: 2-point field-goal percentage, 0-100 (a number, or '' / a string on rows
+                      without attempts).
+                    type:
+                    - number
+                    - string
+                  ugp:
+                    description: Usage percentage as the site prints it (A era only). The standard usage
+                      formula reproduces it on only 685 of 3,932 rows, so the exact formula is unverified.
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                type: object
+              type: array
+            home_total:
+              description: Home team totals row.
+              properties:
+                ast:
+                  description: Team assists.
+                  type: integer
+                blk:
+                  description: Team blocks.
+                  type: integer
+                ft:
+                  description: Team free-throw attempts.
+                  type: integer
+                ft_m:
+                  description: Team free-throw makes.
+                  type: integer
+                ftp:
+                  description: Team free-throw percentage, 0-100.
+                  type: number
+                mins:
+                  description: Team minutes 'mm:ss' ('240:00' = 5 x 48 min).
+                  type: string
+                pfoul:
+                  description: Team personal fouls.
+                  type: integer
+                points:
+                  description: Team points (equals score_home / score_away; the capture checks it).
+                  type: integer
+                positive:
+                  description: Sum of the players' plus/minus (A era only).
+                  type: integer
+                  x-absent-in-some-rows: true
+                reb:
+                  description: Team total rebounds, including team rebounds that no player row carries.
+                  type: integer
+                reb_d:
+                  description: Team defensive rebounds.
+                  type: integer
+                reb_o:
+                  description: Team offensive rebounds.
+                  type: integer
+                seconds:
+                  description: Team seconds (A era only; 14400 = 240 min).
+                  type: integer
+                  x-absent-in-some-rows: true
+                stl:
+                  description: Team steals.
+                  type: integer
+                trey:
+                  description: Team 3-point attempts.
+                  type: integer
+                trey_m:
+                  description: Team 3-point makes.
+                  type: integer
+                treyp:
+                  description: Team 3-point percentage, 0-100.
+                  type: number
+                turnover:
+                  description: Team turnovers.
+                  type: integer
+                two:
+                  description: Team 2-point attempts.
+                  type: integer
+                two_m:
+                  description: Team 2-point makes.
+                  type: integer
+                twop:
+                  description: Team 2-point percentage, 0-100.
+                  type: number
+              type: object
+            ot1_away:
+              description: Away team's points scored IN overtime 1, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type:
+              - integer
+              - string
+            ot1_home:
+              description: Home team's points scored IN overtime 1, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type:
+              - integer
+              - string
+            ot2_away:
+              description: Away team's points scored IN overtime 2, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type:
+              - integer
+              - string
+            ot2_home:
+              description: Home team's points scored IN overtime 2, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type:
+              - integer
+              - string
+            q1_away:
+              description: Away team's points scored IN quarter 1, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q1_home:
+              description: Home team's points scored IN quarter 1, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q2_away:
+              description: Away team's points scored IN quarter 2, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q2_home:
+              description: Home team's points scored IN quarter 2, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q3_away:
+              description: Away team's points scored IN quarter 3, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q3_home:
+              description: Home team's points scored IN quarter 3, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q4_away:
+              description: Away team's points scored IN quarter 4, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            q4_home:
+              description: Home team's points scored IN quarter 4, not cumulative ('-' when the period
+                was not played; q1-q4 are 0 for an unplayed period). A number.
+              type: integer
+            score_away:
+              description: Away final score (same typing as score_home).
+              type:
+              - integer
+              - string
+            score_home:
+              description: Home final score (a number on 2022-23+, a digit STRING on 2020-21 and 2021-22
+                bodies).
+              type:
+              - integer
+              - string
+          type: object
+        error:
+          description: Error text; '' on success. The route answers 200 with empty rosters for an unknown
+            id, so this field is not the only signal.
+          type: string
+      type: object
+    PleagueGame:
+      description: 'Record parsed from /game/{gid} (text/html): the game header (date, venue, teams, scores
+        per quarter, officials) and the game uuid that keys the play-by-play and the api.preciser.io routes.'
+      properties:
+        away_logo:
+          description: Team logo URL as printed by the page. Protocol-relative ('//d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_<team>_<epoch>.png');
+            some game-page logos are malformed ('https:////d36...'). The trailing number is the logo upload
+            time, so it changes when a club re-uploads.
+          type: string
+        away_name_en:
+          description: Away team's English name on that date; null on 2020-21 pages (the header prints
+            no English name).
+          type:
+          - string
+          - 'null'
+        away_name_zh:
+          description: Away team's full name on that date in Traditional Chinese (新竹攻城獅 = Hsinchu Lioneers).
+          type: string
+        away_score:
+          description: Away team's final points (the header's score).
+          type: integer
+        date:
+          description: Game date, Asia/Taipei (UTC+8) local, from the header ('2022-11-05').
+          type: string
+        game_label_zh:
+          description: 'Stage and game number as printed in the header: ''例行賽G1'' = regular season game
+            1, ''例行賽G01'' on 2020-21 pages; playoffs and finals use their own words (季後賽, 總冠軍賽).'
+          type: string
+        gid:
+          description: 'gid (key space: P. LEAGUE+ games, ONE global integer sequence across every stage
+            and season, with gaps: 1-12 = the 2020-21 pre-season, 13 = the 2020-21 regular-season opener,
+            197 = the 2022-23 opener, 662 = the 2025-26 opener, 722+ = 2026-27 (scheduled); the site''s
+            row id, not a count of games). The {gid} of /game/{gid}, the id= of boxscore.preciser.php
+            and the schedule rows'' /game/ link. Echo of window.gid on the page; the capture refuses any
+            other value.'
+          type: integer
+        home_logo:
+          description: Team logo URL as printed by the page. Protocol-relative ('//d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_<team>_<epoch>.png');
+            some game-page logos are malformed ('https:////d36...'). The trailing number is the logo upload
+            time, so it changes when a club re-uploads.
+          type: string
+        home_name_en:
+          description: Home team's English name on that date; null on 2020-21 pages.
+          type:
+          - string
+          - 'null'
+        home_name_zh:
+          description: Home team's full name on that date in Traditional Chinese (臺北富邦勇士 = Taipei Fubon
+            Braves).
+          type: string
+        home_score:
+          description: Home team's final points (the header's score).
+          type: integer
+        officials:
+          description: Game officials as printed under the header (referee and two umpires; names only,
+            no ids).
+          items:
+            properties:
+              name_zh:
+                description: Official's name in Traditional Chinese.
+                type: string
+              role_zh:
+                description: 'Official''s role: 主裁判 = referee (crew chief), 第一檢查員 = first umpire (field
+                  official, literally ''first inspector''), 第二檢查員 = second umpire.'
+                type: string
+            type: object
+          type: array
+        quarters:
+          description: 'Points per period: an object with keys q1_away, q1_home ... q4_home and, for overtime
+            games, ot1_*, ot2_*.'
+          properties:
+            ot1_away:
+              description: Away team's points scored IN period OT1. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime; a key named ot*
+                is ABSENT on games without that overtime. The first-half/second-half split is not sent.
+              type: integer
+              x-absent-in-some-rows: true
+            ot1_home:
+              description: Home team's points scored IN period OT1. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime; a key named ot*
+                is ABSENT on games without that overtime. The first-half/second-half split is not sent.
+              type: integer
+              x-absent-in-some-rows: true
+            ot2_away:
+              description: Away team's points scored IN period OT2. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime; a key named ot*
+                is ABSENT on games without that overtime. The first-half/second-half split is not sent.
+              type: integer
+              x-absent-in-some-rows: true
+            ot2_home:
+              description: Home team's points scored IN period OT2. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime; a key named ot*
+                is ABSENT on games without that overtime. The first-half/second-half split is not sent.
+              type: integer
+              x-absent-in-some-rows: true
+            q1_away:
+              description: Away team's points scored IN period Q1. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q1_home:
+              description: Home team's points scored IN period Q1. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q2_away:
+              description: Away team's points scored IN period Q2. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q2_home:
+              description: Home team's points scored IN period Q2. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q3_away:
+              description: Away team's points scored IN period Q3. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q3_home:
+              description: Home team's points scored IN period Q3. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q4_away:
+              description: Away team's points scored IN period Q4. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+            q4_home:
+              description: Home team's points scored IN period Q4. Points scored IN the period (not cumulative).
+                Keys q1-q4 for regulation and ot1, ot2 when the game went to overtime. The first-half/second-half
+                split is not sent.
+              type: integer
+          type: object
+        status_zh:
+          description: 'Status badge: ''已完賽'' = finished (the only value the capture banks). Other values
+            (scheduled / live) are refused.'
+          type: string
+        time:
+          description: Scheduled tip-off 'HH:MM', Asia/Taipei (UTC+8) local time.
+          type: string
+        uuid:
+          description: 'Game uuid (key space: the analytics vendor Preciser''s games; a version-1 uuid).
+            Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid= and
+            the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. Null here when the page
+            embeds an empty string.'
+          type:
+          - string
+          - 'null'
+        venue_zh:
+          description: Venue (arena) name in Traditional Chinese, from the header's Google Maps link.
+          type: string
+      type: object
+    PleaguePlayByPlay:
+      description: 'Record parsed from /api/playbyplay.php (JSON whose `data` is an HTML table): the periods,
+        the closing score and one event per play, in game order.'
+      properties:
+        event_count:
+          description: Events in the fragment (the capture refuses an empty fragment).
+          type: integer
+        events:
+          description: Plays in game order (period header rows and the closing row excluded).
+          items:
+            properties:
+              action:
+                description: 'Action code from the phrase after the player in the site''s text. The full
+                  table is in the returns md and the README (`action_zh` is the original phrase). Families:
+                  fg2_*/fg3_*/fg_* = field goal attempts (made | missed), ft_made/ft_missed = free throws,
+                  reb_off/reb_def, ast, stl, blk, tov_* = turnovers, foul_* = fouls, timeout, sub_in/sub_out,
+                  jump_ball_won/lost, ''unlabelled'' = a row with a player and shot coordinates but no
+                  action text.'
+                type: string
+              action_zh:
+                description: The action phrase as printed, Traditional Chinese (e.g. 灌籃得分 = dunk, made);
+                  '' on an 'unlabelled' row.
+                type: string
+              clock:
+                description: Game clock REMAINING in the period, 'mm:ss' (counts down from 12:00 in regulation;
+                  overtime periods start at 05:00).
+                type: string
+              ft_awarded:
+                description: Free throws awarded in the trip (1, 2 or 3), from '得到一次罰球 / 得到兩次罰球 / 得到三次罰球';
+                  set only on the FIRST free throw's row (later rows say '第二罰 ...'), null otherwise.
+                type:
+                - integer
+                - 'null'
+              ft_number:
+                description: Which free throw of the trip this is (1, 2 or 3), from '第一罰 / 第二罰 / 第三罰';
+                  null on every other row.
+                type:
+                - integer
+                - 'null'
+              jersey:
+                description: Shirt number of the acting player as printed ('35'; a string because the
+                  site prints '00' and '0' apart); null on team rows and on rows where the name is printed
+                  without a number.
+                type:
+                - string
+                - 'null'
+              nice_play:
+                description: True when the site stars the play (the row carries a nice_play_home / nice_play_away
+                  class and the clip is starred).
+                type: boolean
+              period:
+                description: 'Period: Q1-Q4, OT1, OT2 (the fragment''s period header rows; overtime beyond
+                  OT2 not seen).'
+                type: string
+              player_zh:
+                description: Acting player's name as printed (Traditional Chinese or a transliteration);
+                  null on team rows (a team rebound, timeout or shot-clock violation).
+                type:
+                - string
+                - 'null'
+              points:
+                description: Points scored by the event from the '+2' / '+3' / '+1' tag; null when the
+                  tag is a bare '+' (no points).
+                type:
+                - integer
+                - 'null'
+              score_away:
+                description: Away score after the event, from the 'A - H' cell (away FIRST, unlike the
+                  box's home-first keys); null on rows that print no score (substitutions, jump balls).
+                type:
+                - integer
+                - 'null'
+              score_home:
+                description: Home score after the event, from the 'A - H' cell; null when the row prints
+                  no score.
+                type:
+                - integer
+                - 'null'
+              seq:
+                description: Position of the event in game order, 1-based (the HTML lists events oldest
+                  first within the fragment; the site's own JS flips the display).
+                type: integer
+              side:
+                description: 'Side of the acting team: ''away'' or ''home'' (the fragment places the event
+                  in the away or home column).'
+                type: string
+              text_zh:
+                description: The whole printed text of the event, e.g. '#35 辛巴 灌籃得分' = '#35 <player> dunk,
+                  made'.
+                type: string
+              video:
+                description: 'Video-clip reference decoded from the row''s data-tryspot attribute (a base64
+                  JSON blob); null on rows without a clip (about 3 in 4). The clip URLs are NOT banked:
+                  they carry a vendor access key.'
+                properties:
+                  created_at:
+                    description: When the clip was created, UTC ISO 8601 with milliseconds.
+                    type: string
+                  stat_category:
+                    description: 'The clip''s own stat label (ast, blk, ft_made, ft_miss, pfoul, reb_d,
+                      reb_o, stl, three_made, three_miss, timeout, turnover, two_made, two_miss): names
+                      the PLAY the clip shows, which is not always this row''s action (a rebound row carries
+                      the missed shot''s clip).'
+                    type: string
+                  synergy_play_id:
+                    description: 'Synergy play uuid (key space: Synergy Sports plays); the site links
+                      Synergy. Null when the clip has no Synergy play.'
+                    type: string
+                  tryspot_player_id:
+                    description: Player id in the clip vendor's key space (integer, e.g. 59476); NOT the
+                      box player_id.
+                    type:
+                    - integer
+                    - 'null'
+                  video_uuid:
+                    description: 'Clip uuid (key space: the clip vendor, tryspot).'
+                    type: string
+                type:
+                - object
+                - 'null'
+              x:
+                description: 'Shot/event x: PERCENT (0-100) of the court LENGTH, in the PHYSICAL court
+                  frame (not normalised per team): the baskets sit near x = 5 and x = 95 and teams swap
+                  ends at half-time, so the same team''s shots flip from x > 50 to x < 50 (game 197: home
+                  attacks x < 50 in periods 1-2, x > 50 in 3-4). Which end the home team starts at varies
+                  by game. The vendor shot list (api.preciser.io) uses another frame: home always attacks
+                  x > 50; x_vendor = 100 - x in halves where the home team attacks x < 50. Empty string
+                  on the page (null here) for rows without a location (substitutions, rebounds, assists).'
+                type:
+                - number
+                - 'null'
+              y:
+                description: 'Shot/event y: PERCENT (0-100) of the court WIDTH; the baskets are at y =
+                  50. Which sideline is y = 0 is unverified. Null where x is null.'
+                type:
+                - number
+                - 'null'
+            type: object
+          type: array
+        final_score_away:
+          description: 'Away final score, from the fragment''s closing ''Final'' row (''94 - 102'': away
+            FIRST).'
+          type: integer
+        final_score_home:
+          description: Home final score, from the closing 'Final' row.
+          type: integer
+        period_count:
+          description: 'Periods played: 4 plus one per overtime.'
+          type: integer
+        periods:
+          description: Period labels in order (Q1-Q4, OT1, OT2).
+          items:
+            type: string
+          type: array
+      type: object
+    PleaguePlayer:
+      description: 'Record parsed from /player/{player_page_id} (text/html): the profile and the per-season
+        totals and averages tables.'
+      properties:
+        birthday:
+          description: 'Date of birth ''YYYY-MM-DD'' (生日): the player''s public bio field.'
+          type: string
+        birthplace_zh:
+          description: Birthplace in Traditional Chinese (出生地; a country for foreign players).
+          type: string
+        easl_season_averages:
+          description: The same AVERAGES table for the player's EASL games; [] when the player has none.
+          items:
+            properties:
+              ast:
+                description: Assists (total / per game).
+                type: number
+              blk:
+                description: Blocks (total / per game).
+                type: number
+              fg2_att:
+                description: 2-point attempts (the second number of the cell).
+                type: number
+              fg2_made:
+                description: 2-point makes (the first number of the page's '56 - 103' cell; per game in
+                  season_averages).
+                type: number
+              fg2_pct:
+                description: 2-point percentage 0-100 ('54.4%' -> 54.4).
+                type: number
+              fg3_att:
+                description: 3-point attempts.
+                type: number
+              fg3_made:
+                description: 3-point makes.
+                type: number
+              fg3_pct:
+                description: 3-point percentage 0-100.
+                type: number
+              ft_att:
+                description: Free-throw attempts.
+                type: number
+              ft_made:
+                description: Free-throw makes.
+                type: number
+              ft_pct:
+                description: Free-throw percentage 0-100.
+                type: number
+              games:
+                description: Games played.
+                type: integer
+              minutes:
+                description: Minutes 'mm:ss' (a season total in season_totals, a per-game average in season_averages).
+                type: string
+              pf:
+                description: Personal fouls (total / per game).
+                type: number
+              points:
+                description: Points (total in season_totals, per game in season_averages).
+                type: number
+              reb:
+                description: Rebounds (total / per game).
+                type: number
+              season:
+                description: Season slug ('2025-26'), or 'career' for the final totals / averages row.
+                type: string
+              stl:
+                description: Steals (total / per game).
+                type: number
+              tov:
+                description: Turnovers (total / per game).
+                type: number
+            type: object
+          type: array
+          x-absent-in-some-rows: true
+        easl_season_totals:
+          description: The same TOTALS table for the player's East Asia Super League games (the page's
+            second block, 'easl-match-tbody'); [] when the player has none (the page then has no block).
+          items:
+            properties:
+              ast:
+                description: Assists (total / per game).
+                type: number
+              blk:
+                description: Blocks (total / per game).
+                type: number
+              fg2_att:
+                description: 2-point attempts (the second number of the cell).
+                type: number
+              fg2_made:
+                description: 2-point makes (the first number of the page's '56 - 103' cell; per game in
+                  season_averages).
+                type: number
+              fg2_pct:
+                description: 2-point percentage 0-100 ('54.4%' -> 54.4).
+                type: number
+              fg3_att:
+                description: 3-point attempts.
+                type: number
+              fg3_made:
+                description: 3-point makes.
+                type: number
+              fg3_pct:
+                description: 3-point percentage 0-100.
+                type: number
+              ft_att:
+                description: Free-throw attempts.
+                type: number
+              ft_made:
+                description: Free-throw makes.
+                type: number
+              ft_pct:
+                description: Free-throw percentage 0-100.
+                type: number
+              games:
+                description: Games played.
+                type: integer
+              minutes:
+                description: Minutes 'mm:ss' (a season total in season_totals, a per-game average in season_averages).
+                type: string
+              pf:
+                description: Personal fouls (total / per game).
+                type: number
+              points:
+                description: Points (total in season_totals, per game in season_averages).
+                type: number
+              reb:
+                description: Rebounds (total / per game).
+                type: number
+              season:
+                description: Season slug ('2025-26'), or 'career' for the final totals / averages row.
+                type: string
+              stl:
+                description: Steals (total / per game).
+                type: number
+              tov:
+                description: Turnovers (total / per game).
+                type: number
+            type: object
+          type: array
+          x-absent-in-some-rows: true
+        education:
+          description: Education lines (學歷), as printed.
+          items:
+            type: string
+          type: array
+        height_cm:
+          description: Height in centimetres (身高).
+          type: number
+        jersey:
+          description: Shirt number as a string.
+          type: string
+        member_id:
+          description: 'player_id (key space: P. LEAGUE+ player-team memberships on the site; equals the
+            member id the player page passes to trackPlayer(), e.g. 40 = Lai Ting-En). An integer here,
+            read from the page''s trackPlayer() call. Not the 8-character page id (random_id) and not
+            the Preciser personId uuid.'
+          type: integer
+        name_en:
+          description: Player name in Latin letters.
+          type: string
+        name_zh:
+          description: Player name in Traditional Chinese (or a transliteration for foreign players).
+          type: string
+        nickname:
+          description: Nickname (綽號); null when blank.
+          type:
+          - string
+          - 'null'
+        player_page_id:
+          description: Player page id, the 8-character id of /player/{id}. Echo of the request; the capture
+            checks the page's season links. The same space as the box's random_id on 2022-23+ rows.
+          type: string
+        position:
+          description: 'Position letter: G guard, F forward, C centre.'
+          type: string
+        season_averages:
+          description: Per-game AVERAGES table (平均), one row per season played plus a 'career' row.
+          items:
+            properties:
+              ast:
+                description: Assists (total / per game).
+                type: number
+              blk:
+                description: Blocks (total / per game).
+                type: number
+              fg2_att:
+                description: 2-point attempts (the second number of the cell).
+                type: number
+              fg2_made:
+                description: 2-point makes (the first number of the page's '56 - 103' cell; per game in
+                  season_averages).
+                type: number
+              fg2_pct:
+                description: 2-point percentage 0-100 ('54.4%' -> 54.4).
+                type: number
+              fg3_att:
+                description: 3-point attempts.
+                type: number
+              fg3_made:
+                description: 3-point makes.
+                type: number
+              fg3_pct:
+                description: 3-point percentage 0-100.
+                type: number
+              ft_att:
+                description: Free-throw attempts.
+                type: number
+              ft_made:
+                description: Free-throw makes.
+                type: number
+              ft_pct:
+                description: Free-throw percentage 0-100.
+                type: number
+              games:
+                description: Games played.
+                type: integer
+              minutes:
+                description: Minutes 'mm:ss' (a season total in season_totals, a per-game average in season_averages).
+                type: string
+              pf:
+                description: Personal fouls (total / per game).
+                type: number
+              points:
+                description: Points (total in season_totals, per game in season_averages).
+                type: number
+              reb:
+                description: Rebounds (total / per game).
+                type: number
+              season:
+                description: Season slug ('2025-26'), or 'career' for the final totals / averages row.
+                type: string
+              stl:
+                description: Steals (total / per game).
+                type: number
+              tov:
+                description: Turnovers (total / per game).
+                type: number
+            type: object
+          type: array
+        season_totals:
+          description: Per-season TOTALS table (累計), one row per season played plus a 'career' row.
+          items:
+            properties:
+              ast:
+                description: Assists (total / per game).
+                type: number
+              blk:
+                description: Blocks (total / per game).
+                type: number
+              fg2_att:
+                description: 2-point attempts (the second number of the cell).
+                type: number
+              fg2_made:
+                description: 2-point makes (the first number of the page's '56 - 103' cell; per game in
+                  season_averages).
+                type: number
+              fg2_pct:
+                description: 2-point percentage 0-100 ('54.4%' -> 54.4).
+                type: number
+              fg3_att:
+                description: 3-point attempts.
+                type: number
+              fg3_made:
+                description: 3-point makes.
+                type: number
+              fg3_pct:
+                description: 3-point percentage 0-100.
+                type: number
+              ft_att:
+                description: Free-throw attempts.
+                type: number
+              ft_made:
+                description: Free-throw makes.
+                type: number
+              ft_pct:
+                description: Free-throw percentage 0-100.
+                type: number
+              games:
+                description: Games played.
+                type: integer
+              minutes:
+                description: Minutes 'mm:ss' (a season total in season_totals, a per-game average in season_averages).
+                type: string
+              pf:
+                description: Personal fouls (total / per game).
+                type: number
+              points:
+                description: Points (total in season_totals, per game in season_averages).
+                type: number
+              reb:
+                description: Rebounds (total / per game).
+                type: number
+              season:
+                description: Season slug ('2025-26'), or 'career' for the final totals / averages row.
+                type: string
+              stl:
+                description: Steals (total / per game).
+                type: number
+              tov:
+                description: Turnovers (total / per game).
+                type: number
+            type: object
+          type: array
+        status_zh:
+          description: 'Player status (身份): 洋將 = import (foreign player), 本土 = local (Taiwanese) player;
+            other values may exist.'
+          type: string
+        team_en:
+          description: Current team's English name.
+          type: string
+        team_zh:
+          description: Current team's short name in Traditional Chinese.
+          type: string
+        tenure:
+          description: Years of service (年資) as the page prints it ('0‘', with a prime character).
+          type: string
+        weight_kg:
+          description: Weight in kilograms (體重).
+          type: number
+      type: object
+    PleagueSchedule:
+      description: 'Record parsed from /schedule-{stage}/{season} (text/html): every game of the season
+        and stage, one row per game, away team first as the page lists it.'
+      properties:
+        game_count:
+          description: Number of games on the page (equals the length of games; the page has no pager,
+            and the capture checks that every month button has rows).
+          type: integer
+        games:
+          description: Every game of the season and stage, ascending gid.
+          items:
+            properties:
+              attendance:
+                description: 'Spectators: the first number of the page''s ''N / M'' seat cell. 0 on future
+                  games.'
+                type: integer
+              away_logo:
+                description: Team logo URL as printed by the page. Protocol-relative ('//d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_<team>_<epoch>.png');
+                  some game-page logos are malformed ('https:////d36...'). The trailing number is the
+                  logo upload time, so it changes when a club re-uploads.
+                type: string
+              away_name_en:
+                description: Away team's English name on that date; renames change it (Hsinchu Jko Lioneers
+                  -> Hsinchu Toplus Lioneers, Taoyuan Pauian Pilots -> Taoyuan Pilots, Formosa Taishin
+                  Dreamers -> Formosa Dreamers).
+                type: string
+              away_name_zh:
+                description: Away team's short name on that date (勇士 = Braves, 領航猿 = Pilots, 攻城獅 = Lioneers,
+                  夢想家 = Dreamers, 鋼鐵人 = Steelers, 國王 = Kings, 獵鷹 = Ghosthawks, 洋基工程 = Yankey Ark); some
+                  seasons print the long form (臺北富邦勇士).
+                type: string
+              away_score:
+                description: Away team's final points; 0 on a future game.
+                type: integer
+              away_team_id:
+                description: 'team_id (key space: P. LEAGUE+ clubs on the site, stable across seasons
+                  AND club renames: 1 = Taipei Fubon Braves, 2 = Taoyuan Pauian Pilots, 3 = Hsinchu Jko
+                  / Toplus Lioneers, 4 = Formosa Taishin Dreamers, 5 = Kaohsiung 17LIVE Steelers, 6 =
+                  New Taipei Kings, 7 = TSG Ghosthawks, 8 = Yankey Ark). The /team/{team_id} page id.
+                  NOT a Preciser team uuid (the uuid sits in the logo URL: photonew.preciser.io/plg/teams/<uuid>.png)
+                  and not a player id. Away side, read from the row classes (team-<away> team-<home> team-home-<home>).'
+                type: integer
+              capacity:
+                description: 'Seats: the second number of the ''N / M'' cell (7,000 / 7,000 on a sold-out
+                  finals game); the venue capacity as the site records it. 0 on future games.'
+                type: integer
+              date:
+                description: Game date, Asia/Taipei (UTC+8) local, built from the page's 'MM/DD' and the
+                  row's month class (d-YYYY-MM).
+                type: string
+              game_label:
+                description: 'Game label as printed: ''G01'' = game 1 of the stage (regular season and
+                  pre-season), ''PLAYOFFS Game1'' / ''PLAYOFFS A G1'' / ''PLAYOFFS B G1'' = playoff game
+                  (series A / B), ''FINALS G1'' / ''FINALS Game1'' / ''Final Game1'' = finals game, ''第一站G1''
+                  / ''第二站G1'' / ''第三站G1'' = game 1 of the first / second / third ''stop'' (站, a round-robin
+                  hub weekend; 2020-21), ''GNGN'' = two numbers run together (a site typo). Free text:
+                  the label forms are not an enum.'
+                type: string
+              gid:
+                description: 'gid (key space: P. LEAGUE+ games, ONE global integer sequence across every
+                  stage and season, with gaps: 1-12 = the 2020-21 pre-season, 13 = the 2020-21 regular-season
+                  opener, 197 = the 2022-23 opener, 662 = the 2025-26 opener, 722+ = 2026-27 (scheduled);
+                  the site''s row id, not a count of games). The {gid} of /game/{gid}, the id= of boxscore.preciser.php
+                  and the schedule rows'' /game/ link.'
+                type: integer
+              home_logo:
+                description: Team logo URL as printed by the page. Protocol-relative ('//d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_<team>_<epoch>.png');
+                  some game-page logos are malformed ('https:////d36...'). The trailing number is the
+                  logo upload time, so it changes when a club re-uploads.
+                type: string
+              home_name_en:
+                description: Home team's English name on that date; see away_name_en.
+                type: string
+              home_name_zh:
+                description: Home team's short name on that date; see away_name_zh.
+                type: string
+              home_score:
+                description: Home team's final points; 0 on a future game.
+                type: integer
+              home_team_id:
+                description: 'team_id (key space: P. LEAGUE+ clubs on the site, stable across seasons
+                  AND club renames: 1 = Taipei Fubon Braves, 2 = Taoyuan Pauian Pilots, 3 = Hsinchu Jko
+                  / Toplus Lioneers, 4 = Formosa Taishin Dreamers, 5 = Kaohsiung 17LIVE Steelers, 6 =
+                  New Taipei Kings, 7 = TSG Ghosthawks, 8 = Yankey Ark). The /team/{team_id} page id.
+                  NOT a Preciser team uuid (the uuid sits in the logo URL: photonew.preciser.io/plg/teams/<uuid>.png)
+                  and not a player id. Home side.'
+                type: integer
+              phase:
+                description: 'Row state from the page''s own CSS class: ''before_today'' = the date is
+                  before the day the page was served (the score is the result); ''is_future'' = not yet
+                  played (both scores are 0); an ''is-today'' class exists in the site CSS but was never
+                  seen.'
+                type: string
+              starred:
+                description: True when the date cell carries the site's star icon (a highlighted game;
+                  seen on the 2020-21 finals game of 05/18).
+                type: boolean
+              time:
+                description: Scheduled tip-off 'HH:MM', Asia/Taipei (UTC+8) local time.
+                type: string
+              venue_zh:
+                description: Venue (arena) name in Traditional Chinese.
+                type: string
+              weekday_zh:
+                description: 'Weekday as one Chinese character in the page''s ''(日)'': 日 Sun, 一 Mon, 二
+                  Tue, 三 Wed, 四 Thu, 五 Fri, 六 Sat.'
+                type: string
+            type: object
+          type: array
+        season:
+          description: 'Season slug, e.g. ''2024-25'' (START year, then the END year''s last two digits).
+            The sdv season key is the END year: ''2024-25'' -> 2025 (see season_sdv). Echo of the request;
+            the capture checks it against the page title.'
+          type: string
+        season_sdv:
+          description: 'sdv season key: the END year of the season slug (''2024-25'' -> 2025). Derived
+            by the capture, not sent by the site.'
+          type: integer
+        stage:
+          description: 'URL slug of the stage: ''pre-season'' (熱身賽, exhibition games before the season),
+            ''regular-season'' (例行賽), ''playoffs'' (季後賽), ''finals'' (總冠軍賽, the championship series).
+            The page title echoes it and the capture checks it.'
+          type: string
+        stage_zh:
+          description: 'Stage word as it appears in the page title: 熱身賽 pre-season, 例行賽 regular season,
+            季後賽 playoffs, 總冠軍賽 finals.'
+          type: string
+      type: object
+    PleagueStandings:
+      description: 'Record parsed from /standings/{season} (text/html): the regular-season table, one
+        row per team.'
+      properties:
+        last_n:
+          description: Games in the 'last games' column (近10場比賽 = last 10), read from the header.
+          type: integer
+        season:
+          description: 'Season slug, e.g. ''2024-25'' (START year, then the END year''s last two digits).
+            The sdv season key is the END year: ''2024-25'' -> 2025 (see season_sdv). Echo of the request;
+            the capture checks it against the page title.'
+          type: string
+        season_sdv:
+          description: 'sdv season key: the END year of the season slug (''2024-25'' -> 2025). Derived
+            by the capture, not sent by the site.'
+          type: integer
+        team_count:
+          description: Rows in the table.
+          type: integer
+        teams:
+          description: Standings rows, in the page's rank order.
+          items:
+            properties:
+              away_record:
+                description: Away record 'W-L' (客場).
+                type: string
+              games_behind:
+                description: Games behind the leader (勝差), a number.
+                type: number
+              games_played:
+                description: Games played (已賽 GP).
+                type: integer
+              home_record:
+                description: Home record 'W-L' (主場).
+                type: string
+              last_n_record:
+                description: Record 'W-L' over the last last_n games (近N場比賽).
+                type: string
+              losses:
+                description: Losses (敗 L).
+                type: integer
+              point_diff_avg:
+                description: Average point margin (平均分差).
+                type: number
+              points_against_avg:
+                description: Points allowed per game (平均失分).
+                type: number
+              points_for_avg:
+                description: Points scored per game (平均得分).
+                type: number
+              rank:
+                description: Rank on the page (1 = best); ties are not shared.
+                type: integer
+              streak:
+                description: 'Current streak: W<n> wins or L<n> losses (連勝連敗).'
+                type: string
+              team_id:
+                description: 'team_id (key space: P. LEAGUE+ clubs on the site, stable across seasons
+                  AND club renames: 1 = Taipei Fubon Braves, 2 = Taoyuan Pauian Pilots, 3 = Hsinchu Jko
+                  / Toplus Lioneers, 4 = Formosa Taishin Dreamers, 5 = Kaohsiung 17LIVE Steelers, 6 =
+                  New Taipei Kings, 7 = TSG Ghosthawks, 8 = Yankey Ark). The /team/{team_id} page id.
+                  NOT a Preciser team uuid (the uuid sits in the logo URL: photonew.preciser.io/plg/teams/<uuid>.png)
+                  and not a player id.'
+                type: integer
+              team_logo:
+                description: 'Team logo URL (photonew.preciser.io/plg/teams/<team uuid>.png): the file
+                  name is the Preciser team uuid, the link between team_id and the vendor''s home_id /
+                  away_id.'
+                type: string
+              team_zh:
+                description: Team short name in Traditional Chinese.
+                type: string
+              win_pct:
+                description: Win percentage 0-100 as a whole percent ('68%' -> 68.0).
+                type: number
+              wins:
+                description: Wins (勝 W).
+                type: integer
+            type: object
+          type: array
+      type: object
+    PleagueStatPlayer:
+      description: 'Record parsed from /stat-player/{season}/{stage_sn} (text/html): one row per player
+        of the season and stage, with the per-game average and the season total of each counting stat.'
+      properties:
+        player_count:
+          description: Rows in the table.
+          type: integer
+        players:
+          description: One row per player of the season and stage.
+          items:
+            properties:
+              ast_avg:
+                description: Per-game average of assists (助攻).
+                type: number
+              ast_total:
+                description: Season total of assists (助攻).
+                type: integer
+              blk_avg:
+                description: Per-game average of blocks (阻攻).
+                type: number
+              blk_total:
+                description: Season total of blocks (阻攻).
+                type: integer
+              fg2_att_avg:
+                description: Per-game average of 2-point attempts (兩分出手).
+                type: number
+              fg2_att_total:
+                description: Season total of 2-point attempts (兩分出手).
+                type: integer
+              fg2_made_avg:
+                description: Per-game average of 2-point makes (兩分命中).
+                type: number
+              fg2_made_total:
+                description: Season total of 2-point makes (兩分命中).
+                type: integer
+              fg2_pct:
+                description: 2-point percentage 0-100 (the cell holds the same value as average and total).
+                type: number
+              fg3_att_avg:
+                description: Per-game average of 3-point attempts (三分出手).
+                type: number
+              fg3_att_total:
+                description: Season total of 3-point attempts (三分出手).
+                type: integer
+              fg3_made_avg:
+                description: Per-game average of 3-point makes (三分命中).
+                type: number
+              fg3_made_total:
+                description: Season total of 3-point makes (三分命中).
+                type: integer
+              fg3_pct:
+                description: 3-point percentage 0-100 (same cell for average and total).
+                type: number
+              ft_att_avg:
+                description: Per-game average of free-throw attempts (罰球出手).
+                type: number
+              ft_att_total:
+                description: Season total of free-throw attempts (罰球出手).
+                type: integer
+              ft_made_avg:
+                description: Per-game average of free-throw makes (罰球命中).
+                type: number
+              ft_made_total:
+                description: Season total of free-throw makes (罰球命中).
+                type: integer
+              ft_pct:
+                description: Free-throw percentage 0-100 (same cell for average and total).
+                type: number
+              games:
+                description: Games played (出賽).
+                type: integer
+              jersey:
+                description: Shirt number as a string (the player's number in the latest game).
+                type: string
+              minutes_avg:
+                description: Minutes per game 'mm:ss'.
+                type: string
+              minutes_total:
+                description: Total minutes 'mmm:ss'.
+                type: string
+              name_zh:
+                description: Player name (Traditional Chinese or a transliteration).
+                type: string
+              pf_avg:
+                description: Per-game average of personal fouls (犯規).
+                type: number
+              pf_total:
+                description: Season total of personal fouls (犯規).
+                type: integer
+              player_page_id:
+                description: Player page id (the 8-character id of /player/{id}); the same space as the
+                  box's random_id on 2022-23+ rows. Not the box player_id.
+                type: string
+              points_avg:
+                description: Per-game average of points (得分).
+                type: number
+              points_total:
+                description: Season total of points (得分).
+                type: integer
+              reb_avg:
+                description: Per-game average of total rebounds (籃板).
+                type: number
+              reb_def_avg:
+                description: Per-game average of defensive rebounds (防板).
+                type: number
+              reb_def_total:
+                description: Season total of defensive rebounds (防板).
+                type: integer
+              reb_off_avg:
+                description: Per-game average of offensive rebounds (攻板).
+                type: number
+              reb_off_total:
+                description: Season total of offensive rebounds (攻板).
+                type: integer
+              reb_total:
+                description: Season total of total rebounds (籃板).
+                type: integer
+              stl_avg:
+                description: Per-game average of steals (抄截).
+                type: number
+              stl_total:
+                description: Season total of steals (抄截).
+                type: integer
+              team_zh:
+                description: Team name as the table prints it (full name, Traditional Chinese); a player
+                  traded mid-season shows the current team.
+                type: string
+              tov_avg:
+                description: Per-game average of turnovers (失誤).
+                type: number
+              tov_total:
+                description: Season total of turnovers (失誤).
+                type: integer
+            type: object
+          type: array
+        season:
+          description: 'Season slug, e.g. ''2024-25'' (START year, then the END year''s last two digits).
+            The sdv season key is the END year: ''2024-25'' -> 2025 (see season_sdv). Echo of the request;
+            the capture checks the page title and the selected option.'
+          type: string
+        season_sdv:
+          description: 'sdv season key: the END year of the season slug (''2024-25'' -> 2025). Derived
+            by the capture, not sent by the site.'
+          type: integer
+        stage:
+          description: URL slug of the stage matching stage_sn.
+          type: string
+        stage_sn:
+          description: 'Stage select value: 2 = regular season, 3 = playoffs, 4 = finals. Echo of the
+            request, checked against the page''s selected option. Other values redirect (302) to stage
+            2.'
+          type: integer
+      type: object
+info:
+  description: 'Taiwan''s P. LEAGUE+ (PLG). Server-rendered pages (schedules per stage, game header, standings,
+    player tables, player page; x-parsed-schema gives the parsed record) plus two PHP JSON routes the
+    game page calls: /api/boxscore.preciser.php (box, 2020-21 onward) and /api/playbyplay.php (HTML table
+    in JSON, 2022-23 onward; needs the game uuid from the game page). Keyless. The page''s analytics widgets
+    (shot chart, win probability, rotation) call the vendor host api.preciser.io, documented in pleague-preciser.openapi.yaml.
+    Seasons are slugs (''2024-25''); the sdv key is the END year (2025). Field names and texts are Traditional
+    Chinese; descriptions translate them. Shapes from captures of 2026-10-12; x-unobserved = null in every
+    sample. Not official or supported.'
+  title: 'P. LEAGUE+ (pleagueofficial.com): schedules, game page, box score, play-by-play, standings,
+    players'
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /api/boxscore.preciser.php:
+    get:
+      description: 'Served as text/html but the body is JSON. Two eras. A = 2020-21 and 2021-22 (gid 13-188):
+        ''two_m''/''two_a'', ''trey_m''/''trey_a'', ''ft_m''/''ft_a'' (made / missed), ''seconds'', ''efgp'',
+        ''tsp'', ''ugp'', ''position'', ''profile_picture''; no personId or advanced rating. B = 2022-23
+        onward: ''personId'', ORTG, DRTG, NETRTG, pace, AST_RATIO, TO_RATIO, the possession and opponent-points
+        columns; the made/missed pairs and seconds are gone, and ''adv_flag'' = 1 appears. ''two'', ''trey''
+        and ''ft'' are ATTEMPTS in both eras; the made-attempted strings ''two_m_two'', ''trey_m_trey'',
+        ''ft_m_ft'' are the only B-era source of makes at player level. Types drift by row: numbers become
+        '''' on DNP rows, percentages are numbers or strings, scores are digit strings on A-era bodies
+        and numbers on B-era bodies. The presence sidecars record every type seen.'
+      operationId: get_pleague_api_boxscore_preciser_php
+      parameters:
+      - description: 'Game id. gid (key space: P. LEAGUE+ games, ONE global integer sequence across every
+          stage and season, with gaps: 1-12 = the 2020-21 pre-season, 13 = the 2020-21 regular-season
+          opener, 197 = the 2022-23 opener, 662 = the 2025-26 opener, 722+ = 2026-27 (scheduled); the
+          site''s row id, not a count of games). The {gid} of /game/{gid}, the id= of boxscore.preciser.php
+          and the schedule rows'' /game/ link. An unknown or non-numeric id answers 200 with EMPTY rosters
+          and null scores (`id=abc` is coerced to 0): the capture refuses it. The body echoes NO id, so
+          identity is checked against the game page''s scores and quarter scores.'
+        example: 197
+        in: query
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 'Period filter for the away table: ''total'' (the whole game; the only value banked),
+          ''q1'', ''q2'', ''q3'', ''q4'', ''1st half'', ''2nd half'' (lower case: ''Q1'' or ''TOTAL''
+          return blank player rows). There is no overtime tab (''ot1'' returns an empty roster). Verified
+          on gid 197: player points sum to the period score. An unknown value answers 200 with blank cells.
+          Scoped: the capture only sends ''total'' and checks the sum of points against the final.'
+        example: total
+        in: query
+        name: away_tab
+        required: false
+        schema:
+          default: total
+          enum:
+          - total
+          - q1
+          - q2
+          - q3
+          - q4
+          - 1st half
+          - 2nd half
+          type: string
+      - description: Period filter for the home table; same values as away_tab and independent of it.
+        example: total
+        in: query
+        name: home_tab
+        required: false
+        schema:
+          default: total
+          enum:
+          - total
+          - q1
+          - q2
+          - q3
+          - q4
+          - 1st half
+          - 2nd half
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PleagueBox'
+              x-body-format: json
+          description: 'Box score of one game: player rows and team totals (JSON)'
+      security: []
+      summary: 'Box score of one game: player rows and team totals (JSON)'
+  /api/playbyplay.php:
+    get:
+      description: 'Served as text/html but the body is JSON whose `data` is an HTML table. The route
+        returns {error, data: ''<table class="... pbplay">...''}; the capture parses the table into events
+        and banks the parsed record, never the HTML (about 0.5 MB). Available from 2022-23 (gid 191 onward,
+        including the pre-season). It needs the game uuid from the game page; an empty uuid answers 500.'
+      operationId: get_pleague_api_playbyplay_php
+      parameters:
+      - description: 'Game uuid. Game uuid (key space: the analytics vendor Preciser''s games; a version-1
+          uuid). Embedded in the game page as getPlayByPlay(''<uuid>''); keys /api/playbyplay.php?uuid=
+          and the api.preciser.io game routes. Empty on 2020-21 and 2021-22 pages. An empty uuid answers
+          500; an unknown uuid answers 200 with an empty table.'
+        example: e6f98675-3e5b-11ed-949e-5d17350689cf
+        in: query
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                properties:
+                  data:
+                    description: HTML table.pbplay; parsed by capture.py
+                    type: string
+                  error:
+                    type: string
+                type: object
+              x-body-format: json
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_pbp
+                rule: 'table.pbplay rows: period header rows (Qn-tr / OTn-tr + quater-tr), event rows
+                  (bar_away / bar_home cell), the closing ''Final'' row'
+                schema:
+                  $ref: '#/components/schemas/PleaguePlayByPlay'
+          description: Play-by-play of one game (JSON whose data is an HTML table), parsed into an event
+            list
+      security: []
+      summary: Play-by-play of one game (JSON whose data is an HTML table), parsed into an event list
+  /game/{gid}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: header card (date,
+        venue, label), the 客隊/主隊 blocks (name, English name, logo, score), the q?_away / q?_home cells
+        and the officials line; uuid from getPlayByPlay(''...''). Parsed from the game page''s header
+        only. The box, play-by-play and shot chart are loaded by script from /api/boxscore.preciser.php,
+        /api/playbyplay.php and api.preciser.io. To get the play-by-play uuid: GET /game/{gid} and read
+        the argument of getPlayByPlay(''<uuid>'') (the same value is passed to fetchChartData / fetchData).
+        It is '''' for 2020-21 and 2021-22 games, which have a box but no play-by-play, shot chart or
+        win-probability data.'
+      operationId: get_pleague_game_gid
+      parameters:
+      - description: 'Game id. gid (key space: P. LEAGUE+ games, ONE global integer sequence across every
+          stage and season, with gaps: 1-12 = the 2020-21 pre-season, 13 = the 2020-21 regular-season
+          opener, 197 = the 2022-23 opener, 662 = the 2025-26 opener, 722+ = 2026-27 (scheduled); the
+          site''s row id, not a count of games). The {gid} of /game/{gid}, the id= of boxscore.preciser.php
+          and the schedule rows'' /game/ link.'
+        example: 197
+        in: path
+        name: gid
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_game
+                rule: header card (date, venue, label), the 客隊/主隊 blocks (name, English name, logo, score),
+                  the q?_away / q?_home cells and the officials line; uuid from getPlayByPlay('...')
+                schema:
+                  $ref: '#/components/schemas/PleagueGame'
+          description: Game page header (teams, scores, venue, officials) and the game uuid, parsed
+      security: []
+      summary: Game page header (teams, scores, venue, officials) and the game uuid, parsed
+  /player/{player_page_id}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: section#section_player
+        (profile) and the two season tables (header checked). The per-game log (''GAMELOG & BOXSCORE'')
+        and the career-vs-season widgets load by script from /api/player.preciser.php; they are not captured.
+        The page holds the league''s tables (totals then averages) and, for a player with EASL games,
+        a second block with the same two tables; the capture tells the blocks apart by the game-log tbody
+        id (match-tbody / easl-match-tbody) and does not cross-check totals against averages.'
+      operationId: get_pleague_player_player_page_id
+      parameters:
+      - description: 'Player page id (8 characters, letters and digits). random_id (key space: the 8-character
+          page id of /player/{random_id}). On 2022-23 and later rows it is the player''s page (gid 197:
+          ''1JbPozLB'' = Lai Ting-En, ''1BEtRhwN'' = Kao Kuo-Hao). On 2020-21 and 2021-22 rows it is NOT
+          reliable as a join: gid 13 gives Lai Ting-En (player_id 40) ''1BEtRhwN'', which the live site
+          resolves to Kao Kuo-Hao (player_id 84). Join on player_id, never on random_id, across eras.
+          Null on part of the older rows.'
+        example: 1P42uoZg
+        in: path
+        name: player_page_id
+        required: true
+        schema:
+          pattern: ^[A-Za-z0-9]{8}$
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_player
+                rule: section#section_player (profile) and the two season tables (header checked)
+                schema:
+                  $ref: '#/components/schemas/PleaguePlayer'
+          description: One player's profile and per-season totals and averages, parsed
+      security: []
+      summary: One player's profile and per-season totals and averages, parsed
+  /schedule-finals/{season}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
+        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
+        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
+        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
+        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
+        finals), which the capture refuses. Away team first, home team second: the score cells read away
+        then home, the opposite of the box''s home-first keys.'
+      operationId: get_pleague_schedule_finals_season
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: &id001
+          pattern: ^\d{4}-\d{2}$
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_schedule
+                rule: 'one row per div.match_row: date from the month class + ''MM/DD'', away/home from
+                  the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked
+                  with trackGame())'
+                schema:
+                  $ref: '#/components/schemas/PleagueSchedule'
+          description: 'Finals schedule and results of one season: every game, parsed'
+      security: []
+      summary: 'Finals schedule and results of one season: every game, parsed'
+  /schedule-playoffs/{season}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
+        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
+        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
+        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
+        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
+        finals), which the capture refuses. Away team first, home team second: the score cells read away
+        then home, the opposite of the box''s home-first keys.'
+      operationId: get_pleague_schedule_playoffs_season
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_schedule
+                rule: 'one row per div.match_row: date from the month class + ''MM/DD'', away/home from
+                  the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked
+                  with trackGame())'
+                schema:
+                  $ref: '#/components/schemas/PleagueSchedule'
+          description: 'Playoff schedule and results of one season: every game, parsed'
+      security: []
+      summary: 'Playoff schedule and results of one season: every game, parsed'
+  /schedule-pre-season/{season}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
+        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
+        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
+        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
+        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
+        finals), which the capture refuses. Away team first, home team second: the score cells read away
+        then home, the opposite of the box''s home-first keys.'
+      operationId: get_pleague_schedule_pre_season_season
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_schedule
+                rule: 'one row per div.match_row: date from the month class + ''MM/DD'', away/home from
+                  the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked
+                  with trackGame())'
+                schema:
+                  $ref: '#/components/schemas/PleagueSchedule'
+          description: 'Pre-season (exhibition) schedule and results of one season: every game, parsed'
+      security: []
+      summary: 'Pre-season (exhibition) schedule and results of one season: every game, parsed'
+  /schedule-regular-season/{season}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
+        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
+        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
+        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
+        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
+        finals), which the capture refuses. Away team first, home team second: the score cells read away
+        then home, the opposite of the box''s home-first keys.'
+      operationId: get_pleague_schedule_regular_season_season
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_schedule
+                rule: 'one row per div.match_row: date from the month class + ''MM/DD'', away/home from
+                  the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked
+                  with trackGame())'
+                schema:
+                  $ref: '#/components/schemas/PleagueSchedule'
+          description: 'Regular-season schedule and results of one season: every game, parsed'
+      security: []
+      summary: 'Regular-season schedule and results of one season: every game, parsed'
+  /standings/{season}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: table.team_ranking,
+        header checked against the expected 14 columns. Only the regular-season table is parsed. The stage
+        select (regular season / playoffs / finals) is not wired on this page (its change handler is undefined),
+        and /standings/{season}/8 returns a page without a table. The head-to-head matrix below the table
+        is not parsed. Season scoping verified by diffing 2022-23 and 2025-26 (different teams and records)
+        and by the page title.'
+      operationId: get_pleague_standings_season
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: *id001
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_standings
+                rule: table.team_ranking, header checked against the expected 14 columns
+                schema:
+                  $ref: '#/components/schemas/PleagueStandings'
+          description: Regular-season standings of one season, parsed
+      security: []
+      summary: Regular-season standings of one season, parsed
+  /stat-player/{season}/{stage_sn}:
+    get:
+      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
+        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: table#main-table,
+        header checked against the expected 23 columns; each cell''s data-avg / data-total attribute.
+        Basic columns only; the advanced view (ORTG etc.) is a separate widget loaded by script. Each
+        cell carries data-avg and data-total attributes; the page''s ''average / total'' switch swaps
+        them. Percentages and games are the same in both, so they are single columns here.'
+      operationId: get_pleague_stat_player_season_stage_sn
+      parameters:
+      - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
+          END year (2025). Echoed by the page title and checked. 2020-21 to 2026-27 exist; 2019-20 and
+          earlier redirect (302) to /schedule. A season the league has not scheduled yet returns a page
+          with zero games (refused).
+        example: 2025-26
+        in: path
+        name: season
+        required: true
+        schema: *id001
+      - description: 'Stage select value: 2 regular season, 3 playoffs, 4 finals (anything else redirects
+          to stage 2).'
+        example: 2
+        in: path
+        name: stage_sn
+        required: true
+        schema:
+          enum:
+          - 2
+          - 3
+          - 4
+          type: integer
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+              x-parsed-schema:
+                parser: pleague/tools/pleague_parse.py parse_stat_player
+                rule: table#main-table, header checked against the expected 23 columns; each cell's data-avg
+                  / data-total attribute
+                schema:
+                  $ref: '#/components/schemas/PleagueStatPlayer'
+          description: Player season averages and totals of one season and stage, parsed
+      security: []
+      summary: Player season averages and totals of one season and stage, parsed
+servers:
+- url: https://pleagueofficial.com
