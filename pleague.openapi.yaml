@@ -20,34 +20,39 @@ components:
                   AST_RATIO:
                     description: 'Assist ratio, 0-100 (B era): assists per 100 of the player''s own plays.
                       The common formula AST / (FGA + 0.5 x FTA + AST + TOV) x 100 reproduces it on 919
-                      of 1,174 rows, so the exact formula is unverified.'
+                      of 1,174 rows, so the exact formula is unverified. ABSENT from some rows (the other
+                      era, DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
                     x-absent-in-some-rows: true
                   DRTG:
                     description: 'Defensive rating (B era): the opponent''s points scored per 100 of its
-                      possessions while the player was on court (lower is better).'
+                      possessions while the player was on court (lower is better). ABSENT from some rows
+                      (the other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
                     x-absent-in-some-rows: true
                   NETRTG:
-                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows.'
+                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows. ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
                     x-absent-in-some-rows: true
                   ORTG:
                     description: 'Offensive rating (B era): the team''s points scored per 100 offensive
-                      possessions while the player was on court.'
+                      possessions while the player was on court. ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
                     x-absent-in-some-rows: true
                   TO_RATIO:
                     description: 'Turnover ratio, 0-100 (B era): turnovers per 100 of the player''s own
-                      plays; same formula family as AST_RATIO (917 of 1,174 rows).'
+                      plays; same formula family as AST_RATIO (917 of 1,174 rows). ABSENT from some rows
+                      (the other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
@@ -71,362 +76,8 @@ components:
                   efgp:
                     description: 'Effective field-goal percentage, 0-100: (FGM + 0.5 x 3PM) / FGA x 100
                       (verified on 3,696 of 3,696 A-era rows with attempts). A-era only; a number or a
-                      string ('''' on DNP rows).'
-                    type: number
-                    x-absent-in-some-rows: true
-                  ft:
-                    description: Free throws ATTEMPTED (the second number of ft_m_ft).
-                    type:
-                    - integer
-                    - string
-                  ft_a:
-                    description: 'Free throws MISSED (A era): ft = ft_m + ft_a on all 3,932 rows. The
-                      name suggests ''attempted'' but it is the misses; read ft_m_ft (''made-attempted'')
-                      to check.'
-                    type: integer
-                    x-absent-in-some-rows: true
-                  ft_m:
-                    description: Free throws MADE (A era; paired with ft_a).
-                    type: integer
-                    x-absent-in-some-rows: true
-                  ft_m_ft:
-                    description: Free throws 'made-attempted' as a string ('0-0').
-                    type: string
-                  ftp:
-                    description: Free-throw percentage, 0-100 (a number or a string).
-                    type:
-                    - number
-                    - string
-                  jersey:
-                    description: Shirt number as a string ('0', '00' and '10' differ).
-                    type: string
-                  mins:
-                    description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Team totals: ''240:00''
-                      for a 4-quarter game (5 players x 48 min), more with overtime.'
-                    type: string
-                  name:
-                    description: Player name field; equal to name_alt on B-era rows, null or '' on most
-                      A-era rows.
-                    type:
-                    - string
-                    - 'null'
-                  name_alt:
-                    description: Player name as shown in the box table (Traditional Chinese or a transliteration).
-                    type: string
-                  offensive_possession:
-                    description: The team's offensive possessions while the player was on court (B era);
-                      the base of ORTG.
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  opp_offensive_possession:
-                    description: The opponent's offensive possessions while the player was on court (B
-                      era); the base of DRTG.
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  opp_points_from_2nd_chance:
-                    description: Opponent second-chance points while the player was on court (B era).
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  opp_points_from_fastbreak:
-                    description: Opponent fast-break points while the player was on court (B era).
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  opp_points_from_turnover:
-                    description: Opponent points off turnovers while the player was on court (B era).
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  opp_points_in_the_paint:
-                    description: Opponent points in the paint while the player was on court (B era).
-                    type:
-                    - integer
-                    - string
-                    x-absent-in-some-rows: true
-                  pace:
-                    description: 'Pace (B era): 48 x offensive_possession / minutes on court, i.e. the
-                      team''s possessions per 48 minutes with this player on court (verified on 1,124
-                      of 1,149 rows; game 194 differs).'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  personId:
-                    description: 'personId (key space: Preciser persons, a uuid; the same value as players[].id
-                      in api.preciser.io /v1/chart-data and the join key between the box and the shot
-                      list). 2022-23 onward only; ABSENT on 2020-21 and 2021-22 rows and on a few later
-                      games (2025-26 finals gid 716).'
-                    type: string
-                    x-absent-in-some-rows: true
-                  pfoul:
-                    description: Personal fouls committed.
-                    type:
-                    - integer
-                    - string
-                  player_id:
-                    description: 'player_id (key space: P. LEAGUE+ player-team memberships on the site;
-                      equals the member id the player page passes to trackPlayer(), e.g. 40 = Lai Ting-En).
-                      A STRING of digits in the box. Not the 8-character page id (random_id) and not the
-                      Preciser personId uuid.'
-                    type: string
-                  points:
-                    description: 'Points scored. A-era DNP rows: '''' (empty string).'
-                    type:
-                    - integer
-                    - string
-                  position:
-                    description: 'Unobserved: null in every sample. When filled: Position code (''G''
-                      guard, ''F'' forward, ''C'' centre) on some A-era rows; null or '''' on the rest;
-                      absent from every B-era row.'
-                    x-absent-in-some-rows: true
-                    x-unobserved: true
-                  positive:
-                    description: 'Plus/minus: the team''s points minus the opponent''s while the player
-                      was on court (signed integer). Reproduced to within 1 point on 826 of 1,060 B-era
-                      player rows by ORTG x offensive_possession / 100 - DRTG x opp_offensive_possession
-                      / 100. Absent on team-total rows of the B era; present on A-era totals rows.'
-                    type:
-                    - integer
-                    - string
-                  profile_picture:
-                    description: 'Unobserved: null in every sample. When filled: Profile picture reference
-                      (A era): null on most rows, a string on some.'
-                    x-absent-in-some-rows: true
-                    x-unobserved: true
-                  random_id:
-                    description: 'random_id (key space: the 8-character page id of /player/{random_id}).
-                      On 2022-23 and later rows it is the player''s page (gid 197: ''1JbPozLB'' = Lai
-                      Ting-En, ''1BEtRhwN'' = Kao Kuo-Hao). On 2020-21 and 2021-22 rows it is NOT reliable
-                      as a join: gid 13 gives Lai Ting-En (player_id 40) ''1BEtRhwN'', which the live
-                      site resolves to Kao Kuo-Hao (player_id 84). Join on player_id, never on random_id,
-                      across eras. Null on part of the older rows.'
-                    type: string
-                  reb:
-                    description: Total rebounds (reb_o + reb_d on every checked player row; team totals
-                      also include team rebounds).
-                    type:
-                    - integer
-                    - string
-                  reb_d:
-                    description: Defensive rebounds.
-                    type:
-                    - integer
-                    - string
-                  reb_o:
-                    description: Offensive rebounds.
-                    type:
-                    - integer
-                    - string
-                  seconds:
-                    description: 'Playing time in whole seconds (A era only: absent from every 2022-23+
-                      row); '''' on DNP rows. Equals mins as mm:ss x 60 on all 3,932 A-era rows with minutes.'
-                    type: integer
-                    x-absent-in-some-rows: true
-                  starter:
-                    description: 'Starter flag: ''〇'' (a Japanese-style circle) = started, '''' = bench.'
-                    type: string
-                  stl:
-                    description: Steals.
-                    type:
-                    - integer
-                    - string
-                  trey:
-                    description: 3-point field goals ATTEMPTED (the second number of trey_m_trey).
-                    type:
-                    - integer
-                    - string
-                  trey_a:
-                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a.'
-                    type: integer
-                    x-absent-in-some-rows: true
-                  trey_m:
-                    description: 3-point field goals MADE (A era).
-                    type: integer
-                    x-absent-in-some-rows: true
-                  trey_m_trey:
-                    description: 3-point field goals 'made-attempted' as a string ('1-5').
-                    type: string
-                  treyp:
-                    description: 3-point field-goal percentage, 0-100 (a number or a string).
-                    type:
-                    - number
-                    - string
-                  tsp:
-                    description: 'True-shooting percentage, 0-100: PTS / (2 x (FGA + 0.44 x FTA)) x 100
-                      (verified on 3,721 of 3,721 A-era rows). A-era only.'
-                    type: number
-                    x-absent-in-some-rows: true
-                  turnover:
-                    description: Turnovers committed.
-                    type:
-                    - integer
-                    - string
-                  two:
-                    description: '2-point field goals ATTEMPTED (verified: equals the second number of
-                      two_m_two on all rows).'
-                    type:
-                    - integer
-                    - string
-                  two_a:
-                    description: '2-point field goals MISSED (A era): two = two_m + two_a.'
-                    type: integer
-                    x-absent-in-some-rows: true
-                  two_m:
-                    description: 2-point field goals MADE (A era).
-                    type: integer
-                    x-absent-in-some-rows: true
-                  two_m_two:
-                    description: 2-point field goals 'made-attempted' as a string ('1-3').
-                    type: string
-                  twop:
-                    description: 2-point field-goal percentage, 0-100 (a number, or '' / a string on rows
-                      without attempts).
-                    type:
-                    - number
-                    - string
-                  ugp:
-                    description: Usage percentage as the site prints it (A era only). The standard usage
-                      formula reproduces it on only 685 of 3,932 rows, so the exact formula is unverified.
-                    type: number
-                    x-absent-in-some-rows: true
-                type: object
-              type: array
-            away_total:
-              description: Away team totals row.
-              properties:
-                ast:
-                  description: Team assists.
-                  type: integer
-                blk:
-                  description: Team blocks.
-                  type: integer
-                ft:
-                  description: Team free-throw attempts.
-                  type: integer
-                ft_m:
-                  description: Team free-throw makes.
-                  type: integer
-                ftp:
-                  description: Team free-throw percentage, 0-100.
-                  type: number
-                mins:
-                  description: Team minutes 'mm:ss' ('240:00' = 5 x 48 min).
-                  type: string
-                pfoul:
-                  description: Team personal fouls.
-                  type: integer
-                points:
-                  description: Team points (equals score_home / score_away; the capture checks it).
-                  type: integer
-                positive:
-                  description: Sum of the players' plus/minus (A era only).
-                  type: integer
-                  x-absent-in-some-rows: true
-                reb:
-                  description: Team total rebounds, including team rebounds that no player row carries.
-                  type: integer
-                reb_d:
-                  description: Team defensive rebounds.
-                  type: integer
-                reb_o:
-                  description: Team offensive rebounds.
-                  type: integer
-                seconds:
-                  description: Team seconds (A era only; 14400 = 240 min).
-                  type: integer
-                  x-absent-in-some-rows: true
-                stl:
-                  description: Team steals.
-                  type: integer
-                trey:
-                  description: Team 3-point attempts.
-                  type: integer
-                trey_m:
-                  description: Team 3-point makes.
-                  type: integer
-                treyp:
-                  description: Team 3-point percentage, 0-100.
-                  type: number
-                turnover:
-                  description: Team turnovers.
-                  type: integer
-                two:
-                  description: Team 2-point attempts.
-                  type: integer
-                two_m:
-                  description: Team 2-point makes.
-                  type: integer
-                twop:
-                  description: Team 2-point percentage, 0-100.
-                  type: number
-              type: object
-            home:
-              description: Home players, one row per rostered player including 'DNP' rows.
-              items:
-                properties:
-                  AST_RATIO:
-                    description: 'Assist ratio, 0-100 (B era): assists per 100 of the player''s own plays.
-                      The common formula AST / (FGA + 0.5 x FTA + AST + TOV) x 100 reproduces it on 919
-                      of 1,174 rows, so the exact formula is unverified.'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  DRTG:
-                    description: 'Defensive rating (B era): the opponent''s points scored per 100 of its
-                      possessions while the player was on court (lower is better).'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  NETRTG:
-                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows.'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  ORTG:
-                    description: 'Offensive rating (B era): the team''s points scored per 100 offensive
-                      possessions while the player was on court.'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  TO_RATIO:
-                    description: 'Turnover ratio, 0-100 (B era): turnovers per 100 of the player''s own
-                      plays; same formula family as AST_RATIO (917 of 1,174 rows).'
-                    type:
-                    - number
-                    - string
-                    x-absent-in-some-rows: true
-                  ast:
-                    description: Assists.
-                    type:
-                    - integer
-                    - string
-                  blk:
-                    description: Blocks made.
-                    type:
-                    - integer
-                    - string
-                  eff:
-                    description: 'Efficiency: points + rebounds + assists + steals + blocks - missed field
-                      goals - missed free throws - turnovers (verified on all 3,932 A-era rows).'
-                    type:
-                    - integer
-                    - string
-                  efgp:
-                    description: 'Effective field-goal percentage, 0-100: (FGM + 0.5 x 3PM) / FGA x 100
-                      (verified on 3,696 of 3,696 A-era rows with attempts). A-era only; a number or a
-                      string ('''' on DNP rows).'
+                      string ('''' on DNP rows). ABSENT from some rows (the other era, DNP rows or other
+                      games; see the divergence notes).'
                     type:
                     - number
                     - string
@@ -439,13 +90,15 @@ components:
                   ft_a:
                     description: 'Free throws MISSED (A era): ft = ft_m + ft_a on all 3,932 rows. The
                       name suggests ''attempted'' but it is the misses; read ft_m_ft (''made-attempted'')
-                      to check.'
+                      to check. ABSENT from some rows (the other era, DNP rows or other games; see the
+                      divergence notes).'
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   ft_m:
-                    description: Free throws MADE (A era; paired with ft_a).
+                    description: Free throws MADE (A era; paired with ft_a). ABSENT from some rows (the
+                      other era, DNP rows or other games; see the divergence notes).
                     type:
                     - integer
                     - string
@@ -476,38 +129,46 @@ components:
                     type: string
                   offensive_possession:
                     description: The team's offensive possessions while the player was on court (B era);
-                      the base of ORTG.
+                      the base of ORTG. ABSENT from some rows (the other era, DNP rows or other games;
+                      see the divergence notes).
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   opp_offensive_possession:
                     description: The opponent's offensive possessions while the player was on court (B
-                      era); the base of DRTG.
+                      era); the base of DRTG. ABSENT from some rows (the other era, DNP rows or other
+                      games; see the divergence notes).
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   opp_points_from_2nd_chance:
                     description: Opponent second-chance points while the player was on court (B era).
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   opp_points_from_fastbreak:
-                    description: Opponent fast-break points while the player was on court (B era).
+                    description: Opponent fast-break points while the player was on court (B era). ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   opp_points_from_turnover:
                     description: Opponent points off turnovers while the player was on court (B era).
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   opp_points_in_the_paint:
-                    description: Opponent points in the paint while the player was on court (B era).
+                    description: Opponent points in the paint while the player was on court (B era). ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).
                     type:
                     - integer
                     - string
@@ -515,7 +176,8 @@ components:
                   pace:
                     description: 'Pace (B era): 48 x offensive_possession / minutes on court, i.e. the
                       team''s possessions per 48 minutes with this player on court (verified on 1,124
-                      of 1,149 rows; game 194 differs).'
+                      of 1,149 rows; game 194 differs). ABSENT from some rows (the other era, DNP rows
+                      or other games; see the divergence notes).'
                     type:
                     - number
                     - string
@@ -554,12 +216,15 @@ components:
                     description: 'Plus/minus: the team''s points minus the opponent''s while the player
                       was on court (signed integer). Reproduced to within 1 point on 826 of 1,060 B-era
                       player rows by ORTG x offensive_possession / 100 - DRTG x opp_offensive_possession
-                      / 100. Absent on team-total rows of the B era; present on A-era totals rows.'
+                      / 100. Not sent in the totals rows of the B era (the totals rows are a separate
+                      object); present in the A-era totals.'
                     type:
                     - integer
                     - string
                   profile_picture:
-                    description: 'Profile picture reference (A era): null on most rows, a string on some.'
+                    description: 'Profile picture reference (A era): null on most rows, a string on some.
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).'
                     type:
                     - string
                     - 'null'
@@ -611,13 +276,15 @@ components:
                     - integer
                     - string
                   trey_a:
-                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a.'
+                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a. ABSENT from
+                      some rows (the other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   trey_m:
-                    description: 3-point field goals MADE (A era).
+                    description: 3-point field goals MADE (A era). ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).
                     type:
                     - integer
                     - string
@@ -632,7 +299,8 @@ components:
                     - string
                   tsp:
                     description: 'True-shooting percentage, 0-100: PTS / (2 x (FGA + 0.44 x FTA)) x 100
-                      (verified on 3,721 of 3,721 A-era rows). A-era only.'
+                      (verified on 3,721 of 3,721 A-era rows). A-era only. ABSENT from some rows (the
+                      other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - number
                     - string
@@ -649,13 +317,15 @@ components:
                     - integer
                     - string
                   two_a:
-                    description: '2-point field goals MISSED (A era): two = two_m + two_a.'
+                    description: '2-point field goals MISSED (A era): two = two_m + two_a. ABSENT from
+                      some rows (the other era, DNP rows or other games; see the divergence notes).'
                     type:
                     - integer
                     - string
                     x-absent-in-some-rows: true
                   two_m:
-                    description: 2-point field goals MADE (A era).
+                    description: 2-point field goals MADE (A era). ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).
                     type:
                     - integer
                     - string
@@ -672,6 +342,416 @@ components:
                   ugp:
                     description: Usage percentage as the site prints it (A era only). The standard usage
                       formula reproduces it on only 685 of 3,932 rows, so the exact formula is unverified.
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                type: object
+              type: array
+            away_total:
+              description: Away team totals row.
+              properties:
+                ast:
+                  description: Team assists.
+                  type: integer
+                blk:
+                  description: Team blocks.
+                  type: integer
+                ft:
+                  description: Team free-throw attempts.
+                  type: integer
+                ft_m:
+                  description: Team free-throw makes.
+                  type: integer
+                ftp:
+                  description: Team free-throw percentage, 0-100.
+                  type: number
+                mins:
+                  description: Team minutes 'mm:ss' ('240:00' = 5 x 48 min).
+                  type: string
+                pfoul:
+                  description: Team personal fouls.
+                  type: integer
+                points:
+                  description: Team points (equals score_home / score_away; the capture checks it).
+                  type: integer
+                positive:
+                  description: Sum of the players' plus/minus (A era only). ABSENT from some rows (the
+                    other era, DNP rows or other games; see the divergence notes).
+                  type: integer
+                  x-absent-in-some-rows: true
+                reb:
+                  description: Team total rebounds, including team rebounds that no player row carries.
+                  type: integer
+                reb_d:
+                  description: Team defensive rebounds.
+                  type: integer
+                reb_o:
+                  description: Team offensive rebounds.
+                  type: integer
+                seconds:
+                  description: Team seconds (A era only; 14400 = 240 min). ABSENT from some rows (the
+                    other era, DNP rows or other games; see the divergence notes).
+                  type: integer
+                  x-absent-in-some-rows: true
+                stl:
+                  description: Team steals.
+                  type: integer
+                trey:
+                  description: Team 3-point attempts.
+                  type: integer
+                trey_m:
+                  description: Team 3-point makes.
+                  type: integer
+                treyp:
+                  description: Team 3-point percentage, 0-100.
+                  type: number
+                turnover:
+                  description: Team turnovers.
+                  type: integer
+                two:
+                  description: Team 2-point attempts.
+                  type: integer
+                two_m:
+                  description: Team 2-point makes.
+                  type: integer
+                twop:
+                  description: Team 2-point percentage, 0-100.
+                  type: number
+              type: object
+            home:
+              description: Home players, one row per rostered player including 'DNP' rows.
+              items:
+                properties:
+                  AST_RATIO:
+                    description: 'Assist ratio, 0-100 (B era): assists per 100 of the player''s own plays.
+                      The common formula AST / (FGA + 0.5 x FTA + AST + TOV) x 100 reproduces it on 919
+                      of 1,174 rows, so the exact formula is unverified. ABSENT from some rows (the other
+                      era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  DRTG:
+                    description: 'Defensive rating (B era): the opponent''s points scored per 100 of its
+                      possessions while the player was on court (lower is better). ABSENT from some rows
+                      (the other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  NETRTG:
+                    description: 'Net rating (B era): ORTG - DRTG, exact on 1,060 of 1,060 rows. ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ORTG:
+                    description: 'Offensive rating (B era): the team''s points scored per 100 offensive
+                      possessions while the player was on court. ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  TO_RATIO:
+                    description: 'Turnover ratio, 0-100 (B era): turnovers per 100 of the player''s own
+                      plays; same formula family as AST_RATIO (917 of 1,174 rows). ABSENT from some rows
+                      (the other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ast:
+                    description: Assists.
+                    type:
+                    - integer
+                    - string
+                  blk:
+                    description: Blocks made.
+                    type:
+                    - integer
+                    - string
+                  eff:
+                    description: 'Efficiency: points + rebounds + assists + steals + blocks - missed field
+                      goals - missed free throws - turnovers (verified on all 3,932 A-era rows).'
+                    type:
+                    - integer
+                    - string
+                  efgp:
+                    description: 'Effective field-goal percentage, 0-100: (FGM + 0.5 x 3PM) / FGA x 100
+                      (verified on 3,696 of 3,696 A-era rows with attempts). A-era only; a number or a
+                      string ('''' on DNP rows). ABSENT from some rows (the other era, DNP rows or other
+                      games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  ft:
+                    description: Free throws ATTEMPTED (the second number of ft_m_ft).
+                    type:
+                    - integer
+                    - string
+                  ft_a:
+                    description: 'Free throws MISSED (A era): ft = ft_m + ft_a on all 3,932 rows. The
+                      name suggests ''attempted'' but it is the misses; read ft_m_ft (''made-attempted'')
+                      to check. ABSENT from some rows (the other era, DNP rows or other games; see the
+                      divergence notes).'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  ft_m:
+                    description: Free throws MADE (A era; paired with ft_a). ABSENT from some rows (the
+                      other era, DNP rows or other games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  ft_m_ft:
+                    description: Free throws 'made-attempted' as a string ('0-0').
+                    type: string
+                  ftp:
+                    description: Free-throw percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  jersey:
+                    description: Shirt number as a string ('0', '00' and '10' differ).
+                    type: string
+                  mins:
+                    description: 'Minutes played ''mm:ss''; ''DNP'' = did not play. Team totals: ''240:00''
+                      for a 4-quarter game (5 players x 48 min), more with overtime.'
+                    type: string
+                  name:
+                    description: Player name field; equal to name_alt on B-era rows, null or '' on most
+                      A-era rows.
+                    type:
+                    - string
+                    - 'null'
+                  name_alt:
+                    description: Player name as shown in the box table (Traditional Chinese or a transliteration).
+                    type: string
+                  offensive_possession:
+                    description: The team's offensive possessions while the player was on court (B era);
+                      the base of ORTG. ABSENT from some rows (the other era, DNP rows or other games;
+                      see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_offensive_possession:
+                    description: The opponent's offensive possessions while the player was on court (B
+                      era); the base of DRTG. ABSENT from some rows (the other era, DNP rows or other
+                      games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_2nd_chance:
+                    description: Opponent second-chance points while the player was on court (B era).
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_fastbreak:
+                    description: Opponent fast-break points while the player was on court (B era). ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_from_turnover:
+                    description: Opponent points off turnovers while the player was on court (B era).
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  opp_points_in_the_paint:
+                    description: Opponent points in the paint while the player was on court (B era). ABSENT
+                      from some rows (the other era, DNP rows or other games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  pace:
+                    description: 'Pace (B era): 48 x offensive_possession / minutes on court, i.e. the
+                      team''s possessions per 48 minutes with this player on court (verified on 1,124
+                      of 1,149 rows; game 194 differs). ABSENT from some rows (the other era, DNP rows
+                      or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  personId:
+                    description: 'personId (key space: Preciser persons, a uuid; the same value as players[].id
+                      in api.preciser.io /v1/chart-data and the join key between the box and the shot
+                      list). 2022-23 onward only; ABSENT on 2020-21 and 2021-22 rows and on a few later
+                      games (2025-26 finals gid 716).'
+                    type: string
+                    x-absent-in-some-rows: true
+                  pfoul:
+                    description: Personal fouls committed.
+                    type:
+                    - integer
+                    - string
+                  player_id:
+                    description: 'player_id (key space: P. LEAGUE+ player-team memberships on the site;
+                      equals the member id the player page passes to trackPlayer(), e.g. 40 = Lai Ting-En).
+                      A STRING of digits in the box. Not the 8-character page id (random_id) and not the
+                      Preciser personId uuid.'
+                    type: string
+                  points:
+                    description: 'Points scored. A-era DNP rows: '''' (empty string).'
+                    type:
+                    - integer
+                    - string
+                  position:
+                    description: Position code ('G' guard, 'F' forward, 'C' centre) on some A-era rows;
+                      null or '' on the rest; absent from every B-era row.
+                    type:
+                    - string
+                    - 'null'
+                    x-absent-in-some-rows: true
+                  positive:
+                    description: 'Plus/minus: the team''s points minus the opponent''s while the player
+                      was on court (signed integer). Reproduced to within 1 point on 826 of 1,060 B-era
+                      player rows by ORTG x offensive_possession / 100 - DRTG x opp_offensive_possession
+                      / 100. Not sent in the totals rows of the B era (the totals rows are a separate
+                      object); present in the A-era totals.'
+                    type:
+                    - integer
+                    - string
+                  profile_picture:
+                    description: 'Profile picture reference (A era): null on most rows, a string on some.
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).'
+                    type:
+                    - string
+                    - 'null'
+                    x-absent-in-some-rows: true
+                  random_id:
+                    description: 'random_id (key space: the 8-character page id of /player/{random_id}).
+                      On 2022-23 and later rows it is the player''s page (gid 197: ''1JbPozLB'' = Lai
+                      Ting-En, ''1BEtRhwN'' = Kao Kuo-Hao). On 2020-21 and 2021-22 rows it is NOT reliable
+                      as a join: gid 13 gives Lai Ting-En (player_id 40) ''1BEtRhwN'', which the live
+                      site resolves to Kao Kuo-Hao (player_id 84). Join on player_id, never on random_id,
+                      across eras. Null on part of the older rows.'
+                    type:
+                    - string
+                    - 'null'
+                  reb:
+                    description: Total rebounds (reb_o + reb_d on every checked player row; team totals
+                      also include team rebounds).
+                    type:
+                    - integer
+                    - string
+                  reb_d:
+                    description: Defensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  reb_o:
+                    description: Offensive rebounds.
+                    type:
+                    - integer
+                    - string
+                  seconds:
+                    description: 'Playing time in whole seconds (A era only: absent from every 2022-23+
+                      row); '''' on DNP rows. Equals mins as mm:ss x 60 on all 3,932 A-era rows with minutes.'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  starter:
+                    description: 'Starter flag: ''〇'' (a Japanese-style circle) = started, '''' = bench.'
+                    type: string
+                  stl:
+                    description: Steals.
+                    type:
+                    - integer
+                    - string
+                  trey:
+                    description: 3-point field goals ATTEMPTED (the second number of trey_m_trey).
+                    type:
+                    - integer
+                    - string
+                  trey_a:
+                    description: '3-point field goals MISSED (A era): trey = trey_m + trey_a. ABSENT from
+                      some rows (the other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  trey_m:
+                    description: 3-point field goals MADE (A era). ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  trey_m_trey:
+                    description: 3-point field goals 'made-attempted' as a string ('1-5').
+                    type: string
+                  treyp:
+                    description: 3-point field-goal percentage, 0-100 (a number or a string).
+                    type:
+                    - number
+                    - string
+                  tsp:
+                    description: 'True-shooting percentage, 0-100: PTS / (2 x (FGA + 0.44 x FTA)) x 100
+                      (verified on 3,721 of 3,721 A-era rows). A-era only. ABSENT from some rows (the
+                      other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - number
+                    - string
+                    x-absent-in-some-rows: true
+                  turnover:
+                    description: Turnovers committed.
+                    type:
+                    - integer
+                    - string
+                  two:
+                    description: '2-point field goals ATTEMPTED (verified: equals the second number of
+                      two_m_two on all rows).'
+                    type:
+                    - integer
+                    - string
+                  two_a:
+                    description: '2-point field goals MISSED (A era): two = two_m + two_a. ABSENT from
+                      some rows (the other era, DNP rows or other games; see the divergence notes).'
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  two_m:
+                    description: 2-point field goals MADE (A era). ABSENT from some rows (the other era,
+                      DNP rows or other games; see the divergence notes).
+                    type:
+                    - integer
+                    - string
+                    x-absent-in-some-rows: true
+                  two_m_two:
+                    description: 2-point field goals 'made-attempted' as a string ('1-3').
+                    type: string
+                  twop:
+                    description: 2-point field-goal percentage, 0-100 (a number, or '' / a string on rows
+                      without attempts).
+                    type:
+                    - number
+                    - string
+                  ugp:
+                    description: Usage percentage as the site prints it (A era only). The standard usage
+                      formula reproduces it on only 685 of 3,932 rows, so the exact formula is unverified.
+                      ABSENT from some rows (the other era, DNP rows or other games; see the divergence
+                      notes).
                     type:
                     - number
                     - string
@@ -706,7 +786,8 @@ components:
                   description: Team points (equals score_home / score_away; the capture checks it).
                   type: integer
                 positive:
-                  description: Sum of the players' plus/minus (A era only).
+                  description: Sum of the players' plus/minus (A era only). ABSENT from some rows (the
+                    other era, DNP rows or other games; see the divergence notes).
                   type: integer
                   x-absent-in-some-rows: true
                 reb:
@@ -719,7 +800,8 @@ components:
                   description: Team offensive rebounds.
                   type: integer
                 seconds:
-                  description: Team seconds (A era only; 14400 = 240 min).
+                  description: Team seconds (A era only; 14400 = 240 min). ABSENT from some rows (the
+                    other era, DNP rows or other games; see the divergence notes).
                   type: integer
                   x-absent-in-some-rows: true
                 stl:
@@ -748,60 +830,60 @@ components:
                   type: number
               type: object
             ot1_away:
-              description: Away team's points scored IN overtime 1, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN overtime 1, not cumulative. A number, or the string
+                '-' when the game had no such overtime (only the ot* cells can be '-').
               type:
               - integer
               - string
             ot1_home:
-              description: Home team's points scored IN overtime 1, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN overtime 1, not cumulative. A number, or the string
+                '-' when the game had no such overtime (only the ot* cells can be '-').
               type:
               - integer
               - string
             ot2_away:
-              description: Away team's points scored IN overtime 2, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN overtime 2, not cumulative. A number, or the string
+                '-' when the game had no such overtime (only the ot* cells can be '-').
               type:
               - integer
               - string
             ot2_home:
-              description: Home team's points scored IN overtime 2, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN overtime 2, not cumulative. A number, or the string
+                '-' when the game had no such overtime (only the ot* cells can be '-').
               type:
               - integer
               - string
             q1_away:
-              description: Away team's points scored IN quarter 1, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN quarter 1, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q1_home:
-              description: Home team's points scored IN quarter 1, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN quarter 1, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q2_away:
-              description: Away team's points scored IN quarter 2, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN quarter 2, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q2_home:
-              description: Home team's points scored IN quarter 2, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN quarter 2, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q3_away:
-              description: Away team's points scored IN quarter 3, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN quarter 3, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q3_home:
-              description: Home team's points scored IN quarter 3, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN quarter 3, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q4_away:
-              description: Away team's points scored IN quarter 4, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Away team's points scored IN quarter 4, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             q4_home:
-              description: Home team's points scored IN quarter 4, not cumulative ('-' when the period
-                was not played; q1-q4 are 0 for an unplayed period). A number.
+              description: Home team's points scored IN quarter 4, not cumulative. A number on every body
+                (quarters are always played).
               type: integer
             score_away:
               description: Away final score (same typing as score_home).
@@ -999,8 +1081,10 @@ components:
                   '' on an 'unlabelled' row.
                 type: string
               clock:
-                description: Game clock REMAINING in the period, 'mm:ss' (counts down from 12:00 in regulation;
-                  overtime periods start at 05:00).
+                description: 'Game clock REMAINING in the period, ''mm:ss'' (counts down). Verified: Q1
+                  opens at 12:00 on the gid 197 opener, and OT1 and OT2 of the double-overtime game gid
+                  206 both open at 05:00; the 12:00 / 05:00 lengths are otherwise inferred from those
+                  games.'
                 type: string
               ft_awarded:
                 description: Free throws awarded in the trip (1, 2 or 3), from '得到一次罰球 / 得到兩次罰球 / 得到三次罰球';
@@ -1081,11 +1165,11 @@ components:
                     type: string
                   synergy_play_id:
                     description: 'Synergy play uuid (key space: Synergy Sports plays); the site links
-                      Synergy. Null when the clip has no Synergy play.'
+                      Synergy. A string on every one of the 50,862 clips in the corpus (never null).'
                     type: string
                   tryspot_player_id:
                     description: Player id in the clip vendor's key space (integer, e.g. 59476); NOT the
-                      box player_id.
+                      box player_id. Null on rows where the source has no value.
                     type:
                     - integer
                     - 'null'
@@ -1101,14 +1185,20 @@ components:
                   ends at half-time, so the same team''s shots flip from x > 50 to x < 50 (game 197: home
                   attacks x < 50 in periods 1-2, x > 50 in 3-4). Which end the home team starts at varies
                   by game. The vendor shot list (api.preciser.io) uses another frame: home always attacks
-                  x > 50; x_vendor = 100 - x in halves where the home team attacks x < 50. Empty string
-                  on the page (null here) for rows without a location (substitutions, rebounds, assists).'
+                  x > 50; x_vendor = 100 - x_pbp AND y_vendor = 100 - y_pbp in halves where the home team
+                  attacks x < 50 (the court is rotated 180 degrees; checked on gid 197: every period-1
+                  and period-2 shot matches that rotation exactly and every period-3 and period-4 shot
+                  is identical). Scale: the same as the vendor''s, one x unit = 0.2875 m and one y unit
+                  = 0.1525 m (a 28.75 x 15.25 m plot). Empty string on the page (null here) for rows without
+                  a location (substitutions, rebounds, assists).'
                 type:
                 - number
                 - 'null'
               y:
-                description: 'Shot/event y: PERCENT (0-100) of the court WIDTH; the baskets are at y =
-                  50. Which sideline is y = 0 is unverified. Null where x is null.'
+                description: 'Shot/event y: PERCENT (0-100) of the court WIDTH in the physical court frame;
+                  the baskets are at y = 50. Flips with x at the 180-degree rotation described on x: y_vendor
+                  = 100 - y_pbp in the halves where the home team attacks x < 50. Which sideline is y
+                  = 0 is unverified. Null where x is null.'
                 type:
                 - number
                 - 'null'
@@ -1142,6 +1232,7 @@ components:
           type: string
         easl_season_averages:
           description: The same AVERAGES table for the player's EASL games; [] when the player has none.
+            ABSENT from some rows (the other era, DNP rows or other games; see the divergence notes).
           items:
             properties:
               ast:
@@ -1208,6 +1299,7 @@ components:
         easl_season_totals:
           description: The same TOTALS table for the player's East Asia Super League games (the page's
             second block, 'easl-match-tbody'); [] when the player has none (the page then has no block).
+            ABSENT from some rows (the other era, DNP rows or other games; see the divergence notes).
           items:
             properties:
               ast:
@@ -1925,9 +2017,19 @@ paths:
               schema:
                 properties:
                   data:
-                    description: HTML table.pbplay; parsed by capture.py
+                    description: 'The play-by-play as ONE HTML string: `<table class="... pbplay"><tbody>`
+                      with a header row per period (class `Qn-tr quater-tr`, `OTn-tr quater-tr`), one
+                      row per play (class `Qn-tr`, three cells: away detail, the clock and running score,
+                      home detail; the acting side''s cell holds `<b class="pbp_detail_text" data-x data-y>`
+                      with the text and coordinates and `<b class="pbp_detail_action">` with the points
+                      tag, plus a base64 `data-tryspot` attribute when the play has a clip) and a closing
+                      `Final` row. 0.5 MB for a full game. capture.py parses it into the PleaguePlayByPlay
+                      record (x-parsed-schema) and banks only that.'
                     type: string
                   error:
+                    description: 'Error text; '''' on success. An unknown or empty uuid does not set it:
+                      an unknown uuid answers 200 with an empty table (`data` holds a `pbplay` table with
+                      no rows) and an empty uuid answers 500.'
                     type: string
                 type: object
               x-body-format: json
@@ -2020,14 +2122,18 @@ paths:
       summary: One player's profile and per-season totals and averages, parsed
   /schedule-finals/{season}:
     get:
-      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
-        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
-        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
-        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
-        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
-        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
-        finals), which the capture refuses. Away team first, home team second: the score cells read away
-        then home, the opposite of the box''s home-first keys.'
+      description: 'Championship-series (總冠軍賽) games, labelled ''FINALS G1'', ''FINALS Game1'' or ''Final
+        Game1''. Seasons (gid range, games): 2020-21 (66-72, 7), 2021-22 (184-188, 5), 2022-23 (329-334,
+        6), 2023-24 (587-591, 5), 2024-25 (655-661, 7), 2025-26 (715-721, 7). 2026-27 has none yet (zero
+        games, refused). A series that ended early still lists its unplayed games as 0-0 rows with an
+        empty box (2020-21 gids 70-72). text/html (server-rendered), parsed by capture.py into the JSON
+        record of x-parsed-schema (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing
+        rule: one row per div.match_row: date from the month class + ''MM/DD'', away/home from the team-home-N
+        class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked with trackGame()).
+        One template for all four stages; only the path word changes (pre-season, regular-season, playoffs,
+        finals). A stage a season does not have returns a page with zero games (2025-26 pre-season, 2026-27
+        playoffs and finals), which the capture refuses. Away team first, home team second: the score
+        cells read away then home, the opposite of the box''s home-first keys.'
       operationId: get_pleague_schedule_finals_season
       parameters:
       - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
@@ -2059,14 +2165,18 @@ paths:
       summary: 'Finals schedule and results of one season: every game, parsed'
   /schedule-playoffs/{season}:
     get:
-      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
-        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
-        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
-        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
-        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
-        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
-        finals), which the capture refuses. Away team first, home team second: the score cells read away
-        then home, the opposite of the box''s home-first keys.'
+      description: 'Playoff (季後賽) games, labelled ''PLAYOFFS Game1'', ''PLAYOFFS A G1'' / ''PLAYOFFS B
+        G1'' (series A and B) or, in 2020-21, ''Nth stop'' labels. Seasons (gid range, games): 2020-21
+        (61-65, 5), 2021-22 (174-182, 9), 2022-23 (319-325, 7), 2023-24 (573-584, 12), 2024-25 (650-654,
+        5), 2025-26 (710-714, 5). 2026-27 has none yet (zero games, refused). text/html (server-rendered),
+        parsed by capture.py into the JSON record of x-parsed-schema (English keys, Traditional Chinese
+        values kept as *_zh). Keyless. Parsing rule: one row per div.match_row: date from the month class
+        + ''MM/DD'', away/home from the team-home-N class, scores from the two ff8bit cells, gid from
+        the /game/ link (cross-checked with trackGame()). One template for all four stages; only the path
+        word changes (pre-season, regular-season, playoffs, finals). A stage a season does not have returns
+        a page with zero games (2025-26 pre-season, 2026-27 playoffs and finals), which the capture refuses.
+        Away team first, home team second: the score cells read away then home, the opposite of the box''s
+        home-first keys.'
       operationId: get_pleague_schedule_playoffs_season
       parameters:
       - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
@@ -2096,14 +2206,19 @@ paths:
       summary: 'Playoff schedule and results of one season: every game, parsed'
   /schedule-pre-season/{season}:
     get:
-      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
-        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
-        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
-        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
-        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
-        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
-        finals), which the capture refuses. Away team first, home team second: the score cells read away
-        then home, the opposite of the box''s home-first keys.'
+      description: 'Pre-season (熱身賽, exhibition) games, played in the weeks before the season; they have
+        box scores (and play-by-play from 2022-23) like any other game but do not count in the standings.
+        Seasons with the stage (gid range, games): 2020-21 (1-12, 12), 2021-22 (163-173, 11), 2022-23
+        (191-196, 6), 2023-24 (417-422, 6), 2024-25 (594-597, 4). 2025-26 and 2026-27 have none: the page
+        answers 200 with zero games, which the capture refuses. text/html (server-rendered), parsed by
+        capture.py into the JSON record of x-parsed-schema (English keys, Traditional Chinese values kept
+        as *_zh). Keyless. Parsing rule: one row per div.match_row: date from the month class + ''MM/DD'',
+        away/home from the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link
+        (cross-checked with trackGame()). One template for all four stages; only the path word changes
+        (pre-season, regular-season, playoffs, finals). A stage a season does not have returns a page
+        with zero games (2025-26 pre-season, 2026-27 playoffs and finals), which the capture refuses.
+        Away team first, home team second: the score cells read away then home, the opposite of the box''s
+        home-first keys.'
       operationId: get_pleague_schedule_pre_season_season
       parameters:
       - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the
@@ -2133,14 +2248,17 @@ paths:
       summary: 'Pre-season (exhibition) schedule and results of one season: every game, parsed'
   /schedule-regular-season/{season}:
     get:
-      description: 'text/html (server-rendered), parsed by capture.py into the JSON record of x-parsed-schema
-        (English keys, Traditional Chinese values kept as *_zh). Keyless. Parsing rule: one row per div.match_row:
-        date from the month class + ''MM/DD'', away/home from the team-home-N class, scores from the two
-        ff8bit cells, gid from the /game/ link (cross-checked with trackGame()). One template for all
-        four stages; only the path word changes (pre-season, regular-season, playoffs, finals). A stage
-        a season does not have returns a page with zero games (2025-26 pre-season, 2026-27 playoffs and
-        finals), which the capture refuses. Away team first, home team second: the score cells read away
-        then home, the opposite of the box''s home-first keys.'
+      description: 'Regular-season (例行賽) games: the standings games. Seasons (gid range, games): 2020-21
+        (13-60, 48), 2021-22 (73-162, 89), 2022-23 (197-316, 120), 2023-24 (423-542, 120), 2024-25 (598-649,
+        48), 2025-26 (662-709, 48), 2026-27 (722-781, 60, scheduled: every row is `is_future` with 0-0).
+        2019-20 and earlier redirect (302) to /schedule. text/html (server-rendered), parsed by capture.py
+        into the JSON record of x-parsed-schema (English keys, Traditional Chinese values kept as *_zh).
+        Keyless. Parsing rule: one row per div.match_row: date from the month class + ''MM/DD'', away/home
+        from the team-home-N class, scores from the two ff8bit cells, gid from the /game/ link (cross-checked
+        with trackGame()). One template for all four stages; only the path word changes (pre-season, regular-season,
+        playoffs, finals). A stage a season does not have returns a page with zero games (2025-26 pre-season,
+        2026-27 playoffs and finals), which the capture refuses. Away team first, home team second: the
+        score cells read away then home, the opposite of the box''s home-first keys.'
       operationId: get_pleague_schedule_regular_season_season
       parameters:
       - description: Season slug '2024-25' (START year, END year's last two digits); the sdv key is the

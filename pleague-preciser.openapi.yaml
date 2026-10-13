@@ -23,7 +23,11 @@ components:
                 description: Team logo URL.
                 type: string
               name:
-                description: Team short name in Traditional Chinese ('攻城獅').
+                description: 'Team short name in Traditional Chinese (''攻城獅'' = Lioneers). Names seen:
+                  臺北富邦勇士 = Taipei Fubon Braves, 桃園璞園領航猿 = Taoyuan Pauian Pilots, 新竹御頂攻城獅 = Hsinchu Toplus
+                  Lioneers, 福爾摩沙夢想家 = Formosa Dreamers, 高雄鋼鐵人 = Kaohsiung 17LIVE Steelers, 新北國王 = New
+                  Taipei Kings, 臺南台鋼獵鷹 = Tainan TSG Ghosthawks; the short forms (勇士 領航猿 攻城獅 夢想家 鋼鐵人 國王
+                  獵鷹 洋基工程) are in the club table at the top of this file.'
                 type: string
             type: object
           game_id:
@@ -50,7 +54,11 @@ components:
                 description: Team logo URL.
                 type: string
               name:
-                description: Team short name in Traditional Chinese ('攻城獅').
+                description: 'Team short name in Traditional Chinese (''攻城獅'' = Lioneers). Names seen:
+                  臺北富邦勇士 = Taipei Fubon Braves, 桃園璞園領航猿 = Taoyuan Pauian Pilots, 新竹御頂攻城獅 = Hsinchu Toplus
+                  Lioneers, 福爾摩沙夢想家 = Formosa Dreamers, 高雄鋼鐵人 = Kaohsiung 17LIVE Steelers, 新北國王 = New
+                  Taipei Kings, 臺南台鋼獵鷹 = Tainan TSG Ghosthawks; the short forms (勇士 領航猿 攻城獅 夢想家 鋼鐵人 國王
+                  獵鷹 洋基工程) are in the club table at the top of this file.'
                 type: string
             type: object
           injury_report:
@@ -85,7 +93,11 @@ components:
                 description: Team logo URL.
                 type: string
               name:
-                description: Team full name in Traditional Chinese.
+                description: 'Team full name in Traditional Chinese. Names seen: 臺北富邦勇士 = Taipei Fubon
+                  Braves, 桃園璞園領航猿 = Taoyuan Pauian Pilots, 新竹御頂攻城獅 = Hsinchu Toplus Lioneers, 福爾摩沙夢想家
+                  = Formosa Dreamers, 高雄鋼鐵人 = Kaohsiung 17LIVE Steelers, 新北國王 = New Taipei Kings, 臺南台鋼獵鷹
+                  = Tainan TSG Ghosthawks; the short forms (勇士 領航猿 攻城獅 夢想家 鋼鐵人 國王 獵鷹 洋基工程) are in the
+                  club table at the top of this file.'
                 type: string
             type: object
           fast_break_points:
@@ -125,7 +137,11 @@ components:
                 description: Team logo URL.
                 type: string
               name:
-                description: Team full name in Traditional Chinese.
+                description: 'Team full name in Traditional Chinese. Names seen: 臺北富邦勇士 = Taipei Fubon
+                  Braves, 桃園璞園領航猿 = Taoyuan Pauian Pilots, 新竹御頂攻城獅 = Hsinchu Toplus Lioneers, 福爾摩沙夢想家
+                  = Formosa Dreamers, 高雄鋼鐵人 = Kaohsiung 17LIVE Steelers, 新北國王 = New Taipei Kings, 臺南台鋼獵鷹
+                  = Tainan TSG Ghosthawks; the short forms (勇士 領航猿 攻城獅 夢想家 鋼鐵人 國王 獵鷹 洋基工程) are in the
+                  club table at the top of this file.'
                 type: string
             type: object
           home_team_probability_over_time:
@@ -589,9 +605,9 @@ components:
             items:
               properties:
                 id:
-                  description: 'id (key space: Preciser persons, a uuid; the same value as players[].id
-                    in api.preciser.io /v1/chart-data and the join key between the box and the shot list).
-                    Equal to the site box''s personId.'
+                  description: 'Preciser person uuid (key space: Preciser persons). Equal to the personId
+                    of the same player''s row in the site box (/api/boxscore.preciser.php, 2022-23 onward);
+                    that is the join. Referenced by shot.[].player.'
                   type: string
                 logo_url:
                   description: Player photo URL ('' when none).
