@@ -921,7 +921,9 @@ components:
                             type: object
                           type: array
                         teamInfo:
-                          description: Club info (founded year, social media pages) or null.
+                          description: 'Club info (founded year, social media pages): an object that is
+                            often EMPTY ({}) or null on a team record; never absent in the full bodies
+                            checked (2002/03-2026/27).'
                           properties: {}
                           type: object
                         teamMedia:
@@ -1594,7 +1596,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties: {}
                   type: object
                 teamMedia:
@@ -1641,7 +1644,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete_single`
@@ -3922,8 +3925,9 @@ components:
             x-absent-in-some-rows: true
           qualifiers:
             description: 'Qualifier flags of the event (fastbreak, fromturnover, pointsinthepaint, 2ndchance,
-              ...). A JSON array in recent games; a single comma-less string or null in some older ones
-              (types in the table). Values: `1freethrow` = the foul awards 1 free throw; `2freethrow`
+              ...). A JSON array in recent games; a single string in older games, several flags joined
+              by '';'' (e.g. ''shooting;2freethrow'', ''fromturnover;pointsinthepaint;fastbreak''), or
+              null (types in the table). Values: `1freethrow` = the foul awards 1 free throw; `2freethrow`
               = the foul awards 2 free throws; `2ndchance` = second-chance shot (after an offensive rebound);
               `3freethrow` = the foul awards 3 free throws; `blocked` = the shot was blocked; `category1`
               = foul category 1 (unverified); `confirmed` = the period or game end was confirmed; `double`
@@ -5313,7 +5317,8 @@ components:
                   type: object
                 type: array
               teamInfo:
-                description: Club info (founded year, social media pages) or null.
+                description: 'Club info (founded year, social media pages): an object that is often EMPTY
+                  ({}) or null on a team record; never absent in the full bodies checked (2002/03-2026/27).'
                 properties:
                   facebook:
                     description: Club Facebook page.
@@ -5821,7 +5826,8 @@ components:
             items:
               properties:
                 Attendance:
-                  description: Attendance (null when not recorded).
+                  description: Attendance as an integer; present and non-null on all 706 rows of the six
+                    seasons sampled (2012/13-2026/27).
                   type: integer
                 DateTime:
                   description: Start time 'YYYY-MM-DD HH:MM:SS', LOCAL (Europe/Copenhagen) wall time with
@@ -6040,7 +6046,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -6099,7 +6106,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `game`
@@ -6558,7 +6565,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -6623,7 +6631,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -7105,7 +7113,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -7170,7 +7179,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -7631,7 +7640,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -7696,7 +7706,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -8176,7 +8186,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -8241,7 +8252,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -8727,7 +8738,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -8792,7 +8804,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -9256,7 +9268,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -9321,7 +9334,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -9801,7 +9814,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -9866,7 +9880,7 @@ components:
             x-keyed-by: '{team_key}'
           totalCount:
             description: Rows the full table has. A players table cut by a small `count` keeps the full
-              number here; teams and standings tables omit it (null).
+              number here; teams and standings tables carry the key with the value null (never absent).
             type: integer
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `athlete`
@@ -10366,7 +10380,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -10432,7 +10447,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -10899,7 +10914,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -10959,7 +10975,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -11474,7 +11490,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -11540,7 +11557,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -12065,7 +12082,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -12131,7 +12149,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -12221,7 +12239,7 @@ components:
                   description: Fouls drawn (0 in every row seen; unverified).
                   type: integer
                 FDAvg:
-                  description: Fouls drawn per game.
+                  description: Fouls drawn per game (unverified, as FD).
                   type: integer
                 FO:
                   description: Fouls-out count (unverified).
@@ -12699,7 +12717,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -12765,7 +12784,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -13281,7 +13300,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -13347,7 +13367,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -13922,7 +13942,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -13988,7 +14009,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -14509,7 +14530,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -14575,7 +14597,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -15087,7 +15109,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -15153,7 +15176,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -15662,7 +15685,8 @@ components:
                     type: object
                   type: array
                 teamInfo:
-                  description: Club info (empty or null).
+                  description: 'Club info: an object (often EMPTY, {}) or null; never absent in the full
+                    bodies checked (2002/03-2026/27).'
                   properties:
                     facebook:
                       description: Club Facebook page.
@@ -15728,7 +15752,7 @@ components:
           totalCount:
             description: 'Unobserved: null in every sample and every full body. When filled: Rows the
               full table has. A players table cut by a small `count` keeps the full number here; teams
-              and standings tables omit it (null).'
+              and standings tables carry the key with the value null (never absent).'
             x-unobserved: true
           type:
             description: 'Kind of the leader board, row or record (see the route notes). Values: `team`
@@ -16858,8 +16882,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): games_games.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_games_games
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -16893,8 +16918,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_defensive.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_defensive
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -16928,8 +16954,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_fieldGoal.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_fieldGoal
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -16963,8 +16990,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_foul.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_foul
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -16998,8 +17026,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_offensive.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_offensive
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17033,8 +17062,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_point.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_point
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17068,8 +17098,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_rebound.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_rebound
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17103,8 +17134,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): players_summary.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_players_summary
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17138,8 +17170,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): standings_standings.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_standings_standings
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17173,8 +17206,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_attendance.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_attendance
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17208,8 +17242,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_defensive.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_defensive
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17243,8 +17278,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_fieldGoal.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_fieldGoal
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17278,8 +17314,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_foul.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_foul
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17313,8 +17350,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_offensive.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_offensive
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17348,8 +17386,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_point.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_point
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17383,8 +17422,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_possession.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_possession
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17418,8 +17458,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_rebound.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_rebound
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
@@ -17453,8 +17494,9 @@ paths:
     get:
       description: 'Stats table of one module for an ssgt (players, teams, games, standings): teams_summary.
         The body is a one-item list. WITHOUT count=1000 only 50 rows come back; a players table keeps
-        its real totalCount (164) so the cut is visible there, teams and standings tables omit totalCount.
-        The capture refuses a table whose rows differ from totalCount.'
+        its real totalCount (164) so the cut is visible there, teams and standings tables carry totalCount:
+        null (the key is present, the value null). The capture refuses a table whose rows differ from
+        totalCount.'
       operationId: get_sportality_teams_summary
       parameters:
       - description: ssgt uuid. Without it the answer is an empty 200 body.
