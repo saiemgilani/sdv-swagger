@@ -1,0 +1,511 @@
+components:
+  schemas:
+    V2Leagues:
+      description: 'Leagues served by the API: vtb, vtbyouth, wbc.'
+      properties:
+        data:
+          description: Rows.
+          items:
+            properties:
+              images:
+                description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+                x-unobserved: true
+              league:
+                description: 'League slug used in the paths: ''vtb'' (VTB United League), ''vtbyouth''
+                  (youth league), ''wbc'' (WINLINE Basket Cup).'
+                type: string
+              leagueAbbrev:
+                description: League abbreviation in Russian and English ('ЕЛ ВТБ' = 'VTB UL').
+                properties:
+                  en:
+                    description: English text.
+                    type: string
+                  ru:
+                    description: Russian text.
+                    type: string
+                type: object
+              leagueId:
+                description: v2 league id (1 vtb, 2 vtbyouth, 3 wbc). Not an Infobasket id.
+                type: integer
+              leagueName:
+                description: League name in Russian and English.
+                properties:
+                  en:
+                    description: English text.
+                    type: string
+                  ru:
+                    description: Russian text.
+                    type: string
+                type: object
+            type: object
+          type: array
+        meta:
+          description: Response envelope.
+          properties:
+            code:
+              description: HTTP-style status code (200).
+              type: integer
+            count:
+              description: 'Rows returned in `data` (NOT a total: a body whose count reaches `limit` may
+                be cut off).'
+              type: integer
+            limit:
+              description: Row limit applied (`limit` param; default 20).
+              type: integer
+            page:
+              description: 'Always 1: the `page` param is ignored (use `offset`).'
+              type: integer
+            request:
+              description: The requested URL, echoed (http scheme).
+              type: string
+            status:
+              description: '''success'' on data bodies.'
+              type: string
+            time:
+              description: Server time when served, Unix epoch seconds.
+              type: integer
+            version:
+              description: API version (2).
+              type: integer
+          type: object
+      type: object
+    V2LeaguesLeagueSeasons:
+      description: Seasons of one league (new seasons only).
+      properties:
+        data:
+          description: Rows.
+          items:
+            properties:
+              isCurrent:
+                description: True for the current season.
+                type: boolean
+              league:
+                description: League slug, echoed.
+                type: string
+              season:
+                description: Season END year (2026 = 2025-26); the sdv season key and the `{season}` path
+                  param.
+                type: integer
+              seasonAbbrev:
+                description: Season abbreviation ('25/26').
+                type: string
+              seasonName:
+                description: Season name ('Season 2025/2026').
+                type: string
+            type: object
+          type: array
+        meta:
+          description: Response envelope.
+          properties:
+            code:
+              description: HTTP-style status code (200).
+              type: integer
+            count:
+              description: 'Rows returned in `data` (NOT a total: a body whose count reaches `limit` may
+                be cut off).'
+              type: integer
+            limit:
+              description: Row limit applied (`limit` param; default 20).
+              type: integer
+            page:
+              description: 'Always 1: the `page` param is ignored (use `offset`).'
+              type: integer
+            request:
+              description: The requested URL, echoed (http scheme).
+              type: string
+            status:
+              description: '''success'' on data bodies.'
+              type: string
+            time:
+              description: Server time when served, Unix epoch seconds.
+              type: integer
+            version:
+              description: API version (2).
+              type: integer
+          type: object
+      type: object
+    V2LeaguesLeagueSeasonsSeasonMatches:
+      description: Every match of one league-season.
+      properties:
+        data:
+          description: Rows.
+          items:
+            properties:
+              attendance:
+                description: Spectators (null when not recorded).
+                type:
+                - integer
+                - 'null'
+              competition:
+                description: 'Competition slug: ''vtb'' (league games), ''vtb-supercup'', ''vtb-allstars'',
+                  ''wbc''.'
+                type: string
+              competitors:
+                description: The two teams.
+                items:
+                  properties:
+                    images:
+                      description: Team logo renditions.
+                      properties:
+                        logo:
+                          description: Logo renditions by size code.
+                          properties:
+                            M1:
+                              description: One logo rendition (T1 75 px, S1 200 px, M1 400 px).
+                              properties:
+                                height:
+                                  description: Image height in pixels.
+                                  type: integer
+                                size:
+                                  description: Rendition code (T1, S1, M1).
+                                  type: string
+                                url:
+                                  description: Resized image URL on img.vtb-league.com.
+                                  type: string
+                                width:
+                                  description: Image width in pixels.
+                                  type: integer
+                              type: object
+                            S1:
+                              description: One logo rendition (T1 75 px, S1 200 px, M1 400 px).
+                              properties:
+                                height:
+                                  description: Image height in pixels.
+                                  type: integer
+                                size:
+                                  description: Rendition code (T1, S1, M1).
+                                  type: string
+                                url:
+                                  description: Resized image URL on img.vtb-league.com.
+                                  type: string
+                                width:
+                                  description: Image width in pixels.
+                                  type: integer
+                              type: object
+                            T1:
+                              description: One logo rendition (T1 75 px, S1 200 px, M1 400 px).
+                              properties:
+                                height:
+                                  description: Image height in pixels.
+                                  type: integer
+                                size:
+                                  description: Rendition code (T1, S1, M1).
+                                  type: string
+                                url:
+                                  description: Resized image URL on img.vtb-league.com.
+                                  type: string
+                                width:
+                                  description: Image width in pixels.
+                                  type: integer
+                              type: object
+                          type: object
+                      type: object
+                    isHomeCompetitor:
+                      description: True for the home team.
+                      type: boolean
+                    regionName:
+                      description: Team city in Russian and English.
+                      properties:
+                        en:
+                          description: English text.
+                          type: string
+                        ru:
+                          description: Russian text.
+                          type: string
+                      type: object
+                    scoreString:
+                      description: Final points (an integer despite the name; 0 before the game).
+                      type: integer
+                    teamCode:
+                      description: Team short name in Russian and English.
+                      properties:
+                        en:
+                          description: English text.
+                          type: string
+                        ru:
+                          description: Russian text.
+                          type: string
+                      type: object
+                    teamId:
+                      description: Team id; equals the Infobasket TeamID.
+                      type: integer
+                    teamName:
+                      description: Team name in Russian and English.
+                      properties:
+                        en:
+                          description: English text.
+                          type: string
+                        ru:
+                          description: Russian text.
+                          type: string
+                      type: object
+                  type: object
+                type: array
+              customValues:
+                description: Site-specific extras.
+                properties:
+                  subtitle:
+                    description: Display subtitle in Russian and English ('Суперкубок 2025' = 'Supercup
+                      2025').
+                    properties:
+                      en:
+                        description: English text.
+                        type: string
+                      ru:
+                        description: Russian text.
+                        type: string
+                    type: object
+                type: object
+              duration:
+                description: Game duration; 0 in every sample (unverified).
+                type: integer
+              extraPeriodsUsed:
+                description: True when the game went to overtime.
+                type: boolean
+              hostingTeamId:
+                description: Home team id (Infobasket TeamID).
+                type: integer
+              isTimeSet:
+                description: True when the tip-off time is fixed.
+                type: boolean
+              league:
+                description: League slug, echoed.
+                type: string
+              matchId:
+                description: Match id; equals the Infobasket GameID (/Widget/GetOnline/{gameId}).
+                type: integer
+              matchNumber:
+                description: Game number ('1/2-2' = semi-final 2; regular-season numbers otherwise).
+                type: string
+              matchStatus:
+                description: 'Status: SCHEDULED, IN_PROGRESS, COMPLETE, POSTPONED, CANCELLED, UNKNOWN
+                  (the site filters on the first four).'
+                type: string
+              matchTime:
+                description: Tip-off in venue local time, ISO 8601 with offset.
+                type: string
+              matchTimeMSK:
+                description: Tip-off in Moscow time (UTC+3), ISO 8601.
+                type: string
+              matchTimeUTC:
+                description: Tip-off in UTC, ISO 8601.
+                type: string
+              matchType:
+                description: 'Game type: REGULAR, FINALS (any playoff or cup knockout game), ALLSTARS.'
+                type: string
+              periods:
+                description: Periods played (4 in regulation).
+                type: integer
+              phaseId:
+                description: v2 phase id of the stage (not an Infobasket CompID).
+                type: integer
+              phaseName:
+                description: Stage name in Russian and English ('1/2 финала (1)' = '1/2 finals (1)').
+                properties:
+                  en:
+                    description: English text.
+                    type: string
+                  ru:
+                    description: Russian text.
+                    type: string
+                type: object
+              pointsByQuarters:
+                description: 'Points per period as [home, away] pairs; null before the game. The home
+                  team (isHomeCompetitor true) is listed first in `competitors` on every probed row (vtb
+                  seasons 2025 and 2026, wbc 2026: 620 of 620), and the first value of each pair summed
+                  to that team''s score on every finished one.'
+                items:
+                  items:
+                    type: integer
+                  type: array
+                type:
+                - array
+                - 'null'
+              season:
+                description: Season END year, echoed.
+                type: integer
+              timeActual:
+                description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+                x-unobserved: true
+              timeEndActual:
+                description: 'Unobserved: null in every sample, so its type and meaning are unconfirmed.'
+                x-unobserved: true
+              venue:
+                description: Venue of the game (arena and city).
+                properties:
+                  regionName:
+                    description: Venue city in Russian and English.
+                    properties:
+                      en:
+                        description: English text.
+                        type: string
+                      ru:
+                        description: Russian text.
+                        type: string
+                    type: object
+                  venueId:
+                    description: Venue id; equals the Infobasket arena id (ArenaId).
+                    type: integer
+                  venueName:
+                    description: Venue name in Russian and English.
+                    properties:
+                      en:
+                        description: English text.
+                        type: string
+                      ru:
+                        description: Russian text.
+                        type: string
+                    type: object
+                type: object
+              venueId:
+                description: Venue id; equals the Infobasket arena id (ArenaId).
+                type: integer
+            type: object
+          type: array
+        meta:
+          description: Response envelope.
+          properties:
+            code:
+              description: HTTP-style status code (200).
+              type: integer
+            count:
+              description: 'Rows returned in `data` (NOT a total: a body whose count reaches `limit` may
+                be cut off).'
+              type: integer
+            limit:
+              description: Row limit applied (`limit` param; default 20).
+              type: integer
+            page:
+              description: 'Always 1: the `page` param is ignored (use `offset`).'
+              type: integer
+            request:
+              description: The requested URL, echoed (http scheme).
+              type: string
+            status:
+              description: '''success'' on data bodies.'
+              type: string
+            time:
+              description: Server time when served, Unix epoch seconds.
+              type: integer
+            version:
+              description: API version (2).
+              type: integer
+          type: object
+      type: object
+info:
+  description: 'The schedule API behind vtb-league.com (route from the site''s carousel bundle): leagues,
+    seasons, and every match of a league-season with scores by quarter, venue and status. Keyless. New
+    seasons only (vtb 2025 on). `matchId` equals the Infobasket GameID and `teamId` the Infobasket TeamID:
+    box scores and play-by-play are in vtb-infobasket.openapi.yaml. Shapes from committed captures in
+    vtb/captures/api/ (2026-10-12). Season key: END year (2026 = 2025-26), the sdv key, on both backends.
+    Owner flag: Russian league operator (VTB United League) and Russian federation platform (Infobasket).
+    Wrappers that fetch on the user''s machine are fine; any published data release, hosted mirror or
+    redistribution needs owner (sanctions/legal) sign-off first. Not official or supported.'
+  title: VTB United League site API (api.vtb-league.com/v2)
+  version: '2026-10-12'
+openapi: 3.1.0
+paths:
+  /v2/leagues:
+    get:
+      description: 'Sampled: (no params). The body echoes nothing to scope-check against the request.'
+      operationId: v2_leagues
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Leagues'
+          description: OK
+        '404':
+          content:
+            text/html:
+              schema: &id001
+                type: string
+          description: 'Unknown league or route: an HTML ''Page Not Found'' page.'
+      summary: 'Leagues served by the API: vtb, vtbyouth, wbc'
+  /v2/leagues/{league}/seasons:
+    get:
+      description: 'Sampled: league=vtb; league=wbc.'
+      operationId: v2_leagues_league_seasons
+      parameters:
+      - description: 'League slug: vtb (VTB United League), vtbyouth (youth league), wbc (WINLINE Basket
+          Cup).'
+        example: vtb
+        in: path
+        name: league
+        required: true
+        schema: &id002
+          enum:
+          - vtb
+          - vtbyouth
+          - wbc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2LeaguesLeagueSeasons'
+          description: OK
+        '404':
+          content:
+            text/html:
+              schema: *id001
+          description: 'Unknown league or route: an HTML ''Page Not Found'' page.'
+      summary: Seasons of one league (new seasons only)
+  /v2/leagues/{league}/seasons/{season}/matches:
+    get:
+      description: 'Sampled: league=vtb&season=2026&limit=1000; league=wbc&season=2026&limit=1000. New
+        seasons only: vtb 2025-2027 answer rows, 2010-2024 answer 0 rows. Unknown league or route: HTML
+        404.'
+      operationId: v2_leagues_league_seasons_season_matches
+      parameters:
+      - description: 'League slug: vtb (VTB United League), vtbyouth (youth league), wbc (WINLINE Basket
+          Cup).'
+        example: vtb
+        in: path
+        name: league
+        required: true
+        schema: *id002
+      - description: 'Season END year (2026 = 2025-26). The API holds 2025 on (vtb: 2025-2027; wbc: 2026-2027);
+          older seasons answer 0 rows.'
+        example: 2026
+        in: path
+        name: season
+        required: true
+        schema: &id003
+          type: integer
+      - description: 'Rows to return (default 20). Ask for 1000: `meta.count` is the rows returned, so
+          a body whose count reaches the limit may be cut off.'
+        example: 1000
+        in: query
+        name: limit
+        required: false
+        schema: *id003
+      - description: Rows to skip (works; `page` is ignored).
+        in: query
+        name: offset
+        required: false
+        schema: *id003
+      - description: Comma-separated projection, dotted for nested fields (`matchId,competitors.teamName,matchStatus`);
+          the site also asks for live, bet, ticket.* and customValues.*.
+        in: query
+        name: fields
+        required: false
+        schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2LeaguesLeagueSeasonsSeasonMatches'
+          description: OK
+        '404':
+          content:
+            text/html:
+              schema: *id001
+          description: 'Unknown league or route: an HTML ''Page Not Found'' page.'
+      summary: Every match of one league-season
+servers:
+- url: https://api.vtb-league.com
