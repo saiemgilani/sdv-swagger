@@ -613,9 +613,9 @@ components:
               - string
               - 'null'
             playerName:
-              description: 'Unobserved: null in every sample. When filled: full player name (Chinese,
-                may include the first name: 贾卡尔-桑普森). Null on some rows (the short name is in playerNameStr).'
-              x-unobserved: true
+              description: 'Full player name (Chinese, may include the first name: 贾卡尔-桑普森). Null on some
+                rows (the short name is in playerNameStr).'
+              type: string
             playerNameStr:
               description: 'Short display name (Chinese surname form: 桑普森).'
               type: string
@@ -672,7 +672,9 @@ components:
               type: string
             playerImg:
               description: Absolute URL of the player's photo; null when there is none.
-              type: string
+              type:
+              - string
+              - 'null'
             playerName:
               description: 'Full player name (Chinese, may include the first name: 贾卡尔-桑普森). Null on some
                 rows (the short name is in playerNameStr).'
@@ -1538,7 +1540,8 @@ components:
                   whole-season total integer on the offensive/defensive/shot lists (827).'
                 type: string
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -1745,7 +1748,8 @@ components:
                   whole-season total integer on the offensive/defensive/shot lists (827).'
                 type: integer
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -1976,7 +1980,8 @@ components:
                   whole-season total integer on the offensive/defensive/shot lists (827).'
                 type: integer
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -2297,7 +2302,8 @@ components:
                   whole-season total integer on the offensive/defensive/shot lists (827).'
                 type: integer
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -2496,12 +2502,15 @@ components:
                 - 'null'
               lastName:
                 description: Family name in Latin letters; '' when none, and null on some older rows.
-                type: string
+                type:
+                - string
+                - 'null'
               matchTypeId:
                 description: Match type id (1 = regular season) of the registration.
                 type: integer
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -2654,7 +2663,8 @@ components:
                 description: Match type id (1 = regular season) of the registration.
                 type: integer
               nationality:
-                description: Nationality (Chinese), e.g. 中国 China, 美国 USA.
+                description: Nationality (Chinese country name; see the nationality code table for every
+                  value seen and its English name).
                 type: string
               number:
                 description: Jersey number as a string.
@@ -2972,8 +2982,9 @@ components:
               season (2025 game -> 2024).'
             type: integer
           season:
-            description: 'Season of the table as a STRING (''2024''); equals scheduleSeason. NOT the season
-              of the game: the table is the PREVIOUS season''s.'
+            description: 'Season of the table as a STRING (''2024'' = the START year of 2024-25; sdv END
+              year = value + 1); equals scheduleSeason. NOT the season of the game: the table is the PREVIOUS
+              season''s.'
             type: string
           teamId:
             description: 'teamId (key space: CBA clubs; 5 digits 29115-29140 for the long-standing clubs,
@@ -3302,8 +3313,9 @@ components:
               season in progress or next), 2 = not the default.'
             type: integer
           key:
-            description: Season label 'YYYY-YYYY' (start year - end year), e.g. '2025-2026'. The list
-              runs from the upcoming season down to 1995-1996 with no gap.
+            description: Season label 'YYYY-YYYY' (START year - END year), e.g. '2025-2026'; the sdv season
+              key is the second year. The list runs from the upcoming season (2026-2027, 32 rows) down
+              to 1995-1996 with no gap.
             type: string
           value:
             description: Season START year (2025 = the 2025-26 season). The sdv season key is the END
@@ -3379,8 +3391,8 @@ components:
               year = season + 1; map at the boundary. One row per season of the team.
             type: integer
           season:
-            description: Season label 'YYYY-YYYY' as a string ('2024-2025'); scheduleSeason is the numeric
-              start year.
+            description: Season label 'YYYY-YYYY' as a string ('2024-2025' = start year - end year; the
+              sdv END year is the second one); scheduleSeason is the numeric START year.
             type: string
           steals:
             description: Steals, formatted by statisticalDimension, as a STRING.
@@ -3807,7 +3819,8 @@ components:
               year = season + 1; map at the boundary. One row per season of the team.
             type: integer
           season:
-            description: Season of the row as a STRING ('2025'); equals scheduleSeason.
+            description: Season of the row as a STRING ('2025' = the START year of 2025-26; sdv END year
+              = value + 1); equals scheduleSeason.
             type: string
           selfReboundsDefensive:
             description: Defensive rebounds by the team in the season (sum).
@@ -4602,10 +4615,11 @@ paths:
       summary: Player season defensive rates
   /api/player-match-datas/advance-count:
     post:
-      description: 'Advanced player box of a game: homes and visitings. In the 2025-26 sample every player
-        appears TWICE (26 rows for 12 players home, 22 for 12 visiting); the 2017-18 and 2009-10 samples
-        have one row per player. De-duplicate on playerId. The response is AES-128-ECB encrypted: see
-        x-encryption.'
+      description: 'Advanced player box of a game: homes and visitings. Rank columns are null on every
+        row of the 2017-18 and 2009-10 samples; the at-rim / mid-range columns are ''0/0'' strings on
+        2025-26, populated strings on 2017-18 and null on 2009-10; their Sort/Rank twins are null everywhere.
+        Rows of one player REPEAT in the 2025-26 sample (see the divergence notes). The response is AES-128-ECB
+        encrypted: see x-encryption.'
       operationId: post_cba_advance_count
       parameters:
       - description: Must be https://www.cbaleague.com/data/ (the site's own page); other values were
@@ -4686,9 +4700,9 @@ paths:
       summary: Player box score of a game (both sides, plus a team rebounds/turnovers row)
   /api/player-match-datas/schedule-other-data:
     post:
-      description: 'Fast-break, dunk and paint points per player: homePlayers and visitingPlayers. In
-        the 2025-26 sample every player appears TWICE (26 rows for 12 players home); the other samples
-        have one row per player. The response is AES-128-ECB encrypted: see x-encryption.'
+      description: 'Fast-break, dunk and paint points per player: homePlayers and visitingPlayers. fieldGoalsAtRimMade
+        is a POINTS count (油漆区得分 points in the paint) despite its name. Rows of one player REPEAT in the
+        2025-26 sample (see the divergence notes). The response is AES-128-ECB encrypted: see x-encryption.'
       operationId: post_cba_other_data
       parameters:
       - description: Must be https://www.cbaleague.com/data/ (the site's own page); other values were
