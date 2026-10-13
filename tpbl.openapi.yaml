@@ -50,7 +50,9 @@ components:
               = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
             type: string
           status:
-            description: Team status; 'ACTIVE' in every sample.
+            description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled route
+              (the lists and rosters of all three seasons, standings, game details and game logs, placeholder
+              teams included); no other value was seen, so the set of statuses is unknown.
             type: string
           ticket_url:
             description: 'Unobserved: null in every sample, so no type and no meaning is claimed.'
@@ -111,7 +113,9 @@ components:
                 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
               type: string
             status:
-              description: Team status; 'ACTIVE' in every sample.
+              description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                route (the lists and rosters of all three seasons, standings, game details and game logs,
+                placeholder teams included); no other value was seen, so the set of statuses is unknown.
               type: string
             won_score:
               description: Points this team scored in the game (the final score). Absent before tip-off.
@@ -201,7 +205,9 @@ components:
                 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
               type: string
             status:
-              description: Team status; 'ACTIVE' in every sample.
+              description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                route (the lists and rosters of all three seasons, standings, game details and game logs,
+                placeholder teams included); no other value was seen, so the set of statuses is unknown.
               type: string
             won_score:
               description: Points this team scored in the game (the final score). Absent before tip-off.
@@ -216,26 +222,28 @@ components:
           description: True while the game is being played; false for finished and scheduled games.
           type: boolean
         meta:
-          description: Links and attendance of the game. In the game list some rows lack the keys that
-            /games/{game_id} always carries.
+          description: Links and attendance of the game. The game list lacks some of these keys on some
+            rows (see each key); /games/{game_id} carries them all.
           properties:
             judgement_report:
-              description: URL of the referees' judgement report (a Google Drive file); absent on most
-                rows.
+              description: 'URL of the referees'' judgement report (a Google Drive file): a string, present
+                in the four sampled game details.'
               type: string
             live_stream_url:
-              description: YouTube live-stream URL of the game; absent on some rows.
+              description: 'YouTube live-stream URL of the game: a string, always present in the four
+                sampled game details.'
               type: string
             recap:
-              description: YouTube recap URL; null or absent when none is posted.
+              description: 'YouTube recap URL: a string, always present in the four sampled game details
+                (neither null nor absent was seen).'
               type: string
             ticket_url:
-              description: URL of the ticket page; null when none is listed.
+              description: URL of the ticket page; null or a string, always present.
               type:
               - string
               - 'null'
             visitors:
-              description: Attendance as a string (e.g. '5659'); null before it is entered.
+              description: Attendance as a string (e.g. '5659'); null or a string, always present.
               type:
               - string
               - 'null'
@@ -1152,7 +1160,7 @@ components:
                         type: boolean
                       lost_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       name:
@@ -1393,12 +1401,12 @@ components:
                         x-absent-in-some-rows: true
                       total_lost_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       total_won_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       travel_turnovers:
@@ -1640,7 +1648,7 @@ components:
                         x-absent-in-some-rows: true
                       won_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                     type: object
@@ -1712,7 +1720,8 @@ components:
                           with one decimal ('57.1'); '0.0' without attempts.
                         type: string
                       lost_score:
-                        description: Points the team conceded in this quarter alone. null on player rows.
+                        description: 'Team-row field: points the team conceded in this quarter alone.
+                          Not a player stat.'
                         type: integer
                       offensive_fouls:
                         description: Fouls committed on offense by the team in this quarter.
@@ -1764,12 +1773,12 @@ components:
                           5 x 300 s (5-minute overtime).'
                         type: integer
                       total_lost_score:
-                        description: Points the team has conceded up to and including this quarter. null
-                          on player rows.
+                        description: 'Team-row field: points the team has conceded up to and including
+                          this quarter. Not a player stat.'
                         type: integer
                       total_won_score:
-                        description: Points the team has scored up to and including this quarter (the
-                          last quarter's value is the final score). null on player rows.
+                        description: 'Team-row field: points the team has scored up to and including this
+                          quarter (the last quarter''s value is the final score). Not a player stat.'
                         type: integer
                       turnovers:
                         description: Turnovers committed by the team in this quarter; equals the sum of
@@ -1793,8 +1802,8 @@ components:
                           as a string with one decimal ('57.1'); '0.0' without attempts.
                         type: string
                       won_score:
-                        description: Points the team scored in this quarter alone. null on player rows
-                          (the field exists only on team rows).
+                        description: 'Team-row field: points the team scored in this quarter alone. Player
+                          stat lines carry no value for it.'
                         type: integer
                     type: object
                   description: Team stat lines by quarter, keyed by quarter number as a string ('1'-'4',
@@ -1862,7 +1871,8 @@ components:
                         string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     lost_score:
-                      description: Points the team conceded in this quarter alone. null on player rows.
+                      description: 'Team-row field: points the team conceded in the whole game (the opponent''s
+                        final score).'
                       type: integer
                     offensive_fouls:
                       description: Fouls committed on offense by the team over the whole game.
@@ -1905,12 +1915,12 @@ components:
                         as a string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     total_lost_score:
-                      description: Points the team has conceded up to and including this quarter. null
-                        on player rows.
+                      description: 'Team-row field: points the team conceded in the whole game (equals
+                        lost_score on this line).'
                       type: integer
                     total_won_score:
-                      description: Points the team has scored up to and including this quarter (the last
-                        quarter's value is the final score). null on player rows.
+                      description: 'Team-row field: points the team scored in the whole game (the final
+                        score; equals won_score on this line).'
                       type: integer
                     turnovers:
                       description: Turnovers committed by the team over the whole game; equals the sum
@@ -1934,8 +1944,8 @@ components:
                         as a string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     won_score:
-                      description: Points the team scored in this quarter alone. null on player rows (the
-                        field exists only on team rows).
+                      description: 'Team-row field: points the team scored in the whole game (the final
+                        score).'
                       type: integer
                   type: object
               type: object
@@ -2810,7 +2820,7 @@ components:
                         type: boolean
                       lost_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       name:
@@ -3051,12 +3061,12 @@ components:
                         x-absent-in-some-rows: true
                       total_lost_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       total_won_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                       travel_turnovers:
@@ -3298,7 +3308,7 @@ components:
                         x-absent-in-some-rows: true
                       won_score:
                         description: 'Unobserved: null in every sample, so no type and no meaning is claimed.
-                          The key is only filled on team quarter lines.'
+                          Team-row field: the key is only filled on team lines.'
                         x-absent-in-some-rows: true
                         x-unobserved: true
                     type: object
@@ -3370,7 +3380,8 @@ components:
                           with one decimal ('57.1'); '0.0' without attempts.
                         type: string
                       lost_score:
-                        description: Points the team conceded in this quarter alone. null on player rows.
+                        description: 'Team-row field: points the team conceded in this quarter alone.
+                          Not a player stat.'
                         type: integer
                       offensive_fouls:
                         description: Fouls committed on offense by the team in this quarter.
@@ -3422,12 +3433,12 @@ components:
                           5 x 300 s (5-minute overtime).'
                         type: integer
                       total_lost_score:
-                        description: Points the team has conceded up to and including this quarter. null
-                          on player rows.
+                        description: 'Team-row field: points the team has conceded up to and including
+                          this quarter. Not a player stat.'
                         type: integer
                       total_won_score:
-                        description: Points the team has scored up to and including this quarter (the
-                          last quarter's value is the final score). null on player rows.
+                        description: 'Team-row field: points the team has scored up to and including this
+                          quarter (the last quarter''s value is the final score). Not a player stat.'
                         type: integer
                       turnovers:
                         description: Turnovers committed by the team in this quarter; equals the sum of
@@ -3451,8 +3462,8 @@ components:
                           as a string with one decimal ('57.1'); '0.0' without attempts.
                         type: string
                       won_score:
-                        description: Points the team scored in this quarter alone. null on player rows
-                          (the field exists only on team rows).
+                        description: 'Team-row field: points the team scored in this quarter alone. Player
+                          stat lines carry no value for it.'
                         type: integer
                     type: object
                   description: Team stat lines by quarter, keyed by quarter number as a string ('1'-'4',
@@ -3520,7 +3531,8 @@ components:
                         string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     lost_score:
-                      description: Points the team conceded in this quarter alone. null on player rows.
+                      description: 'Team-row field: points the team conceded in the whole game (the opponent''s
+                        final score).'
                       type: integer
                     offensive_fouls:
                       description: Fouls committed on offense by the team over the whole game.
@@ -3563,12 +3575,12 @@ components:
                         as a string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     total_lost_score:
-                      description: Points the team has conceded up to and including this quarter. null
-                        on player rows.
+                      description: 'Team-row field: points the team conceded in the whole game (equals
+                        lost_score on this line).'
                       type: integer
                     total_won_score:
-                      description: Points the team has scored up to and including this quarter (the last
-                        quarter's value is the final score). null on player rows.
+                      description: 'Team-row field: points the team scored in the whole game (the final
+                        score; equals won_score on this line).'
                       type: integer
                     turnovers:
                       description: Turnovers committed by the team over the whole game; equals the sum
@@ -3592,8 +3604,8 @@ components:
                         as a string with one decimal ('57.1'); '0.0' without attempts.
                       type: string
                     won_score:
-                      description: Points the team scored in this quarter alone. null on player rows (the
-                        field exists only on team rows).
+                      description: 'Team-row field: points the team scored in the whole game (the final
+                        score).'
                       type: integer
                   type: object
               type: object
@@ -4644,7 +4656,10 @@ components:
                       Mars).'
                     type: string
                   status:
-                    description: Team status; 'ACTIVE' in every sample.
+                    description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                      route (the lists and rosters of all three seasons, standings, game details and game
+                      logs, placeholder teams included); no other value was seen, so the set of statuses
+                      is unknown.
                     type: string
                   won_score:
                     description: Points this team scored in the game (the final score). Absent before
@@ -4726,7 +4741,10 @@ components:
                       Mars).'
                     type: string
                   status:
-                    description: Team status; 'ACTIVE' in every sample.
+                    description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                      route (the lists and rosters of all three seasons, standings, game details and game
+                      logs, placeholder teams included); no other value was seen, so the set of statuses
+                      is unknown.
                     type: string
                   won_score:
                     description: Points this team scored in the game (the final score). Absent before
@@ -4745,20 +4763,21 @@ components:
                 description: Links and attendance of the game.
                 properties:
                   judgement_report:
-                    description: URL of the referees' judgement report (a Google Drive file).
+                    description: 'URL of the referees'' judgement report (a Google Drive file): a string
+                      in every sampled row.'
                     type: string
                   live_stream_url:
-                    description: YouTube live-stream URL of the game.
+                    description: 'YouTube live-stream URL of the game: a string in every sampled row.'
                     type: string
                   recap:
-                    description: YouTube recap URL.
+                    description: 'YouTube recap URL: a string in every sampled row.'
                     type: string
                   ticket_url:
                     description: 'Unobserved: null in every sample. When filled: URL of the ticket page;
-                      null when none is listed.'
+                      null in every sampled row.'
                     x-unobserved: true
                   visitors:
-                    description: Attendance as a string.
+                    description: 'Attendance as a string: a string in every sampled row.'
                     type: string
                 type: object
               title:
@@ -4947,7 +4966,10 @@ components:
                       Mars).'
                     type: string
                   status:
-                    description: Team status; 'ACTIVE' in every sample.
+                    description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                      route (the lists and rosters of all three seasons, standings, game details and game
+                      logs, placeholder teams included); no other value was seen, so the set of statuses
+                      is unknown.
                     type: string
                 type: object
             type: object
@@ -5007,7 +5029,10 @@ components:
                   新北中信特攻 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
                 type: string
               status:
-                description: Team status; 'ACTIVE' in every sample.
+                description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                  route (the lists and rosters of all three seasons, standings, game details and game
+                  logs, placeholder teams included); no other value was seen, so the set of statuses is
+                  unknown.
                 type: string
             type: object
         type: object
@@ -5021,13 +5046,15 @@ components:
             description: True when the shot went in.
             type: boolean
           offense_basket:
-            description: 'Basket the team attacked: 0 = the hoop at x = 1575, 1 = the hoop at x = 26425.'
+            description: 'Basket the player''s team attacked: 0 = the hoop at x = 1575, 1 = the hoop at
+              x = 26425.'
             type: integer
           point_x:
             description: Shot position along the court length in MILLIMETRES, 0-28000 (a 28 m court).
-              Hoops sit at x = 1575 (offense_basket 0) and 26425 (offense_basket 1), the FIBA 1.575 m;
-              verified on 2,971 shots (the made rate within 1.2 m of the hoop is 62-71 %). Which baseline
-              is x = 0 is unverified.
+              Hoops sit at x = 1575 (offense_basket 0) and 26425 (offense_basket 1), the FIBA 1.575 m.
+              Same frame as the team route, where it was verified (2,971 shots); on this route it is only
+              checked to stay inside the court and on the side of the attacked hoop (a test walks every
+              committed shot). Which baseline is x = 0 is unverified.
             type: integer
           point_y:
             description: Shot position across the court in MILLIMETRES, 0-15000 (a 15 m court); the hoops
@@ -5182,7 +5209,10 @@ components:
                   新北中信特攻 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
                 type: string
               status:
-                description: Team status; 'ACTIVE' in every sample.
+                description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                  route (the lists and rosters of all three seasons, standings, game details and game
+                  logs, placeholder teams included); no other value was seen, so the set of statuses is
+                  unknown.
                 type: string
             type: object
         type: object
@@ -5244,7 +5274,10 @@ components:
                   新北中信特攻 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
                 type: string
               status:
-                description: Team status; 'ACTIVE' in every sample.
+                description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                  route (the lists and rosters of all three seasons, standings, game details and game
+                  logs, placeholder teams included); no other value was seen, so the set of statuses is
+                  unknown.
                 type: string
               won_score:
                 description: Points this team scored in the game (the final score). Absent before tip-off.
@@ -5337,7 +5370,10 @@ components:
                   新北中信特攻 = New Taipei CTBC DEA, 新北國王 = New Taipei Kings, 臺北台新戰神 = Taipei Mars).'
                 type: string
               status:
-                description: Team status; 'ACTIVE' in every sample.
+                description: Team status. 'ACTIVE' is the only value in the full bodies of every sampled
+                  route (the lists and rosters of all three seasons, standings, game details and game
+                  logs, placeholder teams included); no other value was seen, so the set of statuses is
+                  unknown.
                 type: string
               won_score:
                 description: Points this team scored in the game (the final score). Absent before tip-off.
@@ -5353,33 +5389,37 @@ components:
             description: True while the game is being played; false for finished and scheduled games.
             type: boolean
           meta:
-            description: Links and attendance of the game. In the game list some rows lack the keys that
-              /games/{game_id} always carries.
+            description: Links and attendance of the game. The game list lacks some of these keys on some
+              rows (see each key); /games/{game_id} carries them all.
             properties:
               judgement_report:
-                description: URL of the referees' judgement report (a Google Drive file); absent on most
-                  rows.
+                description: 'URL of the referees'' judgement report (a Google Drive file): a string on
+                  some rows; on the others it is null or the key is absent (both seen in the full season
+                  lists).'
                 type:
                 - string
                 - 'null'
                 x-absent-in-some-rows: true
               live_stream_url:
-                description: YouTube live-stream URL of the game; absent on some rows.
+                description: 'YouTube live-stream URL of the game: a string, never null; the key is absent
+                  on some rows.'
                 type: string
                 x-absent-in-some-rows: true
               recap:
-                description: YouTube recap URL; null or absent when none is posted.
+                description: 'YouTube recap URL: a string on rows with a recap; on the others it is null
+                  or the key is absent (both seen in the full season lists).'
                 type:
                 - string
                 - 'null'
                 x-absent-in-some-rows: true
               ticket_url:
-                description: URL of the ticket page; null when none is listed.
+                description: URL of the ticket page; null on some rows, a string on others, never absent.
                 type:
                 - string
                 - 'null'
               visitors:
-                description: Attendance as a string (e.g. '5659'); null before it is entered.
+                description: 'Attendance as a string (e.g. ''5659''): a string on played games; on the
+                  others it is null or the key is absent (both seen in the full season lists).'
                 type:
                 - string
                 - 'null'
@@ -5500,7 +5540,10 @@ components:
                         Mars).'
                       type: string
                     status:
-                      description: Team status; 'ACTIVE' in every sample.
+                      description: Team status. 'ACTIVE' is the only value in the full bodies of every
+                        sampled route (the lists and rosters of all three seasons, standings, game details
+                        and game logs, placeholder teams included); no other value was seen, so the set
+                        of statuses is unknown.
                       type: string
                   type: object
               type: object
@@ -5571,10 +5614,10 @@ components:
             description: 'Basket the team attacked: 0 = the hoop at x = 1575, 1 = the hoop at x = 26425.'
             type: integer
           point_x:
-            description: Shot position along the court length in MILLIMETRES, 0-28000 (a 28 m court).
-              Hoops sit at x = 1575 (offense_basket 0) and 26425 (offense_basket 1), the FIBA 1.575 m;
-              verified on 2,971 shots (the made rate within 1.2 m of the hoop is 62-71 %). Which baseline
-              is x = 0 is unverified.
+            description: 'Shot position along the court length in MILLIMETRES, 0-28000 (a 28 m court).
+              Hoops sit at x = 1575 (offense_basket 0) and 26425 (offense_basket 1), the FIBA 1.575 m.
+              Verified on the 2,971 shots of the team route (team 4, division 2): the made rate within
+              1.2 m of the hoop is 62-71 %. Which baseline is x = 0 is unverified.'
             type: integer
           point_y:
             description: Shot position across the court in MILLIMETRES, 0-15000 (a 15 m court); the hoops
@@ -5624,7 +5667,8 @@ paths:
   /divisions/{division_id}/players/{player_id}/shooting-spots:
     get:
       description: 'Every shot location of one player in one division. UNSCOPED: the body names no player
-        or division, so the capture banks it on the URL alone. (UNSCOPED (README).)'
+        or division. The capture ties it to the box scores instead: the shot count must equal the player''s
+        field-goal attempts in the division (player 75: 366 shots, 33 games). (UNSCOPED (README).)'
       operationId: get_tpbl_player_shots
       parameters:
       - description: 'TPBL division id (key space: divisions; see /events/{event_id}/divisions). Unknown
@@ -5636,7 +5680,7 @@ paths:
         schema:
           type: integer
       - description: 'TPBL player id (key space: players).'
-        example: 10
+        example: 75
         in: path
         name: player_id
         required: true
@@ -5690,9 +5734,10 @@ paths:
   /divisions/{division_id}/teams/{team_id}/shooting-spots:
     get:
       description: 'Every shot location of one team in one division (optionally per quarter). UNSCOPED:
-        the body names no team or division, so the capture banks it on the URL alone. The count was verified
-        once: 2,971 shots, 1,222 made, equal to the field-goal attempts and makes in the 36 games Hsinchu
-        (team 4) played in division 2. (UNSCOPED (README).)'
+        the body names no team or division, so the capture banks it on the URL alone. The capture ties
+        it to the box scores instead: the shot count must equal the team''s field-goal attempts in the
+        division (all quarters, or the requested quarters). Verified: 2,971 shots, 1,222 made, equal to
+        the attempts and makes in the 36 games Hsinchu (team 4) played in division 2. (UNSCOPED (README).)'
       operationId: get_tpbl_team_shots
       parameters:
       - description: 'TPBL division id (key space: divisions; see /events/{event_id}/divisions). Unknown
@@ -5840,12 +5885,14 @@ paths:
   /players/{player_id}/games/stats:
     get:
       description: A player's game log in one division, one row per game played. The division_id query
-        parameter is required (HTTP 422 without it). Rows are one game each; `rounds` is empty in every
-        sample. (scope-checked by capture.py.)
+        parameter is required (HTTP 422 without it; an unknown id answers HTTP 500 text/html). Rows are
+        one game each; `rounds` is empty in every sample. The capture requires the rows to be exactly
+        the finished games of the division in which the player is on court in the box score, with the
+        same field-goal attempts. (scope-checked by capture.py.)
       operationId: get_tpbl_player_games
       parameters:
       - description: 'TPBL player id (key space: players).'
-        example: 10
+        example: 75
         in: path
         name: player_id
         required: true
