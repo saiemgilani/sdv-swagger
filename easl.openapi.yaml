@@ -7,7 +7,8 @@ components:
       properties:
         boxScore:
           description: One row per rostered player of both teams (22 rows in a typical game). Players
-            who did not play have null statistics.
+            who did not play still have a row; their `statistics` object is present with null counting
+            members.
           items:
             properties:
               bib:
@@ -73,8 +74,10 @@ components:
                 description: True for a starter (five per team).
                 type: boolean
               statistics:
-                description: The player's game statistics (about 70 keys); null counting stats for a player
-                  who did not play.
+                description: 'The player''s game statistics (about 70 keys). The object itself is never
+                  null: for a player who did not play (301 of 2,444 rows) the counting members and `minutes`
+                  are null, while points, efficiency, pir, indexOfSuccess, foulsTotal, freeThrowsMade,
+                  maxPoints, maxFreeThrowsMade, doubleDouble and tripleDouble stay populated (0).'
                 properties:
                   assists:
                     description: 'Assists: passes that directly lead to a made field goal. Null on some
@@ -576,10 +579,12 @@ components:
                 - string
                 - 'null'
               resultPlace:
-                description: 'Result place: 1 = winner, 2 = loser; null before the game is played.'
+                description: 'Result place: 1 = winner, 2 = loser. The /matches list holds null here for
+                  fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.'
                 type: integer
               score:
-                description: Final score as a numeric STRING ('84'); null before the game is played.
+                description: Final score as a numeric STRING ('84'). The /matches list holds null here
+                  for fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.
                 type: string
               secondaryColor:
                 description: Club colour as a 6-digit hex string without '#'; '000000' is a placeholder
@@ -639,7 +644,8 @@ components:
           description: Pool (group) of the game.
           properties:
             abb:
-              description: Pool abbreviation (A, B, C); null or 'N/A' for the placeholder pool.
+              description: Pool abbreviation (A, B, C). Playoff and DRAFT fixtures of the /matches list
+                carry the placeholder pool, whose abb is empty or 'N/A'.
               type: string
             id:
               description: 'Pool id: a 30-character hex string; null for playoff games (''Unknown Pool'').'
@@ -671,8 +677,8 @@ components:
             (19:10 local = 10:10 UTC in Tokyo). DRAFT fixtures carry a date at 00:00:00.
           type: string
         startTimeUTC:
-          description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker; null on DRAFT
-            fixtures.
+          description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker. The /matches
+            list holds null here on DRAFT fixtures; the single-fixture sample is a finished game.
           type: string
         status:
           description: CONFIRMED = finished with a final box score; SCHEDULED = future; DRAFT = a placeholder
@@ -707,7 +713,7 @@ components:
               x-unobserved: true
             countryCode:
               description: 'ISO 3166-1 alpha-3 country code of the arena: JPN, TWN, PHL, KOR, MAC, HKG,
-                MNG, CHN; null on DRAFT fixtures.'
+                MNG, CHN. The /matches list holds null here on DRAFT fixtures (empty venue).'
               type: string
             nameLatin:
               description: Venue name in Latin script; null on most rows.
@@ -780,12 +786,14 @@ components:
                   - string
                   - 'null'
                 resultPlace:
-                  description: 'Result place: 1 = winner, 2 = loser; null before the game is played.'
+                  description: 'Result place: 1 = winner, 2 = loser. The /matches list holds null here
+                    for fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.'
                   type:
                   - integer
                   - 'null'
                 score:
-                  description: Final score as a numeric STRING ('84'); null before the game is played.
+                  description: Final score as a numeric STRING ('84'). The /matches list holds null here
+                    for fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.
                   type:
                   - string
                   - 'null'
@@ -848,7 +856,8 @@ components:
             description: Pool (group) of the game.
             properties:
               abb:
-                description: Pool abbreviation (A, B, C); null or 'N/A' for the placeholder pool.
+                description: Pool abbreviation (A, B, C). Playoff and DRAFT fixtures of the /matches list
+                  carry the placeholder pool, whose abb is empty or 'N/A'. Null on some rows.
                 type:
                 - string
                 - 'null'
@@ -873,7 +882,9 @@ components:
             x-unobserved: true
           seasonId:
             description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-              57cefc32... is 2024-25). Joins /metadata/seasons.'
+              57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings, /leaders,
+              /players and the /teams/{teamId} routes, the `seasonId` of every fixture and leader row,
+              and the season half of a team-fixture `stage.id`.'
             type: string
           stage:
             description: Stage of the competition; empty on DRAFT fixtures.
@@ -901,8 +912,8 @@ components:
               (19:10 local = 10:10 UTC in Tokyo). DRAFT fixtures carry a date at 00:00:00.
             type: string
           startTimeUTC:
-            description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker; null on
-              DRAFT fixtures.
+            description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker. The /matches
+              list holds null here on DRAFT fixtures; the single-fixture sample is a finished game.
             type:
             - string
             - 'null'
@@ -954,7 +965,8 @@ components:
                 x-unobserved: true
               countryCode:
                 description: 'ISO 3166-1 alpha-3 country code of the arena: JPN, TWN, PHL, KOR, MAC, HKG,
-                  MNG, CHN; null on DRAFT fixtures. Absent on some rows.'
+                  MNG, CHN. The /matches list holds null here on DRAFT fixtures (empty venue). Absent
+                  on some rows.'
                 type:
                 - string
                 - 'null'
@@ -1052,7 +1064,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1172,7 +1186,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1286,7 +1302,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1400,7 +1418,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1514,7 +1534,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1632,7 +1654,9 @@ components:
                 type: integer
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1752,7 +1776,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1864,7 +1890,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -1978,7 +2006,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               stealsPerGame:
                 description: The leader's steals per game.
@@ -2796,7 +2826,9 @@ components:
             type: string
           seasonId:
             description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-              57cefc32... is 2024-25). Joins /metadata/seasons.'
+              57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings, /leaders,
+              /players and the /teams/{teamId} routes, the `seasonId` of every fixture and leader row,
+              and the season half of a team-fixture `stage.id`.'
             type: string
           seasonType:
             description: 'DataCore season type: SEASON.'
@@ -3141,10 +3173,12 @@ components:
                   - string
                   - 'null'
                 resultPlace:
-                  description: 'Result place: 1 = winner, 2 = loser; null before the game is played.'
+                  description: 'Result place: 1 = winner, 2 = loser. The /matches list holds null here
+                    for fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.'
                   type: integer
                 score:
-                  description: Final score as a numeric STRING ('84'); null before the game is played.
+                  description: Final score as a numeric STRING ('84'). The /matches list holds null here
+                    for fixtures not yet played; /matches/{fixtureId} is sampled for finished games only.
                   type: string
                 secondaryColor:
                   description: Club colour as a 6-digit hex string without '#'; '000000' is a placeholder
@@ -3202,7 +3236,8 @@ components:
             description: Pool (group) of the game.
             properties:
               abb:
-                description: Pool abbreviation (A, B, C); null or 'N/A' for the placeholder pool.
+                description: Pool abbreviation (A, B, C). Playoff and DRAFT fixtures of the /matches list
+                  carry the placeholder pool, whose abb is empty or 'N/A'.
                 type: string
               id:
                 description: 'Pool id: a 30-character hex string; null for playoff games (''Unknown Pool'').'
@@ -3243,8 +3278,8 @@ components:
               (19:10 local = 10:10 UTC in Tokyo). DRAFT fixtures carry a date at 00:00:00.
             type: string
           startTimeUTC:
-            description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker; null on
-              DRAFT fixtures.
+            description: Scheduled tip-off in UTC, 'YYYY-MM-DDTHH:MM:SS' with no zone marker. The /matches
+              list holds null here on DRAFT fixtures; the single-fixture sample is a finished game.
             type: string
           status:
             description: CONFIRMED = finished with a final box score; SCHEDULED = future; DRAFT = a placeholder
@@ -3277,7 +3312,7 @@ components:
                 x-unobserved: true
               countryCode:
                 description: 'ISO 3166-1 alpha-3 country code of the arena: JPN, TWN, PHL, KOR, MAC, HKG,
-                  MNG, CHN; null on DRAFT fixtures.'
+                  MNG, CHN. The /matches list holds null here on DRAFT fixtures (empty venue).'
                 type:
                 - string
                 - 'null'
@@ -3355,7 +3390,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3454,7 +3491,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3553,7 +3592,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3652,7 +3693,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3751,7 +3794,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3850,7 +3895,9 @@ components:
                 type: integer
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -3949,7 +3996,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -4048,7 +4097,9 @@ components:
                 type: number
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               team:
                 description: The leader's team.
@@ -4144,7 +4195,9 @@ components:
                 type: object
               seasonId:
                 description: 'seasonId: DataCore season UUID v1 (key space: EASL seasons; one per edition:
-                  57cefc32... is 2024-25). Joins /metadata/seasons.'
+                  57cefc32... is 2024-25). Joins the `seasonId` query parameter of /matches, /standings,
+                  /leaders, /players and the /teams/{teamId} routes, the `seasonId` of every fixture and
+                  leader row, and the season half of a team-fixture `stage.id`.'
                 type: string
               stealsPerGame:
                 description: The leader's steals per game.
