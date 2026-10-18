@@ -2455,10 +2455,12 @@ paths:
             proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
             existed). Tell them apart by the body'
         '500':
-          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
-            BSN, LNBP, NBL); try the embednf variant'
-      summary: Every match of a competition, JSON-wrapped embed variant (orgs whose plain hosted pages
-        answer 500)
+          description: '402 B ''A website error has occurred''. Intermittent for any org (ESAKE included)
+            and sticky per URL for minutes: retry after a few minutes before concluding the page is absent.
+            On 2026-10-18 it persisted for 11 min on the BSN and NBL schedules and the HKS, BSN, LNBP
+            and NBL choosers'
+      summary: Every match of a competition, JSON-wrapped embed variant (same markup as the plain hosted
+        schedule)
     servers:
     - url: https://hosted.dcd.shared.geniussports.com
   /u/{org}/{matchId}/:
@@ -2579,8 +2581,10 @@ paths:
             proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
             existed). Tell them apart by the body'
         '500':
-          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
-            BSN, LNBP, NBL); try the embednf variant'
+          description: '402 B ''A website error has occurred''. Intermittent for any org (ESAKE included)
+            and sticky per URL for minutes: retry after a few minutes before concluding the page is absent.
+            On 2026-10-18 it persisted for 11 min on the BSN and NBL schedules and the HKS, BSN, LNBP
+            and NBL choosers'
       summary: Every match of a competition (hosted WebStats)
     servers:
     - url: https://hosted.dcd.shared.geniussports.com
@@ -2617,8 +2621,10 @@ paths:
             proxy) OR S3 AccessDenied (~303 B HTML: no such object, wrong ORG, or a game from before data.json
             existed). Tell them apart by the body'
         '500':
-          description: 'Org without (plain) hosted pages: 402 B ''A website error has occurred'' (HKS,
-            BSN, LNBP, NBL); try the embednf variant'
+          description: '402 B ''A website error has occurred''. Intermittent for any org (ESAKE included)
+            and sticky per URL for minutes: retry after a few minutes before concluding the page is absent.
+            On 2026-10-18 it persisted for 11 min on the BSN and NBL schedules and the HKS, BSN, LNBP
+            and NBL choosers'
       summary: 'Hosted WebStats schedule: the org''s competitionChooser (every compId)'
     servers:
     - url: https://hosted.dcd.shared.geniussports.com
@@ -4796,8 +4802,9 @@ x-leagues-fields:
     one); null when not probed'
   genius_league_id: Genius league id of the ORG from the hosted chooser (leagueId of data/competition);
     null without a chooser
-  hosted: plain = hosted WebStats pages work; embednf = only the /embednf/ variant works; null = no hosted
-    pages
+  hosted: plain = the hosted chooser and competition schedules work; embednf = no working chooser, schedules
+    read from the /embednf/ variant (the plain schedule answers too for HKS); null = no usable hosted
+    schedule
   league: Competitions the ORG runs on Genius (free text)
   live_org: 'ORG code for /u/ shells and webcast links (differs from the key for NZNBL: NZN)'
   sample_match_id: The match id of the committed data.json sample
