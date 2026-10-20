@@ -1203,9 +1203,11 @@ components:
       type: object
 info:
   description: 'Routes per thesportsdb.com/documentation; shapes from committed captures in thesportsdb/captures/
-    taken 2026-10-06 with the free test key 3 (30 requests per minute, watermarked artwork; a Patreon
-    key lifts the limits and unlocks more routes). Every parameter is a query parameter; a bad or missing
-    id answers 200 with {"<key>": null} or a message string. Not official or supported.'
+    taken 2026-10-06 with the old free key 3 (since retired: HTTP 403 "permanently disabled, use 123",
+    seen 2026-10-20). The free key is now 123 (30 requests per minute, watermarked artwork, list routes
+    capped, e.g. lookuptable 5 rows, teams 10, eventsseason 15); a Patreon key lifts the limits and unlocks
+    more routes. Every parameter is a query parameter; a bad or missing id answers 200 with {"<key>":
+    null} or a message string. Not official or supported.'
   title: TheSportsDB API v1 (www.thesportsdb.com)
   version: v1
 openapi: 3.1.0
@@ -1442,5 +1444,6 @@ servers:
 - url: https://www.thesportsdb.com/api/v1/json/{key}
   variables:
     key:
-      default: '3'
-      description: Free test key 3 (watermarked artwork, 30 req/min); a Patreon key lifts the limits.
+      default: '123'
+      description: Free key 123 (watermarked artwork, 30 req/min, list routes capped); key 3 is retired.
+        A Patreon key lifts the limits.
