@@ -1789,7 +1789,7 @@ components:
           type: array
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-            seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+            originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
           type: string
       type: object
     SportalityGdGame:
@@ -2612,7 +2612,7 @@ components:
                 x-unobserved: true
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               startDateTime:
                 description: Scheduled start. On the schedule route this is the LOCAL (Europe/Copenhagen)
@@ -2792,8 +2792,8 @@ components:
                   type: object
                 ssgtUuid:
                   description: 'ssgt uuid (platform key space: one season + series + game type); joins
-                    /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed
-                    by ssgt.'
+                    /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid and every
+                    route keyed by ssgt.'
                   type: string
                 state:
                   description: 'Game state. Schedule and day views: pre-game or post-game (hyphen). sports-v2
@@ -2982,7 +2982,7 @@ components:
                 type: object
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               state:
                 description: 'Game state. Schedule and day views: pre-game or post-game (hyphen). sports-v2
@@ -3123,8 +3123,8 @@ components:
                   type: object
                 ssgtUuid:
                   description: 'ssgt uuid (platform key space: one season + series + game type); joins
-                    /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed
-                    by ssgt.'
+                    /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid and every
+                    route keyed by ssgt.'
                   type: string
                 state:
                   description: 'State of the ssgt: closed (a past season) or active (the current one).
@@ -3267,7 +3267,7 @@ components:
                 type: object
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               state:
                 description: 'Game state. Schedule and day views: pre-game or post-game (hyphen). sports-v2
@@ -3469,7 +3469,7 @@ components:
                 x-unobserved: true
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               startDateTime:
                 description: Scheduled start. On the schedule route this is the LOCAL (Europe/Copenhagen)
@@ -4148,7 +4148,7 @@ components:
                 x-unobserved: true
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               startDateTime:
                 description: Scheduled start. On the schedule route this is the LOCAL (Europe/Copenhagen)
@@ -5119,7 +5119,7 @@ components:
                 x-unobserved: true
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               startDateTime:
                 description: Scheduled start. On the schedule route this is the LOCAL (Europe/Copenhagen)
@@ -5150,7 +5150,7 @@ components:
           type: array
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-            seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+            originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
           type: string
         teamList:
           description: The teams of the ssgt (13 in 2025/26, including the non-ranked Bears Academy),
@@ -5551,7 +5551,7 @@ components:
           type: string
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-            seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+            originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
           type: string
       type: object
     SportalityStandings:
@@ -16126,7 +16126,7 @@ components:
                 x-unobserved: true
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); joins /statistics-v2/layout-info
-                  seasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
+                  originalSeasonSeriesGameTypeTeams[].ssgtUuid and every route keyed by ssgt.'
                 type: string
               startDateTime:
                 description: Scheduled start. On the schedule route this is the LOCAL (Europe/Copenhagen)
@@ -16380,7 +16380,7 @@ paths:
       operationId: get_sportality_standings
       parameters:
       - description: 'ssgt uuid: one season + series + game type, e.g. xs07bd3fmp = 2026/2027 regular
-          season. Directory: `/statistics-v2/layout-info` `seasonSeriesGameTypeTeams[].ssgtUuid`.'
+          season. Directory: `/statistics-v2/layout-info` `originalSeasonSeriesGameTypeTeams[].ssgtUuid`.'
         example: xs07bd3fmp
         in: path
         name: ssgt_uuid
@@ -16432,7 +16432,7 @@ paths:
       operationId: get_sportality_all_sites
       parameters:
       - description: 'ssgt uuid: one season + series + game type, e.g. xs07bd3fmp = 2026/2027 regular
-          season. Directory: `/statistics-v2/layout-info` `seasonSeriesGameTypeTeams[].ssgtUuid`.'
+          season. Directory: `/statistics-v2/layout-info` `originalSeasonSeriesGameTypeTeams[].ssgtUuid`.'
         example: xs07bd3fmp
         in: path
         name: ssgt_uuid
@@ -16674,7 +16674,7 @@ paths:
       operationId: get_sportality_provider
       parameters:
       - description: 'ssgt uuid: one season + series + game type, e.g. xs07bd3fmp = 2026/2027 regular
-          season. Directory: `/statistics-v2/layout-info` `seasonSeriesGameTypeTeams[].ssgtUuid`.'
+          season. Directory: `/statistics-v2/layout-info` `originalSeasonSeriesGameTypeTeams[].ssgtUuid`.'
         example: xs07bd3fmp
         in: path
         name: ssgt_uuid
@@ -16838,7 +16838,7 @@ paths:
       operationId: get_sportality_h2h
       parameters:
       - description: 'ssgt uuid: one season + series + game type, e.g. xs07bd3fmp = 2026/2027 regular
-          season. Directory: `/statistics-v2/layout-info` `seasonSeriesGameTypeTeams[].ssgtUuid`.'
+          season. Directory: `/statistics-v2/layout-info` `originalSeasonSeriesGameTypeTeams[].ssgtUuid`.'
         example: xs07bd3fmp
         in: path
         name: ssgt_uuid
