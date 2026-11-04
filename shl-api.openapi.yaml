@@ -1622,7 +1622,7 @@ components:
           type: integer
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); label via layout-info
-            seasonSeriesGameTypeTeams[].'
+            originalSeasonSeriesGameTypeTeams[].'
           type: string
       type: object
     GamedayTeamStatsGameUuid:
@@ -2170,7 +2170,7 @@ components:
           type: string
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); label via layout-info
-            seasonSeriesGameTypeTeams[].'
+            originalSeasonSeriesGameTypeTeams[].'
           type: string
       type: object
     SportsV2GameSchedule:
@@ -2317,7 +2317,7 @@ components:
                 type: boolean
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               startDateTime:
                 description: Scheduled start, local time (Europe/Stockholm).
@@ -2343,7 +2343,7 @@ components:
           type: array
         ssgtUuid:
           description: 'ssgt uuid (platform key space: one season + series + game type); label via layout-info
-            seasonSeriesGameTypeTeams[].'
+            originalSeasonSeriesGameTypeTeams[].'
           type: string
         teamList:
           description: Teams in the schedule.
@@ -2820,7 +2820,7 @@ components:
                 type: boolean
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               startDateTime:
                 description: Scheduled start, local time (Europe/Stockholm).
@@ -2983,7 +2983,7 @@ components:
                 type: boolean
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               startDateTime:
                 description: Scheduled start, local time (Europe/Stockholm).
@@ -3146,7 +3146,7 @@ components:
                 type: boolean
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               startDateTime:
                 description: Scheduled start, local time (Europe/Stockholm).
@@ -3569,7 +3569,7 @@ components:
                 type: boolean
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               startDateTime:
                 description: Scheduled start, local time (Europe/Stockholm).
@@ -4535,7 +4535,7 @@ components:
                       type: string
                     ssgtUuid:
                       description: 'ssgt uuid (platform key space: one season + series + game type); label
-                        via layout-info seasonSeriesGameTypeTeams[].'
+                        via layout-info originalSeasonSeriesGameTypeTeams[].'
                       type: string
                     statisticsProvider:
                       description: Stats provider of the data (statnet seen).
@@ -5795,7 +5795,7 @@ components:
                       type: string
                     ssgtUuid:
                       description: 'ssgt uuid (platform key space: one season + series + game type); label
-                        via layout-info seasonSeriesGameTypeTeams[].'
+                        via layout-info originalSeasonSeriesGameTypeTeams[].'
                       type: string
                     statisticsProvider:
                       description: Stats provider of the data (statnet seen).
@@ -6158,6 +6158,10 @@ components:
                   properties:
                     code:
                       description: 'Game type code: regular, playoff, qualdown (legacy career logs: qualification).'
+                      enum:
+                      - regular
+                      - qualdown
+                      - playoff
                       type: string
                     deleted:
                       description: Soft-delete flag of the record (false in every sample).
@@ -6231,10 +6235,13 @@ components:
                   type: object
                 ssgtUuid:
                   description: 'ssgt uuid (platform key space: one season + series + game type); label
-                    via layout-info seasonSeriesGameTypeTeams[].'
+                    via layout-info originalSeasonSeriesGameTypeTeams[].'
                   type: string
                 state:
                   description: 'ssgt state: active (the current season) or closed.'
+                  enum:
+                  - active
+                  - closed
                   type: string
                 teams:
                   description: Teams taking part in the ssgt.
@@ -6432,7 +6439,7 @@ components:
                 type: object
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               state:
                 description: ssgt state (active for the current season).
@@ -6594,7 +6601,7 @@ components:
                   type: object
                 ssgtUuid:
                   description: 'ssgt uuid (platform key space: one season + series + game type); label
-                    via layout-info seasonSeriesGameTypeTeams[].'
+                    via layout-info originalSeasonSeriesGameTypeTeams[].'
                   type: string
                 state:
                   description: 'ssgt state: active (the current season) or closed.'
@@ -6755,7 +6762,7 @@ components:
                 type: object
               ssgtUuid:
                 description: 'ssgt uuid (platform key space: one season + series + game type); label via
-                  layout-info seasonSeriesGameTypeTeams[].'
+                  layout-info originalSeasonSeriesGameTypeTeams[].'
                 type: string
               state:
                 description: ssgt state (active for the current season).
@@ -7416,7 +7423,7 @@ components:
                   type: boolean
                 seasonSeriesGameTypeUuid:
                   description: 'ssgt uuid (platform key space: season + series + game type); label via
-                    layout-info seasonSeriesGameTypeTeams[].'
+                    layout-info originalSeasonSeriesGameTypeTeams[].'
                   type: string
                 startDateTime:
                   description: Scheduled start, local time (Europe/Stockholm).
@@ -9122,7 +9129,7 @@ paths:
       operationId: gameday_team_standings_ssgt_uuid
       parameters:
       - description: 'ssgt uuid: one season + series + game type (e.g. 2025/2026 SHL regular season).
-          Directory: /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid.'
+          Directory: /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid.'
         example: iuzqg7dqk9
         in: path
         name: ssgt_uuid
@@ -9164,7 +9171,7 @@ paths:
       operationId: sports_v2_all_sites_ssgt_uuid
       parameters:
       - description: 'ssgt uuid: one season + series + game type (e.g. 2025/2026 SHL regular season).
-          Directory: /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid.'
+          Directory: /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid.'
         example: iuzqg7dqk9
         in: path
         name: ssgt_uuid
@@ -9366,7 +9373,7 @@ paths:
       operationId: sports_v2_ssgt_ssgt_uuid_provider
       parameters:
       - description: 'ssgt uuid: one season + series + game type (e.g. 2025/2026 SHL regular season).
-          Directory: /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid.'
+          Directory: /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid.'
         example: iuzqg7dqk9
         in: path
         name: ssgt_uuid
@@ -9541,7 +9548,7 @@ paths:
       summary: Seasons a player has stats for
   /statistics-v2/layout-info:
     get:
-      description: 'The uuid -> label map: seasonSeriesGameTypeTeams[] gives ssgtUuid with season.code
+      description: 'The uuid -> label map: originalSeasonSeriesGameTypeTeams[] gives ssgtUuid with season.code
         (start year), season.name (2025/2026), gameType.code and series.code, for every SHL ssgt back
         to 1975/76 (110 at capture).'
       operationId: statistics_v2_layout_info
@@ -9561,7 +9568,7 @@ paths:
       operationId: statistics_v2_player_h2h_v2_ssgt_uuid_home_team_uuid_away_team_uuid
       parameters:
       - description: 'ssgt uuid: one season + series + game type (e.g. 2025/2026 SHL regular season).
-          Directory: /statistics-v2/layout-info seasonSeriesGameTypeTeams[].ssgtUuid.'
+          Directory: /statistics-v2/layout-info originalSeasonSeriesGameTypeTeams[].ssgtUuid.'
         example: iuzqg7dqk9
         in: path
         name: ssgt_uuid
