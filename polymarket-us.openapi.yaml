@@ -190,11 +190,19 @@ components:
             askShares:
               type: string
             bestAsk:
-              type:
-              - 'null'
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
             bestBid:
-              type:
-              - 'null'
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
             bidDepth:
               type: integer
             bidShares:
@@ -232,6 +240,13 @@ components:
                 value:
                   type: string
               type: object
+            longQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
             marketSlug:
               type: string
             openInterest:
@@ -245,6 +260,13 @@ components:
               type: object
             sharesTraded:
               type: string
+            shortQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
             state:
               type: string
           type: object
@@ -253,10 +275,11 @@ info:
   description: 'Market list and best bid/offer of Polymarket US, the CFTC-regulated US exchange; the /v1
     read routes are keyless. Reverse-engineered from committed captures in polymarket/captures/ (2026-11-18).
     /v1/markets pages by limit/offset (envelope {markets: [...]}) and the capture holds the first page
-    only (see x-pagination); /v1/markets/{slug}/bbo answers {marketData: {...}}. A market slug is "aec-"
-    + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06); a slug without the prefix answers 404. Prices
-    arrive as {value, currency} objects whose value is a decimal string, and outcomes / outcomePrices
-    are JSON arrays serialised inside a string. Not official or supported.'
+    only (see x-pagination); /v1/markets/{slug}/bbo answers {marketData: {...}}. A game market''s slug
+    is "aec-" + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06; the bare usId answers 404); futures
+    use other prefixes (tec-, aachc-). Prices arrive as {value, currency} objects whose value is a decimal
+    string; an expired market answers bestBid/bestAsk null and omits longQuote/shortQuote. outcomes /
+    outcomePrices are JSON arrays serialised inside a string. Not official or supported.'
   title: Polymarket US gateway API (gateway.polymarket.us) - public reads
   version: '2026-11-18'
 openapi: 3.1.0
@@ -307,8 +330,9 @@ paths:
     get:
       operationId: get_v1_markets_slug_bbo
       parameters:
-      - description: 'Polymarket US market slug: "aec-" + a Gamma event''s usId (e.g. aec-nba-sa-sac-2026-11-06).'
-        example: aec-nba-sa-sac-2026-11-06
+      - description: Polymarket US market slug (from /v1/markets). A game market's is "aec-" + a Gamma
+          event's usId (aec-nba-sa-sac-2026-11-06); futures use other prefixes (tec-mls-winner-2026-11-07-sea).
+        example: tec-mls-winner-2026-11-07-sea
         in: path
         name: slug
         required: true
