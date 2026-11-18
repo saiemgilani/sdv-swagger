@@ -1,5 +1,799 @@
 components:
   schemas:
+    GatewayV1MarketIdId:
+      properties:
+        market:
+          properties:
+            active:
+              type: boolean
+            archived:
+              type: boolean
+            assetPriceTerms:
+              description: Typed terms of an automated crypto price market. Null on every other market,
+                including the hand-listed year-end crypto markets.
+              properties:
+                asset:
+                  description: Identifies one priced asset. The canonical string form is class:symbol,
+                    e.g. crypto:btc or commodity:gold.
+                  properties:
+                    assetClass:
+                      description: AssetClass namespaces asset symbols.
+                      enum: &id002
+                      - ASSET_CLASS_CRYPTO
+                      - ASSET_CLASS_COMMODITY
+                      type: string
+                    symbol:
+                      description: Lower-case symbol within the class, e.g. btc or gold. Matches [a-z0-9-],
+                        at most 64 characters.
+                      example: btc
+                      type: string
+                  type: object
+                assetName:
+                  description: 'Display name of the asset, e.g. Gold. Empty when the asset has none: show
+                    the symbol.'
+                  type: string
+                direction:
+                  description: ONE_TOUCH direction. ASSET_PRICE_DIRECTION_UNSPECIFIED is returned on every
+                    market that is not a ONE_TOUCH.
+                  enum: &id003
+                  - ASSET_PRICE_DIRECTION_UNSPECIFIED
+                  - ASSET_PRICE_DIRECTION_UP
+                  - ASSET_PRICE_DIRECTION_DOWN
+                  type: string
+                horizon:
+                  description: Supply-side horizon slug. Display and grouping only.
+                  type: string
+                indexSymbol:
+                  description: Reference index the market settles on, e.g. BRTI. Empty on commodity (gold
+                    and silver) markets, which settle on a Chainlink spot stream.
+                  type: string
+                marketType:
+                  description: 'How the market settles. ASSET_PRICE_MARKET_TYPE_UNSPECIFIED is returned
+                    for a market type newer than this schema: render the terms that are present.'
+                  enum: &id004
+                  - ASSET_PRICE_MARKET_TYPE_UNSPECIFIED
+                  - ASSET_PRICE_MARKET_TYPE_UP_DOWN
+                  - ASSET_PRICE_MARKET_TYPE_ABOVE_BELOW
+                  - ASSET_PRICE_MARKET_TYPE_RANGE
+                  - ASSET_PRICE_MARKET_TYPE_ONE_TOUCH
+                  - ASSET_PRICE_MARKET_TYPE_DATE
+                  - ASSET_PRICE_MARKET_TYPE_FIRST_TO_HIT
+                  type: string
+                nextWindowStart:
+                  description: Start of the next window of this market's length that the asset's trading
+                    hours allow. Equals windowEnd on crypto windows. On gold and silver it is later than
+                    windowEnd when trading closes after this window (the daily break, the weekend or a
+                    holiday). Null when unknown.
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+                pendingPriceToBeat:
+                  description: 'Display only. A pending open price on commodity (ASSET_CLASS_COMMODITY)
+                    UP_DOWN markets: the Chainlink spot value for exactly windowStart, with the same decimals
+                    as priceToBeat. Set only while priceToBeat is null: usually from 1 to 2 seconds after
+                    windowStart until priceToBeat is stamped, then null again. Stays null when Chainlink
+                    has no report for exactly windowStart, on assets where a pending price is not shown,
+                    on every crypto market and on every market that is not UP_DOWN. In rare cases it differs
+                    from priceToBeat, and the market settles only on priceToBeat. Show priceToBeat when
+                    it is set, else this value labelled as pending.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: &id001
+                  - value
+                  - currency
+                  type:
+                  - object
+                  - 'null'
+                priceDecimals:
+                  description: 'Decimal places every price of the market carries, e.g. 2 for BTC and gold,
+                    3 for silver. Always read this field: it can differ between assets, and between market
+                    types of one asset, for example 4 for SOL Up/Down. Show prices at exactly this many
+                    places.'
+                  format: int32
+                  type: integer
+                priceToBeat:
+                  description: 'Null until stamped: a few seconds after windowStart on crypto, about a
+                    minute after it on gold and silver. Null on every market that is not UP_DOWN.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                priceUnit:
+                  description: Unit one price is quoted per, e.g. oz for gold and silver. Empty when the
+                    asset needs no unit, as crypto.
+                  type: string
+                rangeKind:
+                  description: Which side of a RANGE market is open. ASSET_PRICE_RANGE_KIND_UNSPECIFIED
+                    is returned on every market that is not a RANGE.
+                  enum: &id005
+                  - ASSET_PRICE_RANGE_KIND_UNSPECIFIED
+                  - ASSET_PRICE_RANGE_KIND_INTERIOR
+                  - ASSET_PRICE_RANGE_KIND_BELOW
+                  - ASSET_PRICE_RANGE_KIND_ABOVE
+                  type: string
+                rangeLower:
+                  description: Null on every market that is not a RANGE, and on the open side of a tail
+                    range.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                rangeUpper:
+                  description: Null on every market that is not a RANGE, and on the open side of a tail
+                    range.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                settlementPrice:
+                  description: 'Null until resolved, and stays null on a ONE_TOUCH market that resolved
+                    No: no price was touched.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                strike:
+                  description: Null on every market that is not ABOVE_BELOW or ONE_TOUCH.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                windowEnd:
+                  description: End of the measurement window and scheduled settlement instant. Set on
+                    every automated crypto family, including ABOVE_BELOW and RANGE ladders. Use this rather
+                    than endDate for the settlement time. ONE_TOUCH may settle Yes before this instant.
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+                windowStart:
+                  description: Start of the settlement window. Always set for UP_DOWN. Null when the market
+                    has no settlement window (ladders).
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+              type:
+              - object
+              - 'null'
+              x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.assetPriceTerms
+            bestAskQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            bestBidQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            category:
+              type: string
+            closed:
+              type: boolean
+            color:
+              type: string
+            comboEnabled:
+              type: boolean
+            createdAt:
+              type: string
+            description:
+              type: string
+            endDate:
+              type: string
+            ep3Status:
+              type: string
+            ep3SyncedAt:
+              type: string
+            eventSubcategory:
+              type: string
+            feeCoefficient:
+              type: number
+            gameStartTime:
+              type: string
+            hidden:
+              type: boolean
+            id:
+              type: string
+            image:
+              type: string
+            manualActivation:
+              type: boolean
+            marketSides:
+              items:
+                properties:
+                  createdAt:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+                  identifier:
+                    type: string
+                  long:
+                    type: boolean
+                  marketId:
+                    type: integer
+                  marketSideType:
+                    type: string
+                  price:
+                    type: string
+                  quote:
+                    properties:
+                      currency:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                  team:
+                    properties:
+                      abbreviation:
+                        type: string
+                      alias:
+                        type: string
+                      color:
+                        properties:
+                          dark:
+                            type: string
+                          light:
+                            type: string
+                        type: object
+                      colorPrimary:
+                        type: string
+                      displayAbbreviation:
+                        type: string
+                      id:
+                        type: integer
+                      imageDisplayType:
+                        type: string
+                      league:
+                        type: string
+                      logo:
+                        type: string
+                      longIcon:
+                        type: string
+                      longIconDark:
+                        type: string
+                      name:
+                        type: string
+                      ordering:
+                        type: string
+                      providerId:
+                        type: integer
+                      providerIds:
+                        items:
+                          properties:
+                            provider:
+                              type: string
+                            providerId:
+                              type: string
+                          type: object
+                        type: array
+                      record:
+                        type: string
+                      safeName:
+                        type: string
+                      shortIcon:
+                        type: string
+                      shortIconDark:
+                        type: string
+                    type: object
+                  teamId:
+                    type: integer
+                  tradable:
+                    type: boolean
+                  updatedAt:
+                    type: string
+                type: object
+              type: array
+            marketType:
+              type: string
+            minimumTradeQty:
+              type: integer
+            orderPriceMinTickSize:
+              type: number
+            outcomePrices:
+              type: string
+            outcomes:
+              type: string
+            politics:
+              x-observed-null-only: true
+            question:
+              type: string
+            singlesRfqConfig:
+              properties:
+                enabled:
+                  type: boolean
+                maxQuoteAgeSeconds:
+                  type: integer
+                midpointDeviation:
+                  type: number
+                minOrderValueUsd:
+                  type: integer
+                quoteWindows:
+                  items:
+                    properties:
+                      windowMs:
+                        type: string
+                    type: object
+                  type: array
+                ruleName:
+                  type: string
+                version:
+                  type: string
+              type: object
+            slug:
+              type: string
+            sportsMarketType:
+              type: string
+            sportsMarketTypeV2:
+              type: string
+            startDate:
+              type: string
+            status:
+              type: string
+            subtitle:
+              type: string
+            tags:
+              items: {}
+              type: array
+            title:
+              type: string
+            titleShort:
+              type: string
+            updatedAt:
+              type: string
+          type: object
+      type: object
+    GatewayV1MarketSlugSlug:
+      properties:
+        market:
+          properties:
+            active:
+              type: boolean
+            archived:
+              type: boolean
+            assetPriceTerms:
+              description: Typed terms of an automated crypto price market. Null on every other market,
+                including the hand-listed year-end crypto markets.
+              properties:
+                asset:
+                  description: Identifies one priced asset. The canonical string form is class:symbol,
+                    e.g. crypto:btc or commodity:gold.
+                  properties:
+                    assetClass:
+                      description: AssetClass namespaces asset symbols.
+                      enum: *id002
+                      type: string
+                    symbol:
+                      description: Lower-case symbol within the class, e.g. btc or gold. Matches [a-z0-9-],
+                        at most 64 characters.
+                      example: btc
+                      type: string
+                  type: object
+                assetName:
+                  description: 'Display name of the asset, e.g. Gold. Empty when the asset has none: show
+                    the symbol.'
+                  type: string
+                direction:
+                  description: ONE_TOUCH direction. ASSET_PRICE_DIRECTION_UNSPECIFIED is returned on every
+                    market that is not a ONE_TOUCH.
+                  enum: *id003
+                  type: string
+                horizon:
+                  description: Supply-side horizon slug. Display and grouping only.
+                  type: string
+                indexSymbol:
+                  description: Reference index the market settles on, e.g. BRTI. Empty on commodity (gold
+                    and silver) markets, which settle on a Chainlink spot stream.
+                  type: string
+                marketType:
+                  description: 'How the market settles. ASSET_PRICE_MARKET_TYPE_UNSPECIFIED is returned
+                    for a market type newer than this schema: render the terms that are present.'
+                  enum: *id004
+                  type: string
+                nextWindowStart:
+                  description: Start of the next window of this market's length that the asset's trading
+                    hours allow. Equals windowEnd on crypto windows. On gold and silver it is later than
+                    windowEnd when trading closes after this window (the daily break, the weekend or a
+                    holiday). Null when unknown.
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+                pendingPriceToBeat:
+                  description: 'Display only. A pending open price on commodity (ASSET_CLASS_COMMODITY)
+                    UP_DOWN markets: the Chainlink spot value for exactly windowStart, with the same decimals
+                    as priceToBeat. Set only while priceToBeat is null: usually from 1 to 2 seconds after
+                    windowStart until priceToBeat is stamped, then null again. Stays null when Chainlink
+                    has no report for exactly windowStart, on assets where a pending price is not shown,
+                    on every crypto market and on every market that is not UP_DOWN. In rare cases it differs
+                    from priceToBeat, and the market settles only on priceToBeat. Show priceToBeat when
+                    it is set, else this value labelled as pending.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                priceDecimals:
+                  description: 'Decimal places every price of the market carries, e.g. 2 for BTC and gold,
+                    3 for silver. Always read this field: it can differ between assets, and between market
+                    types of one asset, for example 4 for SOL Up/Down. Show prices at exactly this many
+                    places.'
+                  format: int32
+                  type: integer
+                priceToBeat:
+                  description: 'Null until stamped: a few seconds after windowStart on crypto, about a
+                    minute after it on gold and silver. Null on every market that is not UP_DOWN.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                priceUnit:
+                  description: Unit one price is quoted per, e.g. oz for gold and silver. Empty when the
+                    asset needs no unit, as crypto.
+                  type: string
+                rangeKind:
+                  description: Which side of a RANGE market is open. ASSET_PRICE_RANGE_KIND_UNSPECIFIED
+                    is returned on every market that is not a RANGE.
+                  enum: *id005
+                  type: string
+                rangeLower:
+                  description: Null on every market that is not a RANGE, and on the open side of a tail
+                    range.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                rangeUpper:
+                  description: Null on every market that is not a RANGE, and on the open side of a tail
+                    range.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                settlementPrice:
+                  description: 'Null until resolved, and stays null on a ONE_TOUCH market that resolved
+                    No: no price was touched.'
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                strike:
+                  description: Null on every market that is not ABOVE_BELOW or ONE_TOUCH.
+                  properties:
+                    currency:
+                      description: The currency code
+                      type: string
+                    value:
+                      description: The amount as a decimal string.
+                      example: '123.45'
+                      format: decimal
+                      type: string
+                  required: *id001
+                  type:
+                  - object
+                  - 'null'
+                windowEnd:
+                  description: End of the measurement window and scheduled settlement instant. Set on
+                    every automated crypto family, including ABOVE_BELOW and RANGE ladders. Use this rather
+                    than endDate for the settlement time. ONE_TOUCH may settle Yes before this instant.
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+                windowStart:
+                  description: Start of the settlement window. Always set for UP_DOWN. Null when the market
+                    has no settlement window (ladders).
+                  format: date-time
+                  type:
+                  - string
+                  - 'null'
+              type:
+              - object
+              - 'null'
+              x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.assetPriceTerms
+            bestAskQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            bestBidQuote:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            category:
+              type: string
+            closed:
+              type: boolean
+            color:
+              type: string
+            comboEnabled:
+              type: boolean
+            createdAt:
+              type: string
+            description:
+              type: string
+            endDate:
+              type: string
+            ep3Status:
+              type: string
+            ep3SyncedAt:
+              type: string
+            eventSubcategory:
+              type: string
+            feeCoefficient:
+              type: number
+            gameStartTime:
+              type: string
+            hidden:
+              type: boolean
+            id:
+              type: string
+            image:
+              type: string
+            manualActivation:
+              type: boolean
+            marketSides:
+              items:
+                properties:
+                  createdAt:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+                  identifier:
+                    type: string
+                  long:
+                    type: boolean
+                  marketId:
+                    type: integer
+                  marketSideType:
+                    type: string
+                  price:
+                    type: string
+                  quote:
+                    properties:
+                      currency:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                  team:
+                    properties:
+                      abbreviation:
+                        type: string
+                      alias:
+                        type: string
+                      awayIcon:
+                        type: string
+                      color:
+                        properties:
+                          dark:
+                            type: string
+                          light:
+                            type: string
+                        type: object
+                      colorPrimary:
+                        type: string
+                      displayAbbreviation:
+                        type: string
+                      homeIcon:
+                        type: string
+                      id:
+                        type: integer
+                      imageDisplayType:
+                        type: string
+                      league:
+                        type: string
+                      logo:
+                        type: string
+                      longIcon:
+                        type: string
+                      longIconDark:
+                        type: string
+                      name:
+                        type: string
+                      ordering:
+                        type: string
+                      providerId:
+                        type: integer
+                      providerIds:
+                        items:
+                          properties:
+                            provider:
+                              type: string
+                            providerId:
+                              type: string
+                          type: object
+                        type: array
+                      record:
+                        type: string
+                      safeName:
+                        type: string
+                      shortIcon:
+                        type: string
+                      shortIconDark:
+                        type: string
+                    type: object
+                  teamId:
+                    type: integer
+                  tradable:
+                    type: boolean
+                  updatedAt:
+                    type: string
+                type: object
+              type: array
+            marketType:
+              type: string
+            minimumTradeQty:
+              type:
+              - integer
+              - number
+            orderPriceMinTickSize:
+              type: number
+            outcomePrices:
+              type: string
+            outcomes:
+              type: string
+            politics:
+              x-observed-null-only: true
+            question:
+              type: string
+            singlesRfqConfig:
+              properties:
+                enabled:
+                  type: boolean
+                maxQuoteAgeSeconds:
+                  type: integer
+                midpointDeviation:
+                  type:
+                  - integer
+                  - number
+                minOrderValueUsd:
+                  type: integer
+                quoteWindows:
+                  items:
+                    properties:
+                      windowMs:
+                        type: string
+                    type: object
+                  type: array
+                ruleName:
+                  type: string
+                version:
+                  type: string
+              type: object
+            slug:
+              type: string
+            sportsMarketType:
+              type: string
+            sportsMarketTypeV2:
+              type: string
+            startDate:
+              type: string
+            status:
+              type: string
+            subtitle:
+              type: string
+            tags:
+              items: {}
+              type: array
+            title:
+              type: string
+            titleShort:
+              type: string
+            updatedAt:
+              type: string
+          type: object
+      type: object
     GatewayV1Markets:
       properties:
         markets:
@@ -19,9 +813,7 @@ components:
                     properties:
                       assetClass:
                         description: AssetClass namespaces asset symbols.
-                        enum:
-                        - ASSET_CLASS_CRYPTO
-                        - ASSET_CLASS_COMMODITY
+                        enum: *id002
                         type: string
                       symbol:
                         description: Lower-case symbol within the class, e.g. btc or gold. Matches [a-z0-9-],
@@ -36,10 +828,7 @@ components:
                   direction:
                     description: ONE_TOUCH direction. ASSET_PRICE_DIRECTION_UNSPECIFIED is returned on
                       every market that is not a ONE_TOUCH.
-                    enum:
-                    - ASSET_PRICE_DIRECTION_UNSPECIFIED
-                    - ASSET_PRICE_DIRECTION_UP
-                    - ASSET_PRICE_DIRECTION_DOWN
+                    enum: *id003
                     type: string
                   horizon:
                     description: Supply-side horizon slug. Display and grouping only.
@@ -51,14 +840,7 @@ components:
                   marketType:
                     description: 'How the market settles. ASSET_PRICE_MARKET_TYPE_UNSPECIFIED is returned
                       for a market type newer than this schema: render the terms that are present.'
-                    enum:
-                    - ASSET_PRICE_MARKET_TYPE_UNSPECIFIED
-                    - ASSET_PRICE_MARKET_TYPE_UP_DOWN
-                    - ASSET_PRICE_MARKET_TYPE_ABOVE_BELOW
-                    - ASSET_PRICE_MARKET_TYPE_RANGE
-                    - ASSET_PRICE_MARKET_TYPE_ONE_TOUCH
-                    - ASSET_PRICE_MARKET_TYPE_DATE
-                    - ASSET_PRICE_MARKET_TYPE_FIRST_TO_HIT
+                    enum: *id004
                     type: string
                   nextWindowStart:
                     description: Start of the next window of this market's length that the asset's trading
@@ -87,9 +869,7 @@ components:
                         example: '123.45'
                         format: decimal
                         type: string
-                    required: &id001
-                    - value
-                    - currency
+                    required: *id001
                     type:
                     - object
                     - 'null'
@@ -123,11 +903,7 @@ components:
                   rangeKind:
                     description: Which side of a RANGE market is open. ASSET_PRICE_RANGE_KIND_UNSPECIFIED
                       is returned on every market that is not a RANGE.
-                    enum:
-                    - ASSET_PRICE_RANGE_KIND_UNSPECIFIED
-                    - ASSET_PRICE_RANGE_KIND_INTERIOR
-                    - ASSET_PRICE_RANGE_KIND_BELOW
-                    - ASSET_PRICE_RANGE_KIND_ABOVE
+                    enum: *id005
                     type: string
                   rangeLower:
                     description: Null on every market that is not a RANGE, and on the open side of a tail
@@ -507,13 +1283,166 @@ components:
               type: string
           type: object
       type: object
+    GatewayV1MarketsSlugBook:
+      properties:
+        marketData:
+          properties:
+            bids:
+              items:
+                properties:
+                  px:
+                    properties:
+                      currency:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                  qty:
+                    type: string
+                type: object
+              type: array
+            marketSlug:
+              type: string
+            offers:
+              items:
+                properties:
+                  px:
+                    properties:
+                      currency:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                  qty:
+                    type: string
+                type: object
+              type: array
+            state:
+              type: string
+            stats:
+              properties:
+                closePx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                closeSetTime:
+                  type: string
+                currentPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                highPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                highSetTime:
+                  type: string
+                lastPriceSample:
+                  properties:
+                    longPx:
+                      properties:
+                        currency:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    shortPx:
+                      properties:
+                        currency:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    ts:
+                      type: string
+                  type: object
+                lastTradePx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                lastTradeQty:
+                  type: string
+                lastTradeSetTime:
+                  type: string
+                lowPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                lowSetTime:
+                  type: string
+                notionalSetTime:
+                  type: string
+                notionalTraded:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                openInterest:
+                  type: string
+                openInterestSetTime:
+                  type: string
+                openPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                openSetTime:
+                  type: string
+                settlementPriceCalculationMethod:
+                  type: string
+                settlementPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                settlementSetTime:
+                  type: string
+                sharesTraded:
+                  type: string
+              type: object
+            transactTime:
+              type: string
+          type: object
+      type: object
+    GatewayV1MarketsSlugSettlement:
+      properties:
+        settlement:
+          type: number
+          x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.GetMarketSettlementResponse.properties.settlement
+        slug:
+          type: string
+      type: object
 info:
-  description: 'Market list and best bid/offer of Polymarket US, the CFTC-regulated US exchange; the /v1
-    read routes are keyless. Reverse-engineered from committed captures in polymarket/captures/ (2026-11-18).
-    /v1/markets pages by limit/offset (envelope {markets: [...]}) and the capture holds the first page
-    only (see x-pagination); /v1/markets/{slug}/bbo answers {marketData: {...}}. A game-winner market''s
-    slug is "aec-" + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06; observed, not captured: the
-    bare usId answers 404); futures use other prefixes (tec-), as do a game''s other markets. Prices arrive
+  description: 'Markets of Polymarket US, the CFTC-regulated US exchange (list, by id, by slug) and, per
+    market slug, its best bid/offer, order book and settlement; the /v1 read routes are keyless. Reverse-engineered
+    from committed captures in polymarket/captures/ (2026-11-18). /v1/markets pages by limit/offset (envelope
+    {markets: [...]}) and the capture holds the first page only (see x-pagination); /v1/markets/{slug}/bbo
+    and /book answer {marketData: {...}} (the book lists bids and offers, empty once a market expires),
+    /v1/market/id/{id} and /v1/market/slug/{slug} answer {market: {...}}, and /v1/markets/{slug}/settlement
+    answers {slug, settlement} (HTTP 404 "Settlement not found" until the market settles, so it is captured
+    on an expired game). A game-winner market''s slug is "aec-" + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06;
+    observed, not captured: the bare usId answers 404); futures use other prefixes (tec-). Prices arrive
     as {value, currency} objects whose value is a decimal string. The schemas union an open and an expired/closed
     sample: an expired market answers bestBid/bestAsk null and omits longQuote/shortQuote. A field every
     capture answers null is untyped (x-observed-null-only) unless Polymarket US''s own published schema
@@ -523,6 +1452,48 @@ info:
   version: '2026-11-18'
 openapi: 3.1.0
 paths:
+  /v1/market/id/{id}:
+    get:
+      operationId: get_v1_market_id_id
+      parameters:
+      - description: 'Polymarket US market id: the id field of a /v1/markets row (its own namespace, not
+          a Gamma id).'
+        example: '7984'
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1MarketIdId'
+          description: OK
+      summary: gateway.polymarket.us/v1/market/id/{id}
+  /v1/market/slug/{slug}:
+    get:
+      operationId: get_v1_market_slug_slug
+      parameters:
+      - description: 'Exact Polymarket US market slug: the slug field of a /v1/markets row. A game''s
+          game-winner (moneyline) market is "aec-" + the Gamma event''s usId (aec-nba-sa-sac-2026-11-06)
+          and futures have their own (tec-mls-winner-2026-11-07-sea), so pass the listing''s slug rather
+          than building one.'
+        example: tec-mls-winner-2026-11-07-sea
+        in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1MarketSlugSlug'
+          description: OK
+      summary: gateway.polymarket.us/v1/market/slug/{slug}
   /v1/markets:
     get:
       operationId: get_v1_markets
@@ -572,9 +1543,9 @@ paths:
       operationId: get_v1_markets_slug_bbo
       parameters:
       - description: 'Exact Polymarket US market slug: the slug field of a /v1/markets row. A game''s
-          game-winner (moneyline) market is "aec-" + the Gamma event''s usId (aec-nba-sa-sac-2026-11-06);
-          the game''s other markets (e.g. spreads) and futures (tec-mls-winner-2026-11-07-sea) have their
-          own slugs, so pass the listing''s slug rather than building one.'
+          game-winner (moneyline) market is "aec-" + the Gamma event''s usId (aec-nba-sa-sac-2026-11-06)
+          and futures have their own (tec-mls-winner-2026-11-07-sea), so pass the listing''s slug rather
+          than building one.'
         example: tec-mls-winner-2026-11-07-sea
         in: path
         name: slug
@@ -589,5 +1560,49 @@ paths:
                 $ref: '#/components/schemas/GatewayV1MarketsSlugBbo'
           description: OK
       summary: gateway.polymarket.us/v1/markets/{slug}/bbo
+  /v1/markets/{slug}/book:
+    get:
+      operationId: get_v1_markets_slug_book
+      parameters:
+      - description: 'Exact Polymarket US market slug: the slug field of a /v1/markets row. A game''s
+          game-winner (moneyline) market is "aec-" + the Gamma event''s usId (aec-nba-sa-sac-2026-11-06)
+          and futures have their own (tec-mls-winner-2026-11-07-sea), so pass the listing''s slug rather
+          than building one.'
+        example: tec-mls-winner-2026-11-07-sea
+        in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1MarketsSlugBook'
+          description: OK
+      summary: gateway.polymarket.us/v1/markets/{slug}/book
+  /v1/markets/{slug}/settlement:
+    get:
+      operationId: get_v1_markets_slug_settlement
+      parameters:
+      - description: 'Exact Polymarket US market slug: the slug field of a /v1/markets row. A game''s
+          game-winner (moneyline) market is "aec-" + the Gamma event''s usId (aec-nba-sa-sac-2026-11-06)
+          and futures have their own (tec-mls-winner-2026-11-07-sea), so pass the listing''s slug rather
+          than building one.'
+        example: aec-nba-sa-sac-2026-11-06
+        in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1MarketsSlugSettlement'
+          description: OK
+      summary: gateway.polymarket.us/v1/markets/{slug}/settlement
 servers:
 - url: https://gateway.polymarket.us
