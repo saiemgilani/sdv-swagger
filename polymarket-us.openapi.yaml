@@ -1,0 +1,326 @@
+components:
+  schemas:
+    GatewayV1Markets:
+      properties:
+        markets:
+          items:
+            properties:
+              active:
+                type: boolean
+              archived:
+                type: boolean
+              assetPriceTerms:
+                type:
+                - 'null'
+              category:
+                type: string
+              closed:
+                type: boolean
+              comboEnabled:
+                type: boolean
+              createdAt:
+                type: string
+              description:
+                type: string
+              endDate:
+                type: string
+              ep3Status:
+                type: string
+              ep3SyncedAt:
+                type: string
+              feeCoefficient:
+                type: number
+              gameStartTime:
+                type: string
+              hidden:
+                type: boolean
+              id:
+                type: string
+              manualActivation:
+                type: boolean
+              marketSides:
+                items:
+                  properties:
+                    createdAt:
+                      type: string
+                    description:
+                      type: string
+                    id:
+                      type: string
+                    identifier:
+                      type: string
+                    long:
+                      type: boolean
+                    marketId:
+                      type: integer
+                    marketSideType:
+                      type: string
+                    price:
+                      type: string
+                    team:
+                      properties:
+                        abbreviation:
+                          type: string
+                        alias:
+                          type: string
+                        awayIcon:
+                          type: string
+                        color:
+                          properties:
+                            dark:
+                              type: string
+                            light:
+                              type: string
+                          type: object
+                        colorPrimary:
+                          type: string
+                        conference:
+                          type: string
+                        displayAbbreviation:
+                          type: string
+                        homeIcon:
+                          type: string
+                        id:
+                          type: integer
+                        imageDisplayType:
+                          type: string
+                        league:
+                          type: string
+                        logo:
+                          type: string
+                        longIcon:
+                          type: string
+                        longIconDark:
+                          type: string
+                        name:
+                          type: string
+                        ordering:
+                          type: string
+                        providerId:
+                          type: integer
+                        providerIds:
+                          items:
+                            properties:
+                              provider:
+                                type: string
+                              providerId:
+                                type: string
+                            type: object
+                          type: array
+                        record:
+                          type: string
+                        safeName:
+                          type: string
+                        shortIcon:
+                          type: string
+                        shortIconDark:
+                          type: string
+                      type: object
+                    teamId:
+                      type: integer
+                    tradable:
+                      type: boolean
+                    updatedAt:
+                      type: string
+                  type: object
+                type: array
+              marketType:
+                type: string
+              minimumTradeQty:
+                type: integer
+              orderPriceMinTickSize:
+                type: number
+              outcomePrices:
+                type: string
+              outcomes:
+                type: string
+              politics:
+                type:
+                - 'null'
+              question:
+                type: string
+              singlesRfqConfig:
+                properties:
+                  enabled:
+                    type: boolean
+                  maxQuoteAgeSeconds:
+                    type: integer
+                  midpointDeviation:
+                    type:
+                    - integer
+                    - number
+                  minOrderValueUsd:
+                    type: integer
+                  quoteWindows:
+                    items:
+                      properties:
+                        windowMs:
+                          type: string
+                      type: object
+                    type: array
+                  ruleName:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              slug:
+                type: string
+              sportsMarketType:
+                type: string
+              sportsMarketTypeV2:
+                type: string
+              startDate:
+                type: string
+              status:
+                type: string
+              tags:
+                items: {}
+                type: array
+              updatedAt:
+                type: string
+            type: object
+          type: array
+      type: object
+    GatewayV1MarketsSlugBbo:
+      properties:
+        marketData:
+          properties:
+            askDepth:
+              type: integer
+            askShares:
+              type: string
+            bestAsk:
+              type:
+              - 'null'
+            bestBid:
+              type:
+              - 'null'
+            bidDepth:
+              type: integer
+            bidShares:
+              type: string
+            currentPx:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            lastPriceSample:
+              properties:
+                longPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                shortPx:
+                  properties:
+                    currency:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                ts:
+                  type: string
+              type: object
+            lastTradePx:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            marketSlug:
+              type: string
+            openInterest:
+              type: string
+            settlementPx:
+              properties:
+                currency:
+                  type: string
+                value:
+                  type: string
+              type: object
+            sharesTraded:
+              type: string
+            state:
+              type: string
+          type: object
+      type: object
+info:
+  description: 'Market list and best bid/offer of Polymarket US, the CFTC-regulated US exchange; the /v1
+    read routes are keyless. Reverse-engineered from committed captures in polymarket/captures/ (2026-11-18).
+    /v1/markets pages by limit/offset (envelope {markets: [...]}) and the capture holds the first page
+    only (see x-pagination); /v1/markets/{slug}/bbo answers {marketData: {...}}. A market slug is "aec-"
+    + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06); a slug without the prefix answers 404. Prices
+    arrive as {value, currency} objects whose value is a decimal string, and outcomes / outcomePrices
+    are JSON arrays serialised inside a string. Not official or supported.'
+  title: Polymarket US gateway API (gateway.polymarket.us) - public reads
+  version: '2026-11-18'
+openapi: 3.1.0
+paths:
+  /v1/markets:
+    get:
+      operationId: get_v1_markets
+      parameters:
+      - description: Page size.
+        example: '3'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: string
+      - description: Row offset; offset=1 shifts the page (verified 2026-11-18).
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: string
+      - description: Filter active markets (true/false).
+        in: query
+        name: active
+        required: false
+        schema:
+          type: string
+      - description: Filter closed markets/events (true/false).
+        in: query
+        name: closed
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1Markets'
+          description: OK
+      summary: gateway.polymarket.us/v1/markets
+      x-pagination:
+        parameters:
+        - limit
+        - offset
+        request: 'verified: offset=1 shifts the page; the capture holds the first page only (probed 2026-11-18)'
+  /v1/markets/{slug}/bbo:
+    get:
+      operationId: get_v1_markets_slug_bbo
+      parameters:
+      - description: 'Polymarket US market slug: "aec-" + a Gamma event''s usId (e.g. aec-nba-sa-sac-2026-11-06).'
+        example: aec-nba-sa-sac-2026-11-06
+        in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayV1MarketsSlugBbo'
+          description: OK
+      summary: gateway.polymarket.us/v1/markets/{slug}/bbo
+servers:
+- url: https://gateway.polymarket.us
