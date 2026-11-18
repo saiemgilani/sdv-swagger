@@ -45,8 +45,7 @@ components:
           items:
             properties:
               accepting_order_timestamp:
-                type:
-                - 'null'
+                x-observed-null-only: true
               accepting_orders:
                 type: boolean
               active:
@@ -66,8 +65,7 @@ components:
               fpmm:
                 type: string
               game_start_time:
-                type:
-                - 'null'
+                x-observed-null-only: true
               icon:
                 type: string
               image:
@@ -101,8 +99,7 @@ components:
                   min_size:
                     type: integer
                   rates:
-                    type:
-                    - 'null'
+                    x-observed-null-only: true
                 type: object
               seconds_delay:
                 type: integer
