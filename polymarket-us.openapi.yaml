@@ -209,6 +209,9 @@ components:
               type:
               - object
               - 'null'
+              x-note: Polymarket's description says crypto price markets only, but the same schema's child
+                fields (commodityType, commodityOptions) cover gold and silver price markets too; null
+                on every captured sports market.
               x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.assetPriceTerms
             bestAskQuote:
               properties:
@@ -346,7 +349,8 @@ components:
             marketType:
               type: string
             minimumTradeQty:
-              type: integer
+              type: number
+              x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.minimumTradeQty
             orderPriceMinTickSize:
               type: number
             outcomePrices:
@@ -401,6 +405,8 @@ components:
             updatedAt:
               type: string
           type: object
+      required:
+      - market
       type: object
     GatewayV1MarketSlugSlug:
       properties:
@@ -593,6 +599,9 @@ components:
               type:
               - object
               - 'null'
+              x-note: Polymarket's description says crypto price markets only, but the same schema's child
+                fields (commodityType, commodityOptions) cover gold and silver price markets too; null
+                on every captured sports market.
               x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.assetPriceTerms
             bestAskQuote:
               properties:
@@ -734,9 +743,8 @@ components:
             marketType:
               type: string
             minimumTradeQty:
-              type:
-              - integer
-              - number
+              type: number
+              x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.minimumTradeQty
             orderPriceMinTickSize:
               type: number
             outcomePrices:
@@ -793,6 +801,8 @@ components:
             updatedAt:
               type: string
           type: object
+      required:
+      - market
       type: object
     GatewayV1Markets:
       properties:
@@ -987,6 +997,9 @@ components:
                 type:
                 - object
                 - 'null'
+                x-note: Polymarket's description says crypto price markets only, but the same schema's
+                  child fields (commodityType, commodityOptions) cover gold and silver price markets too;
+                  null on every captured sports market.
                 x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.assetPriceTerms
               bestAskQuote:
                 properties:
@@ -1130,7 +1143,8 @@ components:
               marketType:
                 type: string
               minimumTradeQty:
-                type: integer
+                type: number
+                x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.Market.properties.minimumTradeQty
               orderPriceMinTickSize:
                 type: number
               outcomePrices:
@@ -1188,6 +1202,8 @@ components:
                 type: string
             type: object
           type: array
+      required:
+      - markets
       type: object
     GatewayV1MarketsSlugBbo:
       properties:
@@ -1282,6 +1298,8 @@ components:
             state:
               type: string
           type: object
+      required:
+      - marketData
       type: object
     GatewayV1MarketsSlugBook:
       properties:
@@ -1424,6 +1442,8 @@ components:
             transactTime:
               type: string
           type: object
+      required:
+      - marketData
       type: object
     GatewayV1MarketsSlugSettlement:
       properties:
@@ -1432,6 +1452,9 @@ components:
           x-source: official/polymarket-us-markets-schema.json components.schemas.gateway.market.v1.GetMarketSettlementResponse.properties.settlement
         slug:
           type: string
+      required:
+      - settlement
+      - slug
       type: object
 info:
   description: 'Markets of Polymarket US, the CFTC-regulated US exchange (list, by id, by slug) and, per
@@ -1471,6 +1494,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/GatewayV1MarketIdId'
           description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                properties: &id006
+                  code:
+                    type: integer
+                  details:
+                    type: array
+                  message:
+                    type: string
+                type: object
+          description: 'Unknown market: {code: 5, message: "The server was unable to process your request.",
+            details: []} (probed on /bbo and /settlement).'
       summary: gateway.polymarket.us/v1/market/id/{id}
   /v1/market/slug/{slug}:
     get:
@@ -1493,6 +1530,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/GatewayV1MarketSlugSlug'
           description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                properties: *id006
+                type: object
+          description: 'Unknown market: {code: 5, message: "The server was unable to process your request.",
+            details: []} (probed on /bbo and /settlement).'
       summary: gateway.polymarket.us/v1/market/slug/{slug}
   /v1/markets:
     get:
@@ -1559,6 +1604,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/GatewayV1MarketsSlugBbo'
           description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                properties: *id006
+                type: object
+          description: 'Unknown market: {code: 5, message: "The server was unable to process your request.",
+            details: []} (probed on /bbo and /settlement).'
       summary: gateway.polymarket.us/v1/markets/{slug}/bbo
   /v1/markets/{slug}/book:
     get:
@@ -1581,6 +1634,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/GatewayV1MarketsSlugBook'
           description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                properties: *id006
+                type: object
+          description: 'Unknown market: {code: 5, message: "The server was unable to process your request.",
+            details: []} (probed on /bbo and /settlement).'
       summary: gateway.polymarket.us/v1/markets/{slug}/book
   /v1/markets/{slug}/settlement:
     get:
@@ -1603,6 +1664,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/GatewayV1MarketsSlugSettlement'
           description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                properties: *id006
+                type: object
+          description: 'Unknown market: {code: 5, message: "The server was unable to process your request.",
+            details: []} (probed on /bbo and /settlement). A market that exists but has not settled answers
+            the same envelope with message "Settlement not found for market <slug>" (an open MLS Cup future).'
       summary: gateway.polymarket.us/v1/markets/{slug}/settlement
 servers:
 - url: https://gateway.polymarket.us
