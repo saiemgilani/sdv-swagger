@@ -12,10 +12,26 @@ components:
               assetPriceTerms:
                 type:
                 - 'null'
+              bestAskQuote:
+                properties:
+                  currency:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              bestBidQuote:
+                properties:
+                  currency:
+                    type: string
+                  value:
+                    type: string
+                type: object
               category:
                 type: string
               closed:
                 type: boolean
+              color:
+                type: string
               comboEnabled:
                 type: boolean
               createdAt:
@@ -28,6 +44,8 @@ components:
                 type: string
               ep3SyncedAt:
                 type: string
+              eventSubcategory:
+                type: string
               feeCoefficient:
                 type: number
               gameStartTime:
@@ -35,6 +53,8 @@ components:
               hidden:
                 type: boolean
               id:
+                type: string
+              image:
                 type: string
               manualActivation:
                 type: boolean
@@ -57,6 +77,13 @@ components:
                       type: string
                     price:
                       type: string
+                    quote:
+                      properties:
+                        currency:
+                          type: string
+                        value:
+                          type: string
+                      type: object
                     team:
                       properties:
                         abbreviation:
@@ -173,9 +200,15 @@ components:
                 type: string
               status:
                 type: string
+              subtitle:
+                type: string
               tags:
                 items: {}
                 type: array
+              title:
+                type: string
+              titleShort:
+                type: string
               updatedAt:
                 type: string
             type: object
@@ -195,14 +228,18 @@ components:
                   type: string
                 value:
                   type: string
-              type: object
+              type:
+              - object
+              - 'null'
             bestBid:
               properties:
                 currency:
                   type: string
                 value:
                   type: string
-              type: object
+              type:
+              - object
+              - 'null'
             bidDepth:
               type: integer
             bidShares:
@@ -276,10 +313,11 @@ info:
     read routes are keyless. Reverse-engineered from committed captures in polymarket/captures/ (2026-11-18).
     /v1/markets pages by limit/offset (envelope {markets: [...]}) and the capture holds the first page
     only (see x-pagination); /v1/markets/{slug}/bbo answers {marketData: {...}}. A game market''s slug
-    is "aec-" + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06; the bare usId answers 404); futures
-    use other prefixes (tec-, aachc-). Prices arrive as {value, currency} objects whose value is a decimal
-    string; an expired market answers bestBid/bestAsk null and omits longQuote/shortQuote. outcomes /
-    outcomePrices are JSON arrays serialised inside a string. Not official or supported.'
+    is "aec-" + the usId of a Gamma event (aec-nba-sa-sac-2026-11-06; observed, not captured: the bare
+    usId answers 404); futures use other prefixes (tec-). Prices arrive as {value, currency} objects whose
+    value is a decimal string. The schemas union an open and an expired/closed sample: an expired market
+    answers bestBid/bestAsk null and omits longQuote/shortQuote. outcomes / outcomePrices are JSON arrays
+    serialised inside a string. Not official or supported.'
   title: Polymarket US gateway API (gateway.polymarket.us) - public reads
   version: '2026-11-18'
 openapi: 3.1.0
@@ -295,21 +333,23 @@ paths:
         required: false
         schema:
           type: string
-      - description: Row offset; offset=1 shifts the page (verified 2026-11-18).
+      - description: Filter closed markets/events (true/false).
+        example: 'false'
         in: query
-        name: offset
+        name: closed
         required: false
         schema:
           type: string
       - description: Filter active markets (true/false).
+        example: 'true'
         in: query
         name: active
         required: false
         schema:
           type: string
-      - description: Filter closed markets/events (true/false).
+      - description: Row offset; offset=1 shifts the page (verified 2026-11-18).
         in: query
-        name: closed
+        name: offset
         required: false
         schema:
           type: string
