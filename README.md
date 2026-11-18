@@ -134,6 +134,9 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 | Spec | API | Source |
 |---|---|---|
 | `the_odds_api.openapi.yaml` | The Odds API (`api.the-odds-api.com`) — sports, current/historical odds, scores across bookmakers (v4) | the-odds-api/odds-api official spec |
+| `polymarket-gamma.openapi.yaml` | Polymarket **Gamma** (`gamma-api.polymarket.com`), keyless: market, event and tag metadata (4 paths); limit/offset paging; decimals arrive as strings. NOT official | sdv-internal-refs `polymarket/` (captures 2026-10-06) |
+| `polymarket-clob.openapi.yaml` | Polymarket **CLOB** (`clob.polymarket.com`), keyless reads: market list, order book, midpoint, price (4 paths); next_cursor paging. NOT official | sdv-internal-refs `polymarket/` (captures 2026-10-06) |
+| `polymarket-us.openapi.yaml` | **Polymarket US** (`gateway.polymarket.us/v1`), the CFTC-regulated US exchange, keyless reads: `/v1/markets` (limit/offset, active/closed) and `/v1/markets/{slug}/bbo` (best bid/offer; a game market's slug is `aec-` + a Gamma event's `usId`). NOT official | sdv-internal-refs `polymarket/` (captures 2026-11-18, open + expired/closed samples) |
 | `cbssports-napi.openapi.yaml` | CBS Sports **NAPI** (`api.cbssports.com/napi`) — auth-free REST; registry-generated OpenAPI 3.1, 82 endpoints (leagues/seasons/teams/rosters/standings/scoring/odds). Live game scoring + recruiting are torq-only / id-gated. | sdv-internal-refs `cbs/` |
 
 > The ESPN and Fox specs above are generated from `sdv-internal-refs` (`espn/`, `fox/`)
