@@ -58,7 +58,7 @@ components:
                     type: string
                   statValue:
                     description: The leaderboard stat's value.
-                    type: integer
+                    type: number
                   status:
                     description: Player status (current on a roster; active or retired on career leaderboards).
                     type: string
@@ -128,7 +128,7 @@ components:
                     type: string
                   statValue:
                     description: The leaderboard stat's value.
-                    type: integer
+                    type: number
                   status:
                     description: Player status (current on a roster; active or retired on career leaderboards).
                     type: string
@@ -198,7 +198,7 @@ components:
                     type: string
                   statValue:
                     description: The leaderboard stat's value.
-                    type: integer
+                    type: number
                   status:
                     description: Player status (current on a roster; active or retired on career leaderboards).
                     type: string
@@ -263,7 +263,9 @@ components:
                   type: string
                 conference:
                   description: Conference (eastern or western; null before conferences, 2019-2020).
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 fullName:
                   description: Team name (e.g. Waterdogs).
                   type: string
@@ -314,6 +316,7 @@ components:
               description: Text of the play (play-by-play), or the game's description (Championship Series
                 round labels; null for most games).
               type:
+              - string
               - 'null'
             eventId:
               description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
@@ -324,8 +327,7 @@ components:
               type: integer
             gameStatus:
               description: Game status text (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             homePeriodScores:
               description: Home team points per period.
               items:
@@ -342,7 +344,9 @@ components:
                   type: string
                 conference:
                   description: Conference (eastern or western; null before conferences, 2019-2020).
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 fullName:
                   description: Team name (e.g. Waterdogs).
                   type: string
@@ -417,14 +421,15 @@ components:
               type: string
             urlStreaming:
               description: Streaming link.
-              type: string
+              type:
+              - string
+              - 'null'
             venue:
               description: Venue name.
               type: string
             venueLocation:
               description: Venue address (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             visitorPeriodScores:
               description: Away team points per period.
               items:
@@ -514,6 +519,7 @@ components:
                   assistOpportunityPlayerId:
                     description: Player id (officialId) of the passer on a shot that was a potential assist.
                     type:
+                    - string
                     - 'null'
                   awayTeamWinProbability:
                     description: Away team's win probability after this play (0-1).
@@ -528,6 +534,7 @@ components:
                   closestDefenderId:
                     description: Player id of the closest defender on the shot.
                     type:
+                    - string
                     - 'null'
                   commitedPenaltyId:
                     description: Player id of the player who committed the penalty.
@@ -542,7 +549,9 @@ components:
                   description:
                     description: Text of the play (play-by-play), or the game's description (Championship
                       Series round labels; null for most games).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   details:
                     description: Extra detail on a shot (on goal, saved, save type).
                     properties:
@@ -657,7 +666,7 @@ components:
                 properties:
                   GAA:
                     description: Scores against per game played (scoresAgainst / gamesPlayed).
-                    type: integer
+                    type: number
                   assistOpportunities:
                     description: Passes that led to a shot (a potential assist).
                     type: integer
@@ -734,7 +743,9 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   positionName:
                     description: Position name (Attack, Midfield, ...).
                     type: string
@@ -744,7 +755,7 @@ components:
                   saa:
                     description: Scores against per 48 minutes on the field (scoresAgainst / (tof / 2880);
                       checked on the captures).
-                    type: integer
+                    type: number
                   savePct:
                     description: Saves per shot on goal faced (saves / (saves + goalsAgainst); checked
                       on the captures).
@@ -791,7 +802,7 @@ components:
                     type: integer
                   twoPtGaa:
                     description: 2-point goals against per game played.
-                    type: integer
+                    type: number
                 type: object
               type: array
           type: object
@@ -867,7 +878,7 @@ components:
                     type: integer
                   pim:
                     description: Penalty minutes.
-                    type: integer
+                    type: number
                   powerPlayGoals:
                     description: Power-play goals.
                     type: integer
@@ -946,7 +957,7 @@ components:
                     type: integer
                   twoPointShotPct:
                     description: Goals per shot from beyond the arc.
-                    type: integer
+                    type: number
                   twoPointShots:
                     description: Shots from beyond the arc.
                     type: integer
@@ -984,7 +995,9 @@ components:
                         - 'null'
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -1006,7 +1019,9 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
                         type:
@@ -1097,8 +1112,7 @@ components:
                     type: integer
                   gameStatus:
                     description: Game status text (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   homeScore:
                     description: Home team points.
                     type: integer
@@ -1112,7 +1126,9 @@ components:
                         - 'null'
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -1134,7 +1150,9 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
                         type:
@@ -1240,8 +1258,7 @@ components:
                     - 'null'
                   venueLocation:
                     description: Venue address (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   visitorScore:
                     description: Away team points.
                     type: integer
@@ -1280,10 +1297,12 @@ components:
                   articleBody:
                     description: Article text (null for a video item).
                     type:
+                    - string
                     - 'null'
                   articleSlug:
                     description: Article slug on the main site (null for a video item).
                     type:
+                    - string
                     - 'null'
                   aspectRatio:
                     description: Video aspect ratio, e.g. 16:9.
@@ -1291,14 +1310,17 @@ components:
                   authorLink:
                     description: Author page link (null for a video item).
                     type:
+                    - string
                     - 'null'
                   authorName:
                     description: Author name (null for a video item).
                     type:
+                    - string
                     - 'null'
                   authorSlug:
                     description: Author slug (null for a video item).
                     type:
+                    - string
                     - 'null'
                   createdAt:
                     description: When the item was created (ISO 8601, UTC).
@@ -1320,8 +1342,7 @@ components:
                     type: string
                   partnerId:
                     description: Partner id of the item (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   previewImage:
                     description: Preview image URL.
                     type: string
@@ -1347,8 +1368,7 @@ components:
                     type: string
                   videoSources:
                     description: Video renditions (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                 type: object
               type: array
           type: object
@@ -1364,8 +1384,7 @@ components:
                 properties:
                   addToCalendarId:
                     description: Calendar-invite id for the game (null when none).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   awayTeam:
                     description: Away (visiting) team.
                     properties:
@@ -1374,7 +1393,9 @@ components:
                         type: string
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -1396,11 +1417,12 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
-                        type:
-                        - 'null'
+                        x-observed: null in every capture
                       slogan:
                         description: Team slogan.
                         type: string
@@ -1459,7 +1481,9 @@ components:
                   description:
                     description: Text of the play (play-by-play), or the game's description (Championship
                       Series round labels; null for most games).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   eventId:
                     description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                     type: string
@@ -1470,19 +1494,20 @@ components:
                   externalEventId:
                     description: External event id (same value as externalId; not ESPN's event id).
                     type:
+                    - string
                     - 'null'
                   externalId:
                     description: External event id (not ESPN's event id, which runs 4018xxxxx for 2026
                       PLL games; null for some games).
                     type:
+                    - string
                     - 'null'
                   gameNumber:
                     description: Game number within the season.
                     type: integer
                   gameStatus:
                     description: Game status text (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   homeScore:
                     description: Home team points.
                     type: integer
@@ -1494,7 +1519,9 @@ components:
                         type: string
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -1516,11 +1543,12 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
-                        type:
-                        - 'null'
+                        x-observed: null in every capture
                       slogan:
                         description: Team slogan.
                         type: string
@@ -1589,31 +1617,29 @@ components:
                     type: string
                   suiteId:
                     description: Suite ticket id (null when none).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   ticketId:
                     description: Ticketing event id.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   urlPreview:
                     description: Game preview URL (null when none).
                     type:
+                    - string
                     - 'null'
                   urlStreaming:
                     description: Streaming link.
                     type:
+                    - string
                     - 'null'
                   urlTicket:
                     description: Ticketing event id or URL.
                     type: string
                   venue:
                     description: Venue name.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   venueLocation:
                     description: Venue address (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   visitorScore:
                     description: Away team points.
                     type: integer
@@ -1622,15 +1648,13 @@ components:
                     type: boolean
                   waitlistUrl:
                     description: Ticket waitlist URL.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   week:
                     description: Week of the season (0 for the Championship Series).
                     type: string
                   weekendTicketId:
                     description: Weekend ticket purchase link.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   year:
                     description: Season.
                     type: integer
@@ -1650,6 +1674,7 @@ components:
                   conference:
                     description: Conference (eastern or western; null before conferences, 2019-2020).
                     type:
+                    - string
                     - 'null'
                   conferenceLosses:
                     description: Losses against conference opponents.
@@ -1663,6 +1688,7 @@ components:
                   conferenceSeed:
                     description: Seed within the conference (null until set).
                     type:
+                    - integer
                     - 'null'
                   conferenceTies:
                     description: Ties against conference opponents.
@@ -1675,8 +1701,7 @@ components:
                     type: string
                   location:
                     description: Team city or region (e.g. Philadelphia), or the game's city.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   locationCode:
                     description: Three-letter location code (e.g. PHI).
                     type: string
@@ -1695,6 +1720,7 @@ components:
                   seed:
                     description: Playoff seed (null until set).
                     type:
+                    - integer
                     - 'null'
                   teamId:
                     description: Team code (three letters, e.g. WAT).
@@ -1726,9 +1752,11 @@ components:
             endTime:
               description: Contest close time (epoch seconds; null while open).
               type:
+              - integer
               - 'null'
             events:
-              description: Games in the contest week.
+              description: Games (the contest week's games on PickemCompetition; the games in progress
+                on SiteLiveState, empty out of season).
               items:
                 properties:
                   awayTeam:
@@ -1801,8 +1829,7 @@ components:
                     type: string
                   userPick:
                     description: Signed-in fan's pick (null anonymously).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   userPickCorrect:
                     description: true when the signed-in fan's pick won.
                     type: boolean
@@ -1822,8 +1849,7 @@ components:
               type: boolean
             informationText:
               description: Contest information text (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             leaderboard:
               description: true when the contest has a leaderboard.
               type: boolean
@@ -1832,12 +1858,10 @@ components:
               type: string
             questionGroups:
               description: Contest question groups (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             questions:
               description: Contest questions (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             startTime:
               description: Kick-off time, epoch seconds (a numeric string on games).
               type: integer
@@ -1849,8 +1873,7 @@ components:
               type: string
             totalParticipants:
               description: Contest participants (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             type:
               description: Item or contest type (video, article, pickem).
               type: string
@@ -1894,6 +1917,7 @@ components:
             clubTeam:
               description: Club (amateur) team.
               type:
+              - string
               - 'null'
             college:
               description: College the player attended.
@@ -1934,6 +1958,7 @@ components:
             injuryDescription:
               description: Injury description (null when healthy).
               type:
+              - string
               - 'null'
             injuryStatus:
               description: Injury status code (H healthy, Q questionable, IR injured reserve, as observed).
@@ -1950,10 +1975,12 @@ components:
             lastNameSuffix:
               description: Name suffix (Jr., III; null or empty when none).
               type:
+              - string
               - 'null'
             nickname:
               description: Nickname (null when none).
               type:
+              - string
               - 'null'
             officialId:
               description: League id of the player (six digits, e.g. 003009) or team (three letters, e.g.
@@ -1990,7 +2017,9 @@ components:
                 position:
                   description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                     midfield, D defense, FO faceoff, G goalie).
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 positionName:
                   description: Position name (Attack, Midfield, ...).
                   type: string
@@ -2152,7 +2181,9 @@ components:
                       position:
                         description: Position code (A attack, M midfield, SSDM defensive midfield, LSM
                           long-stick midfield, D defense, FO faceoff, G goalie).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       positionName:
                         description: Position name (Attack, Midfield, ...).
                         type: string
@@ -2202,7 +2233,9 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   positionName:
                     description: Position name (Attack, Midfield, ...).
                     type: string
@@ -2451,7 +2484,7 @@ components:
                     properties:
                       GAA:
                         description: Scores against per game played (scoresAgainst / gamesPlayed).
-                        type: integer
+                        type: number
                       assistRate:
                         description: Assists per touch (assists / touches).
                         type: number
@@ -2466,13 +2499,13 @@ components:
                         type: integer
                       cleanSavePct:
                         description: Clean saves per save (cleanSaves / saves).
-                        type: integer
+                        type: number
                       cleanSaves:
                         description: Saves the goalie controlled cleanly (no rebound).
                         type: integer
                       faceoffPct:
                         description: Faceoffs won per faceoff taken (faceoffsWon / faceoffs).
-                        type: integer
+                        type: number
                       faceoffs:
                         description: Faceoffs taken (faceoffPct = faceoffsWon / faceoffs; won + lost can
                           fall short of it, as in the captures).
@@ -2485,8 +2518,7 @@ components:
                         type: integer
                       foRecord:
                         description: Faceoff record text (null in every capture).
-                        type:
-                        - 'null'
+                        x-observed: null in every capture
                       gamesPlayed:
                         description: Games played.
                         type: integer
@@ -2528,10 +2560,10 @@ components:
                         type: number
                       pim:
                         description: Penalty minutes.
-                        type: integer
+                        type: number
                       pimValue:
                         description: Penalty time as minutes (0.5 = a 30-second penalty).
-                        type: integer
+                        type: number
                       plusMinus:
                         description: Plus-minus.
                         type: integer
@@ -2551,11 +2583,11 @@ components:
                       saa:
                         description: Scores against per 48 minutes on the field (scoresAgainst / (tof
                           / 2880); checked on the captures).
-                        type: integer
+                        type: number
                       savePct:
                         description: Saves per shot on goal faced (saves / (saves + goalsAgainst); checked
                           on the captures).
-                        type: integer
+                        type: number
                       saves:
                         description: Saves.
                         type: integer
@@ -2627,7 +2659,7 @@ components:
                         type: number
                       twoPtGaa:
                         description: 2-point goals against per game played.
-                        type: integer
+                        type: number
                       unassistedGoals:
                         description: Unassisted goals.
                         type: integer
@@ -2670,13 +2702,15 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   profileUrl:
                     description: Headshot image URL.
                     type: string
                   statValue:
                     description: The leaderboard stat's value.
-                    type: integer
+                    type: number
                   team:
                     description: Team the player is on.
                     properties:
@@ -2723,13 +2757,15 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   profileUrl:
                     description: Headshot image URL.
                     type: string
                   statValue:
                     description: The leaderboard stat's value.
-                    type: integer
+                    type: number
                   team:
                     description: Team the player is on.
                     properties:
@@ -2777,7 +2813,9 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   profileUrl:
                     description: Headshot image URL.
                     type: string
@@ -2825,7 +2863,9 @@ components:
                   type: string
                 conference:
                   description: Conference (eastern or western; null before conferences, 2019-2020).
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 fullName:
                   description: Team name (e.g. Waterdogs).
                   type: string
@@ -2876,6 +2916,7 @@ components:
               description: Text of the play (play-by-play), or the game's description (Championship Series
                 round labels; null for most games).
               type:
+              - string
               - 'null'
             eventId:
               description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
@@ -2886,8 +2927,7 @@ components:
               type: integer
             gameStatus:
               description: Game status text (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             homePeriodScores:
               description: Home team points per period.
               items:
@@ -2904,7 +2944,9 @@ components:
                   type: string
                 conference:
                   description: Conference (eastern or western; null before conferences, 2019-2020).
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 fullName:
                   description: Team name (e.g. Waterdogs).
                   type: string
@@ -2979,14 +3021,15 @@ components:
               type: string
             urlStreaming:
               description: Streaming link.
-              type: string
+              type:
+              - string
+              - 'null'
             venue:
               description: Venue name.
               type: string
             venueLocation:
               description: Venue address (null in every capture).
-              type:
-              - 'null'
+              x-observed: null in every capture
             visitorPeriodScores:
               description: Away team points per period.
               items:
@@ -3008,7 +3051,7 @@ components:
             properties:
               GAA:
                 description: Scores against per game played (scoresAgainst / gamesPlayed).
-                type: integer
+                type: number
               assistOpportunities:
                 description: Passes that led to a shot (a potential assist).
                 type: integer
@@ -3085,7 +3128,9 @@ components:
               position:
                 description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                   midfield, D defense, FO faceoff, G goalie).
-                type: string
+                type:
+                - string
+                - 'null'
               positionName:
                 description: Position name (Attack, Midfield, ...).
                 type: string
@@ -3095,7 +3140,7 @@ components:
               saa:
                 description: Scores against per 48 minutes on the field (scoresAgainst / (tof / 2880);
                   checked on the captures).
-                type: integer
+                type: number
               savePct:
                 description: Saves per shot on goal faced (saves / (saves + goalsAgainst); checked on
                   the captures).
@@ -3142,14 +3187,15 @@ components:
                 type: integer
               twoPtGaa:
                 description: 2-point goals against per game played.
-                type: integer
+                type: number
             type: object
           type: array
       type: object
     SiteLiveState:
       properties:
         events:
-          description: Games in the contest week.
+          description: Games (the contest week's games on PickemCompetition; the games in progress on
+            SiteLiveState, empty out of season).
           items: {}
           type: array
         generatedAt:
@@ -3158,6 +3204,7 @@ components:
         liveSlugname:
           description: Slug of the game in progress (null when none).
           type:
+          - string
           - 'null'
         nextPollMs:
           description: Milliseconds until the site polls again.
@@ -3169,13 +3216,12 @@ components:
     SiteSeasonEvents:
       properties:
         pll:
-          description: PLL games of the season (the Events fields).
+          description: PLL games of the season (game rows like Events, with a smaller team object).
           items:
             properties:
               addToCalendarId:
                 description: Calendar-invite id for the game (null when none).
-                type:
-                - 'null'
+                x-observed: null in every capture
               awayTeam:
                 description: Away (visiting) team.
                 type: integer
@@ -3208,18 +3254,21 @@ components:
                 type: integer
               externalEventId:
                 description: External event id (same value as externalId; not ESPN's event id).
-                type: string
+                type:
+                - string
+                - 'null'
               externalId:
                 description: External event id (not ESPN's event id, which runs 4018xxxxx for 2026 PLL
                   games; null for some games).
-                type: string
+                type:
+                - string
+                - 'null'
               gameNumber:
                 description: Game number within the season.
                 type: integer
               gameStatus:
                 description: Game status text (null in every capture).
-                type:
-                - 'null'
+                x-observed: null in every capture
               homeScore:
                 description: Home team points.
                 type: integer
@@ -3252,8 +3301,7 @@ components:
                 type: string
               suiteId:
                 description: Suite ticket id (null when none).
-                type:
-                - 'null'
+                x-observed: null in every capture
               ticketId:
                 description: Ticketing event id.
                 type:
@@ -3262,10 +3310,13 @@ components:
               urlPreview:
                 description: Game preview URL (null when none).
                 type:
+                - string
                 - 'null'
               urlStreaming:
                 description: Streaming link.
-                type: string
+                type:
+                - string
+                - 'null'
               urlTicket:
                 description: Ticketing event id or URL.
                 type: string
@@ -3274,8 +3325,7 @@ components:
                 type: string
               venueLocation:
                 description: Venue address (null in every capture).
-                type:
-                - 'null'
+                x-observed: null in every capture
               visitorScore:
                 description: Away team points.
                 type: integer
@@ -3284,8 +3334,7 @@ components:
                 type: boolean
               waitlistUrl:
                 description: Ticket waitlist URL.
-                type:
-                - 'null'
+                x-observed: null in every capture
               week:
                 description: Week of the season (0 for the Championship Series).
                 type: string
@@ -3308,7 +3357,9 @@ components:
                 - 'null'
               conference:
                 description: Conference (eastern or western; null before conferences, 2019-2020).
-                type: string
+                type:
+                - string
+                - 'null'
               fullName:
                 description: Team name (e.g. Waterdogs).
                 type: string
@@ -3330,7 +3381,9 @@ components:
                 type: string
               seed:
                 description: Playoff seed (null until set).
-                type: integer
+                type:
+                - integer
+                - 'null'
               shopImg:
                 description: Team merchandise image URL.
                 type:
@@ -3383,13 +3436,12 @@ components:
           description: Version tag of the bundle.
           type: string
         wll:
-          description: WLL games of the season (the WllEvents fields).
+          description: WLL games of the season (game rows like WllEvents, with a smaller team object).
           items:
             properties:
               addToCalendarId:
                 description: Calendar-invite id for the game (null when none).
-                type:
-                - 'null'
+                x-observed: null in every capture
               awayTeam:
                 description: Away (visiting) team.
                 type: integer
@@ -3422,18 +3474,21 @@ components:
                 type: integer
               externalEventId:
                 description: External event id (same value as externalId; not ESPN's event id).
-                type: string
+                type:
+                - string
+                - 'null'
               externalId:
                 description: External event id (not ESPN's event id, which runs 4018xxxxx for 2026 PLL
                   games; null for some games).
-                type: string
+                type:
+                - string
+                - 'null'
               gameNumber:
                 description: Game number within the season.
                 type: integer
               gameStatus:
                 description: Game status text (null in every capture).
-                type:
-                - 'null'
+                x-observed: null in every capture
               homeScore:
                 description: Home team points.
                 type: integer
@@ -3466,8 +3521,7 @@ components:
                 type: string
               suiteId:
                 description: Suite ticket id (null when none).
-                type:
-                - 'null'
+                x-observed: null in every capture
               ticketId:
                 description: Ticketing event id.
                 type:
@@ -3476,10 +3530,13 @@ components:
               urlPreview:
                 description: Game preview URL (null when none).
                 type:
+                - string
                 - 'null'
               urlStreaming:
                 description: Streaming link.
-                type: string
+                type:
+                - string
+                - 'null'
               urlTicket:
                 description: Ticketing event id or URL.
                 type: string
@@ -3488,8 +3545,7 @@ components:
                 type: string
               venueLocation:
                 description: Venue address (null in every capture).
-                type:
-                - 'null'
+                x-observed: null in every capture
               visitorScore:
                 description: Away team points.
                 type: integer
@@ -3498,8 +3554,7 @@ components:
                 type: boolean
               waitlistUrl:
                 description: Ticket waitlist URL.
-                type:
-                - 'null'
+                x-observed: null in every capture
               week:
                 description: Week of the season (0 for the Championship Series).
                 type: string
@@ -3517,7 +3572,9 @@ components:
         properties:
           conference:
             description: Conference (eastern or western; null before conferences, 2019-2020).
-            type: string
+            type:
+            - string
+            - 'null'
           conferenceLosses:
             description: Losses against conference opponents.
             type: integer
@@ -3530,6 +3587,7 @@ components:
           conferenceSeed:
             description: Seed within the conference (null until set).
             type:
+            - integer
             - 'null'
           conferenceTies:
             description: Ties against conference opponents.
@@ -3561,6 +3619,7 @@ components:
           seed:
             description: Playoff seed (null until set).
             type:
+            - integer
             - 'null'
           teamId:
             description: Team code (three letters, e.g. WAT).
@@ -3587,7 +3646,9 @@ components:
                 properties:
                   conference:
                     description: Conference (eastern or western; null before conferences, 2019-2020).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   conferenceLosses:
                     description: Losses against conference opponents.
                     type: integer
@@ -3600,6 +3661,7 @@ components:
                   conferenceSeed:
                     description: Seed within the conference (null until set).
                     type:
+                    - integer
                     - 'null'
                   conferenceTies:
                     description: Ties against conference opponents.
@@ -3631,6 +3693,7 @@ components:
                   seed:
                     description: Playoff seed (null until set).
                     type:
+                    - integer
                     - 'null'
                   teamId:
                     description: Team code (three letters, e.g. WAT).
@@ -3725,10 +3788,13 @@ components:
                     type: string
                   lastNameSuffix:
                     description: Name suffix (Jr., III; null or empty when none).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   nickname:
                     description: Nickname (null when none).
                     type:
+                    - string
                     - 'null'
                   officialId:
                     description: League id of the player (six digits, e.g. 003009) or team (three letters,
@@ -3737,7 +3803,9 @@ components:
                   position:
                     description: Position code (A attack, M midfield, SSDM defensive midfield, LSM long-stick
                       midfield, D defense, FO faceoff, G goalie).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   positionName:
                     description: Position name (Attack, Midfield, ...).
                     type: string
@@ -3775,7 +3843,9 @@ components:
                     type: string
                   conference:
                     description: Conference (eastern or western; null before conferences, 2019-2020).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   fullName:
                     description: Team name (e.g. Waterdogs).
                     type: string
@@ -4026,7 +4096,9 @@ components:
               type: array
             conference:
               description: Conference (eastern or western; null before conferences, 2019-2020).
-              type: string
+              type:
+              - string
+              - 'null'
             fullName:
               description: Team name (e.g. Waterdogs).
               type: string
@@ -4058,7 +4130,9 @@ components:
               type: object
             seed:
               description: Playoff seed (null until set).
-              type: integer
+              type:
+              - integer
+              - 'null'
             slogan:
               description: Team slogan.
               type: string
@@ -4170,7 +4244,7 @@ components:
                       saa:
                         description: Scores against per 48 minutes on the field (scoresAgainst / (tof
                           / 2880); checked on the captures).
-                        type: integer
+                        type: number
                       savePct:
                         description: Saves per shot on goal faced (saves / (saves + goalsAgainst); checked
                           on the captures).
@@ -4281,8 +4355,7 @@ components:
                 properties:
                   addToCalendarId:
                     description: Calendar-invite id for the game (null when none).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   awayTeam:
                     description: Away (visiting) team.
                     properties:
@@ -4293,7 +4366,9 @@ components:
                         - 'null'
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -4315,11 +4390,12 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
-                        type:
-                        - 'null'
+                        x-observed: null in every capture
                       slogan:
                         description: Team slogan.
                         type: string
@@ -4391,18 +4467,21 @@ components:
                     type: integer
                   externalEventId:
                     description: External event id (same value as externalId; not ESPN's event id).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   externalId:
                     description: External event id (not ESPN's event id, which runs 4018xxxxx for 2026
                       PLL games; null for some games).
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   gameNumber:
                     description: Game number within the season.
                     type: integer
                   gameStatus:
                     description: Game status text (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   homeScore:
                     description: Home team points.
                     type: integer
@@ -4416,7 +4495,9 @@ components:
                         - 'null'
                       conference:
                         description: Conference (eastern or western; null before conferences, 2019-2020).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       fullName:
                         description: Team name (e.g. Waterdogs).
                         type: string
@@ -4438,11 +4519,12 @@ components:
                         type: string
                       seed:
                         description: Playoff seed (null until set).
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                       shopImg:
                         description: Team merchandise image URL.
-                        type:
-                        - 'null'
+                        x-observed: null in every capture
                       slogan:
                         description: Team slogan.
                         type: string
@@ -4511,8 +4593,7 @@ components:
                     type: string
                   suiteId:
                     description: Suite ticket id (null when none).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   ticketId:
                     description: Ticketing event id.
                     type:
@@ -4521,10 +4602,13 @@ components:
                   urlPreview:
                     description: Game preview URL (null when none).
                     type:
+                    - string
                     - 'null'
                   urlStreaming:
                     description: Streaming link.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   urlTicket:
                     description: Ticketing event id or URL.
                     type: string
@@ -4533,8 +4617,7 @@ components:
                     type: string
                   venueLocation:
                     description: Venue address (null in every capture).
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   visitorScore:
                     description: Away team points.
                     type: integer
@@ -4543,8 +4626,7 @@ components:
                     type: boolean
                   waitlistUrl:
                     description: Ticket waitlist URL.
-                    type:
-                    - 'null'
+                    x-observed: null in every capture
                   week:
                     description: Week of the season (0 for the Championship Series).
                     type: string
@@ -4604,9 +4686,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: 'Refused. The proxy''s own refusals are {error: <text>} (Not found for a route
-            it does not serve, Origin not allowed without the site''s Referer); the stats service''s are
-            {error: {code, message}}.'
+          description: 'Refused. The stats proxy''s own refusals are {error: <text>} (Not found for a
+            route it does not serve; Origin not allowed without the stats site''s Referer); the stats
+            service''s are {error: {code, message}}. On the main-site routes a 403 is the same Origin
+            not allowed body for that site''s Referer.'
         '403': *id001
         '404': *id001
       summary: Global Lacrosse Games schedule and results (national teams).
@@ -5032,6 +5115,7 @@ paths:
         schema:
           items:
             type: string
+          minItems: 1
           type: array
         style: form
       - description: Players per stat.
