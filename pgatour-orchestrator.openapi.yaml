@@ -9510,6 +9510,12 @@ components:
                       x-graphql-field: CategoryPlayerStat.supportingDataColor
                   x-graphql-field: StatDetailsPlayer.stats
                 x-graphql-field: StatDetailsPlayer.stats
+              displayName:
+                type: string
+                x-graphql-field: StatDetailTourAvg.displayName
+              value:
+                type: string
+                x-graphql-field: StatDetailTourAvg.value
             x-graphql-abstract: StatDetailsRow
             x-graphql-field: StatDetails.rows
           x-graphql-field: StatDetails.rows
@@ -10514,6 +10520,29 @@ components:
                 - boolean
                 - 'null'
                 x-graphql-field: TourCupCombinedPlayer.tourBound
+              logoAsset:
+                type:
+                - object
+                - 'null'
+                properties: {}
+                x-graphql-field: TourCupCombinedInfo.logoAsset
+              logoDarkAsset:
+                type:
+                - object
+                - 'null'
+                properties: {}
+                x-graphql-field: TourCupCombinedInfo.logoDarkAsset
+              sortValue:
+                type: integer
+                x-graphql-field: TourCupCombinedInfo.sortValue
+              text:
+                type: string
+                x-graphql-field: TourCupCombinedInfo.text
+              toolTip:
+                type:
+                - string
+                - 'null'
+                x-graphql-field: TourCupCombinedInfo.toolTip
             x-graphql-abstract: TourCupCombinedRow
             x-graphql-field: TourCupCombined.players
           x-graphql-field: TourCupCombined.players
