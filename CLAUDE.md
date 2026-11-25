@@ -40,6 +40,8 @@ Coverage by provider:
 - **Golf** — `pgatour-orchestrator.openapi.yaml` (PGA TOUR GraphQL, `orchestrator.pgatour.com/graphql`;
   one `POST /graphql` per operation keyed `/graphql#<Operation>`, document in `x-graphql-document`;
   `x-api-key` discovered from the site at run time, never committed). ESPN golf/lacrosse ride the ESPN specs.
+- **Lacrosse** — `pll-stats.openapi.yaml` (Premier Lacrosse League stats API, `stats.premierlacrosseleague.com/api`;
+  25 GET routes, no token: a required `Referer` header of the stats site; four main-site routes carry a per-path `servers`).
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
   `cbssports-napi.openapi.yaml` (CBS NAPI, 82 endpoints).
 

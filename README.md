@@ -139,6 +139,14 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 
 ESPN's golf surface (`pga`, `lpga`, `liv`, `eur`, `champions-tour`) is in the ESPN specs above.
 
+## Lacrosse
+
+| Spec | API | Source |
+|---|---|---|
+| `pll-stats.openapi.yaml` | **Premier Lacrosse League** stats API (`stats.premierlacrosseleague.com/api`), the REST proxy behind the league's stats site, plus four `premierlacrosseleague.com/api/league` read routes (per-path `servers`) -- 25 GET operations: schedules (2019-2026), game header, play-by-play with win probability, player and team box scores and insights (2021+), standings, team and player season and advanced stats, season and career leaders, rosters, player bios; Global Lacrosse Games and the WLL schedule. **No token**: every stats route needs the site's own `Referer` (a required header parameter; 403 `Origin not allowed` without it). Every response field described. NOT official; wrap-only | sdv-internal-refs `pll/` (catalog + captures 2026-11-25) |
+
+ESPN's lacrosse surface (`pll`, `mens-college-lacrosse`, `womens-college-lacrosse`) is in the ESPN specs above; it shares no game id with this API.
+
 ## Cross-sport / odds
 
 | Spec | API | Source |
