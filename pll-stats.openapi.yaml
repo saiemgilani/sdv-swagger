@@ -618,7 +618,8 @@ components:
                     description: Game clock seconds remaining in the period at the play.
                     type: integer
                   secondsPassed:
-                    description: Seconds elapsed in the period at the play.
+                    description: Game seconds elapsed at the play, cumulative across periods (720 per
+                      quarter; 2165 is 5 s into the fourth).
                     type: integer
                   shooterId:
                     description: Player id of the shooter.
@@ -5268,8 +5269,8 @@ paths:
       x-rows: data.items
   /api/v4/teams/{teamSlug}/roster:
     get:
-      description: One team's roster for a season and segment, with each player's stat line. Wrapped in
-        sdv-py as `pll_team_roster`.
+      description: One team's roster for a season and segment (jersey, position, bio, injury and contract
+        status). Wrapped in sdv-py as `pll_team_roster`.
       operationId: TeamRoster
       parameters:
       - description: Team slug.
@@ -5307,7 +5308,8 @@ paths:
         '400': *id001
         '403': *id001
         '404': *id001
-      summary: One team's roster for a season and segment, with each player's stat line.
+      summary: One team's roster for a season and segment (jersey, position, bio, injury and contract
+        status).
       x-rows: data.items
   /api/v4/teams/{teamSlug}/stats:
     get:
