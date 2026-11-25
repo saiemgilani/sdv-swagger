@@ -4,20 +4,22 @@ info:
   version: '2026-11-25'
   description: 'The GraphQL API behind www.pgatour.com: schedules, leaderboards, hole-by-hole and shot-level
     scoring, tee times, fields, course and hole stats, players, season stats and the points race, for
-    every PGA TOUR-operated tour. Each GraphQL operation is one `POST /graphql`; paths are keyed `/graphql#<Operation>`
-    so each operation is its own OpenAPI operation -- the fragment is never sent. Documents are built
-    from live introspection (`pgatour/schema/schema.graphql`); response schemas from committed captures
-    typed by that schema. Every request needs an `x-api-key` header. The key is the public one www.pgatour.com''s
-    own frontend ships in its Next.js `_app` bundle (site config `api.prod.apiKey`); `tools/pgatour_api.py`
-    discovers it at run time and honours a `PGA_API_KEY` override. No key is committed anywhere. Without
-    the header the CloudFront edge answers HTTP 503 (`x-cache: LambdaExecutionError`); on 2026-11-25 the
-    edge accepted any `da2-` value, so presence, not value, was checked -- do not rely on that. `*Compressed`
-    operations return `{id, payload}` where `payload` is base64 text of a gzip stream of the JSON the
-    uncompressed sibling type would return (same fields, plus `__typename`). Decode: `json.loads(gzip.decompress(base64.b64decode(payload)))`.
-    AWS AppSync behind CloudFront. No rate-limit headers are sent; a sequential capture at 1 request/second
-    (33 requests) saw no 429 and no 5xx beyond the deliberate no-key probe. Keep it gentle. Unofficial
-    and undocumented; PGA TOUR data is proprietary -- wrap-only, never republished as release assets.
-    Captures here are 3-row documentation excerpts.'
+    the PGA TOUR-operated tours (tour codes R, S, H, Y, ...). Each GraphQL operation is one `POST /graphql`;
+    paths are keyed `/graphql#<Operation>` so each operation is its own OpenAPI operation -- the fragment
+    is never sent. Source: github.com/sportsdataverse/sdv-internal-refs, directory `pgatour/` (paths below
+    are relative to that checkout; captured 2026-11-25). Documents are built from live introspection (`pgatour/schema/schema.graphql`);
+    response schemas from committed captures typed by that schema. Every request needs an `x-api-key`
+    header. The key is the public one www.pgatour.com''s own frontend ships in its Next.js `_app` bundle
+    (site config `api.prod.apiKey`); the reference repo''s `pgatour/tools/pgatour_api.py` discovers it
+    at run time; `PGA_API_KEY` overrides it for that helper (generic OpenAPI clients do not read it).
+    No key is committed anywhere. Without the header the CloudFront edge answers HTTP 503 (`x-cache: LambdaExecutionError`);
+    on 2026-11-25 the edge accepted any `da2-` value, so presence, not value, was checked -- do not rely
+    on that. `*Compressed` operations return `{id, payload}` where `payload` is base64 text of a gzip
+    stream of the JSON the uncompressed sibling type would return (same fields, plus `__typename`). Decode:
+    `json.loads(gzip.decompress(base64.b64decode(payload)))`. AWS AppSync behind CloudFront. No rate-limit
+    headers are sent; a sequential capture at 1 request/second (33 requests) saw no 429 and no 5xx beyond
+    the deliberate no-key probe. Keep it gentle. Unofficial and undocumented; PGA TOUR data is proprietary
+    -- wrap-only, never republished as release assets. Captures here are 3-row documentation excerpts.'
 servers:
 - url: https://orchestrator.pgatour.com
   description: Production (AppSync via CloudFront)
@@ -64,6 +66,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -117,6 +120,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -327,6 +338,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -540,6 +552,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -699,6 +719,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -857,6 +878,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1045,6 +1074,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -1231,6 +1261,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1276,6 +1314,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -1316,6 +1355,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1399,6 +1446,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -1485,6 +1533,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1571,6 +1627,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -1665,6 +1722,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1710,6 +1775,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -1750,6 +1816,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -1899,6 +1973,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -2052,6 +2127,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -2271,6 +2354,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -2290,6 +2374,8 @@ paths:
                       x-graphql-type: ID!
                     year:
                       type: integer
+                      minimum: 10000
+                      maximum: 99999
                       description: Edition as the FIVE-digit availableSeasons[].year (20250 = 2025). A
                         four-digit year is silently ignored and the CURRENT edition comes back (see probes.json).
                       x-graphql-type: Int
@@ -2495,6 +2581,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -2651,6 +2745,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -2805,6 +2900,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -2998,6 +3101,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3201,6 +3305,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3247,6 +3359,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3294,6 +3407,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3339,6 +3460,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3396,6 +3518,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3441,6 +3571,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3487,6 +3618,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3545,6 +3684,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3617,6 +3757,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3721,6 +3869,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -3824,6 +3973,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -3937,6 +4094,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -4063,6 +4221,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -4132,6 +4298,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -4205,7 +4372,7 @@ paths:
                 }
               variables:
                 tourCode: R
-                year: '2026'
+                year: 2026
       responses:
         '200':
           description: GraphQL response. A failed operation is still HTTP 200 with `data` null (or the
@@ -4214,6 +4381,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -4230,16 +4405,15 @@ paths:
   /graphql#StatDetails:
     post:
       operationId: StatDetails
-      summary: One season stat table (e.g. 02675 SG Total), optionally through or for a single event.
-      description: 'One season stat table (e.g. 02675 SG Total), optionally through or for a single event.
-        GraphQL root field `statDetails` (StatDetails!). Document: `pgatour/queries/StatDetails.graphql`.
-        Rows documented at `rows`.'
+      summary: One season stat table (e.g. 02675 SG Total).
+      description: 'One season stat table (e.g. 02675 SG Total). GraphQL root field `statDetails` (StatDetails!).
+        Document: `pgatour/queries/StatDetails.graphql`. Rows documented at `rows`.'
       tags:
       - stats
       x-graphql-operation: StatDetails
       x-graphql-root-field: statDetails
       x-graphql-document: |
-        # One season stat table (e.g. 02675 SG Total), optionally through or for a single event.
+        # One season stat table (e.g. 02675 SG Total).
         # Generated by pgatour/tools/build_documents.py from schema/schema.graphql; do not hand-edit.
         query StatDetails($tourCode: TourCode!, $statId: String!, $year: Int) {
           statDetails(tourCode: $tourCode, statId: $statId, year: $year) {
@@ -4320,6 +4494,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -4361,7 +4536,7 @@ paths:
             example:
               operationName: StatDetails
               query: |
-                # One season stat table (e.g. 02675 SG Total), optionally through or for a single event.
+                # One season stat table (e.g. 02675 SG Total).
                 # Generated by pgatour/tools/build_documents.py from schema/schema.graphql; do not hand-edit.
                 query StatDetails($tourCode: TourCode!, $statId: String!, $year: Int) {
                   statDetails(tourCode: $tourCode, statId: $statId, year: $year) {
@@ -4445,6 +4620,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -4654,6 +4837,7 @@ paths:
             schema:
               type: object
               required:
+              - operationName
               - query
               - variables
               properties:
@@ -4877,6 +5061,14 @@ paths:
             application/json:
               schema:
                 type: object
+                anyOf:
+                - required:
+                  - data
+                  properties:
+                    data:
+                      type: object
+                - required:
+                  - errors
                 properties:
                   data:
                     type:
@@ -4897,10 +5089,11 @@ components:
       in: header
       name: x-api-key
       description: 'Every request needs an `x-api-key` header. The key is the public one www.pgatour.com''s
-        own frontend ships in its Next.js `_app` bundle (site config `api.prod.apiKey`); `tools/pgatour_api.py`
-        discovers it at run time and honours a `PGA_API_KEY` override. No key is committed anywhere. Without
-        the header the CloudFront edge answers HTTP 503 (`x-cache: LambdaExecutionError`); on 2026-11-25
-        the edge accepted any `da2-` value, so presence, not value, was checked -- do not rely on that.'
+        own frontend ships in its Next.js `_app` bundle (site config `api.prod.apiKey`); the reference
+        repo''s `pgatour/tools/pgatour_api.py` discovers it at run time; `PGA_API_KEY` overrides it for
+        that helper (generic OpenAPI clients do not read it). No key is committed anywhere. Without the
+        header the CloudFront edge answers HTTP 503 (`x-cache: LambdaExecutionError`); on 2026-11-25 the
+        edge accepted any `da2-` value, so presence, not value, was checked -- do not rely on that.'
   schemas:
     CourseStats:
       type: object
@@ -5371,6 +5564,7 @@ components:
                 - COURSE_FIT
                 - CURRENT_FORM
                 - TOURNAMENT_HISTORY
+                - null
                 x-graphql-field: FeatureItem.fieldStatType
               leaderboardFeatures:
                 type:
@@ -5382,6 +5576,7 @@ components:
                 - PROBABILITIES
                 - SHOT_DETAILS
                 - STROKES_GAINED
+                - null
                 x-graphql-field: FeatureItem.leaderboardFeatures
               name:
                 type: string
@@ -5515,8 +5710,11 @@ components:
     GraphQLErrors:
       type: array
       description: GraphQL errors (AppSync shape).
+      minItems: 1
       items:
         type: object
+        required:
+        - message
         properties:
           message:
             type: string
@@ -5983,6 +6181,7 @@ components:
                 - PROBABILITIES
                 - SHOT_DETAILS
                 - STROKES_GAINED
+                - null
                 x-graphql-field: FeatureItem.leaderboardFeatures
               name:
                 type: string
@@ -6876,6 +7075,7 @@ components:
                     - S
                     - U
                     - Y
+                    - null
                     x-graphql-field: PlayerBioExemption.tour
                 x-graphql-field: PlayerBio.exemptions
               x-graphql-field: PlayerBio.exemptions
@@ -7142,6 +7342,7 @@ components:
                 - S
                 - U
                 - Y
+                - null
                 x-graphql-field: TourPills.tourCode
             x-graphql-field: PlayerProfileTournamentResults.tourPills
           x-graphql-field: PlayerProfileTournamentResults.tourPills
@@ -8047,6 +8248,7 @@ components:
           - DISQUALIFIED
           - NOT_STARTED
           - WITHDRAWN
+          - null
           x-graphql-field: ScorecardV3.playerState
         profileEnabled:
           type: boolean
@@ -8386,6 +8588,7 @@ components:
         __typename:
           type: string
           enum:
+          - ShotDetails
           - ShotDetailsV4
         displayType:
           type: string
@@ -8410,6 +8613,7 @@ components:
               __typename:
                 type: string
                 enum:
+                - ShotDetailHole
                 - ShotDetailHoleV4
               displayHoleNumber:
                 type: string
@@ -8518,6 +8722,7 @@ components:
                   __typename:
                     type: string
                     enum:
+                    - StrokeCoordinates
                     - StrokeCoordinatesV4
                   tourcastX:
                     type: number
@@ -8626,6 +8831,7 @@ components:
                   __typename:
                     type: string
                     enum:
+                    - PointOfInterestCoords
                     - PointOfInterestCoordsV4
                   bottomToTopCoords:
                     type: object
@@ -8633,6 +8839,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -8656,6 +8863,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -8680,6 +8888,7 @@ components:
                   __typename:
                     type: string
                     enum:
+                    - PointOfInterestCoords
                     - PointOfInterestCoordsV4
                   bottomToTopCoords:
                     type: object
@@ -8687,6 +8896,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -8710,6 +8920,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -8755,6 +8966,7 @@ components:
                     __typename:
                       type: string
                       enum:
+                      - HoleStroke
                       - HoleStrokeV4
                     distance:
                       type: string
@@ -8777,6 +8989,7 @@ components:
                         __typename:
                           type: string
                           enum:
+                          - ShotLinkCoordWrapper
                           - ShotLinkCoordWrapperV4
                         bottomToTopCoords:
                           type: object
@@ -8784,6 +8997,7 @@ components:
                             __typename:
                               type: string
                               enum:
+                              - ShotLinkCoordinates
                               - ShotLinkCoordinatesV4
                             fromCoords:
                               type: object
@@ -8791,6 +9005,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8814,6 +9029,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8838,6 +9054,7 @@ components:
                             __typename:
                               type: string
                               enum:
+                              - ShotLinkCoordinates
                               - ShotLinkCoordinatesV4
                             fromCoords:
                               type: object
@@ -8845,6 +9062,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8868,6 +9086,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8899,6 +9118,7 @@ components:
                         __typename:
                           type: string
                           enum:
+                          - ShotLinkCoordWrapper
                           - ShotLinkCoordWrapperV4
                         bottomToTopCoords:
                           type: object
@@ -8906,6 +9126,7 @@ components:
                             __typename:
                               type: string
                               enum:
+                              - ShotLinkCoordinates
                               - ShotLinkCoordinatesV4
                             fromCoords:
                               type: object
@@ -8913,6 +9134,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8936,6 +9158,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8960,6 +9183,7 @@ components:
                             __typename:
                               type: string
                               enum:
+                              - ShotLinkCoordinates
                               - ShotLinkCoordinatesV4
                             fromCoords:
                               type: object
@@ -8967,6 +9191,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -8990,6 +9215,7 @@ components:
                                 __typename:
                                   type: string
                                   enum:
+                                  - StrokeCoordinates
                                   - StrokeCoordinatesV4
                                 tourcastX:
                                   type: number
@@ -9043,6 +9269,7 @@ components:
                   __typename:
                     type: string
                     enum:
+                    - PointOfInterestCoords
                     - PointOfInterestCoordsV4
                   bottomToTopCoords:
                     type: object
@@ -9050,6 +9277,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -9073,6 +9301,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -9097,6 +9326,7 @@ components:
                   __typename:
                     type: string
                     enum:
+                    - PointOfInterestCoords
                     - PointOfInterestCoordsV4
                   bottomToTopCoords:
                     type: object
@@ -9104,6 +9334,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -9127,6 +9358,7 @@ components:
                       __typename:
                         type: string
                         enum:
+                        - StrokeCoordinates
                         - StrokeCoordinatesV4
                       tourcastX:
                         type: number
@@ -9196,6 +9428,7 @@ components:
               __typename:
                 type: string
                 enum:
+                - StatDetailTourAvg
                 - StatDetailsPlayer
               country:
                 type: string
@@ -9225,6 +9458,7 @@ components:
                 - CONSTANT
                 - DOWN
                 - UP
+                - null
                 x-graphql-field: StatDetailsPlayer.rankChangeTendency
               rankDiff:
                 type: string
@@ -9272,6 +9506,7 @@ components:
                       - GRAY
                       - GREEN
                       - RED
+                      - null
                       x-graphql-field: CategoryPlayerStat.supportingDataColor
                   x-graphql-field: StatDetailsPlayer.stats
                 x-graphql-field: StatDetailsPlayer.stats
@@ -9321,6 +9556,7 @@ components:
                 - ALL_TIME_RECORDS
                 - PACE_OF_PLAY
                 - TRADITIONAL_STAT
+                - null
                 x-graphql-field: StatCategoryConfig.categoryType
               displayName:
                 type: string
@@ -9445,6 +9681,7 @@ components:
                 - ALL_TIME_RECORDS
                 - PACE_OF_PLAY
                 - TRADITIONAL_STAT
+                - null
                 x-graphql-field: StatCategoryConfig.categoryType
               displayName:
                 type: string
@@ -9995,6 +10232,7 @@ components:
               __typename:
                 type: string
                 enum:
+                - TourCupCombinedInfo
                 - TourCupCombinedPlayer
               assets:
                 type:
@@ -11147,6 +11385,7 @@ components:
                   - STANDINGS
                   - TEE_TIMES
                   - TOURCAST
+                  - null
                   x-graphql-field: FeatureItemV2.feature
                 label:
                   type: string

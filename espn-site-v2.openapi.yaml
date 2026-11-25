@@ -1516,7 +1516,8 @@ paths:
   /apis/site/v2/sports/{sport}/{league}/statistics:
     get:
       operationId: get_site_v2_apis_site_v2_sports_sport_league_statistics
-      summary: League statistical leaders by category (data for NCAA lacrosse and golf; 400 for PLL)
+      summary: League statistical leaders by category (data for lpga and champions-tour golf; a season
+        / league stub for NCAA lacrosse, liv and eur; an error for pll and pga)
       parameters:
       - *id001
       - *id002
@@ -1553,8 +1554,6 @@ paths:
                       abbreviation:
                         type: string
                       shortName:
-                        type: string
-                      midsizeName:
                         type: string
                       slug:
                         type: string
@@ -1600,6 +1599,126 @@ paths:
                                 type: string
                             lastUpdated:
                               type: string
+                  stats:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      abbreviation:
+                        type: string
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            displayName:
+                              type: string
+                            shortDisplayName:
+                              type: string
+                            abbreviation:
+                              type: string
+                            leaders:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  displayValue:
+                                    type: string
+                                  value:
+                                    type: number
+                                  athlete:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      uid:
+                                        type: string
+                                      guid:
+                                        type: string
+                                      displayName:
+                                        type: string
+                                      shortName:
+                                        type: string
+                                      links:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            language:
+                                              type: string
+                                            rel:
+                                              type: array
+                                              items:
+                                                type: string
+                                            href:
+                                              type: string
+                                            text:
+                                              type: string
+                                            shortText:
+                                              type: string
+                                            isExternal:
+                                              type: boolean
+                                            isPremium:
+                                              type: boolean
+                                      headshot:
+                                        type: object
+                                        properties:
+                                          href:
+                                            type: string
+                                          alt:
+                                            type: string
+                                  statistics:
+                                    type: object
+                                    properties:
+                                      splits:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: string
+                                          name:
+                                            type: string
+                                          abbreviation:
+                                            type: string
+                                          type:
+                                            type: string
+                                          categories:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                name:
+                                                  type: string
+                                                displayName:
+                                                  type: string
+                                                shortDisplayName:
+                                                  type: string
+                                                abbreviation:
+                                                  type: string
+                                                summary:
+                                                  type: string
+                                                stats:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      name:
+                                                        type: string
+                                                      displayName:
+                                                        type: string
+                                                      shortDisplayName:
+                                                        type: string
+                                                      description:
+                                                        type: string
+                                                      abbreviation:
+                                                        type: string
+                                                      value:
+                                                        type: number
+                                                      displayValue:
+                                                        type: string
   /apis/site/v2/sports/{sport}/{league}/tourschedule:
     get:
       operationId: get_site_v2_apis_site_v2_sports_sport_league_tourschedule
