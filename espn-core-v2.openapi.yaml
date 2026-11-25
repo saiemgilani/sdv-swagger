@@ -6,11 +6,14 @@ info:
     across every sport; only the {sport}/{league} path slugs differ. Responses use `$ref` envelopes liberally
     — follow the URL to fetch the inline resource. Schemas here are derived from captured basketball response
     bodies (nba/wnba/mens-college-basketball/womens-college-basketball) and apply cross-sport because
-    the shapes are sport-agnostic.
+    the shapes are sport-agnostic. Five paths the basketball crawl never reached (league season pointer,
+    league team, competition competitors, competition leaders, competitor status) come from the 2026-11-25
+    lacrosse (pll) and golf (pga) surface captures; per-sport shapes and the full working/dead matrix
+    are in catalogs/espn_lacrosse_returns.md and catalogs/espn_golf_returns.md.
 
     '
   summary: Reverse-engineered OpenAPI spec for ESPN's Core v2 host.
-  x-espn-schema-source: captured-bodies (basketball)
+  x-espn-schema-source: captured-bodies (basketball; lacrosse + golf for five paths)
 servers:
 - url: https://sports.core.api.espn.com
   description: ESPN Core v2 (reference data)
@@ -2038,6 +2041,72 @@ paths:
         statuses:
           '200': 15
         n_fetches: 15
+  /v2/sports/{sport}/leagues/{league}/events/{eventId}/competitions/{competitionId}/competitors:
+    get:
+      operationId: getCoreV2_events_eventId_competitions_competitionId_competitors
+      summary: 'Core v2: events/competitions/competitors'
+      parameters:
+      - *id001
+      - *id002
+      - name: eventId
+        in: path
+        required: true
+        description: eventId path segment.
+        schema:
+          type: string
+      - name: competitionId
+        in: path
+        required: true
+        description: competitionId path segment.
+        schema:
+          type: string
+      - *id003
+      - *id004
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  pageIndex:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  pageCount:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        $ref:
+                          type: string
+                        id:
+                          type: string
+                        guid:
+                          type: string
+                        uid:
+                          type: string
+                        type:
+                          type: string
+                        order:
+                          type: integer
+                        homeAway:
+                          type: string
+                        winner:
+                          type: boolean
+                        team:
+                          $ref: '#/components/schemas/Reference'
+                        score:
+                          $ref: '#/components/schemas/Reference'
+                        linescores:
+                          $ref: '#/components/schemas/Reference'
+                        record:
+                          $ref: '#/components/schemas/Reference'
   /v2/sports/{sport}/leagues/{league}/events/{eventId}/competitions/{competitionId}/competitors/{competitorId}:
     get:
       operationId: getCoreV2_events_eventId_competitions_competitionId_competitors_competitorId
@@ -3029,6 +3098,150 @@ paths:
         statuses:
           '200': 11
         n_fetches: 11
+  /v2/sports/{sport}/leagues/{league}/events/{eventId}/competitions/{competitionId}/competitors/{competitorId}/status:
+    get:
+      operationId: getCoreV2_events_eventId_competitions_competitionId_competitors_competitorId_status
+      summary: 'Core v2: events/competitions/competitors/status'
+      parameters:
+      - *id001
+      - *id002
+      - name: eventId
+        in: path
+        required: true
+        description: eventId path segment.
+        schema:
+          type: string
+      - name: competitionId
+        in: path
+        required: true
+        description: competitionId path segment.
+        schema:
+          type: string
+      - name: competitorId
+        in: path
+        required: true
+        description: competitorId path segment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+                  period:
+                    type: integer
+                  type:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      state:
+                        type: string
+                      completed:
+                        type: boolean
+                      description:
+                        type: string
+                      detail:
+                        type: string
+                      shortDetail:
+                        type: string
+                  displayValue:
+                    type: string
+                  teeTime:
+                    type: string
+                  hole:
+                    type: integer
+                  startHole:
+                    type: integer
+                  position:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      isTie:
+                        type: boolean
+                  thru:
+                    type: integer
+                  playoff:
+                    type: boolean
+                  course:
+                    $ref: '#/components/schemas/Reference'
+  /v2/sports/{sport}/leagues/{league}/events/{eventId}/competitions/{competitionId}/leaders:
+    get:
+      operationId: getCoreV2_events_eventId_competitions_competitionId_leaders
+      summary: 'Core v2: events/competitions/leaders'
+      parameters:
+      - *id001
+      - *id002
+      - name: eventId
+        in: path
+        required: true
+        description: eventId path segment.
+        schema:
+          type: string
+      - name: competitionId
+        in: path
+        required: true
+        description: competitionId path segment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  abbreviation:
+                    type: string
+                  type:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        displayName:
+                          type: string
+                        shortDisplayName:
+                          type: string
+                        abbreviation:
+                          type: string
+                        leaders:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              displayValue:
+                                type: string
+                              value:
+                                type: number
+                              rel:
+                                type: array
+                                items:
+                                  type: string
+                              athlete:
+                                $ref: '#/components/schemas/Reference'
+                              statistics:
+                                $ref: '#/components/schemas/Reference'
   /v2/sports/{sport}/leagues/{league}/events/{eventId}/competitions/{competitionId}/odds:
     get:
       operationId: getCoreV2_events_eventId_competitions_competitionId_odds
@@ -5314,6 +5527,106 @@ paths:
         statuses:
           '200': 14
         n_fetches: 14
+  /v2/sports/{sport}/leagues/{league}/season:
+    get:
+      operationId: getCoreV2_season
+      summary: 'Core v2: season'
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+                  year:
+                    type: integer
+                  startDate:
+                    type: string
+                  endDate:
+                    type: string
+                  displayName:
+                    type: string
+                  type:
+                    type: object
+                    properties:
+                      $ref:
+                        type: string
+                      id:
+                        type: string
+                      type:
+                        type: integer
+                      name:
+                        type: string
+                      abbreviation:
+                        type: string
+                      year:
+                        type: integer
+                      startDate:
+                        type: string
+                      endDate:
+                        type: string
+                      hasGroups:
+                        type: boolean
+                      hasStandings:
+                        type: boolean
+                      hasLegs:
+                        type: boolean
+                      groups:
+                        $ref: '#/components/schemas/Reference'
+                      slug:
+                        type: string
+                  types:
+                    type: object
+                    properties:
+                      $ref:
+                        type: string
+                      count:
+                        type: integer
+                      pageIndex:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      pageCount:
+                        type: integer
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            $ref:
+                              type: string
+                            id:
+                              type: string
+                            type:
+                              type: integer
+                            name:
+                              type: string
+                            abbreviation:
+                              type: string
+                            year:
+                              type: integer
+                            startDate:
+                              type: string
+                            endDate:
+                              type: string
+                            hasGroups:
+                              type: boolean
+                            hasStandings:
+                              type: boolean
+                            hasLegs:
+                              type: boolean
+                            groups:
+                              $ref: '#/components/schemas/Reference'
+                            slug:
+                              type: string
+                  rankings:
+                    $ref: '#/components/schemas/Reference'
   /v2/sports/{sport}/leagues/{league}/seasons:
     get:
       operationId: getCoreV2_seasons
@@ -10263,6 +10576,110 @@ paths:
         statuses:
           '200': 19
         n_fetches: 19
+  /v2/sports/{sport}/leagues/{league}/teams/{teamId}:
+    get:
+      operationId: getCoreV2_teams_teamId
+      summary: 'Core v2: teams'
+      parameters:
+      - *id001
+      - *id002
+      - name: teamId
+        in: path
+        required: true
+        description: teamId path segment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+                  id:
+                    type: string
+                  guid:
+                    type: string
+                  uid:
+                    type: string
+                  alternateIds:
+                    type: object
+                    properties:
+                      sdr:
+                        type: string
+                  slug:
+                    type: string
+                  location:
+                    type: string
+                  name:
+                    type: string
+                  nickname:
+                    type: string
+                  abbreviation:
+                    type: string
+                  displayName:
+                    type: string
+                  shortDisplayName:
+                    type: string
+                  color:
+                    type: string
+                  alternateColor:
+                    type: string
+                  isActive:
+                    type: boolean
+                  isAllStar:
+                    type: boolean
+                  logos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        href:
+                          type: string
+                        width:
+                          type: integer
+                        height:
+                          type: integer
+                        alt:
+                          type: string
+                        rel:
+                          type: array
+                          items:
+                            type: string
+                        lastUpdated:
+                          type: string
+                  record:
+                    $ref: '#/components/schemas/Reference'
+                  groups:
+                    $ref: '#/components/schemas/Reference'
+                  links:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        language:
+                          type: string
+                        rel:
+                          type: array
+                          items:
+                            type: string
+                        href:
+                          type: string
+                        text:
+                          type: string
+                        shortText:
+                          type: string
+                        isExternal:
+                          type: boolean
+                        isPremium:
+                          type: boolean
+                  franchise:
+                    $ref: '#/components/schemas/Reference'
+                  events:
+                    $ref: '#/components/schemas/Reference'
   /v2/sports/{sport}/leagues/{league}/teams/{teamId}/injuries:
     get:
       operationId: getCoreV2_teams_teamId_injuries
