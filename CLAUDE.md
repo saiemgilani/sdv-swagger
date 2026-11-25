@@ -37,6 +37,9 @@ Coverage by provider:
   `pff-premium.openapi.yaml` (**LEGACY** PFF Premium Stats
   2.0, `premium.pff.com/api/v1`, cookie-auth/paywalled, NFL/NCAA/AAF/UFL),
   `espn_fantasy_v3.json` (**Swagger 2.0**).
+- **Golf** — `pgatour-orchestrator.openapi.yaml` (PGA TOUR GraphQL, `orchestrator.pgatour.com/graphql`;
+  one `POST /graphql` per operation keyed `/graphql#<Operation>`, document in `x-graphql-document`;
+  `x-api-key` discovered from the site at run time, never committed). ESPN golf/lacrosse ride the ESPN specs.
 - **Cross-sport / odds** — `the_odds_api.openapi.yaml` (The Odds API v4),
   `cbssports-napi.openapi.yaml` (CBS NAPI, 82 endpoints).
 

@@ -69,6 +69,14 @@ paths:
           - '289234'
           - '289262'
           - '3'
+          - '8039'
+          - '8040'
+          - '8044'
+          - '8048'
+          - '8049'
+          - '8050'
+          - '8052'
+          - '8053'
           - afl
           - atp
           - bellator
@@ -278,7 +286,15 @@ paths:
           - '3'
           australian-football:
           - afl
-          cricket: []
+          cricket:
+          - '8039'
+          - '8040'
+          - '8044'
+          - '8048'
+          - '8049'
+          - '8050'
+          - '8052'
+          - '8053'
           volleyball:
           - mens-college-volleyball
           - womens-college-volleyball
@@ -1497,6 +1513,858 @@ paths:
               schema:
                 type: object
                 description: Documented response; schema not yet modeled.
+  /apis/site/v2/sports/{sport}/{league}/statistics:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_statistics
+      summary: League statistical leaders by category (data for lpga and champions-tour golf; a season
+        / league stub for NCAA lacrosse, liv and eur; an error for pll and pga)
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                  status:
+                    type: string
+                  season:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      displayName:
+                        type: string
+                      type:
+                        type: integer
+                      name:
+                        type: string
+                  league:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      abbreviation:
+                        type: string
+                      shortName:
+                        type: string
+                      slug:
+                        type: string
+                      isTournament:
+                        type: boolean
+                      links:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            language:
+                              type: string
+                            rel:
+                              type: array
+                              items:
+                                type: string
+                            href:
+                              type: string
+                            text:
+                              type: string
+                            shortText:
+                              type: string
+                            isExternal:
+                              type: boolean
+                            isPremium:
+                              type: boolean
+                      logos:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            href:
+                              type: string
+                            width:
+                              type: integer
+                            height:
+                              type: integer
+                            alt:
+                              type: string
+                            rel:
+                              type: array
+                              items:
+                                type: string
+                            lastUpdated:
+                              type: string
+                  stats:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      abbreviation:
+                        type: string
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            displayName:
+                              type: string
+                            shortDisplayName:
+                              type: string
+                            abbreviation:
+                              type: string
+                            leaders:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  displayValue:
+                                    type: string
+                                  value:
+                                    type: number
+                                  athlete:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      uid:
+                                        type: string
+                                      guid:
+                                        type: string
+                                      displayName:
+                                        type: string
+                                      shortName:
+                                        type: string
+                                      links:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            language:
+                                              type: string
+                                            rel:
+                                              type: array
+                                              items:
+                                                type: string
+                                            href:
+                                              type: string
+                                            text:
+                                              type: string
+                                            shortText:
+                                              type: string
+                                            isExternal:
+                                              type: boolean
+                                            isPremium:
+                                              type: boolean
+                                      headshot:
+                                        type: object
+                                        properties:
+                                          href:
+                                            type: string
+                                          alt:
+                                            type: string
+                                  statistics:
+                                    type: object
+                                    properties:
+                                      splits:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: string
+                                          name:
+                                            type: string
+                                          abbreviation:
+                                            type: string
+                                          type:
+                                            type: string
+                                          categories:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                name:
+                                                  type: string
+                                                displayName:
+                                                  type: string
+                                                shortDisplayName:
+                                                  type: string
+                                                abbreviation:
+                                                  type: string
+                                                summary:
+                                                  type: string
+                                                stats:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      name:
+                                                        type: string
+                                                      displayName:
+                                                        type: string
+                                                      shortDisplayName:
+                                                        type: string
+                                                      description:
+                                                        type: string
+                                                      abbreviation:
+                                                        type: string
+                                                      value:
+                                                        type: number
+                                                      displayValue:
+                                                        type: string
+  /apis/site/v2/sports/{sport}/{league}/tourschedule:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_league_tourschedule
+      summary: 'Golf tour schedule: seasons[] with their events (golf only)'
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  shortName:
+                    type: string
+                  slug:
+                    type: string
+                  defaultSeason:
+                    type: integer
+                  currentSeason:
+                    type: integer
+                  seasons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        year:
+                          type: integer
+                        startDate:
+                          type: string
+                        endDate:
+                          type: string
+                        displayName:
+                          type: string
+                        events:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              label:
+                                type: string
+                              detail:
+                                type: string
+                              startDate:
+                                type: string
+                              endDate:
+                                type: string
+                              link:
+                                type: string
+                              isMajor:
+                                type: boolean
+                              status:
+                                type: string
+                              fullStatus:
+                                type: object
+                                properties:
+                                  type:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                      state:
+                                        type: string
+                                      completed:
+                                        type: boolean
+                                      description:
+                                        type: string
+                              locations:
+                                type: array
+                                items:
+                                  type: string
+                              winner:
+                                type: object
+                                properties:
+                                  competitors:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      uid:
+                                        type: string
+                                      guid:
+                                        type: string
+                                      firstName:
+                                        type: string
+                                      lastName:
+                                        type: string
+                                      fullName:
+                                        type: string
+                                      displayName:
+                                        type: string
+                                      shortName:
+                                        type: string
+                                      citizenship:
+                                        type: string
+                                      link:
+                                        type: string
+                                      birthPlace:
+                                        type: object
+                                        properties:
+                                          city:
+                                            type: string
+                                          state:
+                                            type: string
+                                          stateAbbreviation:
+                                            type: string
+                                          country:
+                                            type: string
+                                          countryAbbreviation:
+                                            type: string
+                                      flag:
+                                        type: object
+                                        properties:
+                                          href:
+                                            type: string
+                                          alt:
+                                            type: string
+                                          rel:
+                                            type: array
+                                            items:
+                                              type: string
+                                      earnings:
+                                        type: number
+                                      score:
+                                        type: object
+                                        properties:
+                                          $ref:
+                                            type: string
+                                          value:
+                                            type: number
+                                          displayValue:
+                                            type: string
+                                          completedRoundsValue:
+                                            type: number
+                                          completedRoundsDisplayValue:
+                                            type: string
+                              purse:
+                                type: object
+                                properties:
+                                  value:
+                                    type: number
+                                  displayValue:
+                                    type: string
+  /apis/site/v2/sports/{sport}/leaderboard:
+    get:
+      operationId: get_site_v2_apis_site_v2_sports_sport_leaderboard
+      summary: Golf leaderboard (golf only; league is a QUERY parameter here, not a path segment)
+      parameters:
+      - *id001
+      - name: league
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'Golf league slug (pga, lpga, liv, eur, champions-tour, ...). Proven honored: pga
+          and lpga return different events.'
+      - name: event
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Event id; omit for the current event. Proven honored: a past event id returns that
+          event.'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        uid:
+                          type: string
+                        date:
+                          type: string
+                        endDate:
+                          type: string
+                        name:
+                          type: string
+                        shortName:
+                          type: string
+                        primary:
+                          type: boolean
+                        hasPlayerStats:
+                          type: boolean
+                        hasCourseStats:
+                          type: boolean
+                        purse:
+                          type: integer
+                        displayPurse:
+                          type: string
+                        league:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            abbreviation:
+                              type: string
+                            shortName:
+                              type: string
+                            slug:
+                              type: string
+                        season:
+                          type: object
+                          properties:
+                            year:
+                              type: integer
+                        seasonType:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                        week:
+                          type: object
+                          properties: {}
+                        links:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              language:
+                                type: string
+                              rel:
+                                type: array
+                                items:
+                                  type: string
+                              href:
+                                type: string
+                              text:
+                                type: string
+                              shortText:
+                                type: string
+                              isExternal:
+                                type: boolean
+                              isPremium:
+                                type: boolean
+                              isHidden:
+                                type: boolean
+                        tournament:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                            major:
+                              type: boolean
+                            scoringSystem:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                            numberOfRounds:
+                              type: integer
+                            cutRound:
+                              type: integer
+                            cutScore:
+                              type: integer
+                            cutCount:
+                              type: integer
+                        status:
+                          type: object
+                          properties:
+                            type:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                state:
+                                  type: string
+                                completed:
+                                  type: boolean
+                                description:
+                                  type: string
+                        winner:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            displayName:
+                              type: string
+                        defendingChampion:
+                          type: object
+                          properties:
+                            athlete:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                displayName:
+                                  type: string
+                                amateur:
+                                  type: boolean
+                            displayName:
+                              type: string
+                        playoffType:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type: string
+                            minimumHoles:
+                              type: integer
+                        competitions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              uid:
+                                type: string
+                              date:
+                                type: string
+                              endDate:
+                                type: string
+                              recent:
+                                type: boolean
+                              onWatchESPN:
+                                type: boolean
+                              dataFormat:
+                                type: string
+                              status:
+                                type: object
+                                properties:
+                                  period:
+                                    type: integer
+                                  type:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                      state:
+                                        type: string
+                                      description:
+                                        type: string
+                                      detail:
+                                        type: string
+                                      shortDetail:
+                                        type: string
+                              broadcasts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    media:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        slug:
+                                          type: string
+                                        name:
+                                          type: string
+                                        shortName:
+                                          type: string
+                                        callLetters:
+                                          type: string
+                                    lang:
+                                      type: string
+                                    region:
+                                      type: string
+                              competitors:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    uid:
+                                      type: string
+                                    movement:
+                                      type: integer
+                                    earnings:
+                                      type: number
+                                    sortOrder:
+                                      type: integer
+                                    amateur:
+                                      type: boolean
+                                    featured:
+                                      type: boolean
+                                    status:
+                                      type: object
+                                      properties:
+                                        displayValue:
+                                          type: string
+                                        period:
+                                          type: integer
+                                        hole:
+                                          type: integer
+                                        startHole:
+                                          type: integer
+                                        behindCurrentRound:
+                                          type: boolean
+                                        detail:
+                                          type: string
+                                        type:
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            name:
+                                              type: string
+                                            state:
+                                              type: string
+                                            completed:
+                                              type: boolean
+                                            description:
+                                              type: string
+                                            detail:
+                                              type: string
+                                            shortDetail:
+                                              type: string
+                                        position:
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            displayName:
+                                              type: string
+                                            isTie:
+                                              type: boolean
+                                        teeTime:
+                                          type: string
+                                        thru:
+                                          type: integer
+                                        displayThru:
+                                          type: string
+                                        playoff:
+                                          type: boolean
+                                    score:
+                                      type: object
+                                      properties:
+                                        value:
+                                          type: number
+                                        displayValue:
+                                          type: string
+                                    linescores:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          value:
+                                            type: number
+                                          displayValue:
+                                            type: string
+                                          period:
+                                            type: integer
+                                          inScore:
+                                            type: integer
+                                          outScore:
+                                            type: integer
+                                          currentPosition:
+                                            type: integer
+                                          teeTime:
+                                            type: string
+                                          hasStream:
+                                            type: boolean
+                                          isPlayoff:
+                                            type: boolean
+                                          startPosition:
+                                            type: integer
+                                    statistics:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          value:
+                                            type: number
+                                          displayValue:
+                                            type: string
+                                    athlete:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        uid:
+                                          type: string
+                                        guid:
+                                          type: string
+                                        displayName:
+                                          type: string
+                                        shortName:
+                                          type: string
+                                        lastName:
+                                          type: string
+                                        amateur:
+                                          type: boolean
+                                        headshot:
+                                          type: object
+                                          properties:
+                                            href:
+                                              type: string
+                                        flag:
+                                          type: object
+                                          properties:
+                                            href:
+                                              type: string
+                                            alt:
+                                              type: string
+                                        links:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              language:
+                                                type: string
+                                              rel:
+                                                type: array
+                                                items:
+                                                  type: string
+                                              href:
+                                                type: string
+                                              text:
+                                                type: string
+                                              shortText:
+                                                type: string
+                                              isExternal:
+                                                type: boolean
+                                              isPremium:
+                                                type: boolean
+                                              isHidden:
+                                                type: boolean
+                                        birthPlace:
+                                          type: object
+                                          properties:
+                                            countryAbbreviation:
+                                              type: string
+                                            stateAbbreviation:
+                                              type: string
+                              leaders:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    displayName:
+                                      type: string
+                                    shortDisplayName:
+                                      type: string
+                                    abbreviation:
+                                      type: string
+                                    leaders:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          displayValue:
+                                            type: string
+                                          value:
+                                            type: number
+                                          athlete:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                              displayName:
+                                                type: string
+                              holeByHoleSource:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  state:
+                                    type: string
+                                  description:
+                                    type: string
+                              scoringSystem:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                        courses:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              totalYards:
+                                type: integer
+                              shotsToPar:
+                                type: integer
+                              parIn:
+                                type: integer
+                              parOut:
+                                type: integer
+                              host:
+                                type: boolean
+                              holes:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    number:
+                                      type: integer
+                                    shotsToPar:
+                                      type: integer
+                                    totalYards:
+                                      type: integer
+                              address:
+                                type: object
+                                properties:
+                                  city:
+                                    type: string
+                                  state:
+                                    type: string
+                                  country:
+                                    type: string
+                                  zipCode:
+                                    type: string
 components:
   schemas:
     Reference:

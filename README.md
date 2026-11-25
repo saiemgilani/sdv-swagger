@@ -12,12 +12,14 @@ spec records whether its schemas are data-backed (captured response bodies) or d
 from documented representative responses. The `{sport}`/`{league}` slug set now covers
 the expanded league catalog wrapped in sportsdataverse-py v0.0.59, including soccer
 (100+ leagues), cricket, and the NCAA/UFL/XFL/CFL families; the per-league slug list
-lives in `sdv-internal-refs/espn/catalogs/`.
+lives in `sdv-internal-refs/espn/catalogs/`. Lacrosse (`pll`, NCAA men's / women's) and golf
+(`pga`, `lpga`, `liv`, `eur`, `champions-tour`) carry a whole-surface probe there: every endpoint
+x league marked working or dead (`espn_lacrosse_returns.md`, `espn_golf_returns.md`).
 
 | Spec | API host | Source |
 |---|---|---|
-| `espn-core-v2.openapi.yaml` | `sports.core.api.espn.com` — reference data: seasons, events, competitions, athletes, teams, odds, statistics, draft | sdv-internal-refs `espn/` — captured bodies (basketball; sport-agnostic shapes) |
-| `espn-site-v2.openapi.yaml` | `site.api.espn.com` — scoreboard, summary, teams, rosters, standings, groups, rankings, injuries, transactions, news | sdv-internal-refs `espn/` — documented |
+| `espn-core-v2.openapi.yaml` | `sports.core.api.espn.com` — reference data: seasons, events, competitions, athletes, teams, odds, statistics, draft | sdv-internal-refs `espn/` — captured bodies (basketball; sport-agnostic shapes; five paths — league season pointer, league team, competition competitors / leaders, competitor status — from the 2026-11-25 lacrosse + golf surface captures) |
+| `espn-site-v2.openapi.yaml` | `site.api.espn.com` — scoreboard, summary, teams, rosters, standings, groups, rankings, injuries, transactions, news, league statistics; golf `tourschedule` and the golf `leaderboard` (`/apis/site/v2/sports/golf/leaderboard?league=`) | sdv-internal-refs `espn/` — documented (statistics / tourschedule / leaderboard from 2026-11-25 lacrosse + golf captures) |
 | `espn-web-v3.openapi.yaml` | `site.web.api.espn.com` — athlete overview/stats/gamelog/splits, statistics-by-athlete, search | sdv-internal-refs `espn/` — documented |
 | `espn-cdn.openapi.yaml` | `cdn.espn.com` — rich per-game packages (require `?xhr=1`; league-abbreviation slug) | sdv-internal-refs `espn/` — documented |
 | `espn-now.openapi.yaml` | `now.core.api.espn.com` — cross-league news feed | sdv-internal-refs `espn/` — documented |
@@ -128,6 +130,14 @@ sdv-py runtime uses `curl_cffi` with `impersonate="chrome"`.
 | `247sports-site-pages.openapi.yaml` | 247Sports **Site Pages** (`247sports.com/*.json` front-end page-model, **auth-free**, curl_cffi) — 35 routes: player/coach/institution/recruitment traversal, rank history, crystal-ball, draft picks; flat FK-graph payloads | sdv-internal-refs `247sports/` (`gen_site_pages_openapi.py` from real captures) |
 | `on3-recruit-database.openapi.yaml` | On3 **public** Recruit Database (`api.on3.com/public/rdb/v1/*` + one `/rdb/v2`, **auth-free**, plain requests) — 82 endpoints (36 live-validated 2026-07-08): recruiting/rankings/NIL valuations/transfer-portal/draft/coaches/collectives. Sibling of the 247 RDB (On3 owns Rivals). NOT official | sdv-internal-refs `on3/` (`gen_openapi.js` from `on3_ts_api.ts` Api class + `public-contracts.ts` + live captures) |
 | `espn_fantasy_v3.json` | ESPN Fantasy League Manager Platform (`/apis/v3`) — cross-sport fantasy leagues, draft, rosters, transactions (Swagger 2.0) | community / ESPN Fantasy Platform Engineering |
+
+## Golf
+
+| Spec | API | Source |
+|---|---|---|
+| `pgatour-orchestrator.openapi.yaml` | **PGA TOUR** GraphQL API (`orchestrator.pgatour.com/graphql`, AWS AppSync), the API behind www.pgatour.com — 21 operations, each one `POST /graphql` keyed `/graphql#<Operation>` (the fragment is never sent) with its document in `x-graphql-document`, typed `variables`, and a response schema from captures typed by the introspected schema: schedules, tournaments, leaderboards (base64+gzip `*Compressed` payloads, decoded schema in `x-decoded-schema`), hole-by-hole, ShotLink shot detail, tee times, field, past results, course / hole stats, players, season stats, FedExCup; PGA TOUR, Champions, Korn Ferry, Americas. Needs an `x-api-key` header — the public key the site's own frontend ships (discovered at run time; `PGA_API_KEY` override). NOT official; wrap-only | sdv-internal-refs `pgatour/` (introspection + captures 2026-11-25) |
+
+ESPN's golf surface (`pga`, `lpga`, `liv`, `eur`, `champions-tour`) is in the ESPN specs above.
 
 ## Cross-sport / odds
 
