@@ -10,8 +10,8 @@ components:
         const: https://stats.premierlacrosseleague.com/
         type: string
     SiteReferer:
-      description: The main site's origin. /api/league/game-stats answers 403 without it; the other /api/league
-        routes do not check.
+      description: The main site's origin. The /api/league routes answered without it in the capture;
+        send it anyway (game-stats once refused a bare request with 403).
       in: header
       name: Referer
       required: false
@@ -319,7 +319,8 @@ components:
               description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
               type: string
             eventStatus:
-              description: Game status code (3 = final, the only value in the captures).
+              description: Game status code (3 on the final 2021-2026 games captured; the 2019 games all
+                carry 2).
               type: integer
             gameStatus:
               description: Game status text (null in every capture).
@@ -1076,7 +1077,8 @@ components:
                     description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                     type: string
                   eventStatus:
-                    description: Game status code (3 = final, the only value in the captures).
+                    description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                      all carry 2).
                     type: integer
                   externalEventId:
                     description: External event id (same value as externalId; not ESPN's event id).
@@ -1461,7 +1463,8 @@ components:
                     description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                     type: string
                   eventStatus:
-                    description: Game status code (3 = final, the only value in the captures).
+                    description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                      all carry 2).
                     type: integer
                   externalEventId:
                     description: External event id (same value as externalId; not ESPN's event id).
@@ -1748,7 +1751,8 @@ components:
                         type: integer
                     type: object
                   eventStatus:
-                    description: Game status code (3 = final, the only value in the captures).
+                    description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                      all carry 2).
                     type: integer
                   fanResults:
                     description: Fan pick counts by team.
@@ -2876,7 +2880,8 @@ components:
               description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
               type: string
             eventStatus:
-              description: Game status code (3 = final, the only value in the captures).
+              description: Game status code (3 on the final 2021-2026 games captured; the 2019 games all
+                carry 2).
               type: integer
             gameStatus:
               description: Game status text (null in every capture).
@@ -3197,7 +3202,8 @@ components:
                 description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                 type: string
               eventStatus:
-                description: Game status code (3 = final, the only value in the captures).
+                description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                  all carry 2).
                 type: integer
               externalEventId:
                 description: External event id (same value as externalId; not ESPN's event id).
@@ -3410,7 +3416,8 @@ components:
                 description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                 type: string
               eventStatus:
-                description: Game status code (3 = final, the only value in the captures).
+                description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                  all carry 2).
                 type: integer
               externalEventId:
                 description: External event id (same value as externalId; not ESPN's event id).
@@ -4378,7 +4385,8 @@ components:
                     description: League event id (e.g. 2026_game_1; LACROSSE_PLL_2019_... before 2021).
                     type: string
                   eventStatus:
-                    description: Game status code (3 = final, the only value in the captures).
+                    description: Game status code (3 on the final 2021-2026 games captured; the 2019 games
+                      all carry 2).
                     type: integer
                   externalEventId:
                     description: External event id (same value as externalId; not ESPN's event id).
