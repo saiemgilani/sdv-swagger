@@ -246,6 +246,9 @@ components:
                 type: integer
               message:
                 type: string
+            required:
+            - code
+            - message
             type: object
       required:
       - error
@@ -628,7 +631,8 @@ components:
                     type: integer
                   secondsPassed:
                     description: Game seconds elapsed at the play, cumulative across periods (720 per
-                      quarter; 2165 is 5 s into the fourth).
+                      12-minute quarter in a regular or playoff game, so 2165 is 5 s into the fourth;
+                      480 per 8-minute quarter in a Championship Series game).
                     type: integer
                   shooterId:
                     description: Player id of the shooter.
