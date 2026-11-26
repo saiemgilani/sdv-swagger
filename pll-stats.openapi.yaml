@@ -4832,7 +4832,7 @@ paths:
   /api/v4/events:
     get:
       description: Season schedule and results, one row per game (teams, scores, venue, broadcast, slug).
-        Also served, byte-identical, at `/api/v4/games`. Wrapped in sdv-py as `pll_schedule`.
+        Also served, with the same JSON body, at `/api/v4/games`. Wrapped in sdv-py as `pll_schedule`.
       operationId: Events
       parameters:
       - description: Season (2019 onward).
@@ -4867,7 +4867,7 @@ paths:
   /api/v4/events/{eventSlug}:
     get:
       description: One game's header (teams and records, score, period scores, clock, venue, broadcast)
-        and its pregame win probability. Also served, byte-identical, at `/api/v4/games/{eventSlug}`.
+        and its pregame win probability. Also served, with the same JSON body, at `/api/v4/games/{eventSlug}`.
         Wrapped in sdv-py as `pll_game`.
       operationId: Event
       parameters:
@@ -4920,8 +4920,8 @@ paths:
       x-rows: data.items
   /api/v4/events/{eventSlug}/players/stats:
     get:
-      description: Player box score for one game, one row per player who dressed. Also served, byte-identical,
-        at `/api/v4/games/{eventSlug}/players/stats`. Wrapped in sdv-py as `pll_player_box`.
+      description: Player box score for one game, one row per player who dressed. Also served, with the
+        same JSON body, at `/api/v4/games/{eventSlug}/players/stats`. Wrapped in sdv-py as `pll_player_box`.
       operationId: EventPlayerStats
       parameters:
       - description: Game slug.
@@ -4948,8 +4948,8 @@ paths:
   /api/v4/events/{eventSlug}/playlogs:
     get:
       description: Play-by-play for one game, one row per logged event (clock, score, players, win probability).
-        Also served, byte-identical, at `/api/v4/games/{eventSlug}/play-by-plays`. Wrapped in sdv-py as
-        `pll_play_by_play`.
+        Also served, with the same JSON body, at `/api/v4/games/{eventSlug}/play-by-plays`. Wrapped in
+        sdv-py as `pll_play_by_play`.
       operationId: EventPlayLogs
       parameters:
       - description: Game slug (2021 onward; the 2019-2020 slugs contain '@' and the proxy refuses them).
@@ -4975,8 +4975,8 @@ paths:
       x-rows: data.items
   /api/v4/events/{eventSlug}/teams/stats:
     get:
-      description: Team box score for one game, one row per team. Also served, byte-identical, at `/api/v4/games/{eventSlug}/teams/stats`.
-        Wrapped in sdv-py as `pll_team_box`.
+      description: Team box score for one game, one row per team. Also served, with the same JSON body,
+        at `/api/v4/games/{eventSlug}/teams/stats`. Wrapped in sdv-py as `pll_team_box`.
       operationId: EventTeamStats
       parameters:
       - description: Game slug.
