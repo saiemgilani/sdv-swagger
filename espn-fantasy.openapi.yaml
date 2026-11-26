@@ -3206,7 +3206,8 @@ paths:
             type: string
           type: array
         style: form
-      - description: Scoring period (football week, or day for basketball/hockey/baseball).
+      - description: Scoring period (football week, or day for basketball/hockey/baseball). mBoxscore
+          honours it; mTransactions2 honours it for past periods only (recent ones return current activity).
         example: 37
         in: query
         name: scoringPeriodId
