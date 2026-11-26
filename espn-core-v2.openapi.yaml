@@ -231,6 +231,7 @@ paths:
           - womens-olympics-golf
           - world-baseball-classic
           - wta
+          - wtgl
           - xfl
         x-espn-slugs:
           basketball:
@@ -311,6 +312,7 @@ paths:
           - pga
           - tgl
           - womens-olympics-golf
+          - wtgl
           racing:
           - f1
           - irl
@@ -10128,6 +10130,79 @@ paths:
         statuses:
           '200': 172
         n_fetches: 172
+  /v2/sports/{sport}/leagues/{league}/seasons/{season}/types/{type}/weeks/{week}/events:
+    get:
+      operationId: getCoreV2_seasons_season_types_type_weeks_week_events
+      summary: 'Core v2: seasons/types/weeks/events'
+      parameters:
+      - *id001
+      - *id002
+      - name: season
+        in: path
+        required: true
+        description: Season year (4-digit). Meaning varies by league; see the response `season` field.
+        schema:
+          type: integer
+      - name: type
+        in: path
+        required: true
+        description: 'Season type: 1=pre, 2=regular, 3=post, 4=off/all-star.'
+        schema:
+          type: integer
+      - name: week
+        in: path
+        required: true
+        description: week path segment.
+        schema:
+          type: string
+      - *id003
+      - *id004
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $meta:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          week:
+                            type: array
+                            items:
+                              type: string
+                          season:
+                            type: array
+                            items:
+                              type: string
+                          seasontypes:
+                            type: array
+                            items:
+                              type: string
+                  count:
+                    type: integer
+                  pageIndex:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  pageCount:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reference'
+      x-espn-coverage:
+        leagues:
+        - nfl
+        seasons_with_data:
+        - 2025
+        statuses:
+          '200': 2
+        n_fetches: 2
   /v2/sports/{sport}/leagues/{league}/seasons/{season}/types/{type}/weeks/{week}/rankings:
     get:
       operationId: getCoreV2_seasons_season_types_type_weeks_week_rankings
