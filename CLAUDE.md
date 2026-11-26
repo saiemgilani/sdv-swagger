@@ -36,7 +36,8 @@ Coverage by provider:
   key, mirrored byte-for-byte from sdv-internal-refs `pff/developer/`),
   `pff-premium.openapi.yaml` (**LEGACY** PFF Premium Stats
   2.0, `premium.pff.com/api/v1`, cookie-auth/paywalled, NFL/NCAA/AAF/UFL),
-  `espn_fantasy_v3.json` (**Swagger 2.0**).
+  `espn_fantasy_v3.json` (**Swagger 2.0**, ESPN's own platform description),
+  `espn-fantasy.openapi.yaml` (the cookie-free subset, from captures; mirrored from sdv-internal-refs `espn-fantasy/`).
 - **Golf** — `pgatour-orchestrator.openapi.yaml` (PGA TOUR GraphQL, `orchestrator.pgatour.com/graphql`;
   one `POST /graphql` per operation keyed `/graphql#<Operation>`, document in `x-graphql-document`;
   `x-api-key` discovered from the site at run time, never committed). ESPN golf/lacrosse ride the ESPN specs.

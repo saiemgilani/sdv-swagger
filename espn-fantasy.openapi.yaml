@@ -1,0 +1,3340 @@
+components:
+  schemas:
+    Games:
+      items:
+        properties:
+          abbrev:
+            type: string
+          active:
+            type: boolean
+          currentSeason:
+            properties:
+              abbrev:
+                type: string
+              active:
+                type: boolean
+              currentScoringPeriod:
+                properties:
+                  id:
+                    type: integer
+                type: object
+              display:
+                type: boolean
+              displayOrder:
+                type: integer
+              endDate:
+                type: integer
+              gameId:
+                type: integer
+              id:
+                type: integer
+              name:
+                type: string
+              startDate:
+                type: integer
+            type: object
+          currentSeasonId:
+            type: integer
+          display:
+            type: boolean
+          displayOrder:
+            type: integer
+          id:
+            type: integer
+          name:
+            type: string
+          proSportAbbrev:
+            type: string
+          proSportName:
+            type: string
+        type: object
+      type: array
+    GamesGameNewsPlayers:
+      properties:
+        news:
+          properties:
+            feed:
+              items:
+                properties:
+                  allowAMP:
+                    type: boolean
+                  allowComments:
+                    type: boolean
+                  allowContentReactions:
+                    type: boolean
+                  allowSearch:
+                    type: boolean
+                  authors:
+                    items:
+                      properties:
+                        biography:
+                          type: string
+                        contactInfo:
+                          type: string
+                        dataSourceIdentifier:
+                          type: string
+                        displayName:
+                          type: string
+                        firstName:
+                          type: string
+                        guid:
+                          type: string
+                        images:
+                          items:
+                            properties:
+                              alt:
+                                type: string
+                              credit:
+                                type: string
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              url:
+                                type: string
+                            type: object
+                          type: array
+                        lastName:
+                          type: string
+                        links:
+                          properties:
+                            api:
+                              properties:
+                                self:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        shortName:
+                          type: string
+                        slug:
+                          type: string
+                        sourceLine:
+                          type: string
+                        twitterUserName:
+                          type: string
+                      type: object
+                    type: array
+                  byline:
+                    type: string
+                  categorized:
+                    type: string
+                  contentKey:
+                    type: string
+                  dataSourceIdentifier:
+                    type: string
+                  description:
+                    type: string
+                  eventId:
+                    type: integer
+                  eventIdStr:
+                    type: string
+                  feedDisplayType:
+                    type: string
+                  headline:
+                    type: string
+                  id:
+                    type: integer
+                  images:
+                    items:
+                      properties:
+                        alt:
+                          type: string
+                        caption:
+                          type: string
+                        credit:
+                          type: string
+                        dataSourceIdentifier:
+                          type: string
+                        height:
+                          type: integer
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        url:
+                          type: string
+                        width:
+                          type: integer
+                      type: object
+                    type: array
+                  isLiveBlog:
+                    type: boolean
+                  lastModified:
+                    type: string
+                  linkText:
+                    type: string
+                  links:
+                    properties:
+                      api:
+                        properties:
+                          artwork:
+                            properties:
+                              href:
+                                type: string
+                            type: object
+                          self:
+                            properties:
+                              href:
+                                type: string
+                            type: object
+                        type: object
+                      app:
+                        properties:
+                          sportscenter:
+                            properties:
+                              href:
+                                type: string
+                            type: object
+                        type: object
+                      mobile:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                      sportscenter:
+                        properties:
+                          href:
+                            type: string
+                        type: object
+                      web:
+                        properties:
+                          href:
+                            type: string
+                          self:
+                            properties:
+                              dsi:
+                                properties:
+                                  href:
+                                    type: string
+                                type: object
+                              href:
+                                type: string
+                            type: object
+                        type: object
+                    type: object
+                  nowId:
+                    type: string
+                  originallyPosted:
+                    type: string
+                  pageName:
+                    type: string
+                  playerId:
+                    type: integer
+                  premium:
+                    type: boolean
+                  published:
+                    type: string
+                  publishedkey:
+                    type: string
+                  related:
+                    items:
+                      properties:
+                        byline:
+                          type: string
+                        dataSourceIdentifier:
+                          type: string
+                        headline:
+                          type: string
+                        id:
+                          type: integer
+                        images:
+                          items:
+                            properties:
+                              alt:
+                                type: string
+                              caption:
+                                type: string
+                              credit:
+                                type: string
+                              dataSourceIdentifier:
+                                type: string
+                              height:
+                                type: integer
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          type: array
+                        isLiveBlog:
+                          type: boolean
+                        linkText:
+                          type: string
+                        links:
+                          properties:
+                            api:
+                              properties:
+                                self:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            app:
+                              properties:
+                                sportscenter:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            mobile:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            web:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        pageName:
+                          type: string
+                        premium:
+                          type: boolean
+                        publishedkey:
+                          type: string
+                        source:
+                          type: string
+                        title:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                  root:
+                    type: string
+                  section:
+                    type: string
+                  story:
+                    type: string
+                  title:
+                    type: string
+                  type:
+                    type: string
+                  video:
+                    items:
+                      properties:
+                        ad:
+                          properties:
+                            bundle:
+                              type: string
+                            sport:
+                              type: string
+                          type: object
+                        caption:
+                          type: string
+                        categories:
+                          items:
+                            properties:
+                              athlete:
+                                properties:
+                                  description:
+                                    type: string
+                                  id:
+                                    type: integer
+                                  links:
+                                    properties:
+                                      mobile:
+                                        properties:
+                                          athletes:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                      web:
+                                        properties:
+                                          athletes:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                    type: object
+                                type: object
+                              athleteId:
+                                type: integer
+                              description:
+                                type: string
+                              guid:
+                                type: string
+                              id:
+                                type: integer
+                              league:
+                                properties:
+                                  abbreviation:
+                                    type: string
+                                  description:
+                                    type: string
+                                  id:
+                                    type: integer
+                                  links:
+                                    properties:
+                                      mobile:
+                                        properties:
+                                          leagues:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                      web:
+                                        properties:
+                                          leagues:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                    type: object
+                                type: object
+                              leagueId:
+                                type: integer
+                              sportId:
+                                type: integer
+                              team:
+                                properties:
+                                  abbreviation:
+                                    type: string
+                                  description:
+                                    type: string
+                                  id:
+                                    type: integer
+                                  links:
+                                    properties:
+                                      mobile:
+                                        properties:
+                                          teams:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                      web:
+                                        properties:
+                                          teams:
+                                            properties:
+                                              href:
+                                                type: string
+                                            type: object
+                                        type: object
+                                    type: object
+                                  shortDisplayName:
+                                    type: string
+                                type: object
+                              teamId:
+                                type: integer
+                              type:
+                                type: string
+                              uid:
+                                type: string
+                            type: object
+                          type: array
+                        cerebroId:
+                          type: string
+                        contributingPartner:
+                          type: string
+                        contributingSystem:
+                          type: string
+                        dataSourceIdentifier:
+                          type: string
+                        description:
+                          type: string
+                        deviceRestrictions:
+                          properties:
+                            devices:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                          type: object
+                        duration:
+                          type: integer
+                        gameId:
+                          type: integer
+                        geoRestrictions:
+                          properties:
+                            countries:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                          type: object
+                        headline:
+                          type: string
+                        id:
+                          type: integer
+                        images:
+                          items:
+                            properties:
+                              alt:
+                                type: string
+                              caption:
+                                type: string
+                              credit:
+                                type: string
+                              height:
+                                type: integer
+                              name:
+                                type: string
+                              url:
+                                type: string
+                              width:
+                                type: integer
+                            type: object
+                          type: array
+                        lastModified:
+                          type: string
+                        links:
+                          properties:
+                            api:
+                              properties:
+                                artwork:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                self:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            mobile:
+                              properties:
+                                alert:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                                progressiveDownload:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                source:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                streaming:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            source:
+                              properties:
+                                HD:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                HLS:
+                                  properties:
+                                    9x16:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    HD:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    cmaf:
+                                      properties:
+                                        9x16:
+                                          properties:
+                                            href:
+                                              type: string
+                                          type: object
+                                        cmb:
+                                          properties:
+                                            href:
+                                              type: string
+                                          type: object
+                                        href:
+                                          type: string
+                                      type: object
+                                    cmb:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    href:
+                                      type: string
+                                    shield:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                  type: object
+                                flash:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                full:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                                href:
+                                  type: string
+                                mezzanine:
+                                  properties:
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                            sportscenter:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            web:
+                              properties:
+                                href:
+                                  type: string
+                                self:
+                                  properties:
+                                    dsi:
+                                      properties:
+                                        href:
+                                          type: string
+                                      type: object
+                                    href:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        originalPublishDate:
+                          type: string
+                        pccId:
+                          type: string
+                        plays:
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                            type: object
+                          type: array
+                        posterImages:
+                          properties:
+                            default:
+                              properties:
+                                height:
+                                  type: integer
+                                href:
+                                  type: string
+                                width:
+                                  type: integer
+                              type: object
+                            firstFrame:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            full:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            square:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            vertical:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            verticalFirstFrame:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                            wide:
+                              properties:
+                                href:
+                                  type: string
+                              type: object
+                          type: object
+                        premium:
+                          type: boolean
+                        shortDescription:
+                          type: string
+                        shortHeadline:
+                          type: string
+                        source:
+                          type: string
+                        syndicatable:
+                          type: boolean
+                        thumbnail:
+                          type: string
+                        timeRestrictions:
+                          properties:
+                            embargoDate:
+                              type: string
+                            expirationDate:
+                              type: string
+                          type: object
+                        title:
+                          type: string
+                        tracking:
+                          properties:
+                            coverageType:
+                              type: string
+                            leagueName:
+                              type: string
+                            program:
+                              type: string
+                            sportName:
+                              type: string
+                            trackingId:
+                              type: string
+                            trackingName:
+                              type: string
+                          type: object
+                        videoRatio:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              type: array
+            resultsCount:
+              type: integer
+            resultsLimit:
+              type: integer
+            resultsOffset:
+              type: integer
+            status:
+              type: string
+            timestamp:
+              type: string
+          type: object
+      type: object
+    GamesGameSeasons:
+      items:
+        properties:
+          abbrev:
+            type: string
+          active:
+            type: boolean
+          currentScoringPeriod:
+            properties:
+              id:
+                type: integer
+            type: object
+          display:
+            type: boolean
+          displayOrder:
+            type: integer
+          endDate:
+            type: integer
+          gameId:
+            type: integer
+          id:
+            type: integer
+          name:
+            type: string
+          startDate:
+            type: integer
+        type: object
+      type: array
+    GamesGameSeasonsSeason:
+      properties:
+        display:
+          type: boolean
+        settings:
+          properties:
+            defaultDraftPosition:
+              type: integer
+            draftLobbyMinimumLeagueCount:
+              type: integer
+            gameNotificationSettings:
+              properties:
+                availabilityNotificationsEnabled:
+                  type: boolean
+                draftNotificationsEnabled:
+                  type: boolean
+                injuryNotificationsEnabled:
+                  type: boolean
+                lineupNotificationsEnabled:
+                  type: boolean
+                positionEligibilityNotificationsEnabled:
+                  type: boolean
+                rosterNewsNotificationsEnabled:
+                  type: boolean
+                startBenchNotificationsEnabled:
+                  type: boolean
+                tradeNotificationsEnabled:
+                  type: boolean
+              type: object
+            gated:
+              type: boolean
+            playerOwnershipSettings:
+              properties:
+                firstGameDate:
+                  type: integer
+                lastGameDate:
+                  type: integer
+                startDate:
+                  type: integer
+              type: object
+            proTeams:
+              items:
+                properties:
+                  abbrev:
+                    type: string
+                  byeWeek:
+                    type: integer
+                  id:
+                    type: integer
+                  location:
+                    type: string
+                  name:
+                    type: string
+                  proGamesByScoringPeriod:
+                    additionalProperties:
+                      items:
+                        properties:
+                          awayProTeamId:
+                            type: integer
+                          date:
+                            type: integer
+                          homeProTeamId:
+                            type: integer
+                          id:
+                            type: integer
+                          scoringPeriodId:
+                            type: integer
+                          startTimeTBD:
+                            type: boolean
+                          statsOfficial:
+                            type: boolean
+                          validForLocking:
+                            type: boolean
+                        type: object
+                      type: array
+                    type: object
+                  teamPlayersByPosition:
+                    additionalProperties:
+                      type: integer
+                    type: object
+                  universeId:
+                    type: integer
+                type: object
+              type: array
+            readOnly:
+              type: boolean
+            statIdToOverridePosition:
+              additionalProperties:
+                type: integer
+              type: object
+            teamActivityEnabled:
+              type: boolean
+            typeNames:
+              properties:
+                acquisitionTypes:
+                  items:
+                    type: string
+                  type: array
+                draftOrderTypes:
+                  items:
+                    type: string
+                  type: array
+                draftTypes:
+                  items:
+                    type: string
+                  type: array
+                executionTypes:
+                  items:
+                    type: string
+                  type: array
+                injuryStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                inviteTypes:
+                  items:
+                    type: string
+                  type: array
+                keeperOrderTypes:
+                  items:
+                    type: string
+                  type: array
+                leagueSubTypes:
+                  items:
+                    type: string
+                  type: array
+                locktimeTypes:
+                  items:
+                    type: string
+                  type: array
+                logoTypes:
+                  items:
+                    type: string
+                  type: array
+                matchupTieRuleTypes:
+                  items:
+                    type: string
+                  type: array
+                messageTypes:
+                  items:
+                    type: string
+                  type: array
+                moveTypes:
+                  items:
+                    type: string
+                  type: array
+                notificationTypes:
+                  items:
+                    type: string
+                  type: array
+                periodTypes:
+                  items:
+                    type: string
+                  type: array
+                playerOwnershipActivityLevels:
+                  items:
+                    type: string
+                  type: array
+                playerStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                playoffTierTypes:
+                  items:
+                    type: string
+                  type: array
+                pollTypes:
+                  items:
+                    type: string
+                  type: array
+                rankTypes:
+                  items:
+                    type: string
+                  type: array
+                recordSeedingRuleTypes:
+                  items:
+                    type: string
+                  type: array
+                restrictionTypes:
+                  items:
+                    type: string
+                  type: array
+                resultTypes:
+                  items:
+                    type: string
+                  type: array
+                rosterInjuryStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                rosterStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                scoringTypes:
+                  items:
+                    type: string
+                  type: array
+                topicTypes:
+                  items:
+                    type: string
+                  type: array
+                tradeBlockStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                transactionStatusTypes:
+                  items:
+                    type: string
+                  type: array
+                transactionTeamActionTypes:
+                  items:
+                    type: string
+                  type: array
+                transactionTypes:
+                  items:
+                    type: string
+                  type: array
+                winnerTypes:
+                  items:
+                    type: string
+                  type: array
+              type: object
+          type: object
+      type: object
+    GamesGameSeasonsSeasonLeaguedirectoryLeagueSubType:
+      items:
+        properties:
+          customizable:
+            type: boolean
+          draftAvailableDate:
+            type: integer
+          draftDate:
+            type: integer
+          draftInProgress:
+            type: boolean
+          draftType:
+            type: string
+          experienceType:
+            type: string
+          full:
+            type: boolean
+          gameId:
+            type: integer
+          leagueDefaultId:
+            type: integer
+          leagueId:
+            type: integer
+          leagueName:
+            type: string
+          leagueSize:
+            type: integer
+          leagueSubType:
+            type: string
+          public:
+            type: boolean
+          rankType:
+            type: string
+          restrictionType:
+            type: string
+          rosterLocktimeType:
+            type: string
+          scoringItemStatIds:
+            items:
+              type: integer
+            type: array
+          scoringType:
+            type: string
+          seasonId:
+            type: integer
+          segmentId:
+            type: integer
+          standardLeague:
+            type: boolean
+          teamsJoined:
+            type: integer
+          universeIds:
+            items:
+              type: integer
+            type: array
+        type: object
+      type: array
+    GamesGameSeasonsSeasonPlayers:
+      items:
+        properties:
+          defaultPositionId:
+            type: integer
+          droppable:
+            type: boolean
+          eligibleSlots:
+            items:
+              type: integer
+            type: array
+          firstName:
+            type: string
+          fullName:
+            type: string
+          id:
+            type: integer
+          lastName:
+            type: string
+          lastNewsDate:
+            type: integer
+          lastVideoDate:
+            type: integer
+          ownership:
+            properties:
+              percentOwned:
+                type: number
+            type: object
+          proTeamId:
+            type: integer
+          universeId:
+            type: integer
+        type: object
+      type: array
+    GamesGameSeasonsSeasonSegmentsLeaguedefaultsLeagueDefaultId:
+      properties:
+        gameId:
+          type: integer
+        id:
+          type: integer
+        scoringPeriodId:
+          type: integer
+        seasonId:
+          type: integer
+        segmentId:
+          type: integer
+        settings:
+          properties:
+            acquisitionSettings:
+              properties:
+                acquisitionBudget:
+                  type: integer
+                acquisitionLimit:
+                  type: integer
+                acquisitionType:
+                  type: string
+                finalPlaceTransactionEligible:
+                  type: integer
+                isUsingAcquisitionBudget:
+                  type: boolean
+                matchupAcquisitionLimit:
+                  type: number
+                matchupLimitPerScoringPeriod:
+                  type: boolean
+                minimumBid:
+                  type: integer
+                transactionLockingEnabled:
+                  type: boolean
+                waiverHours:
+                  type: integer
+                waiverOrderReset:
+                  type: boolean
+                waiverProcessDays:
+                  items:
+                    type: string
+                  type: array
+                waiverProcessHour:
+                  type: integer
+              type: object
+            draftSettings:
+              properties:
+                auctionBudget:
+                  type: integer
+                isTradingEnabled:
+                  type: boolean
+                keeperCount:
+                  type: integer
+                keeperCountFuture:
+                  type: integer
+                keeperOrderType:
+                  type: string
+                leagueSubType:
+                  type: string
+                orderType:
+                  type: string
+                pickOrder:
+                  items:
+                    type: integer
+                  type: array
+                timePerSelection:
+                  type: integer
+                type:
+                  type: string
+              type: object
+            financeSettings:
+              properties:
+                entryFee:
+                  type: number
+                miscFee:
+                  type: number
+                perLoss:
+                  type: number
+                perTrade:
+                  type: number
+                playerAcquisition:
+                  type: number
+                playerDrop:
+                  type: number
+                playerMoveToActive:
+                  type: number
+                playerMoveToIR:
+                  type: number
+              type: object
+            isAutoReactivate:
+              type: boolean
+            isCustomizable:
+              type: boolean
+            isPublic:
+              type: boolean
+            name:
+              type: string
+            restrictionType:
+              type: string
+            rosterSettings:
+              properties:
+                autoPilotTypeSupported:
+                  type: string
+                isBenchUnlimited:
+                  type: boolean
+                isUsingUndroppableList:
+                  type: boolean
+                lineupLocktimeType:
+                  type: string
+                lineupSlotCounts:
+                  additionalProperties:
+                    type: integer
+                  type: object
+                lineupSlotStatLimits:
+                  additionalProperties:
+                    properties:
+                      limitValue:
+                        type: number
+                      statId:
+                        type: integer
+                    type: object
+                  type: object
+                moveLimit:
+                  type: integer
+                positionLimits:
+                  additionalProperties:
+                    type: integer
+                  type: object
+                rosterLocktimeType:
+                  type: string
+                universeIds:
+                  items:
+                    type: integer
+                  type: array
+              type: object
+            scheduleSettings:
+              properties:
+                consolationLadderDisabled:
+                  type: boolean
+                divisions:
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      size:
+                        type: integer
+                    type: object
+                  type: array
+                matchupPeriodCount:
+                  type: integer
+                matchupPeriodLength:
+                  type: integer
+                matchupPeriods:
+                  additionalProperties:
+                    items:
+                      type: integer
+                    type: array
+                  type: object
+                periodTypeId:
+                  type: integer
+                playoffMatchupPeriodLength:
+                  type: integer
+                playoffMatchupPeriodLengthByRound:
+                  additionalProperties:
+                    type: integer
+                  type: object
+                playoffReseed:
+                  type: boolean
+                playoffSeedingRule:
+                  type: string
+                playoffSeedingRuleBy:
+                  type: integer
+                playoffTeamCount:
+                  type: integer
+                variablePlayoffMatchupPeriodLength:
+                  type: boolean
+              type: object
+            scoringSettings:
+              properties:
+                allowOutOfPositionScoring:
+                  type: boolean
+                homeTeamBonus:
+                  type: integer
+                matchupTieRule:
+                  type: string
+                matchupTieRuleBy:
+                  type: integer
+                playerRankType:
+                  type: string
+                playoffHomeTeamBonus:
+                  type: integer
+                playoffMatchupTieRule:
+                  type: string
+                playoffMatchupTieRuleBy:
+                  type: integer
+                scoringItems:
+                  items:
+                    properties:
+                      isReverseItem:
+                        type: boolean
+                      leagueRanking:
+                        type: number
+                      leagueTotal:
+                        type: number
+                      points:
+                        type: number
+                      pointsOverrides:
+                        properties: {}
+                        type: object
+                      statId:
+                        type: integer
+                    type: object
+                  type: array
+                scoringType:
+                  type: string
+                statQualificationMinimum:
+                  properties:
+                    limitValue:
+                      type: number
+                    statId:
+                      type: integer
+                  type: object
+              type: object
+            size:
+              type: integer
+            tradeSettings:
+              properties:
+                allowOutOfUniverse:
+                  type: boolean
+                deadlineDate:
+                  type: integer
+                max:
+                  type: integer
+                revisionHours:
+                  type: integer
+                vetoVotesRequired:
+                  type: integer
+              type: object
+          type: object
+        status:
+          properties:
+            createdAsLeagueType:
+              type: integer
+            currentLeagueType:
+              type: integer
+            currentMatchupPeriod:
+              type: integer
+            finalScoringPeriod:
+              type: integer
+            firstScoringPeriod:
+              type: integer
+            isActive:
+              type: boolean
+            isExpired:
+              type: boolean
+            isFull:
+              type: boolean
+            isPlayoffMatchupEdited:
+              type: boolean
+            isToBeDeleted:
+              type: boolean
+            isViewable:
+              type: boolean
+            isWaiverOrderEdited:
+              type: boolean
+            latestScoringPeriod:
+              type: integer
+            previousSeasons:
+              items: {}
+              type: array
+            teamsJoined:
+              type: integer
+            transactionScoringPeriod:
+              type: integer
+            waiverProcessStatus:
+              properties: {}
+              type: object
+          type: object
+      type: object
+    GamesGameSeasonsSeasonSegmentsLeaguesLeagueId:
+      properties:
+        draftDetail:
+          properties:
+            completeDate:
+              type: integer
+            drafted:
+              type: boolean
+            inProgress:
+              type: boolean
+            picks:
+              items:
+                properties:
+                  autoDraftTypeId:
+                    type: integer
+                  bidAmount:
+                    type: integer
+                  id:
+                    type: integer
+                  keeper:
+                    type: boolean
+                  lineupSlotId:
+                    type: integer
+                  memberId:
+                    type: string
+                  nominatingTeamId:
+                    type: integer
+                  overallPickNumber:
+                    type: integer
+                  playerId:
+                    type: integer
+                  reservedForKeeper:
+                    type: boolean
+                  roundId:
+                    type: integer
+                  roundPickNumber:
+                    type: integer
+                  teamId:
+                    type: integer
+                  tradeLocked:
+                    type: boolean
+                type: object
+              type: array
+          type: object
+        gameId:
+          type: integer
+        id:
+          type: integer
+        players:
+          items:
+            properties:
+              draftAuctionValue:
+                type: integer
+              droppedByEliminatedTeam:
+                type: boolean
+              id:
+                type: integer
+              keeperValue:
+                type: integer
+              keeperValueFuture:
+                type: integer
+              lineupLocked:
+                type: boolean
+              onTeamId:
+                type: integer
+              player:
+                properties:
+                  active:
+                    type: boolean
+                  defaultPositionId:
+                    type: integer
+                  draftRanksByRankType:
+                    properties:
+                      ROTO:
+                        properties:
+                          auctionValue:
+                            type: integer
+                          published:
+                            type: boolean
+                          rank:
+                            type: integer
+                          rankSourceId:
+                            type: integer
+                          rankType:
+                            type: string
+                          slotId:
+                            type: integer
+                        type: object
+                      STANDARD:
+                        properties:
+                          auctionValue:
+                            type: integer
+                          published:
+                            type: boolean
+                          rank:
+                            type: integer
+                          rankSourceId:
+                            type: integer
+                          rankType:
+                            type: string
+                          slotId:
+                            type: integer
+                        type: object
+                    type: object
+                  droppable:
+                    type: boolean
+                  eligibleSlots:
+                    items:
+                      type: integer
+                    type: array
+                  firstName:
+                    type: string
+                  fullName:
+                    type: string
+                  id:
+                    type: integer
+                  injured:
+                    type: boolean
+                  injuryStatus:
+                    type: string
+                  jersey:
+                    type: string
+                  lastName:
+                    type: string
+                  lastNewsDate:
+                    type: integer
+                  ownership:
+                    properties:
+                      activityLevel:
+                        type:
+                        - 'null'
+                      auctionValueAverage:
+                        type: number
+                      auctionValueAverageChange:
+                        type: number
+                      averageDraftPosition:
+                        type: number
+                      averageDraftPositionPercentChange:
+                        type: number
+                      date:
+                        type: integer
+                      leagueType:
+                        type: integer
+                      percentChange:
+                        type: number
+                      percentOwned:
+                        type: number
+                      percentStarted:
+                        type: number
+                    type: object
+                  proTeamId:
+                    type: integer
+                  seasonOutlook:
+                    type: string
+                  stats:
+                    items:
+                      properties:
+                        appliedAverage:
+                          type: number
+                        appliedTotal:
+                          type: number
+                        averageStats:
+                          additionalProperties:
+                            type: number
+                          type: object
+                        externalId:
+                          type: string
+                        id:
+                          type: string
+                        proTeamId:
+                          type: integer
+                        scoringPeriodId:
+                          type: integer
+                        seasonId:
+                          type: integer
+                        statSourceId:
+                          type: integer
+                        statSplitTypeId:
+                          type: integer
+                        stats:
+                          additionalProperties:
+                            type: number
+                          type: object
+                      type: object
+                    type: array
+                type: object
+              ratings:
+                additionalProperties:
+                  properties:
+                    positionalRanking:
+                      type: integer
+                    totalRanking:
+                      type: integer
+                    totalRating:
+                      type: number
+                  type: object
+                type: object
+              rosterLocked:
+                type: boolean
+              status:
+                type: string
+              tradeLocked:
+                type: boolean
+            type: object
+          type: array
+        schedule:
+          items:
+            properties:
+              away:
+                properties:
+                  adjustment:
+                    type: number
+                  cumulativeScore:
+                    properties:
+                      losses:
+                        type: integer
+                      scoreByStat:
+                        additionalProperties:
+                          properties:
+                            ineligible:
+                              type: boolean
+                            rank:
+                              type: number
+                            result:
+                              type:
+                              - 'null'
+                            score:
+                              type: number
+                          type: object
+                        type: object
+                      statBySlot:
+                        type:
+                        - 'null'
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                  eliminationMatchupPeriod:
+                    type: integer
+                  pointsByScoringPeriod:
+                    additionalProperties:
+                      type: number
+                    type: object
+                  rosterForCurrentScoringPeriod:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          externalId:
+                                            type: string
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  rosterForMatchupPeriod:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type:
+                                              - number
+                                              - string
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  rosterForMatchupPeriodDelayed:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type:
+                                              - number
+                                              - string
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  teamId:
+                    type: integer
+                  tiebreak:
+                    type: number
+                  totalPoints:
+                    type: number
+                type: object
+              home:
+                properties:
+                  adjustment:
+                    type: number
+                  cumulativeScore:
+                    properties:
+                      losses:
+                        type: integer
+                      scoreByStat:
+                        additionalProperties:
+                          properties:
+                            ineligible:
+                              type: boolean
+                            rank:
+                              type: number
+                            result:
+                              type:
+                              - 'null'
+                            score:
+                              type: number
+                          type: object
+                        type: object
+                      statBySlot:
+                        type:
+                        - 'null'
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                  eliminationMatchupPeriod:
+                    type: integer
+                  pointsByScoringPeriod:
+                    additionalProperties:
+                      type: number
+                    type: object
+                  rosterForCurrentScoringPeriod:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          externalId:
+                                            type: string
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  rosterForMatchupPeriod:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type:
+                                              - number
+                                              - string
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  rosterForMatchupPeriodDelayed:
+                    properties:
+                      appliedStatTotal:
+                        type: number
+                      entries:
+                        items:
+                          properties:
+                            lineupSlotId:
+                              type: integer
+                            playerId:
+                              type: integer
+                            playerPoolEntry:
+                              properties:
+                                appliedStatTotal:
+                                  type: number
+                                id:
+                                  type: integer
+                                player:
+                                  properties:
+                                    defaultPositionId:
+                                      type: integer
+                                    eligibleSlots:
+                                      items:
+                                        type: integer
+                                      type: array
+                                    firstName:
+                                      type: string
+                                    fullName:
+                                      type: string
+                                    id:
+                                      type: integer
+                                    lastName:
+                                      type: string
+                                    proTeamId:
+                                      type: integer
+                                    stats:
+                                      items:
+                                        properties:
+                                          appliedStats:
+                                            additionalProperties:
+                                              type: number
+                                            type: object
+                                          appliedTotal:
+                                            type: number
+                                          id:
+                                            type: string
+                                          proTeamId:
+                                            type: integer
+                                          scoringPeriodId:
+                                            type: integer
+                                          seasonId:
+                                            type: integer
+                                          statSourceId:
+                                            type: integer
+                                          statSplitTypeId:
+                                            type: integer
+                                          stats:
+                                            additionalProperties:
+                                              type:
+                                              - number
+                                              - string
+                                            type: object
+                                        type: object
+                                      type: array
+                                    universeId:
+                                      type: integer
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  teamId:
+                    type: integer
+                  tiebreak:
+                    type: number
+                  totalPoints:
+                    type: number
+                type: object
+              id:
+                type: integer
+              matchupPeriodId:
+                type: integer
+              playoffTierType:
+                type: string
+              winner:
+                type: string
+            type: object
+          type: array
+        scoringPeriodId:
+          type: integer
+        seasonId:
+          type: integer
+        segmentId:
+          type: integer
+        settings:
+          properties:
+            acquisitionSettings:
+              properties:
+                acquisitionBudget:
+                  type: integer
+                acquisitionLimit:
+                  type: integer
+                acquisitionType:
+                  type: string
+                finalPlaceTransactionEligible:
+                  type: integer
+                isUsingAcquisitionBudget:
+                  type: boolean
+                matchupAcquisitionLimit:
+                  type: number
+                matchupLimitPerScoringPeriod:
+                  type: boolean
+                minimumBid:
+                  type: integer
+                transactionLockingEnabled:
+                  type: boolean
+                waiverHours:
+                  type: integer
+                waiverOrderReset:
+                  type: boolean
+                waiverProcessDays:
+                  items:
+                    type: string
+                  type: array
+                waiverProcessHour:
+                  type: integer
+              type: object
+            draftSettings:
+              properties:
+                auctionBudget:
+                  type: integer
+                availableDate:
+                  type: integer
+                date:
+                  type: integer
+                isTradingEnabled:
+                  type: boolean
+                keeperCount:
+                  type: integer
+                keeperCountFuture:
+                  type: integer
+                keeperOrderType:
+                  type: string
+                leagueSubType:
+                  type: string
+                orderType:
+                  type: string
+                pickOrder:
+                  items:
+                    type: integer
+                  type: array
+                timePerSelection:
+                  type: integer
+                type:
+                  type: string
+              type: object
+            experienceType:
+              type: string
+            financeSettings:
+              properties:
+                entryFee:
+                  type: number
+                miscFee:
+                  type: number
+                perLoss:
+                  type: number
+                perTrade:
+                  type: number
+                playerAcquisition:
+                  type: number
+                playerDrop:
+                  type: number
+                playerMoveToActive:
+                  type: number
+                playerMoveToIR:
+                  type: number
+              type: object
+            isAutoReactivate:
+              type: boolean
+            isCustomizable:
+              type: boolean
+            isPublic:
+              type: boolean
+            name:
+              type: string
+            restrictionType:
+              type: string
+            rosterSettings:
+              properties:
+                autoPilotTypeSupported:
+                  type: string
+                isBenchUnlimited:
+                  type: boolean
+                isUsingUndroppableList:
+                  type: boolean
+                lineupLocktimeType:
+                  type: string
+                lineupSlotCounts:
+                  additionalProperties:
+                    type: integer
+                  type: object
+                lineupSlotStatLimits:
+                  properties: {}
+                  type: object
+                moveLimit:
+                  type: integer
+                positionLimits:
+                  additionalProperties:
+                    type: integer
+                  type: object
+                rosterLocktimeType:
+                  type: string
+                universeIds:
+                  items:
+                    type: integer
+                  type: array
+              type: object
+            scheduleSettings:
+              properties:
+                consolationLadderDisabled:
+                  type: boolean
+                divisions:
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      size:
+                        type: integer
+                    type: object
+                  type: array
+                matchupPeriodCount:
+                  type: integer
+                matchupPeriodLength:
+                  type: integer
+                matchupPeriods:
+                  additionalProperties:
+                    items:
+                      type: integer
+                    type: array
+                  type: object
+                periodTypeId:
+                  type: integer
+                playoffMatchupPeriodLength:
+                  type: integer
+                playoffReseed:
+                  type: boolean
+                playoffSeedingRule:
+                  type: string
+                playoffSeedingRuleBy:
+                  type: integer
+                playoffTeamCount:
+                  type: integer
+                variablePlayoffMatchupPeriodLength:
+                  type: boolean
+              type: object
+            scoringSettings:
+              properties:
+                allowOutOfPositionScoring:
+                  type: boolean
+                homeTeamBonus:
+                  type: integer
+                matchupTieRule:
+                  type: string
+                matchupTieRuleBy:
+                  type: integer
+                playerRankType:
+                  type: string
+                playoffHomeTeamBonus:
+                  type: integer
+                playoffMatchupTieRule:
+                  type: string
+                playoffMatchupTieRuleBy:
+                  type: integer
+                scoringItems:
+                  items:
+                    properties:
+                      isReverseItem:
+                        type: boolean
+                      leagueRanking:
+                        type: number
+                      leagueTotal:
+                        type: number
+                      points:
+                        type: number
+                      pointsOverrides:
+                        properties: {}
+                        type: object
+                      statId:
+                        type: integer
+                    type: object
+                  type: array
+                scoringType:
+                  type: string
+              type: object
+            size:
+              type: integer
+            tradeSettings:
+              properties:
+                allowOutOfUniverse:
+                  type: boolean
+                deadlineDate:
+                  type: integer
+                max:
+                  type: integer
+                revisionHours:
+                  type: integer
+                vetoVotesRequired:
+                  type: integer
+              type: object
+          type: object
+        status:
+          properties:
+            activatedDate:
+              type: integer
+            createdAsLeagueType:
+              type: integer
+            currentLeagueType:
+              type: integer
+            currentMatchupPeriod:
+              type: integer
+            finalScoringPeriod:
+              type: integer
+            firstScoringPeriod:
+              type: integer
+            isActive:
+              type: boolean
+            isExpired:
+              type: boolean
+            isFull:
+              type: boolean
+            isPlayoffMatchupEdited:
+              type: boolean
+            isToBeDeleted:
+              type: boolean
+            isViewable:
+              type: boolean
+            isWaiverOrderEdited:
+              type: boolean
+            lastUpdateInfo:
+              properties:
+                clientAddress:
+                  type:
+                  - 'null'
+                platform:
+                  type: string
+                source:
+                  type: string
+              type: object
+            latestScoringPeriod:
+              type: integer
+            previousSeasons:
+              items: {}
+              type: array
+            standingsUpdateDate:
+              type: integer
+            teamsJoined:
+              type: integer
+            transactionScoringPeriod:
+              type: integer
+            waiverLastExecutionDate:
+              type: integer
+            waiverProcessStatus:
+              properties: {}
+              type: object
+          type: object
+        teams:
+          items:
+            properties:
+              abbrev:
+                type: string
+              currentProjectedRank:
+                type: integer
+              divisionId:
+                type: integer
+              draftDayProjectedRank:
+                type: integer
+              draftStrategy:
+                properties: {}
+                type: object
+              eliminated:
+                type: boolean
+              eliminationMatchupPeriod:
+                type: integer
+              id:
+                type: integer
+              isActive:
+                type: boolean
+              isTransactionLocked:
+                type: boolean
+              logo:
+                type: string
+              logoType:
+                type: string
+              name:
+                type: string
+              owners:
+                items:
+                  type: string
+                type: array
+              playoffSeed:
+                type: integer
+              points:
+                type: number
+              pointsAdjusted:
+                type: number
+              pointsDelta:
+                type: number
+              primaryOwner:
+                type: string
+              rankCalculatedFinal:
+                type: integer
+              rankFinal:
+                type: integer
+              record:
+                properties:
+                  away:
+                    properties:
+                      gamesBack:
+                        type: number
+                      losses:
+                        type: integer
+                      percentage:
+                        type: number
+                      pointsAgainst:
+                        type: number
+                      pointsFor:
+                        type: number
+                      streakLength:
+                        type: integer
+                      streakType:
+                        type: string
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                  division:
+                    properties:
+                      gamesBack:
+                        type: number
+                      losses:
+                        type: integer
+                      percentage:
+                        type: number
+                      pointsAgainst:
+                        type: number
+                      pointsFor:
+                        type: number
+                      streakLength:
+                        type: integer
+                      streakType:
+                        type: string
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                  home:
+                    properties:
+                      gamesBack:
+                        type: number
+                      losses:
+                        type: integer
+                      percentage:
+                        type: number
+                      pointsAgainst:
+                        type: number
+                      pointsFor:
+                        type: number
+                      streakLength:
+                        type: integer
+                      streakType:
+                        type: string
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                  overall:
+                    properties:
+                      gamesBack:
+                        type: number
+                      losses:
+                        type: integer
+                      percentage:
+                        type: number
+                      pointsAgainst:
+                        type: number
+                      pointsFor:
+                        type: number
+                      streakLength:
+                        type: integer
+                      streakType:
+                        type: string
+                      ties:
+                        type: integer
+                      wins:
+                        type: integer
+                    type: object
+                type: object
+              roster:
+                properties:
+                  appliedStatTotal:
+                    type: number
+                  entries:
+                    items:
+                      properties:
+                        acquisitionDate:
+                          type: integer
+                        acquisitionType:
+                          type: string
+                        injuryStatus:
+                          type: string
+                        lineupSlotId:
+                          type: integer
+                        pendingTransactionIds:
+                          type:
+                          - 'null'
+                        playerId:
+                          type: integer
+                        playerPoolEntry:
+                          properties:
+                            appliedStatTotal:
+                              type: number
+                            id:
+                              type: integer
+                            keeperValue:
+                              type: integer
+                            keeperValueFuture:
+                              type: integer
+                            lineupLocked:
+                              type: boolean
+                            onTeamId:
+                              type: integer
+                            player:
+                              properties:
+                                active:
+                                  type: boolean
+                                defaultPositionId:
+                                  type: integer
+                                draftRanksByRankType:
+                                  properties:
+                                    ROTO:
+                                      properties:
+                                        auctionValue:
+                                          type: integer
+                                        published:
+                                          type: boolean
+                                        rank:
+                                          type: integer
+                                        rankSourceId:
+                                          type: integer
+                                        rankType:
+                                          type: string
+                                        slotId:
+                                          type: integer
+                                      type: object
+                                    STANDARD:
+                                      properties:
+                                        auctionValue:
+                                          type: integer
+                                        published:
+                                          type: boolean
+                                        rank:
+                                          type: integer
+                                        rankSourceId:
+                                          type: integer
+                                        rankType:
+                                          type: string
+                                        slotId:
+                                          type: integer
+                                      type: object
+                                  type: object
+                                droppable:
+                                  type: boolean
+                                eligibleSlots:
+                                  items:
+                                    type: integer
+                                  type: array
+                                firstName:
+                                  type: string
+                                fullName:
+                                  type: string
+                                id:
+                                  type: integer
+                                injured:
+                                  type: boolean
+                                injuryStatus:
+                                  type: string
+                                lastName:
+                                  type: string
+                                lastNewsDate:
+                                  type: integer
+                                ownership:
+                                  properties:
+                                    auctionValueAverage:
+                                      type: number
+                                    averageDraftPosition:
+                                      type: number
+                                    percentChange:
+                                      type: number
+                                    percentOwned:
+                                      type: number
+                                    percentStarted:
+                                      type: number
+                                  type: object
+                                proGamePlayerDetail:
+                                  additionalProperties:
+                                    properties:
+                                      lineupOrder:
+                                        type:
+                                        - 'null'
+                                      starterStatus:
+                                        type: string
+                                    type: object
+                                  type: object
+                                proTeamId:
+                                  type: integer
+                                seasonOutlook:
+                                  type: string
+                                stats:
+                                  items:
+                                    properties:
+                                      appliedAverage:
+                                        type: number
+                                      appliedStats:
+                                        additionalProperties:
+                                          type: number
+                                        type: object
+                                      appliedTotal:
+                                        type: number
+                                      averageStats:
+                                        additionalProperties:
+                                          type: number
+                                        type: object
+                                      externalId:
+                                        type: string
+                                      id:
+                                        type: string
+                                      proTeamId:
+                                        type: integer
+                                      scoringPeriodId:
+                                        type: integer
+                                      seasonId:
+                                        type: integer
+                                      statSourceId:
+                                        type: integer
+                                      statSplitTypeId:
+                                        type: integer
+                                      stats:
+                                        additionalProperties:
+                                          type: number
+                                        type: object
+                                    type: object
+                                  type: array
+                                universeId:
+                                  type: integer
+                              type: object
+                            ratings:
+                              additionalProperties:
+                                properties:
+                                  positionalRanking:
+                                    type: integer
+                                  totalRanking:
+                                    type: integer
+                                  totalRating:
+                                    type: number
+                                type: object
+                              type: object
+                            rosterLocked:
+                              type: boolean
+                            status:
+                              type: string
+                            tradeLocked:
+                              type: boolean
+                          type: object
+                        status:
+                          type: string
+                      type: object
+                    type: array
+                  tradeReservedEntries:
+                    type: integer
+                type: object
+              tradeBlock:
+                properties: {}
+                type: object
+              transactionCounter:
+                properties:
+                  acquisitionBudgetSpent:
+                    type: integer
+                  acquisitions:
+                    type: integer
+                  drops:
+                    type: integer
+                  matchupAcquisitionTotals:
+                    additionalProperties:
+                      type: integer
+                    type: object
+                  misc:
+                    type: integer
+                  moveToActive:
+                    type: integer
+                  moveToIR:
+                    type: integer
+                  paid:
+                    type: number
+                  teamCharges:
+                    type: number
+                  trades:
+                    type: integer
+                type: object
+              valuesByStat:
+                additionalProperties:
+                  type: number
+                type: object
+              waiverRank:
+                type: integer
+            type: object
+          type: array
+        transactions:
+          items:
+            properties:
+              bidAmount:
+                type: integer
+              executionType:
+                type: string
+              id:
+                type: string
+              isActingAsTeamOwner:
+                type: boolean
+              isLeagueManager:
+                type: boolean
+              isPending:
+                type: boolean
+              items:
+                items:
+                  properties:
+                    fromLineupSlotId:
+                      type: integer
+                    fromTeamId:
+                      type: integer
+                    isKeeper:
+                      type: boolean
+                    overallPickNumber:
+                      type: integer
+                    playerId:
+                      type: integer
+                    toLineupSlotId:
+                      type: integer
+                    toTeamId:
+                      type: integer
+                    type:
+                      type: string
+                  type: object
+                type: array
+              memberId:
+                type: string
+              proposedDate:
+                type: integer
+              rating:
+                type: integer
+              scoringPeriodId:
+                type: integer
+              status:
+                type: string
+              teamId:
+                type: integer
+              type:
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  description: 'Public, unauthenticated reads of ESPN''s fantasy platform: games, seasons, pro-team schedules,
+    the player universe, ESPN''s public-league directory and default settings, public leagues by id (teams,
+    rosters, matchups, box scores, scoring settings, draft, transactions, player pool) and player news.
+    Private leagues need the owner''s espn_s2/SWID cookies and are out of scope. Shapes come from committed,
+    redacted captures in espn-fantasy/captures/ (member account ids and team names replaced). Not official
+    or supported.'
+  title: ESPN Fantasy read API (lm-api-reads.fantasy.espn.com)
+  version: '2026-11-26'
+openapi: 3.1.0
+paths:
+  /games:
+    get:
+      operationId: games
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Games'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: Every fantasy game with its current season.
+      x-captured:
+        games:
+        - all
+  /games/{game}/news/players:
+    get:
+      operationId: games_game_news_players
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: Player id.
+        example: 4066261
+        in: query
+        name: playerId
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameNewsPlayers'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: Fantasy news feed for one player (site.api.espn.com).
+      x-captured:
+        player_news:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+    servers:
+    - url: https://site.api.espn.com/apis/fantasy/v3
+  /games/{game}/seasons:
+    get:
+      operationId: games_game_seasons
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasons'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: Seasons of one fantasy game.
+      x-captured:
+        seasons:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+  /games/{game}/seasons/{season}:
+    get:
+      operationId: games_game_seasons_season
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
+          = 2026).'
+        example: 2027
+        in: path
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: Named projection of the resource; repeat the key for several views.
+        explode: true
+        in: query
+        name: view
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasonsSeason'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: One season of a game; with view=proTeamSchedules_wl the pro teams, byes and pro-game schedule.
+      x-captured:
+        pro_team_schedules:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+      x-view-keys:
+        proTeamSchedules_wl:
+        - display
+        - settings
+      x-views:
+      - proTeamSchedules_wl
+      - kona_game_state
+  /games/{game}/seasons/{season}/leaguedirectory/{league_sub_type}:
+    get:
+      operationId: games_game_seasons_season_leaguedirectory_league_sub_type
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
+          = 2026).'
+        example: 2027
+        in: path
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: 'Directory to list: DRAFT_LOBBY (ESPN-run public leagues with an upcoming or running
+          draft), MOCKDRAFT_LOBBY (mock-draft rooms).'
+        example: DRAFT_LOBBY
+        in: path
+        name: league_sub_type
+        required: true
+        schema:
+          enum:
+          - DRAFT_LOBBY
+          - MOCKDRAFT_LOBBY
+          - CUSTOM_MOCK
+          - NONE
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasonsSeasonLeaguedirectoryLeagueSubType'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: ESPN's public-league directory (the public draft lobby).
+      x-captured:
+        league_directory:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+  /games/{game}/seasons/{season}/players:
+    get:
+      operationId: games_game_seasons_season_players
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
+          = 2026).'
+        example: 2027
+        in: path
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: Named projection of the resource; repeat the key for several views.
+        explode: true
+        in: query
+        name: view
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: JSON object sent as the X-Fantasy-Filter request header. It narrows list members
+          of the body, e.g. {"players":{"limit":25,"sortPercOwned":{"sortPriority":1,"sortAsc":false}}}.
+          A "limit" must be accompanied by a sort or the host answers 400 FILTER_LIMIT_MISSING_SORT.
+        in: header
+        name: X-Fantasy-Filter
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasonsSeasonPlayers'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: Player universe for a season (view=players_wl); filter filterActive for active players
+        only.
+      x-captured:
+        players:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+      x-view-keys:
+        players_wl: []
+      x-views:
+      - players_wl
+  /games/{game}/seasons/{season}/segments/0/leaguedefaults/{league_default_id}:
+    get:
+      operationId: games_game_seasons_season_segments_0_leaguedefaults_league_default_id
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
+          = 2026).'
+        example: 2027
+        in: path
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: ESPN default-settings template id (leagueDefaultId in the league directory).
+        example: 1
+        in: path
+        name: league_default_id
+        required: true
+        schema:
+          type: integer
+      - description: Named projection of the resource; repeat the key for several views.
+        explode: true
+        in: query
+        name: view
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasonsSeasonSegmentsLeaguedefaultsLeagueDefaultId'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: 'ESPN default league settings template (view=mSettings: scoring, roster, schedule rules).'
+      x-captured:
+        default_settings:
+        - fba
+        - ffl
+        - fhl
+        - flb
+        - wfba
+      x-view-keys:
+        mSettings:
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - settings
+        - status
+      x-views:
+      - mSettings
+  /games/{game}/seasons/{season}/segments/0/leagues/{league_id}:
+    get:
+      operationId: games_game_seasons_season_segments_0_leagues_league_id
+      parameters:
+      - description: 'Fantasy game: ffl (football), fba (men''s basketball), flb (baseball), fhl (hockey),
+          wfba (women''s basketball).'
+        example: fba
+        in: path
+        name: game
+        required: true
+        schema:
+          enum:
+          - ffl
+          - fba
+          - flb
+          - fhl
+          - wfba
+          type: string
+      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
+          = 2026).'
+        example: 2027
+        in: path
+        name: season
+        required: true
+        schema:
+          type: integer
+      - description: Public league id (leagueId from the league directory). A private league answers 401
+          without the owner's cookies and is out of scope.
+        example: 1535462463
+        in: path
+        name: league_id
+        required: true
+        schema:
+          type: integer
+      - description: Named projection of the resource; repeat the key for several views.
+        explode: true
+        in: query
+        name: view
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Scoring period (football week, or day for basketball/hockey/baseball). mBoxscore
+          honours it; mTransactions2 honours it for past periods only (recent ones return current activity).
+        example: 37
+        in: query
+        name: scoringPeriodId
+        required: false
+        schema:
+          type: integer
+      - description: JSON object sent as the X-Fantasy-Filter request header. It narrows list members
+          of the body, e.g. {"players":{"limit":25,"sortPercOwned":{"sortPriority":1,"sortAsc":false}}}.
+          A "limit" must be accompanied by a sort or the host answers 400 FILTER_LIMIT_MISSING_SORT.
+        in: header
+        name: X-Fantasy-Filter
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesGameSeasonsSeasonSegmentsLeaguesLeagueId'
+          description: OK
+        '400':
+          description: Bad view/filter (body {messages, details}).
+        '401':
+          description: Private league (needs the owner's cookies; out of scope).
+        '404':
+          description: Unknown game, season or id.
+      summary: One public league; each view returns a different projection of the league.
+      x-captured:
+        league_kona_player_info:
+        - fba
+        league_mBoxscore:
+        - fba
+        league_mDraftDetail:
+        - fba
+        league_mMatchupScore:
+        - fba
+        league_mRoster:
+        - fba
+        league_mSettings:
+        - fba
+        league_mTeam:
+        - fba
+        league_mTransactions2:
+        - fba
+      x-view-keys:
+        kona_player_info:
+        - players
+        mBoxscore:
+        - draftDetail
+        - gameId
+        - id
+        - schedule
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - settings
+        - status
+        - teams
+        mDraftDetail:
+        - draftDetail
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - settings
+        - status
+        mMatchupScore:
+        - draftDetail
+        - gameId
+        - id
+        - schedule
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - status
+        mRoster:
+        - draftDetail
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - status
+        - teams
+        mSettings:
+        - draftDetail
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - settings
+        - status
+        mTeam:
+        - draftDetail
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - status
+        - teams
+        mTransactions2:
+        - draftDetail
+        - gameId
+        - id
+        - scoringPeriodId
+        - seasonId
+        - segmentId
+        - status
+        - transactions
+      x-views:
+      - mTeam
+      - mRoster
+      - mMatchup
+      - mMatchupScore
+      - mBoxscore
+      - mScoreboard
+      - mSettings
+      - mStandings
+      - mStatus
+      - mDraftDetail
+      - mTransactions2
+      - mPositionalRatings
+      - kona_player_info
+      - kona_playercard
+servers:
+- url: https://lm-api-reads.fantasy.espn.com/apis/v3
