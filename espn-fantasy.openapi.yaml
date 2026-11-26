@@ -2783,6 +2783,7 @@ info:
     or supported.'
   title: ESPN Fantasy read API (lm-api-reads.fantasy.espn.com)
   version: '2026-11-26'
+  x-espn-schema-source: captured-bodies
 openapi: 3.1.0
 paths:
   /games:
@@ -2911,8 +2912,10 @@ paths:
           - fhl
           - wfba
           type: string
-      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
-          = 2026).'
+      - description: 'ESPN''s season id: take it from /games/{game}/seasons (id) or /games (currentSeasonId).
+          It is the start year for ffl (2026 = fall 2026) and the end year for fba/fhl (2026-27 = 2027);
+          flb and wfba use that one year (2026). Do not derive it from startDate or endDate: those are
+          ESPN''s platform windows, not the sport''s season.'
         example: 2027
         in: path
         name: season
@@ -2975,8 +2978,10 @@ paths:
           - fhl
           - wfba
           type: string
-      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
-          = 2026).'
+      - description: 'ESPN''s season id: take it from /games/{game}/seasons (id) or /games (currentSeasonId).
+          It is the start year for ffl (2026 = fall 2026) and the end year for fba/fhl (2026-27 = 2027);
+          flb and wfba use that one year (2026). Do not derive it from startDate or endDate: those are
+          ESPN''s platform windows, not the sport''s season.'
         example: 2027
         in: path
         name: season
@@ -3035,8 +3040,10 @@ paths:
           - fhl
           - wfba
           type: string
-      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
-          = 2026).'
+      - description: 'ESPN''s season id: take it from /games/{game}/seasons (id) or /games (currentSeasonId).
+          It is the start year for ffl (2026 = fall 2026) and the end year for fba/fhl (2026-27 = 2027);
+          flb and wfba use that one year (2026). Do not derive it from startDate or endDate: those are
+          ESPN''s platform windows, not the sport''s season.'
         example: 2027
         in: path
         name: season
@@ -3105,8 +3112,10 @@ paths:
           - fhl
           - wfba
           type: string
-      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
-          = 2026).'
+      - description: 'ESPN''s season id: take it from /games/{game}/seasons (id) or /games (currentSeasonId).
+          It is the start year for ffl (2026 = fall 2026) and the end year for fba/fhl (2026-27 = 2027);
+          flb and wfba use that one year (2026). Do not derive it from startDate or endDate: those are
+          ESPN''s platform windows, not the sport''s season.'
         example: 2027
         in: path
         name: season
@@ -3180,8 +3189,10 @@ paths:
           - fhl
           - wfba
           type: string
-      - description: 'Season id: the calendar year the season ENDS in (fba/fhl 2026-27 = 2027; ffl 2026
-          = 2026).'
+      - description: 'ESPN''s season id: take it from /games/{game}/seasons (id) or /games (currentSeasonId).
+          It is the start year for ffl (2026 = fall 2026) and the end year for fba/fhl (2026-27 = 2027);
+          flb and wfba use that one year (2026). Do not derive it from startDate or endDate: those are
+          ESPN''s platform windows, not the sport''s season.'
         example: 2027
         in: path
         name: season
